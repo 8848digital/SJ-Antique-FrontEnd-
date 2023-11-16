@@ -6,7 +6,7 @@ const MasterListing :any= ({value}:any) => {
     <div >
       <div className="container-lg ">
       
-        <div className={`${styles.button_container}`}>
+        <div className='d-flex justify-content-center'>
           <Link href="/master/karigar"
           className="text-decoration-none btn-margin" >
             <button

@@ -36,6 +36,11 @@ const MasterMaterialListing = ({
           onChange={handleInputChange2}
         />
       </div>
+      {materialList.length > 0 &&(
+        <div className='text-end text-gray'>
+          {materialList.length} of {materialList.length}
+        </div>
+      )}
       <div className="table-responsive border p-3 mt-2">
         <table className="table table-hover table-striped w-100 ">
           <thead>

@@ -19,13 +19,18 @@ const MasterKarigarListing = ({ karigarData, HandleSearchInput,placeholder }: an
           id="name"
           aria-describedby="emailHelp"
           className="form-control form-control-color w-25"
-          aria-label="Disabled input example"
           placeholder={placeholder}
           onChange={HandleSearchInput}
         />
       </div>
+      {karigarData.length > 0 &&(
+        <div className='text-end text-gray'>
+          {karigarData.length} of {karigarData.length}
+        </div>
+      )}
       <div className="table-responsive border p-3 mt-2">
         <table className="table table-hover table-striped w-100 ">
+          
           <thead>
             <tr className="table_row">
               <th scope="col" className="thead text-start">
