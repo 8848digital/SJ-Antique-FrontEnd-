@@ -431,7 +431,7 @@ const MangalsutraReadyReceiptsMaster = () => {
     };
 
     getPurchaseList();
-  }, [clicks, loginAcessToken?.token]);
+  }, [clicks, loginAcessToken]);
   console.log(calculateRowValue, 'accu23');
   return (
     <div className="container-lg">
