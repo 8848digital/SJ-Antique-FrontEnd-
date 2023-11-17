@@ -59,7 +59,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
         {tableData?.length > 0 &&
           tableData !== null &&
           tableData.map((item: any, i: any) => (
-            <tr key={item.id} className={`${styles.table_row}`}>
+            <tr key={item.idx} className={`${styles.table_row}`}>
               <td className="table_row">{item.idx}</td>
               <td className="table_row">
                 <input
@@ -69,7 +69,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   value={item.product_code}
                   onChange={(e) =>
                     handleFieldChange(
-                      item.id,
+                      item.idx,
                       'tableRow',
                       'product_code',
                       e.target.value
@@ -80,10 +80,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
               <td className="table_row">
                 <SelectInputKunKarigar
                   kundanKarigarData={kundanKarigarData}
+                  defaultValue={item.custom_kun_karigar}
                   tableData={tableData}
                   setTableData={setTableData}
                   item={item}
-                  id={item.id}
+                  id={item.idx}
                   setStateForDocStatus={setStateForDocStatus}
                   readOnlyFields={readOnlyFields}
                 />
@@ -96,7 +97,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   defaultValue={item?.custom_net_wt}
                   onChange={(e) =>
                     handleFieldChange(
-                      item.id,
+                      item.idx,
                       'tableRow',
                       'custom_net_wt',
                       +e.target.value
@@ -113,7 +114,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   defaultValue={item.custom_few_wt}
                   onChange={(e) =>
                     handleFieldChange(
-                      item.id,
+                      item.idx,
                       'tableRow',
                       'custom_few_wt',
                       +e.target.value
@@ -131,7 +132,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   readOnly
                   onChange={(e) =>
                     handleFieldChange(
-                      item.id,
+                      item.idx,
                       'tableRow',
                       'custom_mat_wt',
                       +e.target.value
@@ -166,7 +167,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   defaultValue={item.custom_other}
                   onChange={(e) =>
                     handleFieldChange(
-                      item.id,
+                      item.idx,
                       'tableRow',
                       'custom_other',
 
@@ -203,7 +204,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   // value={item.custom_add_photo}
                   onChange={(e) =>
                     handleFieldChange(
-                      item.id,
+                      item.idx,
                       'tableRow',
                       'custom_add_photo',
                       `/files/${e.target.files?.[0]?.name}`,
@@ -215,8 +216,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
               <td className="table_row">
                 <button
                   className="d-flex align-items-center delete-link p-1 border-0"
-                  onClick={() => handleDeleteRow(item.id)}
-                  onKeyDown={(e) => handleTabPress(e, item.id)}
+                  onClick={() => handleDeleteRow(item.idx)}
+                  onKeyDown={(e) => handleTabPress(e, item.idx)}
                 >
                   <FontAwesomeIcon
                     icon={faTrash}

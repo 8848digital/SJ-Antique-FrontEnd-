@@ -3,12 +3,14 @@ import styles from '../../styles/readyReceipts.module.css';
 
 const SelectInputKunKarigar = ({
   kundanKarigarData,
+  defaultValue,
   tableData,
   setTableData,
   id,
   setStateForDocStatus,
   readOnlyFields
 }: any) => {
+  console.log("defaultValueee", defaultValue)
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState();
@@ -37,7 +39,7 @@ const SelectInputKunKarigar = ({
     setFilterDropdownList(UpdatedFilterList);
     setNoRecordsFound(true);
     const updatedData = tableData.map((item: any) => {
-      if (item.id === id) {
+      if (item.idx === id) {
         return { ...item, custom_kun_karigar: 0 || selectedDropdownValue };
       }
       return item;
@@ -65,7 +67,7 @@ const SelectInputKunKarigar = ({
     setSelectedDropdownValue(data);
     setShowDropdown(false);
     const updatedData = tableData.map((item: any) => {
-      if (item.id === id) {
+      if (item.idx === id) {
         return { ...item, custom_kun_karigar: 0 || data };
       }
       return item;
@@ -101,7 +103,7 @@ const SelectInputKunKarigar = ({
         onChange={HandleSelectInputField}
         onClick={handleShowDropdown}
         value={selectedDropdownValue}
-        defaultValue={kundanKarigarData?.karigar_name}
+        defaultValue={defaultValue}
         onKeyDown={handleKeyDown}
         autoComplete="off"
         ref={inputRef}

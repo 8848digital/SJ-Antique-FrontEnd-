@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import UseCustomReceiptHook from './custom-receipt-hook';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
 import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import AmendPurchaseReceiptApi from '@/services/api/PurchaseReceipt/Amend-purchase-receipt-api';
 
 const useReadyReceiptKarigar = () => {
   const { query } = useRouter();
@@ -96,6 +97,7 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus,
     readOnlyFields,
     setReadOnlyFields,
+    HandleUpdateDocStatus
   }: any = UseCustomReceiptHook();
 
   console.log('table data updated', tableData);
@@ -141,23 +143,55 @@ const useReadyReceiptKarigar = () => {
     );
   };
 
-  const handleFieldChange: any = (
+  // const handleFieldChange: any = (
+  //   id: number,
+  //   val: any,
+  //   field: string,
+  //   newValue: any,
+  //   fileVal?: any
+  // ) => {
+  //   console.log("handlechange", id, val, field, newValue, fileVal)
+  //   const updatedData =
+  //     tableData?.length > 0 &&
+  //     tableData !== null &&
+  //     tableData.map((item: any, i: any) => {
+  //       if (item.id === id) {
+  //         return { ...item, [field]: 0 || newValue };
+  //       }
+  //       return item;
+  //     });
+  //   console.log(updatedData, 'bbb');
+  //   setTableData(updatedData);
+  //   if (field === 'custom_add_photo') {
+  //     console.log(fileVal, 'fileVal');
+  //     handleFileUpload(fileVal);
+  //   }
+
+  //   setStateForDocStatus(true);
+  // };
+
+  const handleFieldChange = (
     id: number,
     val: any,
     field: string,
     newValue: any,
     fileVal?: any
   ) => {
-    const updatedData =
-      tableData?.length > 0 &&
-      tableData !== null &&
-      tableData.map((item: any, i: any) => {
-        if (item.id === id) {
-          return { ...item, [field]: 0 || newValue };
-        }
-        return item;
-      });
+    console.log("handlechange", id, val, field, newValue, fileVal);
+
+    const updatedData = tableData?.map((item: any) => {
+      if (item.idx === id) {
+        // Create a new object for the updated row
+        return {
+          ...item,
+          [field]: field === 'custom_add_photo' ? `/files/${fileVal?.name}` : newValue,
+        };
+      }
+      return item;
+    });
+
     console.log(updatedData, 'bbb');
+
     setTableData(updatedData);
     if (field === 'custom_add_photo') {
       console.log(fileVal, 'fileVal');
@@ -166,6 +200,7 @@ const useReadyReceiptKarigar = () => {
 
     setStateForDocStatus(true);
   };
+
 
   const handleFileUpload = async (fileVal: any) => {
     await postUploadFile(loginAcessToken.token, fileVal);
@@ -388,13 +423,14 @@ const useReadyReceiptKarigar = () => {
     setShowModal(false);
     setStateForDocStatus(true);
   };
+
   const handleDeleteRow = (id: any) => {
     if (tableData?.length > 1) {
       const updatedData =
         tableData?.length > 0 &&
         tableData !== null &&
         tableData
-          .filter((item: any) => item.id !== id)
+          .filter((item: any) => item.idx !== id)
           .map((row: any, index: number) => ({ ...row, id: index + 1 }));
       setTableData(updatedData);
     }
@@ -544,13 +580,6 @@ const useReadyReceiptKarigar = () => {
         return row;
       });
     console.log("update table data", updatedtableData)
-    // const modalValue = updatedtableData?.map(
-    //   ({ id, totalModalWeight, totalAmount, ...rest }: any) => ({
-    //     ...rest,
-    //   })
-    // );
-
-    // console.log("update table data modalvalue", modalValue)
 
     const values = {
       ...recipitData,
@@ -564,6 +593,7 @@ const useReadyReceiptKarigar = () => {
     );
     console.log('updated purchase receipt api res', updateReceiptApi);
     if (updateReceiptApi?.data?.message?.status === 'success') {
+      setStateForDocStatus(false)
       const params: any = {
         token: loginAcessToken?.token,
         name: query?.receiptId,
@@ -571,6 +601,81 @@ const useReadyReceiptKarigar = () => {
       dispatch(getSpecificReceipt(params));
     }
   };
+
+  const HandleAmendButtonForDuplicateChitti: any = async () => {
+    console.log("tabledata in amend", tableData)
+    const updatedtableData =
+      tableData?.length > 0 &&
+      tableData !== null &&
+      tableData?.map((row: any, i: any) => {
+        if (row.idx === indexVal) {
+          if (row.custom_other !== '' && row.custom_total !== '') {
+            return {
+              ...row,
+              custom_total:
+                parseInt(row.totalAmount) + parseInt(row.custom_other),
+            };
+          } else if (row.custom_other !== '') {
+            return {
+              ...row,
+              custom_total: parseInt(row.custom_other),
+            };
+          } else {
+            return {
+              ...row,
+              custom_total: parseInt(row.totalAmount),
+            };
+          }
+        }
+        return row;
+      });
+
+    // Change key name from 'product_code' to 'item_code' in the tableData
+    const updatedTableDataWithRenamedKey = updatedtableData?.map((row: any) => {
+      return {
+        ...row,
+        item_code: row.product_code,
+      };
+    });
+
+    // List of keys to be excluded from the API request
+    const keyToExclude = ['docstatus'];
+
+    const updatedReceiptData: any = { ...recipitData };
+    keyToExclude?.forEach((key: any) => delete updatedReceiptData[key]);
+    console.log("santitizedData", updatedReceiptData)
+
+    const values = {
+      ...updatedReceiptData,
+      amended_from: lastPartOfURL,
+      items: updatedTableDataWithRenamedKey,
+    };
+    try {
+      let amendReceiptApi: any = await AmendPurchaseReceiptApi(
+        loginAcessToken.token,
+        values,
+        query?.receiptId
+      );
+
+      console.log('updated purchase receipt api res', amendReceiptApi, readyReceiptType);
+
+      if (amendReceiptApi?.data?.hasOwnProperty('data')) {
+        const newURL = `/readyReceipt/${readyReceiptType}/${amendReceiptApi?.data?.data?.name}`;
+        const asPath = `/readyReceipt/${readyReceiptType}/${amendReceiptApi?.data?.data?.name}`;
+
+        // Update the URL with the required query parameter
+        router.push(newURL, asPath);
+        setStateForDocStatus(false)
+        setShowSaveButtonForAmendFlow(false)
+      } else {
+        console.error('Error: Response data does not contain expected properties.');
+        // Handle the error as needed (e.g., show an error message to the user)
+      }
+    } catch (error) {
+      console.error('Error during API call:', error);
+      // Handle the error as needed (e.g., show an error message to the user)
+    }
+  }
 
   const handleDeleteChildTableRow = (id: any) => {
     if (materialWeight?.length > 1) {
@@ -622,7 +727,10 @@ const useReadyReceiptKarigar = () => {
     readOnlyFields,
     setReadOnlyFields,
     setShowSaveButtonForAmendFlow,
-    showSaveButtonForAmendFlow
+    showSaveButtonForAmendFlow,
+    HandleUpdateDocStatus,
+    setKundanListing,
+    HandleAmendButtonForDuplicateChitti
   };
 };
 

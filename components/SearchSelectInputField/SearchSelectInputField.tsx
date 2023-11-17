@@ -4,6 +4,7 @@ const SearchSelectInputField = ({
   karigarData,
   recipitData,
   setRecipitData,
+  defaultValue,
   kundanKarigarData,
   selectedDropdownValue,
   setSelectedDropdownValue,
@@ -88,7 +89,7 @@ const SearchSelectInputField = ({
         onChange={HandleSelectInputField}
         onClick={handleShowDropdown}
         value={selectedDropdownValue}
-        defaultValue={karigarData?.karigar_name}
+        defaultValue={defaultValue}
         onKeyDown={handleKeyDown}
         autoComplete="off"
         ref={inputRef}
@@ -98,16 +99,16 @@ const SearchSelectInputField = ({
           {noRecords === false && filterDropdownList?.length === 0 ? (
             <>
               {karigarData?.length > 0 &&
-              karigarData !== null &&
-              karigarData.map((name: any, i: any) => (
-                <li
-                  key={i}
-                  onClick={() => handleSelectedOption(name.karigar_name)}
-                  className="dropdown-list"
-                >
-                  {name.karigar_name}
-                </li>
-              ))}
+                karigarData !== null &&
+                karigarData.map((name: any, i: any) => (
+                  <li
+                    key={i}
+                    onClick={() => handleSelectedOption(name.karigar_name)}
+                    className="dropdown-list"
+                  >
+                    {name.karigar_name}
+                  </li>
+                ))}
             </>
           ) : (
             <>

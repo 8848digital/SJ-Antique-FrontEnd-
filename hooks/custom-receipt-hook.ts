@@ -63,7 +63,7 @@ const UseCustomReceiptHook: any = () => {
     }
   };
 
-  const HandleUpdateDocStatus: any = async (docStatus: any, name: any) => {
+  const HandleUpdateDocStatus: any = async (docStatus: any, name?: any) => {
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
       docStatus,

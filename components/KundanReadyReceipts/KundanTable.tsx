@@ -56,6 +56,7 @@ const KundanTable = ({
             <td className="table_row">
               <SearchSelectInputField
                 karigarData={karigarData}
+                defaultValue={karigarData?.karigar_name}
                 recipitData={recieptData}
                 setRecipitData={setRecipitData}
                 selectedDropdownValue={selectedDropdownValue}

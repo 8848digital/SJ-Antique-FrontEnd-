@@ -13,7 +13,8 @@ const DocStatusButtonChanges = ({
   readOnlyFields,
   setShowSaveButtonForAmendFlow,
   showSaveButtonForAmendFlow,
-  setStateForDocStatus
+  setStateForDocStatus,
+  HandleAmendButtonForDuplicateChitti
 }: any) => {
   console.log('button changes data', data.docstatus, stateForDocStatus, showSaveButtonForAmendFlow);
   const { query } = useRouter();
@@ -129,7 +130,7 @@ const DocStatusButtonChanges = ({
           readOnlyFields === false && (
             <button
               type="submit"
-              // onClick={HandleAmendButtonForDuplicateChitti}
+              onClick={HandleAmendButtonForDuplicateChitti}
               className={`${styles.create_button} px-2 py-0 me-2 `}
             >
               Save

@@ -4,13 +4,20 @@ import styles from '../../styles/readyReceiptTableListing.module.css';
 import { useRouter } from 'next/router';
 import DeletePurchaseReceiptApi from '@/services/api/PurchaseReceipt/delete-purchase-receipt';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import getPurchasreceiptListApi from '@/services/api/get-purchase-recipts-list-api';
+import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import PrintPurchaseReceiptApi from '@/services/api/PurchaseReceipt/print-purchase-receipt-api';
 
-const KundanListing = ({ kundanListing, HandleDeleteReceipt }: any) => {
+const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }: any) => {
+  console.log("kundan listing table", kundanListing)
   const router = useRouter();
+  const pathParts = router.asPath.split('/');
+  const lastPartOfURL = pathParts[pathParts.length - 1];
+  const { query } = useRouter();
+  const dispatch = useDispatch();
   console.log('routerr', router);
   let url: any = router?.query?.receipt;
   const loginAcessToken = useSelector(get_access_token);
@@ -22,8 +29,40 @@ const KundanListing = ({ kundanListing, HandleDeleteReceipt }: any) => {
       '2',
       name
     );
-    console.log('cancel receipt', cancelReceipt);
+    if (cancelReceipt?.hasOwnProperty('data')) {
+      console.log('canclereciept api inn', cancelReceipt);
+      const capitalizeFirstLetter = (str: any) => {
+        return str?.charAt(0)?.toUpperCase() + str?.slice(1);
+      };
+
+      let updatedData: any = await getPurchasreceiptListApi(
+        loginAcessToken,
+        capitalizeFirstLetter(lastPartOfURL)
+      );
+
+      console.log("updated data", updatedData)
+
+      setKundanListing(updatedData?.data?.message?.data);
+      const params: any = {
+        token: loginAcessToken?.token,
+        name: query?.receiptId,
+      };
+      dispatch(getSpecificReceipt(params));
+
+    }
   };
+
+  const HandlePrintApi: any = async (name: any) => {
+    let printApiRes: any = await PrintPurchaseReceiptApi(
+      loginAcessToken?.token,
+      name
+    );
+    if (printApiRes?.status === 'success') {
+      if (printApiRes?.data?.data?.length > 0) {
+        window.open(printApiRes?.data?.data[0]?.print_url);
+      }
+    }
+  }
 
   console.log('kundalisting', kundanListing);
   return (
@@ -113,7 +152,8 @@ const KundanListing = ({ kundanListing, HandleDeleteReceipt }: any) => {
                       <div className="row justify-content-center gx-0">
                         <div className="col-lg-3">
                           <a
-                            // href="#"
+                            onClick={() => HandlePrintApi(item.name)}
+
                             className="button-section-text text-info "
                           >
                             print
@@ -140,7 +180,8 @@ const KundanListing = ({ kundanListing, HandleDeleteReceipt }: any) => {
                       <div className="row justify-content-center gx-0">
                         <div className="col-lg-3">
                           <Link
-                            href=""
+                            href={`${url}/${item.name}`}
+
                             className="button-section-text text-info "
                           >
                             Amend

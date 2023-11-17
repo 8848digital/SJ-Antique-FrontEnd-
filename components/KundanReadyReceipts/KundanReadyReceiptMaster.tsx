@@ -13,6 +13,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
   const {
     setClick,
     kundanListing,
+    setKundanListing,
     handleCreate,
     handleRecipietChange,
     handleAddRow,
@@ -45,6 +46,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     setStateForDocStatus,
     readOnlyFields,
     setReadOnlyFields,
+    HandleUpdateDocStatus
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -73,7 +75,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
               role="tab"
               aria-controls="pills-home"
               aria-selected="true"
-              // onClick={() => setClick(true)}
+            // onClick={() => setClick(true)}
             >
               Ready receipts {lastPartOfURL} karigar
             </button>
@@ -102,7 +104,9 @@ const ReadyReceiptKundanKarigarMaster = () => {
           >
             <KundanListing
               kundanListing={kundanListing}
+              setKundanListing={setKundanListing}
               HandleDeleteReceipt={HandleDeleteReceipt}
+              HandleUpdateDocStatus={HandleUpdateDocStatus}
             />
           </div>
           <div

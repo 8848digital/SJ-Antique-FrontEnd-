@@ -44,7 +44,8 @@ const DetailPageReadyReceipt = () => {
     setStateForDocStatus,
     handleUpdateReceipt,
     setShowSaveButtonForAmendFlow,
-    showSaveButtonForAmendFlow
+    showSaveButtonForAmendFlow,
+    HandleAmendButtonForDuplicateChitti
   } = useReadyReceiptKarigar();
   console.log('default dataa', defaultKarigarData);
   console.log('readyonly condn', readOnlyFields);
@@ -76,6 +77,7 @@ const DetailPageReadyReceipt = () => {
                 setReadOnlyFields={setReadOnlyFields}
                 setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
                 showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
+                HandleAmendButtonForDuplicateChitti={HandleAmendButtonForDuplicateChitti}
               />
             </div>
           ))}
