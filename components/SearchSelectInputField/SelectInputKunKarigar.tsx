@@ -6,11 +6,12 @@ const SelectInputKunKarigar = ({
   defaultValue,
   tableData,
   setTableData,
+  placeholderValue,
   id,
   setStateForDocStatus,
   readOnlyFields
 }: any) => {
-  console.log("defaultValueee", defaultValue)
+  console.log("defaultValueee", tableData)
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState();
@@ -38,14 +39,16 @@ const SelectInputKunKarigar = ({
     });
     setFilterDropdownList(UpdatedFilterList);
     setNoRecordsFound(true);
-    const updatedData = tableData.map((item: any) => {
+    const updatedData = tableData?.length > 0 && tableData !== null && tableData.map((item: any) => {
       if (item.idx === id) {
         return { ...item, custom_kun_karigar: 0 || selectedDropdownValue };
       }
       return item;
     });
     setTableData(updatedData);
-    setStateForDocStatus(true);
+    if (setStateForDocStatus !== undefined) {
+      setStateForDocStatus(true);
+    }
   };
   const handleShowDropdown = () => {
     if (readOnlyFields !== true) {
@@ -99,7 +102,8 @@ const SelectInputKunKarigar = ({
         name="custom_karigar"
         className={` ${styles.table_select}`}
         id="exampleInputEmail1"
-        placeholder="Kundan Karigar Name"
+        placeholder={`${placeholderValue !== undefined ? placeholderValue : "Kundan Karigar Name"}`}
+        // placeholder="Kundan Karigar Name"
         onChange={HandleSelectInputField}
         onClick={handleShowDropdown}
         value={selectedDropdownValue}
@@ -127,7 +131,7 @@ const SelectInputKunKarigar = ({
             </>
           ) : (
             <>
-              {filterDropdownList.map((name: any, i: any) => (
+              {filterDropdownList?.length > 0 && filterDropdownList !== null && filterDropdownList.map((name: any, i: any) => (
                 <li
                   key={i}
                   onClick={() => handleSelectedOption(name.karigar_name)}

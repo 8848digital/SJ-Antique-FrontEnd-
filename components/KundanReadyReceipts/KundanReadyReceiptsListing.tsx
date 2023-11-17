@@ -1,3 +1,4 @@
+import react, { useState } from 'react'
 import Link from 'next/link';
 import React from 'react';
 import styles from '../../styles/readyReceiptTableListing.module.css';
@@ -10,6 +11,7 @@ import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import getPurchasreceiptListApi from '@/services/api/get-purchase-recipts-list-api';
 import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import PrintPurchaseReceiptApi from '@/services/api/PurchaseReceipt/print-purchase-receipt-api';
+import FilterKundanReadyReceiptListing from './FilterKundanReadyReceiptListing';
 
 const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }: any) => {
   console.log("kundan listing table", kundanListing)
@@ -63,10 +65,90 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
       }
     }
   }
+  const dropdownList: any = ['item1', 'item2', 'item3', 'item4']
+  // const todayDate: any = currentDate?.toISOString()?.split('T')[0];
+  const [searchReceiptNumber, setSearchReceiptNumber] = useState<any>('');
+  const [searchInputValues, setSearchInputValues] = useState({
+    transaction_date: '',
+    karigar: '',
+    status: '',
+  });
+
+  const HandleSearchInput: any = (e: any) => {
+    console.log("event", e.target.name, e.target.value)
+    const { name, value } = e.target;
+
+    setSearchInputValues({
+      ...searchInputValues,
+      [name]: value,
+    });
+  };
+
+  console.log("search input nu", searchReceiptNumber)
+  const filteredList =
+    kundanListing?.length > 0 &&
+      kundanListing !== null &&
+      (searchInputValues.transaction_date ||
+        searchInputValues.karigar ||
+        searchReceiptNumber ||
+        searchInputValues.status)
+      ? kundanListing.filter((item: any) => {
+        const submittedDateMatch = searchInputValues.transaction_date
+          ? item?.posting_date?.includes(searchInputValues.transaction_date)
+          : true;
+        // const currentDateMatch = searchInputValues.current_date
+        //   ? item?.date?.includes(searchInputValues.current_date)
+        //   : true;
+        const karigarMatch = searchInputValues.karigar
+          ? item?.custom_karigar?.toLowerCase()?.includes(searchInputValues.karigar?.toLowerCase())
+          : true;
+        const receiptNumberMatch = searchReceiptNumber
+          ? item?.name
+            ?.toLowerCase()
+            .includes(searchReceiptNumber.toLowerCase())
+          : true;
+
+        if (searchInputValues.status === 'Draft') {
+          return (
+            item?.docstatus === 0 &&
+            submittedDateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        } else if (searchInputValues.status === 'Submitted') {
+          return (
+            item?.docstatus === 1 &&
+            submittedDateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        } else if (searchInputValues.status === 'Cancel') {
+          return (
+            item?.docstatus === 2 &&
+            submittedDateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        }
+
+        return (
+          submittedDateMatch &&
+          karigarMatch &&
+          receiptNumberMatch
+        );
+      })
+      : kundanListing;
 
   console.log('kundalisting', kundanListing);
   return (
     <div className=" table py-2">
+      <FilterKundanReadyReceiptListing HandleSearchInput={HandleSearchInput}
+        receiptNoList={dropdownList}
+        // chittiListingData={chittiListingData}
+        setSearchReceiptNumber={setSearchReceiptNumber}
+        searchReceiptNumber={searchReceiptNumber}
+        searchInputValues={searchInputValues}
+      />
       <table className="table table-striped table-hover table-bordered">
         <thead>
           <tr>
@@ -86,9 +168,9 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
           </tr>
         </thead>
         <tbody>
-          {kundanListing?.length > 0 &&
-            kundanListing !== null &&
-            kundanListing.map((item: any, i: any) => (
+          {filteredList?.length > 0 &&
+            filteredList !== null &&
+            filteredList.map((item: any, i: any) => (
               <tr key={i} className={`${styles.receipt_listing_table_row} `}>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
@@ -188,13 +270,13 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
                           </Link>
                         </div>
                         <div className="col-lg-3">
-                          <Link
-                            href=""
-                            // onClick={() => HandleDeleteChitti(data.name)}
+                          <a
+                            // href=""
+                            onClick={() => HandleDeleteReceipt(item.name)}
                             className={`button-section-text text-danger ${styles.cursor_pointer}`}
                           >
                             Delete
-                          </Link>
+                          </a>
                         </div>
                       </div>
                     </td>
