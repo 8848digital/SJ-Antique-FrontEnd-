@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
 
 const MasterKarigarListing = ({ karigarData, HandleSearchInput,placeholder }: any) => {
-  console.log(karigarData, 'master karigar data')
+  const [tableViewData, setTableViewData] = useState<any>(20);
+
+  const HandleTableViewRows: any = (data: any) => {
+    setTableViewData(data);
+  };
   const router = useRouter()
   const HandleDetails =(name:any)=>{
     router.push({
@@ -10,6 +15,8 @@ const MasterKarigarListing = ({ karigarData, HandleSearchInput,placeholder }: an
       query: name
     })
   }
+  
+
   return (
     <div>
       <div className="mx-4">
@@ -23,12 +30,15 @@ const MasterKarigarListing = ({ karigarData, HandleSearchInput,placeholder }: an
           onChange={HandleSearchInput}
         />
       </div>
-      {karigarData.length > 0 &&(
-        <div className='text-end text-gray'>
-          {karigarData.length} of {karigarData.length}
+      {karigarData?.length > 0 && (
+        <div className="text-end pe-3 text-gray">
+          {karigarData?.slice(0, tableViewData)?.length} of{' '}
+          {karigarData?.length < 10
+            ? '0' + karigarData?.length
+            : karigarData?.length}
         </div>
       )}
-      <div className="table-responsive border p-3 mt-2">
+      <div className="table-responsive border p-3">
         <table className="table table-hover table-striped w-100 ">
           
           <thead>
@@ -38,16 +48,23 @@ const MasterKarigarListing = ({ karigarData, HandleSearchInput,placeholder }: an
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody> 
             {karigarData?.length > 0 &&
               karigarData !== null &&
-              karigarData.map((item: any, i: any) => (
+              karigarData
+              .slice(0, tableViewData)
+              .map((item: any, i: any) => (
                 <tr key={i} >
                   <td className="table-body-row cursor" onClick={()=>HandleDetails(item.karigar_name)}>
                     {item.karigar_name} 
                   </td>
                 </tr>
               ))}
+              {karigarData?.length > 20 && karigarData !== null && (
+            <LoadMoreTableDataInMaster
+              HandleTableViewRows={HandleTableViewRows}
+            />
+          )}
           </tbody>
         </table>
       </div>

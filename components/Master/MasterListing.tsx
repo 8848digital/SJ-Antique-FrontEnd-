@@ -18,6 +18,7 @@ const MasterListing :any= ({value}:any) => {
           </Link>
           <Link
             href="/master/kundanKarigar"
+            className="text-decoration-none btn-margin"
           >
             <button
               className={`${styles.button} ${value==='kundanKarigar' ? 'activeColor':''}`}
@@ -26,7 +27,8 @@ const MasterListing :any= ({value}:any) => {
               <i className='fa-solid fa-arrow-turn-down mx-2 pt-1'></i>
             </button>
           </Link>
-          <Link href="/master/material">
+          <Link href="/master/material"
+          className="text-decoration-none btn-margin">
             <button
               className={`${styles.button} ${value === 'material' ? 'activeColor':''}`}
             >

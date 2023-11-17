@@ -1,11 +1,17 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
+import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
 
 const MasterMaterialListing = ({
   materialList,
   handleInputChange1,
   handleInputChange2,
 }: any) => {
+  const [tableViewData, setTableViewData] = useState<any>(20);
+
+  const HandleTableViewRows: any = (data: any) => {
+    setTableViewData(data);
+  }; 
   const router = useRouter()
   const HandleDetails =(name:any, abbr:any)=>{
     console.log(name,abbr,'name abbr1')
@@ -36,12 +42,15 @@ const MasterMaterialListing = ({
           onChange={handleInputChange2}
         />
       </div>
-      {materialList.length > 0 &&(
-        <div className='text-end text-gray'>
-          {materialList.length} of {materialList.length}
+      {materialList?.length > 0 && (
+        <div className="text-end pe-3 text-gray">
+          {materialList?.slice(0, tableViewData)?.length} of{' '}
+          {materialList?.length < 10
+            ? '0' + materialList?.length
+            : materialList?.length}
         </div>
       )}
-      <div className="table-responsive border p-3 mt-2">
+      <div className="table-responsive border p-3 ">
         <table className="table table-hover table-striped w-100 ">
           <thead>
             <tr className="table_row">
@@ -65,6 +74,11 @@ const MasterMaterialListing = ({
                   </td>
                 </tr>
               ))}
+              {materialList?.length > 20 && materialList !== null && (
+            <LoadMoreTableDataInMaster
+              HandleTableViewRows={HandleTableViewRows}
+            />
+          )}
           </tbody>
         </table>
       </div>
