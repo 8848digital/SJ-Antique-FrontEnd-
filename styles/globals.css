@@ -168,6 +168,7 @@ button.btn.btn-primary.mx-5.px-5{
 }
 .dropdown-ul-list {
   max-height: 170px;
+  max-width: 200px;
   overflow-y: auto;
   position: absolute;
   z-index: 99;
@@ -255,4 +256,7 @@ hr {
 }
 .cursor{
   cursor: pointer;
+}
+.line-height{
+  line-height: 20px !important;
 }

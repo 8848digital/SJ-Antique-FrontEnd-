@@ -8,11 +8,11 @@ const FilterKundanReadyReceiptListing = ({ HandleSearchInput, receiptNoList, set
         <div>
             <div className="row justify-content-center mt-1">
                 <div className="col-md-2 ">
+                
                     <SearchSelectInputField
                         karigarData={receiptNoList}
-                        // defaultValue={karigarData?.}
-                        // recipitData={recieptData}
-                        // setRecipitData={setRecipitData}
+                        placeholder={'Receipt No'}
+                        //setRecipitData={setRecipitData}
                         selectedDropdownValue={searchReceiptNumber}
                         setSelectedDropdownValue={setSearchReceiptNumber}
                     // setStateForDocStatus={setStateForDocStatus}
@@ -31,7 +31,7 @@ const FilterKundanReadyReceiptListing = ({ HandleSearchInput, receiptNoList, set
                         type="date"
                         name="transaction_date"
                         id="transaction_date"
-                        className="form-control input-fields custom-input-field "
+                        className="form-control input-fields custom-input-field line-height "
                         value={searchInputValues?.transaction_date}
                         onChange={HandleSearchInput}
                     />
@@ -42,7 +42,7 @@ const FilterKundanReadyReceiptListing = ({ HandleSearchInput, receiptNoList, set
                         type="text"
                         name="karigar"
                         id="karigar"
-                        className="form-control input-fields custom-input-field "
+                        className="form-control input-fields custom-input-field line-height "
                         aria-describedby="emailHelp"
                         placeholder="Karigar"
                         // value={
@@ -60,7 +60,7 @@ const FilterKundanReadyReceiptListing = ({ HandleSearchInput, receiptNoList, set
                     <select
                         name="status"
                         id="status"
-                        className="form-select p-0 px-2 input-fields"
+                        className="form-select h-100 p-0 px-2 input-fields line-height"
                         aria-label="Default select example"
                         onChange={HandleSearchInput}
                     >

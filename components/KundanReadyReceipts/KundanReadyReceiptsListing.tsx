@@ -65,7 +65,23 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
       }
     }
   }
-  const dropdownList: any = ['item1', 'item2', 'item3', 'item4']
+  const dropdownList: any = [
+    {
+      karigar_name : "MAT-PRE-2023-00213"
+    },
+    {
+      karigar_name : "MAT-PRE-2023-00213"
+    },
+    {
+      karigar_name : "MAT-PRE-2023-00213"
+    },
+    {
+      karigar_name : "MAT-PRE-2023-00213"
+    },
+    {
+      karigar_name : "MAT-PRE-2023-00213"
+    },
+  ]
   // const todayDate: any = currentDate?.toISOString()?.split('T')[0];
   const [searchReceiptNumber, setSearchReceiptNumber] = useState<any>('');
   const [searchInputValues, setSearchInputValues] = useState({

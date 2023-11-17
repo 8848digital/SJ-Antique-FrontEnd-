@@ -62,6 +62,7 @@ const KundanTable = ({
                 selectedDropdownValue={selectedDropdownValue}
                 setSelectedDropdownValue={setSelectedDropdownValue}
                 setStateForDocStatus={setStateForDocStatus}
+                placeholder={'Karigar Name'}
               />
             </td>
             <td className="table_row">

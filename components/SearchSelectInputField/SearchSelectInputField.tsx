@@ -9,6 +9,7 @@ const SearchSelectInputField = ({
   selectedDropdownValue,
   setSelectedDropdownValue,
   setStateForDocStatus,
+  placeholder
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -85,7 +86,7 @@ const SearchSelectInputField = ({
         name="custom_karigar"
         className="form-control input-sm border border-secondary"
         id="exampleInputEmail1"
-        placeholder="Karigar Name"
+        placeholder={placeholder}
         onChange={HandleSelectInputField}
         onClick={handleShowDropdown}
         value={selectedDropdownValue}
