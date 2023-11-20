@@ -19,11 +19,12 @@ const FilterKundanReadyReceiptListing = ({
   console.log('receiptt', searchReceiptNumber);
   return (
     <div>
-      <div className="row justify-content-center mt-1">
+      <div className="row justify-content-center">
         <div className="col-md-2 ">
           <SearchSelectInputField
             karigarData={ReceiptNumber}
             placeholder={'Receipt No'}
+            className={"form-control input-fields custom-input-field line-height"}
             // setRecipitData={setRecipitData}
             selectedDropdownValue={searchReceiptNumber}
             setSelectedDropdownValue={setSearchReceiptNumber}

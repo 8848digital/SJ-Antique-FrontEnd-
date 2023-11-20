@@ -143,7 +143,7 @@ const KundanListing = ({
 
   console.log('kundalisting', kundanListing);
   return (
-    <div className=" table py-2">
+    <div className=" table">
       <FilterKundanReadyReceiptListing
         HandleSearchInput={HandleSearchInput}
         receiptNoList={kundanListing}

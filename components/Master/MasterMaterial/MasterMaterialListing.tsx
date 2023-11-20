@@ -43,7 +43,7 @@ const MasterMaterialListing = ({
         />
       </div>
       {materialList?.length > 0 && (
-        <div className="text-end pe-3 text-gray">
+        <div className="text-end pe-3 text-gray small m-0">
           {materialList?.slice(0, tableViewData)?.length} of{' '}
           {materialList?.length < 10
             ? '0' + materialList?.length
