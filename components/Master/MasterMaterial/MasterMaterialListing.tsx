@@ -11,15 +11,15 @@ const MasterMaterialListing = ({
 
   const HandleTableViewRows: any = (data: any) => {
     setTableViewData(data);
-  }; 
-  const router = useRouter()
-  const HandleDetails =(name:any, abbr:any)=>{
-    console.log(name,abbr,'name abbr1')
+  };
+  const router = useRouter();
+  const HandleDetails = (name: any, abbr: any) => {
+    console.log(name, abbr, 'name abbr1');
     router.push({
-      pathname:'/masterMaterialDetails',
-      query: {name, abbr}
-    })
-  }
+      pathname: '/masterMaterialDetails',
+      query: { name, abbr },
+    });
+  };
   return (
     <div>
       <div className="mx-4 d-flex justify-content- start">
@@ -29,7 +29,7 @@ const MasterMaterialListing = ({
           id="input1"
           aria-describedby="emailHelp"
           className="form-control w-25 mx-2"
-          // placeholder="Enter Material Name"
+          placeholder="Material Name"
           onChange={handleInputChange1}
         />
         <input
@@ -38,7 +38,7 @@ const MasterMaterialListing = ({
           id="input2"
           aria-describedby="emailHelp"
           className="form-control w-25 mx-2"
-          // placeholder="Enter Material abbreviation"
+          placeholder="Material abbreviation"
           onChange={handleInputChange2}
         />
       </div>
@@ -50,11 +50,11 @@ const MasterMaterialListing = ({
             : materialList?.length}
         </div>
       )}
-      <div className="table-responsive border p-3 ">
-        <table className="table table-hover table-striped w-100 ">
+      <div className="table-responsive p-3 ">
+        <table className="table table-hover table-striped table-bordered w-100 ">
           <thead>
             <tr className="table_row">
-              <th className="thead text-start">Material Name</th>
+              <th className="thead text-start w-50">Material Name</th>
               <th className="thead text-start">Material Abbrevation</th>
             </tr>
           </thead>
@@ -63,22 +63,29 @@ const MasterMaterialListing = ({
               materialList !== null &&
               materialList.map((item: any, i: any) => (
                 <tr key={i} className="">
-                  <td className="table-body-row cursor" 
-                  onClick={()=>HandleDetails(item.material, item.material_abbr)}>
+                  <td
+                    className="table-body-row cursor w-50"
+                    onClick={() =>
+                      HandleDetails(item.material, item.material_abbr)
+                    }
+                  >
                     {item.material}
                   </td>
-                  <td className="table-body-row cursor"
-                  onClick={()=>HandleDetails(item.material, item.material_abbr)}
+                  <td
+                    className="table-body-row cursor"
+                    onClick={() =>
+                      HandleDetails(item.material, item.material_abbr)
+                    }
                   >
                     {item.material_abbr}
                   </td>
                 </tr>
               ))}
-              {materialList?.length > 20 && materialList !== null && (
-            <LoadMoreTableDataInMaster
-              HandleTableViewRows={HandleTableViewRows}
-            />
-          )}
+            {materialList?.length > 20 && materialList !== null && (
+              <LoadMoreTableDataInMaster
+                HandleTableViewRows={HandleTableViewRows}
+              />
+            )}
           </tbody>
         </table>
       </div>

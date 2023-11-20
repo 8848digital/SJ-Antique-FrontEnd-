@@ -1,6 +1,7 @@
-import React from 'react'
 import Link from 'next/link'
+import styles from '../../styles/header.module.css'
 import SalesHeader from '../Header/SalesHeader'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 const ReadyReceiptsTabs:any = ({
@@ -9,50 +10,43 @@ const ReadyReceiptsTabs:any = ({
     showReceipt
 }:any) => {
   const router = useRouter()
-  console.log(router,'receipt header router')
+  console.log(router, 'routerTab')
+  const pathcontent = router?.asPath?.split('/')
+  console.log(pathcontent, 'pathcontentTab')
+  const value = pathcontent[pathcontent?.length  - 1]
+  console.log(value, 'valueTab')
+  const [active, setActive]=useState(0)
   return (
     <div className=" justify-content-center">
         <div className="navbar d-flex justify-content-center p-0">
           <div>
             {showReceipt ? (
-              <div
-                className="nav nav-pills d-flex"
-                id="pills-tab"
-                role="tablist"
+              <div className='d-flex justify-content-center'>
+              <Link 
+              href="/readyReceipt/kundan"
+              className="text-decoration-none btn-margin"
+              onClick={()=>setActive(0)}
+               >
+                <button
+                  className={`${styles.button} ${value === 'kundan' ? 'activeColor':''}`}
+                >
+                  Ready Receipts (Kundan Karigar)
+                  <i className='fa-solid fa-arrow-turn-down mx-2 pt-1'></i>
+                </button> 
+              </Link>
+              <Link
+                href="/readyReceipt/mangalsutra"
+                className="text-decoration-none btn-margin"
+                onClick={()=>setActive(1)}
               >
-                <Link
-                  className="text-decoration-none nav-tabs tabs-container"
-                  href="/readyReceipt/kundan"
+                <button
+                  className={`${styles.button} ${value === 'mangalsutra' ? 'activeColor':''} `}
                 >
-                  <button
-                    className="nav-link border active"
-                    id="pills-home-tab"
-                    data-bs-toggle="pill"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-home"
-                    aria-selected="true"
-                  >
-                    Ready Receipts(Kundan Karigar)
-                  </button>
-                </Link>
-                <Link
-                  className="text-decoration-none nav-tabs tabs-container"
-                  href="/readyReceipt/mangalsutra"
-                >
-                  <button
-                    className="nav-link border"
-                    id="pills-mangal-tab"
-                    data-bs-toggle="pill"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-home"
-                    aria-selected="true"
-                  >
-                    Ready Receipts(Mangalsutra Karigar)
-                  </button>
-                </Link>
-              </div>
+                  Ready Receipts (Mangalsutra Karigar)
+                  <i className='fa-solid fa-arrow-turn-down mx-2 pt-1'></i>
+                </button>
+              </Link>
+            </div>
             ) : (
               ''
             )}

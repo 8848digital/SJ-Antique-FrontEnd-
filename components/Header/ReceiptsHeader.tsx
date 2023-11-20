@@ -10,8 +10,19 @@ const ReceiptsHeader = () => {
   const [showSales, setShowSales] = useState<any>(false);
   const [showMaster, setShowMaster] = useState<any>(false);
 
+  const router = useRouter()
+  console.log(router, 'header router')
+  const pathcontent = router?.asPath?.split('/')
+  console.log(pathcontent, 'pathcontent header')
+  const value = pathcontent[1]
+  console.log(value, 'value header')
   useEffect(() => {
-    setShowReceipts(true);
+    if (value === 'readyReceipt'){
+      setShowReceipts(true)
+    }
+    if (value === 'master'){
+      setShowMaster(true)
+    }
   }, []);
 
   const handleReadyRecipt = (val: any) => {

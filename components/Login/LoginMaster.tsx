@@ -30,7 +30,7 @@ const LoginMaster = () => {
     if (loginsucess.payload.msg == 'success') {
       toast.success('Login Sucessfully');
       setTimeout(() => {
-        router.push('/readyReceipt/kundan');
+        router.push('/master');
       }, 900);
     } else {
       toast.error('Incorrect User or Password');
