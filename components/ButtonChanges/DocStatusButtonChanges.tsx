@@ -14,9 +14,9 @@ const DocStatusButtonChanges = ({
   setShowSaveButtonForAmendFlow,
   showSaveButtonForAmendFlow,
   setStateForDocStatus,
-  HandleAmendButtonForDuplicateChitti
+  HandleAmendButtonForDuplicateChitti,
 }: any) => {
-  console.log('button changes data', data.docstatus, stateForDocStatus, showSaveButtonForAmendFlow);
+  console.log('button changes data', data);
   const { query } = useRouter();
   const router = useRouter();
   console.log('queer', query);
@@ -52,30 +52,22 @@ const DocStatusButtonChanges = ({
         </button>
         {stateForDocStatus === true && data?.docstatus === 0 && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
-            <span className={`${styles.docstatus_button_text}`}>
-              Not saved
-            </span>
+            <span className={`${styles.docstatus_button_text}`}>Not saved</span>
           </button>
         )}
         {stateForDocStatus === false && data?.docstatus === 0 && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
-            <span className={`${styles.docstatus_button_text}`}>
-              Draft
-            </span>
+            <span className={`${styles.docstatus_button_text}`}>Draft</span>
           </button>
         )}
         {data?.docstatus === 1 && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
-            <span className={`${styles.docstatus_button_text}`}>
-              Submit
-            </span>
+            <span className={`${styles.docstatus_button_text}`}>Submit</span>
           </button>
         )}
         {data?.docstatus === 2 && readOnlyFields && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
-            <span className={`${styles.docstatus_button_text}`}>
-              Cancelled
-            </span>
+            <span className={`${styles.docstatus_button_text}`}>Cancelled</span>
           </button>
         )}
         {showSaveButtonForAmendFlow &&
@@ -116,15 +108,20 @@ const DocStatusButtonChanges = ({
             Cancel
           </button>
         )}
-        {data?.docstatus === 2 && stateForDocStatus === false && (
-          <button
-            type="button"
-            className={`${styles.create_button} px-2 py-0 me-2`}
-            onClick={HandleAmendButtonChanges}
-          >
-            Amend
-          </button>
+        {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
+          <>
+            {data?.docstatus === 2 && stateForDocStatus === false && (
+              <button
+                type="button"
+                className={`${styles.create_button} px-2 py-0 me-2`}
+                onClick={HandleAmendButtonChanges}
+              >
+                Amend
+              </button>
+            )}
+          </>
         )}
+
         {showSaveButtonForAmendFlow &&
           stateForDocStatus &&
           readOnlyFields === false && (
