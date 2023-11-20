@@ -25,12 +25,12 @@ const ReadyReceiptsTabs:any = ({
                   href="/readyReceipt/kundan"
                 >
                   <button
-                    className="nav-link border active"
-                    id="pills-home-tab"
+                    className="nav-link border show active"
+                    id="pills-kundan-tab"
                     data-bs-toggle="pill"
                     type="button"
                     role="tab"
-                    aria-controls="pills-home"
+                    aria-controls="pills-kundan"
                     aria-selected="true"
                   >
                     Ready Receipts(Kundan Karigar)
@@ -46,8 +46,7 @@ const ReadyReceiptsTabs:any = ({
                     data-bs-toggle="pill"
                     type="button"
                     role="tab"
-                    aria-controls="pills-home"
-                    aria-selected="true"
+                    
                   >
                     Ready Receipts(Mangalsutra Karigar)
                   </button>

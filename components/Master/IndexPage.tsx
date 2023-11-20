@@ -31,7 +31,7 @@ const IndexPage = () => {
           error={error}
           setError={setError}
           value={key}
-          placeholder={'Enter Karigar Name'}
+          placeholder={'Karigar Name'}
         />
         )}
         {key === 'kundanKarigar' &&(
@@ -43,7 +43,7 @@ const IndexPage = () => {
             error={error}
             setError={setError}
             value={key}
-            placeholder={'Enter Kundan Karigar Name'}
+            placeholder={'Kundan Karigar Name'}
           />
         )}
         {key === 'material' &&(

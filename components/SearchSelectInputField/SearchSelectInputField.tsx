@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SearchSelectInputField = ({
   karigarData,
@@ -10,7 +10,7 @@ const SearchSelectInputField = ({
   setSelectedDropdownValue,
   setStateForDocStatus,
   placeholder,
-  className
+  className,
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -33,11 +33,13 @@ const SearchSelectInputField = ({
     setSelectedDropdownValue(e.target.value);
     const query = e.target.value;
 
-    const UpdatedFilterList: any = karigarData?.filter((item: any) => {
-      return (
-        item.karigar_name?.toLowerCase()?.indexOf(query?.toLowerCase()) !== -1
-      );
-    });
+    const UpdatedFilterList: any =
+      karigarData?.length > 0 &&
+      karigarData.filter((item: any) => {
+        return (
+          item.karigar_name?.toLowerCase()?.indexOf(query?.toLowerCase()) !== -1
+        );
+      });
     setFilterDropdownList(UpdatedFilterList);
     setNoRecordsFound(true);
     if (setRecipitData !== undefined) {
@@ -122,15 +124,17 @@ const SearchSelectInputField = ({
             </>
           ) : (
             <>
-              {filterDropdownList.map((name: any, i: any) => (
-                <li
-                  key={i}
-                  onClick={() => handleSelectedOption(name.karigar_name)}
-                  className="dropdown-list"
-                >
-                  {name.karigar_name}
-                </li>
-              ))}
+              {filterDropdownList?.length > 0 &&
+                filterDropdownList !== null &&
+                filterDropdownList.map((name: any, i: any) => (
+                  <li
+                    key={i}
+                    onClick={() => handleSelectedOption(name.karigar_name)}
+                    className="dropdown-list"
+                  >
+                    {name.karigar_name}
+                  </li>
+                ))}
             </>
           )}
         </ul>

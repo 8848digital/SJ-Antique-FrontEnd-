@@ -1,5 +1,3 @@
-import React from 'react';
-import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
 
 const FilterKundanReadyReceiptListing = ({

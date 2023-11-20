@@ -11,7 +11,7 @@ const ReceiptsHeader = () => {
   const [showMaster, setShowMaster] = useState<any>(false);
 
   useEffect(() => {
-    setShowReceipts(true);
+    setShowMaster(true);
   }, []);
 
   const handleReadyRecipt = (val: any) => {

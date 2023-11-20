@@ -29,7 +29,7 @@ const MasterMaterialListing = ({
           id="input1"
           aria-describedby="emailHelp"
           className="form-control w-25 mx-2"
-          // placeholder="Enter Material Name"
+          placeholder="Material Name"
           onChange={handleInputChange1}
         />
         <input
@@ -38,7 +38,7 @@ const MasterMaterialListing = ({
           id="input2"
           aria-describedby="emailHelp"
           className="form-control w-25 mx-2"
-          // placeholder="Enter Material abbreviation"
+          placeholder="Material abbreviation"
           onChange={handleInputChange2}
         />
       </div>
