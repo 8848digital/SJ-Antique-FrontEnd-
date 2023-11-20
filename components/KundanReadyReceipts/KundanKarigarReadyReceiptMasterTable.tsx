@@ -18,7 +18,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
 }: any) => {
   console.log('table data receipt', tableData);
   return (
-
     <table className="table table-hover table-striped table-bordered">
       <thead>
         <tr>
@@ -151,10 +150,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   value={
                     tableData[i]?.totalModalWeight > 0
                       ? tableData[i].custom_net_wt +
-                      tableData[i].custom_few_wt +
-                      tableData[i]?.totalModalWeight
-                      : tableData[i].custom_net_wt +
-                      tableData[i].custom_few_wt
+                        tableData[i].custom_few_wt +
+                        tableData[i]?.totalModalWeight
+                      : tableData[i].custom_net_wt + tableData[i].custom_few_wt
                   }
                 />
               </td>
@@ -170,7 +168,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       item.idx,
                       'tableRow',
                       'custom_other',
-
                       +e.target.value
                     )
                   }
@@ -192,7 +189,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   }
                 />
               </td>
-              <td className="table_row">
+              <td className="table_row ">
                 {tableData[i].custom_add_photo && (
                   <span style={{ fontSize: '12px' }}>
                     {tableData[i].custom_add_photo}
@@ -229,7 +226,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
           ))}
       </tbody>
     </table>
-
   );
 };
 

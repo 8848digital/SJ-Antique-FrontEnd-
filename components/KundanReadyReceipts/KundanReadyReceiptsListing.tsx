@@ -68,27 +68,12 @@ const KundanListing = ({
       }
     }
   };
-  const dropdownList: any = [
-    {
-      karigar_name: 'MAT-PRE-2023-00213',
-    },
-    {
-      karigar_name: 'MAT-PRE-2023-00213',
-    },
-    {
-      karigar_name: 'MAT-PRE-2023-00213',
-    },
-    {
-      karigar_name: 'MAT-PRE-2023-00213',
-    },
-    {
-      karigar_name: 'MAT-PRE-2023-00213',
-    },
-  ];
-  // const todayDate: any = currentDate?.toISOString()?.split('T')[0];
+
   const [searchReceiptNumber, setSearchReceiptNumber] = useState<any>('');
+
+  const todayDate: any = new Date()?.toISOString()?.split('T')[0];
   const [searchInputValues, setSearchInputValues] = useState({
-    transaction_date: '',
+    transaction_date: todayDate,
     karigar: '',
     status: '',
   });

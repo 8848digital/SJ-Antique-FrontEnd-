@@ -22,7 +22,7 @@ const useReadyReceiptKarigar = () => {
   const router: any = useRouter();
   const pathParts: any = router?.asPath?.split('/');
   const lastPartOfURL: any = pathParts[pathParts?.length - 1];
-  console.log('receipt type', lastPartOfURL);
+  console.log('receipt type', lastPartOfURL, query);
   const inputRef = useRef<any>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [readyReceiptType, setReadyReceiptType] = useState<any>('');
@@ -97,25 +97,25 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus,
     readOnlyFields,
     setReadOnlyFields,
-    HandleUpdateDocStatus
+    HandleUpdateDocStatus,
   }: any = UseCustomReceiptHook();
 
   console.log('table data updated', tableData);
 
   useEffect(() => {
-    console.log('lastt', lastPartOfURL);
-
     const getPurchaseList = async () => {
       const capitalizeFirstLetter = (str: any) => {
         return str?.charAt(0)?.toUpperCase() + str?.slice(1);
       };
-      const listData = await getPurchasreceiptListApi(
-        loginAcessToken,
-        capitalizeFirstLetter(lastPartOfURL)
-      );
-      console.log('listdataa', listData);
-      if (listData?.data?.message?.status === 'success') {
-        setKundanListing(listData?.data?.message?.data);
+      if (Object?.keys(query)?.length > 0) {
+        const listData = await getPurchasreceiptListApi(
+          loginAcessToken,
+          capitalizeFirstLetter(query.receipt)
+        );
+        console.log('listdataa', listData);
+        if (listData?.data?.message?.status === 'success') {
+          setKundanListing(listData?.data?.message?.data);
+        }
       }
     };
     getPurchaseList();
@@ -177,14 +177,15 @@ const useReadyReceiptKarigar = () => {
     newValue: any,
     fileVal?: any
   ) => {
-    console.log("handlechange", id, val, field, newValue, fileVal);
+    console.log('handlechange', id, val, field, newValue, fileVal);
 
     const updatedData = tableData?.map((item: any) => {
       if (item.idx === id) {
         // Create a new object for the updated row
         return {
           ...item,
-          [field]: field === 'custom_add_photo' ? `/files/${fileVal?.name}` : newValue,
+          [field]:
+            field === 'custom_add_photo' ? `/files/${fileVal?.name}` : newValue,
         };
       }
       return item;
@@ -200,7 +201,6 @@ const useReadyReceiptKarigar = () => {
 
     setStateForDocStatus(true);
   };
-
 
   const handleFileUpload = async (fileVal: any) => {
     await postUploadFile(loginAcessToken.token, fileVal);
@@ -394,11 +394,11 @@ const useReadyReceiptKarigar = () => {
             ...tableItem,
             amount:
               (parseInt(tableItem.pcs, 10) || 0) *
-              (parseInt(tableItem.piece_, 10) || 0) +
+                (parseInt(tableItem.piece_, 10) || 0) +
               (parseFloat(tableItem.carat) || 0) *
-              (parseFloat(tableItem.carat_) || 0) +
+                (parseFloat(tableItem.carat_) || 0) +
               (parseFloat(tableItem.weight) || 0) *
-              (parseFloat(tableItem.gm_) || 0),
+                (parseFloat(tableItem.gm_) || 0),
           })),
         };
       }
@@ -506,8 +506,13 @@ const useReadyReceiptKarigar = () => {
         values
       );
       console.log(purchaseReceipt, 'purchase');
-      if (purchaseReceipt.status === 200 && purchaseReceipt?.data?.hasOwnProperty("message")) {
-        router.push(`${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`)
+      if (
+        purchaseReceipt.status === 200 &&
+        purchaseReceipt?.data?.hasOwnProperty('message')
+      ) {
+        router.push(
+          `${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`
+        );
         // setRecipitData({
         //   custom_karigar: ' ',
         //   remarks: '',
@@ -579,7 +584,7 @@ const useReadyReceiptKarigar = () => {
         }
         return row;
       });
-    console.log("update table data", updatedtableData)
+    console.log('update table data', updatedtableData);
 
     const values = {
       ...recipitData,
@@ -593,7 +598,7 @@ const useReadyReceiptKarigar = () => {
     );
     console.log('updated purchase receipt api res', updateReceiptApi);
     if (updateReceiptApi?.data?.message?.status === 'success') {
-      setStateForDocStatus(false)
+      setStateForDocStatus(false);
       const params: any = {
         token: loginAcessToken?.token,
         name: query?.receiptId,
@@ -603,7 +608,7 @@ const useReadyReceiptKarigar = () => {
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
-    console.log("tabledata in amend", tableData)
+    console.log('tabledata in amend', tableData);
     const updatedtableData =
       tableData?.length > 0 &&
       tableData !== null &&
@@ -643,7 +648,7 @@ const useReadyReceiptKarigar = () => {
 
     const updatedReceiptData: any = { ...recipitData };
     keyToExclude?.forEach((key: any) => delete updatedReceiptData[key]);
-    console.log("santitizedData", updatedReceiptData)
+    console.log('santitizedData', updatedReceiptData);
 
     const values = {
       ...updatedReceiptData,
@@ -657,7 +662,11 @@ const useReadyReceiptKarigar = () => {
         query?.receiptId
       );
 
-      console.log('updated purchase receipt api res', amendReceiptApi, readyReceiptType);
+      console.log(
+        'updated purchase receipt api res',
+        amendReceiptApi,
+        readyReceiptType
+      );
 
       if (amendReceiptApi?.data?.hasOwnProperty('data')) {
         const newURL = `/readyReceipt/${readyReceiptType}/${amendReceiptApi?.data?.data?.name}`;
@@ -665,17 +674,19 @@ const useReadyReceiptKarigar = () => {
 
         // Update the URL with the required query parameter
         router.push(newURL, asPath);
-        setStateForDocStatus(false)
-        setShowSaveButtonForAmendFlow(false)
+        setStateForDocStatus(false);
+        setShowSaveButtonForAmendFlow(false);
       } else {
-        console.error('Error: Response data does not contain expected properties.');
+        console.error(
+          'Error: Response data does not contain expected properties.'
+        );
         // Handle the error as needed (e.g., show an error message to the user)
       }
     } catch (error) {
       console.error('Error during API call:', error);
       // Handle the error as needed (e.g., show an error message to the user)
     }
-  }
+  };
 
   const handleDeleteChildTableRow = (id: any) => {
     if (materialWeight?.length > 1) {
@@ -730,7 +741,7 @@ const useReadyReceiptKarigar = () => {
     showSaveButtonForAmendFlow,
     HandleUpdateDocStatus,
     setKundanListing,
-    HandleAmendButtonForDuplicateChitti
+    HandleAmendButtonForDuplicateChitti,
   };
 };
 
