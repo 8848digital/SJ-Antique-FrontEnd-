@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/readyReceipts.module.css';
@@ -17,6 +17,16 @@ const ModalMaster = ({
   selectedDropdownValue,
   setSelectedDropdownValue,
 }: any) => {
+  const [inputName, setInputName]=useState<any>('')
+  const [inputAbbr, setInputAbbr] = useState<any>('')
+  const filteredList: any =
+    materialListData?.length > 0 &&
+    materialListData !== null &&
+    materialListData.filter(
+      (client: any) =>
+        client.material.toLowerCase().includes(inputName.toLowerCase()) &&
+        client.material_abbr.toLowerCase().includes(inputAbbr.toLowerCase())
+    );
   console.log('material in modal', materialWeight);
   return (
     <>
@@ -86,9 +96,9 @@ const ModalMaster = ({
                           )
                         }
                       >
-                        {materialListData?.length > 0 && (
+                        {filteredList?.length > 0 && (
                           <>
-                            {materialListData?.map((names: any, i: any) => {
+                            {filteredList?.map((names: any, i: any) => {
                               return (
                                 <option key={i} value={names.material_abbr}>
                                   {names.material_abbr}
@@ -101,7 +111,7 @@ const ModalMaster = ({
                     </td>
                     <td className="table_row">
                       <SelectInputMaterial
-                        materialListData={materialListData}
+                        materialListData={filteredList}
                         materialWeight={materialWeight}
                         setMaterialWeight={setMaterialWeight}
                         id={i}

@@ -107,6 +107,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
               setKundanListing={setKundanListing}
               HandleDeleteReceipt={HandleDeleteReceipt}
               HandleUpdateDocStatus={HandleUpdateDocStatus}
+              karigarData={karigarData}
             />
           </div>
           <div

@@ -6,6 +6,9 @@ const FilterKundanReadyReceiptListing = ({
   setSearchReceiptNumber,
   searchReceiptNumber,
   searchInputValues,
+  karigarData,
+  searchKarigar,
+  setSearchKarigar
 }: any) => {
   console.log('receipt no list', receiptNoList);
   let ReceiptNumber: any =
@@ -44,15 +47,12 @@ const FilterKundanReadyReceiptListing = ({
           />
         </div>
         <div className="col-md-2">
-          {/* <label className="text-secondary">Chitti no</label> */}
-          <input
-            type="text"
-            name="karigar"
-            id="karigar"
-            className="form-control input-fields custom-input-field line-height "
-            aria-describedby="emailHelp"
-            placeholder="Karigar"
-            onChange={HandleSearchInput}
+          <SearchSelectInputField
+          className={'form-control input-fields custom-input-field line-height'}
+          placeholder={'Karigar'}
+          karigarData={karigarData}
+          selectedDropdownValue={searchKarigar}
+          setSelectedDropdownValue={setSearchKarigar}
           />
         </div>
 

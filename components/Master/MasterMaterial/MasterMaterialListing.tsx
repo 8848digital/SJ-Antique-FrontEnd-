@@ -50,8 +50,8 @@ const MasterMaterialListing = ({
             : materialList?.length}
         </div>
       )}
-      <div className="table-responsive border p-3 ">
-        <table className="table table-hover table-striped w-100 ">
+      <div className="table-responsive p-3 ">
+        <table className="table table-hover table-striped table-bordered w-100 ">
           <thead>
             <tr className="table_row">
               <th className="thead text-start">Material Name</th>

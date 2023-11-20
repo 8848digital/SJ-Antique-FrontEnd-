@@ -11,6 +11,7 @@ const SearchSelectInputField = ({
   setStateForDocStatus,
   placeholder,
   className,
+
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
