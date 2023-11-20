@@ -157,7 +157,7 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
 
   console.log('kundalisting', kundanListing);
   return (
-    <div className=" table py-2">
+    <div className=" table ">
       <FilterKundanReadyReceiptListing HandleSearchInput={HandleSearchInput}
         receiptNoList={dropdownList}
         // chittiListingData={chittiListingData}
