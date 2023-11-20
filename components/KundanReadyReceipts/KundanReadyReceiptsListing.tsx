@@ -337,7 +337,6 @@ const KundanListing = ({
           )}
         </tbody>
       </table>
-      <LoadMoreTableDataInMaster HandleTableViewRows={HandleTableViewRows} />
     </div>
   );
 };
