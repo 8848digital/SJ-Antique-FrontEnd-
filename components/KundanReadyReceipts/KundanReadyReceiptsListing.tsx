@@ -1,4 +1,4 @@
-import react, { useState } from 'react'
+import react, { useState } from 'react';
 import Link from 'next/link';
 import React from 'react';
 import styles from '../../styles/readyReceiptTableListing.module.css';
@@ -13,8 +13,12 @@ import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseR
 import PrintPurchaseReceiptApi from '@/services/api/PurchaseReceipt/print-purchase-receipt-api';
 import FilterKundanReadyReceiptListing from './FilterKundanReadyReceiptListing';
 
-const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }: any) => {
-  console.log("kundan listing table", kundanListing)
+const KundanListing = ({
+  kundanListing,
+  setKundanListing,
+  HandleDeleteReceipt,
+}: any) => {
+  console.log('kundan listing table', kundanListing);
   const router = useRouter();
   const pathParts = router.asPath.split('/');
   const lastPartOfURL = pathParts[pathParts.length - 1];
@@ -42,7 +46,7 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
         capitalizeFirstLetter(lastPartOfURL)
       );
 
-      console.log("updated data", updatedData)
+      console.log('updated data', updatedData);
 
       setKundanListing(updatedData?.data?.message?.data);
       const params: any = {
@@ -50,7 +54,6 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
         name: query?.receiptId,
       };
       dispatch(getSpecificReceipt(params));
-
     }
   };
 
@@ -64,24 +67,24 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
         window.open(printApiRes?.data?.data[0]?.print_url);
       }
     }
-  }
+  };
   const dropdownList: any = [
     {
-      karigar_name : "MAT-PRE-2023-00213"
+      karigar_name: 'MAT-PRE-2023-00213',
     },
     {
-      karigar_name : "MAT-PRE-2023-00213"
+      karigar_name: 'MAT-PRE-2023-00213',
     },
     {
-      karigar_name : "MAT-PRE-2023-00213"
+      karigar_name: 'MAT-PRE-2023-00213',
     },
     {
-      karigar_name : "MAT-PRE-2023-00213"
+      karigar_name: 'MAT-PRE-2023-00213',
     },
     {
-      karigar_name : "MAT-PRE-2023-00213"
+      karigar_name: 'MAT-PRE-2023-00213',
     },
-  ]
+  ];
   // const todayDate: any = currentDate?.toISOString()?.split('T')[0];
   const [searchReceiptNumber, setSearchReceiptNumber] = useState<any>('');
   const [searchInputValues, setSearchInputValues] = useState({
@@ -91,7 +94,7 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
   });
 
   const HandleSearchInput: any = (e: any) => {
-    console.log("event", e.target.name, e.target.value)
+    console.log('event', e.target.name, e.target.value);
     const { name, value } = e.target;
 
     setSearchInputValues({
@@ -100,66 +103,65 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
     });
   };
 
-  console.log("search input nu", searchReceiptNumber)
+  console.log('search input nu', searchReceiptNumber);
   const filteredList =
     kundanListing?.length > 0 &&
-      kundanListing !== null &&
-      (searchInputValues.transaction_date ||
-        searchInputValues.karigar ||
-        searchReceiptNumber ||
-        searchInputValues.status)
+    kundanListing !== null &&
+    (searchInputValues.transaction_date ||
+      searchInputValues.karigar ||
+      searchReceiptNumber ||
+      searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-        const submittedDateMatch = searchInputValues.transaction_date
-          ? item?.posting_date?.includes(searchInputValues.transaction_date)
-          : true;
-        // const currentDateMatch = searchInputValues.current_date
-        //   ? item?.date?.includes(searchInputValues.current_date)
-        //   : true;
-        const karigarMatch = searchInputValues.karigar
-          ? item?.custom_karigar?.toLowerCase()?.includes(searchInputValues.karigar?.toLowerCase())
-          : true;
-        const receiptNumberMatch = searchReceiptNumber
-          ? item?.name
-            ?.toLowerCase()
-            .includes(searchReceiptNumber.toLowerCase())
-          : true;
+          const submittedDateMatch = searchInputValues.transaction_date
+            ? item?.posting_date?.includes(searchInputValues.transaction_date)
+            : true;
+          // const currentDateMatch = searchInputValues.current_date
+          //   ? item?.date?.includes(searchInputValues.current_date)
+          //   : true;
+          const karigarMatch = searchInputValues.karigar
+            ? item?.custom_karigar
+                ?.toLowerCase()
+                ?.includes(searchInputValues.karigar?.toLowerCase())
+            : true;
+          const receiptNumberMatch = searchReceiptNumber
+            ? item?.name
+                ?.toLowerCase()
+                .includes(searchReceiptNumber.toLowerCase())
+            : true;
 
-        if (searchInputValues.status === 'Draft') {
-          return (
-            item?.docstatus === 0 &&
-            submittedDateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Submitted') {
-          return (
-            item?.docstatus === 1 &&
-            submittedDateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Cancel') {
-          return (
-            item?.docstatus === 2 &&
-            submittedDateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        }
+          if (searchInputValues.status === 'Draft') {
+            return (
+              item?.docstatus === 0 &&
+              submittedDateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Submitted') {
+            return (
+              item?.docstatus === 1 &&
+              submittedDateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Cancel') {
+            return (
+              item?.docstatus === 2 &&
+              submittedDateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          }
 
-        return (
-          submittedDateMatch &&
-          karigarMatch &&
-          receiptNumberMatch
-        );
-      })
+          return submittedDateMatch && karigarMatch && receiptNumberMatch;
+        })
       : kundanListing;
 
   console.log('kundalisting', kundanListing);
   return (
     <div className=" table py-2">
-      <FilterKundanReadyReceiptListing HandleSearchInput={HandleSearchInput}
-        receiptNoList={dropdownList}
+      <FilterKundanReadyReceiptListing
+        HandleSearchInput={HandleSearchInput}
+        receiptNoList={kundanListing}
         // chittiListingData={chittiListingData}
         setSearchReceiptNumber={setSearchReceiptNumber}
         searchReceiptNumber={searchReceiptNumber}
@@ -251,7 +253,6 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
                         <div className="col-lg-3">
                           <a
                             onClick={() => HandlePrintApi(item.name)}
-
                             className="button-section-text text-info "
                           >
                             print
@@ -279,7 +280,6 @@ const KundanListing = ({ kundanListing, setKundanListing, HandleDeleteReceipt }:
                         <div className="col-lg-3">
                           <Link
                             href={`${url}/${item.name}`}
-
                             className="button-section-text text-info "
                           >
                             Amend
