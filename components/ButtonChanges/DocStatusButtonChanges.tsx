@@ -62,7 +62,7 @@ const DocStatusButtonChanges = ({
         )}
         {data?.docstatus === 1 && (
           <button type="button" className={`btn ${styles.docstatus_button}`}>
-            <span className={`${styles.docstatus_button_text}`}>Submit</span>
+            <span className={`${styles.docstatus_button_text}`}>Submitted</span>
           </button>
         )}
         {data?.docstatus === 2 && readOnlyFields && (

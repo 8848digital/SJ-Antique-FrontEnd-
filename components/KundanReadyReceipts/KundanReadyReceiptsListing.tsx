@@ -12,18 +12,24 @@ import getPurchasreceiptListApi from '@/services/api/get-purchase-recipts-list-a
 import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import PrintPurchaseReceiptApi from '@/services/api/PurchaseReceipt/print-purchase-receipt-api';
 import FilterKundanReadyReceiptListing from './FilterKundanReadyReceiptListing';
+import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 
 const KundanListing = ({
   kundanListing,
   setKundanListing,
   HandleDeleteReceipt,
 }: any) => {
-  console.log('kundan listing table', kundanListing);
   const router = useRouter();
   const pathParts = router.asPath.split('/');
   const lastPartOfURL = pathParts[pathParts.length - 1];
   const { query } = useRouter();
   const dispatch = useDispatch();
+  const [tableViewData, setTableViewData] = useState<any>(20);
+
+  const HandleTableViewRows: any = (data: any) => {
+    setTableViewData(data);
+  };
+
   console.log('routerr', router);
   let url: any = router?.query?.receipt;
   const loginAcessToken = useSelector(get_access_token);
@@ -88,7 +94,6 @@ const KundanListing = ({
     });
   };
 
-  console.log('search input nu', searchReceiptNumber);
   const filteredList =
     kundanListing?.length > 0 &&
     kundanListing !== null &&
@@ -173,7 +178,7 @@ const KundanListing = ({
         <tbody>
           {filteredList?.length > 0 &&
             filteredList !== null &&
-            filteredList.map((item: any, i: any) => (
+            filteredList.slice(0, tableViewData)?.map((item: any, i: any) => (
               <tr key={i} className={`${styles.receipt_listing_table_row} `}>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
@@ -317,6 +322,7 @@ const KundanListing = ({
             ))}
         </tbody>
       </table>
+      <LoadMoreTableDataInMaster HandleTableViewRows={HandleTableViewRows} />
     </div>
   );
 };

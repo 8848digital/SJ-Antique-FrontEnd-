@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/readyReceipts.module.css';
@@ -16,8 +16,12 @@ const ModalMaster = ({
   readOnlyFields,
   selectedDropdownValue,
   setSelectedDropdownValue,
+  handleTabPressOnModal,
 }: any) => {
-  console.log('material in modal', materialWeight);
+  console.log('material in modal', materialListData);
+
+  const [selectedMaterial, setSelectedMaterial] = useState('');
+
   return (
     <>
       <Modal.Body>
@@ -77,35 +81,60 @@ const ModalMaster = ({
                         name="material_abbr"
                         id="material_abbr"
                         value={element.material_abbr}
-                        onChange={(e) =>
+                        onChange={(e) => {
+                          // Update the selected value and filter options for the first select field
+                          setSelectedMaterial(e.target.value);
                           handleModalFieldChange(
                             i,
                             'modalRow',
                             'material_abbr',
                             e.target.value
-                          )
-                        }
+                          );
+                        }}
                       >
-                        {materialListData?.length > 0 && (
-                          <>
-                            {materialListData?.map((names: any, i: any) => {
-                              return (
-                                <option key={i} value={names.material_abbr}>
-                                  {names.material_abbr}
-                                </option>
-                              );
-                            })}
-                          </>
-                        )}
+                        {materialListData
+                          .filter(
+                            (names: any) => names.material === selectedMaterial
+                          )
+                          .map((names: any, i: any) => (
+                            <option key={i} value={names.material_abbr}>
+                              {names.material_abbr}
+                            </option>
+                          ))}
                       </select>
                     </td>
                     <td className="table_row">
-                      <SelectInputMaterial
+                      <select
+                        className={`${styles.table_select}`}
+                        name="material"
+                        id="material"
+                        value={element.material}
+                        onChange={(e) => {
+                          // handleSelectFieldChange(e, i);
+                          handleModalFieldChange(
+                            i,
+                            'modalRow',
+                            'material',
+                            e.target.value
+                          );
+                        }}
+                      >
+                        {materialListData?.length > 0 && (
+                          <>
+                            {materialListData?.map((names: any, i: any) => (
+                              <option key={i} value={names.material}>
+                                {names.material}
+                              </option>
+                            ))}
+                          </>
+                        )}
+                      </select>
+                      {/* <SelectInputMaterial
                         materialListData={materialListData}
                         materialWeight={materialWeight}
                         setMaterialWeight={setMaterialWeight}
                         id={i}
-                      />
+                      /> */}
                     </td>
                     <td className="table_row">
                       <input
@@ -217,7 +246,6 @@ const ModalMaster = ({
                             +e.target.value
                           )
                         }
-
                         value={calculateRowValue(i)}
                       />
                     </td>
@@ -225,7 +253,7 @@ const ModalMaster = ({
                       <button
                         className="d-flex align-items-center delete-link p-1 border-0"
                         onClick={() => handleDeleteChildTableRow(i)}
-                      // onKeyDown={(e) => handleTabPress(e, element.id)}
+                        onKeyDown={(e) => handleTabPressOnModal(e, element.idx)}
                       >
                         <FontAwesomeIcon
                           icon={faTrash}

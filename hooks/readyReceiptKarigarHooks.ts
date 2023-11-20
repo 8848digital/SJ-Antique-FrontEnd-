@@ -56,36 +56,35 @@ const useReadyReceiptKarigar = () => {
   const [materialWeight, setMaterialWeight] = useState<any>();
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   // const [stateForDocStatus, setStateForDocStatus] = useState<any>(false);
-  const [tableData, setTableData] = useState<any>([
-    {
-      idx: 1,
-      product_code: '',
-      custom_kun_karigar: '',
-      custom_net_wt: '',
-      custom_few_wt: '',
-      custom_gross_wt: '',
-      custom_mat_wt: '',
-      custom_other: '',
-      custom_total: '',
-      custom_add_photo: '',
-      totalModalWeight: 0,
-      totalAmount: 0,
-      table: [
-        {
-          idx: materialWeight?.length + 1,
-          material_abbr: '',
-          material: '',
-          pcs: '',
-          piece_: '',
-          carat: '',
-          carat_: '',
-          weight: '',
-          gm_: '',
-          amount: '',
-        },
-      ],
-    },
-  ]);
+  const initialState: any = {
+    idx: 1,
+    product_code: '',
+    custom_kun_karigar: '',
+    custom_net_wt: '',
+    custom_few_wt: '',
+    custom_gross_wt: '',
+    custom_mat_wt: '',
+    custom_other: '',
+    custom_total: '',
+    custom_add_photo: '',
+    totalModalWeight: 0,
+    totalAmount: 0,
+    table: [
+      {
+        idx: materialWeight?.length + 1,
+        material_abbr: '',
+        material: '',
+        pcs: '',
+        piece_: '',
+        carat: '',
+        carat_: '',
+        weight: '',
+        gm_: '',
+        amount: '',
+      },
+    ],
+  };
+  const [tableData, setTableData] = useState<any>([initialState]);
 
   const {
     HandleDeleteReceipt,
@@ -133,7 +132,7 @@ const useReadyReceiptKarigar = () => {
     };
     getStateData();
   }, []);
-  console.log(karigarData, 'karigarData');
+  console.log(materialWeight, 'karigarData');
   const calculateRowValue = (i: any) => {
     console.log(i, 'i');
     return (
@@ -267,23 +266,25 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus(true);
   };
   const handleTabPress = (event: any, id: any) => {
-    if (event.key === 'Tab' && id === tableData[tableData.length - 1].id) {
+    if (event.key === 'Tab' && id === tableData[tableData.length - 1].idx) {
       handleAddRow('tableRow');
+    }
+    setStateForDocStatus(true);
+  };
+  const handleTabPressOnModal = (event: any, id: any) => {
+    if (event.key === 'Tab') {
+      handleAddRow('modalRow');
     }
     setStateForDocStatus(true);
   };
 
   const handleModal = (event: any, id: any, data: any) => {
     setIndexVal(id);
-    console.log(id, tableData, event.key, data, 'materialWeight');
-    // console.log(materialWeight, "materialWeight");
     const dataVal =
       tableData?.length > 0 &&
       tableData !== null &&
       tableData?.filter((item: any) => {
-        if (item.id === id && event.key === 'F2') {
-          console.log('modal tr', item.id, id, event.key);
-
+        if (item.idx === id && event.key === 'F2') {
           setShowModal(true);
           // if (item.totalAmount > 0) {
           setMaterialWeight(item.table);
@@ -368,7 +369,7 @@ const useReadyReceiptKarigar = () => {
       tableData?.map((row: any, i: any) => {
         console.log(i, 'ij');
         console.log(id, 'ij');
-        if (row.id === indexVal) {
+        if (row.idx === indexVal) {
           const numbersParsed = parseInt(numbers, 10);
           return {
             ...row,
@@ -387,7 +388,7 @@ const useReadyReceiptKarigar = () => {
       });
     console.log(updatedMaterialWeight, 'updatedMaterialWeight');
     const updatedDataVal = updatedMaterialWeight.map((row: any, i: any) => {
-      if (row.id === indexVal) {
+      if (row.idx === indexVal) {
         return {
           ...row,
           table: row.table.map((tableItem: any) => ({
@@ -453,7 +454,7 @@ const useReadyReceiptKarigar = () => {
       tableData?.length > 0 &&
       tableData !== null &&
       tableData?.map((row: any, i: any) => {
-        if (row.id === indexVal) {
+        if (row.idx === indexVal) {
           if (row.custom_other !== '' && row.custom_total !== '') {
             return {
               ...row,
@@ -513,48 +514,21 @@ const useReadyReceiptKarigar = () => {
         router.push(
           `${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`
         );
-        // setRecipitData({
-        //   custom_karigar: ' ',
-        //   remarks: '',
-        //   custom_ready_receipt_type: lastPartOfURL,
-        // });
-        // setTableData([
-        //   {
-        //     id: 1,
-        //     product_code: '',
-        //     custom_kun_karigar: '',
-        //     custom_net_wt: '',
-        //     custom_few_wt: '',
-        //     custom_gross_wt: '',
-        //     custom_mat_wt: '',
-        //     custom_other: '',
-        //     custom_total: '',
-        //     custom_add_photo: '',
-        //     totalModalWeight: 0,
-        //     totalAmount: 0,
-        //     table: [
-        //       {
-        //         id: materialWeight?.length + 1,
-        //         material_abbr: '',
-        //         material: '',
-        //         pcs: '',
-        //         piece_: '',
-        //         carat: '',
-        //         carat_: '',
-        //         weight: '',
-        //         gm_: '',
-        //         amount: '',
-        //       },
-        //     ],
-        //   },
-        // ]);
 
-        // setSelectedDropdownValue('');
         toast.success('Purchase Receipt Created Sucessfully');
       } else {
         toast.error('Error in Creating Purchase Receipt');
       }
     }
+  };
+
+  const HandleEmptyReadyReceiptForm: any = () => {
+    setRecipitData({
+      custom_karigar: ' ',
+      remarks: '',
+      custom_ready_receipt_type: readyReceiptType,
+    });
+    setTableData([initialState]);
   };
 
   const handleUpdateReceipt: any = async () => {
@@ -563,7 +537,7 @@ const useReadyReceiptKarigar = () => {
       tableData?.length > 0 &&
       tableData !== null &&
       tableData?.map((row: any, i: any) => {
-        if (row.id === indexVal) {
+        if (row.idx === indexVal) {
           if (row.custom_other !== '' && row.custom_total !== '') {
             return {
               ...row,
@@ -677,14 +651,9 @@ const useReadyReceiptKarigar = () => {
         setStateForDocStatus(false);
         setShowSaveButtonForAmendFlow(false);
       } else {
-        console.error(
-          'Error: Response data does not contain expected properties.'
-        );
-        // Handle the error as needed (e.g., show an error message to the user)
       }
     } catch (error) {
       console.error('Error during API call:', error);
-      // Handle the error as needed (e.g., show an error message to the user)
     }
   };
 
@@ -742,6 +711,8 @@ const useReadyReceiptKarigar = () => {
     HandleUpdateDocStatus,
     setKundanListing,
     HandleAmendButtonForDuplicateChitti,
+    handleTabPressOnModal,
+    HandleEmptyReadyReceiptForm,
   };
 };
 

@@ -20,7 +20,9 @@ const PurchaseReceiptModal = ({
   handleSaveModal,
   readOnlyFields,
   setReadOnlyFields,
+  handleTabPressOnModal,
 }: any) => {
+  console.log('material weight ', materialWeight);
   return (
     <div>
       {tableData?.length > 0 &&
@@ -29,7 +31,7 @@ const PurchaseReceiptModal = ({
           <Modal size="xl" show={showModal} onHide={closeModal} key={index}>
             <Modal.Header closeButton>
               <Modal.Title id="example-modal-sizes-title-lg">
-                Triggered by Key Press
+                Material Weight
               </Modal.Title>
             </Modal.Header>
             <ModalMaster
@@ -46,6 +48,7 @@ const PurchaseReceiptModal = ({
               setSelectedDropdownValue={setSelectedDropdownValue}
               readOnlyFields={readOnlyFields}
               setReadOnlyFields={setReadOnlyFields}
+              handleTabPressOnModal={handleTabPressOnModal}
             />
             <Modal.Footer>
               <Button variant="secondary" onClick={closeModal}>
@@ -53,7 +56,7 @@ const PurchaseReceiptModal = ({
               </Button>
               <Button
                 variant="secondary"
-                onClick={() => handleSaveModal(item.id)}
+                onClick={() => handleSaveModal(item.idx)}
               >
                 Save
               </Button>

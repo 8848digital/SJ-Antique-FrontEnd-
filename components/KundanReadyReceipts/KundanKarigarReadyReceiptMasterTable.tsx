@@ -126,8 +126,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 <input
                   className={` ${styles.input_field}`}
                   type="number"
-                  value={tableData[i]?.totalModalWeight}
-                  defaultValue={tableData[i]?.totalModalWeight}
+                  value={tableData[i]?.totalModalWeight || item.custom_mat_wt}
+                  defaultValue={item.custom_mat_wt}
                   readOnly
                   onChange={(e) =>
                     handleFieldChange(
@@ -137,7 +137,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       +e.target.value
                     )
                   }
-                  onKeyDown={(e) => handleModal(e, item.id, item)}
+                  onKeyDown={(e) => handleModal(e, item.idx, item)}
                 />
               </td>
               <td className="table_row">
@@ -182,9 +182,17 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   readOnly
                   disabled
                   name={`sum-${i + 1}`}
+                  // value={
+                  //   tableData[i]?.totalAmount > 0
+                  //     ? tableData[i].custom_other + tableData[i]?.totalAmount
+                  //     : tableData[i].custom_other === undefined && tableData[i].custom_other === ''
+                  // }
                   value={
                     tableData[i]?.totalAmount > 0
                       ? tableData[i].custom_other + tableData[i]?.totalAmount
+                      : item.custom_total !== undefined &&
+                        item.custom_total !== ''
+                      ? item.custom_total
                       : tableData[i].custom_other
                   }
                 />

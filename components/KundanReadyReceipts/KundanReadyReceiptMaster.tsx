@@ -46,7 +46,9 @@ const ReadyReceiptKundanKarigarMaster = () => {
     setStateForDocStatus,
     readOnlyFields,
     setReadOnlyFields,
-    HandleUpdateDocStatus
+    HandleUpdateDocStatus,
+    handleTabPressOnModal,
+    HandleEmptyReadyReceiptForm,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -75,7 +77,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
               role="tab"
               aria-controls="pills-home"
               aria-selected="true"
-            // onClick={() => setClick(true)}
+              // onClick={() => setClick(true)}
             >
               Ready receipts {lastPartOfURL} karigar
             </button>
@@ -118,8 +120,15 @@ const ReadyReceiptKundanKarigarMaster = () => {
             <div>
               <div className={`${styles.button_field}`}>
                 <button
+                  type="submit"
+                  onClick={HandleEmptyReadyReceiptForm}
+                  className=" btn btn-outline-primary  px-2 py-0 form-submit-button"
+                >
+                  New
+                </button>
+                <button
                   type="button"
-                  className={`${styles.create_button}`}
+                  className={`${styles.create_button}  px-2 py-0 ms-3`}
                   onClick={handleCreate}
                 >
                   Create
@@ -164,6 +173,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   setStateForDocStatus={setStateForDocStatus}
                   readOnlyFields={readOnlyFields}
                   setReadOnlyFields={setReadOnlyFields}
+                  materialWeight={materialWeight}
                 />
               </div>
             </div>
@@ -190,6 +200,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
           setStateForDocStatus={setStateForDocStatus}
           readOnlyFields={readOnlyFields}
           setReadOnlyFields={setReadOnlyFields}
+          handleTabPressOnModal={handleTabPressOnModal}
         />
         {/* {tableData?.length > 0 &&
           tableData !== null &&
