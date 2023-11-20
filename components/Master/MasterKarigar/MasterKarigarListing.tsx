@@ -31,7 +31,7 @@ const MasterKarigarListing = ({ karigarData, HandleSearchInput,placeholder }: an
         />
       </div>
       {karigarData?.length > 0 && (
-        <div className="text-end pe-3 p-0 text-gray ">
+        <div className="text-end pe-3 p-0 text-gray small ">
           {karigarData?.slice(0, tableViewData)?.length} of{' '}
           {karigarData?.length < 10
             ? '0' + karigarData?.length

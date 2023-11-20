@@ -63,6 +63,7 @@ const KundanTable = ({
                 setSelectedDropdownValue={setSelectedDropdownValue}
                 setStateForDocStatus={setStateForDocStatus}
                 placeholder={'Karigar Name'}
+                className={'form-control input-sm border border-secondary'}
               />
             </td>
             <td className="table_row">

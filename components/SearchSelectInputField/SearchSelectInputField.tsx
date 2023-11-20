@@ -9,7 +9,8 @@ const SearchSelectInputField = ({
   selectedDropdownValue,
   setSelectedDropdownValue,
   setStateForDocStatus,
-  placeholder
+  placeholder,
+  className
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -39,8 +40,12 @@ const SearchSelectInputField = ({
     });
     setFilterDropdownList(UpdatedFilterList);
     setNoRecordsFound(true);
-    setRecipitData({ ...recipitData, custom_karigar: selectedDropdownValue });
-    setStateForDocStatus(true);
+    if (setRecipitData !== undefined) {
+      setRecipitData({ ...recipitData, custom_karigar: selectedDropdownValue });
+    }
+    if (setStateForDocStatus !== undefined) {
+      setStateForDocStatus(true);
+    }
   };
 
   const handleShowDropdown = () => {
@@ -59,8 +64,12 @@ const SearchSelectInputField = ({
     console.log('dataa', data);
     setSelectedDropdownValue(data);
     setShowDropdown(false);
-    setRecipitData({ ...recipitData, custom_karigar: data });
-    setStateForDocStatus(true);
+    if (setRecipitData !== undefined) {
+      setRecipitData({ ...recipitData, custom_karigar: data });
+    }
+    if (setStateForDocStatus !== undefined) {
+      setStateForDocStatus(true);
+    }
   };
   console.log(selectedDropdownValue, 'selected value');
   useEffect(() => {
@@ -84,7 +93,7 @@ const SearchSelectInputField = ({
       <input
         type="text"
         name="custom_karigar"
-        className="form-control input-sm border border-secondary"
+        className={className}
         id="exampleInputEmail1"
         placeholder={placeholder}
         onChange={HandleSelectInputField}
