@@ -24,7 +24,9 @@ const FilterKundanReadyReceiptListing = ({
           <SearchSelectInputField
             karigarData={ReceiptNumber}
             placeholder={'Receipt No'}
-            className={"form-control input-fields custom-input-field line-height"}
+            className={
+              'form-control input-fields custom-input-field line-height'
+            }
             // setRecipitData={setRecipitData}
             selectedDropdownValue={searchReceiptNumber}
             setSelectedDropdownValue={setSearchReceiptNumber}
@@ -52,11 +54,6 @@ const FilterKundanReadyReceiptListing = ({
             className="form-control input-fields custom-input-field line-height "
             aria-describedby="emailHelp"
             placeholder="Karigar"
-            // value={
-            //     searchInputValues?.chitti_no >= 0
-            //         ? searchInputValues?.chitti_no
-            //         : ''
-            // }
             onChange={HandleSearchInput}
           />
         </div>

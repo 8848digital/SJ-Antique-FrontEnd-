@@ -206,7 +206,7 @@ const KundanListing = ({
                 {item.docstatus === 0 && (
                   <>
                     <td
-                      className={` button-section-td border-0  ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
                       <div className="row justify-content-center gx-0">
                         <div className="col-lg-3">
@@ -225,6 +225,14 @@ const KundanListing = ({
                             Delete
                           </a>
                         </div>
+                        <div className="col-lg-3">
+                          <Link
+                            href={`${url}/${item.name}`}
+                            className="button-section-text text-info "
+                          >
+                            View
+                          </Link>
+                        </div>
                       </div>
                     </td>
                   </>
@@ -232,7 +240,7 @@ const KundanListing = ({
                 {item.docstatus === 1 && (
                   <>
                     <td
-                      className={` button-section-td border-0  ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
                       <div className="row justify-content-center gx-0">
                         <div className="col-lg-3">
@@ -252,6 +260,14 @@ const KundanListing = ({
                             Cancel
                           </a>
                         </div>
+                        <div className="col-lg-3">
+                          <Link
+                            href={`${url}/${item.name}`}
+                            className="button-section-text text-info "
+                          >
+                            View
+                          </Link>
+                        </div>
                       </div>
                     </td>
                   </>
@@ -259,17 +275,23 @@ const KundanListing = ({
                 {item.docstatus === 2 && (
                   <>
                     <td
-                      className={` button-section-td border-0  ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
                       <div className="row justify-content-center gx-0">
                         <div className="col-lg-3">
-                          <Link
-                            href={`${url}/${item.name}`}
-                            className="button-section-text text-info "
-                          >
-                            Amend
-                          </Link>
+                          {item?.posting_date ===
+                            new Date()?.toISOString()?.split('T')[0] && (
+                            <>
+                              <Link
+                                href={`${url}/${item.name}`}
+                                className="button-section-text text-info "
+                              >
+                                Amend
+                              </Link>
+                            </>
+                          )}
                         </div>
+
                         <div className="col-lg-3">
                           <a
                             // href=""
@@ -278,6 +300,14 @@ const KundanListing = ({
                           >
                             Delete
                           </a>
+                        </div>
+                        <div className="col-lg-3">
+                          <Link
+                            href={`${url}/${item.name}`}
+                            className="button-section-text text-info "
+                          >
+                            View
+                          </Link>
                         </div>
                       </div>
                     </td>
