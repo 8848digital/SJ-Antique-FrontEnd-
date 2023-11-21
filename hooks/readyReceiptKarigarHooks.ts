@@ -220,13 +220,15 @@ const useReadyReceiptKarigar = () => {
         return item;
       });
 
-    const newVal =
-      tableData?.length > 0 &&
-      tableData !== null &&
-      tableData?.table?.filter(
-        (item: any) => materialListData?.includes(item.material)
-      );
-    console.log(newVal, 'newVal');
+      
+
+    // const newVal =
+    //   tableData?.length > 0 &&
+    //   tableData !== null &&
+    //   tableData?.table?.filter(
+    //     (item: any) => materialListData?.includes(item.material_name)
+    //   );
+    // console.log(newVal, 'newVal');
     console.log(disabledValue, 'disabledValue');
     setMaterialWeight(updatedModalData);
     setStateForDocStatus(true);

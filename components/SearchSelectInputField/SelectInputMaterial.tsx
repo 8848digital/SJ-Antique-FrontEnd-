@@ -6,6 +6,8 @@ const SelectInputMaterial = ({
   materialWeight,
   setMaterialWeight,
   id,
+  setSelectedMaterial,
+  selectedMaterial
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -30,6 +32,7 @@ const SelectInputMaterial = ({
     const updatedModalData =
       materialWeight?.length > 0 &&
       materialWeight?.map((item: any, i: any) => {
+        console.log(item, 'modalItem')
         if (i === id) {
           return { ...item, material: 0 || selectedDropdownValue };
         }
@@ -37,6 +40,7 @@ const SelectInputMaterial = ({
       });
     console.log(updatedModalData, 'modal data');
     setMaterialWeight(updatedModalData);
+    setSelectedMaterial(query)
   };
 
   const handleShowDropdown = () => {
@@ -51,7 +55,7 @@ const SelectInputMaterial = ({
     }
   };
 
-  const handleSelectedOption = (data: any) => {
+  const handleSelectedOption = (iid:any,field:any,data: any) => {
     console.log('dataa', data);
     setSelectedDropdownValue(data);
     setShowDropdown(false);
@@ -59,12 +63,13 @@ const SelectInputMaterial = ({
       materialWeight?.length > 0 &&
       materialWeight?.map((item: any, i: any) => {
         if (i === id) {
-          return { ...item, material: 0 || data };
+          return { ...item, [field]: 0 || data };
         }
         return item;
       });
     console.log(updatedModalData, 'modal data');
     setMaterialWeight(updatedModalData);
+    setSelectedMaterial(data)
   };
   console.log(selectedDropdownValue, 'selected value');
   useEffect(() => {
@@ -87,7 +92,7 @@ const SelectInputMaterial = ({
     <div>
       <input
         type="text"
-        name="custom_karigar"
+        name="material"
         className={` ${styles.table_select}`}
         id="exampleInputEmail1"
         placeholder="Material Name"
@@ -108,7 +113,7 @@ const SelectInputMaterial = ({
               materialListData.map((name: any, i: any) => (
                 <li
                   key={i}
-                  onClick={() => handleSelectedOption(name.material)}
+                  onClick={(e) => handleSelectedOption(i,'material',name.material)}
                   className="dropdown-list"
                 >
                   {name.material}
@@ -122,7 +127,7 @@ const SelectInputMaterial = ({
                 filterDropdownList.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onClick={() => handleSelectedOption(name.material)}
+                    onClick={(e) => handleSelectedOption(i,'material',name.material)}
                     className="dropdown-list"
                   >
                     {name.material}

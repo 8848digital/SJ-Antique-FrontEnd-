@@ -21,7 +21,53 @@ const ModalMaster = ({
   console.log('material in modal', materialListData);
 
   const [selectedMaterial, setSelectedMaterial] = useState('');
+  const [selectedAbbr, setSelectedAbbr] = useState('');
+  // const returnAbbr = (i:any) =>{
+  //   materialListData
+  //   .filter(
+  //     (names: any) => names.material
+  //     === selectedMaterial
+  //   )
+  //   .map((name: any) => {
+  //     console.log(name.material_abbr ,"materiallll")
+  //     setSelectedAbbr(name.material_abbr)
+  //   })
+  //   materialWeight?.length > 0 &&
+  //     materialWeight?.map((item: any) => {
+  //       console.log(item, 'modalItem')
+  //       if (i === item.idx) {
+  //         return { ...item, material: 0 || selectedAbbr };
+  //       }
+  //       return item;
+  //     }
+  //     )
+  
+  // }
 
+  const handleAbbr = (i:any, value:any) =>{
+    console.log('entered in handle abbr')
+      materialListData
+    .filter(
+      (names: any) => names.material
+      === selectedMaterial
+    )
+    .map((name: any) => {
+      console.log(name.material_abbr ,"abbr name")
+      setSelectedAbbr(name.material_abbr)
+    })
+    
+    const updatedModalData =
+      materialWeight?.length > 0 &&
+      materialWeight?.map((item: any) => {
+        if (i === item.id) {
+          return { ...item, material: 0 || selectedAbbr };
+        }
+        return item;
+      });
+      console.log(updatedModalData, "abbr modal")
+  }
+
+  console.log(selectedMaterial, 'selected material modal')
   return (
     <>
       <Modal.Body>
@@ -73,9 +119,21 @@ const ModalMaster = ({
             <tbody>
               {materialWeight?.length > 0 &&
                 materialWeight?.map((element: any, i: any) => (
+                  <>
+                  {console.log(element,'element test')}
                   <tr key={i}>
                     <td className="table_row">{i + 1}</td>
                     <td className="table_row">
+                    {/* <input
+                        className={`${styles.input_field}`}
+                        type='text'
+                        readOnly
+                        required
+                        onChange={(e) =>
+                        handleAbbr(i, e.target.value)
+                        }
+                        value={element.material_abbr}
+                      /> */}
                       <select
                         className={`${styles.table_select}`}
                         name="material_abbr"
@@ -83,28 +141,34 @@ const ModalMaster = ({
                         value={element.material_abbr}
                         onChange={(e) => {
                           // Update the selected value and filter options for the first select field
-                          setSelectedMaterial(e.target.value);
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'material_abbr',
-                            e.target.value
-                          );
+                          console.log('entered in handle abbr')
+
+                          handleAbbr(i, e.target.value)
+                          // handleModalFieldChange(
+                          //   i,
+                          //   'modalRow',
+                          //   'material_abbr',
+                          //   e.target.value
+                          // );
                         }}
                       >
                         {materialListData
                           .filter(
-                            (names: any) => names.material === selectedMaterial
+                            (names: any) => names.material
+                            === selectedMaterial
                           )
-                          .map((names: any, i: any) => (
-                            <option key={i} value={names.material_abbr}>
-                              {names.material_abbr}
+                          .map((name: any, index:any) => {
+                            console.log(i ,"material i")
+                            return (
+                              <option key={index} value={name.material_abbr}>
+                              {name.material_abbr}
                             </option>
-                          ))}
+                            )
+                          })}
                       </select>
                     </td>
                     <td className="table_row">
-                      <select
+                      {/* <select
                         className={`${styles.table_select}`}
                         name="material"
                         id="material"
@@ -128,13 +192,16 @@ const ModalMaster = ({
                             ))}
                           </>
                         )}
-                      </select>
-                      {/* <SelectInputMaterial
+                      </select> */}
+                      <SelectInputMaterial
                         materialListData={materialListData}
                         materialWeight={materialWeight}
                         setMaterialWeight={setMaterialWeight}
                         id={i}
-                      /> */}
+                        selectedMaterial={selectedMaterial}
+                        setSelectedMaterial={setSelectedMaterial}
+                        setSelectedAbbr={setSelectedAbbr}
+                      />
                     </td>
                     <td className="table_row">
                       <input
@@ -262,6 +329,7 @@ const ModalMaster = ({
                       </button>
                     </td>
                   </tr>
+                  </>
                 ))}
             </tbody>
           </table>

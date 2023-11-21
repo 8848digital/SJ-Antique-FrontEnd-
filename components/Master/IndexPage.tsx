@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import MasterKarigar from './MasterKarigar/MasterKarigar';
 import MasterMaterialMaster from './MasterMaterial/MasterMaterialMaster';
+import useMaterialHook from '@/hooks/master/material-hook';
 
 const IndexPage = () => {
     const {
@@ -16,6 +17,14 @@ const IndexPage = () => {
         error,
         setError,
       }:any = useMasterHooks();
+      const {
+        materialList,
+        HandleNameChange,
+        HandleSave,
+        nameValue,
+        error1,
+        error2
+        }:any= useMaterialHook()
       const router = useRouter()
       const pathcontent = router?.asPath?.split('/')
       console.log(pathcontent, 'pathcontent index')
@@ -48,7 +57,14 @@ const IndexPage = () => {
         )}
         {key === 'material' &&(
           <MasterMaterialMaster
-          value={key}/>
+          value={key}
+          materialList={materialList}
+          HandleNameChange={HandleNameChange}
+          HandleSave={HandleSave}
+          nameValue={nameValue}
+          error1={error1}
+          error2={error2}
+          />
         )}
         </div>
       )

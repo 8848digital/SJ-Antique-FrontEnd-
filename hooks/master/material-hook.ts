@@ -21,7 +21,6 @@ const useMaterialHook = () =>{
         }
         getStateData()
     },[])
-    
       const HandleNameChange = (e: any) => {
         const { name, value } = e.target;
         setNameValue({ ...nameValue, [name]: value });
