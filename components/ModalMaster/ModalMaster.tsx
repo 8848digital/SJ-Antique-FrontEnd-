@@ -146,7 +146,7 @@ const ModalMaster = ({
                             i,
                             'modalRow',
                             'pcs',
-                            +e.target.value
+                            e.target.value
                           )
                         }
                         readOnly={readOnlyFields}
@@ -162,7 +162,7 @@ const ModalMaster = ({
                             i,
                             'modalRow',
                             'piece_',
-                            +e.target.value
+                            e.target.value
                           )
                         }
                         readOnly={readOnlyFields}
@@ -178,7 +178,7 @@ const ModalMaster = ({
                             i,
                             'modalRow',
                             'carat',
-                            +e.target.value
+                            e.target.value
                           )
                         }
                         readOnly={readOnlyFields}
@@ -194,7 +194,7 @@ const ModalMaster = ({
                             i,
                             'modalRow',
                             'carat_',
-                            +e.target.value
+                            e.target.value
                           )
                         }
                         readOnly={readOnlyFields}
@@ -210,7 +210,7 @@ const ModalMaster = ({
                             i,
                             'modalRow',
                             'weight',
-                            +e.target.value
+                            e.target.value
                           )
                         }
                         readOnly={readOnlyFields}
@@ -226,7 +226,7 @@ const ModalMaster = ({
                             i,
                             'modalRow',
                             'gm_',
-                            +e.target.value
+                            e.target.value
                           )
                         }
                         readOnly={readOnlyFields}
@@ -243,7 +243,7 @@ const ModalMaster = ({
                             i,
                             'modalRow',
                             'amount',
-                            +e.target.value
+                            e.target.value
                           )
                         }
                         value={calculateRowValue(i)}

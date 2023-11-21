@@ -54,9 +54,6 @@ const ReadyReceiptKundanKarigarMaster = () => {
   const router = useRouter();
   console.log('show modal', showModal);
 
-  // useEffect(() => {
-  //   setReadyReceiptType(lastPartOfURL);
-  // }, [router]);
   console.log('table data', tableData);
 
   return (

@@ -99,7 +99,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       item.idx,
                       'tableRow',
                       'custom_net_wt',
-                      +e.target.value
+                      e.target.value
                     )
                   }
                   readOnly={readOnlyFields}
@@ -116,7 +116,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       item.idx,
                       'tableRow',
                       'custom_few_wt',
-                      +e.target.value
+                      e.target.value
                     )
                   }
                   readOnly={readOnlyFields}
@@ -134,7 +134,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       item.idx,
                       'tableRow',
                       'custom_mat_wt',
-                      +e.target.value
+                      e.target.value
                     )
                   }
                   onKeyDown={(e) => handleModal(e, item.idx, item)}
@@ -143,7 +143,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               <td className="table_row">
                 <input
                   className={` ${styles.input_field}`}
-                  type="text"
+                  type="number"
                   readOnly
                   disabled
                   name={`sum-${i + 1}`}
@@ -168,7 +168,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       item.idx,
                       'tableRow',
                       'custom_other',
-                      +e.target.value
+                      e.target.value
                     )
                   }
                   readOnly={readOnlyFields}
