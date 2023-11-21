@@ -133,8 +133,22 @@ const ModalMaster = ({
                         handleAbbr(i, e.target.value)
                         }
                         value={element.material_abbr}
-                      /> */}
-                      <select
+                        >
+                          {materialListData
+                          .filter(
+                            (names: any) => names.material
+                            === selectedMaterial
+                          )
+                          .map((name: any, index:any) => {
+                            console.log(i ,"material i")
+                            return (
+                              <option key={index} value={name.material_abbr}>
+                              {name.material_abbr}
+                            </option>
+                            )
+                          })}
+                        </input> */}
+                      {/* <select
                         className={`${styles.table_select}`}
                         name="material_abbr"
                         id="material_abbr"
@@ -165,7 +179,7 @@ const ModalMaster = ({
                             </option>
                             )
                           })}
-                      </select>
+                      </select> */}
                     </td>
                     <td className="table_row">
                       {/* <select

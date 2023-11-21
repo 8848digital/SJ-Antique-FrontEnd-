@@ -15,6 +15,7 @@ const SearchSelectInputField = ({
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState<any>(-1);
   // const [selectedDropdownValue, setSelectedDropdownValue] = useState();
   const [noRecords, setNoRecordsFound] = useState(false);
   const [filterDropdownList, setFilterDropdownList] = useState([]);
@@ -29,7 +30,7 @@ const SearchSelectInputField = ({
   // }, []);
   // console.log('master state', masterData);
   const HandleSelectInputField = (e: any) => {
-    console.log('input field', e.target.value);
+    console.log('input field11', e.target.value);
     setShowDropdown(true);
     setSelectedDropdownValue(e.target.value);
     const query = e.target.value;
@@ -53,22 +54,31 @@ const SearchSelectInputField = ({
 
   const handleShowDropdown = () => {
     setShowDropdown(!showDropdown);
+    setSelectedIndex(-1);
   };
-  const handleKeyDown = (e: any) => {
-    if (e.key === 'Escape') {
+  const handleKeyDown = (e:any) => {
+    if (e.key === 'ArrowDown' && !showDropdown) {
       setShowDropdown(true);
-    }
-    if (e.key === 'Escape') {
-      setShowDropdown(!showDropdown);
+      setSelectedIndex(-1);
+    } else if (e.key === 'ArrowDown' && showDropdown) {
+      
+      console.log(selectedIndex,'selectedIndex handleKey')
+      setSelectedIndex((prevIndex:any) => (prevIndex + 1 )
+      );
+    } else if (e.key === 'ArrowUp' && showDropdown) {
+      setSelectedIndex((prevIndex:any) => (prevIndex > 0 ? prevIndex - 1 : 0));
+    } else if (e.key === 'Enter' && showDropdown && selectedIndex !== -1) {
+      handleSelectedOption(filterDropdownList[selectedIndex]);
     }
   };
+  console.log(selectedIndex,'selectedIndex handleKey')
 
   const handleSelectedOption = (data: any) => {
-    console.log('dataa', data);
-    setSelectedDropdownValue(data);
+    console.log('dataa11', data.karigar_name);
+    setSelectedDropdownValue(data.karigar_name);
     setShowDropdown(false);
     if (setRecipitData !== undefined) {
-      setRecipitData({ ...recipitData, custom_karigar: data });
+      setRecipitData({ ...recipitData, custom_karigar: data.karigar_name });
     }
     if (setStateForDocStatus !== undefined) {
       setStateForDocStatus(true);
@@ -99,11 +109,12 @@ const SearchSelectInputField = ({
         className={className}
         id="exampleInputEmail1"
         placeholder={placeholder}
+        onBlur={() => setShowDropdown(false)}
         onChange={HandleSelectInputField}
         onClick={handleShowDropdown}
         value={selectedDropdownValue}
         defaultValue={defaultValue}
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e)=>handleKeyDown(e)}
         autoComplete="off"
         ref={inputRef}
       />
@@ -116,8 +127,8 @@ const SearchSelectInputField = ({
                 karigarData.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onClick={() => handleSelectedOption(name.karigar_name)}
-                    className="dropdown-list"
+                    onClick={() => handleSelectedOption(name)}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''}`}
                   >
                     {name.karigar_name}
                   </li>
@@ -130,8 +141,8 @@ const SearchSelectInputField = ({
                 filterDropdownList.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onClick={() => handleSelectedOption(name.karigar_name)}
-                    className="dropdown-list"
+                    onClick={() => handleSelectedOption(name)}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''}`}
                   >
                     {name.karigar_name}
                   </li>

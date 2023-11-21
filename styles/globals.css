@@ -181,6 +181,10 @@ button.btn.btn-primary.mx-5.px-5{
   background-color: #a9b6ca;
   color: white;
 }
+.selected{
+  background-color: #a9b6ca;
+  color: white;
+}
 .form-label-bold {
   font-weight: 600;
 }
