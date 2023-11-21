@@ -13,7 +13,7 @@ const SelectInputKunKarigar = ({
   kunKarigarDropdownReset, // selectedKundanKarigarDropdownValue,
 } // setSelectedKundanKarigarDropdownValue,
 : any) => {
-  console.log('defaultValueee', defaultValue);
+  console.log('kunKarigarDropdownReset', kunKarigarDropdownReset);
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState('');
@@ -27,12 +27,9 @@ const SelectInputKunKarigar = ({
       kunKarigarDropdownReset === true
     )
       setSelectedDropdownValue('');
-  }, [kunKarigarDropdownReset]);
-  console.log('check karigar', kundanKarigarData);
-  console.log(typeof kundanKarigarData, 'type ');
+  }, [kunKarigarDropdownReset, selectedDropdownValue]);
 
   const HandleSelectInputField = (e: any) => {
-    console.log('input field', e.target.value);
     if (readOnlyFields !== true) {
       setShowDropdown(true);
     }
