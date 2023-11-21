@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/readyReceipts.module.css';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
-import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 import SelectInputMaterial from '../SearchSelectInputField/SelectInputMaterial';
 const ModalMaster = ({
   handleModalFieldChange,
@@ -18,7 +17,7 @@ const ModalMaster = ({
   setSelectedDropdownValue,
   handleTabPressOnModal,
 }: any) => {
-  console.log('material in modal', materialListData);
+  console.log('material in modal', materialWeight);
 
   // Use an array to store the selected material for each row
   const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
@@ -29,7 +28,6 @@ const ModalMaster = ({
     materialListData
       .filter((names: any) => names.material === value)
       .map((name: any) => {
-        console.log(name.material_abbr, 'abbr name');
         // Update the selected abbreviation for the specific row
         setSelectedAbbrs((prevAbbrs) => {
           const newAbbrs = [...prevAbbrs];
@@ -38,7 +36,7 @@ const ModalMaster = ({
         });
       });
   };
-
+  console.log('selected material', selectedMaterials, selectedAbbrs);
   return (
     <>
       <Modal.Body>
@@ -100,9 +98,10 @@ const ModalMaster = ({
                           name="material_abbr"
                           id="material_abbr"
                           value={element.material_abbr}
-                          onChange={(e) => {
+                          defaultValue={element.material_abbr}
+                          onChange={(e: any) => {
                             // Update the selected material for the specific row
-                            setSelectedMaterials((prevMaterials) => {
+                            setSelectedMaterials((prevMaterials: any) => {
                               const newMaterials = [...prevMaterials];
                               newMaterials[i] = e.target.value;
                               return newMaterials;
@@ -114,7 +113,7 @@ const ModalMaster = ({
                               'material_abbr',
                               e.target.value
                             );
-                            handleAbbr(i, e.target.value);
+                            // handleAbbr(i, e.target.value);
                           }}
                         >
                           {materialListData
