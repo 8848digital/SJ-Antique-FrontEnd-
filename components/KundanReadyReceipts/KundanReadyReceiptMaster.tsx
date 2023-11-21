@@ -49,6 +49,10 @@ const ReadyReceiptKundanKarigarMaster = () => {
     HandleUpdateDocStatus,
     handleTabPressOnModal,
     HandleEmptyReadyReceiptForm,
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+    kunKarigarDropdownReset,
+    setKunKarigarDropdownReset,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -163,6 +167,12 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   handleDeleteRow={handleDeleteRow}
                   handleTabPress={handleTabPress}
                   setTableData={setTableData}
+                  selectedKundanKarigarDropdownValue={
+                    selectedKundanKarigarDropdownValue
+                  }
+                  setSelectedKundanKarigarDropdownValue={
+                    setSelectedKundanKarigarDropdownValue
+                  }
                   kundanKarigarData={kundanKarigarData}
                   handleModal={handleModal}
                   selectedDropdownValue={selectedDropdownValue}
@@ -172,6 +182,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   readOnlyFields={readOnlyFields}
                   setReadOnlyFields={setReadOnlyFields}
                   materialWeight={materialWeight}
+                  kunKarigarDropdownReset={kunKarigarDropdownReset}
+                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                 />
               </div>
             </div>

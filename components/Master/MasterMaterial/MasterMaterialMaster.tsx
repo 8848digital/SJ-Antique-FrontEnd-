@@ -25,8 +25,10 @@ const MasterMaterialMaster: any = ({ value }: any) => {
     materialList !== null &&
     materialList.filter(
       (client: any) =>
-        client.material.toLowerCase().includes(inputName.toLowerCase()) &&
-        client.material_abbr.toLowerCase().includes(inputGroup.toLowerCase())
+        client?.material?.toLowerCase()?.includes(inputName?.toLowerCase()) &&
+        client?.material_abbr
+          ?.toLowerCase()
+          ?.includes(inputGroup?.toLowerCase())
     );
   return (
     <div className="container-lg">

@@ -55,8 +55,10 @@ const UseCustomReceiptHook: any = () => {
         loginAcessToken,
         capitalizeFirstLetter(lastPartOfURL)
       );
-
-      setKundanListing(updatedData);
+      console.log('resss', updatedData);
+      if (updatedData?.data?.message?.status === 'success') {
+        setKundanListing(updatedData?.data?.message?.data);
+      }
     } else {
       // router.back();
       toast.error('Failed to Delete purchase Receipt');
@@ -87,7 +89,7 @@ const UseCustomReceiptHook: any = () => {
   //   setReadOnlyFields(false);
   // };
 
-  // console.log("readyonly in hook", readOnlyFields)
+  console.log('kundanListing in hook', kundanListing);
   return {
     setKundanListing,
     kundanListing,
@@ -101,7 +103,7 @@ const UseCustomReceiptHook: any = () => {
     // setReadOnlyFields,
     // HandleAmendBtnForEdit,
     setShowSaveButtonForAmendFlow,
-    showSaveButtonForAmendFlow
+    showSaveButtonForAmendFlow,
   };
 };
 

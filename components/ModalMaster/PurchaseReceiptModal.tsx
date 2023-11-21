@@ -31,7 +31,7 @@ const PurchaseReceiptModal = ({
           <Modal size="xl" show={showModal} onHide={closeModal} key={index}>
             <Modal.Header closeButton>
               <Modal.Title id="example-modal-sizes-title-lg">
-                Material Weight
+                Material
               </Modal.Title>
             </Modal.Header>
             <ModalMaster

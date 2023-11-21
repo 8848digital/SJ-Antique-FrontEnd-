@@ -15,6 +15,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
   selectedDropdownValue,
   setSelectedDropdownValue,
   setStateForDocStatus,
+  selectedKundanKarigarDropdownValue,
+  setSelectedKundanKarigarDropdownValue,
+  kunKarigarDropdownReset,
 }: any) => {
   console.log('table data receipt', tableData);
   return (
@@ -79,9 +82,16 @@ const KundanKarigarReadyReceiptMasterTable = ({
               <td className="table_row">
                 <SelectInputKunKarigar
                   kundanKarigarData={kundanKarigarData}
+                  kunKarigarDropdownReset={kunKarigarDropdownReset}
                   defaultValue={item.custom_kun_karigar}
                   tableData={tableData}
                   setTableData={setTableData}
+                  selectedKundanKarigarDropdownValue={
+                    selectedKundanKarigarDropdownValue
+                  }
+                  setSelectedKundanKarigarDropdownValue={
+                    setSelectedKundanKarigarDropdownValue
+                  }
                   item={item}
                   id={item.idx}
                   setStateForDocStatus={setStateForDocStatus}
@@ -126,7 +136,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 <input
                   className={` ${styles.input_field}`}
                   type="number"
-                  value={tableData[i]?.totalModalWeight || item.custom_mat_wt}
+                  value={
+                    Number(tableData[i]?.totalModalWeight) || item.custom_mat_wt
+                  }
                   defaultValue={item.custom_mat_wt}
                   readOnly
                   onChange={(e) =>
@@ -149,10 +161,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   name={`sum-${i + 1}`}
                   value={
                     tableData[i]?.totalModalWeight > 0
-                      ? tableData[i].custom_net_wt +
-                        tableData[i].custom_few_wt +
-                        tableData[i]?.totalModalWeight
-                      : tableData[i].custom_net_wt + tableData[i].custom_few_wt
+                      ? Number(tableData[i].custom_net_wt) +
+                        Number(tableData[i].custom_few_wt) +
+                        Number(tableData[i]?.totalModalWeight)
+                      : Number(tableData[i].custom_net_wt) +
+                        Number(tableData[i].custom_few_wt)
                   }
                 />
               </td>
@@ -188,12 +201,13 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   //     : tableData[i].custom_other === undefined && tableData[i].custom_other === ''
                   // }
                   value={
-                    tableData[i]?.totalAmount > 0
-                      ? tableData[i].custom_other + tableData[i]?.totalAmount
+                    Number(tableData[i]?.totalAmount) > 0
+                      ? Number(tableData[i].custom_other) +
+                        Number(tableData[i]?.totalAmount)
                       : item.custom_total !== undefined &&
                         item.custom_total !== ''
-                      ? item.custom_total
-                      : tableData[i].custom_other
+                      ? Number(item.custom_total)
+                      : Number(tableData[i].custom_other)
                   }
                 />
               </td>
