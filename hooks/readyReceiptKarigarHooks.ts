@@ -218,6 +218,7 @@ const useReadyReceiptKarigar = () => {
     field: string,
     newValue: any
   ) => {
+    console.log('field change data', id, val, field, newValue);
     const updatedModalData =
       materialWeight?.length > 0 &&
       materialWeight?.map((item: any, i: any) => {
@@ -226,8 +227,6 @@ const useReadyReceiptKarigar = () => {
         }
         return item;
       });
-
-      
 
     // const newVal =
     //   tableData?.length > 0 &&
