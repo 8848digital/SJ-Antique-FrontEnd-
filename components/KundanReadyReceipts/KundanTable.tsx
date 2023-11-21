@@ -14,7 +14,7 @@ const KundanTable = ({
   setReadyReceiptType,
   defaultKarigarData,
   setStateForDocStatus,
-  readOnlyFields
+  readOnlyFields,
 }: any) => {
   const router = useRouter();
   const pathParts = router?.asPath?.split('/');
@@ -38,7 +38,7 @@ const KundanTable = ({
             </th>
 
             <th className="thead" scope="col">
-              Karigar(Supplier) <span className="text-danger">*</span>
+              Karigar <span className="text-danger">*</span>
             </th>
             <th className="thead" scope="col">
               Remarks
@@ -84,8 +84,8 @@ const KundanTable = ({
                 value={
                   readyReceiptType ||
                   (defaultKarigarData !== undefined &&
-                    defaultKarigarData?.length > 0 &&
-                    defaultKarigarData !== null
+                  defaultKarigarData?.length > 0 &&
+                  defaultKarigarData !== null
                     ? defaultKarigarData[0]?.custom_ready_receipt_type
                     : '')
                 }

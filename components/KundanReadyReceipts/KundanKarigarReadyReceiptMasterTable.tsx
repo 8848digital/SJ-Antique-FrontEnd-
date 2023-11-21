@@ -165,7 +165,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         Number(tableData[i].custom_few_wt) +
                         Number(tableData[i]?.totalModalWeight)
                       : Number(tableData[i].custom_net_wt) +
-                        Number(tableData[i].custom_few_wt)
+                        Number(tableData[i].custom_few_wt) +
+                        Number(tableData[i]?.custom_mat_wt)
                   }
                 />
               </td>

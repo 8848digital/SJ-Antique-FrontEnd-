@@ -183,7 +183,6 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   setReadOnlyFields={setReadOnlyFields}
                   materialWeight={materialWeight}
                   kunKarigarDropdownReset={kunKarigarDropdownReset}
-                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                 />
               </div>
             </div>
