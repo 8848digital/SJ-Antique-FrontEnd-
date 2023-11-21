@@ -20,54 +20,25 @@ const ModalMaster = ({
 }: any) => {
   console.log('material in modal', materialListData);
 
-  const [selectedMaterial, setSelectedMaterial] = useState('');
-  const [selectedAbbr, setSelectedAbbr] = useState('');
-  // const returnAbbr = (i:any) =>{
-  //   materialListData
-  //   .filter(
-  //     (names: any) => names.material
-  //     === selectedMaterial
-  //   )
-  //   .map((name: any) => {
-  //     console.log(name.material_abbr ,"materiallll")
-  //     setSelectedAbbr(name.material_abbr)
-  //   })
-  //   materialWeight?.length > 0 &&
-  //     materialWeight?.map((item: any) => {
-  //       console.log(item, 'modalItem')
-  //       if (i === item.idx) {
-  //         return { ...item, material: 0 || selectedAbbr };
-  //       }
-  //       return item;
-  //     }
-  //     )
-  
-  // }
+  // Use an array to store the selected material for each row
+  const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
+  // Use an array to store the selected abbreviation for each row
+  const [selectedAbbrs, setSelectedAbbrs] = useState<string[]>([]);
 
-  const handleAbbr = (i:any, value:any) =>{
-    console.log('entered in handle abbr')
-      materialListData
-    .filter(
-      (names: any) => names.material
-      === selectedMaterial
-    )
-    .map((name: any) => {
-      console.log(name.material_abbr ,"abbr name")
-      setSelectedAbbr(name.material_abbr)
-    })
-    
-    const updatedModalData =
-      materialWeight?.length > 0 &&
-      materialWeight?.map((item: any) => {
-        if (i === item.id) {
-          return { ...item, material: 0 || selectedAbbr };
-        }
-        return item;
+  const handleAbbr = (i: any, value: any) => {
+    materialListData
+      .filter((names: any) => names.material === value)
+      .map((name: any) => {
+        console.log(name.material_abbr, 'abbr name');
+        // Update the selected abbreviation for the specific row
+        setSelectedAbbrs((prevAbbrs) => {
+          const newAbbrs = [...prevAbbrs];
+          newAbbrs[i] = name.material_abbr;
+          return newAbbrs;
+        });
       });
-      console.log(updatedModalData, "abbr modal")
-  }
+  };
 
-  console.log(selectedMaterial, 'selected material modal')
   return (
     <>
       <Modal.Body>
@@ -120,229 +91,191 @@ const ModalMaster = ({
               {materialWeight?.length > 0 &&
                 materialWeight?.map((element: any, i: any) => (
                   <>
-                  {console.log(element,'element test')}
-                  <tr key={i}>
-                    <td className="table_row">{i + 1}</td>
-                    <td className="table_row">
-                    {/* <input
-                        className={`${styles.input_field}`}
-                        type='text'
-                        readOnly
-                        required
-                        onChange={(e) =>
-                        handleAbbr(i, e.target.value)
-                        }
-                        value={element.material_abbr}
+                    {console.log(element, 'element test')}
+                    <tr key={i}>
+                      <td className="table_row">{i + 1}</td>
+                      <td className="table_row">
+                        <select
+                          className={`${styles.table_select}`}
+                          name="material_abbr"
+                          id="material_abbr"
+                          value={element.material_abbr}
+                          onChange={(e) => {
+                            // Update the selected material for the specific row
+                            setSelectedMaterials((prevMaterials) => {
+                              const newMaterials = [...prevMaterials];
+                              newMaterials[i] = e.target.value;
+                              return newMaterials;
+                            });
+                            // Update the abbreviation based on the selected material
+                            handleModalFieldChange(
+                              i,
+                              'modalRow',
+                              'material_abbr',
+                              e.target.value
+                            );
+                            handleAbbr(i, e.target.value);
+                          }}
                         >
                           {materialListData
-                          .filter(
-                            (names: any) => names.material
-                            === selectedMaterial
-                          )
-                          .map((name: any, index:any) => {
-                            console.log(i ,"material i")
-                            return (
-                              <option key={index} value={name.material_abbr}>
-                              {name.material_abbr}
-                            </option>
+                            .filter(
+                              (names: any) =>
+                                names.material === selectedMaterials[i]
                             )
-                          })}
-                        </input> */}
-                      {/* <select
-                        className={`${styles.table_select}`}
-                        name="material_abbr"
-                        id="material_abbr"
-                        value={element.material_abbr}
-                        onChange={(e) => {
-                          // Update the selected value and filter options for the first select field
-                          console.log('entered in handle abbr')
-
-                          handleAbbr(i, e.target.value)
-                          // handleModalFieldChange(
-                          //   i,
-                          //   'modalRow',
-                          //   'material_abbr',
-                          //   e.target.value
-                          // );
-                        }}
-                      >
-                        {materialListData
-                          .filter(
-                            (names: any) => names.material
-                            === selectedMaterial
-                          )
-                          .map((name: any, index:any) => {
-                            console.log(i ,"material i")
-                            return (
-                              <option key={index} value={name.material_abbr}>
-                              {name.material_abbr}
-                            </option>
-                            )
-                          })}
-                      </select> */}
-                    </td>
-                    <td className="table_row">
-                      {/* <select
-                        className={`${styles.table_select}`}
-                        name="material"
-                        id="material"
-                        value={element.material}
-                        onChange={(e) => {
-                          // handleSelectFieldChange(e, i);
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'material',
-                            e.target.value
-                          );
-                        }}
-                      >
-                        {materialListData?.length > 0 && (
-                          <>
-                            {materialListData?.map((names: any, i: any) => (
-                              <option key={i} value={names.material}>
-                                {names.material}
-                              </option>
-                            ))}
-                          </>
-                        )}
-                      </select> */}
-                      <SelectInputMaterial
-                        materialListData={materialListData}
-                        materialWeight={materialWeight}
-                        setMaterialWeight={setMaterialWeight}
-                        id={i}
-                        selectedMaterial={selectedMaterial}
-                        setSelectedMaterial={setSelectedMaterial}
-                        setSelectedAbbr={setSelectedAbbr}
-                      />
-                    </td>
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field}`}
-                        type="number"
-                        value={element.pcs}
-                        onChange={(e) =>
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'pcs',
-                            e.target.value
-                          )
-                        }
-                        readOnly={readOnlyFields}
-                      />
-                    </td>
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field}`}
-                        type="number"
-                        value={element.piece_}
-                        onChange={(e) =>
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'piece_',
-                            e.target.value
-                          )
-                        }
-                        readOnly={readOnlyFields}
-                      />
-                    </td>
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field}`}
-                        type="number"
-                        value={element.carat}
-                        onChange={(e) =>
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'carat',
-                            e.target.value
-                          )
-                        }
-                        readOnly={readOnlyFields}
-                      />
-                    </td>
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field}`}
-                        type="number"
-                        value={element.carat_}
-                        onChange={(e) =>
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'carat_',
-                            e.target.value
-                          )
-                        }
-                        readOnly={readOnlyFields}
-                      />
-                    </td>
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field}`}
-                        type="number"
-                        value={element.weight}
-                        onChange={(e) =>
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'weight',
-                            e.target.value
-                          )
-                        }
-                        readOnly={readOnlyFields}
-                      />
-                    </td>
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field}`}
-                        type="number"
-                        value={element.gm_}
-                        onChange={(e) =>
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'gm_',
-                            e.target.value
-                          )
-                        }
-                        readOnly={readOnlyFields}
-                      />
-                    </td>
-                    <td className="table_row">
-                      <input
-                        className={`${styles.input_field}`}
-                        type="number"
-                        readOnly
-                        disabled
-                        onChange={(e) =>
-                          handleModalFieldChange(
-                            i,
-                            'modalRow',
-                            'amount',
-                            e.target.value
-                          )
-                        }
-                        value={calculateRowValue(i)}
-                      />
-                    </td>
-                    <td className="table_row">
-                      <button
-                        className="d-flex align-items-center delete-link p-1 border-0"
-                        onClick={() => handleDeleteChildTableRow(i)}
-                        onKeyDown={(e) => handleTabPressOnModal(e, element.idx)}
-                      >
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          style={{ color: 'red', fontSize: 20 }}
+                            .map((name: any, index: any) => {
+                              return (
+                                <option key={index} value={name.material_abbr}>
+                                  {name.material_abbr}
+                                </option>
+                              );
+                            })}
+                        </select>
+                      </td>
+                      <td className="table_row">
+                        <SelectInputMaterial
+                          materialListData={materialListData}
+                          materialWeight={materialWeight}
+                          defaultValue={element?.material}
+                          setMaterialWeight={setMaterialWeight}
+                          id={i}
+                          selectedMaterial={selectedMaterials[i] || ''}
+                          setSelectedMaterial={(value: any) => {
+                            setSelectedMaterials((prevMaterials) => {
+                              const newMaterials = [...prevMaterials];
+                              newMaterials[i] = value;
+                              return newMaterials;
+                            });
+                          }}
                         />
-                      </button>
-                    </td>
-                  </tr>
+                      </td>
+                      <td className="table_row">
+                        <input
+                          className={` ${styles.input_field}`}
+                          type="number"
+                          value={element.pcs}
+                          onChange={(e) =>
+                            handleModalFieldChange(
+                              i,
+                              'modalRow',
+                              'pcs',
+                              e.target.value
+                            )
+                          }
+                          readOnly={readOnlyFields}
+                        />
+                      </td>
+                      <td className="table_row">
+                        <input
+                          className={` ${styles.input_field}`}
+                          type="number"
+                          value={element.piece_}
+                          onChange={(e) =>
+                            handleModalFieldChange(
+                              i,
+                              'modalRow',
+                              'piece_',
+                              e.target.value
+                            )
+                          }
+                          readOnly={readOnlyFields}
+                        />
+                      </td>
+                      <td className="table_row">
+                        <input
+                          className={` ${styles.input_field}`}
+                          type="number"
+                          value={element.carat}
+                          onChange={(e) =>
+                            handleModalFieldChange(
+                              i,
+                              'modalRow',
+                              'carat',
+                              e.target.value
+                            )
+                          }
+                          readOnly={readOnlyFields}
+                        />
+                      </td>
+                      <td className="table_row">
+                        <input
+                          className={` ${styles.input_field}`}
+                          type="number"
+                          value={element.carat_}
+                          onChange={(e) =>
+                            handleModalFieldChange(
+                              i,
+                              'modalRow',
+                              'carat_',
+                              e.target.value
+                            )
+                          }
+                          readOnly={readOnlyFields}
+                        />
+                      </td>
+                      <td className="table_row">
+                        <input
+                          className={` ${styles.input_field}`}
+                          type="number"
+                          value={element.weight}
+                          onChange={(e) =>
+                            handleModalFieldChange(
+                              i,
+                              'modalRow',
+                              'weight',
+                              e.target.value
+                            )
+                          }
+                          readOnly={readOnlyFields}
+                        />
+                      </td>
+                      <td className="table_row">
+                        <input
+                          className={` ${styles.input_field}`}
+                          type="number"
+                          value={element.gm_}
+                          onChange={(e) =>
+                            handleModalFieldChange(
+                              i,
+                              'modalRow',
+                              'gm_',
+                              e.target.value
+                            )
+                          }
+                          readOnly={readOnlyFields}
+                        />
+                      </td>
+                      <td className="table_row">
+                        <input
+                          className={`${styles.input_field}`}
+                          type="number"
+                          readOnly
+                          disabled
+                          onChange={(e) =>
+                            handleModalFieldChange(
+                              i,
+                              'modalRow',
+                              'amount',
+                              e.target.value
+                            )
+                          }
+                          value={calculateRowValue(i)}
+                        />
+                      </td>
+                      <td className="table_row">
+                        <button
+                          className="d-flex align-items-center delete-link p-1 border-0"
+                          onClick={() => handleDeleteChildTableRow(i)}
+                          onKeyDown={(e) =>
+                            handleTabPressOnModal(e, element.idx)
+                          }
+                        >
+                          <FontAwesomeIcon
+                            icon={faTrash}
+                            style={{ color: 'red', fontSize: 20 }}
+                          />
+                        </button>
+                      </td>
+                    </tr>
                   </>
                 ))}
             </tbody>
