@@ -49,13 +49,20 @@ const useReadyReceiptKarigar = () => {
   const [materialListData, setMaterialListData] = useState<any>();
   const [indexVal, setIndexVal] = useState<any>();
   const [activeModalId, setActiveModalId] = useState<any>(null);
+  const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
+    useState<any>(false);
 
   const loginAcessToken = useSelector(get_access_token);
   console.log(loginAcessToken, 'loginAcessToken');
   let disabledValue: any;
   const [materialWeight, setMaterialWeight] = useState<any>();
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
+  const [
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+  ] = useState('');
   // const [stateForDocStatus, setStateForDocStatus] = useState<any>(false);
+  console.log('material', materialWeight);
   const initialState: any = {
     idx: 1,
     product_code: '',
@@ -71,7 +78,7 @@ const useReadyReceiptKarigar = () => {
     totalAmount: 0,
     table: [
       {
-        idx: materialWeight?.length + 1,
+        idx: materialWeight === undefined ? 1 : materialWeight?.length,
         material_abbr: '',
         material: '',
         pcs: '',
@@ -247,7 +254,7 @@ const useReadyReceiptKarigar = () => {
       custom_add_photo: '',
       table: [
         {
-          idx: materialWeight?.length + 1,
+          idx: materialWeight !== undefined ? materialWeight?.length : 1,
           material_abbr: '',
           material: '',
           pcs: '',
@@ -531,6 +538,9 @@ const useReadyReceiptKarigar = () => {
       custom_ready_receipt_type: readyReceiptType,
     });
     setTableData([initialState]);
+    setSelectedDropdownValue('');
+    setSelectedKundanKarigarDropdownValue('');
+    setKunKarigarDropdownReset(true);
   };
 
   const handleUpdateReceipt: any = async () => {
@@ -715,6 +725,10 @@ const useReadyReceiptKarigar = () => {
     HandleAmendButtonForDuplicateChitti,
     handleTabPressOnModal,
     HandleEmptyReadyReceiptForm,
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+    kunKarigarDropdownReset,
+    setKunKarigarDropdownReset,
   };
 };
 

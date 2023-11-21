@@ -5,10 +5,11 @@ import KundanKarigarReadyReceiptMasterTable from '../KundanReadyReceipts/KundanK
 import useReadyReceiptKarigar from '@/hooks/readyReceiptKarigarHooks';
 import DocStatusButtonChanges from '../ButtonChanges/DocStatusButtonChanges';
 import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
-import '../../styles/detailPage.module.css'
+import '../../styles/detailPage.module.css';
 
 const DetailPageReadyReceipt = () => {
-  const { defaultKarigarData, readOnlyFields, setReadOnlyFields } = UseKundanKarigarDetailHook();
+  const { defaultKarigarData, readOnlyFields, setReadOnlyFields } =
+    UseKundanKarigarDetailHook();
   const {
     setClick,
     kundanListing,
@@ -45,7 +46,9 @@ const DetailPageReadyReceipt = () => {
     handleUpdateReceipt,
     setShowSaveButtonForAmendFlow,
     showSaveButtonForAmendFlow,
-    HandleAmendButtonForDuplicateChitti
+    HandleAmendButtonForDuplicateChitti,
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
   } = useReadyReceiptKarigar();
   console.log('default dataa', defaultKarigarData);
   console.log('readyonly condn', readOnlyFields);
@@ -59,7 +62,13 @@ const DetailPageReadyReceipt = () => {
         setSelectedDropdownValue(data?.custom_karigar);
       });
     }
-  }, [defaultKarigarData, setReadyReceiptType, setSelectedDropdownValue, setRecipitData, setTableData]);
+  }, [
+    defaultKarigarData,
+    setReadyReceiptType,
+    setSelectedDropdownValue,
+    setRecipitData,
+    setTableData,
+  ]);
 
   return (
     <div className="container">
@@ -77,7 +86,9 @@ const DetailPageReadyReceipt = () => {
                 setReadOnlyFields={setReadOnlyFields}
                 setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
                 showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
-                HandleAmendButtonForDuplicateChitti={HandleAmendButtonForDuplicateChitti}
+                HandleAmendButtonForDuplicateChitti={
+                  HandleAmendButtonForDuplicateChitti
+                }
               />
             </div>
           ))}
@@ -109,6 +120,12 @@ const DetailPageReadyReceipt = () => {
           <KundanKarigarReadyReceiptMasterTable
             handleFieldChange={handleFieldChange}
             tableData={tableData}
+            selectedKundanKarigarDropdownValue={
+              selectedKundanKarigarDropdownValue
+            }
+            setSelectedKundanKarigarDropdownValue={
+              setSelectedKundanKarigarDropdownValue
+            }
             handleDeleteRow={handleDeleteRow}
             handleTabPress={handleTabPress}
             setTableData={setTableData}
@@ -140,7 +157,7 @@ const DetailPageReadyReceipt = () => {
           setReadOnlyFields={setReadOnlyFields}
         />
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -29,7 +29,7 @@ const MasterMaterialListing = ({
           id="input1"
           aria-describedby="emailHelp"
           className="form-control w-25 mx-2"
-          placeholder="Material Name"
+          placeholder="Material"
           onChange={handleInputChange1}
         />
         <input

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import PrintPurchaseReceiptApi from '@/services/api/PurchaseReceipt/print-purchase-receipt-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import getPurchasreceiptListApi from '@/services/api/get-purchase-recipts-list-api';
@@ -28,50 +29,9 @@ const KundanListing = ({
     setTableViewData(data);
   };
 
-  console.log('routerr', router);
+  console.log('router query', query);
   let url: any = router?.query?.receipt;
   const loginAcessToken = useSelector(get_access_token);
-
-  const HandleCancelReceipt: any = async (name: any) => {
-    console.log('name', name);
-    let cancelReceipt: any = await UpdateDocStatusApi(
-      loginAcessToken?.token,
-      '2',
-      name
-    );
-    if (cancelReceipt?.hasOwnProperty('data')) {
-      console.log('canclereciept api inn', cancelReceipt);
-      const capitalizeFirstLetter = (str: any) => {
-        return str?.charAt(0)?.toUpperCase() + str?.slice(1);
-      };
-
-      let updatedData: any = await getPurchasreceiptListApi(
-        loginAcessToken,
-        capitalizeFirstLetter(lastPartOfURL)
-      );
-
-      console.log('updated data', updatedData);
-
-      setKundanListing(updatedData?.data?.message?.data);
-      const params: any = {
-        token: loginAcessToken?.token,
-        name: query?.receiptId,
-      };
-      dispatch(getSpecificReceipt(params));
-    }
-  };
-
-  const HandlePrintApi: any = async (name: any) => {
-    let printApiRes: any = await PrintPurchaseReceiptApi(
-      loginAcessToken?.token,
-      name
-    );
-    if (printApiRes?.status === 'success') {
-      if (printApiRes?.data?.data?.length > 0) {
-        window.open(printApiRes?.data?.data[0]?.print_url);
-      }
-    }
-  };
 
   const [searchReceiptNumber, setSearchReceiptNumber] = useState<any>('');
   const [searchKarigar, setSearchKarigar] = useState<any>('');
@@ -91,6 +51,15 @@ const KundanListing = ({
       [name]: value,
     });
   };
+
+  useEffect(() => {
+    setSearchInputValues({
+      transaction_date: todayDate,
+      status: '',
+    });
+    setSearchReceiptNumber('');
+    setSearchKarigar('');
+  }, [query.receipt]);
 
   const filteredList =
     kundanListing?.length > 0 &&
@@ -146,6 +115,47 @@ const KundanListing = ({
           return submittedDateMatch && karigarMatch && receiptNumberMatch;
         })
       : kundanListing;
+
+  const HandleCancelReceipt: any = async (name: any) => {
+    console.log('name', name);
+    let cancelReceipt: any = await UpdateDocStatusApi(
+      loginAcessToken?.token,
+      '2',
+      name
+    );
+    if (cancelReceipt?.hasOwnProperty('data')) {
+      console.log('canclereciept api inn', cancelReceipt);
+      const capitalizeFirstLetter = (str: any) => {
+        return str?.charAt(0)?.toUpperCase() + str?.slice(1);
+      };
+
+      let updatedData: any = await getPurchasreceiptListApi(
+        loginAcessToken,
+        capitalizeFirstLetter(lastPartOfURL)
+      );
+
+      console.log('updated data', updatedData);
+
+      setKundanListing(updatedData?.data?.message?.data);
+      const params: any = {
+        token: loginAcessToken?.token,
+        name: query?.receiptId,
+      };
+      dispatch(getSpecificReceipt(params));
+    }
+  };
+
+  const HandlePrintApi: any = async (name: any) => {
+    let printApiRes: any = await PrintPurchaseReceiptApi(
+      loginAcessToken?.token,
+      name
+    );
+    if (printApiRes?.status === 'success') {
+      if (printApiRes?.data?.data?.length > 0) {
+        window.open(printApiRes?.data?.data[0]?.print_url);
+      }
+    }
+  };
 
   return (
     <div className=" table">

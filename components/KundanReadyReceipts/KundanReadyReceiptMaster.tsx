@@ -49,14 +49,15 @@ const ReadyReceiptKundanKarigarMaster = () => {
     HandleUpdateDocStatus,
     handleTabPressOnModal,
     HandleEmptyReadyReceiptForm,
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+    kunKarigarDropdownReset,
+    setKunKarigarDropdownReset,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
   console.log('show modal', showModal);
 
-  // useEffect(() => {
-  //   setReadyReceiptType(lastPartOfURL);
-  // }, [router]);
   console.log('table data', tableData);
 
   return (
@@ -166,6 +167,12 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   handleDeleteRow={handleDeleteRow}
                   handleTabPress={handleTabPress}
                   setTableData={setTableData}
+                  selectedKundanKarigarDropdownValue={
+                    selectedKundanKarigarDropdownValue
+                  }
+                  setSelectedKundanKarigarDropdownValue={
+                    setSelectedKundanKarigarDropdownValue
+                  }
                   kundanKarigarData={kundanKarigarData}
                   handleModal={handleModal}
                   selectedDropdownValue={selectedDropdownValue}
@@ -175,6 +182,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   readOnlyFields={readOnlyFields}
                   setReadOnlyFields={setReadOnlyFields}
                   materialWeight={materialWeight}
+                  kunKarigarDropdownReset={kunKarigarDropdownReset}
+                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                 />
               </div>
             </div>

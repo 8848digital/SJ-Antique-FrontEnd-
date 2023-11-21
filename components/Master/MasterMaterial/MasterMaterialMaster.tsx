@@ -33,69 +33,71 @@ const MasterMaterialMaster: any = ({value,
     materialList !== null &&
     materialList.filter(
       (client: any) =>
-        client.material.toLowerCase().includes(inputName.toLowerCase()) &&
-        client.material_abbr.toLowerCase().includes(inputGroup.toLowerCase())
+        client?.material?.toLowerCase()?.includes(inputName?.toLowerCase()) &&
+        client?.material_abbr
+          ?.toLowerCase()
+          ?.includes(inputGroup?.toLowerCase())
     );
   return (
-    <div className='container-lg'>
-      <MasterListing value={value}/>
-    <div >
-      <div
-        className="nav nav-pills mb-2 justify-content-center "
-        id="pills-tab"
-        role="tablist"
-      >
-        <div className="nav-tabs tabs-container w-50 " role="presentation">
-          <button
-            className="nav-link active w-100 p-1 border"
-            id="pills-home-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-home"
-            type="button"
-            role="tab"
-            aria-controls="pills-home"
-            aria-selected="true"
-          >
-            Material List
-          </button>
-        </div>
-        <div className="nav-tabs tabs-container w-50" role="presentation">
-          <button
-            className="nav-link  w-100 p-1 border"
-            id="pills-profile-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-profile"
-            type="button"
-            role="tab"
-            aria-controls="pills-profile"
-            aria-selected="false"
-          >
-            Create New Material
-          </button>
-        </div>
-      </div>
-      <div className="tab-content" id="pills-tabContent">
+    <div className="container-lg">
+      <MasterListing value={value} />
+      <div>
         <div
-          className="tab-pane fade show active"
-          id="pills-home"
-          role="tabpanel"
-          aria-labelledby="pills-home-tab"
+          className="nav nav-pills mb-2 justify-content-center "
+          id="pills-tab"
+          role="tablist"
         >
-          <MasterMaterialListing
-            materialList={filteredList}
-            handleInputChange1={handleInputChange1}
-            handleInputChange2={handleInputChange2}
+          <div className="nav-tabs tabs-container w-50 " role="presentation">
+            <button
+              className="nav-link active w-100 p-1 border"
+              id="pills-home-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#pills-home"
+              type="button"
+              role="tab"
+              aria-controls="pills-home"
+              aria-selected="true"
+            >
+              Material List
+            </button>
+          </div>
+          <div className="nav-tabs tabs-container w-50" role="presentation">
+            <button
+              className="nav-link  w-100 p-1 border"
+              id="pills-profile-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#pills-profile"
+              type="button"
+              role="tab"
+              aria-controls="pills-profile"
+              aria-selected="false"
+            >
+              Create New Material
+            </button>
+          </div>
+        </div>
+        <div className="tab-content" id="pills-tabContent">
+          <div
+            className="tab-pane fade show active"
+            id="pills-home"
+            role="tabpanel"
+            aria-labelledby="pills-home-tab"
+          >
+            <MasterMaterialListing
+              materialList={filteredList}
+              handleInputChange1={handleInputChange1}
+              handleInputChange2={handleInputChange2}
+            />
+          </div>
+          <AddMaterial
+            nameValue={nameValue}
+            HandleNameChange={HandleNameChange}
+            HandleSave={HandleSave}
+            error1={error1}
+            error2={error2}
           />
         </div>
-        <AddMaterial
-        nameValue={nameValue}
-        HandleNameChange={HandleNameChange}
-        HandleSave={HandleSave}
-        error1={error1}
-        error2={error2}
-        />
       </div>
-    </div>
     </div>
   );
 };
