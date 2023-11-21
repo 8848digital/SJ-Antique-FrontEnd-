@@ -3,15 +3,23 @@ import MasterMaterialListing from './MasterMaterialListing';
 import useMaterialHook from '@/hooks/master/material-hook';
 import AddMaterial from './AddMaterial';
 import MasterListing from '../MasterListing';
-const MasterMaterialMaster: any = ({ value }: any) => {
-  const {
-    materialList,
-    HandleNameChange,
-    HandleSave,
-    nameValue,
-    error1,
-    error2,
-  }: any = useMaterialHook();
+const MasterMaterialMaster: any = ({value,
+  materialList,
+  HandleNameChange,
+  HandleSave,
+  nameValue,
+  error1,
+  error2
+}:any) => {
+  // const {
+  // materialList,
+  // HandleNameChange,
+  // HandleSave,
+  // nameValue,
+  // error1,
+  // error2
+  // }:any= useMaterialHook()
+  console.log(materialList, 'materialList1')
   const [inputName, setInputName] = useState('');
   const [inputGroup, setInputGroup] = useState('');
   const handleInputChange1 = (event: any) => {
