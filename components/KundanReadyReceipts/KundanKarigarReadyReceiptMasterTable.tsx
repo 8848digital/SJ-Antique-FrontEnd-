@@ -40,7 +40,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
             Few Wt
           </th>
           <th className="thead" scope="col">
-            Mat_Wt
+            Mat Wt
           </th>
           <th className="thead" scope="col">
             Gross Wt
