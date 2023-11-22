@@ -74,6 +74,7 @@ const KundanTable = ({
                 value={recieptData?.remarks}
                 onChange={handleRecipietChange}
                 readOnly={readOnlyFields}
+                autoComplete="off"
               />
             </td>
             <td className="table_row">

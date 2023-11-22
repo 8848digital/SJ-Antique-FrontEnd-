@@ -388,7 +388,7 @@ const useReadyReceiptKarigar = () => {
             custom_gross_wt:
               parseInt(row.custom_net_wt, 10) +
               parseInt(row.custom_few_wt, 10) +
-              weightAddition,
+              Number(weightAddition),
             custom_total: numbersParsed,
           };
         }
@@ -497,7 +497,6 @@ const useReadyReceiptKarigar = () => {
       items: modalValue,
     };
 
-    console.log(values, 'vals');
     const isEmptyProductCode = values?.items?.some(
       (obj: any) => obj.product_code === ''
     );
