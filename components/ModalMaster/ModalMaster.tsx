@@ -24,18 +24,6 @@ const ModalMaster = ({
   // Use an array to store the selected abbreviation for each row
   const [selectedAbbrs, setSelectedAbbrs] = useState<string[]>([]);
 
-  const handleAbbr = (i: any, value: any) => {
-    materialListData
-      .filter((names: any) => names.material === value)
-      .map((name: any) => {
-        // Update the selected abbreviation for the specific row
-        setSelectedAbbrs((prevAbbrs) => {
-          const newAbbrs = [...prevAbbrs];
-          newAbbrs[i] = name.material_abbr;
-          return newAbbrs;
-        });
-      });
-  };
   console.log('selected material', selectedMaterials, selectedAbbrs);
   return (
     <>
@@ -97,7 +85,7 @@ const ModalMaster = ({
                           className={`${styles.table_select}`}
                           name="material_abbr"
                           id="material_abbr"
-                          value={element.material_abbr}
+                          value={element.material_abbr || 'abc'}
                           defaultValue={element.material_abbr}
                           onChange={(e: any) => {
                             // Update the selected material for the specific row
