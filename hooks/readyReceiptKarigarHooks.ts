@@ -586,14 +586,24 @@ const useReadyReceiptKarigar = () => {
       query?.receiptId
     );
     console.log('updated purchase receipt api res', updateReceiptApi);
-    if (updateReceiptApi?.data?.message?.status === 'success') {
-      setStateForDocStatus(false);
-      const params: any = {
-        token: loginAcessToken?.token,
-        name: query?.receiptId,
-      };
-      dispatch(getSpecificReceipt(params));
+    if (Object?.keys(updateReceiptApi?.data)?.length > 0) {
+      if (Object?.keys(updateReceiptApi?.data?.message)?.length > 0) {
+        setStateForDocStatus(false);
+        const params: any = {
+          token: loginAcessToken?.token,
+          name: query?.receiptId,
+        };
+        dispatch(getSpecificReceipt(params));
+      }
     }
+    // if (updateReceiptApi?.data?.message?.status === 'success') {
+    //   setStateForDocStatus(false);
+    //   const params: any = {
+    //     token: loginAcessToken?.token,
+    //     name: query?.receiptId,
+    //   };
+    //   dispatch(getSpecificReceipt(params));
+    // }
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
