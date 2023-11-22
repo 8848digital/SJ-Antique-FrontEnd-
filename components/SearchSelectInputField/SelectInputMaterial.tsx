@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/readyReceipts.module.css';
-import { DEV_CLIENT_PAGES_MANIFEST } from 'next/dist/shared/lib/constants';
 
 const SelectInputMaterial = ({
   materialListData,
@@ -16,6 +15,8 @@ const SelectInputMaterial = ({
   const [selectedDropdownValue, setSelectedDropdownValue] = useState();
   const [noRecords, setNoRecordsFound] = useState(false);
   const [filterDropdownList, setFilterDropdownList] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState<any>(-1);
+  const dropdownRef = useRef<HTMLUListElement>(null);
 
   console.log('check material', materialListData);
   console.log(id,'id222')
@@ -48,25 +49,46 @@ const SelectInputMaterial = ({
 
   const handleShowDropdown = () => {
     setShowDropdown(!showDropdown);
+    setSelectedIndex(-1)
+    setFilterDropdownList(materialListData)
   };
   const handleKeyDown = (e: any) => {
-    if (e.key === 'Escape') {
+    if (e.key === 'ArrowDown' && !showDropdown) {
+      e.preventDefault();
       setShowDropdown(true);
-    }
-    if (e.key === 'Escape') {
-      setShowDropdown(!showDropdown);
+      setSelectedIndex(-1);
+      setFilterDropdownList(materialListData);
+    } else if (e.key === 'ArrowDown' && showDropdown) {
+      setSelectedIndex((prevIndex: any) =>
+        prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
+      );
+    } else if (e.key === 'ArrowUp' && showDropdown) {
+      e.preventDefault();
+      setSelectedIndex((prevIndex: any) => (prevIndex > 0 ? prevIndex - 1 : 0));
+    } else if ((e.key === 'Enter' || e.keyCode === 13) && showDropdown && selectedIndex !== -1) {
+      e.preventDefault();
+      console.log(filterDropdownList[selectedIndex],'filter selected index')
+      
+      HandleMaterialAbbr(filterDropdownList[selectedIndex])
     }
   };
+  const HandleAbbrKey =(e:any)=> {
+    if ((e.key === 'Enter' || e.keyCode === 13) && showDropdown && selectedIndex !== -1) {
+      e.preventDefault();
+      console.log(filterDropdownList[selectedIndex],'filter selected index')
+      handleSelectedOption(filterDropdownList[selectedIndex])
+    }
+  }
 
-  const handleSelectedOption = (iid: any, field: any, data: any) => {
+  const handleSelectedOption = (  data: any) => {
     console.log('dataa', data);
-    setSelectedDropdownValue(data);
+    setSelectedDropdownValue(data.material);
     setShowDropdown(false);
     const updatedModalData =
       materialWeight?.length > 0 &&
       materialWeight?.map((item: any, i: any) => {
         if (i === id) {
-          return { ...item, [field]: 0 || data };
+          return { ...item, material: 0 || data?.material };
         }
         return item;
       });
@@ -105,6 +127,14 @@ const SelectInputMaterial = ({
       document.removeEventListener('click', handleDocumentClick);
     };
   }, []);
+  useEffect(() => {
+    if (showDropdown && dropdownRef.current) {
+      const selectedItem = dropdownRef.current.childNodes[selectedIndex] as HTMLElement;
+      if (selectedItem) {
+        selectedItem.scrollIntoView({ block: 'nearest' });
+      }
+    }
+  }, [selectedIndex, showDropdown]);
 
   return (
     <div>
@@ -114,17 +144,21 @@ const SelectInputMaterial = ({
         className={` ${styles.table_select}`}
         id="exampleInputEmail1"
         placeholder="Material Name"
-        onChange={(e)=>HandleSelectInputField(e)}
+        onChange={(e)=>{
+          HandleSelectInputField(e)
+          handleKeyDown(e)
+        }}
         onClick={handleShowDropdown}
         value={selectedDropdownValue}
         // defaultValue={materialListData?.karigar_name}
         defaultValue={defaultValue}
         onKeyDown={handleKeyDown}
+        onKeyUp={HandleAbbrKey}
         autoComplete="off"
         ref={inputRef}
       />
       {showDropdown && (
-        <ul className=" dropdown-ul-list border">
+        <ul className=" dropdown-ul-list border" ref={dropdownRef}>
           {noRecords === false && filterDropdownList?.length === 0 ? (
             <>
               {materialListData?.length > 0 &&
@@ -133,11 +167,12 @@ const SelectInputMaterial = ({
                   <li
                     key={i}
                     onClick={(e) =>{
-                      handleSelectedOption(i, 'material', name.material)
+                      handleSelectedOption( name)
                       
                     }}
                     onMouseDown={()=>HandleMaterialAbbr(name)}
-                    className="dropdown-list"
+                    // onKeyDown={(e)=>HandleAbbrKey(e)}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''}`}
                   >
                     {name.material}
                   </li>
@@ -151,11 +186,12 @@ const SelectInputMaterial = ({
                   <li
                     key={i}
                     onClick={(e) =>{
-                      handleSelectedOption(i, 'material', name.material)
+                      handleSelectedOption( name)
                       
                     }}
+                    // onKeyDown={(e)=>HandleAbbrKey(e)}
                     onMouseDown={()=>HandleMaterialAbbr(name)}
-                    className="dropdown-list"
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''}`}
                   >
                     {name.material}
                   </li>
