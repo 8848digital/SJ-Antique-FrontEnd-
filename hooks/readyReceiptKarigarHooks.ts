@@ -235,7 +235,7 @@ const useReadyReceiptKarigar = () => {
     //     (item: any) => materialListData?.includes(item.material_name)
     //   );
     // console.log(newVal, 'newVal');
-    console.log(disabledValue, 'disabledValue');
+    console.log(updatedModalData, 'updatedModalData');
     setMaterialWeight(updatedModalData);
     setStateForDocStatus(true);
   };
@@ -253,7 +253,7 @@ const useReadyReceiptKarigar = () => {
       custom_add_photo: '',
       table: [
         {
-          idx: materialWeight !== undefined ? materialWeight?.length : 1,
+          idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
           material_abbr: '',
           material: '',
           pcs: '',
@@ -450,6 +450,7 @@ const useReadyReceiptKarigar = () => {
     setShowModal(false);
     setActiveModalId(null);
   };
+
   const handleRecipietChange = (e: any) => {
     setRecipitData({ ...recipitData, [e.target.name]: e.target.value });
     setStateForDocStatus(true);
@@ -514,7 +515,7 @@ const useReadyReceiptKarigar = () => {
         loginAcessToken.token,
         values
       );
-      console.log(purchaseReceipt, 'purchase');
+
       if (
         purchaseReceipt.status === 200 &&
         purchaseReceipt?.data?.hasOwnProperty('message')
@@ -569,11 +570,15 @@ const useReadyReceiptKarigar = () => {
         }
         return row;
       });
-    console.log('update table data', updatedtableData);
+
+    const updatedMergedList = updatedtableData.map((obj: any) => ({
+      ...obj,
+      item_group: 'All Item Groups',
+    }));
 
     const values = {
       ...recipitData,
-      items: updatedtableData,
+      items: updatedMergedList,
     };
 
     let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
