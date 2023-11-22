@@ -81,42 +81,13 @@ const ModalMaster = ({
                     <tr key={i}>
                       <td className="table_row">{i + 1}</td>
                       <td className="table_row">
-                        <select
-                          className={`${styles.table_select}`}
-                          name="material_abbr"
-                          id="material_abbr"
-                          value={element.material_abbr || 'abc'}
+                      <input
+                          className={` ${styles.input_field}`}
+                          type="text"
                           defaultValue={element.material_abbr}
-                          onChange={(e: any) => {
-                            // Update the selected material for the specific row
-                            setSelectedMaterials((prevMaterials: any) => {
-                              const newMaterials = [...prevMaterials];
-                              newMaterials[i] = e.target.value;
-                              return newMaterials;
-                            });
-                            // Update the abbreviation based on the selected material
-                            handleModalFieldChange(
-                              i,
-                              'modalRow',
-                              'material_abbr',
-                              e.target.value
-                            );
-                            // handleAbbr(i, e.target.value);
-                          }}
-                        >
-                          {materialListData
-                            .filter(
-                              (names: any) =>
-                                names.material === selectedMaterials[i]
-                            )
-                            .map((name: any, index: any) => {
-                              return (
-                                <option key={index} value={name.material_abbr}>
-                                  {name.material_abbr}
-                                </option>
-                              );
-                            })}
-                        </select>
+                          value={element.material_abbr}
+                          readOnly={readOnlyFields}
+                        />
                       </td>
                       <td className="table_row">
                         <SelectInputMaterial
