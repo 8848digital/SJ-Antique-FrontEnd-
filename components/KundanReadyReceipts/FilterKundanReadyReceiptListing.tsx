@@ -28,6 +28,7 @@ const FilterKundanReadyReceiptListing = ({
             className={
               'form-control input-fields custom-input-field line-height'
             }
+            style={'max-width'}
             // setRecipitData={setRecipitData}
             selectedDropdownValue={searchReceiptNumber}
             setSelectedDropdownValue={setSearchReceiptNumber}
@@ -51,6 +52,7 @@ const FilterKundanReadyReceiptListing = ({
             className={
               'form-control input-fields custom-input-field line-height'
             }
+            style={'max-width'}
             placeholder={'Karigar'}
             karigarData={karigarData}
             selectedDropdownValue={searchKarigar}
@@ -62,12 +64,12 @@ const FilterKundanReadyReceiptListing = ({
           <select
             name="status"
             id="status"
-            className="form-select h-100 p-0 px-2 input-fields line-height"
+            className="form-select h-100 p-0 px-2 input-fields"
             aria-label="Default select example"
             value={searchInputValues?.status}
             onChange={HandleSearchInput}
           >
-            <option>status</option>
+            <option className='max-width'>status</option>
             <option>Draft</option>
             <option>Submitted</option>
             <option>Cancel</option>

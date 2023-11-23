@@ -137,11 +137,11 @@ const SelectInputMaterial = ({
   }, [selectedIndex, showDropdown]);
 
   return (
-    <div>
+    <div className='input-width'>
       <input
         type="text"
         name="material"
-        className={` ${styles.table_select}`}
+        className={` ${styles.table_select} modal-input `}
         id="exampleInputEmail1"
         placeholder="Material Name"
         onChange={(e)=>{

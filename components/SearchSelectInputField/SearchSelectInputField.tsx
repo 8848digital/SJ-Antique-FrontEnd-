@@ -11,6 +11,7 @@ const SearchSelectInputField = ({
   setStateForDocStatus,
   placeholder,
   className,
+  style,
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -118,7 +119,7 @@ const SearchSelectInputField = ({
         ref={inputRef}
       />
       {showDropdown && (
-        <ul className="dropdown-ul-list border" ref={dropdownRef}>
+        <ul className={`dropdown-ul-list border ${style}`} ref={dropdownRef}>
           {noRecords === false && filterDropdownList?.length === 0 ? (
             <>
               {karigarData?.length > 0 &&
