@@ -86,6 +86,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         e.target.value
                       )
                     }
+                    readOnly={readOnlyFields}
                   />
                 </td>
                 <td className="table_row">

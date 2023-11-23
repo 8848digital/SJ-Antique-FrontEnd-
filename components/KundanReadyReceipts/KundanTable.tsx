@@ -64,6 +64,7 @@ const KundanTable = ({
                 setStateForDocStatus={setStateForDocStatus}
                 placeholder={'Karigar Name'}
                 className={'form-control input-sm border border-secondary'}
+                readOnlyFields={readOnlyFields}
               />
             </td>
             <td className="table_row">

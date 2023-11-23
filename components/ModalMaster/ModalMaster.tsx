@@ -104,6 +104,7 @@ const ModalMaster = ({
                               return newMaterials;
                             });
                           }}
+                          readOnlyFields={readOnlyFields}
                         />
                       </td>
                       <td className="table_row">

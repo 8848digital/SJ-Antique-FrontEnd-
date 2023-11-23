@@ -11,6 +11,7 @@ const SearchSelectInputField = ({
   setStateForDocStatus,
   placeholder,
   className,
+  readOnlyFields,
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -21,9 +22,12 @@ const SearchSelectInputField = ({
   const dropdownRef = useRef<HTMLUListElement>(null);
 
   const handleShowDropdown = () => {
-    setShowDropdown(!showDropdown);
-    setSelectedIndex(-1);
-    setFilterDropdownList(karigarData)
+    console.log('read', readOnlyFields);
+    if (!readOnlyFields) {
+      setShowDropdown(!showDropdown);
+      setSelectedIndex(-1);
+      setFilterDropdownList(karigarData);
+    }
   };
 
   const handleSelectedOption = (data: any, i: any) => {
@@ -40,7 +44,10 @@ const SearchSelectInputField = ({
 
   const handleDocumentClick = (e: any) => {
     // Check if the input element itself was clicked
-    if (e?.target !== inputRef?.current && !inputRef?.current?.contains(e.target)) {
+    if (
+      e?.target !== inputRef?.current &&
+      !inputRef?.current?.contains(e.target)
+    ) {
       setShowDropdown(false);
     }
   };
@@ -50,18 +57,24 @@ const SearchSelectInputField = ({
       e.preventDefault();
       setShowDropdown(true);
       setSelectedIndex(-1);
-      setFilterDropdownList(karigarData )
+      setFilterDropdownList(karigarData);
     } else if (e.key === 'ArrowDown' && showDropdown) {
       // setSelectedIndex((prevIndex: any) => ( prevIndex + 1));
-      setSelectedIndex((prevIndex:any) =>
-          prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
-        );
-      setScrollIndex((prevScrollIndex) => Math.min(prevScrollIndex + 1, filterDropdownList?.length - 1));
+      setSelectedIndex((prevIndex: any) =>
+        prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
+      );
+      setScrollIndex((prevScrollIndex) =>
+        Math.min(prevScrollIndex + 1, filterDropdownList?.length - 1)
+      );
     } else if (e.key === 'ArrowUp' && showDropdown) {
       e.preventDefault();
       setSelectedIndex((prevIndex: any) => (prevIndex > 0 ? prevIndex - 1 : 0));
       setScrollIndex((prevScrollIndex) => Math.max(prevScrollIndex - 1, 0));
-    } else if ((e.key === 'Enter' || e.keyCode === 13) && showDropdown && selectedIndex !== -1) {
+    } else if (
+      (e.key === 'Enter' || e.keyCode === 13) &&
+      showDropdown &&
+      selectedIndex !== -1
+    ) {
       e.preventDefault();
       handleSelectedOption(filterDropdownList[selectedIndex], selectedIndex);
     }
@@ -76,7 +89,9 @@ const SearchSelectInputField = ({
 
   useEffect(() => {
     if (showDropdown && dropdownRef.current) {
-      const selectedItem = dropdownRef.current.childNodes[selectedIndex] as HTMLElement;
+      const selectedItem = dropdownRef.current.childNodes[
+        selectedIndex
+      ] as HTMLElement;
       if (selectedItem) {
         selectedItem.scrollIntoView({ block: 'nearest' });
       }
@@ -98,21 +113,29 @@ const SearchSelectInputField = ({
           const updatedFilterList: any =
             karigarData?.length > 0 &&
             karigarData.filter((item: any) => {
-              return item.karigar_name?.toLowerCase()?.indexOf(query?.toLowerCase()) !== -1;
+              return (
+                item.karigar_name
+                  ?.toLowerCase()
+                  ?.indexOf(query?.toLowerCase()) !== -1
+              );
             });
           setFilterDropdownList(updatedFilterList);
           setNoRecordsFound(true);
           if (setRecipitData !== undefined) {
-            setRecipitData({ ...recipitData, custom_karigar: selectedDropdownValue });
+            setRecipitData({
+              ...recipitData,
+              custom_karigar: selectedDropdownValue,
+            });
           }
           if (setStateForDocStatus !== undefined) {
             setStateForDocStatus(true);
           }
-          handleKeyDown(e)
+          handleKeyDown(e);
         }}
         onMouseDown={handleShowDropdown}
         value={selectedDropdownValue}
         defaultValue={defaultValue}
+        readOnly={readOnlyFields}
         onKeyDown={handleKeyDown}
         autoComplete="off"
         ref={inputRef}
@@ -127,7 +150,9 @@ const SearchSelectInputField = ({
                   <li
                     key={i}
                     onMouseDown={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''}`}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
                   >
                     {name.karigar_name}
                   </li>
@@ -141,7 +166,9 @@ const SearchSelectInputField = ({
                   <li
                     key={i}
                     onMouseDown={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''}`}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
                   >
                     {name.karigar_name}
                   </li>
