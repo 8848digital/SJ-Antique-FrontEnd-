@@ -120,17 +120,17 @@ const ReadyReceiptKundanKarigarMaster = () => {
             aria-labelledby="pills-profile-tab"
           >
             <div>
-              <div className={`${styles.button_field}`}>
+              <div className={`${styles.button_field} mb-1`}>
                 <button
                   type="submit"
                   onClick={HandleEmptyReadyReceiptForm}
-                  className=" btn btn-outline-primary  px-2 py-0 form-submit-button"
+                  className=" btn btn-outline-primary px-2 py-0 form-submit-button"
                 >
                   New
                 </button>
                 <button
                   type="button"
-                  className={`${styles.create_button}  px-2 py-0 ms-3`}
+                  className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
                   onClick={handleCreate}
                 >
                   Create
