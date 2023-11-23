@@ -16,7 +16,7 @@ const DocStatusButtonChanges = ({
   setStateForDocStatus,
   HandleAmendButtonForDuplicateChitti,
 }: any) => {
-  console.log('button changes data', data);
+  console.log('button changes data', stateForDocStatus);
   const { query } = useRouter();
   const router = useRouter();
   console.log('queer', query);
