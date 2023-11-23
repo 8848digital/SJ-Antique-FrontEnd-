@@ -29,10 +29,8 @@ const FilterKundanReadyReceiptListing = ({
               'form-control input-fields custom-input-field line-height'
             }
             style={'max-width'}
-            // setRecipitData={setRecipitData}
             selectedDropdownValue={searchReceiptNumber}
             setSelectedDropdownValue={setSearchReceiptNumber}
-            // setStateForDocStatus={setStateForDocStatus}
           />
         </div>
 

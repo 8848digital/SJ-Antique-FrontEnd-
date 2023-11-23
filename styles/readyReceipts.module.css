@@ -25,13 +25,11 @@
 }
 
 .table_select {
-    width: 150px;
-    line-height: 20px;
+    width: 120px;
+    line-height: 15px;
     text-align: center;
     border: #808080 1px solid;
 }
-
-
 .docstatus_button {
     background-color: #f2dcdc !important;
     padding: 0 13px !important;

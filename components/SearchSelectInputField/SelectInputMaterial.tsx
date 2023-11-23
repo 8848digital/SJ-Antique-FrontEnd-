@@ -10,6 +10,7 @@ const SelectInputMaterial = ({
   setSelectedMaterial,
   selectedMaterial,
   readOnlyFields,
+  style
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -150,11 +151,11 @@ const SelectInputMaterial = ({
   }, [selectedIndex, showDropdown]);
 
   return (
-    <div className='input-width'>
+    <div className='dropdown-wrapper'>
       <input
         type="text"
         name="material"
-        className={` ${styles.table_select} modal-input `}
+        className={` ${styles.table_select} input-width  `}
         id="exampleInputEmail1"
         placeholder="Material Name"
         onChange={(e) => {
@@ -171,7 +172,7 @@ const SelectInputMaterial = ({
         ref={inputRef}
       />
       {showDropdown && (
-        <ul className=" dropdown-ul-list border" ref={dropdownRef}>
+        <ul className={`dropdown-ul-list border `} ref={dropdownRef}>
           {noRecords === false && filterDropdownList?.length === 0 ? (
             <>
               {materialListData?.length > 0 &&

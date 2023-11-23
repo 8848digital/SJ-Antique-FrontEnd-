@@ -160,6 +160,10 @@ button.btn.btn-primary.mx-5.px-5{
   color: #FFF;
   border: none;
 }
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block; 
+}
 .dropdown-ul-list {
   background-color: #ffffff;
   border-radius: 2px 2px 2px 2px;
@@ -167,16 +171,19 @@ button.btn.btn-primary.mx-5.px-5{
   list-style: none;
   width: 100%;
   padding: 0px;
-  z-index: 999;
+  z-index: 1000;
   cursor: pointer;
 }
 .dropdown-ul-list {
   max-height: 170px;
-  overflow-y: auto;
+  overflow-y:auto;
   position: absolute;
-  z-index: 99;
+  z-index: 1000;
 }
-.max-width{
+table .table-responsive{
+  overflow-y: hidden !important;
+}
+.max-width{ 
   max-width: 13%;
 }
 .dropdown-ul-list li {
@@ -224,13 +231,15 @@ hr {
 
 @media screen and (max-width:1024px) {
   .input-width{
-    width: 60px ;
+    width: 70px !important;
+    font-size: 12px;
   }
   .modal-input{
-    width: 60px;
+    width: 70px !important;
+    font-size: 12px;
   }
-  .modal-size{
-    width:300px;
+  input::placeholder{
+    font-size: 11px;
   }
 }
 @media screen and (max-width:768px) {
@@ -239,10 +248,15 @@ hr {
       width: 20rem !important;
   }
   .input-width{
-    width: 50px ;
+    width: 50px !important;
+    font-size: 12px;
   }
   .modal-input{
-    width: 35px;
+    width: 35px !important;
+    font-size: 12px;
+  }
+  .modal-size{
+    width:600px;
   }
 }
 
