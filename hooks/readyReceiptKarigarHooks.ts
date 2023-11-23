@@ -375,8 +375,6 @@ const useReadyReceiptKarigar = () => {
       tableData?.length > 0 &&
       tableData !== null &&
       tableData?.map((row: any, i: any) => {
-        console.log(i, 'ij');
-        console.log(id, 'ij');
         if (row.idx === indexVal) {
           const numbersParsed = parseInt(numbers, 10);
           return {
@@ -394,7 +392,7 @@ const useReadyReceiptKarigar = () => {
         }
         return row;
       });
-    console.log(updatedMaterialWeight, 'updatedMaterialWeight');
+
     const updatedDataVal = updatedMaterialWeight.map((row: any, i: any) => {
       if (row.idx === indexVal) {
         return {
@@ -506,9 +504,7 @@ const useReadyReceiptKarigar = () => {
     const productVal = values.custom_karigar;
     console.log(isEmptyMaterial, 'finalVal');
     if (isEmptyProductCode || productVal === '') {
-      toast.error('add Item code Or Karigar');
-    } else if (isEmptyMaterial) {
-      toast.error('please Enter Material Name');
+      toast.error('Mandatory fields Item code Or Karigar');
     } else {
       const purchaseReceipt: any = await purchaseReceiptApi(
         loginAcessToken.token,
