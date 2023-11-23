@@ -16,13 +16,16 @@ const ReadyReceiptsTabs: any = ({
   // const value = pathcontent[pathcontent?.length - 1];
 
   const KundanValue =
-    pathcontent?.length > 0 &&
-    pathcontent !== null &&
-    pathcontent?.includes('kundan');
+    (pathcontent?.length > 0 &&
+      pathcontent !== null &&
+      pathcontent?.includes('kundan')) ||
+    pathcontent?.includes('Kundan');
   const mangalsutraValue =
     pathcontent?.length > 0 &&
     pathcontent !== null &&
-    pathcontent?.includes('mangalsutra');
+    (pathcontent?.includes('mangalsutra') ||
+      pathcontent?.includes('Mangalsutra'));
+
   const [active, setActive] = useState(0);
   return (
     <div className=" justify-content-center">

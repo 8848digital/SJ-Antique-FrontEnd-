@@ -226,6 +226,12 @@ hr {
   .input-width{
     width: 60px ;
   }
+  .modal-input{
+    width: 60px;
+  }
+  .modal-size{
+    width:300px;
+  }
 }
 @media screen and (max-width:768px) {
 

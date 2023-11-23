@@ -235,7 +235,7 @@ const useReadyReceiptKarigar = () => {
     //     (item: any) => materialListData?.includes(item.material_name)
     //   );
     // console.log(newVal, 'newVal');
-    console.log(disabledValue, 'disabledValue');
+    console.log(updatedModalData, 'updatedModalData');
     setMaterialWeight(updatedModalData);
     setStateForDocStatus(true);
   };
@@ -253,7 +253,7 @@ const useReadyReceiptKarigar = () => {
       custom_add_photo: '',
       table: [
         {
-          idx: materialWeight !== undefined ? materialWeight?.length : 1,
+          idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
           material_abbr: '',
           material: '',
           pcs: '',
@@ -388,7 +388,7 @@ const useReadyReceiptKarigar = () => {
             custom_gross_wt:
               parseInt(row.custom_net_wt, 10) +
               parseInt(row.custom_few_wt, 10) +
-              weightAddition,
+              Number(weightAddition),
             custom_total: numbersParsed,
           };
         }
@@ -450,6 +450,7 @@ const useReadyReceiptKarigar = () => {
     setShowModal(false);
     setActiveModalId(null);
   };
+
   const handleRecipietChange = (e: any) => {
     setRecipitData({ ...recipitData, [e.target.name]: e.target.value });
     setStateForDocStatus(true);
@@ -496,7 +497,6 @@ const useReadyReceiptKarigar = () => {
       items: modalValue,
     };
 
-    console.log(values, 'vals');
     const isEmptyProductCode = values?.items?.some(
       (obj: any) => obj.product_code === ''
     );
@@ -514,7 +514,7 @@ const useReadyReceiptKarigar = () => {
         loginAcessToken.token,
         values
       );
-      console.log(purchaseReceipt, 'purchase');
+
       if (
         purchaseReceipt.status === 200 &&
         purchaseReceipt?.data?.hasOwnProperty('message')
@@ -569,11 +569,15 @@ const useReadyReceiptKarigar = () => {
         }
         return row;
       });
-    console.log('update table data', updatedtableData);
+
+    const updatedMergedList = updatedtableData.map((obj: any) => ({
+      ...obj,
+      item_group: 'All Item Groups',
+    }));
 
     const values = {
       ...recipitData,
-      items: updatedtableData,
+      items: updatedMergedList,
     };
 
     let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
@@ -582,14 +586,24 @@ const useReadyReceiptKarigar = () => {
       query?.receiptId
     );
     console.log('updated purchase receipt api res', updateReceiptApi);
-    if (updateReceiptApi?.data?.message?.status === 'success') {
-      setStateForDocStatus(false);
-      const params: any = {
-        token: loginAcessToken?.token,
-        name: query?.receiptId,
-      };
-      dispatch(getSpecificReceipt(params));
+    if (Object?.keys(updateReceiptApi?.data)?.length > 0) {
+      if (Object?.keys(updateReceiptApi?.data?.message)?.length > 0) {
+        setStateForDocStatus(false);
+        const params: any = {
+          token: loginAcessToken?.token,
+          name: query?.receiptId,
+        };
+        dispatch(getSpecificReceipt(params));
+      }
     }
+    // if (updateReceiptApi?.data?.message?.status === 'success') {
+    //   setStateForDocStatus(false);
+    //   const params: any = {
+    //     token: loginAcessToken?.token,
+    //     name: query?.receiptId,
+    //   };
+    //   dispatch(getSpecificReceipt(params));
+    // }
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
