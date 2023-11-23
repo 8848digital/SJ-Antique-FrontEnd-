@@ -19,10 +19,10 @@ const Navbar = () => {
   };
 
   return (
-    <div >
+    <div>
       <div className="bg-light">
         <div className=" container-lg">
-          <nav className="navbar p-0 ">
+          <nav className="navbar p-0 pt-2">
             <div>
               {/* <button className="btn btn-primary mx-5 "
               onClick={()=>setShowButtons1(!showButtons1)}  
@@ -55,8 +55,8 @@ const Navbar = () => {
               </Dropdown.Menu>
             </Dropdown>
           </nav>
-          <hr />
         </div>
+        <hr className="mx-3" />
       </div>
       <ReceiptsHeader />
     </div>

@@ -47,7 +47,7 @@ const ModalMaster = ({
                   Material Abbr (Master)
                 </th>
                 <th className="thead" scope="col">
-                  Material (Master)<span className="text-danger">*</span>
+                  Material (Master)
                 </th>
                 <th className="thead" scope="col">
                   Pcs
@@ -81,7 +81,7 @@ const ModalMaster = ({
                     <tr key={i}>
                       <td className="table_row">{i + 1}</td>
                       <td className="table_row">
-                      <input
+                        <input
                           className={` ${styles.input_field}`}
                           type="text"
                           defaultValue={element.material_abbr}
