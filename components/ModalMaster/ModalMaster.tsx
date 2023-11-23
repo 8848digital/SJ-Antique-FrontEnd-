@@ -36,7 +36,7 @@ const ModalMaster = ({
             Add Row
           </button>
         </div>
-        <div className="container-lg table">
+        <div className="container-lg table ">
           <table className="table table-striped table-hover table-bordered">
             <thead>
               <tr>
@@ -105,6 +105,7 @@ const ModalMaster = ({
                             });
                           }}
                           readOnlyFields={readOnlyFields}
+                          style={'max-width'}
                         />
                       </td>
                       <td className="table_row">

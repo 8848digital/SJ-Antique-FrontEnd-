@@ -28,7 +28,7 @@ const PurchaseReceiptModal = ({
       {tableData?.length > 0 &&
         tableData !== null &&
         tableData.map((item: any, index: any) => (
-          <Modal size="xl" show={showModal} onHide={closeModal} key={index} className='modal-size'>
+          <Modal size="xl" show={showModal} onHide={closeModal} key={index} >
             <Modal.Header closeButton>
               <Modal.Title id="example-modal-sizes-title-lg">
                 Material

@@ -246,7 +246,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               </td> */}
                 <td className="table_row">
                   <input
-                    className={styles.input_field}
+                  className={`${styles.input_field} input-width`}
                     type="text"
                     // defaultValue={selectedFile ? selectedFile.name : ''}
                     placeholder="Choose file"
@@ -255,7 +255,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     onChange={(e) =>
                       handleFieldChange(
                         item.idx,
-                        'tableRow',
+                        'tableRow',   
                         'custom_add_photo',
                         `/files/${e.target.files?.[0]?.name}`,
                         e.target.files?.[0]
