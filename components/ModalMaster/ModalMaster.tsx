@@ -82,7 +82,7 @@ const ModalMaster = ({
                       <td className="table_row">{i + 1}</td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.input_field}`}
+                          className={` ${styles.input_field} modal-input`}
                           type="text"
                           defaultValue={element.material_abbr}
                           value={element.material_abbr}
@@ -109,7 +109,7 @@ const ModalMaster = ({
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.input_field}`}
+                          className={` ${styles.input_field} modal-input`}
                           type="number"
                           value={element.pcs}
                           onChange={(e) =>
@@ -125,7 +125,7 @@ const ModalMaster = ({
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.input_field}`}
+                          className={` ${styles.input_field} modal-input`}
                           type="number"
                           value={element.piece_}
                           onChange={(e) =>
@@ -141,7 +141,7 @@ const ModalMaster = ({
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.input_field}`}
+                          className={` ${styles.input_field} modal-input`}
                           type="number"
                           value={element.carat}
                           onChange={(e) =>
@@ -157,7 +157,7 @@ const ModalMaster = ({
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.input_field}`}
+                          className={` ${styles.input_field} modal-input`}
                           type="number"
                           value={element.carat_}
                           onChange={(e) =>
@@ -173,7 +173,7 @@ const ModalMaster = ({
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.input_field}`}
+                          className={` ${styles.input_field} modal-input`}
                           type="number"
                           value={element.weight}
                           onChange={(e) =>
@@ -189,7 +189,7 @@ const ModalMaster = ({
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.input_field}`}
+                          className={` ${styles.input_field} modal-input`}
                           type="number"
                           value={element.gm_}
                           onChange={(e) =>
@@ -205,7 +205,7 @@ const ModalMaster = ({
                       </td>
                       <td className="table_row">
                         <input
-                          className={`${styles.input_field}`}
+                          className={`${styles.input_field} modal-input`}
                           type="number"
                           readOnly
                           disabled
@@ -222,7 +222,7 @@ const ModalMaster = ({
                       </td>
                       <td className="table_row">
                         <button
-                          className="d-flex align-items-center delete-link p-1 border-0"
+                          className="d-flex align-items-center delete-link p-1 border-0 w-25 "
                           onClick={() => handleDeleteChildTableRow(i)}
                           onKeyDown={(e) =>
                             handleTabPressOnModal(e, element.idx)
@@ -230,7 +230,8 @@ const ModalMaster = ({
                         >
                           <FontAwesomeIcon
                             icon={faTrash}
-                            style={{ color: 'red', fontSize: 20 }}
+                            className='text-danger'
+                            // style={{ color: 'red', fontSize: 20 }}
                           />
                         </button>
                       </td>
