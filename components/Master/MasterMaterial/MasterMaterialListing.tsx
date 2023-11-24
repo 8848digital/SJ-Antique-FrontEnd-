@@ -61,8 +61,10 @@ const MasterMaterialListing = ({
           <tbody>
             {materialList?.length > 0 &&
               materialList !== null &&
-              materialList.map((item: any, i: any) => (
-                <tr key={i} className="">
+              materialList
+              .slice(0, tableViewData)
+              .map((item: any, i: any) => (
+                <tr key={i} >
                   <td
                     className="table-body-row cursor w-50"
                     onClick={() =>
