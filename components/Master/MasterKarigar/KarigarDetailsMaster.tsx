@@ -26,7 +26,7 @@ const KarigarDetailsMaster = () => {
             Karigar Name
             <span className="text-danger">*</span>
           </label>
-          <div className="input-group my-2 w-25">
+          <div className="input-group my-2 w-50">
             <input
               type="text"
               className="form-control py-1 ps-1"

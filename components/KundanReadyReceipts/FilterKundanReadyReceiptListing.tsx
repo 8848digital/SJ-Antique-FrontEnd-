@@ -67,7 +67,7 @@ const FilterKundanReadyReceiptListing = ({
             value={searchInputValues?.status}
             onChange={HandleSearchInput}
           >
-            <option className='max-width'>status</option>
+            <option>status</option>
             <option>Draft</option>
             <option>Submitted</option>
             <option>Cancel</option>

@@ -25,7 +25,7 @@ const MasterKarigarListing = ({ karigarData, HandleSearchInput,placeholder }: an
           name="name"
           id="name"
           aria-describedby="emailHelp"
-          className="form-control form-control-color w-25"
+          className="form-control form-control-color w-50"
           placeholder={placeholder}
           onChange={HandleSearchInput}
         />
