@@ -74,7 +74,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 <td className="table_row">{item.idx}</td>
                 <td className="table_row">
                   <input
-                    className={` ${styles.input_field} input-width`}
+                    className={` ${styles.input_field} `}
                     type="text"
                     defaultValue={item?.product_code}
                     value={item.product_code}
@@ -110,7 +110,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 </td>
                 <td className="table_row">
                   <input
-                    className={` ${styles.input_field} input-width`}
+                    className={` ${styles.input_field} `}
                     type="number"
                     value={item.custom_net_wt}
                     defaultValue={item?.custom_net_wt}
@@ -127,7 +127,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 </td>
                 <td className="table_row">
                   <input
-                    className={` ${styles.input_field} input-width`}
+                    className={` ${styles.input_field} `}
                     type="number"
                     value={item.custom_few_wt}
                     defaultValue={item.custom_few_wt}
@@ -144,7 +144,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 </td>
                 <td className="table_row">
                   <input
-                    className={` ${styles.input_field} input-width`}
+                    className={` ${styles.input_field} `}
                     type="number"
                     value={
                       Number(tableData[i]?.totalModalWeight) ||
@@ -165,7 +165,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 </td>
                 <td className="table_row">
                   <input
-                    className={` ${styles.input_field} input-width`}
+                    className={` ${styles.input_field} `}
                     type="number"
                     readOnly
                     disabled
@@ -184,7 +184,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
 
                 <td className="table_row">
                   <input
-                    className={` ${styles.input_field} input-width`}
+                    className={` ${styles.input_field} `}
                     type="number"
                     value={item.custom_other}
                     defaultValue={item.custom_other}
@@ -202,7 +202,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 <td className="table_row">
                   {' '}
                   <input
-                    className={` ${styles.input_field} input-width`}
+                    className={` ${styles.input_field} `}
                     type="text"
                     readOnly
                     disabled
@@ -246,7 +246,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               </td> */}
                 <td className="table_row">
                   <input
-                  className={`${styles.input_field} input-width`}
+                  className={`${styles.input_field} `}
                     type="text"
                     // defaultValue={selectedFile ? selectedFile.name : ''}
                     placeholder="Choose file"

@@ -234,7 +234,7 @@ const KundanListing = ({
                       className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
                       <div className="row justify-content-center gx-0">
-                        <div className="col-lg-3">
+                        <div className="col">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "
@@ -242,7 +242,7 @@ const KundanListing = ({
                             Edit
                           </Link>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col">
                           <a
                             onClick={() => HandleDeleteReceipt(item.name)}
                             className={`button-section-text text-danger ${styles.cursor_pointer}`}
@@ -250,7 +250,7 @@ const KundanListing = ({
                             Delete
                           </a>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "
@@ -268,7 +268,7 @@ const KundanListing = ({
                       className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
                       <div className="row justify-content-center gx-0">
-                        <div className="col-lg-3">
+                        <div className="col">
                           <a
                             onClick={() => HandlePrintApi(item.name)}
                             className={`button-section-text text-info ${styles.cursor_pointer}`}
@@ -276,7 +276,7 @@ const KundanListing = ({
                             print
                           </a>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col">
                           <a
                             // href="#"
                             onClick={() => HandleCancelReceipt(item.name)}
@@ -285,7 +285,7 @@ const KundanListing = ({
                             Cancel
                           </a>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "
@@ -303,7 +303,7 @@ const KundanListing = ({
                       className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
                       <div className="row justify-content-center gx-0">
-                        <div className="col-lg-3">
+                        <div className="col">
                           {item?.posting_date ===
                             new Date()?.toISOString()?.split('T')[0] && (
                             <>
@@ -317,7 +317,7 @@ const KundanListing = ({
                           )}
                         </div>
 
-                        <div className="col-lg-3">
+                        <div className="col">
                           <a
                             // href=""
                             onClick={() => HandleDeleteReceipt(item.name)}
@@ -326,7 +326,7 @@ const KundanListing = ({
                             Delete
                           </a>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "

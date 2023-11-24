@@ -58,7 +58,7 @@ const FilterKundanReadyReceiptListing = ({
           />
         </div>
 
-        <div className="col-md-2 my-lg-0 mb-lg-0 mb-3">
+        <div className="col-md-2 ">
           <select
             name="status"
             id="status"

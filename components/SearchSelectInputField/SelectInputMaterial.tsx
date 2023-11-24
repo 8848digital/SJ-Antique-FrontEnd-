@@ -155,7 +155,7 @@ const SelectInputMaterial = ({
       <input
         type="text"
         name="material"
-        className={` ${styles.table_select} input-width  `}
+        className={` ${styles.table_select} `}
         id="exampleInputEmail1"
         placeholder="Material Name"
         onChange={(e) => {

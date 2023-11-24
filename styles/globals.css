@@ -160,31 +160,39 @@ button.btn.btn-primary.mx-5.px-5{
   color: #FFF;
   border: none;
 }
-.dropdown-wrapper {
-  position: relative;
-  display: inline-block; 
-}
+/* .dropdown-wrapper {
+  position: relative; 
+  z-index: 1002;
+} */
 .dropdown-ul-list {
-  background-color: #ffffff;
-  border-radius: 2px 2px 2px 2px;
-  border: 1px solid #2f308c !important;
-  list-style: none;
+  position: absolute;
+  max-height: 170px;
+  height: 100vh;
+  z-index: 1003;
   width: 100%;
-  padding: 0px;
-  z-index: 1000;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 1px solid #2f308c !important;
+  border-radius: 2px;
+  list-style: none;
+  padding: 0;
   cursor: pointer;
 }
-.dropdown-ul-list {
+.responsive{
+  position: relative;
+  z-index: 1001;
+  overflow-x: auto;
+  overflow-y: auto;
+  height: 37vh;
+}
+/* .dropdown-ul-list {
   max-height: 170px;
   overflow-y:auto;
   position: absolute;
   z-index: 1000;
-}
-table .table-responsive{
-  overflow-y: hidden !important;
-}
+} */
 .max-width{ 
-  max-width: 13%;
+  max-width: 180px
 }
 .dropdown-ul-list li {
   padding: 2px 4px;
@@ -234,13 +242,6 @@ hr {
     width: 70px !important;
     font-size: 12px;
   }
-  .modal-input{
-    width: 70px !important;
-    font-size: 12px;
-  }
-  input::placeholder{
-    font-size: 11px;
-  }
 }
 @media screen and (max-width:768px) {
 
@@ -250,13 +251,6 @@ hr {
   .input-width{
     width: 50px !important;
     font-size: 12px;
-  }
-  .modal-input{
-    width: 35px !important;
-    font-size: 12px;
-  }
-  .modal-size{
-    width:600px;
   }
 }
 
@@ -300,4 +294,7 @@ hr {
 }
 .line-height{
   line-height: 20px !important;
+}
+.modal-input{
+  width: 70px;
 }
