@@ -29,8 +29,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
 
   const handleSelectedFileFun: any = () => {};
   return (
+    <div className='table responsive'>
+
     <table className="table table-hover table-bordered ">
       <thead>
+    
         <tr>
           <th className="thead" scope="col">
             Sr.no
@@ -298,6 +301,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
           ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

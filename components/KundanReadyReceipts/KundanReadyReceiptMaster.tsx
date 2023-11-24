@@ -160,7 +160,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   Add Row
                 </button>
               </div>
-              <div className="table responsive" >
+              <div >
                 <KundanKarigarReadyReceiptMasterTable
                   handleFieldChange={handleFieldChange}
                   tableData={tableData}
