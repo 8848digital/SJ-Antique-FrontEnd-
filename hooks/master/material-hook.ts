@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import React, { useEffect, useState, useRef } from 'react';
 import materialApi from "@/services/api/get-material-list-api";
 import { toast } from 'react-toastify';
-import postMaterialMasterApi from "@/services/api/post-material-master";
+import postMaterialMasterApi from "@/services/api/post-material-name";
 
 const useMaterialHook = () =>{
     const loginAcessToken = useSelector(get_access_token);

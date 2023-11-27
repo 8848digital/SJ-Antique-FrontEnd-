@@ -3,7 +3,7 @@ import kundanKarigarApi from '@/services/api/get-kundan-karigar-list-api';
 import materialApi from '@/services/api/get-material-list-api';
 import postKarigarApi from '@/services/api/post-karigar-name';
 import postKunKarigarApi from '@/services/api/post-kundan-karigar-name';
-import postMaterialMasterApi from '@/services/api/post-material-master';
+import postMaterialMasterApi from '@/services/api/post-material-name';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState, useRef } from 'react';
