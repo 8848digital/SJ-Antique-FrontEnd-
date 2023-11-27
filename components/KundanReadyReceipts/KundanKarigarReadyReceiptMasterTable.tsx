@@ -288,6 +288,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     className="d-flex align-items-center delete-link p-1 border-0"
                     onClick={() => handleDeleteRow(item.idx)}
                     onKeyDown={(e) => handleTabPress(e, item.idx)}
+                    disabled={readOnlyFields}
                   >
                     <FontAwesomeIcon
                       icon={faTrash}

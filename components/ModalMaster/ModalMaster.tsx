@@ -228,10 +228,11 @@ const ModalMaster = ({
                           onKeyDown={(e) =>
                             handleTabPressOnModal(e, element.idx)
                           }
+                          disabled={readOnlyFields}
                         >
                           <FontAwesomeIcon
                             icon={faTrash}
-                            className='text-danger'
+                            className="text-danger"
                             // style={{ color: 'red', fontSize: 20 }}
                           />
                         </button>

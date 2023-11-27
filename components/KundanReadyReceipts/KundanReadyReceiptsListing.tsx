@@ -203,7 +203,12 @@ const KundanListing = ({
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
                 >
-                  {item.name}
+                  <Link
+                    href={`${url}/${item.name}`}
+                    className="text-dark text-decoration-none"
+                  >
+                    {item.name}
+                  </Link>
                 </td>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
