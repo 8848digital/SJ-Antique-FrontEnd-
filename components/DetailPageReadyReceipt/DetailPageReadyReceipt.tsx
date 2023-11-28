@@ -69,6 +69,8 @@ const DetailPageReadyReceipt = () => {
     setRecipitData,
     setTableData,
   ]);
+  console.log(recipitData, 'receiptData');
+  console.log(tableData, 'defaultKarigarData');
 
   return (
     <div className="container">

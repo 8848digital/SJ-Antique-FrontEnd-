@@ -24,6 +24,7 @@ const GetSpecificPurchaseReceiptData = async (request: any) => {
     .catch((err: any) => {
       console.log(err);
     });
+  console.log(response, 'specific receipt res');
   return response;
 };
 

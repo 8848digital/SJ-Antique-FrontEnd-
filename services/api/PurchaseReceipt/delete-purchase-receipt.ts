@@ -19,6 +19,7 @@ const DeletePurchaseReceiptApi = async (token: any, name: any) => {
     .delete(`${CONSTANTS.API_BASE_URL}${params}`, config)
     .then((res: any) => {
       response = res.data;
+      console.log(response, 'deleteRes');
     })
     .catch((err: any) => {
       console.log(err);

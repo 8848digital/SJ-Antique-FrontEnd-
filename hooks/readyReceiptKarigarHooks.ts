@@ -344,7 +344,8 @@ const useReadyReceiptKarigar = () => {
     console.log(totalAmmount, 'bfggh');
     const weightAddition = materialWeight.reduce((accu: any, val: any) => {
       console.log(accu, 'accu23');
-      return accu + val.weight;
+      const total = parseInt(accu) + parseInt(val.weight);
+      return total;
     }, 0);
     const updatedMaterialVal = materialWeight.map((item: any) => {
       return {
