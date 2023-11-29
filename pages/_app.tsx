@@ -1,17 +1,24 @@
 import Layout from '@/components/Layout';
 import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
-import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
-import { Provider, useSelector } from 'react-redux';
-// import "../styles/globals.css";
-import { persistor, store } from '../store/store';
-import { PersistGate } from 'redux-persist/integration/react';
-import KundanReadyReceiptsListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import type { AppProps } from 'next/app';
+import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from '../store/store';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 config.autoAddCss = false;
+
+// const ErrorFallback = ({ error, resetErrorBoundary }: any) => (
+//   <div>
+//     <h1>Something went wrong!</h1>
+//     <pre>{error.message}</pre>
+//     <button onClick={resetErrorBoundary}>Try again</button>
+//   </div>
+// );
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -19,19 +26,21 @@ export default function App({ Component, pageProps }: AppProps) {
       {/* <Login /> */}
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Layout>
-            <ToastContainer
-              position="top-right"
-              autoClose={7000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              draggable={false}
-              // pauseOnVisibilityChange
-              closeOnClick
-              pauseOnHover
-            />
-            <Component {...pageProps} />
-          </Layout>
+          <ErrorBoundary>
+            <Layout>
+              <ToastContainer
+                position="top-right"
+                autoClose={7000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                draggable={false}
+                closeOnClick
+                pauseOnHover
+              />
+
+              <Component {...pageProps} />
+            </Layout>
+          </ErrorBoundary>
         </PersistGate>
       </Provider>
     </>

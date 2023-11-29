@@ -20,6 +20,7 @@ const DocStatusButtonChanges = ({
   const { query } = useRouter();
   const router = useRouter();
   console.log('queer', query);
+  console.log(query?.receiptId, 'query?.receiptId');
   const specificDataFromStore: any = useSelector(get_specific_receipt_data);
   console.log('SpecificDataFromStore in bu', specificDataFromStore);
 

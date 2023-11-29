@@ -76,7 +76,7 @@ const KundanListing = ({
           //   ? item?.date?.includes(searchInputValues.current_date)
           //   : true;
           console.log(searchKarigar, 'searchKarigar');
-          console.log(item.custom_karigar, 'item33');
+          console.log(item.name, 'item33');
           const karigarMatch = searchKarigar
             ? item?.custom_karigar
                 ?.toLowerCase()

@@ -10,7 +10,7 @@ const MasterKarigar: any = ({
   HandleSubmit,
   error,
   value,
-  placeholder
+  placeholder,
 }: any) => {
   const [searchField, setSearchField] = useState<any>('');
   const HandleSearchInput: any = (e: any) => {
@@ -26,67 +26,65 @@ const MasterKarigar: any = ({
     });
   console.log(karigarData, 'kun karigar master');
   return (
-    <div className='container-lg'>
-      <MasterListing 
-      value={value}/>
-    <div >
-      <div
-        className="nav nav-pills mb-2 justify-content-center "
-        id="pills-tab"
-        role="tablist"
-      >
-        <div className="nav-tabs tabs-container w-50 " role="presentation">
-          <button
-            className="nav-link active w-100 p-1 border"
-            id="pills-home-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-home"
-            type="button"
-            role="tab"
-            aria-controls="pills-home"
-            aria-selected="true"
-          >
-            Karigar List
-          </button>
-        </div>
-        <div className="nav-tabs tabs-container w-50" role="presentation">
-          <button
-            className="nav-link  w-100 p-1 border"
-            id="pills-profile-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-profile"
-            type="button"
-            role="tab"
-            aria-controls="pills-profile"
-            aria-selected="false"
-          >
-            Create New Karigar
-          </button>
-        </div>
-      </div>
-      <div className="tab-content" id="pills-tabContent">
+    <div className="container-lg">
+      <MasterListing value={value} />
+      <div>
         <div
-          className="tab-pane fade show active"
-          id="pills-home"
-          role="tabpanel"
-          aria-labelledby="pills-home-tab"
+          className="nav nav-pills mb-2 justify-content-center "
+          id="pills-tab"
+          role="tablist"
         >
-          <MasterKarigarListing
-            karigarData={filterList}
-            HandleSearchInput={HandleSearchInput}
-            placeholder={placeholder}
+          <div className="nav-tabs tabs-container w-50 " role="presentation">
+            <button
+              className="nav-link active w-100 p-1 border"
+              id="pills-home-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#pills-home"
+              type="button"
+              role="tab"
+              aria-controls="pills-home"
+              aria-selected="true"
+            >
+              Karigar List
+            </button>
+          </div>
+          <div className="nav-tabs tabs-container w-50" role="presentation">
+            <button
+              className="nav-link  w-100 p-1 border"
+              id="pills-profile-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#pills-profile"
+              type="button"
+              role="tab"
+              aria-controls="pills-profile"
+              aria-selected="false"
+            >
+              Create New Karigar
+            </button>
+          </div>
+        </div>
+        <div className="tab-content" id="pills-tabContent">
+          <div
+            className="tab-pane fade show active"
+            id="pills-home"
+            role="tabpanel"
+            aria-labelledby="pills-home-tab"
+          >
+            <MasterKarigarListing
+              karigarData={filterList}
+              HandleSearchInput={HandleSearchInput}
+              placeholder={placeholder}
+            />
+          </div>
+          <AddKarigar
+            inputValue={inputValue}
+            HandleInputValue={HandleInputValue}
+            error={error}
+            HandleSubmit={HandleSubmit}
           />
         </div>
-        <AddKarigar 
-        inputValue={inputValue}
-        HandleInputValue={HandleInputValue}
-        error={error}
-        HandleSubmit={HandleSubmit}
-        />
       </div>
-    </div>
     </div>
   );
 };
-
 export default MasterKarigar;
