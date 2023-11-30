@@ -20,7 +20,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   kunKarigarDropdownReset,
 }: any) => {
   console.log('table data receipt', tableData);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [other, setOther] = useState(0);
   const fileInputRef = useRef<any>(null);
   const handleButtonClick = () => {
     // Trigger the hidden file input when the visible text input is clicked
@@ -189,14 +189,15 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       type="number"
                       value={item.custom_other}
                       defaultValue={Number(item.custom_other)}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         handleFieldChange(
                           item.idx,
                           'tableRow',
                           'custom_other',
                           +e.target.value
-                        )
-                      }
+                        );
+                        setOther(+e.target.value);
+                      }}
                       readOnly={readOnlyFields}
                     />
                   </td>
@@ -204,8 +205,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     {' '}
                     <input
                       className={` ${styles.input_field} `}
-                      type="text"
-                      readOnly
+                      type="number"
+                      // readOnly
                       disabled
                       name={`sum-${i + 1}`}
                       // value={

@@ -570,26 +570,17 @@ const useReadyReceiptKarigar = () => {
         }
         return row;
       });
-    const updatedMergedList = updatedtableData.map((obj: any) => {
-      const { custom_purchase_receipt_item_breakup, ...rest } = obj;
-      return {
-        ...rest,
-        item_group: 'All Item Groups',
-      };
-    });
+    const updatedMergedList = updatedtableData.map((obj: any) => ({
+      ...obj,
+      custom_purchase_receipt_item_breakup: '',
+      item_group: 'All Item Groups',
+    }));
     console.log(updatedMergedList, 'updatedtableData');
-    const {
-      items: [{ custom_purchase_receipt_item_breakup, ...itemRest }],
-      ...newObjectRest
-    }: any = recipitData;
-    const newReceiptData: any = { ...newObjectRest, items: [itemRest] };
-    console.log(updatedMergedList, 'new receipt data');
     const values = {
-      ...newReceiptData,
+      ...recipitData,
       items: updatedMergedList,
     };
-    console.log(updatedMergedList, 'updatedMergedList');
-    console.log(recipitData, query?.receiptId, 'put before');
+    console.log(values, 'updatedMergedList values');
     let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
       loginAcessToken.token,
       values,
