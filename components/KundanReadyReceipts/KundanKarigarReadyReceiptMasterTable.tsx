@@ -188,13 +188,13 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       className={` ${styles.input_field} `}
                       type="number"
                       value={item.custom_other}
-                      defaultValue={item.custom_other}
+                      defaultValue={Number(item.custom_other)}
                       onChange={(e) =>
                         handleFieldChange(
                           item.idx,
                           'tableRow',
                           'custom_other',
-                          e.target.value
+                          +e.target.value
                         )
                       }
                       readOnly={readOnlyFields}
