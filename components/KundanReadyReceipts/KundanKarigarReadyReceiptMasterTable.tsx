@@ -18,6 +18,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   selectedKundanKarigarDropdownValue,
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
+  calculateEditTotal,
 }: any) => {
   console.log('table data receipt', tableData);
   const [other, setOther] = useState(0);
@@ -206,15 +207,16 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
-                      // readOnly
+                      readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      // value={
-                      //   tableData[i]?.totalAmount > 0
-                      //     ? tableData[i].custom_other + tableData[i]?.totalAmount
-                      //     : tableData[i].custom_other === undefined && tableData[i].custom_other === ''
-                      // }
+                      defaultValue={tableData[i]}
+                      // value={calculateEditTotal(i)}
                       value={
+                        // tableData[i]?.totalAmount === undefined ||
+                        // tableData[i]?.totalAmount === 0
+                        //   ? Number(tableData[i].custom_total)
+                        // Number(tableData[i].custom_other)
                         Number(tableData[i]?.totalAmount) > 0
                           ? Number(tableData[i].custom_other) +
                             Number(tableData[i]?.totalAmount)

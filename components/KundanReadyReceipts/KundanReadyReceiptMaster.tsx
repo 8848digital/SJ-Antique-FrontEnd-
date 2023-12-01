@@ -53,6 +53,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     setSelectedKundanKarigarDropdownValue,
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
+    calculateEditTotal,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -160,7 +161,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   Add Row
                 </button>
               </div>
-              <div >
+              <div>
                 <KundanKarigarReadyReceiptMasterTable
                   handleFieldChange={handleFieldChange}
                   tableData={tableData}
@@ -183,6 +184,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   setReadOnlyFields={setReadOnlyFields}
                   materialWeight={materialWeight}
                   kunKarigarDropdownReset={kunKarigarDropdownReset}
+                  calculateEditTotal={calculateEditTotal}
                 />
               </div>
             </div>

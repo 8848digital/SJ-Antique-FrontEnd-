@@ -148,6 +148,24 @@ const useReadyReceiptKarigar = () => {
       materialWeight[i]?.weight * materialWeight[i]?.gm_
     );
   };
+  const [editTotal, setEditTotal] = useState(0);
+  console.log(materialWeight, 'edit material wt');
+  console.log(tableData, 'table data edit wt');
+  const calculateEditTotal = (i: any) => {
+    if (
+      tableData[i].totalAmmount === 0 ||
+      tableData[i].totalAmmount === undefined
+    ) {
+      setEditTotal(tableData[i].custom_total + tableData[i].custom_other);
+    } else if (tableData[i].totalAmmount > 0) {
+      setEditTotal(
+        tableData[i].totalAmmount + Number(tableData[i].custom_other)
+      );
+    } else {
+      setEditTotal(tableData[i].custom_other);
+    }
+    return editTotal;
+  };
 
   // const handleFieldChange: any = (
   //   id: number,
@@ -542,7 +560,7 @@ const useReadyReceiptKarigar = () => {
     setSelectedKundanKarigarDropdownValue('');
     setKunKarigarDropdownReset(true);
   };
-
+  console.log(tableData, 'tabledata update');
   const handleUpdateReceipt: any = async () => {
     console.log('update receipt', tableData);
     const updatedtableData =
@@ -743,6 +761,7 @@ const useReadyReceiptKarigar = () => {
     setSelectedKundanKarigarDropdownValue,
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
+    calculateEditTotal,
   };
 };
 

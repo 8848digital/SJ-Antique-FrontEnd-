@@ -49,6 +49,7 @@ const DetailPageReadyReceipt = () => {
     HandleAmendButtonForDuplicateChitti,
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
+    calculateEditTotal,
   } = useReadyReceiptKarigar();
   console.log('default dataa', defaultKarigarData);
   console.log('readyonly condn', readOnlyFields);
@@ -136,6 +137,7 @@ const DetailPageReadyReceipt = () => {
             setStateForDocStatus={setStateForDocStatus}
             readOnlyFields={readOnlyFields}
             setReadOnlyFields={setReadOnlyFields}
+            calculateEditTotal={calculateEditTotal}
           />
         </div>
         <PurchaseReceiptModal

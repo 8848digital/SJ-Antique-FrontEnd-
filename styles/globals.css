@@ -183,7 +183,7 @@ button.btn.btn-primary.mx-5.px-5{
   z-index: 1001;
   overflow-x: auto;
   overflow-y: auto;
-  height: 37vh;
+  height: 30vh;
 }
 /* .dropdown-ul-list {
   max-height: 170px;
@@ -278,6 +278,7 @@ hr {
 }
 .activeColor{
   background-color: #6164ef;
+  border: #6164ef;
   color: #FFF;
   border: none;
   cursor: not-allowed !important;
