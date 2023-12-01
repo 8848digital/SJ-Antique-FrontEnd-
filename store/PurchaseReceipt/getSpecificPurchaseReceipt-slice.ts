@@ -43,7 +43,7 @@ export const GetSpecificReceiptDataScreen = createSlice({
         action?.payload?.data?.message?.status === 'success'
       ) {
         state.data = action?.payload?.data?.message?.data;
-        state.docStatus = action?.payload?.data?.message?.data[0].docstatus;
+        state.docStatus = action?.payload?.data?.message?.data[0]?.docstatus;
       } else {
         state.data = '';
         state.docStatus = '';
