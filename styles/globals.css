@@ -114,7 +114,8 @@ a {
   color: #FFF !important;
   line-height: 12px;
   font-weight: 400;
-  font-size: 15px;
+  /* font-size: 1.9vmax; */
+  /* font-size: 15px; */
   padding: 4px !important;
   text-align: center;
   max-width: max-content !important;
@@ -261,6 +262,7 @@ hr {
     width: 70px !important;
     font-size: 12px;
   }
+  
 }
 @media screen and (max-width:768px) {
 
@@ -273,7 +275,7 @@ hr {
   }
 }
 
-@media screen and (max-width:368px) {
+@media screen and (max-width:375px) {
 
   .login-card {
       width: 15rem !important;
