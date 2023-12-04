@@ -10,7 +10,7 @@ const SelectInputMaterial = ({
   setSelectedMaterial,
   selectedMaterial,
   readOnlyFields,
-  style
+  style,
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -57,27 +57,31 @@ const SelectInputMaterial = ({
     }
   };
   const handleKeyDown = (e: any) => {
-    if (e.key === 'ArrowDown' && !showDropdown) {
-      e.preventDefault();
-      setShowDropdown(true);
-      setSelectedIndex(-1);
-      setFilterDropdownList(materialListData);
-    } else if (e.key === 'ArrowDown' && showDropdown) {
-      setSelectedIndex((prevIndex: any) =>
-        prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
-      );
-    } else if (e.key === 'ArrowUp' && showDropdown) {
-      e.preventDefault();
-      setSelectedIndex((prevIndex: any) => (prevIndex > 0 ? prevIndex - 1 : 0));
-    } else if (
-      (e.key === 'Enter' || e.keyCode === 13) &&
-      showDropdown &&
-      selectedIndex !== -1
-    ) {
-      e.preventDefault();
-      console.log(filterDropdownList[selectedIndex], 'filter selected index');
+    if (!readOnlyFields) {
+      if (e.key === 'ArrowDown' && !showDropdown) {
+        e.preventDefault();
+        setShowDropdown(true);
+        setSelectedIndex(-1);
+        setFilterDropdownList(materialListData);
+      } else if (e.key === 'ArrowDown' && showDropdown) {
+        setSelectedIndex((prevIndex: any) =>
+          prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
+        );
+      } else if (e.key === 'ArrowUp' && showDropdown) {
+        e.preventDefault();
+        setSelectedIndex((prevIndex: any) =>
+          prevIndex > 0 ? prevIndex - 1 : 0
+        );
+      } else if (
+        (e.key === 'Enter' || e.keyCode === 13) &&
+        showDropdown &&
+        selectedIndex !== -1
+      ) {
+        e.preventDefault();
+        console.log(filterDropdownList[selectedIndex], 'filter selected index');
 
-      HandleMaterialAbbr(filterDropdownList[selectedIndex]);
+        HandleMaterialAbbr(filterDropdownList[selectedIndex]);
+      }
     }
   };
   const HandleAbbrKey = (e: any) => {
@@ -151,7 +155,7 @@ const SelectInputMaterial = ({
   }, [selectedIndex, showDropdown]);
 
   return (
-    <div className='dropdown-wrapper'>
+    <div className="dropdown-wrapper">
       <input
         type="text"
         name="material"

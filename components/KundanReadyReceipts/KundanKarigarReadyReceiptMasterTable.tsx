@@ -190,15 +190,14 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       type="number"
                       value={item.custom_other}
                       defaultValue={Number(item.custom_other)}
-                      onChange={(e) => {
+                      onChange={(e) =>
                         handleFieldChange(
                           item.idx,
                           'tableRow',
                           'custom_other',
-                          +e.target.value
-                        );
-                        setOther(+e.target.value);
-                      }}
+                          e.target.value
+                        )
+                      }
                       readOnly={readOnlyFields}
                     />
                   </td>
@@ -210,13 +209,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      defaultValue={tableData[i]}
-                      // value={calculateEditTotal(i)}
+                      defaultValue={tableData[i]?.custom_total}
                       value={
                         // tableData[i]?.totalAmount === undefined ||
                         // tableData[i]?.totalAmount === 0
-                        //   ? Number(tableData[i].custom_total)
-                        // Number(tableData[i].custom_other)
+                        //   ? Number(tableData[i]?.custom_total)
                         Number(tableData[i]?.totalAmount) > 0
                           ? Number(tableData[i].custom_other) +
                             Number(tableData[i]?.totalAmount)

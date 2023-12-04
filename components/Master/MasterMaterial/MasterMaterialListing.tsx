@@ -38,7 +38,7 @@ const MasterMaterialListing = ({
           id="input2"
           aria-describedby="emailHelp"
           className="form-control w-25 mx-2"
-          placeholder="Material abbreviation"
+          placeholder="Material Abbr"
           onChange={handleInputChange2}
         />
       </div>
@@ -55,16 +55,14 @@ const MasterMaterialListing = ({
           <thead>
             <tr className="table_row">
               <th className="thead text-start w-50">Material Name</th>
-              <th className="thead text-start">Material Abbrevation</th>
+              <th className="thead text-start">Material Abbr</th>
             </tr>
           </thead>
           <tbody>
             {materialList?.length > 0 &&
               materialList !== null &&
-              materialList
-              .slice(0, tableViewData)
-              .map((item: any, i: any) => (
-                <tr key={i} >
+              materialList.slice(0, tableViewData).map((item: any, i: any) => (
+                <tr key={i}>
                   <td
                     className="table-body-row cursor w-50"
                     onClick={() =>

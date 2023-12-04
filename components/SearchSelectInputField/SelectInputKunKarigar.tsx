@@ -63,29 +63,33 @@ const SelectInputKunKarigar = ({
   };
 
   const handleKeyDown = (e: any) => {
-    if (e.key === 'ArrowDown' && !showDropdown) {
-      e.preventDefault();
-      setShowDropdown(true);
-      setSelectedIndex(-1);
-      setFilterDropdownList(kundanKarigarData);
-    } else if (e.key === 'ArrowDown' && showDropdown) {
-      setSelectedIndex((prevIndex: any) =>
-        prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
-      );
-      setScrollIndex((prevScrollIndex) =>
-        Math.min(prevScrollIndex + 1, filterDropdownList?.length - 1)
-      );
-    } else if (e.key === 'ArrowUp' && showDropdown) {
-      e.preventDefault();
-      setSelectedIndex((prevIndex: any) => (prevIndex > 0 ? prevIndex - 1 : 0));
-      setScrollIndex((prevScrollIndex) => Math.max(prevScrollIndex - 1, 0));
-    } else if (
-      (e.key === 'Enter' || e.keyCode === 13) &&
-      showDropdown &&
-      selectedIndex !== -1
-    ) {
-      e.preventDefault();
-      handleSelectedOption(filterDropdownList[selectedIndex], selectedIndex);
+    if (!readOnlyFields) {
+      if (e.key === 'ArrowDown' && !showDropdown) {
+        e.preventDefault();
+        setShowDropdown(true);
+        setSelectedIndex(-1);
+        setFilterDropdownList(kundanKarigarData);
+      } else if (e.key === 'ArrowDown' && showDropdown) {
+        setSelectedIndex((prevIndex: any) =>
+          prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
+        );
+        setScrollIndex((prevScrollIndex) =>
+          Math.min(prevScrollIndex + 1, filterDropdownList?.length - 1)
+        );
+      } else if (e.key === 'ArrowUp' && showDropdown) {
+        e.preventDefault();
+        setSelectedIndex((prevIndex: any) =>
+          prevIndex > 0 ? prevIndex - 1 : 0
+        );
+        setScrollIndex((prevScrollIndex) => Math.max(prevScrollIndex - 1, 0));
+      } else if (
+        (e.key === 'Enter' || e.keyCode === 13) &&
+        showDropdown &&
+        selectedIndex !== -1
+      ) {
+        e.preventDefault();
+        handleSelectedOption(filterDropdownList[selectedIndex], selectedIndex);
+      }
     }
   };
 
@@ -114,9 +118,7 @@ const SelectInputKunKarigar = ({
         name="custom_karigar"
         className={` ${styles.table_select}`}
         placeholder={`${
-          placeholderValue !== undefined
-            ? placeholderValue
-            : 'Kundan Karigar Name'
+          placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
         }`}
         onChange={(e) => {
           if (!readOnlyFields) {

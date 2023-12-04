@@ -1,12 +1,12 @@
-import { useRouter } from 'next/router'
-import React from 'react'
+import { useRouter } from 'next/router';
+import React from 'react';
 
 const MaterialDetailsMaster = () => {
-    const router = useRouter()
-    const pathContent = router.query
-    console.log(pathContent, 'details pathcon')
-    const value1= pathContent.name
-    const value2= pathContent.abbr
+  const router = useRouter();
+  const pathContent = router.query;
+  console.log(pathContent, 'details pathcon');
+  const value1 = pathContent.name;
+  const value2 = pathContent.abbr;
 
   return (
     <div className="container mt-5">
@@ -41,7 +41,7 @@ const MaterialDetailsMaster = () => {
             </div>
             <div className="col-lg-6">
               <label htmlFor="basic-url " className="fs-6 mt-3 text-center">
-                Material abbreviation
+                Material Abbr
                 <span className="text-danger">*</span>
               </label>
               <div className="input-group w-50 master-input-field my-3 mt-2">
@@ -58,7 +58,7 @@ const MaterialDetailsMaster = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MaterialDetailsMaster
+export default MaterialDetailsMaster;

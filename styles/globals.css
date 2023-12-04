@@ -183,7 +183,7 @@ button.btn.btn-primary.mx-5.px-5{
   z-index: 1001;
   overflow-x: auto;
   overflow-y: auto;
-  height: 30vh;
+  min-height: 25vh;
 }
 /* .dropdown-ul-list {
   max-height: 170px;
