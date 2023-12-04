@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
-import React from 'react'
+import React from 'react';
 
 const KarigarDetailsMaster = () => {
-  const router = useRouter()
-    console.log(Object.keys(router.query), 'query11')
-    const pathContent = Object.keys(router.query)
-    const value= pathContent[0]
-    
+  const router = useRouter();
+  console.log(Object.keys(router.query), 'query11');
+  const pathContent = Object.keys(router.query);
+  const value = pathContent[0];
+
   return (
     <div className="container mt-5">
       <div className="card mt-2">
@@ -26,7 +26,7 @@ const KarigarDetailsMaster = () => {
             Karigar Name
             <span className="text-danger">*</span>
           </label>
-          <div className="input-group my-2 w-50">
+          <div className="input-group my-2 w-25">
             <input
               type="text"
               className="form-control py-1 ps-1"

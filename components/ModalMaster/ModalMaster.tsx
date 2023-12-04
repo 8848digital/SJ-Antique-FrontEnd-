@@ -36,7 +36,7 @@ const ModalMaster = ({
             Add Row
           </button>
         </div>
-        <div className="container-lg table responsive">
+        <div className="container-lg table modal-responsive">
           <table className="table table-striped table-hover table-bordered">
             <thead>
               <tr>

@@ -164,7 +164,7 @@ const SelectInputKunKarigar = ({
         readOnly={readOnlyFields}
       />
       {showDropdown && (
-        <ul className=" dropdown-ul-list border" ref={dropdownRef}>
+        <ul className=" dropdown-ul-list border-1" ref={dropdownRef}>
           {noRecords === false && filterDropdownList?.length === 0 ? (
             <>
               {kundanKarigarData?.length > 0 &&

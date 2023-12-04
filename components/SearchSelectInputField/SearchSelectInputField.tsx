@@ -146,7 +146,7 @@ const SearchSelectInputField = ({
         ref={inputRef}
       />
       {showDropdown && (
-        <ul className={`dropdown-ul-list border ${style}`} ref={dropdownRef}>
+        <ul className={`dropdown-ul-list  ${style}`} ref={dropdownRef}>
           {noRecords === false && filterDropdownList?.length === 0 ? (
             <>
               {karigarData?.length > 0 &&
