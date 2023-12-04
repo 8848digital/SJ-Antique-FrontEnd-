@@ -10,18 +10,18 @@ const ReceiptsHeader = () => {
   const [showSales, setShowSales] = useState<any>(false);
   const [showMaster, setShowMaster] = useState<any>(false);
 
-  const router = useRouter()
-  console.log(router, 'header router')
-  const pathcontent = router?.asPath?.split('/')
-  console.log(pathcontent, 'pathcontent header')
-  const value = pathcontent[1]
-  console.log(value, 'value header')
+  const router = useRouter();
+  console.log(router, 'header router');
+  const pathcontent = router?.asPath?.split('/');
+  console.log(pathcontent, 'pathcontent header');
+  const value = pathcontent[1];
+  console.log(value, 'value header');
   useEffect(() => {
-    if (value === 'readyReceipt'){
-      setShowReceipts(true)
+    if (value === 'readyReceipt') {
+      setShowReceipts(true);
     }
-    if (value === 'master'){
-      setShowMaster(true)
+    if (value === 'master') {
+      setShowMaster(true);
     }
   }, []);
 
@@ -50,12 +50,12 @@ const ReceiptsHeader = () => {
   };
 
   return (
-    <div >
+    <div>
       <div className={styles.button_container}>
         <Link className="text-decoration-none btn-margin" href="/master">
           <button
             className={`${styles.button} ${showMaster ? 'activeColor' : ''}`}
-            onClick={() => handleReadyRecipt('Master')} 
+            onClick={() => handleReadyRecipt('Master')}
           >
             <i
               className="fa-regular fa-file icons-color mr-2"
@@ -71,7 +71,6 @@ const ReceiptsHeader = () => {
           <button
             onClick={() => handleReadyRecipt('Receipts')}
             className={`${styles.button} ${showReceipt ? 'activeColor' : ''} `}
-            
           >
             <i
               className="fa-regular fa-file icons-color mr-2"
@@ -94,9 +93,9 @@ const ReceiptsHeader = () => {
         </Link>
       </div>
       <ReadyReceiptsTabs
-      showReceipt={showReceipt}
-      showSales={showSales}
-      showMaster={showMaster}
+        showReceipt={showReceipt}
+        showSales={showSales}
+        showMaster={showMaster}
       />
     </div>
   );
