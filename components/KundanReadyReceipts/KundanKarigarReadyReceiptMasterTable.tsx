@@ -216,9 +216,10 @@ const KundanKarigarReadyReceiptMasterTable = ({
                           : tableData[i]?.custom_total !== undefined &&
                             tableData[i]?.custom_total !== ''
                             ? Number(tableData[i]?.custom_other) === 0 ? Number(tableData[i]?.custom_total) :
-                              Number(tableData[i]?.custom_other) + Number(tableData[i]?.custom_total)
+                              Number(tableData[i]?.custom_total)
                             : Number(tableData[i]?.custom_other) + Number(tableData[i]?.custom_total)
                       }
+
                     />
                   </td>
                   {/* <td className="table_row ">
