@@ -28,7 +28,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
     fileInputRef?.current?.click();
   };
 
-  const handleSelectedFileFun: any = () => {};
+  const handleSelectedFileFun: any = () => { };
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -175,11 +175,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         tableData[i]?.totalModalWeight > 0
                           ? Number(tableData[i].custom_net_wt) +
-                            Number(tableData[i].custom_few_wt) +
-                            Number(tableData[i]?.totalModalWeight)
+                          Number(tableData[i].custom_few_wt) +
+                          Number(tableData[i]?.totalModalWeight)
                           : Number(tableData[i].custom_net_wt) +
-                            Number(tableData[i].custom_few_wt) +
-                            Number(tableData[i]?.custom_mat_wt)
+                          Number(tableData[i].custom_few_wt) +
+                          Number(tableData[i]?.custom_mat_wt)
                       }
                     />
                   </td>
@@ -211,16 +211,13 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       name={`sum-${i + 1}`}
                       defaultValue={tableData[i]?.custom_total}
                       value={
-                        // tableData[i]?.totalAmount === undefined ||
-                        // tableData[i]?.totalAmount === 0
-                        //   ? Number(tableData[i]?.custom_total)
                         Number(tableData[i]?.totalAmount) > 0
-                          ? Number(tableData[i].custom_other) +
-                            Number(tableData[i]?.totalAmount)
-                          : item.custom_total !== undefined &&
-                            item.custom_total !== ''
-                          ? Number(item.custom_total)
-                          : Number(tableData[i].custom_other)
+                          ? Number(tableData[i]?.custom_other) + Number(tableData[i]?.totalAmount)
+                          : tableData[i]?.custom_total !== undefined &&
+                            tableData[i]?.custom_total !== ''
+                            ? Number(tableData[i]?.custom_other) === 0 ? Number(tableData[i]?.custom_total) :
+                              Number(tableData[i]?.custom_other) + Number(tableData[i]?.custom_total)
+                            : Number(tableData[i]?.custom_other) + Number(tableData[i]?.custom_total)
                       }
                     />
                   </td>
