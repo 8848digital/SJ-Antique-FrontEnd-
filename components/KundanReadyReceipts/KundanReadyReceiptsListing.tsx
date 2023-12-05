@@ -192,7 +192,7 @@ const KundanListing = ({
             <th className="thead" scope="col">
               Status
             </th>
-            <th className="thead" scope="col"></th>
+            <th className="thead w-25" scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -238,7 +238,7 @@ const KundanListing = ({
                     <td
                       className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="row justify-content-center gx-0 px-3 mx-3">
+                      <div className="row justify-content-center gx-0 px-3 mx-5 ">
                         <div className="col">
                           <Link
                             href={`${url}/${item.name}`}

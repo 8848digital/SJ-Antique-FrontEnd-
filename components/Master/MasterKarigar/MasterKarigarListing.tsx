@@ -41,7 +41,7 @@ const MasterKarigarListing = ({
             : karigarData?.length}
         </div>
       )}
-      <div className="table-responsive  pt-1">
+      <div className="table-responsive  mt-3">
         <table className="table table-hover table-striped w-100 table-bordered ">
           <thead>
             <tr className="table_row">

@@ -15,6 +15,7 @@ import UseCustomReceiptHook from './custom-receipt-hook';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
 import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import AmendPurchaseReceiptApi from '@/services/api/PurchaseReceipt/Amend-purchase-receipt-api';
+import { table } from 'console';
 
 const useReadyReceiptKarigar = () => {
   const { query } = useRouter();
@@ -152,21 +153,25 @@ const useReadyReceiptKarigar = () => {
   console.log(materialWeight, 'edit material wt');
   console.log(tableData, 'table data edit wt');
   const calculateEditTotal = (i: any) => {
-    if (
-      tableData[i].totalAmmount === 0 ||
-      tableData[i].totalAmmount === undefined
+    // if (i + 1 === tableData[i]?.idx) {
+    if (tableData[i]?.totalAmmount > 0) {
+      return tableData[i]?.totalAmmount + Number(tableData[i].custom_other);
+    } else if (
+      tableData[i]?.totalAmmount === undefined ||
+      tableData[i]?.totalAmmount === 0
     ) {
-      setEditTotal(tableData[i].custom_total + tableData[i].custom_other);
-    } else if (tableData[i].totalAmmount > 0) {
       setEditTotal(
-        tableData[i].totalAmmount + Number(tableData[i].custom_other)
+        Number(tableData[i]?.custom_total) - Number(tableData[i]?.custom_other)
       );
+      return Number(tableData[i].custom_other) + editTotal;
     } else {
-      setEditTotal(tableData[i].custom_other);
+      setEditTotal(0);
+      return tableData[i].custom_total;
     }
-    return editTotal;
-  };
 
+    // }
+  };
+  console.log(editTotal, 'editTotal');
   // const handleFieldChange: any = (
   //   id: number,
   //   val: any,

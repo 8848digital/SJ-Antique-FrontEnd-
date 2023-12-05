@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../../styles/readyReceipts.module.css';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRef, useState } from 'react';
+import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
@@ -28,7 +28,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
     fileInputRef?.current?.click();
   };
 
-  const handleSelectedFileFun: any = () => { };
+  const handleSelectedFileFun: any = () => {};
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -175,11 +175,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         tableData[i]?.totalModalWeight > 0
                           ? Number(tableData[i].custom_net_wt) +
-                          Number(tableData[i].custom_few_wt) +
-                          Number(tableData[i]?.totalModalWeight)
+                            Number(tableData[i].custom_few_wt) +
+                            Number(tableData[i]?.totalModalWeight)
                           : Number(tableData[i].custom_net_wt) +
-                          Number(tableData[i].custom_few_wt) +
-                          Number(tableData[i]?.custom_mat_wt)
+                            Number(tableData[i].custom_few_wt) +
+                            Number(tableData[i]?.custom_mat_wt)
                       }
                     />
                   </td>
@@ -188,7 +188,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
-                      value={item.custom_other}
+                      value={Number(item.custom_other)}
                       defaultValue={Number(item.custom_other)}
                       onChange={(e) =>
                         handleFieldChange(
@@ -209,15 +209,31 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      defaultValue={tableData[i]?.custom_total}
+                      // value={calculateEditTotal(i)}
+                      // defaultValue={tableData[i]?.custom_total}
+
+                      // value={
+                      //   (tableData[i]?.totalAmount > 0
+                      //     ? Number(tableData[i]?.custom_other) +
+                      //       Number(tableData[i]?.totalAmount)
+                      //     : Number(tableData[i]?.custom_other)) &&
+                      //   (tableData[i].totalAmount === undefined
+                      //     ? Number(tableData[i].custom_other)
+                      //     : '')
+                      // }
+
                       value={
-                        Number(tableData[i]?.totalAmount) > 0
-                          ? Number(tableData[i]?.custom_other) + Number(tableData[i]?.totalAmount)
-                          : tableData[i]?.custom_total !== undefined &&
-                            tableData[i]?.custom_total !== ''
-                            ? Number(tableData[i]?.custom_other) === 0 ? Number(tableData[i]?.custom_total) :
-                              Number(tableData[i]?.custom_other) + Number(tableData[i]?.custom_total)
-                            : Number(tableData[i]?.custom_other) + Number(tableData[i]?.custom_total)
+                        Number(tableData[i]?.totalAmount) >= 0
+                          ? Number(tableData[i]?.custom_other) +
+                            Number(tableData[i]?.totalAmount)
+                          : Number(tableData[i].totalAmount === 0) ||
+                            (Number(tableData[i].totalAmount === undefined) &&
+                              tableData[i]?.custom_total !== undefined &&
+                              tableData[i]?.custom_total !== '' &&
+                              Number(tableData[i]?.custom_other) === 0)
+                          ? Number(tableData[i]?.custom_total)
+                          : Number(tableData[i]?.custom_other) +
+                            Number(tableData[i]?.custom_total)
                       }
                     />
                   </td>
