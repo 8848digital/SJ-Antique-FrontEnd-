@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import styles from '../../styles/header.module.css';
 import Link from 'next/link';
-import SalesHeader from './SalesHeader';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import styles from '../../styles/header.module.css';
 import ReadyReceiptsTabs from '../KundanReadyReceipts/ReadyReceiptsTabs';
 const ReceiptsHeader = () => {
   const [showReceipt, setShowReceipts] = useState<any>(false);
