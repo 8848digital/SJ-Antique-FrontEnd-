@@ -19,9 +19,20 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
   calculateEditTotal,
+  totalWt,
 }: any) => {
   console.log('table data receipt', tableData);
   const [other, setOther] = useState(0);
+  const handleOther = (item: any, i: any) => {
+    setOther(0);
+    item[i]?.custom_total !== undefined &&
+    item[i]?.custom_total !== '' &&
+    item[i]?.totalAmount === undefined
+      ? setOther(Number(item[i]?.custom_total) - Number(item[i]?.custom_other))
+      : setOther(0);
+  };
+  console.log(other, 'other11');
+  console.log(totalWt, '1234');
   const fileInputRef = useRef<any>(null);
   const handleButtonClick = () => {
     // Trigger the hidden file input when the visible text input is clicked
@@ -190,14 +201,18 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       type="number"
                       value={Number(item.custom_other)}
                       defaultValue={Number(item.custom_other)}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         handleFieldChange(
                           item.idx,
                           'tableRow',
                           'custom_other',
                           e.target.value
-                        )
-                      }
+                        );
+                        handleOther(item, i);
+                      }}
+                      onInput={() => {
+                        calculateEditTotal(i, tableData);
+                      }}
                       readOnly={readOnlyFields}
                     />
                   </td>
@@ -209,32 +224,57 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      // value={calculateEditTotal(i)}
-                      // defaultValue={tableData[i]?.custom_total}
-
-                      // value={
-                      //   (tableData[i]?.totalAmount > 0
-                      //     ? Number(tableData[i]?.custom_other) +
-                      //       Number(tableData[i]?.totalAmount)
-                      //     : Number(tableData[i]?.custom_other)) &&
-                      //   (tableData[i].totalAmount === undefined
-                      //     ? Number(tableData[i].custom_other)
-                      //     : '')
-                      // }
-
+                      // value={calculateEditTotal(i, tableData)}
+                      defaultValue={tableData[i]?.custom_total}
                       value={
-                        Number(tableData[i]?.totalAmount) >= 0
+                        tableData[i].totalAmount >= 0
                           ? Number(tableData[i]?.custom_other) +
                             Number(tableData[i]?.totalAmount)
-                          : Number(tableData[i].totalAmount === 0) ||
-                            (Number(tableData[i].totalAmount === undefined) &&
-                              tableData[i]?.custom_total !== undefined &&
-                              tableData[i]?.custom_total !== '' &&
-                              Number(tableData[i]?.custom_other) === 0)
-                          ? Number(tableData[i]?.custom_total)
-                          : Number(tableData[i]?.custom_other) +
-                            Number(tableData[i]?.custom_total)
+                          : tableData[i]?.totalAmount === undefined
+                          ? Number(tableData[i].custom_other) + totalWt
+                          : Number(tableData[i].custom_other)
                       }
+                      // value={
+                      //   (tableData[i]?.totalAmount > 0xlxl
+                      //     ? Number(tableData[i]?.custom_other) +
+                      //       Number(tableData[i]?.totalAmount)
+                      //     : tableData[i]?.custom_total !== undefined &&
+                      //       tableData[i]?.custom_total !== ''
+                      //     ? Number(tableData[i]?.custom_total)
+                      //     : Number(tableData[i]?.custom_other)) &&
+                      //   (tableData[i].totalAmount === undefined ||
+                      //   tableData[i]?.totalAmount === 0
+                      //     ? tableData[i]?.custom_other === 0
+                      //       ? Number(tableData[i]?.custom_total)
+                      //       : Number(tableData[i]?.total_other) +
+                      //         Number(tableData[i].custom_other)
+                      //     : Number(tableData[i]?.custom_total))
+                      // }
+
+                      // value={
+                      //   Number(tableData[i]?.totalAmount) >= 0
+                      //     ? Number(tableData[i]?.custom_other) +
+                      //       Number(tableData[i]?.totalAmount)
+                      //     : tableData[i].totalAmount === undefined &&
+                      //       tableData[i]?.custom_total !== undefined &&
+                      //       tableData[i]?.custom_total !== ''
+                      //     ? // tableData[i]?.custom_other === 0
+                      //       Number(tableData[i]?.custom_other) + other
+                      //     : Number(tableData[i]?.custom_total)
+                      // }
+                      // value={
+                      //   Number(tableData[i]?.totalAmount) >= 0
+                      //     ? Number(tableData[i]?.custom_other) +
+                      //       Number(tableData[i]?.totalAmount)
+                      //     : tableData[i].totalAmount === 0 ||
+                      //       (tableData[i].totalAmount === undefined &&
+                      //         tableData[i]?.custom_total !== undefined &&
+                      //         tableData[i]?.custom_total !== '')
+                      //     ? Number(tableData[i]?.custom_other === 0)
+                      //       ? Number(tableData[i]?.custom_total)
+                      //       : Number(tableData[i]?.custom_other) + other
+                      //     : tableData[i]?.custom_total
+                      // }
                     />
                   </td>
                   {/* <td className="table_row ">

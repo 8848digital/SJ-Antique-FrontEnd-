@@ -50,6 +50,8 @@ const useReadyReceiptKarigar = () => {
   const [materialListData, setMaterialListData] = useState<any>();
   const [indexVal, setIndexVal] = useState<any>();
   const [activeModalId, setActiveModalId] = useState<any>(null);
+  const [totalWt, setTotalWt] = useState<any>(0);
+
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
 
@@ -152,25 +154,37 @@ const useReadyReceiptKarigar = () => {
   const [editTotal, setEditTotal] = useState(0);
   console.log(materialWeight, 'edit material wt');
   console.log(tableData, 'table data edit wt');
-  const calculateEditTotal = (i: any) => {
-    // if (i + 1 === tableData[i]?.idx) {
-    if (tableData[i]?.totalAmmount > 0) {
-      return tableData[i]?.totalAmmount + Number(tableData[i].custom_other);
-    } else if (
-      tableData[i]?.totalAmmount === undefined ||
-      tableData[i]?.totalAmmount === 0
-    ) {
-      setEditTotal(
-        Number(tableData[i]?.custom_total) - Number(tableData[i]?.custom_other)
-      );
-      return Number(tableData[i].custom_other) + editTotal;
-    } else {
-      setEditTotal(0);
-      return tableData[i].custom_total;
-    }
+  // const [number, setNumber] = useState<number>(0);
+  const calculateEditTotal = (i: any, apiData: any) => {
+    console.log(apiData, 'table12', i);
+    // setMaterialWeight();
+    console.log(apiData[i].table, 'table11');
 
+    const totalvalues = // materialWeight > 0 &&
+      // materialWeight !== null &&
+      apiData[i]?.table.map((row: any) => row.amount);
+    let numbers: any;
+    if (Array.isArray(totalvalues) && totalvalues.length === 1) {
+      numbers = totalvalues[0];
+    } else {
+      numbers = totalvalues.reduce((accu: any, val: any) => {
+        return accu + val;
+      }, 0);
+    }
+    const totalAmmountValues = totalvalues.reduce((accu: any, val: any) => {
+      console.log(accu + val, '987');
+      setTotalWt(accu + val);
+      return accu + val;
+    }, 0);
+
+    console.log(totalWt, 'table11');
+    // const updateKey = apiData.find((item: any) => item.idx === apiData[i].idx);
+    // if (updateKey) {
+    //   apiData[i].totalAmount = totalAmmountValues;
     // }
+    console.log(apiData, 'apiapiapi');
   };
+  // console.log(number, 'numberAmount');
   console.log(editTotal, 'editTotal');
   // const handleFieldChange: any = (
   //   id: number,
@@ -767,6 +781,7 @@ const useReadyReceiptKarigar = () => {
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
     calculateEditTotal,
+    totalWt,
   };
 };
 
