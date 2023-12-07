@@ -202,17 +202,19 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={Number(item.custom_other)}
                       defaultValue={Number(item.custom_other)}
                       onChange={(e) => {
-                        handleFieldChange(
-                          item.idx,
-                          'tableRow',
-                          'custom_other',
-                          e.target.value
-                        );
-                        handleOther(item, i);
+                        calculateEditTotal(item.idx, e.target.value);
                       }}
-                      onInput={() => {
-                        calculateEditTotal(i, tableData);
-                      }}
+                      // onChange={(e) => {
+                      //   handleFieldChange(
+                      //     item.idx,
+                      //     'tableRow',
+                      //     'custom_other',
+                      //     e.target.value
+                      //   );
+                      // }}
+                      // onInput={(e) => {
+                      //   calculateEditTotal(item.idx);
+                      // }}
                       readOnly={readOnlyFields}
                     />
                   </td>
@@ -224,57 +226,13 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      // value={calculateEditTotal(i, tableData)}
                       defaultValue={tableData[i]?.custom_total}
                       value={
                         tableData[i].totalAmount >= 0
                           ? Number(tableData[i]?.custom_other) +
                             Number(tableData[i]?.totalAmount)
-                          : tableData[i]?.totalAmount === undefined
-                          ? Number(tableData[i].custom_other) + totalWt
-                          : Number(tableData[i].custom_other)
+                          : tableData[i]?.custom_total
                       }
-                      // value={
-                      //   (tableData[i]?.totalAmount > 0xlxl
-                      //     ? Number(tableData[i]?.custom_other) +
-                      //       Number(tableData[i]?.totalAmount)
-                      //     : tableData[i]?.custom_total !== undefined &&
-                      //       tableData[i]?.custom_total !== ''
-                      //     ? Number(tableData[i]?.custom_total)
-                      //     : Number(tableData[i]?.custom_other)) &&
-                      //   (tableData[i].totalAmount === undefined ||
-                      //   tableData[i]?.totalAmount === 0
-                      //     ? tableData[i]?.custom_other === 0
-                      //       ? Number(tableData[i]?.custom_total)
-                      //       : Number(tableData[i]?.total_other) +
-                      //         Number(tableData[i].custom_other)
-                      //     : Number(tableData[i]?.custom_total))
-                      // }
-
-                      // value={
-                      //   Number(tableData[i]?.totalAmount) >= 0
-                      //     ? Number(tableData[i]?.custom_other) +
-                      //       Number(tableData[i]?.totalAmount)
-                      //     : tableData[i].totalAmount === undefined &&
-                      //       tableData[i]?.custom_total !== undefined &&
-                      //       tableData[i]?.custom_total !== ''
-                      //     ? // tableData[i]?.custom_other === 0
-                      //       Number(tableData[i]?.custom_other) + other
-                      //     : Number(tableData[i]?.custom_total)
-                      // }
-                      // value={
-                      //   Number(tableData[i]?.totalAmount) >= 0
-                      //     ? Number(tableData[i]?.custom_other) +
-                      //       Number(tableData[i]?.totalAmount)
-                      //     : tableData[i].totalAmount === 0 ||
-                      //       (tableData[i].totalAmount === undefined &&
-                      //         tableData[i]?.custom_total !== undefined &&
-                      //         tableData[i]?.custom_total !== '')
-                      //     ? Number(tableData[i]?.custom_other === 0)
-                      //       ? Number(tableData[i]?.custom_total)
-                      //       : Number(tableData[i]?.custom_other) + other
-                      //     : tableData[i]?.custom_total
-                      // }
                     />
                   </td>
                   {/* <td className="table_row ">

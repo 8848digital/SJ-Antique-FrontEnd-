@@ -151,67 +151,53 @@ const useReadyReceiptKarigar = () => {
       materialWeight[i]?.weight * materialWeight[i]?.gm_
     );
   };
-  const [editTotal, setEditTotal] = useState(0);
-  console.log(materialWeight, 'edit material wt');
-  console.log(tableData, 'table data edit wt');
-  // const [number, setNumber] = useState<number>(0);
-  const calculateEditTotal = (i: any, apiData: any) => {
-    console.log(apiData, 'table12', i);
-    // setMaterialWeight();
-    console.log(apiData[i].table, 'table11');
 
-    const totalvalues = // materialWeight > 0 &&
-      // materialWeight !== null &&
-      apiData[i]?.table.map((row: any) => row.amount);
-    let numbers: any;
-    if (Array.isArray(totalvalues) && totalvalues.length === 1) {
-      numbers = totalvalues[0];
-    } else {
-      numbers = totalvalues.reduce((accu: any, val: any) => {
-        return accu + val;
-      }, 0);
-    }
-    const totalAmmountValues = totalvalues.reduce((accu: any, val: any) => {
-      console.log(accu + val, '987');
-      setTotalWt(accu + val);
-      return accu + val;
-    }, 0);
+  const calculateEditTotal = (i: number, value: any) => {
+    const updatedData =
+      tableData?.length > 0 &&
+      tableData !== null &&
+      tableData.map((item: any) => {
+        if (item.idx === i) {
+          const totalvalues = item?.table.map((row: any) => row.amount);
+          let numbers: any;
+          if (Array.isArray(totalvalues) && totalvalues.length === 1) {
+            numbers = totalvalues[0];
+          } else {
+            numbers = totalvalues.reduce((accu: any, val: any) => {
+              return accu + val;
+            }, 0);
+          }
+          let totalAmountValues = 0;
 
-    console.log(totalWt, 'table11');
-    // const updateKey = apiData.find((item: any) => item.idx === apiData[i].idx);
-    // if (updateKey) {
-    //   apiData[i].totalAmount = totalAmmountValues;
-    // }
-    console.log(apiData, 'apiapiapi');
+          if (Array.isArray(totalvalues)) {
+            totalAmountValues = totalvalues.reduce((accu: any, val: any) => {
+              console.log(accu + val, '987');
+              return accu + val;
+            }, 0);
+          }
+          if (item.totalAmount >= 0 && item.custom_other === '') {
+            return {
+              ...item,
+              custom_other: value,
+              custom_total:
+                Number(item.totalAmmount) + Number(item.custom_other),
+            };
+          } else if (item.totalAmount === undefined) {
+            return {
+              ...item,
+              custom_other: value,
+              custom_total: totalAmountValues + Number(item.custom_other),
+            };
+          } else return { ...item, custom_other: value };
+        }
+        console.log(item, 'updated data after edit2');
+        return item;
+      });
+    console.log(updatedData, 'updated data after edit');
+    setStateForDocStatus(true);
+    setTableData(updatedData);
+    console.log(tableData, 'updated data after edit1');
   };
-  // console.log(number, 'numberAmount');
-  console.log(editTotal, 'editTotal');
-  // const handleFieldChange: any = (
-  //   id: number,
-  //   val: any,
-  //   field: string,
-  //   newValue: any,
-  //   fileVal?: any
-  // ) => {
-  //   console.log("handlechange", id, val, field, newValue, fileVal)
-  //   const updatedData =
-  //     tableData?.length > 0 &&
-  //     tableData !== null &&
-  //     tableData.map((item: any, i: any) => {
-  //       if (item.id === id) {
-  //         return { ...item, [field]: 0 || newValue };
-  //       }
-  //       return item;
-  //     });
-  //   console.log(updatedData, 'bbb');
-  //   setTableData(updatedData);
-  //   if (field === 'custom_add_photo') {
-  //     console.log(fileVal, 'fileVal');
-  //     handleFileUpload(fileVal);
-  //   }
-
-  //   setStateForDocStatus(true);
-  // };
 
   const handleFieldChange = (
     id: number,
