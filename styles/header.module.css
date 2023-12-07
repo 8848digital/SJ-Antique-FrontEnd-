@@ -33,7 +33,7 @@
 
 .button_container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-left: 20%;
     margin-right: 20%;
 }
@@ -43,5 +43,9 @@
     margin: 3px;
     border-radius: 5px;
 
+}
+.button_container{
+    margin-left: 0;
+    margin-right: 0;
 }
 }

@@ -71,7 +71,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
         >
           <div className="nav-tabs tabs-container w-50 " role="presentation">
             <button
-              className="nav-link active w-100 p-1 border "
+              className="nav-link active w-100 p-1 border h-100 "
               id="pills-home-tab"
               data-bs-toggle="pill"
               data-bs-target="#pills-home"
@@ -84,9 +84,9 @@ const ReadyReceiptKundanKarigarMaster = () => {
               Ready receipts {lastPartOfURL} karigar
             </button>
           </div>
-          <div className="nav-tabs tabs-container w-50" role="presentation">
+          <div className="nav-tabs tabs-container w-50 " role="presentation">
             <button
-              className="nav-link  w-100 p-1 border"
+              className="nav-link  w-100 p-1 border h-100"
               id="pills-profile-tab"
               data-bs-toggle="pill"
               data-bs-target="#pills-profile"
