@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../../styles/readyReceipts.module.css';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRef, useState } from 'react';
+import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
@@ -19,9 +19,20 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
   calculateEditTotal,
+  totalWt,
 }: any) => {
   console.log('table data receipt', tableData);
   const [other, setOther] = useState(0);
+  const handleOther = (item: any, i: any) => {
+    setOther(0);
+    item[i]?.custom_total !== undefined &&
+      item[i]?.custom_total !== '' &&
+      item[i]?.totalAmount === undefined
+      ? setOther(Number(item[i]?.custom_total) - Number(item[i]?.custom_other))
+      : setOther(0);
+  };
+  console.log(other, 'other11');
+  console.log(totalWt, '1234');
   const fileInputRef = useRef<any>(null);
   const handleButtonClick = () => {
     // Trigger the hidden file input when the visible text input is clicked
@@ -188,16 +199,22 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
-                      value={item.custom_other}
+                      value={Number(item.custom_other)}
                       defaultValue={Number(item.custom_other)}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          item.idx,
-                          'tableRow',
-                          'custom_other',
-                          e.target.value
-                        )
-                      }
+                      onChange={(e) => {
+                        calculateEditTotal(item.idx, e.target.value);
+                      }}
+                      // onChange={(e) => {
+                      //   handleFieldChange(
+                      //     item.idx,
+                      //     'tableRow',
+                      //     'custom_other',
+                      //     e.target.value
+                      //   );
+                      // }}
+                      // onInput={(e) => {
+                      //   calculateEditTotal(item.idx);
+                      // }}
                       readOnly={readOnlyFields}
                     />
                   </td>
@@ -211,13 +228,10 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       name={`sum-${i + 1}`}
                       defaultValue={tableData[i]?.custom_total}
                       value={
-                        Number(tableData[i]?.totalAmount) > 0
-                          ? Number(tableData[i]?.custom_other) + Number(tableData[i]?.totalAmount)
-                          : tableData[i]?.custom_total !== undefined &&
-                            tableData[i]?.custom_total !== ''
-                            ? Number(tableData[i]?.custom_other) === 0 ? Number(tableData[i]?.custom_total) :
-                              Number(tableData[i]?.custom_total)
-                            : Number(tableData[i]?.custom_other) + Number(tableData[i]?.custom_total)
+                        tableData[i].totalAmount >= 0
+                          ? Number(tableData[i]?.custom_other) +
+                          Number(tableData[i]?.totalAmount)
+                          : tableData[i]?.custom_total
                       }
 
                     />

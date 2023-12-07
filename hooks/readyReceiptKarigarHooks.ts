@@ -15,6 +15,7 @@ import UseCustomReceiptHook from './custom-receipt-hook';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
 import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import AmendPurchaseReceiptApi from '@/services/api/PurchaseReceipt/Amend-purchase-receipt-api';
+import { table } from 'console';
 
 const useReadyReceiptKarigar = () => {
   const { query } = useRouter();
@@ -49,6 +50,8 @@ const useReadyReceiptKarigar = () => {
   const [materialListData, setMaterialListData] = useState<any>();
   const [indexVal, setIndexVal] = useState<any>();
   const [activeModalId, setActiveModalId] = useState<any>(null);
+  const [totalWt, setTotalWt] = useState<any>(0);
+
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
 
@@ -148,51 +151,54 @@ const useReadyReceiptKarigar = () => {
       materialWeight[i]?.weight * materialWeight[i]?.gm_
     );
   };
-  const [editTotal, setEditTotal] = useState(0);
-  console.log(materialWeight, 'edit material wt');
-  console.log(tableData, 'table data edit wt');
-  const calculateEditTotal = (i: any) => {
-    if (
-      tableData[i].totalAmmount === 0 ||
-      tableData[i].totalAmmount === undefined
-    ) {
-      setEditTotal(tableData[i].custom_total + tableData[i].custom_other);
-    } else if (tableData[i].totalAmmount > 0) {
-      setEditTotal(
-        tableData[i].totalAmmount + Number(tableData[i].custom_other)
-      );
-    } else {
-      setEditTotal(tableData[i].custom_other);
-    }
-    return editTotal;
+
+  const calculateEditTotal = (i: number, value: any) => {
+    console.log("calculate edit value", i, value)
+    const updatedData =
+      tableData?.length > 0 &&
+      tableData !== null &&
+      tableData.map((item: any) => {
+        if (item.idx === i) {
+          const totalvalues = item?.table.map((row: any) => row.amount);
+          let numbers: any;
+          if (Array.isArray(totalvalues) && totalvalues.length === 1) {
+            numbers = totalvalues[0];
+          } else {
+            numbers = totalvalues.reduce((accu: any, val: any) => {
+              return accu + val;
+            }, 0);
+          }
+          let totalAmountValues = "";
+
+          if (Array.isArray(totalvalues)) {
+            totalAmountValues = totalvalues.reduce((accu: any, val: any) => {
+
+              return accu + val;
+            }, 0);
+          }
+          if (item.totalAmount >= 0 && item.custom_other === '') {
+            return {
+              ...item,
+              custom_other: value,
+              custom_total:
+                Number(item.totalAmmount) + Number(item.custom_other),
+            };
+          } else if (item.totalAmount === undefined) {
+            return {
+              ...item,
+              custom_other: value,
+              custom_total: totalAmountValues + Number(item.custom_other),
+            };
+          } else return { ...item, custom_other: value };
+        }
+        console.log(item, 'updated data after edit2');
+        return item;
+      });
+    console.log(updatedData, 'updated data after edit');
+    setStateForDocStatus(true);
+    setTableData(updatedData);
+    console.log(tableData, 'updated data after edit1');
   };
-
-  // const handleFieldChange: any = (
-  //   id: number,
-  //   val: any,
-  //   field: string,
-  //   newValue: any,
-  //   fileVal?: any
-  // ) => {
-  //   console.log("handlechange", id, val, field, newValue, fileVal)
-  //   const updatedData =
-  //     tableData?.length > 0 &&
-  //     tableData !== null &&
-  //     tableData.map((item: any, i: any) => {
-  //       if (item.id === id) {
-  //         return { ...item, [field]: 0 || newValue };
-  //       }
-  //       return item;
-  //     });
-  //   console.log(updatedData, 'bbb');
-  //   setTableData(updatedData);
-  //   if (field === 'custom_add_photo') {
-  //     console.log(fileVal, 'fileVal');
-  //     handleFileUpload(fileVal);
-  //   }
-
-  //   setStateForDocStatus(true);
-  // };
 
   const handleFieldChange = (
     id: number,
@@ -424,11 +430,11 @@ const useReadyReceiptKarigar = () => {
             ...tableItem,
             amount:
               (parseInt(tableItem.pcs, 10) || 0) *
-                (parseInt(tableItem.piece_, 10) || 0) +
+              (parseInt(tableItem.piece_, 10) || 0) +
               (parseFloat(tableItem.carat) || 0) *
-                (parseFloat(tableItem.carat_) || 0) +
+              (parseFloat(tableItem.carat_) || 0) +
               (parseFloat(tableItem.weight) || 0) *
-                (parseFloat(tableItem.gm_) || 0),
+              (parseFloat(tableItem.gm_) || 0),
           })),
         };
       }
@@ -762,6 +768,7 @@ const useReadyReceiptKarigar = () => {
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
     calculateEditTotal,
+    totalWt,
   };
 };
 
