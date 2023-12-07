@@ -22,13 +22,13 @@ const MasterMaterialListing = ({
   };
   return (
     <div>
-      <div className="mx-4 d-flex justify-content- start">
+      <div className="mx-4 d-flex justify-content-start w-75">
         <input
           type="text"
           name="input1"
           id="input1"
           aria-describedby="emailHelp"
-          className="form-control w-25 mx-2"
+          className="form-control min-vw-50  mx-2"
           placeholder="Material"
           onChange={handleInputChange1}
         />
@@ -37,7 +37,7 @@ const MasterMaterialListing = ({
           name="input2"
           id="input2"
           aria-describedby="emailHelp"
-          className="form-control w-25 mx-2"
+          className="form-control min-vw-50 mx-2"
           placeholder="Material Abbr"
           onChange={handleInputChange2}
         />

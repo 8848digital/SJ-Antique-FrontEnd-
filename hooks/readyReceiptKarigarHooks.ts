@@ -176,20 +176,28 @@ const useReadyReceiptKarigar = () => {
               return accu + val;
             }, 0);
           }
-          if (item.totalAmount >= 0 && item.custom_other === '') {
+          if (Number(item.totalAmount) >= 0) {
             return {
               ...item,
-              custom_other: value,
-              custom_total:
-                Number(item.totalAmmount) + Number(item.custom_other),
+              custom_other: Number(value),
+              custom_total: Number(item.totalAmount) + Number(value),
             };
           } else if (item.totalAmount === undefined) {
             return {
               ...item,
-              custom_other: value,
-              custom_total: totalAmountValues + Number(item.custom_other),
+              custom_other: Number(value),
+              totalAmount: totalAmountValues,
+              custom_total:
+                item.totalAmount >= 0
+                  ? Number(item.totalAmount) + Number(value)
+                  : Number(value),
             };
-          } else return { ...item, custom_other: value };
+          } else
+            return {
+              ...item,
+              custom_other: value,
+              totalAmount: totalAmountValues,
+            };
         }
         console.log(item, 'updated data after edit2');
         return item;
@@ -199,6 +207,10 @@ const useReadyReceiptKarigar = () => {
     setTableData(updatedData);
     console.log(tableData, 'updated data after edit1');
   };
+  useEffect(() => {
+    // This code will run after the state has been updated
+    console.log(tableData, 'updated data after edit1');
+  }, [tableData]);
 
   const handleFieldChange = (
     id: number,
@@ -577,23 +589,23 @@ const useReadyReceiptKarigar = () => {
           if (row.custom_other !== '' && row.custom_total !== '') {
             return {
               ...row,
-              custom_total:
-                parseInt(row.totalAmount) + parseInt(row.custom_other),
+              custom_total: Number(row.totalAmount) + Number(row.custom_other),
             };
           } else if (row.custom_other !== '') {
             return {
               ...row,
-              custom_total: parseInt(row.custom_other),
+              custom_total: Number(row.custom_other) + Number(row.totalAmount),
             };
           } else {
             return {
               ...row,
-              custom_total: parseInt(row.totalAmount),
+              custom_total: Number(row.totalAmount),
             };
           }
         }
         return row;
       });
+    console.log(updatedtableData, 'updated data after save');
     const updatedMergedList = updatedtableData.map((obj: any) => ({
       ...obj,
       custom_purchase_receipt_item_breakup: '',
