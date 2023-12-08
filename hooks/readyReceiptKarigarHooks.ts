@@ -238,16 +238,32 @@ const useReadyReceiptKarigar = () => {
     setTableData(updatedData);
     if (field === 'custom_add_photo') {
       console.log(fileVal, 'fileVal');
-      handleFileUpload(fileVal);
+      handleFileUpload(id, fileVal);
     }
 
     setStateForDocStatus(true);
   };
 
-  const handleFileUpload = async (fileVal: any) => {
-    await postUploadFile(loginAcessToken.token, fileVal);
+  const handleFileUpload = async (id: number, fileVal: any) => {
+    const updatedData = await Promise.all(
+      tableData?.map(async (row: any) => {
+        if (row.idx === id) {
+          const uploadedFile = await postUploadFile(
+            loginAcessToken.token,
+            fileVal
+          );
+
+          console.log("upload file path", uploadedFile)
+          return { ...row, custom_add_photo: `/files/${uploadedFile?.file_name}` };
+        }
+        return row;
+      }) || []
+    );
+
+    setTableData(updatedData);
     setStateForDocStatus(true);
   };
+
   const handleModalFieldChange = (
     id: number,
     val: any,
@@ -586,15 +602,26 @@ const useReadyReceiptKarigar = () => {
       tableData !== null &&
       tableData?.map((row: any, i: any) => {
         if (row.idx === indexVal) {
-          if (row.custom_other !== '' && row.custom_total !== '') {
+          if (
+            row.custom_other !== '' &&
+            row.custom_total !== '' &&
+            row.custom_other !== 0
+          ) {
             return {
               ...row,
               custom_total: Number(row.totalAmount) + Number(row.custom_other),
             };
-          } else if (row.custom_other !== '') {
+          }
+          // else if (row.custom_other !== '') {
+          //   return {
+          //     ...row,
+          //     custom_total: Number(row.custom_other) + Number(row.totalAmount),
+          //   };
+          // }
+          else if (row.totalAmount === undefined && row.custom_other === 0) {
             return {
               ...row,
-              custom_total: Number(row.custom_other) + Number(row.totalAmount),
+              custom_total: Number(row.custom_total),
             };
           } else {
             return {

@@ -19,27 +19,14 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
   calculateEditTotal,
-  totalWt,
 }: any) => {
   console.log('table data receipt', tableData);
-  const [other, setOther] = useState(0);
-  const handleOther = (item: any, i: any) => {
-    setOther(0);
-    item[i]?.custom_total !== undefined &&
-      item[i]?.custom_total !== '' &&
-      item[i]?.totalAmount === undefined
-      ? setOther(Number(item[i]?.custom_total) - Number(item[i]?.custom_other))
-      : setOther(0);
-  };
-  console.log(other, 'other11');
-  console.log(totalWt, '1234');
-  const fileInputRef = useRef<any>(null);
-  const handleButtonClick = () => {
+  const fileInputRef = useRef<any>({});
+  const handleButtonClick = (id: any) => {
     // Trigger the hidden file input when the visible text input is clicked
-    fileInputRef?.current?.click();
+    fileInputRef.current[id].click();
   };
 
-  const handleSelectedFileFun: any = () => { };
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -267,7 +254,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       // defaultValue={selectedFile ? selectedFile.name : ''}
                       placeholder="Choose file"
                       value={item.custom_add_photo}
-                      onClick={handleButtonClick}
+                      onClick={() => handleButtonClick(item.idx)}
                       onChange={(e) =>
                         handleFieldChange(
                           item.idx,
@@ -282,7 +269,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
 
                     {/* Hidden file input */}
                     <input
-                      ref={fileInputRef}
+                      ref={(ref) => (fileInputRef.current[item.idx] = ref)}
                       type="file"
                       style={{ display: 'none' }}
                       onChange={(e) =>
