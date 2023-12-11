@@ -197,7 +197,7 @@ button.btn.btn-primary.mx-5.px-5{
   overflow-y: inherit;
   min-height: 25vh;
 }
-.responsive::-webkit-scrollbar{
+::-webkit-scrollbar{
   display: none;
 }
 /* .dropdown-ul-list {
@@ -207,7 +207,7 @@ button.btn.btn-primary.mx-5.px-5{
   z-index: 1000;
 } */
 .max-width{ 
-  max-width: 180px
+  max-width: 14%
 }
 .dropdown-ul-list li {
   padding: 2px 4px;
@@ -274,14 +274,16 @@ hr {
     font-size: 12px;
   }
 }
+@media screen and (max-width:767px) {
+  .max-width{ 
+    max-width: 95%
+  }
+}
 
 @media screen and (max-width:425px) {
 
   .login-card {
       width: 15rem !important;
-  }
-  .w-auto{
-    width: 50%;
   }
 }
 
@@ -323,4 +325,15 @@ hr {
 }
 .modal-input{
   width: 70px;
+}
+.modal-styles{
+  position: 'fixed';
+  top: '50%';
+  left: '50%';
+  transform: 'translate(-50%, -50%)';
+  background: '#fff';
+  padding: '20px';
+  border-radius: '8px';
+  box-shadow: '0 4px 8px rgba(0, 0, 0, 0.1)';
+  z-index: 999;
 }

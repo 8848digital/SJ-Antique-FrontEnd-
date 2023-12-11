@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef, useState } from 'react';
 import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
+import PhotoUploadModal from './PhotoUploadModal';
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
   tableData,
@@ -19,6 +20,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
   calculateEditTotal,
+  HandlePhotoUploadModal,
 }: any) => {
   console.log('table data receipt', tableData);
   const fileInputRef = useRef<any>({});
@@ -173,11 +175,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         tableData[i]?.totalModalWeight > 0
                           ? Number(tableData[i].custom_net_wt) +
-                          Number(tableData[i].custom_few_wt) +
-                          Number(tableData[i]?.totalModalWeight)
+                            Number(tableData[i].custom_few_wt) +
+                            Number(tableData[i]?.totalModalWeight)
                           : Number(tableData[i].custom_net_wt) +
-                          Number(tableData[i].custom_few_wt) +
-                          Number(tableData[i]?.custom_mat_wt)
+                            Number(tableData[i].custom_few_wt) +
+                            Number(tableData[i]?.custom_mat_wt)
                       }
                     />
                   </td>
@@ -217,13 +219,12 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                          Number(tableData[i]?.totalAmount)
+                            Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                            ? tableData[i]?.custom_total
-                            : tableData[i]?.custom_other
+                          ? tableData[i]?.custom_total
+                          : tableData[i]?.custom_other
                       }
-
                     />
                   </td>
                   {/* <td className="table_row ">
@@ -248,7 +249,20 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 />
               </td> */}
                   <td className="table_row">
-                    <input
+                    <PhotoUploadModal
+                      handleFieldChange={handleFieldChange}
+                      item={item}
+                    />
+                    {/* <input
+                      className={` ${styles.input_field} `}
+                      type="text"
+                      placeholder="Add Photo"
+                      onClick={(e) => {
+                        HandlePhotoUploadModal(e, item.idx, item);
+                      }}
+                    /> */}
+
+                    {/* <input
                       className={`${styles.input_field} `}
                       type="text"
                       // defaultValue={selectedFile ? selectedFile.name : ''}
@@ -265,10 +279,10 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         )
                       }
                       readOnly
-                    />
+                    /> */}
 
                     {/* Hidden file input */}
-                    <input
+                    {/* <input
                       ref={(ref) => (fileInputRef.current[item.idx] = ref)}
                       type="file"
                       style={{ display: 'none' }}
@@ -281,7 +295,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                           e.target.files?.[0]
                         )
                       }
-                    />
+                    /> */}
                   </td>
                   <td className="table_row">
                     <button

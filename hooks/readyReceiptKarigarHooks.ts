@@ -235,7 +235,7 @@ const useReadyReceiptKarigar = () => {
     console.log(updatedData, 'bbb');
 
     setTableData(updatedData);
-    if (field === 'custom_add_photo' && stateForDocStatus === true) {
+    if (field === 'custom_add_photo' && stateForDocStatus === false) {
       console.log(fileVal, 'fileVal');
       handleFileUpload(id, fileVal);
     }
@@ -760,6 +760,31 @@ const useReadyReceiptKarigar = () => {
 
   console.log(tableData, 'table data kundanlisting');
   console.log('modal state', showModal);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const HandlePhotoUploadModal = (event: any, id: number, item: any) => {
+    const dataVal =
+      tableData?.length > 0 &&
+      tableData !== null &&
+      tableData?.filter((item: any) => {
+        if (item.idx === id) {
+          setModalOpen(true);
+        }
+      });
+  };
+
+  const openPhotoModal = () => {
+    setModalOpen(true);
+  };
+
+  const closePhotoModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleCameraOption = () => {
+    // Implement camera option (you may need to use a third-party library or native API)
+    console.log('Camera option selected');
+    closeModal();
+  };
   return {
     setClick,
     kundanListing,
@@ -809,7 +834,7 @@ const useReadyReceiptKarigar = () => {
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
     calculateEditTotal,
-    totalWt,
+    HandlePhotoUploadModal,
   };
 };
 
