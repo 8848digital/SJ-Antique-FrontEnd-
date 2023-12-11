@@ -54,6 +54,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
     calculateEditTotal,
+    HandlePhotoUploadModal,
+    handleClearFileUploadInput
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -79,7 +81,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
               role="tab"
               aria-controls="pills-home"
               aria-selected="true"
-              // onClick={() => setClick(true)}
+            // onClick={() => setClick(true)}
             >
               Ready receipts {lastPartOfURL} karigar
             </button>
@@ -156,7 +158,11 @@ const ReadyReceiptKundanKarigarMaster = () => {
               <div className="container d-flex justify-content-end p-o">
                 <button
                   className="btn btn-link p-0"
-                  onClick={() => handleAddRow('tableRow')}
+                  onClick={() => {
+                    if (!readOnlyFields) {
+                      handleAddRow('tableRow');
+                    }
+                  }}
                 >
                   Add Row
                 </button>
@@ -185,6 +191,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   materialWeight={materialWeight}
                   kunKarigarDropdownReset={kunKarigarDropdownReset}
                   calculateEditTotal={calculateEditTotal}
+                  HandlePhotoUploadModal={HandlePhotoUploadModal}
+                  handleClearFileUploadInput={handleClearFileUploadInput}
                 />
               </div>
             </div>
