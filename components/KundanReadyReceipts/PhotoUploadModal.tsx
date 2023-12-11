@@ -92,7 +92,19 @@ const PhotoUploadModal = ({ handleFieldChange, item }: any) => {
           <Button variant="secondary" onClick={handlePhotaModalClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handlePhotaModalClose}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              handleFieldChange(
+                item?.idx,
+                'tableRow',
+                'custom_add_photo',
+                `/files/${showFile?.[0]?.name}`,
+                showFile?.[0]
+              );
+            }}
+            onMouseDown={handlePhotaModalClose}
+          >
             Upload
           </Button>
         </Modal.Footer>
