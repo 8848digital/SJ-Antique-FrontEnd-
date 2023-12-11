@@ -153,7 +153,7 @@ const useReadyReceiptKarigar = () => {
   };
 
   const calculateEditTotal = (i: number, value: any) => {
-    console.log("calculate edit value", i, value)
+    console.log('calculate edit value', i, value);
     const updatedData =
       tableData?.length > 0 &&
       tableData !== null &&
@@ -168,11 +168,10 @@ const useReadyReceiptKarigar = () => {
               return accu + val;
             }, 0);
           }
-          let totalAmountValues = "";
+          let totalAmountValues = '';
 
           if (Array.isArray(totalvalues)) {
             totalAmountValues = totalvalues.reduce((accu: any, val: any) => {
-
               return accu + val;
             }, 0);
           }
@@ -236,7 +235,7 @@ const useReadyReceiptKarigar = () => {
     console.log(updatedData, 'bbb');
 
     setTableData(updatedData);
-    if (field === 'custom_add_photo') {
+    if (field === 'custom_add_photo' && stateForDocStatus === true) {
       console.log(fileVal, 'fileVal');
       handleFileUpload(id, fileVal);
     }
@@ -253,8 +252,11 @@ const useReadyReceiptKarigar = () => {
             fileVal
           );
 
-          console.log("upload file path", uploadedFile)
-          return { ...row, custom_add_photo: `/files/${uploadedFile?.file_name}` };
+          console.log('upload file path', uploadedFile);
+          return {
+            ...row,
+            custom_add_photo: `/files/${uploadedFile?.file_name}`,
+          };
         }
         return row;
       }) || []
@@ -458,11 +460,11 @@ const useReadyReceiptKarigar = () => {
             ...tableItem,
             amount:
               (parseInt(tableItem.pcs, 10) || 0) *
-              (parseInt(tableItem.piece_, 10) || 0) +
+                (parseInt(tableItem.piece_, 10) || 0) +
               (parseFloat(tableItem.carat) || 0) *
-              (parseFloat(tableItem.carat_) || 0) +
+                (parseFloat(tableItem.carat_) || 0) +
               (parseFloat(tableItem.weight) || 0) *
-              (parseFloat(tableItem.gm_) || 0),
+                (parseFloat(tableItem.gm_) || 0),
           })),
         };
       }
