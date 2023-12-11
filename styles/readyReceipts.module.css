@@ -30,6 +30,7 @@
     text-align: center;
     border: #808080 1px solid;
 }
+
 .docstatus_button {
     background-color: #f2dcdc !important;
     padding: 0 13px !important;
@@ -41,4 +42,8 @@
 .docstatus_button_text {
     font-size: 0.9rem;
 
+}
+
+.cursor_pointer {
+    cursor: pointer;
 }

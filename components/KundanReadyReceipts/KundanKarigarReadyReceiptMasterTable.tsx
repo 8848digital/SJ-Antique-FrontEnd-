@@ -282,6 +282,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         )
                       }
                     />
+
+                    <i className={`fa fa-xmark ps-3 ${styles.cursor_pointer}`}></i>
                   </td>
                   <td className="table_row">
                     <button
