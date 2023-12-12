@@ -4,7 +4,6 @@ import { CONSTANTS, headerGenerator } from '../config/api-config';
 const postUploadFile = async (get_access_token: any, params: any) => {
   console.log("capture payload", params)
   let response: any;
-
   const getHeaders = headerGenerator(get_access_token);
   // const bodyFormData: any = new FormData();
   // // bodyFormData.append('file', val);
@@ -30,8 +29,6 @@ const postUploadFile = async (get_access_token: any, params: any) => {
         response = err;
       }
     });
-
   return response;
 };
-
 export default postUploadFile;

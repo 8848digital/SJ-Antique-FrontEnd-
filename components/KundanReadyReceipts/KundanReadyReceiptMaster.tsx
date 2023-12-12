@@ -193,6 +193,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   calculateEditTotal={calculateEditTotal}
                   HandlePhotoUploadModal={HandlePhotoUploadModal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
+                  
                 />
               </div>
             </div>

@@ -1,45 +1,71 @@
-import React, { useRef, useState } from 'react'
-import Webcam from 'react-webcam'
+import React, { useRef, useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import Webcam from 'react-webcam';
 
-const WebCamPurchaseReceipt = () => {
-    const webcamRef = useRef<Webcam>(null);
+const WebCamPurchaseReceipt = ({handleFieldChange,setShowWebcam, item}:any) => {
+  const webcamRef = useRef<Webcam>(null);
+  const [show, setShow] = useState(true);
 
-    const [activeWebcam, setActiveWebCam] = useState<any>(false);
+  const handleClose = () => {setShow(false);
+  setShowWebcam(false)
+  }
+  const handleShow = () => setShow(true);
+  const capturePhoto = async () => {
+    const imageSrc = (webcamRef?.current as any)?.getScreenshot();
 
-    const capturePhoto = () => {
-        setActiveWebCam(true)
-        const imageSrc = webcamRef.current?.getScreenshot();
-        console.log('capture run', webcamRef);
-        if (imageSrc) {
-            setTimeout(() => {
-                window.open(imageSrc, '_blank');
-            }, 100);
-        }
+    if (imageSrc) {
+        // Convert base64 to Blob
+        const blob = await fetch(imageSrc).then((res) => res.blob());
 
-        console.log(imageSrc);
-    };
-    return (
-        <>
-            {activeWebcam && (
-                <>
-                    <Webcam
-                        audio={false}
-                        ref={webcamRef}
-                        screenshotFormat="image/jpeg"
-                        height={320}
-                        width={380}
-                    // value={showFile}
-                    />
-                    <button className='btn btn-primary' >Take photo</button>
-                </>
-            )}
-            <i
-                className="fa-solid fa-camera-retro px-2 text-warning fs-5"
-                onClick={capturePhoto}
-            ></i>
-            <p className="m-0">Camera</p>
-        </>
-    )
-}
+        // Create FormData and append Blob
+        console.log("blobbb", blob)
+        handleFieldChange(
+            item.idx,
+            'tableRow',
+            'custom_add_photo',
+            blob,
+            blob
+        )
+        console.log("blobb", blob)
 
-export default WebCamPurchaseReceipt
+    }
+
+    setShowWebcam(false);
+
+};
+  
+  return (
+    <>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Camera</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+                            <Webcam
+                                audio={false}
+                                ref={webcamRef}
+                                screenshotFormat="image/jpeg"
+                                videoConstraints={{
+                                    width: 465,
+                                    height: 265,
+                                    facingMode: 'user',
+                                }}
+                                mirrored={true}
+                            />
+                        
+                            </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={capturePhoto}>
+                            Take Photo
+                        </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
+export default WebCamPurchaseReceipt;

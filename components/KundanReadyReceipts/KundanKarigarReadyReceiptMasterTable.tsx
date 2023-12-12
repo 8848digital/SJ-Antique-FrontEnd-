@@ -255,6 +255,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       handleFieldChange={handleFieldChange}
                       item={item}
                       handleClearFileUploadInput={handleClearFileUploadInput}
+                      
                     />
                     {/* <PhotoUploadModal
                       handleFieldChange={handleFieldChange}
