@@ -3,31 +3,40 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Webcam from 'react-webcam';
 import styles from '../../styles/readyReceipts.module.css';
+import { CONSTANTS } from '@/services/config/api-config';
+import { useRouter } from 'next/router';
 const PurchaseReceiptFileUploadMaster = ({
     handleFieldChange,
     item,
     handleClearFileUploadInput,
 }: any) => {
+    const { query } = useRouter()
     const webcamRef = useRef<Webcam>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [photoModalshow, setPhotoModalShow] = useState(false);
     const [showWebcam, setShowWebcam] = useState(false);
     const [showFile, setShowFile] = useState<any>();
     const [capturedImage, setCapturedImage] = useState<string | null>(null);
+
     const handlePhotaModalClose = () => {
         setPhotoModalShow(false);
         setCapturedImage(null);
         setShowWebcam(false);
     };
-    const handleShowPhotoModal = () => {
-        setPhotoModalShow(true);
-        setShowWebcam(false);
+    const handleShowPhotoModal = (item: any) => {
+        console.log("item data", item, query)
+        if (Object?.keys(item.custom_add_photo)?.length > 0) {
+            window.open(`${CONSTANTS.API_BASE_URL}/${item.custom_add_photo}`);
+        } else {
+            setPhotoModalShow(true);
+            setShowWebcam(false);
+        }
     };
     const toggleWebcam = () => {
         setShowWebcam((prevState) => !prevState);
     };
     const capturePhoto = async () => {
-        const imageSrc = (webcamRef.current as any)?.getScreenshot();
+        const imageSrc = (webcamRef?.current as any)?.getScreenshot();
 
         if (imageSrc) {
             // Convert base64 to Blob
@@ -43,21 +52,11 @@ const PurchaseReceiptFileUploadMaster = ({
                 blob
             )
             console.log("blobb", blob)
-            // const formData = new FormData();
-            // formData.append('file', blob, 'screenshot.jpg');
-
-            // Use Fetch API to send FormData to the server
-            // fetch('/upload-endpoint', {
-            //     method: 'POST',
-            //     body: formData,
-            // });
-
 
         }
-        // const imageSrc = webcamRef.current?.getScreenshot();
-        // setCapturedImage(imageSrc || null);
+
         setShowWebcam(false);
-        // console.log("capture img", imageSrc)
+
     };
     const handleUploadClick = () => {
         fileInputRef.current?.click();
@@ -80,7 +79,7 @@ const PurchaseReceiptFileUploadMaster = ({
                         className={` ${styles.input_field}`}
                         placeholder="Attach"
                         value={item?.custom_add_photo}
-                        onClick={handleShowPhotoModal}
+                        onClick={() => handleShowPhotoModal(item)}
                     />
                 </div>
                 <div className="px-2">
@@ -117,7 +116,7 @@ const PurchaseReceiptFileUploadMaster = ({
                                 />
                             </i>
                             <p className="m-0" onClick={handleUploadClick}>
-                                My computer
+                                My Device
                             </p>
                         </button>
                         <button className="btn btn-file-upload" onClick={toggleWebcam}>
@@ -126,7 +125,7 @@ const PurchaseReceiptFileUploadMaster = ({
                                     } px-2 text-primary fs-5`}
                             ></i>
                             <p className="m-0">
-                                {showWebcam ? 'Close Camera' : 'Open Camera'}
+                                {showWebcam ? 'Close Camera' : 'Camera'}
                             </p>
                         </button>
                         {showWebcam && (
