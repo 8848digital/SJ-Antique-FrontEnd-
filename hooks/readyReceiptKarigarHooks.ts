@@ -228,7 +228,7 @@ const useReadyReceiptKarigar = () => {
         if (fileVal instanceof File) {
           filePath = `/files/${fileVal.name}`;
         } else {
-          filePath = "/files/screenshot.jpg";
+          filePath = fileVal;
         }
 
 
@@ -246,7 +246,7 @@ const useReadyReceiptKarigar = () => {
     console.log(updatedData, 'bbb');
 
     setTableData(updatedData);
-    if (field === 'custom_add_photo' && stateForDocStatus === false) {
+    if (field === 'custom_add_photo') {
       console.log(fileVal, 'fileVal');
       handleFileUpload(id, fileVal);
     }

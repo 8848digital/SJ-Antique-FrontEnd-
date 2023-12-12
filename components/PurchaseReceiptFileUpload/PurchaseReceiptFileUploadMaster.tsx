@@ -138,6 +138,7 @@ const PurchaseReceiptFileUploadMaster = ({
                                     height: 720,
                                     facingMode: 'user',
                                 }}
+                                mirrored={true}
                             />
                         )}
                         {capturedImage && (

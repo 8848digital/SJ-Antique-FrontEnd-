@@ -8,7 +8,7 @@ const postUploadFile = async (get_access_token: any, val: any) => {
   const getHeaders = headerGenerator(get_access_token);
   const bodyFormData: any = new FormData();
   // bodyFormData.append('file', val);
-  bodyFormData.append('file', val, 'screenshot.jpg');
+  bodyFormData.append('file', val);
   await axios
     .post(
       `${CONSTANTS.API_BASE_URL}/api/method/upload_file`,
