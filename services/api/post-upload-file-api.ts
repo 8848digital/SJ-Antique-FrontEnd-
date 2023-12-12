@@ -1,16 +1,17 @@
 import axios from 'axios';
 import { CONSTANTS, headerGenerator } from '../config/api-config';
-const postUploadFile = async (get_access_token: any, val: any) => {
-  console.log("capture payload", val)
+
+const postUploadFile = async (get_access_token: any, params: any) => {
+  console.log("capture payload", params)
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
-  const bodyFormData: any = new FormData();
-  // bodyFormData.append('file', val);
-  bodyFormData.append('file', val);
+  // const bodyFormData: any = new FormData();
+  // // bodyFormData.append('file', val);
+  // bodyFormData.append('file', val, 'screenshot.jpg');
   await axios
     .post(
       `${CONSTANTS.API_BASE_URL}/api/method/upload_file`,
-      bodyFormData,
+      params,
       getHeaders
     )
     .then((res: any) => {

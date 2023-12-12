@@ -257,12 +257,25 @@ const useReadyReceiptKarigar = () => {
 
   const handleFileUpload = async (id: number, fileVal: any) => {
     console.log("fileval in upload", fileVal)
+    const bodyFormData: any = new FormData();
+    // // bodyFormData.append('file', val);
+    // bodyFormData.append('file', val, 'screenshot.jpg');
+
+
+    if (fileVal instanceof File) {
+      bodyFormData.append('file', fileVal);;
+    } else {
+      bodyFormData.append('file', fileVal, 'screenshot.jpg');;
+    }
+
+
+
     const updatedData = await Promise.all(
       tableData?.map(async (row: any) => {
         if (row.idx === id) {
           const uploadedFile = await postUploadFile(
             loginAcessToken.token,
-            fileVal
+            bodyFormData
           );
 
           console.log('upload file path', uploadedFile);
