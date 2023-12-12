@@ -6,6 +6,7 @@ import styles from '../../styles/readyReceipts.module.css';
 import { CONSTANTS } from '@/services/config/api-config';
 import { useRouter } from 'next/router';
 import WebCamPurchaseReceipt from './WebCamPurchaseReceipt';
+
 const PurchaseReceiptFileUploadMaster = ({
     handleFieldChange,
     item,
@@ -36,40 +37,11 @@ const PurchaseReceiptFileUploadMaster = ({
     const toggleWebcam = () => {
         setShowWebcam((prevState) => !prevState);
     };
-    const capturePhoto = async () => {
-        const imageSrc = (webcamRef?.current as any)?.getScreenshot();
 
-        if (imageSrc) {
-            // Convert base64 to Blob
-            const blob = await fetch(imageSrc).then((res) => res.blob());
-
-            // Create FormData and append Blob
-            console.log("blobbb", blob)
-            handleFieldChange(
-                item.idx,
-                'tableRow',
-                'custom_add_photo',
-                blob,
-                blob
-            )
-            console.log("blobb", blob)
-
-        }
-
-        setShowWebcam(false);
-
-    };
     const handleUploadClick = () => {
         fileInputRef.current?.click();
     };
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setShowFile(file);
-        }
-    };
-    // const handleClearFileUploadInput: any = (id: any) => {
-    // }
+
     console.log('file url', item.custom_add_photo);
     return (
         <>
@@ -130,21 +102,10 @@ const PurchaseReceiptFileUploadMaster = ({
                             </p>
                         </button>
                         {showWebcam && (
-                            // <Webcam
-                            //     audio={false}
-                            //     ref={webcamRef}
-                            //     screenshotFormat="image/jpeg"
-                            //     videoConstraints={{
-                            //         width: 500,
-                            //         height: 265,
-                            //         facingMode: 'user',
-                            //     }}
-                            //     mirrored={true}
-                            // />
                             <WebCamPurchaseReceipt
-                            handleFieldChange={handleFieldChange}
-                            setShowWebcam={setShowWebcam}
-                            item={item}
+                                handleFieldChange={handleFieldChange}
+                                setShowWebcam={setShowWebcam}
+                                item={item}
                             />
                         )}
                         {capturedImage && (
@@ -160,14 +121,9 @@ const PurchaseReceiptFileUploadMaster = ({
                     <Button variant="secondary" onClick={handlePhotaModalClose}>
                         Cancel
                     </Button>
-                   
-                        <>
-                            <Button variant="primary" onClick={handlePhotaModalClose}>
-                                Upload
-                            </Button>
-                        </>
-                    
-
+                    <Button variant="primary" onClick={handlePhotaModalClose}>
+                        Upload
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </>
