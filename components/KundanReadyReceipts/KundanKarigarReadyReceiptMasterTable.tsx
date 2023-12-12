@@ -22,7 +22,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   kunKarigarDropdownReset,
   calculateEditTotal,
   HandlePhotoUploadModal,
-  handleClearFileUploadInput,capturedImage,setCapturedImage
+  handleClearFileUploadInput
 }: any) => {
   console.log('table data receipt', tableData);
   const fileInputRef = useRef<any>({});
@@ -255,8 +255,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       handleFieldChange={handleFieldChange}
                       item={item}
                       handleClearFileUploadInput={handleClearFileUploadInput}
-                      capturedImage={capturedImage}
-                      setCapturedImage={setCapturedImage}
+                      
                     />
                     {/* <PhotoUploadModal
                       handleFieldChange={handleFieldChange}

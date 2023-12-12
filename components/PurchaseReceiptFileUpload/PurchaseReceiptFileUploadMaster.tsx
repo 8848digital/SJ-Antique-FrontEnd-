@@ -5,13 +5,10 @@ import Webcam from 'react-webcam';
 import styles from '../../styles/readyReceipts.module.css';
 import { CONSTANTS } from '@/services/config/api-config';
 import { useRouter } from 'next/router';
-import CurrentDate from '../CurrentDate';
 const PurchaseReceiptFileUploadMaster = ({
     handleFieldChange,
     item,
     handleClearFileUploadInput,
-    // capturedImage,
-    // setCapturedImage
 }: any) => {
     const { query } = useRouter()
     const webcamRef = useRef<Webcam>(null);
@@ -20,7 +17,6 @@ const PurchaseReceiptFileUploadMaster = ({
     const [showWebcam, setShowWebcam] = useState(false);
     const [showFile, setShowFile] = useState<any>();
     const [capturedImage, setCapturedImage] = useState<string | null>(null);
-    let nameNumber = 0;
 
     const handlePhotaModalClose = () => {
         setPhotoModalShow(false);
@@ -137,7 +133,6 @@ const PurchaseReceiptFileUploadMaster = ({
                                 audio={false}
                                 ref={webcamRef}
                                 screenshotFormat="image/jpeg"
-                                name={`image ${nameNumber+1}`}
                                 videoConstraints={{
                                     width: 250,
                                     height: 170,
