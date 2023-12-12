@@ -30,12 +30,12 @@ const WebCamPurchaseReceipt = () => {
                         width={380}
                     // value={showFile}
                     />
-                    <button className='btn btn-primary' onClick={capturePhoto}>Take photo</button>
+                    <button className='btn btn-primary' >Take photo</button>
                 </>
             )}
             <i
                 className="fa-solid fa-camera-retro px-2 text-warning fs-5"
-
+                onClick={capturePhoto}
             ></i>
             <p className="m-0">Camera</p>
         </>
