@@ -228,7 +228,7 @@ const useReadyReceiptKarigar = () => {
         if (fileVal instanceof File) {
           filePath = `/files/${fileVal.name}`;
         } else {
-          filePath = fileVal;
+          filePath = '/files/capture.jpg';
         }
 
 
@@ -265,7 +265,7 @@ const useReadyReceiptKarigar = () => {
     if (fileVal instanceof File) {
       bodyFormData.append('file', fileVal);;
     } else {
-      bodyFormData.append('file', fileVal, 'screenshot.jpg');;
+      bodyFormData.append('file', fileVal, 'capture.jpg');;
     }
 
 

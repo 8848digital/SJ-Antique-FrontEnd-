@@ -26,7 +26,7 @@ const PurchaseReceiptFileUploadMaster = ({
     const handleShowPhotoModal = (item: any) => {
         console.log("item data", item, query)
         if (Object?.keys(item.custom_add_photo)?.length > 0) {
-            window.open(`${CONSTANTS.API_BASE_URL}/${item.custom_add_photo}`);
+            window.open(`${CONSTANTS.API_BASE_URL}${item.custom_add_photo}`);
         } else {
             setPhotoModalShow(true);
             setShowWebcam(false);
