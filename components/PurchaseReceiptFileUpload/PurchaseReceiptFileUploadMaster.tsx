@@ -142,5 +142,4 @@ const PurchaseReceiptFileUploadMaster = ({
     </>
   );
 };
-
 export default PurchaseReceiptFileUploadMaster;
