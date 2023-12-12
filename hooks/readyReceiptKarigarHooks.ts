@@ -219,15 +219,26 @@ const useReadyReceiptKarigar = () => {
     newValue: any,
     fileVal?: any
   ) => {
-    console.log('handlechange', id, val, field, newValue, fileVal);
+    console.log('handlechange', id, val, field, newValue, "fileval", fileVal);
+    console.log("handlechange fileval", fileVal);
 
     const updatedData = tableData?.map((item: any) => {
       if (item.idx === id) {
-        // Create a new object for the updated row
+
+        let filePath;
+        if (fileVal instanceof File) {
+          filePath = `/files/${fileVal.name}`;
+        } else {
+          filePath = "/files/screenshot.jpg";
+        }
+
+
+        console.log("handlechange updated file data value", filePath)
         return {
           ...item,
           [field]:
-            field === 'custom_add_photo' ? `/files/${fileVal?.name}` : newValue,
+            // field === 'custom_add_photo' ? fileData : newValue,
+            field === 'custom_add_photo' ? filePath : newValue,
         };
       }
       return item;
@@ -244,19 +255,9 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus(true);
   };
 
-  const handleClearFileUploadInput: any = (id: any) => {
-    console.log("clear file uplaod", id, tableData)
-
-    setTableData((prevList: any) =>
-      prevList.map((item: any) =>
-        item.idx === id ? { ...item, custom_add_photo: '' } : item
-      )
-    );
-
-
-  }
 
   const handleFileUpload = async (id: number, fileVal: any) => {
+    console.log("fileval in upload", fileVal)
     const updatedData = await Promise.all(
       tableData?.map(async (row: any) => {
         if (row.idx === id) {
@@ -278,6 +279,19 @@ const useReadyReceiptKarigar = () => {
     setTableData(updatedData);
     setStateForDocStatus(true);
   };
+
+  const handleClearFileUploadInput: any = (id: any) => {
+    console.log("clear file uplaod", id, tableData)
+
+    setTableData((prevList: any) =>
+      prevList.map((item: any) =>
+        item.idx === id ? { ...item, custom_add_photo: '' } : item
+      )
+    );
+
+
+  }
+
 
   const handleModalFieldChange = (
     id: number,
