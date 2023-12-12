@@ -5,6 +5,7 @@ import Webcam from 'react-webcam';
 import styles from '../../styles/readyReceipts.module.css';
 import { CONSTANTS } from '@/services/config/api-config';
 import { useRouter } from 'next/router';
+import WebCamPurchaseReceipt from './WebCamPurchaseReceipt';
 const PurchaseReceiptFileUploadMaster = ({
     handleFieldChange,
     item,
@@ -129,16 +130,21 @@ const PurchaseReceiptFileUploadMaster = ({
                             </p>
                         </button>
                         {showWebcam && (
-                            <Webcam
-                                audio={false}
-                                ref={webcamRef}
-                                screenshotFormat="image/jpeg"
-                                videoConstraints={{
-                                    width: 250,
-                                    height: 170,
-                                    facingMode: 'user',
-                                }}
-                                mirrored={true}
+                            // <Webcam
+                            //     audio={false}
+                            //     ref={webcamRef}
+                            //     screenshotFormat="image/jpeg"
+                            //     videoConstraints={{
+                            //         width: 500,
+                            //         height: 265,
+                            //         facingMode: 'user',
+                            //     }}
+                            //     mirrored={true}
+                            // />
+                            <WebCamPurchaseReceipt
+                            handleFieldChange={handleFieldChange}
+                            setShowWebcam={setShowWebcam}
+                            item={item}
                             />
                         )}
                         {capturedImage && (
@@ -154,17 +160,13 @@ const PurchaseReceiptFileUploadMaster = ({
                     <Button variant="secondary" onClick={handlePhotaModalClose}>
                         Cancel
                     </Button>
-                    {showWebcam ? (<>
-                        <Button variant="primary" onClick={capturePhoto}>
-                            Take Photo
-                        </Button>
-                    </>) : (
+                   
                         <>
                             <Button variant="primary" onClick={handlePhotaModalClose}>
                                 Upload
                             </Button>
                         </>
-                    )}
+                    
 
                 </Modal.Footer>
             </Modal>
