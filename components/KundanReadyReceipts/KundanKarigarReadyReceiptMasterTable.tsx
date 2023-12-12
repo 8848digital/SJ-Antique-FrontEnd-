@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 import PhotoUploadModal from './PhotoUploadModal';
+import PurchaseReceiptFileUploadMaster from '../PurchaseReceiptFileUpload/PurchaseReceiptFileUploadMaster';
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
   tableData,
@@ -21,6 +22,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   kunKarigarDropdownReset,
   calculateEditTotal,
   HandlePhotoUploadModal,
+  handleClearFileUploadInput
 }: any) => {
   console.log('table data receipt', tableData);
   const fileInputRef = useRef<any>({});
@@ -175,11 +177,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         tableData[i]?.totalModalWeight > 0
                           ? Number(tableData[i].custom_net_wt) +
-                            Number(tableData[i].custom_few_wt) +
-                            Number(tableData[i]?.totalModalWeight)
+                          Number(tableData[i].custom_few_wt) +
+                          Number(tableData[i]?.totalModalWeight)
                           : Number(tableData[i].custom_net_wt) +
-                            Number(tableData[i].custom_few_wt) +
-                            Number(tableData[i]?.custom_mat_wt)
+                          Number(tableData[i].custom_few_wt) +
+                          Number(tableData[i]?.custom_mat_wt)
                       }
                     />
                   </td>
@@ -219,11 +221,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                            Number(tableData[i]?.totalAmount)
+                          Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                          ? tableData[i]?.custom_total
-                          : tableData[i]?.custom_other
+                            ? tableData[i]?.custom_total
+                            : tableData[i]?.custom_other
                       }
                     />
                   </td>
@@ -249,10 +251,15 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 />
               </td> */}
                   <td className="table_row">
-                    <PhotoUploadModal
+                    <PurchaseReceiptFileUploadMaster
                       handleFieldChange={handleFieldChange}
                       item={item}
+                      handleClearFileUploadInput={handleClearFileUploadInput}
                     />
+                    {/* <PhotoUploadModal
+                      handleFieldChange={handleFieldChange}
+                      item={item}
+                    /> */}
                     {/* <input
                       className={` ${styles.input_field} `}
                       type="text"

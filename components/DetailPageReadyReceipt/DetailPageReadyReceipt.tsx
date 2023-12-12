@@ -50,6 +50,7 @@ const DetailPageReadyReceipt = () => {
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
     calculateEditTotal,
+    handleClearFileUploadInput
   } = useReadyReceiptKarigar();
   console.log('default dataa', defaultKarigarData);
   console.log('readyonly condn', readOnlyFields);
@@ -138,6 +139,7 @@ const DetailPageReadyReceipt = () => {
             readOnlyFields={readOnlyFields}
             setReadOnlyFields={setReadOnlyFields}
             calculateEditTotal={calculateEditTotal}
+            handleClearFileUploadInput={handleClearFileUploadInput}
           />
         </div>
         <PurchaseReceiptModal

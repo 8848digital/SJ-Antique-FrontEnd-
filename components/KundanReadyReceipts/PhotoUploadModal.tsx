@@ -3,9 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Webcam from 'react-webcam';
 import styles from '../../styles/readyReceipts.module.css';
+import WebCamPurchaseReceipt from '../PurchaseReceiptFileUpload/WebCamPurchaseReceipt';
 
 const PhotoUploadModal = ({ handleFieldChange, item }: any) => {
-  const webcamRef = useRef<Webcam>(null);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [photoModalshow, setPhotoModalShow] = useState(false);
   const [showFile, setShowFile] = useState<any>();
@@ -13,11 +14,7 @@ const PhotoUploadModal = ({ handleFieldChange, item }: any) => {
   const handlePhotaModalClose = () => setPhotoModalShow(false);
   const handleShowPhotoModal = () => setPhotoModalShow(true);
 
-  const capturePhoto = () => {
-    const imageSrc = webcamRef.current?.getScreenshot();
-    console.log('capture run');
-    console.log(imageSrc);
-  };
+
   const handleUploadClick = () => {
     console.log('file upload click');
     fileInputRef.current?.click();
@@ -35,27 +32,27 @@ const PhotoUploadModal = ({ handleFieldChange, item }: any) => {
       <input
         type="text"
         className={` ${styles.input_field} `}
-        placeholder="Add Photo"
+        placeholder="upload"
         value={item?.custom_add_photo}
         onClick={handleShowPhotoModal}
       />
 
       <Modal show={photoModalshow} onHide={handlePhotaModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Photo</Modal.Title>
+          <Modal.Title>Upload</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="d-block text-center ">
-            <Webcam
+            {/* <Webcam
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               value={showFile}
-            />
+            /> */}
             <div className="d-flex justify-content-center">
               <div className="d-block text-center px-1">
                 <i
-                  className="fa-solid fa-computer px-2 text-primary fs-2"
+                  className="fa-solid fa-computer px-2 text-primary fs-5"
                   onClick={handleUploadClick}
                 >
                   <input
@@ -63,15 +60,15 @@ const PhotoUploadModal = ({ handleFieldChange, item }: any) => {
                     type="file"
                     style={{ display: 'none' }}
                     onChange={handleFileChange}
-                    // onChange={(e) =>
-                    //   handleFieldChange(
-                    //     item?.idx,
-                    //     'tableRow',
-                    //     'custom_add_photo',
-                    //     `/files/${e.target.files?.[0]?.name}`,
-                    //     e.target.files?.[0]
-                    //   )
-                    // }
+                  // onChange={(e) =>
+                  //   handleFieldChange(
+                  //     item?.idx,
+                  //     'tableRow',
+                  //     'custom_add_photo',
+                  //     `/files/${e.target.files?.[0]?.name}`,
+                  //     e.target.files?.[0]
+                  //   )
+                  // }
                   />
                 </i>
                 <p className="m-0" onClick={handleUploadClick}>
@@ -79,11 +76,10 @@ const PhotoUploadModal = ({ handleFieldChange, item }: any) => {
                 </p>
               </div>
               <div className="d-block text-center px-1">
-                <i
-                  className="fa-solid fa-camera-retro px-2 text-warning fs-2"
-                  onClick={capturePhoto}
-                ></i>
-                <p className="m-0">Camera</p>
+                <WebCamPurchaseReceipt
+
+                />
+
               </div>
             </div>
           </div>

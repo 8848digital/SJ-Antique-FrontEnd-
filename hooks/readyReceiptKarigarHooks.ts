@@ -243,6 +243,18 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus(true);
   };
 
+  const handleClearFileUploadInput: any = (id: any) => {
+    console.log("clear file uplaod", id, tableData)
+
+    setTableData((prevList: any) =>
+      prevList.map((item: any) =>
+        item.idx === id ? { ...item, custom_add_photo: '' } : item
+      )
+    );
+
+
+  }
+
   const handleFileUpload = async (id: number, fileVal: any) => {
     const updatedData = await Promise.all(
       tableData?.map(async (row: any) => {
@@ -460,11 +472,11 @@ const useReadyReceiptKarigar = () => {
             ...tableItem,
             amount:
               (parseInt(tableItem.pcs, 10) || 0) *
-                (parseInt(tableItem.piece_, 10) || 0) +
+              (parseInt(tableItem.piece_, 10) || 0) +
               (parseFloat(tableItem.carat) || 0) *
-                (parseFloat(tableItem.carat_) || 0) +
+              (parseFloat(tableItem.carat_) || 0) +
               (parseFloat(tableItem.weight) || 0) *
-                (parseFloat(tableItem.gm_) || 0),
+              (parseFloat(tableItem.gm_) || 0),
           })),
         };
       }
@@ -835,6 +847,7 @@ const useReadyReceiptKarigar = () => {
     setKunKarigarDropdownReset,
     calculateEditTotal,
     HandlePhotoUploadModal,
+    handleClearFileUploadInput
   };
 };
 
