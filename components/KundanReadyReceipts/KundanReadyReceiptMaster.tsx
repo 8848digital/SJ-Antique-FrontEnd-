@@ -55,7 +55,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     setKunKarigarDropdownReset,
     calculateEditTotal,
     HandlePhotoUploadModal,
-    handleClearFileUploadInput
+    handleClearFileUploadInput,capturedImage,setCapturedImage
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -193,6 +193,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   calculateEditTotal={calculateEditTotal}
                   HandlePhotoUploadModal={HandlePhotoUploadModal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
+                  capturedImage={capturedImage}
+                  setCapturedImage={setCapturedImage}
                 />
               </div>
             </div>

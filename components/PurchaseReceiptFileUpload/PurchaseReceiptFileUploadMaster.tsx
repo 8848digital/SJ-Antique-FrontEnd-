@@ -3,18 +3,21 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Webcam from 'react-webcam';
 import styles from '../../styles/readyReceipts.module.css';
+import { CLIENT_RENEG_LIMIT } from 'tls';
 
 const PurchaseReceiptFileUploadMaster = ({
   handleFieldChange,
   item,
   handleClearFileUploadInput,
+  handleFileUpload,
+  capturedImage,
+  setCapturedImage
 }: any) => {
   const webcamRef = useRef<Webcam>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [photoModalshow, setPhotoModalShow] = useState(false);
   const [showWebcam, setShowWebcam] = useState(false);
-  const [showFile, setShowFile] = useState<any>();
-  const [capturedImage, setCapturedImage] = useState<string | null>('');
+ 
 
   const handlePhotaModalClose = () => {
     setPhotoModalShow(false);
@@ -33,6 +36,7 @@ const PurchaseReceiptFileUploadMaster = ({
 
   const capturePhoto = () => {
     const imageSrc = webcamRef.current?.getScreenshot();
+    console.log(imageSrc,'captureed image')
     setCapturedImage(imageSrc || null);
     setShowWebcam(false);
   };
@@ -43,8 +47,9 @@ const PurchaseReceiptFileUploadMaster = ({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    console.log(file,'uploaded file')
     if (file) {
-      setShowFile(file);
+      setCapturedImage(file || null);
     }
   };
   // const handleClearFileUploadInput: any = (id: any) => {
@@ -60,6 +65,7 @@ const PurchaseReceiptFileUploadMaster = ({
             placeholder="Attach"
             value={item?.custom_add_photo}
             onClick={handleShowPhotoModal}
+            
           />
         </div>
         <div className="px-2">
@@ -84,14 +90,8 @@ const PurchaseReceiptFileUploadMaster = ({
                   ref={fileInputRef}
                   type="file"
                   style={{ display: 'none' }}
-                  onChange={(e) =>
-                    handleFieldChange(
-                      item.idx,
-                      'tableRow',
-                      'custom_add_photo',
-                      `/files/${e.target.files?.[0]?.name}`,
-                      e.target.files?.[0]
-                    )
+                  onClick={(e) =>
+                    handleFileChange
                   }
                 />
               </i>
@@ -110,16 +110,15 @@ const PurchaseReceiptFileUploadMaster = ({
               </p>
             </button>
             {showWebcam && (
-              <Webcam
+              <><Webcam
                 audio={false}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 videoConstraints={{
-                  width: 1280,
-                  height: 720,
+                  width: 250,
+                  height: 170,
                   facingMode: 'user',
-                }}
-              />
+                }} /><button onClick={capturePhoto}>capture</button></>
             )}
             {capturedImage && (
               <img
@@ -134,7 +133,8 @@ const PurchaseReceiptFileUploadMaster = ({
           <Button variant="secondary" onClick={handlePhotaModalClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handlePhotaModalClose}>
+          <Button variant="primary" onClick={()=>handleFileUpload(item.idx, capturedImage)}
+                    onMouseDown={handlePhotaModalClose}>
             Upload
           </Button>
         </Modal.Footer>

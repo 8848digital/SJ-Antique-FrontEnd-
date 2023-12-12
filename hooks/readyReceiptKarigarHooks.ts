@@ -27,6 +27,7 @@ const useReadyReceiptKarigar = () => {
   const inputRef = useRef<any>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [readyReceiptType, setReadyReceiptType] = useState<any>('');
+  const [capturedImage, setCapturedImage] = useState<any>('');
 
   const [recipitData, setRecipitData] = useState({
     custom_karigar: ' ',
@@ -259,15 +260,15 @@ const useReadyReceiptKarigar = () => {
     const updatedData = await Promise.all(
       tableData?.map(async (row: any) => {
         if (row.idx === id) {
-          const uploadedFile = await postUploadFile(
-            loginAcessToken.token,
-            fileVal
-          );
+          // const uploadedFile = await postUploadFile(
+          //   loginAcessToken.token,
+          //   fileVal
+          // );
 
-          console.log('upload file path', uploadedFile);
+          console.log('upload file path', fileVal); 
           return {
             ...row,
-            custom_add_photo: `/files/${uploadedFile?.file_name}`,
+            custom_add_photo: `/files/${fileVal?.file_name}`,
           };
         }
         return row;
@@ -847,7 +848,9 @@ const useReadyReceiptKarigar = () => {
     setKunKarigarDropdownReset,
     calculateEditTotal,
     HandlePhotoUploadModal,
-    handleClearFileUploadInput
+    handleClearFileUploadInput,
+    setCapturedImage,
+    capturedImage
   };
 };
 
