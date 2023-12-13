@@ -65,8 +65,6 @@ const ReadyReceiptsTabs: any = ({
           ) : (
             ''
           )}
-          {showSales ? <SalesHeader /> : ''}
-          {showMaster ? '' : ''}
         </div>
       </div>
     </div>

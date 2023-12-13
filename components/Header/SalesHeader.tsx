@@ -21,7 +21,7 @@ const SalesHeader = () => {
   return (
     <div className="d-flex justify-content-center">
       <Link
-        href="/saleReturns"
+        href="/sales/saleReturns"
         className="text-decoration-none btn-margin"
         onClick={() => setActive(0)}
       >
@@ -33,7 +33,7 @@ const SalesHeader = () => {
         </button>
       </Link>
       <Link
-        href="/customerSale"
+        href="/sales/customerSale"
         className="text-decoration-none btn-margin"
         onClick={() => setActive(1)}
       >

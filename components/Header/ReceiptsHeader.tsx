@@ -22,6 +22,9 @@ const ReceiptsHeader = () => {
     if (value === 'master') {
       setShowMaster(true);
     }
+    if (value === 'sales') {
+      setShowSales(true);
+    }
   }, []);
 
   const handleReadyRecipt = (val: any) => {
@@ -78,7 +81,7 @@ const ReceiptsHeader = () => {
             Ready Receipts
           </button>
         </Link>
-        <Link className="text-decoration-none btn-margin" href="/saleReturns">
+        <Link className="text-decoration-none btn-margin" href="/sales">
           <button
             className={`${styles.button} ${showSales ? 'activeColor' : ''}`}
             onClick={() => handleReadyRecipt('Sales')}

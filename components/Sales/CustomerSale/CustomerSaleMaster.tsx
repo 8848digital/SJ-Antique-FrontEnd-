@@ -2,8 +2,8 @@ import CurrentDate from '@/components/CurrentDate';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import styles from '../../styles/readyReceipts.module.css';
-// import styles from '../styles/readyReceipts.module.css';
+import styles from '../../../styles/readyReceipts.module.css';
+import SalesHeader from '@/components/Header/SalesHeader';
 
 const CustomerSaleMaster = () => {
   const [tableData, setTableData] = useState<any>([
@@ -55,6 +55,7 @@ const CustomerSaleMaster = () => {
   };
   return (
     <div className="container-lg">
+      <SalesHeader />
       <div>
         <div
           className="nav nav-pills mb-3 justify-content-center"

@@ -6,12 +6,11 @@ const WebCamPurchaseReceipt = ({
   handleFieldChange,
   setShowWebcam,
   item,
-  capturedImage,
-  showPreview,
   setCapturedImage,
 }: any) => {
   const webcamRef = useRef<Webcam>(null);
   const [show, setShow] = useState(true);
+  const [switchCamera, setSwitchCamera] = useState(false);
 
   const handleClose = () => {
     setShow(false);
@@ -32,6 +31,11 @@ const WebCamPurchaseReceipt = ({
     setShowWebcam(false);
   };
 
+  const handleSwitchCamera = () => {
+    setSwitchCamera(!switchCamera);
+    console.log(switchCamera, 'switch camera');
+  };
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -46,12 +50,15 @@ const WebCamPurchaseReceipt = ({
             videoConstraints={{
               width: 465,
               height: 265,
-              facingMode: 'user',
+              facingMode: switchCamera ? 'enviornment' : 'user',
             }}
             mirrored={true}
           />
         </Modal.Body>
         <Modal.Footer>
+          <Button variant="secondary" onClick={handleSwitchCamera}>
+            Switch Camera
+          </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
