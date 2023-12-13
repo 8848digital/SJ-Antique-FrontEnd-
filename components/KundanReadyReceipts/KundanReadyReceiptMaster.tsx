@@ -192,6 +192,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   kunKarigarDropdownReset={kunKarigarDropdownReset}
                   calculateEditTotal={calculateEditTotal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
+                  
                 />
               </div>
             </div>
