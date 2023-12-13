@@ -54,8 +54,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
     calculateEditTotal,
-    HandlePhotoUploadModal,
-    handleClearFileUploadInput
+
+    handleClearFileUploadInput,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -81,7 +81,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
               role="tab"
               aria-controls="pills-home"
               aria-selected="true"
-            // onClick={() => setClick(true)}
+              // onClick={() => setClick(true)}
             >
               Ready receipts {lastPartOfURL} karigar
             </button>
@@ -191,7 +191,6 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   materialWeight={materialWeight}
                   kunKarigarDropdownReset={kunKarigarDropdownReset}
                   calculateEditTotal={calculateEditTotal}
-                  HandlePhotoUploadModal={HandlePhotoUploadModal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
 
                 />

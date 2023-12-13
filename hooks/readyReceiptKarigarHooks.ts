@@ -218,12 +218,11 @@ const useReadyReceiptKarigar = () => {
     newValue: any,
     fileVal?: any
   ) => {
-    console.log('handlechange', id, val, field, newValue, "fileval", fileVal);
-    console.log("handlechange fileval", fileVal);
+    console.log('handlechange', id, val, field, newValue, 'fileval', fileVal);
+    console.log('handlechange fileval', fileVal);
 
     const updatedData = tableData?.map((item: any) => {
       if (item.idx === id) {
-
         let filePath;
         if (fileVal instanceof File) {
           filePath = `/files/${fileVal.name}`;
@@ -231,8 +230,7 @@ const useReadyReceiptKarigar = () => {
           filePath = '/files/capture.jpg';
         }
 
-
-        console.log("handlechange updated file data value", filePath)
+        console.log('handlechange updated file data value', filePath);
         return {
           ...item,
           [field]:
@@ -254,21 +252,17 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus(true);
   };
 
-
   const handleFileUpload = async (id: number, fileVal: any) => {
-    console.log("fileval in upload", fileVal)
+    console.log('fileval in upload', fileVal);
     const bodyFormData: any = new FormData();
     // // bodyFormData.append('file', val);
     // bodyFormData.append('file', val, 'screenshot.jpg');
 
-
     if (fileVal instanceof File) {
-      bodyFormData.append('file', fileVal);;
+      bodyFormData.append('file', fileVal);
     } else {
       bodyFormData.append('file', fileVal, 'capture.jpg');;
     }
-
-
 
     const updatedData = await Promise.all(
       tableData?.map(async (row: any) => {
@@ -293,17 +287,14 @@ const useReadyReceiptKarigar = () => {
   };
 
   const handleClearFileUploadInput: any = (id: any) => {
-    console.log("clear file uplaod", id, tableData)
+    console.log('clear file uplaod', id, tableData);
 
     setTableData((prevList: any) =>
       prevList.map((item: any) =>
         item.idx === id ? { ...item, custom_add_photo: '' } : item
       )
     );
-
-
-  }
-
+  };
 
   const handleModalFieldChange = (
     id: number,
@@ -799,31 +790,7 @@ const useReadyReceiptKarigar = () => {
 
   console.log(tableData, 'table data kundanlisting');
   console.log('modal state', showModal);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const HandlePhotoUploadModal = (event: any, id: number, item: any) => {
-    const dataVal =
-      tableData?.length > 0 &&
-      tableData !== null &&
-      tableData?.filter((item: any) => {
-        if (item.idx === id) {
-          setModalOpen(true);
-        }
-      });
-  };
 
-  const openPhotoModal = () => {
-    setModalOpen(true);
-  };
-
-  const closePhotoModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleCameraOption = () => {
-    // Implement camera option (you may need to use a third-party library or native API)
-    console.log('Camera option selected');
-    closeModal();
-  };
   return {
     setClick,
     kundanListing,
@@ -873,8 +840,7 @@ const useReadyReceiptKarigar = () => {
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
     calculateEditTotal,
-    HandlePhotoUploadModal,
-    handleClearFileUploadInput
+    handleClearFileUploadInput,
   };
 };
 

@@ -21,8 +21,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
   calculateEditTotal,
-  HandlePhotoUploadModal,
-  handleClearFileUploadInput
+
+  handleClearFileUploadInput,
 }: any) => {
   console.log('table data receipt', tableData);
   const fileInputRef = useRef<any>({});
@@ -229,27 +229,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       }
                     />
                   </td>
-                  {/* <td className="table_row ">
-                {tableData[i].custom_add_photo && (
-                  <span style={{ fontSize: '12px' }}>
-                    {tableData[i].custom_add_photo}
-                  </span>
-                )}
-                <input
-                  className={` ${styles.input_field} border-0`}
-                  type="file"
-                  // value={item.custom_add_photo}
-                  onChange={(e) =>
-                    handleFieldChange(
-                      item.idx,
-                      'tableRow',
-                      'custom_add_photo',
-                      `/files/${e.target.files?.[0]?.name}`,
-                      e.target.files?.[0]
-                    )
-                  }
-                />
-              </td> */}
+
                   <td className="table_row">
                     <PurchaseReceiptFileUploadMaster
                       handleFieldChange={handleFieldChange}
@@ -258,53 +238,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       handleClearFileUploadInput={handleClearFileUploadInput}
 
                     />
-                    {/* <PhotoUploadModal
-                      handleFieldChange={handleFieldChange}
-                      item={item}
-                    /> */}
-                    {/* <input
-                      className={` ${styles.input_field} `}
-                      type="text"
-                      placeholder="Add Photo"
-                      onClick={(e) => {
-                        HandlePhotoUploadModal(e, item.idx, item);
-                      }}
-                    /> */}
-
-                    {/* <input
-                      className={`${styles.input_field} `}
-                      type="text"
-                      // defaultValue={selectedFile ? selectedFile.name : ''}
-                      placeholder="Choose file"
-                      value={item.custom_add_photo}
-                      onClick={() => handleButtonClick(item.idx)}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          item.idx,
-                          'tableRow',
-                          'custom_add_photo',
-                          `/files/${e.target.files?.[0]?.name}`,
-                          e.target.files?.[0]
-                        )
-                      }
-                      readOnly
-                    /> */}
-
-                    {/* Hidden file input */}
-                    {/* <input
-                      ref={(ref) => (fileInputRef.current[item.idx] = ref)}
-                      type="file"
-                      style={{ display: 'none' }}
-                      onChange={(e) =>
-                        handleFieldChange(
-                          item.idx,
-                          'tableRow',
-                          'custom_add_photo',
-                          `/files/${e.target.files?.[0]?.name}`,
-                          e.target.files?.[0]
-                        )
-                      }
-                    /> */}
                   </td>
                   <td className="table_row">
                     <button

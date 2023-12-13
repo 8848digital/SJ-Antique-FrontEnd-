@@ -2,7 +2,7 @@ import axios from 'axios';
 import { CONSTANTS, headerGenerator } from '../config/api-config';
 
 const postUploadFile = async (get_access_token: any, params: any) => {
-  console.log("capture payload", params)
+  console.log('capture payload', params);
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
   // const bodyFormData: any = new FormData();
