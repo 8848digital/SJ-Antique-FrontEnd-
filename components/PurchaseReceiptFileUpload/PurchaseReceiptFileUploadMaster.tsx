@@ -6,7 +6,7 @@ import styles from '../../styles/readyReceipts.module.css';
 import { CONSTANTS } from '@/services/config/api-config';
 import { useRouter } from 'next/router';
 import WebCamPurchaseReceipt from './WebCamPurchaseReceipt';
-
+// ad
 const PurchaseReceiptFileUploadMaster = ({
     handleFieldChange,
     item,
