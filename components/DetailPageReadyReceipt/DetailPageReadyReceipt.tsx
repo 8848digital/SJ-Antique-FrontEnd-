@@ -115,7 +115,11 @@ const DetailPageReadyReceipt = () => {
         <div className="container d-flex justify-content-end p-o">
           <button
             className="btn btn-link p-0"
-            onClick={() => handleAddRow('tableRow')}
+            onClick={() => {
+              if (!readOnlyFields) {
+                handleAddRow('tableRow');
+              }
+            }}
           >
             Add Row
           </button>

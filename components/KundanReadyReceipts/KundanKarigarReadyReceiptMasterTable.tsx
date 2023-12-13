@@ -254,8 +254,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <PurchaseReceiptFileUploadMaster
                       handleFieldChange={handleFieldChange}
                       item={item}
+                      readOnlyFields={readOnlyFields}
                       handleClearFileUploadInput={handleClearFileUploadInput}
-                      
+
                     />
                     {/* <PhotoUploadModal
                       handleFieldChange={handleFieldChange}

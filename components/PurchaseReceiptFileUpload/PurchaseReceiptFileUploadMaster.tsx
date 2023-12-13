@@ -11,6 +11,7 @@ const PurchaseReceiptFileUploadMaster = ({
     handleFieldChange,
     item,
     handleClearFileUploadInput,
+    readOnlyFields
 }: any) => {
     const { query } = useRouter()
     const webcamRef = useRef<Webcam>(null);
@@ -58,7 +59,11 @@ const PurchaseReceiptFileUploadMaster = ({
                 <div className="px-2">
                     <i
                         className="fa fa-xmark"
-                        onClick={() => handleClearFileUploadInput(item.idx)}
+                        onClick={() => {
+                            if (!readOnlyFields) {
+                                handleClearFileUploadInput(item.idx)
+                            }
+                        }}
                     ></i>
                 </div>
             </div>

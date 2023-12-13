@@ -61,7 +61,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
   const router = useRouter();
   console.log('show modal', showModal);
 
-  console.log('table data', tableData);
+  console.log('table data', readOnlyFields);
 
   return (
     <div className="container-lg">
@@ -193,7 +193,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   calculateEditTotal={calculateEditTotal}
                   HandlePhotoUploadModal={HandlePhotoUploadModal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
-                  
+
                 />
               </div>
             </div>
@@ -222,41 +222,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
           setReadOnlyFields={setReadOnlyFields}
           handleTabPressOnModal={handleTabPressOnModal}
         />
-        {/* {tableData?.length > 0 &&
-          tableData !== null &&
-          tableData.map((item: any, index: any) => (
-            <Modal size="xl" show={showModal} onHide={closeModal} key={index}>
-              <Modal.Header closeButton>
-                <Modal.Title id="example-modal-sizes-title-lg">
-                  Triggered by Key Press
-                </Modal.Title>
-              </Modal.Header>
-              <ModalMaster
-                handleModalFieldChange={handleModalFieldChange}
-                handleAddRow={handleAddRow}
-                materialWeight={materialWeight}
-                setMaterialWeight={setMaterialWeight}
-                materialListData={materialListData}
-                calculateRowValue={calculateRowValue}
-                handleDeleteChildTableRow={handleDeleteChildTableRow}
-                setRecipitData={setRecipitData}
-                recipitData={recipitData}
-                selectedDropdownValue={selectedDropdownValue}
-                setSelectedDropdownValue={setSelectedDropdownValue}
-              />
-              <Modal.Footer>
-                <Button variant="secondary" onClick={closeModal}>
-                  Close
-                </Button>
-                <Button
-                  variant="secondary"
-                  onClick={() => handleSaveModal(item.id)}
-                >
-                  Save
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          ))} */}
+
       </div>
     </div>
   );
