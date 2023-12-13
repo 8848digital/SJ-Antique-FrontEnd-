@@ -1,42 +1,66 @@
 import React, { useRef, useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 import Webcam from 'react-webcam';
 
-const WebCamPurchaseReceipt = () => {
+const WebCamPurchaseReceipt = ({
+  handleFieldChange,
+  setShowWebcam,
+  item,
+  capturedImage,
+  showPreview,
+  setCapturedImage,
+}: any) => {
   const webcamRef = useRef<Webcam>(null);
+  const [show, setShow] = useState(true);
 
-  const [activeWebcam, setActiveWebCam] = useState<any>(false);
+  const handleClose = () => {
+    setShow(false);
+    setShowWebcam(false);
+  };
+  const capturePhoto = async () => {
+    const imageSrc = (webcamRef?.current as any)?.getScreenshot();
 
-  const capturePhoto = () => {
-    setActiveWebCam(true);
-    const imageSrc = webcamRef.current?.getScreenshot();
-    console.log('capture run', webcamRef);
     if (imageSrc) {
-      setTimeout(() => {
-        window.open(imageSrc, '_blank');
-      }, 100);
+      // Convert base64 to Blob
+      const blob = await fetch(imageSrc).then((res) => res.blob());
+      setCapturedImage(imageSrc);
+      // Create FormData and append Blob
+      console.log('blobbb', blob);
+      handleFieldChange(item.idx, 'tableRow', 'custom_add_photo', blob, blob);
+      console.log('blobb', blob);
     }
 
-    console.log(imageSrc);
+    setShowWebcam(false);
   };
+
   return (
     <>
-      {activeWebcam && (
-        <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Camera</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <Webcam
             audio={false}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            height={320}
-            width={380}
-            // value={showFile}
+            videoConstraints={{
+              width: 465,
+              height: 265,
+              facingMode: 'user',
+            }}
+            mirrored={true}
           />
-          <button className="btn btn-primary" onClick={capturePhoto}>
-            Take photo
-          </button>
-        </>
-      )}
-      <i className="fa-solid fa-camera-retro px-2 text-warning fs-5"></i>
-      <p className="m-0">Camera</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={capturePhoto}>
+            Take Photo
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

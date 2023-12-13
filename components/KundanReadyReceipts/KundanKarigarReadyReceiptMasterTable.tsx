@@ -21,8 +21,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
   calculateEditTotal,
-  HandlePhotoUploadModal,
-  handleClearFileUploadInput
+
+  handleClearFileUploadInput,
 }: any) => {
   console.log('table data receipt', tableData);
   const fileInputRef = useRef<any>({});
@@ -177,11 +177,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         tableData[i]?.totalModalWeight > 0
                           ? Number(tableData[i].custom_net_wt) +
-                          Number(tableData[i].custom_few_wt) +
-                          Number(tableData[i]?.totalModalWeight)
+                            Number(tableData[i].custom_few_wt) +
+                            Number(tableData[i]?.totalModalWeight)
                           : Number(tableData[i].custom_net_wt) +
-                          Number(tableData[i].custom_few_wt) +
-                          Number(tableData[i]?.custom_mat_wt)
+                            Number(tableData[i].custom_few_wt) +
+                            Number(tableData[i]?.custom_mat_wt)
                       }
                     />
                   </td>
@@ -221,11 +221,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                          Number(tableData[i]?.totalAmount)
+                            Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                            ? tableData[i]?.custom_total
-                            : tableData[i]?.custom_other
+                          ? tableData[i]?.custom_total
+                          : tableData[i]?.custom_other
                       }
                     />
                   </td>
