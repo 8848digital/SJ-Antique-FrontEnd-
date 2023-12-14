@@ -51,7 +51,7 @@ const KundanTable = ({
         <tbody>
           <tr className="table_row">
             <td scope="row" className="table_row">
-              <CurrentDate />
+              <CurrentDate defaultKarigarData={defaultKarigarData} />
             </td>
             <td className="table_row">
               <SearchSelectInputField
@@ -86,8 +86,8 @@ const KundanTable = ({
                 value={
                   readyReceiptType ||
                   (defaultKarigarData !== undefined &&
-                  defaultKarigarData?.length > 0 &&
-                  defaultKarigarData !== null
+                    defaultKarigarData?.length > 0 &&
+                    defaultKarigarData !== null
                     ? defaultKarigarData[0]?.custom_ready_receipt_type
                     : '')
                 }

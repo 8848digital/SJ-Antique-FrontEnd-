@@ -110,6 +110,7 @@ const DetailPageReadyReceipt = () => {
             setStateForDocStatus={setStateForDocStatus}
             readOnlyFields={readOnlyFields}
             setReadOnlyFields={setReadOnlyFields}
+
           />
         </div>
         <div className="container d-flex justify-content-end p-o">

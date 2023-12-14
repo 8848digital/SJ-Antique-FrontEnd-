@@ -32,6 +32,7 @@ const useReadyReceiptKarigar = () => {
     custom_karigar: ' ',
     remarks: '',
     custom_ready_receipt_type: readyReceiptType,
+    posting_date: ''
   });
   useEffect(() => {
     setRecipitData({
@@ -620,6 +621,7 @@ const useReadyReceiptKarigar = () => {
       custom_karigar: ' ',
       remarks: '',
       custom_ready_receipt_type: readyReceiptType,
+      posting_date: ''
     });
     setTableData([initialState]);
     setSelectedDropdownValue('');
@@ -676,9 +678,16 @@ const useReadyReceiptKarigar = () => {
       items: updatedMergedList,
     };
     console.log(values, 'updatedMergedList values');
+    // List of keys to be excluded from the API request
+    const keyToExclude = ['posting_date'];
+
+    const updatedReceiptData: any = { ...values };
+    keyToExclude?.forEach((key: any) => delete updatedReceiptData[key]);
+
+    console.log('santitizedData', updatedReceiptData);
     let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
       loginAcessToken.token,
-      values,
+      updatedReceiptData,
       query?.receiptId
     );
     console.log('updated purchase receipt api res', updateReceiptApi);
