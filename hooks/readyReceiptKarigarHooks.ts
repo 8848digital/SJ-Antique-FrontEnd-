@@ -32,7 +32,7 @@ const useReadyReceiptKarigar = () => {
     custom_karigar: ' ',
     remarks: '',
     custom_ready_receipt_type: readyReceiptType,
-    posting_date: ''
+    posting_date: '',
   });
   useEffect(() => {
     setRecipitData({
@@ -155,6 +155,7 @@ const useReadyReceiptKarigar = () => {
 
   const calculateEditTotal = (i: number, value: any) => {
     console.log('calculate edit value', i, value);
+    console.log(tableData, 'tabledata in edit');
     const updatedData =
       tableData?.length > 0 &&
       tableData !== null &&
@@ -169,13 +170,14 @@ const useReadyReceiptKarigar = () => {
               return accu + val;
             }, 0);
           }
-          let totalAmountValues = '';
+          let totalAmountValues = 0;
 
           if (Array.isArray(totalvalues)) {
             totalAmountValues = totalvalues.reduce((accu: any, val: any) => {
               return accu + val;
             }, 0);
           }
+          console.log(totalAmountValues, 'total amount edit');
           if (Number(item.totalAmount) >= 0) {
             return {
               ...item,
@@ -188,8 +190,8 @@ const useReadyReceiptKarigar = () => {
               custom_other: Number(value),
               totalAmount: totalAmountValues,
               custom_total:
-                item.totalAmount >= 0
-                  ? Number(item.totalAmount) + Number(value)
+                totalAmountValues >= 0
+                  ? totalAmountValues + Number(value)
                   : Number(value),
             };
           } else
@@ -207,10 +209,6 @@ const useReadyReceiptKarigar = () => {
     setTableData(updatedData);
     console.log(tableData, 'updated data after edit1');
   };
-  useEffect(() => {
-    // This code will run after the state has been updated
-    console.log(tableData, 'updated data after edit1');
-  }, [tableData]);
 
   const handleFieldChange = (
     id: number,
@@ -262,7 +260,7 @@ const useReadyReceiptKarigar = () => {
     if (fileVal instanceof File) {
       bodyFormData.append('file', fileVal);
     } else {
-      bodyFormData.append('file', fileVal, 'capture.jpg');;
+      bodyFormData.append('file', fileVal, 'capture.jpg');
     }
 
     const updatedData = await Promise.all(
@@ -466,7 +464,7 @@ const useReadyReceiptKarigar = () => {
       tableData !== null &&
       tableData?.map((row: any, i: any) => {
         if (row.idx === indexVal) {
-          const numbersParsed = parseInt(numbers, 10);
+          const numbersParsed = Number(numbers);
           return {
             ...row,
             totalModalWeight: weightAddition,
@@ -490,12 +488,9 @@ const useReadyReceiptKarigar = () => {
           table: row.table.map((tableItem: any) => ({
             ...tableItem,
             amount:
-              (parseInt(tableItem.pcs, 10) || 0) *
-              (parseInt(tableItem.piece_, 10) || 0) +
-              (parseFloat(tableItem.carat) || 0) *
-              (parseFloat(tableItem.carat_) || 0) +
-              (parseFloat(tableItem.weight) || 0) *
-              (parseFloat(tableItem.gm_) || 0),
+              (Number(tableItem.pcs) || 0) * (Number(tableItem.piece_) || 0) +
+              (Number(tableItem.carat) || 0) * (Number(tableItem.carat_) || 0) +
+              (Number(tableItem.weight) || 0) * (Number(tableItem.gm_) || 0),
           })),
         };
       }
@@ -552,21 +547,23 @@ const useReadyReceiptKarigar = () => {
       tableData !== null &&
       tableData?.map((row: any, i: any) => {
         if (row.idx === indexVal) {
-          if (row.custom_other !== '' && row.custom_total !== '') {
+          const customOther = parseFloat(row.custom_other);
+          const totalAmount = parseFloat(row.totalAmount);
+
+          if (!isNaN(customOther) && !isNaN(totalAmount)) {
             return {
               ...row,
-              custom_total:
-                parseInt(row.totalAmount) + parseInt(row.custom_other),
+              custom_total: totalAmount + customOther,
             };
-          } else if (row.custom_other !== '') {
+          } else if (!isNaN(customOther)) {
             return {
               ...row,
-              custom_total: parseInt(row.custom_other),
+              custom_total: customOther,
             };
           } else {
             return {
               ...row,
-              custom_total: parseInt(row.totalAmount),
+              custom_total: totalAmount,
             };
           }
         }
@@ -584,7 +581,6 @@ const useReadyReceiptKarigar = () => {
       ...recipitData,
       items: modalValue,
     };
-
     const isEmptyProductCode = values?.items?.some(
       (obj: any) => obj.product_code === ''
     );
@@ -621,7 +617,7 @@ const useReadyReceiptKarigar = () => {
       custom_karigar: ' ',
       remarks: '',
       custom_ready_receipt_type: readyReceiptType,
-      posting_date: ''
+      posting_date: '',
     });
     setTableData([initialState]);
     setSelectedDropdownValue('');
@@ -637,6 +633,7 @@ const useReadyReceiptKarigar = () => {
       tableData?.map((row: any, i: any) => {
         if (row.idx === indexVal) {
           if (
+            row.totalAmount !== undefined &&
             row.custom_other !== '' &&
             row.custom_total !== '' &&
             row.custom_other !== 0
@@ -645,14 +642,7 @@ const useReadyReceiptKarigar = () => {
               ...row,
               custom_total: Number(row.totalAmount) + Number(row.custom_other),
             };
-          }
-          // else if (row.custom_other !== '') {
-          //   return {
-          //     ...row,
-          //     custom_total: Number(row.custom_other) + Number(row.totalAmount),
-          //   };
-          // }
-          else if (row.totalAmount === undefined && row.custom_other === 0) {
+          } else if (row.totalAmount === undefined && row.custom_other === 0) {
             return {
               ...row,
               custom_total: Number(row.custom_total),
@@ -660,7 +650,7 @@ const useReadyReceiptKarigar = () => {
           } else {
             return {
               ...row,
-              custom_total: Number(row.totalAmount),
+              custom_total: Number(row.custom_total),
             };
           }
         }
@@ -721,18 +711,17 @@ const useReadyReceiptKarigar = () => {
           if (row.custom_other !== '' && row.custom_total !== '') {
             return {
               ...row,
-              custom_total:
-                parseInt(row.totalAmount) + parseInt(row.custom_other),
+              custom_total: Number(row.totalAmount) + Number(row.custom_other),
             };
           } else if (row.custom_other !== '') {
             return {
               ...row,
-              custom_total: parseInt(row.custom_other),
+              custom_total: Number(row.custom_other),
             };
           } else {
             return {
               ...row,
-              custom_total: parseInt(row.totalAmount),
+              custom_total: Number(row.totalAmount),
             };
           }
         }

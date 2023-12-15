@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import styles from '../../styles/readyReceipts.module.css';
 import WebCamPurchaseReceipt from './WebCamPurchaseReceipt';
 import usePhotoModalHook from '@/hooks/PurchaseReceiptFileUploadHook/Purchase-receipt-file-upload-hook';
+import Image from 'next/image';
 
 const PurchaseReceiptFileUploadMaster = ({
   handleFieldChange,
@@ -38,9 +39,9 @@ const PurchaseReceiptFileUploadMaster = ({
             placeholder="Attach"
             value={item?.custom_add_photo}
             onClick={() => {
-              if (!readOnlyFields) {
-                handleShowPhotoModal(item);
-              }
+              // if (!readOnlyFields) {
+              handleShowPhotoModal(item);
+              // }
             }}
           />
         </div>
@@ -63,15 +64,18 @@ const PurchaseReceiptFileUploadMaster = ({
           <>
             {showPreview && (
               <>
-                <img
+                <Image
                   src={
                     capturedImage
                       ? capturedImage
                       : URL?.createObjectURL(selectedImage)
                   }
                   alt="Captured"
+                  width={465}
+                  height={300}
                   className="img-thumbnail"
                 />
+
                 <div className="text-center">
                   <button
                     className="btn btn-file-upload text-grey"

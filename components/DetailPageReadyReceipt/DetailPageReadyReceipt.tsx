@@ -50,7 +50,7 @@ const DetailPageReadyReceipt = () => {
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
     calculateEditTotal,
-    handleClearFileUploadInput
+    handleClearFileUploadInput,
   } = useReadyReceiptKarigar();
   console.log('default dataa', defaultKarigarData);
   console.log('readyonly condn', readOnlyFields);
@@ -110,7 +110,6 @@ const DetailPageReadyReceipt = () => {
             setStateForDocStatus={setStateForDocStatus}
             readOnlyFields={readOnlyFields}
             setReadOnlyFields={setReadOnlyFields}
-
           />
         </div>
         <div className="container d-flex justify-content-end p-o">
