@@ -4,6 +4,7 @@ import styles from '../../styles/readyReceipts.module.css';
 import WebCamPurchaseReceipt from './WebCamPurchaseReceipt';
 import usePhotoModalHook from '@/hooks/PurchaseReceiptFileUploadHook/Purchase-receipt-file-upload-hook';
 import Image from 'next/image';
+import styled from '../../styles/readyReceipts.module.css';
 
 const PurchaseReceiptFileUploadMaster = ({
   handleFieldChange,
@@ -47,7 +48,7 @@ const PurchaseReceiptFileUploadMaster = ({
         </div>
         <div className="px-2">
           <i
-            className="fa fa-xmark"
+            className={`fa fa-xmark ${styled.cursor_pointer}`}
             onClick={() => {
               if (!readOnlyFields) {
                 handleClearFileUploadInput(item.idx);
