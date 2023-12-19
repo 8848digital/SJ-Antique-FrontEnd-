@@ -59,7 +59,20 @@ const useReadyReceiptKarigar = () => {
   const loginAcessToken = useSelector(get_access_token);
   console.log(loginAcessToken, 'loginAcessToken');
   let disabledValue: any;
-  const [materialWeight, setMaterialWeight] = useState<any>();
+  const [materialWeight, setMaterialWeight] = useState<any>([
+    {
+      idx: 1,
+      material_abbr: '',
+      material: '',
+      pcs: '',
+      piece_: '',
+      carat: '',
+      carat_: '',
+      weight: '',
+      gm_: '',
+      amount: '',
+    },
+  ]);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   const [
     selectedKundanKarigarDropdownValue,
@@ -143,7 +156,7 @@ const useReadyReceiptKarigar = () => {
     };
     getStateData();
   }, []);
-  console.log(materialWeight, 'karigarData');
+
   const calculateRowValue = (i: any) => {
     console.log(i, 'i');
     return (
@@ -209,6 +222,31 @@ const useReadyReceiptKarigar = () => {
     setTableData(updatedData);
     console.log(tableData, 'updated data after edit1');
   };
+  const UpdateMaterialWeight: any = (weightAmt: any) => {
+    console.log('daaata', tableData, materialWeight, weightAmt);
+
+    // Update the weight property in tableData
+    const updatedTableData =
+      tableData?.map((item: any) => ({
+        ...item,
+        custom_mat_wt: weightAmt,
+        table: item.table?.map((materialData: any) => ({
+          ...materialData,
+          weight: weightAmt,
+        })),
+      })) || [];
+
+    setTableData(updatedTableData);
+
+    const updatedMaterialWeight =
+      materialWeight?.map((item: any) => ({
+        ...item,
+        weight: weightAmt,
+      })) || [];
+
+    // Assuming setMaterialWeight updates the state
+    setMaterialWeight(updatedMaterialWeight);
+  };
 
   const handleFieldChange = (
     id: number,
@@ -218,7 +256,7 @@ const useReadyReceiptKarigar = () => {
     fileVal?: any
   ) => {
     console.log('handlechange', id, val, field, newValue, 'fileval', fileVal);
-    console.log('handlechange fileval', fileVal);
+    console.log('handlechange data', materialWeight);
 
     const updatedData = tableData?.map((item: any) => {
       if (item.idx === id) {
@@ -240,14 +278,14 @@ const useReadyReceiptKarigar = () => {
       return item;
     });
 
-    console.log(updatedData, 'bbb');
-
     setTableData(updatedData);
     if (field === 'custom_add_photo') {
       console.log(fileVal, 'fileVal');
       handleFileUpload(id, fileVal);
     }
-
+    if (field === 'custom_mat_wt') {
+      UpdateMaterialWeight(newValue);
+    }
     setStateForDocStatus(true);
   };
 
@@ -370,6 +408,7 @@ const useReadyReceiptKarigar = () => {
   };
 
   const handleModal = (event: any, id: any, data: any) => {
+    console.log('table data in modal', data);
     setIndexVal(id);
     const dataVal =
       tableData?.length > 0 &&
@@ -384,7 +423,7 @@ const useReadyReceiptKarigar = () => {
           // }
         }
       });
-    setStateForDocStatus(true);
+    // setStateForDocStatus(true);
   };
 
   const handleSaveModal = async (id: any) => {
@@ -538,7 +577,6 @@ const useReadyReceiptKarigar = () => {
     setRecipitData({ ...recipitData, [e.target.name]: e.target.value });
     setStateForDocStatus(true);
   };
-  console.log(recipitData, 'recipitData');
 
   const handleCreate = async () => {
     console.log(tableData, 'table56', recipitData);
@@ -588,9 +626,11 @@ const useReadyReceiptKarigar = () => {
       obj.table.some((vals: any) => vals.material === '')
     );
     const productVal = values.custom_karigar;
-    console.log(isEmptyMaterial, 'finalVal');
+
     if (isEmptyProductCode || productVal === '') {
       toast.error('Mandatory fields Item code Or Karigar');
+    } else if (productVal === ' ') {
+      toast.error('Mandatory field Karigar');
     } else {
       const purchaseReceipt: any = await purchaseReceiptApi(
         loginAcessToken.token,
@@ -787,7 +827,6 @@ const useReadyReceiptKarigar = () => {
   };
 
   console.log(tableData, 'table data kundanlisting');
-  console.log('modal state', showModal);
 
   return {
     setClick,

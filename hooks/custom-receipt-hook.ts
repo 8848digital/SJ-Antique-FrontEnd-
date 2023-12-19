@@ -31,13 +31,6 @@ const UseCustomReceiptHook: any = () => {
 
   const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] =
     useState<any>(false);
-  // useEffect(() => {
-  //   if (specificDataFromStore?.docStatus > 0) {
-  //     setReadOnlyFields(true);
-  //   } else {
-  //     setReadOnlyFields(false);
-  //   }
-  // }, [specificDataFromStore]);
 
   const HandleDeleteReceipt: any = async (name: any) => {
     let deletePurchaseReceiptApi: any = await DeletePurchaseReceiptApi(
@@ -60,7 +53,6 @@ const UseCustomReceiptHook: any = () => {
         setKundanListing(updatedData?.data?.message?.data);
       }
     } else {
-      // router.back();
       toast.error('Failed to Delete purchase Receipt');
     }
   };
@@ -84,10 +76,6 @@ const UseCustomReceiptHook: any = () => {
     }
   };
   console.log('set default karigar data', defaultKarigarData);
-
-  // const HandleAmendBtnForEdit: any = () => {
-  //   setReadOnlyFields(false);
-  // };
 
   console.log('kundanListing in hook', kundanListing);
   return {
