@@ -169,14 +169,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       disabled
                       name={`sum-${i + 1}`}
                       value={
-                        tableData[i]?.totalModalWeight > 0
-                          ? Number(tableData[i].custom_net_wt) +
-                            Number(tableData[i].custom_few_wt) +
-                            Number(tableData[i]?.custom_mat_wt)
-                          : // Number(tableData[i]?.totalModalWeight)
-                            Number(tableData[i].custom_net_wt) +
-                            Number(tableData[i].custom_few_wt) +
-                            Number(tableData[i]?.custom_mat_wt)
+                        Number(tableData[i]?.custom_net_wt) +
+                        Number(tableData[i]?.custom_few_wt) +
+                        Number(tableData[i]?.custom_mat_wt)
                       }
                     />
                   </td>
