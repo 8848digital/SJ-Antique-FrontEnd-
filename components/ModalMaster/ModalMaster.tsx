@@ -78,7 +78,6 @@ const ModalMaster = ({
                 {materialWeight?.length > 0 &&
                   materialWeight?.map((element: any, i: any) => (
                     <>
-                      {console.log(element, 'element test')}
                       <tr key={i}>
                         <td className="table_row">{i + 1}</td>
                         <td className="table_row">
@@ -219,7 +218,7 @@ const ModalMaster = ({
                                 e.target.value
                               )
                             }
-                            value={calculateRowValue(i)}
+                            value={calculateRowValue(i)?.toFixed(2)}
                           />
                         </td>
                         <td className="table_row">

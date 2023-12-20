@@ -156,11 +156,23 @@ const useReadyReceiptKarigar = () => {
     newValue: any
   ) => {
     console.log('field change data', id, val, field, newValue);
+
+    const formatInput = (value: any) => {
+      const floatValue = parseFloat(value);
+      if (!isNaN(floatValue)) {
+        if (field === 'piece_' || field === 'carat_' || field === 'gm_') {
+          return parseFloat(floatValue.toFixed(2)); // Format to 2 decimal places for custom_total
+        } else {
+          return parseFloat(floatValue.toFixed(3)); // Format to 3 decimal places for other fields
+        }
+      }
+      return null;
+    };
     const updatedModalData =
       materialWeight?.length > 0 &&
       materialWeight?.map((item: any, i: any) => {
         if (i === id) {
-          return { ...item, [field]: 0 || newValue };
+          return { ...item, [field]: 0 || formatInput(newValue) };
         }
         return item;
       });

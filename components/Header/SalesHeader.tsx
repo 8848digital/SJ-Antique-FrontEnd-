@@ -21,18 +21,6 @@ const SalesHeader = () => {
   return (
     <div className="d-flex justify-content-center">
       <Link
-        href="/sales/saleReturns"
-        className="text-decoration-none btn-margin"
-        onClick={() => setActive(0)}
-      >
-        <button
-          className={`${styles.button} ${saleReturnValue ? 'activeColor' : ''}`}
-        >
-          Sale Returns
-          <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
-        </button>
-      </Link>
-      <Link
         href="/sales/customerSale"
         className="text-decoration-none btn-margin"
         onClick={() => setActive(1)}
@@ -43,6 +31,18 @@ const SalesHeader = () => {
           } `}
         >
           Customer Sale
+          <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
+        </button>
+      </Link>
+      <Link
+        href="/sales/saleReturns"
+        className="text-decoration-none btn-margin"
+        onClick={() => setActive(0)}
+      >
+        <button
+          className={`${styles.button} ${saleReturnValue ? 'activeColor' : ''}`}
+        >
+          Sale Returns
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>

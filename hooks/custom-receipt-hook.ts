@@ -191,14 +191,14 @@ const UseCustomReceiptHook: any = () => {
           if (Number(item.totalAmount) >= 0) {
             return {
               ...item,
-              custom_other: Number(value),
+              custom_other: Number(value)?.toFixed(2),
               custom_total: Number(item.totalAmount) + Number(value),
             };
           } else if (item.totalAmount === undefined) {
             return {
               ...item,
-              custom_other: Number(value),
-              totalAmount: totalAmountValues,
+              custom_other: Number(value)?.toFixed(2),
+              totalAmount: totalAmountValues?.toFixed(2),
               custom_total:
                 totalAmountValues >= 0
                   ? totalAmountValues + Number(value)
@@ -207,8 +207,8 @@ const UseCustomReceiptHook: any = () => {
           } else
             return {
               ...item,
-              custom_other: value,
-              totalAmount: totalAmountValues,
+              custom_other: value?.toFixed(2),
+              totalAmount: totalAmountValues?.toFixed(2),
             };
         }
         console.log(item, 'updated data after edit2');
@@ -361,8 +361,18 @@ const UseCustomReceiptHook: any = () => {
     fileVal?: any
   ) => {
     console.log('handlechange', id, val, field, newValue, 'fileval', fileVal);
-    console.log('handlechange data', materialWeight);
-
+    // Function to format the input to have only three decimal places
+    const formatInput = (value: any) => {
+      const floatValue = parseFloat(value);
+      if (!isNaN(floatValue)) {
+        // if (field === 'custom_total' || field === 'custom_other') {
+        //   return floatValue.toFixed(2); // Format to 2 decimal places for custom_total
+        // } else {
+        return parseFloat(floatValue.toFixed(3)); // Format to 3 decimal places for other fields
+        // }
+      }
+      return null; // Return null for invalid input
+    };
     const updatedData = tableData?.map((item: any) => {
       if (item.idx === id) {
         let filePath;
@@ -372,12 +382,11 @@ const UseCustomReceiptHook: any = () => {
           filePath = '/files/capture.jpg';
         }
 
-        console.log('handlechange updated file data value', filePath);
         return {
           ...item,
           [field]:
             // field === 'custom_add_photo' ? fileData : newValue,
-            field === 'custom_add_photo' ? filePath : newValue,
+            field === 'custom_add_photo' ? filePath : formatInput(newValue),
         };
       }
       return item;
@@ -389,8 +398,13 @@ const UseCustomReceiptHook: any = () => {
       handleFileUpload(id, fileVal);
     }
     if (field === 'custom_mat_wt') {
-      console.log('updateeed', id, newValue);
-      UpdateMaterialWeight(id, newValue);
+      const numericValue =
+        typeof newValue === 'string' ? parseFloat(newValue) : newValue;
+      if (!isNaN(numericValue)) {
+        const formattedValue = numericValue.toFixed(3);
+        console.log('updateeed', id, formattedValue);
+        UpdateMaterialWeight(id, formattedValue);
+      }
     }
     setStateForDocStatus(true);
   };
