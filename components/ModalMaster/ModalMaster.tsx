@@ -27,7 +27,7 @@ const ModalMaster = ({
   console.log('selected material', selectedMaterials, selectedAbbrs);
   return (
     <>
-      <Modal.Body>
+      <Modal.Body className="h-50">
         <div className="container d-flex justify-content-end">
           <button
             className="btn btn-link"
@@ -36,8 +36,8 @@ const ModalMaster = ({
             Add Row
           </button>
         </div>
-        <div className="container-lg table modal-responsive">
-          <div className="table-container">
+        <div className="container-lg table-container ">
+          <div className=" modal-responsive">
             <table className="table table-striped table-hover table-bordered">
               <thead>
                 <tr>

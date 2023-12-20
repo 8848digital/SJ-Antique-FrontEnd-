@@ -29,12 +29,6 @@ const useReadyReceiptKarigar = () => {
     custom_ready_receipt_type: readyReceiptType,
     posting_date: '',
   });
-  useEffect(() => {
-    setRecipitData({
-      ...recipitData,
-      custom_ready_receipt_type: readyReceiptType,
-    });
-  }, [readyReceiptType]);
 
   const [clickBtn, setClickBtn] = useState<boolean>(false);
   const [clicks, setClick] = useState<boolean>(false);
@@ -54,6 +48,12 @@ const useReadyReceiptKarigar = () => {
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
   ] = useState('');
+  useEffect(() => {
+    setRecipitData({
+      ...recipitData,
+      custom_ready_receipt_type: readyReceiptType,
+    });
+  }, [readyReceiptType]);
 
   const {
     HandleDeleteReceipt,
