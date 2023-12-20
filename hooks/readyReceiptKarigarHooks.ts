@@ -321,16 +321,28 @@ const useReadyReceiptKarigar = () => {
           if (!isNaN(customOther) && !isNaN(totalAmount)) {
             return {
               ...row,
+              custom_gross_wt:
+                Number(row.custom_net_wt) +
+                Number(row.custom_few_wt) +
+                Number(row.custom_mat_wt),
               custom_total: totalAmount + customOther,
             };
           } else if (!isNaN(customOther)) {
             return {
               ...row,
+              custom_gross_wt:
+                Number(row.custom_net_wt) +
+                Number(row.custom_few_wt) +
+                Number(row.custom_mat_wt),
               custom_total: customOther,
             };
           } else {
             return {
               ...row,
+              custom_gross_wt:
+                Number(row.custom_net_wt) +
+                Number(row.custom_few_wt) +
+                Number(row.custom_mat_wt),
               custom_total: totalAmount,
             };
           }
@@ -409,23 +421,35 @@ const useReadyReceiptKarigar = () => {
           ) {
             return {
               ...row,
+              custom_gross_wt:
+                Number(row.custom_net_wt) +
+                Number(row.custom_few_wt) +
+                Number(row.custom_mat_wt),
               custom_total: Number(row.totalAmount) + Number(row.custom_other),
             };
           } else if (row.totalAmount === undefined && row.custom_other === 0) {
             return {
               ...row,
+              custom_gross_wt:
+                Number(row.custom_net_wt) +
+                Number(row.custom_few_wt) +
+                Number(row.custom_mat_wt),
               custom_total: Number(row.custom_total),
             };
           } else {
             return {
               ...row,
+              custom_gross_wt:
+                Number(row.custom_net_wt) +
+                Number(row.custom_few_wt) +
+                Number(row.custom_mat_wt),
               custom_total: Number(row.custom_total),
             };
           }
         }
         return row;
       });
-
+    console.log(updatedtableData, 'update receipt');
     const updatedMergedList = updatedtableData.map((obj: any) => ({
       ...obj,
       custom_purchase_receipt_item_breakup: '',
