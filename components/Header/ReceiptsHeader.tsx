@@ -54,7 +54,7 @@ const ReceiptsHeader = () => {
   return (
     <div>
       <div className="row justify-content-center">
-        <div className="col-lg-2 text-center">
+        <div className="col-lg-2 col-md-3 col-3 text-center">
           <Link className="text-decoration-none btn-margin" href="/master">
             <button
               className={`${styles.button} ${showMaster ? 'activeColor' : ''}`}
@@ -68,7 +68,7 @@ const ReceiptsHeader = () => {
             </button>
           </Link>
         </div>
-        <div className="col-lg-2 text-center">
+        <div className="col-lg-2 col-md-3 col-6 text-center">
           <Link
             className="text-decoration-none btn-margin"
             href="/readyReceipt/kundan"
@@ -87,7 +87,7 @@ const ReceiptsHeader = () => {
             </button>
           </Link>
         </div>
-        <div className="col-lg-2 text-center">
+        <div className="col-lg-2 col-md-3 col-3 text-center">
           <Link className="text-decoration-none btn-margin" href="/sales">
             <button
               className={`${styles.button} ${showSales ? 'activeColor' : ''}`}
