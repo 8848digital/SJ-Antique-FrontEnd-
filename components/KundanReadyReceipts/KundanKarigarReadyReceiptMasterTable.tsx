@@ -1,10 +1,9 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRef, useState } from 'react';
 import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
-import PhotoUploadModal from './PhotoUploadModal';
 import PurchaseReceiptFileUploadMaster from '../PurchaseReceiptFileUpload/PurchaseReceiptFileUploadMaster';
+
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
   tableData,
@@ -25,11 +24,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
   handleClearFileUploadInput,
 }: any) => {
   console.log('table data receipt', tableData);
-  const fileInputRef = useRef<any>({});
-  const handleButtonClick = (id: any) => {
-    // Trigger the hidden file input when the visible text input is clicked
-    fileInputRef.current[id].click();
-  };
 
   return (
     <div className="table responsive">
@@ -151,11 +145,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       className={` ${styles.input_field} `}
                       type="number"
                       value={
-                        Number(tableData[i]?.totalModalWeight) ||
+                        // Number(tableData[i]?.totalModalWeight) ||
                         item.custom_mat_wt
                       }
                       defaultValue={item.custom_mat_wt}
-                      readOnly
+                      readOnly={readOnlyFields}
                       onChange={(e) =>
                         handleFieldChange(
                           item.idx,
@@ -178,8 +172,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         tableData[i]?.totalModalWeight > 0
                           ? Number(tableData[i].custom_net_wt) +
                             Number(tableData[i].custom_few_wt) +
-                            Number(tableData[i]?.totalModalWeight)
-                          : Number(tableData[i].custom_net_wt) +
+                            Number(tableData[i]?.custom_mat_wt)
+                          : // Number(tableData[i]?.totalModalWeight)
+                            Number(tableData[i].custom_net_wt) +
                             Number(tableData[i].custom_few_wt) +
                             Number(tableData[i]?.custom_mat_wt)
                       }
@@ -195,17 +190,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       onChange={(e) => {
                         calculateEditTotal(item.idx, e.target.value);
                       }}
-                      // onChange={(e) => {
-                      //   handleFieldChange(
-                      //     item.idx,
-                      //     'tableRow',
-                      //     'custom_other',
-                      //     e.target.value
-                      //   );
-                      // }}
-                      // onInput={(e) => {
-                      //   calculateEditTotal(item.idx);
-                      // }}
                       readOnly={readOnlyFields}
                     />
                   </td>
