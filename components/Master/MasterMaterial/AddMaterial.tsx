@@ -6,6 +6,8 @@ const AddMaterial = ({
   HandleSave,
   error1,
   error2,
+  placeholder1,
+  placeholder2,
 }: any) => {
   return (
     <div
@@ -16,7 +18,7 @@ const AddMaterial = ({
     >
       <div className="container">
         <div className=" m-1">
-          <label htmlFor="">Material Name</label>
+          <label htmlFor="">{placeholder1}</label>
           <span className="text-danger">*</span>
         </div>
         <div className="p-1">
@@ -33,7 +35,7 @@ const AddMaterial = ({
         </div>
         <div> {error1 && <p className="text-danger">{error1}</p>}</div>
         <div className=" m-1">
-          <label htmlFor="">Material Abbr</label>
+          <label htmlFor="">{placeholder2}</label>
           <span className="text-danger">*</span>
         </div>
         <div className="p-1">
