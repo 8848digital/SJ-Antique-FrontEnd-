@@ -16,15 +16,7 @@ const MasterMaterialMaster: any = ({
   tab1,
   tab2,
 }: any) => {
-  // const {
-  // materialList,
-  // HandleNameChange,
-  // HandleSave,
-  // nameValue,
-  // error1,
-  // error2
-  // }:any= useMaterialHook()
-  console.log(materialList, 'materialList1');
+  console.log(materialList, 'kuncsotdata');
   const [inputName, setInputName] = useState('');
   const [inputGroup, setInputGroup] = useState('');
   const handleInputChange1 = (event: any) => {
@@ -39,10 +31,12 @@ const MasterMaterialMaster: any = ({
     materialList?.filter(
       (client: any) =>
         client?.material?.toLowerCase()?.includes(inputName?.toLowerCase()) &&
-        client?.material_abbr
+        (client?.material_abbr
           ?.toLowerCase()
-          ?.includes(inputGroup?.toLowerCase())
+          ?.includes(inputGroup?.toLowerCase()) ||
+          client?.type)
     );
+  console.log(filteredList, 'kuncsotdata');
   return (
     <div className="container-lg">
       <MasterListing value={value} />

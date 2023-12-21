@@ -9,6 +9,7 @@ const MasterMaterialListing = ({
   placeholder1,
   placeholder2,
 }: any) => {
+  console.log(materialList, 'kuncsotdata');
   const [tableViewData, setTableViewData] = useState<any>(20);
 
   const HandleTableViewRows: any = (data: any) => {
@@ -68,7 +69,10 @@ const MasterMaterialListing = ({
                   <td
                     className="table-body-row cursor w-50"
                     onClick={() =>
-                      HandleDetails(item.material, item.material_abbr)
+                      HandleDetails(
+                        item.material,
+                        item.material_abbr ? item.material_abbr : item.type
+                      )
                     }
                   >
                     {item.material}
@@ -76,10 +80,13 @@ const MasterMaterialListing = ({
                   <td
                     className="table-body-row cursor"
                     onClick={() =>
-                      HandleDetails(item.material, item.material_abbr)
+                      HandleDetails(
+                        item.material,
+                        item.material_abbr ? item.material_abbr : item.type
+                      )
                     }
                   >
-                    {item.material_abbr}
+                    {item.material_abbr ? item.material_abbr : item.type}
                   </td>
                 </tr>
               ))}

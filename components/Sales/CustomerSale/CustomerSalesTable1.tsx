@@ -5,19 +5,19 @@ import React from 'react';
 const CustomerSalesTable1 = () => {
   return (
     <div className="table-responsive mt-2">
-      <table className="table table-bordered table-hover">
+      <table className="table table-hover">
         <thead>
           <tr>
-            <th className="thead" scope="col">
+            <th className="text-center p-0" scope="col">
               Chitti No.
             </th>
-            <th className="thead" scope="col">
+            <th className="text-center p-0" scope="col">
               Transaction Date
             </th>
-            <th className="thead" scope="col">
+            <th className="text-center p-0" scope="col">
               Client
             </th>
-            <th className="thead" scope="col">
+            <th className="text-center p-0" scope="col">
               Remarks
             </th>
           </tr>
@@ -26,7 +26,8 @@ const CustomerSalesTable1 = () => {
           <tr>
             <td className="table_row" scope="row">
               <input
-                className="form-control input-sm border border-secondary"
+                className=" form-control input-sm border border-secondary light-background"
+                style={{ background: '#e0e1f5' }}
                 type="text"
                 name="remarks"
                 autoComplete="off"
@@ -37,13 +38,16 @@ const CustomerSalesTable1 = () => {
             </td>
             <td className="table_row">
               <SearchSelectInputField
-                className={'form-control input-sm border border-secondary'}
+                className={
+                  'form-control input-sm border border-secondary light-background'
+                }
                 placeholder={'Client Name'}
               />
             </td>
             <td className="table_row">
               <input
                 className="form-control input-sm border border-secondary"
+                style={{ background: '#e0e1f5' }}
                 type="text"
                 name="remarks"
                 autoComplete="off"
