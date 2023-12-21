@@ -24,7 +24,7 @@ const MasterMaterialListing = ({
   };
   return (
     <div>
-      <div className="mx-4 d-flex justify-content-start w-75">
+      <div className="mx-4 d-flex justify-content-start w-50">
         <input
           type="text"
           name="input1"

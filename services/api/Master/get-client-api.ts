@@ -1,18 +1,18 @@
 import axios from 'axios';
-import { CONSTANTS, headerGenerator } from '../config/api-config';
+import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
-const postMaterialMasterApi = async (get_access_token: any, val: any) => {
+const getClientApi = async (get_access_token: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
+
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?`,
-      val,
+    .get(
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_karigar&entity=karigar_get_api`,
       getHeaders
     )
     .then((res: any) => {
-      console.log('post material', res);
-      response = res?.data?.message;
+      console.log('get client', res);
+      response = res?.data?.message?.data;
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
@@ -29,4 +29,4 @@ const postMaterialMasterApi = async (get_access_token: any, val: any) => {
   return response;
 };
 
-export default postMaterialMasterApi;
+export default getClientApi;

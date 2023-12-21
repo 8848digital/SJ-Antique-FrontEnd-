@@ -49,7 +49,7 @@ const KundanTable = ({
           </tr>
         </thead>
         <tbody>
-          <tr className="table_row">
+          <tr>
             <td scope="row" className="table_row">
               <CurrentDate defaultKarigarData={defaultKarigarData} />
             </td>
@@ -86,8 +86,8 @@ const KundanTable = ({
                 value={
                   readyReceiptType ||
                   (defaultKarigarData !== undefined &&
-                    defaultKarigarData?.length > 0 &&
-                    defaultKarigarData !== null
+                  defaultKarigarData?.length > 0 &&
+                  defaultKarigarData !== null
                     ? defaultKarigarData[0]?.custom_ready_receipt_type
                     : '')
                 }

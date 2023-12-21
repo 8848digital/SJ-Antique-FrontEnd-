@@ -118,7 +118,7 @@ const IndexPage = () => {
           tab2={'Create New Client Name'}
         />
       )}
-      {key === 'KunCsOtCategory' && (
+      {key === 'kunCsOtCategory' && (
         <MasterMaterialMaster
           value={key}
           materialList={materialList}

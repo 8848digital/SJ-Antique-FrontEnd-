@@ -56,12 +56,12 @@ const MasterListing: any = ({ value }: any) => {
             </button>
           </Link>
           <Link
-            href="/master/KunCsOtCategory"
+            href="/master/kunCsOtCategory"
             className="text-decoration-none "
           >
             <button
               className={`${styles.button} ${
-                value === 'KunCsOtCategory' ? 'activeColor' : ''
+                value === 'kunCsOtCategory' ? 'activeColor' : ''
               }`}
             >
               Kun-Cs-Ot- Category
