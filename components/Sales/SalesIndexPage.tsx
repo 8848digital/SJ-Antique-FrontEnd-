@@ -10,8 +10,8 @@ const SalesIndexPage = () => {
   const key = pathcontent[pathcontent?.length - 1];
   return (
     <div>
-      {key === 'saleReturns' && <SaleReturnsMaster />}
       {key === 'customerSale' && <CustomerSaleMaster />}
+      {key === 'saleReturns' && <SaleReturnsMaster />}
     </div>
   );
 };
