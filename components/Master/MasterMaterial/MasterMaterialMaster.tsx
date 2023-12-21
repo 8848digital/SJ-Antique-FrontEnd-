@@ -3,14 +3,19 @@ import MasterMaterialListing from './MasterMaterialListing';
 import useMaterialHook from '@/hooks/master/material-hook';
 import AddMaterial from './AddMaterial';
 import MasterListing from '../MasterListing';
-const MasterMaterialMaster: any = ({value,
+const MasterMaterialMaster: any = ({
+  value,
   materialList,
   HandleNameChange,
   HandleSave,
   nameValue,
   error1,
-  error2
-}:any) => {
+  error2,
+  placeholder1,
+  placeholder2,
+  tab1,
+  tab2,
+}: any) => {
   // const {
   // materialList,
   // HandleNameChange,
@@ -19,7 +24,7 @@ const MasterMaterialMaster: any = ({value,
   // error1,
   // error2
   // }:any= useMaterialHook()
-  console.log(materialList, 'materialList1')
+  console.log(materialList, 'materialList1');
   const [inputName, setInputName] = useState('');
   const [inputGroup, setInputGroup] = useState('');
   const handleInputChange1 = (event: any) => {
@@ -31,7 +36,7 @@ const MasterMaterialMaster: any = ({value,
   const filteredList: any =
     materialList?.length > 0 &&
     materialList !== null &&
-    materialList.filter(
+    materialList?.filter(
       (client: any) =>
         client?.material?.toLowerCase()?.includes(inputName?.toLowerCase()) &&
         client?.material_abbr
@@ -58,7 +63,7 @@ const MasterMaterialMaster: any = ({value,
               aria-controls="pills-home"
               aria-selected="true"
             >
-              Material List
+              {tab1}
             </button>
           </div>
           <div className="nav-tabs tabs-container w-50" role="presentation">
@@ -72,7 +77,7 @@ const MasterMaterialMaster: any = ({value,
               aria-controls="pills-profile"
               aria-selected="false"
             >
-              Create New Material
+              {tab2}
             </button>
           </div>
         </div>
@@ -87,6 +92,8 @@ const MasterMaterialMaster: any = ({value,
               materialList={filteredList}
               handleInputChange1={handleInputChange1}
               handleInputChange2={handleInputChange2}
+              placeholder1={placeholder1}
+              placeholder2={placeholder2}
             />
           </div>
           <AddMaterial
@@ -95,6 +102,8 @@ const MasterMaterialMaster: any = ({value,
             HandleSave={HandleSave}
             error1={error1}
             error2={error2}
+            placeholder1={placeholder1}
+            placeholder2={placeholder2}
           />
         </div>
       </div>

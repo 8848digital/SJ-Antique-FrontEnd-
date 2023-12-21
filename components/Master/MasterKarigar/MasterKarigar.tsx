@@ -11,6 +11,8 @@ const MasterKarigar: any = ({
   error,
   value,
   placeholder,
+  tab1,
+  tab2,
 }: any) => {
   const [searchField, setSearchField] = useState<any>('');
   const HandleSearchInput: any = (e: any) => {
@@ -19,7 +21,7 @@ const MasterKarigar: any = ({
   const filterList: any =
     karigarData?.length > 0 &&
     karigarData !== null &&
-    karigarData.filter((value: any) => {
+    karigarData?.filter((value: any) => {
       return value.karigar_name
         ?.toLowerCase()
         .includes(searchField?.toLowerCase());
@@ -45,7 +47,7 @@ const MasterKarigar: any = ({
               aria-controls="pills-home"
               aria-selected="true"
             >
-              Karigar List
+              {tab1}
             </button>
           </div>
           <div className="nav-tabs tabs-container w-50" role="presentation">
@@ -59,7 +61,7 @@ const MasterKarigar: any = ({
               aria-controls="pills-profile"
               aria-selected="false"
             >
-              Create New Karigar
+              {tab2}
             </button>
           </div>
         </div>
@@ -81,6 +83,7 @@ const MasterKarigar: any = ({
             HandleInputValue={HandleInputValue}
             error={error}
             HandleSubmit={HandleSubmit}
+            placeholder={placeholder}
           />
         </div>
       </div>

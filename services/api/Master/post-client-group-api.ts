@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { CONSTANTS, headerGenerator } from '../config/api-config';
+import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
-const postKunKarigarApi = async (get_access_token: any, val: any) => {
+const postClientGroupApi = async (get_access_token: any, val: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
+  console.log(getHeaders, 'getHeaders');
   await axios
     .post(
       `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=create_material&entity=material_post_api`,
@@ -11,7 +12,7 @@ const postKunKarigarApi = async (get_access_token: any, val: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('post material', res);
+      console.log('post client group', res);
       response = res?.data?.message;
     })
     .catch((err: any) => {
@@ -29,4 +30,4 @@ const postKunKarigarApi = async (get_access_token: any, val: any) => {
   return response;
 };
 
-export default postKunKarigarApi;
+export default postClientGroupApi;

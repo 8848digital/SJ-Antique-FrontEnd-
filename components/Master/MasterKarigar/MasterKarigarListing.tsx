@@ -46,7 +46,7 @@ const MasterKarigarListing = ({
           <thead>
             <tr className="table_row">
               <th scope="col" className="thead text-start">
-                Karigar Name
+                {placeholder}
               </th>
             </tr>
           </thead>

@@ -53,7 +53,7 @@ const KundanTable = ({
           </tr>
         </thead>
         <tbody>
-          <tr className="table_row">
+          <tr>
             <td scope="row" className="table_row">
               <input
                 className="form-control input-sm border border-secondary"

@@ -5,10 +5,7 @@ const MasterListing: any = ({ value }: any) => {
     <div>
       <div className="container-lg p-0">
         <div className="d-flex justify-content-center">
-          <Link
-            href="/master/karigar"
-            className="text-decoration-none btn-margin"
-          >
+          <Link href="/master/karigar" className="text-decoration-none ">
             <button
               className={`${styles.button} ${
                 value === 'karigar' ? 'activeColor' : ''
@@ -18,10 +15,7 @@ const MasterListing: any = ({ value }: any) => {
               <i className="fa-solid fa-arrow-turn-down mx-1  pt-1"></i>
             </button>
           </Link>
-          <Link
-            href="/master/kundanKarigar"
-            className="text-decoration-none btn-margin"
-          >
+          <Link href="/master/kundanKarigar" className="text-decoration-none ">
             <button
               className={`${styles.button} ${
                 value === 'kundanKarigar' ? 'activeColor' : ''
@@ -31,16 +25,56 @@ const MasterListing: any = ({ value }: any) => {
               <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
             </button>
           </Link>
-          <Link
-            href="/master/material"
-            className="text-decoration-none btn-margin"
-          >
+          <Link href="/master/material" className="text-decoration-none ">
             <button
               className={`${styles.button} ${
                 value === 'material' ? 'activeColor' : ''
               }`}
             >
               Material
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
+          <Link href="/master/client" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${
+                value === 'client' ? 'activeColor' : ''
+              }`}
+            >
+              Client
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
+          <Link href="/master/clientGroup" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${
+                value === 'clientGroup' ? 'activeColor' : ''
+              }`}
+            >
+              Client Group
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
+          <Link
+            href="/master/kunCsOtCategory"
+            className="text-decoration-none "
+          >
+            <button
+              className={`${styles.button} ${
+                value === 'kunCsOtCategory' ? 'activeColor' : ''
+              }`}
+            >
+              Kun-Cs-Ot- Category
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
+          <Link href="/master/BBCategory" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${
+                value === 'BBCategory' ? 'activeColor' : ''
+              }`}
+            >
+              BB Category
               <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
             </button>
           </Link>

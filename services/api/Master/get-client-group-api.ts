@@ -1,19 +1,18 @@
 import axios from 'axios';
-import { CONSTANTS, headerGenerator } from '../config/api-config';
+import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
-const postKarigarApi = async (get_access_token: any, val: any) => {
+const getClientGroupApi = async (get_access_token: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
-  console.log(getHeaders,"getHeaders")
+
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=create_material&entity=material_post_api`,
-      val,
+    .get(
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_karigar&entity=karigar_get_api`,
       getHeaders
     )
     .then((res: any) => {
-      console.log('post material', res);
-      response = res?.data?.message;
+      console.log('get client group', res);
+      response = res?.data?.message?.data;
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
@@ -30,4 +29,4 @@ const postKarigarApi = async (get_access_token: any, val: any) => {
   return response;
 };
 
-export default postKarigarApi;
+export default getClientGroupApi;

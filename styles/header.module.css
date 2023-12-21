@@ -7,6 +7,7 @@
 .button{
     display: inline-flex;
     justify-content: space-between ;
+    width:max-content;
     background-color: #FFF;
     color: #000;
     margin: 5px;
@@ -36,6 +37,19 @@
     justify-content: space-around;
     margin-left: 20%;
     margin-right: 20%;
+}
+@media screen and (max-width:856px) {
+.button{
+    padding: 2px 3px !important;
+    margin: 3px;
+    border-radius: 5px;
+    font-size: small;
+
+}
+.button_container{
+    margin-left: 0;
+    margin-right: 0;
+}
 }
 @media screen and (max-width:576px) {
 .button{

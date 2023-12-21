@@ -6,6 +6,8 @@ const MasterMaterialListing = ({
   materialList,
   handleInputChange1,
   handleInputChange2,
+  placeholder1,
+  placeholder2,
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -22,14 +24,14 @@ const MasterMaterialListing = ({
   };
   return (
     <div>
-      <div className="mx-4 d-flex justify-content-start w-75">
+      <div className="mx-4 d-flex justify-content-start w-50">
         <input
           type="text"
           name="input1"
           id="input1"
           aria-describedby="emailHelp"
           className="form-control min-vw-50  mx-2"
-          placeholder="Material"
+          placeholder={placeholder1}
           onChange={handleInputChange1}
         />
         <input
@@ -38,7 +40,7 @@ const MasterMaterialListing = ({
           id="input2"
           aria-describedby="emailHelp"
           className="form-control min-vw-50 mx-2"
-          placeholder="Material Abbr"
+          placeholder={placeholder2}
           onChange={handleInputChange2}
         />
       </div>
@@ -54,8 +56,8 @@ const MasterMaterialListing = ({
         <table className="table table-hover table-striped table-bordered w-100 ">
           <thead>
             <tr className="table_row">
-              <th className="thead text-start w-50">Material Name</th>
-              <th className="thead text-start">Material Abbr</th>
+              <th className="thead text-start w-50">{placeholder1}</th>
+              <th className="thead text-start">{placeholder2}</th>
             </tr>
           </thead>
           <tbody>

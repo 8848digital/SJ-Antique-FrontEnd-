@@ -5,6 +5,7 @@ const AddKarigar = ({
   HandleInputValue,
   error,
   HandleSubmit,
+  placeholder,
 }: any) => {
   return (
     <div
@@ -15,7 +16,7 @@ const AddKarigar = ({
     >
       <div className="container">
         <div className=" m-1">
-          <label>Karigar Name</label>
+          <label>{placeholder}</label>
           <span className="text-danger">*</span>
         </div>
         <div className="p-1">
