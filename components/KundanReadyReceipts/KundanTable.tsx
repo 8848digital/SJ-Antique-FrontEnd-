@@ -17,9 +17,10 @@ const KundanTable = ({
   readOnlyFields,
 }: any) => {
   const router = useRouter();
+  const { query } = useRouter();
   const pathParts = router?.asPath?.split('/');
   const lastPartOfURL = pathParts[pathParts?.length - 1];
-
+  console.log('receipt no', lastPartOfURL, query);
   useEffect(() => {
     if (defaultKarigarData === undefined) {
       setReadyReceiptType(
@@ -33,6 +34,9 @@ const KundanTable = ({
       <table className="table table-hover table-bordered">
         <thead>
           <tr>
+            <th className="thead" scope="col">
+              Receipt no.
+            </th>
             <th className="thead" scope="col">
               Date
             </th>
@@ -50,6 +54,16 @@ const KundanTable = ({
         </thead>
         <tbody>
           <tr className="table_row">
+            <td scope="row" className="table_row">
+              <input
+                className="form-control input-sm border border-secondary"
+                type="text"
+                name="remarks"
+                value={query?.receiptId}
+                readOnly
+                autoComplete="off"
+              />
+            </td>
             <td scope="row" className="table_row">
               <CurrentDate defaultKarigarData={defaultKarigarData} />
             </td>
@@ -86,8 +100,8 @@ const KundanTable = ({
                 value={
                   readyReceiptType ||
                   (defaultKarigarData !== undefined &&
-                    defaultKarigarData?.length > 0 &&
-                    defaultKarigarData !== null
+                  defaultKarigarData?.length > 0 &&
+                  defaultKarigarData !== null
                     ? defaultKarigarData[0]?.custom_ready_receipt_type
                     : '')
                 }

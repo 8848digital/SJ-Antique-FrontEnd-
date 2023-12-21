@@ -192,7 +192,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   kunKarigarDropdownReset={kunKarigarDropdownReset}
                   calculateEditTotal={calculateEditTotal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
-
+                  handleCreate={handleCreate}
                 />
               </div>
             </div>
@@ -221,7 +221,6 @@ const ReadyReceiptKundanKarigarMaster = () => {
           setReadOnlyFields={setReadOnlyFields}
           handleTabPressOnModal={handleTabPressOnModal}
         />
-
       </div>
     </div>
   );

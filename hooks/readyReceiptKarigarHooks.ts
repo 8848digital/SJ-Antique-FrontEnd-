@@ -77,9 +77,6 @@ const useReadyReceiptKarigar = () => {
     handleDeleteRow,
     handleDeleteChildTableRow,
     calculateRowValue,
-    handleAddRow,
-    handleTabPress,
-    handleTabPressOnModal,
     handleModal,
     indexVal,
     showModal,
@@ -317,6 +314,62 @@ const useReadyReceiptKarigar = () => {
 
   const handleRecipietChange = (e: any) => {
     setRecipitData({ ...recipitData, [e.target.name]: e.target.value });
+    setStateForDocStatus(true);
+  };
+
+  const handleAddRow = (value: any) => {
+    console.log('add row', value);
+    const newRow = {
+      idx: tableData?.length + 1,
+      product_code: '',
+      custom_kun_karigar: '',
+      custom_net_wt: '',
+      custom_few_wt: '',
+      custom_gross_wt: '',
+      custom_mat_wt: '',
+      custom_other: '',
+      custom_total: '',
+      custom_add_photo: '',
+      table: [
+        {
+          idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
+          material_abbr: '',
+          material: '',
+          pcs: '',
+          piece_: '',
+          carat: '',
+          carat_: '',
+          weight: '',
+          gm_: '',
+          amount: '',
+        },
+      ],
+    };
+    if (value === 'tableRow') {
+      console.log('set new row add');
+      setTableData([...tableData, newRow]);
+    } else {
+      setMaterialWeight([...materialWeight, ...newRow?.table]);
+    }
+
+    setStateForDocStatus(true);
+  };
+
+  const handleTabPressOnModal = (event: any, id: any) => {
+    if (event.key === 'Tab') {
+      handleAddRow('modalRow');
+    }
+    setStateForDocStatus(true);
+  };
+
+  const handleTabPress = (event: any, id: any) => {
+    if (event.key === 'Tab' && id === tableData[tableData.length - 1].idx) {
+      // if (query?.hasOwnProperty('receiptId')) {
+      // } else {
+      //   // handleCreate();
+      // }
+      handleAddRow('tableRow');
+    }
     setStateForDocStatus(true);
   };
 

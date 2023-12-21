@@ -51,6 +51,7 @@ const UseCustomReceiptHook: any = () => {
     custom_net_wt: '',
     custom_few_wt: '',
     custom_gross_wt: '',
+    custom_pcs: '',
     custom_mat_wt: '',
     custom_other: '',
     custom_total: '',
@@ -118,41 +119,6 @@ const UseCustomReceiptHook: any = () => {
     }
   };
 
-  const UpdateMaterialWeight: any = (id: any, weightAmt: any) => {
-    console.log('updatee', id, weightAmt);
-
-    const updatedTableData =
-      tableData?.map((item: any) => {
-        if (item.idx === id) {
-          return {
-            ...item,
-            custom_mat_wt: weightAmt,
-            table: item.table?.map((materialData: any) => ({
-              ...materialData,
-              weight: weightAmt,
-            })),
-          };
-        }
-        return item;
-      }) || [];
-
-    setTableData(updatedTableData);
-
-    const updatedMaterialWeight =
-      materialWeight?.map((item: any) => {
-        if (item.idx === id) {
-          return {
-            ...item,
-            weight: weightAmt,
-          };
-        }
-        return item;
-      }) || [];
-
-    // Assuming setMaterialWeight updates the state
-    setMaterialWeight(updatedMaterialWeight);
-  };
-
   const handleClearFileUploadInput: any = (id: any) => {
     console.log('clear file uplaod', id, tableData);
 
@@ -191,13 +157,13 @@ const UseCustomReceiptHook: any = () => {
           if (Number(item.totalAmount) >= 0) {
             return {
               ...item,
-              custom_other: Number(value)?.toFixed(2),
+              custom_other: Number(value),
               custom_total: Number(item.totalAmount) + Number(value),
             };
           } else if (item.totalAmount === undefined) {
             return {
               ...item,
-              custom_other: Number(value)?.toFixed(2),
+              custom_other: Number(value),
               totalAmount: totalAmountValues?.toFixed(2),
               custom_total:
                 totalAmountValues >= 0
@@ -207,7 +173,7 @@ const UseCustomReceiptHook: any = () => {
           } else
             return {
               ...item,
-              custom_other: value?.toFixed(2),
+              custom_other: value,
               totalAmount: totalAmountValues?.toFixed(2),
             };
         }
@@ -286,54 +252,6 @@ const UseCustomReceiptHook: any = () => {
     );
   };
 
-  const handleAddRow = (value: any) => {
-    const newRow = {
-      idx: tableData?.length + 1,
-      product_code: '',
-      custom_kun_karigar: '',
-      custom_net_wt: '',
-      custom_few_wt: '',
-      custom_gross_wt: '',
-      custom_mat_wt: '',
-      custom_other: '',
-      custom_total: '',
-      custom_add_photo: '',
-      table: [
-        {
-          idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
-          material_abbr: '',
-          material: '',
-          pcs: '',
-          piece_: '',
-          carat: '',
-          carat_: '',
-          weight: '',
-          gm_: '',
-          amount: '',
-        },
-      ],
-    };
-    if (value === 'tableRow') {
-      setTableData([...tableData, newRow]);
-    } else {
-      setMaterialWeight([...materialWeight, ...newRow?.table]);
-    }
-    setStateForDocStatus(true);
-  };
-
-  const handleTabPress = (event: any, id: any) => {
-    if (event.key === 'Tab' && id === tableData[tableData.length - 1].idx) {
-      handleAddRow('tableRow');
-    }
-    setStateForDocStatus(true);
-  };
-  const handleTabPressOnModal = (event: any, id: any) => {
-    if (event.key === 'Tab') {
-      handleAddRow('modalRow');
-    }
-    setStateForDocStatus(true);
-  };
-
   const handleModal = (event: any, id: any, data: any) => {
     console.log('table data in modal', data);
     setIndexVal(id);
@@ -353,6 +271,75 @@ const UseCustomReceiptHook: any = () => {
     // setStateForDocStatus(true);
   };
 
+  const UpdateMaterialWeight: any = (id: any, weightAmt: any) => {
+    console.log('updatee', id, weightAmt);
+
+    const updatedTableData =
+      tableData?.map((item: any) => {
+        if (item.idx === id) {
+          return {
+            ...item,
+            custom_mat_wt: weightAmt,
+            table: item.table?.map((materialData: any) => ({
+              ...materialData,
+              weight: weightAmt,
+            })),
+          };
+        }
+        return item;
+      }) || [];
+
+    setTableData(updatedTableData);
+
+    const updatedMaterialWeight =
+      materialWeight?.map((item: any) => {
+        if (item.idx === id) {
+          return {
+            ...item,
+            weight: weightAmt,
+          };
+        }
+        return item;
+      }) || [];
+
+    // Assuming setMaterialWeight updates the state
+    setMaterialWeight(updatedMaterialWeight);
+  };
+  const UpdatePcsWeight: any = (id: any, pcsAmt: any) => {
+    console.log('updatee', id, pcsAmt);
+
+    const updatedTableData =
+      tableData?.map((item: any) => {
+        if (item.idx === id) {
+          return {
+            ...item,
+            custom_pcs: pcsAmt,
+            table: item.table?.map((materialData: any) => ({
+              ...materialData,
+              pcs: pcsAmt,
+            })),
+          };
+        }
+        return item;
+      }) || [];
+
+    setTableData(updatedTableData);
+
+    const updatedMaterialWeight =
+      materialWeight?.map((item: any) => {
+        if (item.idx === id) {
+          return {
+            ...item,
+            pcs: pcsAmt,
+          };
+        }
+        return item;
+      }) || [];
+
+    // Assuming setMaterialWeight updates the state
+    setMaterialWeight(updatedMaterialWeight);
+  };
+
   const handleFieldChange = (
     id: number,
     val: any,
@@ -363,16 +350,13 @@ const UseCustomReceiptHook: any = () => {
     console.log('handlechange', id, val, field, newValue, 'fileval', fileVal);
     // Function to format the input to have only three decimal places
     const formatInput = (value: any) => {
-      const floatValue = parseFloat(value);
-      if (!isNaN(floatValue)) {
-        // if (field === 'custom_total' || field === 'custom_other') {
-        //   return floatValue.toFixed(2); // Format to 2 decimal places for custom_total
-        // } else {
-        return parseFloat(floatValue.toFixed(3)); // Format to 3 decimal places for other fields
-        // }
+      if (typeof value === 'number' || !isNaN(parseFloat(value))) {
+        const floatValue = parseFloat(value);
+        return parseFloat(floatValue.toFixed(3));
       }
-      return null; // Return null for invalid input
+      return value; // Return the original value for non-numeric inputs
     };
+
     const updatedData = tableData?.map((item: any) => {
       if (item.idx === id) {
         let filePath;
@@ -402,8 +386,14 @@ const UseCustomReceiptHook: any = () => {
         typeof newValue === 'string' ? parseFloat(newValue) : newValue;
       if (!isNaN(numericValue)) {
         const formattedValue = numericValue.toFixed(3);
-        console.log('updateeed', id, formattedValue);
-        UpdateMaterialWeight(id, formattedValue);
+        UpdateMaterialWeight(id, formatInput(newValue));
+      }
+    }
+    if (field === 'BB_pcs') {
+      const numericValue =
+        typeof newValue === 'string' ? parseFloat(newValue) : newValue;
+      if (!isNaN(numericValue)) {
+        UpdatePcsWeight(id, formatInput(newValue));
       }
     }
     setStateForDocStatus(true);
@@ -418,7 +408,6 @@ const UseCustomReceiptHook: any = () => {
     HandleUpdateDocStatus,
     defaultKarigarData,
     setDefaultKarigarData,
-    handleAddRow,
     setShowSaveButtonForAmendFlow,
     showSaveButtonForAmendFlow,
     tableData,
@@ -432,8 +421,6 @@ const UseCustomReceiptHook: any = () => {
     handleDeleteRow,
     handleDeleteChildTableRow,
     calculateRowValue,
-    handleTabPress,
-    handleTabPressOnModal,
     handleModal,
     setShowModal,
     indexVal,
