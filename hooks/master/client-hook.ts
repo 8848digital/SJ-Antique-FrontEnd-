@@ -1,6 +1,5 @@
 import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getClientApi from '@/services/api/Master/get-client-api';
-import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
 import postClientApi from '@/services/api/Master/post-client-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
@@ -13,61 +12,75 @@ const useClientHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   // api states
   const [clientList, setClientList] = useState();
-  const [clientGroupList, setClientGroup] = useState();
   const [KunCsOtCategory, setKunCsOtCategory] = useState();
   const [BBCategory, setBBCategory] = useState();
   // get api function
   useEffect(() => {
     const getStateData: any = async () => {
       const clientData: any = await getClientApi(loginAcessToken.token);
-      const clientgrpData = await getClientGroupApi(loginAcessToken.token);
       const kunCsOtData = await getKunCsOtCategoryApi(loginAcessToken.token);
       const BBData = await getBBCategoryApi(loginAcessToken.token);
-      console.log(clientData, 'KarigarData Master');
+      console.log(kunCsOtData, 'kuncsotdata');
       setClientList(clientData);
-      setClientGroup(clientgrpData);
       setKunCsOtCategory(kunCsOtData);
       setBBCategory(BBData);
     };
     getStateData();
   }, []);
-  const [inputValue, setInputValue] = useState('');
-  const [error, setError] = useState('');
-  //post client Name
-  const HandleClientSubmit = async () => {
+  const [error1, setError1] = useState('');
+  const [error2, setError2] = useState('');
+  const [clientName, setClientNameValue] = useState({
+    material: '',
+    material_abbr: '',
+  });
+  // client post api
+  const HandleClientNameChange = (e: any) => {
+    const { name, value } = e.target;
+    setClientNameValue({ ...clientName, [name]: value });
+    setError1('');
+    setError2('');
+  };
+  console.log(clientName, 'clientName');
+  const HandleClientSave = async () => {
+    console.log(clientName, 'material saved');
     const values = {
       version: 'v1',
-      method: 'create_karigar',
-      entity: 'post_karigar_api',
-      karigar_name: inputValue,
+      method: 'create_material',
+      entity: 'material_post_api',
+      data: [clientName],
     };
-    console.log(values, 'values');
-    if (inputValue.trim() === '') {
-      setError('Input field cannot be empty');
-      console.log(error);
+    console.log(values, 'valuesname');
+    if (clientName.material === '' || clientName.material === undefined) {
+      setError1('Input field cannot be empty');
+      console.log(error1);
+    } else if (
+      clientName.material_abbr === '' ||
+      clientName.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
     } else {
       let apiRes: any = await postClientApi(loginAcessToken?.token, values);
       console.log('apires', apiRes);
-      if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
-        toast.success('Client Name Created');
-        const clientApi: any = await getClientApi(loginAcessToken.token);
-        setClientList(clientApi);
+      if (apiRes?.status === 'success') {
+        toast.success('Material Name Created');
+        const materialData = await getClientApi(loginAcessToken.token);
+        setClientList(materialData);
       } else {
-        toast.error('Client Name already exist');
+        toast.error('Material Name already exist');
       }
-      setError('');
-      setInputValue('');
+      setError1('');
+      setClientNameValue({
+        material: '',
+        material_abbr: '',
+      });
     }
-  };
-  const HandleClientInputValue = (e: any) => {
-    setError('');
-    setInputValue(e.target.value);
-    console.log(inputValue, 'input value');
   };
   return {
     clientList,
-    HandleClientSubmit,
-    HandleClientInputValue,
+    HandleClientNameChange,
+    HandleClientSave,
+    KunCsOtCategory,
+    BBCategory,
   };
 };
 export default useClientHook;

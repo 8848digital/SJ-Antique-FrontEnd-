@@ -229,7 +229,7 @@ button.btn.btn-primary.mx-5.px-5{
   margin-right: 10px;
 }
 input:disabled{
-  background-color: #e9ecef;
+  background-color: #e0e1f5;
 }
 hr {
   margin: 0.4rem 0 !important;
@@ -319,5 +319,8 @@ hr {
 }
 .modal-input{
   width: 70px;
+}
+.light-background{
+  background-color: #e0e1f5;
 }
 

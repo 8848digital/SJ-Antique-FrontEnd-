@@ -6,6 +6,7 @@ import MasterMaterialMaster from './MasterMaterial/MasterMaterialMaster';
 import useMaterialHook from '@/hooks/master/material-hook';
 import { clientGroupDataset } from '../../datasets/clientGroup';
 import { clientNameDataset } from '../../datasets/clientName';
+import useClientHook from '@/hooks/master/client-hook';
 
 const IndexPage = () => {
   const {
@@ -27,23 +28,39 @@ const IndexPage = () => {
     error1,
     error2,
   }: any = useMaterialHook();
+  const { clientList, KunCsOtCategory, BBCategory }: any = useClientHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
   console.log(pathcontent, 'pathcontent index');
   const key = pathcontent[pathcontent?.length - 1];
   let clientGroup: any =
-    clientGroupDataset?.length > 0 &&
-    clientGroupDataset !== null &&
-    clientGroupDataset.map((data: any) => ({
+    clientList?.length > 0 &&
+    clientList !== null &&
+    clientList.map((data: any) => ({
       karigar_name: data.client_group,
     }));
-  let clientName: any =
-    clientNameDataset?.length > 0 &&
-    clientNameDataset !== null &&
-    clientNameDataset.map((data: any) => ({
+  let clientNameList: any =
+    clientList?.length > 0 &&
+    clientList !== null &&
+    clientList.map((data: any) => ({
       material: data.client_name,
       material_abbr: data.client_group,
     }));
+  let kunCsOtList: any =
+    KunCsOtCategory?.length > 0 &&
+    KunCsOtCategory !== null &&
+    KunCsOtCategory.map((data: any) => ({
+      material: data.name1,
+      type: data.type,
+    }));
+  let BBList: any =
+    BBCategory?.length > 0 &&
+    BBCategory !== null &&
+    BBCategory.map((data: any) => ({
+      material: data.name1,
+      type: data.type,
+    }));
+  console.log(kunCsOtList, 'kuncsotdata');
   return (
     <div>
       {key === 'karigar' && (
@@ -106,7 +123,7 @@ const IndexPage = () => {
       {key === 'client' && (
         <MasterMaterialMaster
           value={key}
-          materialList={clientName}
+          materialList={clientNameList}
           HandleNameChange={HandleNameChange}
           HandleSave={HandleSave}
           nameValue={nameValue}
@@ -121,23 +138,31 @@ const IndexPage = () => {
       {key === 'kunCsOtCategory' && (
         <MasterMaterialMaster
           value={key}
-          materialList={materialList}
+          materialList={kunCsOtList}
           HandleNameChange={HandleNameChange}
           HandleSave={HandleSave}
           nameValue={nameValue}
           error1={error1}
           error2={error2}
+          placeholder1={'Category Name'}
+          placeholder2={'Type'}
+          tab1={'Category Name'}
+          tab2={'create New Name'}
         />
       )}
       {key === 'BBCategory' && (
         <MasterMaterialMaster
           value={key}
-          materialList={materialList}
+          materialList={BBList}
           HandleNameChange={HandleNameChange}
           HandleSave={HandleSave}
           nameValue={nameValue}
           error1={error1}
           error2={error2}
+          placeholder1={'Category Name'}
+          placeholder2={'Type'}
+          tab1={'Category Name'}
+          tab2={'create New Name'}
         />
       )}
     </div>

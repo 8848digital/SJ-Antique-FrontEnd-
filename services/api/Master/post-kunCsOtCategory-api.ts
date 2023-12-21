@@ -7,7 +7,7 @@ const postKunCsOtCategoryApi = async (get_access_token: any, val: any) => {
   console.log(getHeaders, 'getHeaders');
   await axios
     .post(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=create_material&entity=material_post_api`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_kun_category&entity=kun_cs_ot_category_api`,
       val,
       getHeaders
     )
