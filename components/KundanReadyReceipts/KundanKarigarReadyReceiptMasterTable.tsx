@@ -193,7 +193,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       <input
                         className={` ${styles.input_field} `}
                         type="number"
-                        value={item.custom_pcs}
+                        // value={item.custom_pcs}
                         // defaultValue={item.pcs}
                         onChange={(e) =>
                           handleFieldChange(

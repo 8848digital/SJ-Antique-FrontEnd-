@@ -346,7 +346,6 @@ const useReadyReceiptKarigar = () => {
       ],
     };
     if (value === 'tableRow') {
-      console.log('set new row add');
       setTableData([...tableData, newRow]);
     } else {
       setMaterialWeight([...materialWeight, ...newRow?.table]);
@@ -514,18 +513,22 @@ const useReadyReceiptKarigar = () => {
         }
         return row;
       });
-    console.log(updatedtableData, 'update receipt');
+
     const updatedMergedList = updatedtableData.map((obj: any) => ({
       ...obj,
       custom_purchase_receipt_item_breakup: '',
       item_group: 'All Item Groups',
     }));
-    console.log(updatedMergedList, 'updatedtableData');
+
     const values = {
       ...recipitData,
       items: updatedMergedList,
     };
-    console.log(values, 'updatedMergedList values');
+    // const NoDataInReceiptTableData = values?.items?.some(
+    //   (item: any) => Object?.keys(item)?.length === 0
+    // );
+    // console.log('NoDataInReceiptTableData', NoDataInReceiptTableData);
+
     // List of keys to be excluded from the API request
     const keyToExclude = ['posting_date'];
 

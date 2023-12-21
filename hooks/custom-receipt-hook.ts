@@ -73,7 +73,22 @@ const UseCustomReceiptHook: any = () => {
       },
     ],
   };
+
   const [tableData, setTableData] = useState<any>([initialState]);
+
+  useEffect(() => {
+    setTableData((prevTableData: any) => {
+      const updatedTable: any = prevTableData.map((tableItems: any) => ({
+        ...tableItems,
+        table: tableItems.table.map((tableItem: any) => ({
+          ...tableItem,
+          material_abbr: query?.receipt === 'kundan' ? 'CS' : 'BB',
+          material: query?.receipt === 'kundan' ? 'Colorstone' : 'BlackBeads',
+        })),
+      }));
+      return updatedTable;
+    });
+  }, [query]);
 
   const HandleDeleteReceipt: any = async (name: any) => {
     let deletePurchaseReceiptApi: any = await DeletePurchaseReceiptApi(
@@ -120,8 +135,6 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const handleClearFileUploadInput: any = (id: any) => {
-    console.log('clear file uplaod', id, tableData);
-
     setTableData((prevList: any) =>
       prevList.map((item: any) =>
         item.idx === id ? { ...item, custom_add_photo: '' } : item
@@ -183,7 +196,6 @@ const UseCustomReceiptHook: any = () => {
     console.log(updatedData, 'updated data after edit');
     setStateForDocStatus(true);
     setTableData(updatedData);
-    console.log(tableData, 'updated data after edit1');
   };
 
   const handleFileUpload = async (id: number, fileVal: any) => {
@@ -302,7 +314,6 @@ const UseCustomReceiptHook: any = () => {
         return item;
       }) || [];
 
-    // Assuming setMaterialWeight updates the state
     setMaterialWeight(updatedMaterialWeight);
   };
   const UpdatePcsWeight: any = (id: any, pcsAmt: any) => {
