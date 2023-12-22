@@ -41,22 +41,22 @@ const UseCustomerSaleHook = () => {
 
   const SalesTableInitialState: any = {
     idx: 1,
-    product_code: '',
-    gross_wt: '',
-    kun_wt: '',
-    cs_wt: '',
-    bb_wt: '',
-    other_wt: '',
-    net_wt: '',
-    cs_: '',
-    cs_amt: '',
-    kun_pcs: '',
-    kun_: '',
-    kun_amt: '',
-    ot_: '',
-    ot_amt: 0,
-    other: '',
-    amount: 0,
+    item_code: '',
+    custom_gross_wt: '',
+    custom_kun_wt: '',
+    custom_cs_wt: '',
+    custom_bb_wt: '',
+    custom_other_wt: '',
+    custom_net_wt: '',
+    custom_cs: '',
+    custom_cs_amt: '',
+    custom_kun_pc: '',
+    custom_kun: '',
+    custom_kun_amt: '',
+    custom_ot_: '',
+    custom_ot_amt: 0,
+    custom_other: '',
+    custom_amount: 0,
   };
 
   const [salesTableData, setSalesTableData] = useState<any>([
@@ -64,6 +64,7 @@ const UseCustomerSaleHook = () => {
   ]);
   return {
     salesTableData,
+    setSalesTableData,
     kunCsOtCategoryListData,
     BBCategoryListData,
     clientNameListData,

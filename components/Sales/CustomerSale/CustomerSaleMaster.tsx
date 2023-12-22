@@ -7,6 +7,7 @@ import UseCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sale-hook
 const CustomerSaleMaster = () => {
   const {
     salesTableData,
+    setSalesTableData,
     kunCsOtCategoryListData,
     BBCategoryListData,
     clientNameListData,
@@ -28,7 +29,10 @@ const CustomerSaleMaster = () => {
           kunCsOtCategoryListData={kunCsOtCategoryListData}
           BBCategoryListData={BBCategoryListData}
         />
-        <CustomerSalesTable />
+        <CustomerSalesTable
+          salesTableData={salesTableData}
+          setSalesTableData={setSalesTableData}
+        />
       </div>
     </div>
   );

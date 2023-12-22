@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styles from '../../../styles/readyReceipts.module.css';
 
-const CustomerSalesTable = () => {
-  const tableData: any = [];
+const CustomerSalesTable = ({ salesTableData, setSalesTableData }: any) => {
+  const handleFieldChange: any = () => {};
   return (
     <>
       <div className="table responsive">
@@ -67,9 +67,9 @@ const CustomerSalesTable = () => {
             </tr>
           </thead>
           <tbody>
-            {tableData?.length > 0 &&
-              tableData !== null &&
-              tableData.map((item: any, i: any) => (
+            {salesTableData?.length > 0 &&
+              salesTableData !== null &&
+              salesTableData.map((item: any, i: any) => (
                 <>
                   <tr key={item.idx} className={`${styles.table_row}`}>
                     <td className="table_row">{item.idx}</td>
@@ -77,34 +77,15 @@ const CustomerSalesTable = () => {
                       <input
                         className={` ${styles.input_field} `}
                         type="text"
-                        defaultValue={item?.product_code}
-                        value={item.product_code}
-                        // onChange={(e) =>
-                        //   handleFieldChange(
-                        //     item.idx,
-                        //     'tableRow',
-                        //     'product_code',
-                        //     e.target.value
-                        //   )
-                        // }
-                        // readOnly={readOnlyFields}
-                      />
-                    </td>
-                    <td className="table_row"></td>
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field} `}
-                        type="number"
-                        value={item.custom_net_wt}
-                        defaultValue={item?.custom_net_wt}
-                        // onChange={(e) =>
-                        //   handleFieldChange(
-                        //     item.idx,
-                        //     'tableRow',
-                        //     'custom_net_wt',
-                        //     e.target.value
-                        //   )
-                        // }
+                        defaultValue={item?.item_code}
+                        value={item.item_code}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'item_code',
+                            e.target.value
+                          )
+                        }
                         // readOnly={readOnlyFields}
                       />
                     </td>
@@ -112,16 +93,32 @@ const CustomerSalesTable = () => {
                       <input
                         className={` ${styles.input_field} `}
                         type="number"
-                        value={item.custom_few_wt}
-                        defaultValue={item.custom_few_wt}
-                        // onChange={(e) =>
-                        //   handleFieldChange(
-                        //     item.idx,
-                        //     'tableRow',
-                        //     'custom_few_wt',
-                        //     e.target.value
-                        //   )
-                        // }
+                        value={item.custom_gross_wt}
+                        defaultValue={item?.custom_gross_wt}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_gross_wt',
+                            e.target.value
+                          )
+                        }
+                        // readOnly={readOnlyFields}
+                      />
+                    </td>
+
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={item.custom_kun_wt}
+                        defaultValue={item.custom_kun_wt}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_kun_wt',
+                            e.target.value
+                          )
+                        }
                         // readOnly={readOnlyFields}
                       />
                     </td>
@@ -131,18 +128,17 @@ const CustomerSalesTable = () => {
                         type="number"
                         value={
                           // Number(tableData[i]?.totalModalWeight) ||
-                          item.custom_mat_wt
+                          item.custom_cs_wt
                         }
-                        defaultValue={item.custom_mat_wt}
+                        defaultValue={item.custom_cs_wt}
                         // readOnly={readOnlyFields}
-                        // onChange={(e) =>
-                        //   handleFieldChange(
-                        //     item.idx,
-                        //     'tableRow',
-                        //     'custom_mat_wt',
-                        //     e.target.value
-                        //   )
-                        // }
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_cs_wt',
+                            e.target.value
+                          )
+                        }
                         // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
@@ -150,51 +146,242 @@ const CustomerSalesTable = () => {
                       <input
                         className={` ${styles.input_field} `}
                         type="number"
-                        readOnly
-                        disabled
-                        name={`sum-${i + 1}`}
-                        //   value={
-                        //     Number(tableData[i]?.custom_net_wt) +
-                        //     Number(tableData[i]?.custom_few_wt) +
-                        //     Number(tableData[i]?.custom_mat_wt)
-                        //   }
-                      />
-                    </td>
-
-                    <td className="table_row">
-                      <input
-                        //   className={` ${styles.input_field} `}
-                        type="number"
-                        value={Number(item.custom_other)}
-                        defaultValue={Number(item.custom_other)}
-                        //   onChange={(e) => {
-                        //     calculateEditTotal(item.idx, e.target.value);
-                        //   }}
-                        //   readOnly={readOnlyFields}
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_bb_wt
+                        }
+                        defaultValue={item.custom_bb_wt}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_bb_wt',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
-                      {' '}
                       <input
-                        //   className={` ${styles.input_field} `}
+                        className={` ${styles.input_field} `}
                         type="number"
-                        readOnly
-                        disabled
-                        name={`sum-${i + 1}`}
-                        //   defaultValue={tableData[i]?.custom_total}
-                        //   value={
-                        //     Number(tableData[i].totalAmount) >= 0
-                        //       ? Number(tableData[i]?.custom_other) +
-                        //         Number(tableData[i]?.totalAmount)
-                        //       : tableData[i]?.custom_total !== '' &&
-                        //         tableData[i]?.custom_total !== undefined
-                        //       ? tableData[i]?.custom_total
-                        //       : tableData[i]?.custom_other
-                        //   }
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_other_wt
+                        }
+                        defaultValue={item.custom_other_wt}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_other_wt',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
-
-                    <td className="table_row"></td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_net_wt
+                        }
+                        defaultValue={item.custom_net_wt}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_net_wt',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_cs
+                        }
+                        defaultValue={item.custom_cs}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_cs',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_cs_amt
+                        }
+                        defaultValue={item.custom_cs_amt}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_cs_amt',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_kun_pc
+                        }
+                        defaultValue={item.custom_kun_pc}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_kun_wt',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_kun
+                        }
+                        defaultValue={item.custom_kun}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_kun',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_kun_amt
+                        }
+                        defaultValue={item.custom_kun_amt}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_kun_amt',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_ot_
+                        }
+                        defaultValue={item.custom_ot_}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_ot_',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_ot_amt
+                        }
+                        defaultValue={item.custom_ot_amt}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_ot_amt',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_other
+                        }
+                        defaultValue={item.custom_other}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_other',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        value={
+                          // Number(tableData[i]?.totalModalWeight) ||
+                          item.custom_amount
+                        }
+                        defaultValue={item.custom_amount}
+                        // readOnly={readOnlyFields}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'custom_amount',
+                            e.target.value
+                          )
+                        }
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      />
+                    </td>
                     <td className="table_row">
                       <button
                         className="d-flex align-items-center delete-link p-1 border-0"
