@@ -1,8 +1,14 @@
 import CurrentDate from '@/components/CurrentDate';
 import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
+import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
 import React from 'react';
 
-const CustomerSalesTable1 = () => {
+const CustomerSalesTable1 = ({
+  clientNameListData,
+  setSelectedDropdownValue,
+  selectedDropdownValue,
+}: any) => {
+  console.log('client name list', clientNameListData);
   return (
     <div className="table-responsive mt-2">
       <table className="table table-hover">
@@ -27,7 +33,6 @@ const CustomerSalesTable1 = () => {
             <td className="table_row" scope="row">
               <input
                 className=" form-control input-sm border border-secondary light-background"
-                style={{ background: '#e0e1f5' }}
                 type="text"
                 name="remarks"
                 autoComplete="off"
@@ -38,16 +43,25 @@ const CustomerSalesTable1 = () => {
             </td>
             <td className="table_row">
               <SearchSelectInputField
-                className={
-                  'form-control input-sm border border-secondary light-background'
+                karigarData={
+                  clientNameListData?.length > 0 &&
+                  clientNameListData !== null &&
+                  clientNameListData.map((data: any) => data.client_name)
                 }
+                // defaultValue={karigarData?.karigar_name}
+                // recipitData={recieptData}
+                // setRecipitData={setRecipitData}
+                selectedDropdownValue={selectedDropdownValue}
+                setSelectedDropdownValue={setSelectedDropdownValue}
+                // setStateForDocStatus={setStateForDocStatus}
                 placeholder={'Client Name'}
+                className={'form-control input-sm border border-secondary'}
+                // readOnlyFields={readOnlyFields}
               />
             </td>
             <td className="table_row">
               <input
                 className="form-control input-sm border border-secondary"
-                style={{ background: '#e0e1f5' }}
                 type="text"
                 name="remarks"
                 autoComplete="off"

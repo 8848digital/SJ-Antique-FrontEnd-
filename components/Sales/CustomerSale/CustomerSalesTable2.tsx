@@ -1,6 +1,10 @@
 import React from 'react';
 
-const CustomerSalesTable2 = () => {
+const CustomerSalesTable2 = ({
+  kunCsOtCategoryListData,
+  BBCategoryListData,
+}: any) => {
+  console.log('kunCsOtCategoryListData first', BBCategoryListData);
   return (
     <div className="table-responsive">
       <table className="table table-hover table-bordered">
@@ -20,49 +24,51 @@ const CustomerSalesTable2 = () => {
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
               >
-                <option selected></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                {kunCsOtCategoryListData?.length > 0 &&
+                  kunCsOtCategoryListData !== null &&
+                  kunCsOtCategoryListData.map((categoryData: any) => (
+                    <option selected>{categoryData.name1}</option>
+                  ))}
               </select>
             </td>
             <td className="table_row w-25" scope="row">
               <select
                 name=""
                 id=""
-                className="form-select form-select-sm border-secondary p-0 px-2"
+                className=" form-select form-select-sm border-secondary  p-0 px-2 "
               >
-                {' '}
-                <option selected></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                {kunCsOtCategoryListData?.length > 0 &&
+                  kunCsOtCategoryListData !== null &&
+                  kunCsOtCategoryListData.map((categoryData: any) => (
+                    <option selected>{categoryData.name1}</option>
+                  ))}
+              </select>
+            </td>
+
+            <td className="table_row w-25" scope="row">
+              <select
+                name=""
+                id=""
+                className=" form-select form-select-sm border-secondary  p-0 px-2 "
+              >
+                {BBCategoryListData?.length > 0 &&
+                  BBCategoryListData !== null &&
+                  BBCategoryListData.map((BBCategoryData: any) => (
+                    <option selected>{BBCategoryData.name1}</option>
+                  ))}
               </select>
             </td>
             <td className="table_row w-25" scope="row">
               <select
                 name=""
                 id=""
-                className="form-select form-select-sm border-secondary p-0 px-2"
+                className=" form-select form-select-sm border-secondary  p-0 px-2 "
               >
-                {' '}
-                <option selected></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </td>
-            <td className="table_row w-25" scope="row">
-              <select
-                name=""
-                id=""
-                className="form-select form-select-sm border-secondary p-0 px-2"
-              >
-                {' '}
-                <option selected></option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                {kunCsOtCategoryListData?.length > 0 &&
+                  kunCsOtCategoryListData !== null &&
+                  kunCsOtCategoryListData.map((categoryData: any) => (
+                    <option selected>{categoryData.name1}</option>
+                  ))}
               </select>
             </td>
           </tr>

@@ -22,8 +22,12 @@ const useClientHook = () => {
       const BBData = await getBBCategoryApi(loginAcessToken.token);
       console.log(kunCsOtData, 'kuncsotdata');
       setClientList(clientData);
-      setKunCsOtCategory(kunCsOtData);
-      setBBCategory(BBData);
+      if (kunCsOtData?.data?.message?.status === 'success') {
+        setKunCsOtCategory(kunCsOtData?.data?.message?.data);
+      }
+      if (BBData?.data?.message?.status === 'success') {
+        setBBCategory(BBData?.data?.message?.data);
+      }
     };
     getStateData();
   }, []);
