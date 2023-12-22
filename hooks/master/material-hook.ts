@@ -22,6 +22,7 @@ const useMaterialHook = () => {
     getStateData();
   }, []);
   const HandleNameChange = (e: any) => {
+    console.log(nameValue, 'changing client');
     const { name, value } = e.target;
     setNameValue({ ...nameValue, [name]: value });
     setError1('');

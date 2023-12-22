@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import MasterMaterialListing from './MasterMaterialListing';
-import useMaterialHook from '@/hooks/master/material-hook';
-import AddMaterial from './AddMaterial';
+import { useState } from 'react';
 import MasterListing from '../MasterListing';
+import AddMaterial from './AddMaterial';
+import MasterMaterialListing from './MasterMaterialListing';
 const MasterMaterialMaster: any = ({
   value,
   materialList,
@@ -15,12 +14,16 @@ const MasterMaterialMaster: any = ({
   placeholder2,
   tab1,
   tab2,
+  key1,
+  searchClient,
+  setSearchClient,
 }: any) => {
-  console.log(materialList, 'kuncsotdata');
+  console.log(key1, 'kuncsotdata');
   const [inputName, setInputName] = useState('');
   const [inputGroup, setInputGroup] = useState('');
   const handleInputChange1 = (event: any) => {
     setInputName(event.target.value);
+    console.log(inputName, 'changing client');
   };
   const handleInputChange2 = (event: any) => {
     setInputGroup(event.target.value);
@@ -98,6 +101,10 @@ const MasterMaterialMaster: any = ({
             error2={error2}
             placeholder1={placeholder1}
             placeholder2={placeholder2}
+            searchClient={searchClient}
+            setSearchClient={setSearchClient}
+            key1={key1}
+            materialList={materialList}
           />
         </div>
       </div>

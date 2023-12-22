@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
+import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
 
 const MasterMaterialListing = ({
   materialList,
@@ -35,6 +36,7 @@ const MasterMaterialListing = ({
           placeholder={placeholder1}
           onChange={handleInputChange1}
         />
+
         <input
           type="text"
           name="input2"

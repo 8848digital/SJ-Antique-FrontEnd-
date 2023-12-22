@@ -1,10 +1,19 @@
 import CurrentDate from '@/components/CurrentDate';
 import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
-import React from 'react';
 
-const CustomerSalesTable1 = () => {
+const CustomerSalesTable1 = ({
+  clientList,
+  setSearchClient,
+  searchClient,
+}: any) => {
+  let clientData: any =
+    clientList?.length > 0 &&
+    clientList !== null &&
+    clientList.map((data: any) => ({
+      karigar_name: data.client_name,
+    }));
   return (
-    <div className="table-responsive mt-2">
+    <div className=" mt-2">
       <table className="table table-hover">
         <thead>
           <tr>
@@ -38,10 +47,13 @@ const CustomerSalesTable1 = () => {
             </td>
             <td className="table_row">
               <SearchSelectInputField
+                karigarData={clientData}
                 className={
                   'form-control input-sm border border-secondary light-background'
                 }
                 placeholder={'Client Name'}
+                selectedDropdownValue={searchClient}
+                setSelectedDropdownValue={setSearchClient}
               />
             </td>
             <td className="table_row">

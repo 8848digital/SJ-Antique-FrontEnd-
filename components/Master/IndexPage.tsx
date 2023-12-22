@@ -1,12 +1,9 @@
+import useClientHook from '@/hooks/master/client-hook';
 import useMasterHooks from '@/hooks/master/masterHooks';
+import useMaterialHook from '@/hooks/master/material-hook';
 import { useRouter } from 'next/router';
-import React from 'react';
 import MasterKarigar from './MasterKarigar/MasterKarigar';
 import MasterMaterialMaster from './MasterMaterial/MasterMaterialMaster';
-import useMaterialHook from '@/hooks/master/material-hook';
-import { clientGroupDataset } from '../../datasets/clientGroup';
-import { clientNameDataset } from '../../datasets/clientName';
-import useClientHook from '@/hooks/master/client-hook';
 
 const IndexPage = () => {
   const {
@@ -28,7 +25,20 @@ const IndexPage = () => {
     error1,
     error2,
   }: any = useMaterialHook();
-  const { clientList, KunCsOtCategory, BBCategory }: any = useClientHook();
+  const {
+    clientList,
+    HandleClientNameChange,
+    HandleClientSave,
+    KunCsOtCategory,
+    BBCategory,
+    clientName,
+    HandleKunCsOtChange,
+    HandleKunCsOtSave,
+    HandleBBChange,
+    HandleBBSave,
+    setSearchClient,
+    searchClient,
+  }: any = useClientHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
   console.log(pathcontent, 'pathcontent index');
@@ -124,24 +134,27 @@ const IndexPage = () => {
         <MasterMaterialMaster
           value={key}
           materialList={clientNameList}
-          HandleNameChange={HandleNameChange}
-          HandleSave={HandleSave}
-          nameValue={nameValue}
+          HandleNameChange={HandleClientNameChange}
+          HandleSave={HandleClientSave}
+          nameValue={clientName}
           error1={error1}
           error2={error2}
           placeholder1={'Client Name'}
           placeholder2={'Client Group'}
           tab1={'Client Name List'}
           tab2={'Create New Client Name'}
+          setSearchClient={setSearchClient}
+          searchClient={searchClient}
+          key1={'clientName'}
         />
       )}
       {key === 'kunCsOtCategory' && (
         <MasterMaterialMaster
           value={key}
           materialList={kunCsOtList}
-          HandleNameChange={HandleNameChange}
-          HandleSave={HandleSave}
-          nameValue={nameValue}
+          HandleNameChange={HandleKunCsOtChange}
+          HandleSave={HandleKunCsOtSave}
+          nameValue={clientName}
           error1={error1}
           error2={error2}
           placeholder1={'Category Name'}
@@ -154,9 +167,9 @@ const IndexPage = () => {
         <MasterMaterialMaster
           value={key}
           materialList={BBList}
-          HandleNameChange={HandleNameChange}
-          HandleSave={HandleSave}
-          nameValue={nameValue}
+          HandleNameChange={HandleBBChange}
+          HandleSave={HandleBBSave}
+          nameValue={clientName}
           error1={error1}
           error2={error2}
           placeholder1={'Category Name'}

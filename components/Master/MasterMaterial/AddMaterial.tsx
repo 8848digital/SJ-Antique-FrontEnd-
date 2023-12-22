@@ -1,3 +1,4 @@
+import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
 import React from 'react';
 
 const AddMaterial = ({
@@ -8,7 +9,18 @@ const AddMaterial = ({
   error2,
   placeholder1,
   placeholder2,
+  searchClient,
+  setSearchClient,
+  key1,
+  materialList,
 }: any) => {
+  console.log(key1, materialList, 'karigar data in search');
+  let clientGroup: any =
+    materialList?.length > 0 &&
+    materialList !== null &&
+    materialList.map((data: any) => ({
+      karigar_name: data.material_abbr,
+    }));
   return (
     <div
       className="tab-pane fade"
@@ -24,7 +36,7 @@ const AddMaterial = ({
         <div className="p-1">
           <input
             type="text"
-            className="form-control w-50 border p-1"
+            className="form-control w-50 border p-0 px-2"
             name="material"
             value={nameValue.material}
             onChange={(e) => {
@@ -39,16 +51,28 @@ const AddMaterial = ({
           <span className="text-danger">*</span>
         </div>
         <div className="p-1">
-          <input
-            type="text"
-            className="form-control w-50 border p-1"
-            name="material_abbr"
-            value={nameValue.material_abbr}
-            onChange={(e) => {
-              HandleNameChange(e);
-            }}
-            required
-          />
+          {key1 === 'clientName' && (
+            <SearchSelectInputField
+              karigarData={clientGroup}
+              className={'form-control w-50 border p-0 px-2'}
+              placeholder={'Client Group'}
+              selectedDropdownValue={searchClient}
+              setSelectedDropdownValue={setSearchClient}
+              style={'w-50'}
+            />
+          )}
+          {key1 !== 'clientName' && (
+            <input
+              type="text"
+              className="form-control w-50 border p-0 px-2"
+              name="material_abbr"
+              value={nameValue.material_abbr}
+              onChange={(e) => {
+                HandleNameChange(e);
+              }}
+              required
+            />
+          )}
         </div>
         <div> {error2 && <p className="text-danger">{error2}</p>}</div>
         <div className="d-flex justify-content-start">
