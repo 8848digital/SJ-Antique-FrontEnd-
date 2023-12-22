@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 import PurchaseReceiptFileUploadMaster from '../PurchaseReceiptFileUpload/PurchaseReceiptFileUploadMaster';
+import { useRouter } from 'next/router';
 
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
@@ -20,10 +21,12 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
   calculateEditTotal,
-
   handleClearFileUploadInput,
+  handleCreate,
 }: any) => {
   console.log('table data receipt', tableData);
+  const { query } = useRouter();
+  console.log('query pa', query);
 
   return (
     <div className="table responsive">
@@ -51,6 +54,12 @@ const KundanKarigarReadyReceiptMasterTable = ({
             <th className="thead" scope="col">
               Gross Wt
             </th>
+            {(query?.receipt === 'mangalsutra' ||
+              query?.receipt === 'Mangalsutra') && (
+              <th className="thead" scope="col">
+                BB Pcs
+              </th>
+            )}
             <th className="thead" scope="col">
               Other
             </th>
@@ -61,6 +70,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Add Photo
             </th>
             <th className="thead" scope="col"></th>
+            {/* <th className="thead" scope="col"></th> */}
           </tr>
         </thead>
         <tbody>
@@ -144,10 +154,10 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
-                      value={
-                        // Number(tableData[i]?.totalModalWeight) ||
-                        item.custom_mat_wt
-                      }
+                      // value={
+                      //   // Number(tableData[i]?.totalModalWeight) ||
+                      //   item.custom_mat_wt
+                      // }
                       defaultValue={item.custom_mat_wt}
                       readOnly={readOnlyFields}
                       onChange={(e) =>
@@ -168,13 +178,35 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      value={
-                        Number(tableData[i]?.custom_net_wt) +
-                        Number(tableData[i]?.custom_few_wt) +
-                        Number(tableData[i]?.custom_mat_wt)
-                      }
+                      value={parseFloat(
+                        (
+                          Number(tableData[i]?.custom_net_wt) +
+                          Number(tableData[i]?.custom_few_wt) +
+                          Number(tableData[i]?.custom_mat_wt)
+                        ).toFixed(3)
+                      )}
                     />
                   </td>
+                  {(query?.receipt === 'mangalsutra' ||
+                    query?.receipt === 'Mangalsutra') && (
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        // value={item.custom_pcs}
+                        // defaultValue={item.pcs}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            item.idx,
+                            'tableRow',
+                            'BB_pcs',
+                            e.target.value
+                          )
+                        }
+                        readOnly={readOnlyFields}
+                      />
+                    </td>
+                  )}
 
                   <td className="table_row">
                     <input
@@ -221,7 +253,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <button
                       className="d-flex align-items-center delete-link p-1 border-0"
                       onClick={() => handleDeleteRow(item.idx)}
-                      onKeyDown={(e) => handleTabPress(e, item.idx)}
+                      onKeyDown={handleCreate}
                       disabled={readOnlyFields}
                     >
                       <FontAwesomeIcon
@@ -230,6 +262,15 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       />
                     </button>
                   </td>
+                  {/* <td className="table_row">
+                    <button
+                      className="d-flex align-items-center delete-link p-1 border-0"
+                      onKeyDown={(e) => handleTabPress(e, item.idx)}
+                      disabled={readOnlyFields}
+                    >
+                      <i className="fa-solid fa-plus"></i>
+                    </button>
+                  </td> */}
                 </tr>
                 <tr></tr>
               </>
