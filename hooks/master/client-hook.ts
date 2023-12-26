@@ -16,14 +16,16 @@ const useClientHook = () => {
   const [clientList, setClientList] = useState();
   const [KunCsOtCategory, setKunCsOtCategory] = useState();
   const [BBCategory, setBBCategory] = useState();
-  const [searchClient, setSearchClient] = useState();
+  const [searchClient, setSearchClient] = useState('');
+
+  console.log(searchClient, 'search client in dropdown');
   // get api function
   useEffect(() => {
     const getStateData: any = async () => {
       const clientData: any = await getClientApi(loginAcessToken.token);
       const kunCsOtData = await getKunCsOtCategoryApi(loginAcessToken.token);
       const BBData = await getBBCategoryApi(loginAcessToken.token);
-      console.log(kunCsOtData, 'kuncsotdata');
+      console.log(clientData, 'kuncsotdata');
       setClientList(clientData);
       if (kunCsOtData?.data?.message?.status === 'success') {
         setKunCsOtCategory(kunCsOtData?.data?.message?.data);
@@ -34,8 +36,8 @@ const useClientHook = () => {
     };
     getStateData();
   }, []);
-  const [error1, setError1] = useState('');
-  const [error2, setError2] = useState('');
+  const [errorC1, setError1] = useState('');
+  const [errorC2, setError2] = useState('');
   const [clientName, setClientNameValue] = useState({
     material: '',
     material_abbr: '',
@@ -43,24 +45,27 @@ const useClientHook = () => {
   // client post api
   const HandleClientNameChange = (e: any) => {
     const { name, value } = e.target;
-    setClientNameValue({ ...clientName, [name]: value });
+    setClientNameValue({
+      ...clientName,
+      [name]: value,
+      material_abbr: searchClient,
+    });
     setError1('');
     setError2('');
   };
-  console.log(clientName, 'clientName');
   const HandleClientSave = async () => {
-    console.log(clientName, 'material saved');
+    console.log(clientName, 'client name saved');
     const values = {
       version: 'v1',
       method: 'client_create',
       entity: 'client_api',
       client_name: clientName?.material,
-      client_group: clientName?.material_abbr,
+      client_group: searchClient,
     };
     console.log(values, 'valuesname');
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
-      console.log(error1);
+      console.log(errorC1);
     } else if (
       clientName.material_abbr === '' ||
       clientName.material_abbr === undefined
@@ -93,7 +98,7 @@ const useClientHook = () => {
   };
   console.log(clientName, 'clientName');
   const HandleKunCsOtSave = async () => {
-    console.log(clientName, 'material saved');
+    console.log(clientName, 'Kun Cat saved');
     const values = {
       version: 'v1',
       method: 'create_kun_category',
@@ -103,14 +108,16 @@ const useClientHook = () => {
     };
     console.log(values, 'valuesname');
     if (clientName?.material === '' || clientName.material === undefined) {
+      console.log('in condition 1');
       setError1('Input field cannot be empty');
-      console.log(error1);
     } else if (
       clientName.material_abbr === '' ||
       clientName.material_abbr === undefined
     ) {
+      console.log('in condition 2');
       setError2('Input field cannot be empty');
     } else {
+      console.log('in condition 3');
       let apiRes: any = await postKunCsOtCategoryApi(
         loginAcessToken?.token,
         values
@@ -151,7 +158,7 @@ const useClientHook = () => {
     console.log(values, 'valuesname');
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
-      console.log(error1);
+      console.log(errorC1);
     } else if (
       clientName.material_abbr === '' ||
       clientName.material_abbr === undefined
@@ -188,6 +195,8 @@ const useClientHook = () => {
     HandleBBSave,
     setSearchClient,
     searchClient,
+    errorC1,
+    errorC2,
   };
 };
 export default useClientHook;

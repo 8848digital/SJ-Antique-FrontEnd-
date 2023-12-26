@@ -34,19 +34,11 @@ const SearchSelectInputField = ({
   };
 
   const handleSelectedOption = (data: any, i: any) => {
-    if (setRecipitData !== undefined) {
-      setSelectedDropdownValue(data?.karigar_name);
-    } else {
-      setSelectedDropdownValue(data);
-    }
-
+    setSelectedDropdownValue(data?.karigar_name);
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
     if (setRecipitData !== undefined) {
       setRecipitData({ ...recipitData, custom_karigar: data?.karigar_name });
-      console.log('salee excluding');
-    } else {
-      console.log('salee including');
     }
     if (setStateForDocStatus !== undefined) {
       setStateForDocStatus(true);
@@ -128,17 +120,11 @@ const SearchSelectInputField = ({
           const updatedFilterList: any =
             karigarData?.length > 0 &&
             karigarData.filter((item: any) => {
-              if (item.karigar_name) {
-                return (
-                  item.karigar_name
-                    ?.toLowerCase()
-                    ?.indexOf(query?.toLowerCase()) !== -1
-                );
-              } else {
-                return (
-                  item?.toLowerCase()?.indexOf(query?.toLowerCase()) !== -1
-                );
-              }
+              return (
+                item.karigar_name
+                  ?.toLowerCase()
+                  ?.indexOf(query?.toLowerCase()) !== -1
+              );
             });
           setFilterDropdownList(updatedFilterList);
           setNoRecordsFound(true);
@@ -175,9 +161,7 @@ const SearchSelectInputField = ({
                       i === selectedIndex ? 'selected' : ''
                     }`}
                   >
-                    {name?.hasOwnProperty('karigar_name')
-                      ? name.karigar_name
-                      : name}
+                    {name.karigar_name}
                   </li>
                 ))}
             </>
@@ -193,9 +177,7 @@ const SearchSelectInputField = ({
                       i === selectedIndex ? 'selected' : ''
                     }`}
                   >
-                    {name?.hasOwnProperty('karigar_name')
-                      ? name.karigar_name
-                      : name}
+                    {name.karigar_name}
                   </li>
                 ))}
             </>

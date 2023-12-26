@@ -48,12 +48,6 @@ const CustomerSalesTable1 = ({
                   clientNameListData !== null &&
                   clientNameListData.map((data: any) => data.client_name)
                 }
-                // defaultValue={karigarData?.karigar_name}
-                // recipitData={recieptData}
-                // setRecipitData={setRecipitData}
-                selectedDropdownValue={selectedDropdownValue}
-                setSelectedDropdownValue={setSelectedDropdownValue}
-                // setStateForDocStatus={setStateForDocStatus}
                 placeholder={'Client Name'}
                 className={'form-control input-sm border border-secondary'}
               // readOnlyFields={readOnlyFields}

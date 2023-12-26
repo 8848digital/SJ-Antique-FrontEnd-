@@ -26,11 +26,10 @@ const SalesHeader = () => {
         onClick={() => setActive(1)}
       >
         <button
-          className={`${styles.button} ${
-            customerSaleValue ? 'activeColor' : ''
-          } `}
+          className={`${styles.button} ${customerSaleValue ? 'activeColor' : ''
+            } `}
         >
-          Customer Sale
+          Sales
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>

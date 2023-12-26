@@ -56,10 +56,10 @@ const KundanKarigarReadyReceiptMasterTable = ({
             </th>
             {(query?.receipt === 'mangalsutra' ||
               query?.receipt === 'Mangalsutra') && (
-              <th className="thead" scope="col">
-                BB Pcs
-              </th>
-            )}
+                <th className="thead" scope="col">
+                  BB Pcs
+                </th>
+              )}
             <th className="thead" scope="col">
               Other
             </th>
@@ -189,24 +189,24 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   </td>
                   {(query?.receipt === 'mangalsutra' ||
                     query?.receipt === 'Mangalsutra') && (
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field} `}
-                        type="number"
-                        // value={item.custom_pcs}
-                        // defaultValue={item.pcs}
-                        onChange={(e) =>
-                          handleFieldChange(
-                            item.idx,
-                            'tableRow',
-                            'BB_pcs',
-                            e.target.value
-                          )
-                        }
-                        readOnly={readOnlyFields}
-                      />
-                    </td>
-                  )}
+                      <td className="table_row">
+                        <input
+                          className={` ${styles.input_field} `}
+                          type="number"
+                          // value={item.custom_pcs}
+                          // defaultValue={item.pcs}
+                          onChange={(e) =>
+                            handleFieldChange(
+                              item.idx,
+                              'tableRow',
+                              'BB_pcs',
+                              e.target.value
+                            )
+                          }
+                          readOnly={readOnlyFields}
+                        />
+                      </td>
+                    )}
 
                   <td className="table_row">
                     <input
@@ -232,11 +232,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                            Number(tableData[i]?.totalAmount)
+                          Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                          ? tableData[i]?.custom_total
-                          : tableData[i]?.custom_other
+                            ? tableData[i]?.custom_total
+                            : tableData[i]?.custom_other
                       }
                     />
                   </td>

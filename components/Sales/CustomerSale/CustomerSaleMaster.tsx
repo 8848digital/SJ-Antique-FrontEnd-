@@ -13,6 +13,11 @@ const CustomerSaleMaster = () => {
     clientNameListData,
     selectedDropdownValue,
     setSelectedDropdownValue,
+    selectedItemCodeForCustomerSale,
+    setSelectedItemCodeForCustomerSale,
+    handleSalesTableFieldChange,
+    handleAddRowForSales,
+    handleDeleteRowOfSalesTable
   }: any = UseCustomerSaleHook();
 
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
@@ -30,8 +35,13 @@ const CustomerSaleMaster = () => {
           BBCategoryListData={BBCategoryListData}
         />
         <CustomerSalesTable
+          handleSalesTableFieldChange={handleSalesTableFieldChange}
           salesTableData={salesTableData}
           setSalesTableData={setSalesTableData}
+          selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
+          setSelectedItemCodeForCustomerSale={setSelectedItemCodeForCustomerSale}
+          handleAddRowForSales={handleAddRowForSales}
+          handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
         />
       </div>
     </div>

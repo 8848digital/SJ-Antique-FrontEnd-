@@ -117,9 +117,8 @@ const SelectInputKunKarigar = ({
         type="text"
         name="custom_karigar"
         className={` ${styles.table_select}`}
-        placeholder={`${
-          placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
-        }`}
+        placeholder={`${placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
+          }`}
         onChange={(e) => {
           if (!readOnlyFields) {
             setShowDropdown(true);
@@ -173,9 +172,8 @@ const SelectInputKunKarigar = ({
                   <li
                     key={i}
                     onClick={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>
@@ -189,9 +187,8 @@ const SelectInputKunKarigar = ({
                   <li
                     key={i}
                     onClick={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>

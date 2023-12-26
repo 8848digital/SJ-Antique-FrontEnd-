@@ -38,7 +38,10 @@ const IndexPage = () => {
     HandleBBSave,
     setSearchClient,
     searchClient,
+    errorC1,
+    errorC2,
   }: any = useClientHook();
+  console.log(clientList, 'indexPage client list');
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
   console.log(pathcontent, 'pathcontent index');
@@ -155,8 +158,8 @@ const IndexPage = () => {
           HandleNameChange={HandleKunCsOtChange}
           HandleSave={HandleKunCsOtSave}
           nameValue={clientName}
-          error1={error1}
-          error2={error2}
+          error1={errorC1}
+          error2={errorC2}
           placeholder1={'Category Name'}
           placeholder2={'Type'}
           tab1={'Category Name'}
@@ -170,8 +173,8 @@ const IndexPage = () => {
           HandleNameChange={HandleBBChange}
           HandleSave={HandleBBSave}
           nameValue={clientName}
-          error1={error1}
-          error2={error2}
+          error1={errorC1}
+          error2={errorC2}
           placeholder1={'Category Name'}
           placeholder2={'Type'}
           tab1={'Category Name'}

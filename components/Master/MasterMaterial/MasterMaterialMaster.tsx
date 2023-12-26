@@ -37,7 +37,7 @@ const MasterMaterialMaster: any = ({
         (client?.material_abbr
           ?.toLowerCase()
           ?.includes(inputGroup?.toLowerCase()) ||
-          client?.type)
+          client?.type?.toString()?.includes(inputGroup))
     );
   console.log(filteredList, 'kuncsotdata');
   return (
