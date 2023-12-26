@@ -36,7 +36,6 @@ const CustomerSalesTable1 = ({
             <td className="table_row" scope="row">
               <input
                 className=" form-control input-sm border border-secondary light-background"
-                style={{ background: '#e0e1f5' }}
                 type="text"
                 name="remarks"
                 autoComplete="off"
@@ -59,7 +58,6 @@ const CustomerSalesTable1 = ({
             <td className="table_row">
               <input
                 className="form-control input-sm border border-secondary"
-                style={{ background: '#e0e1f5' }}
                 type="text"
                 name="remarks"
                 autoComplete="off"

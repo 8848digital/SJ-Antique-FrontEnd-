@@ -86,7 +86,7 @@ const KundanListing = ({
           const receiptNumberMatch = searchReceiptNumber
             ? item?.name
                 ?.toLowerCase()
-                .includes(searchReceiptNumber.toLowerCase())
+                .includes(searchReceiptNumber.toString().toLowerCase())
             : true;
 
           if (searchInputValues.status === 'Draft') {

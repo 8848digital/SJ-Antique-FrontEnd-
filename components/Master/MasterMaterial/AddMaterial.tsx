@@ -14,7 +14,8 @@ const AddMaterial = ({
   key1,
   materialList,
 }: any) => {
-  console.log(key1, materialList, 'karigar data in search');
+  console.log(key1, error1, materialList, 'karigar data in search');
+
   let clientGroup: any =
     materialList?.length > 0 &&
     materialList !== null &&
@@ -58,7 +59,7 @@ const AddMaterial = ({
               placeholder={'Client Group'}
               selectedDropdownValue={searchClient}
               setSelectedDropdownValue={setSearchClient}
-              style={'w-50'}
+              style={'client-width'}
             />
           )}
           {key1 !== 'clientName' && (

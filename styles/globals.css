@@ -323,4 +323,6 @@ hr {
 .light-background{
   background-color: #e0e1f5;
 }
-
+.client-width{
+  width: 40% !important;
+}

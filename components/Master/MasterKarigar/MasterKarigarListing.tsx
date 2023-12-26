@@ -28,7 +28,7 @@ const MasterKarigarListing = ({
           name="name"
           id="name"
           aria-describedby="emailHelp"
-          className="form-control form-control-color w-auto"
+          className="form-control form-control-color w-auto h-50 p-1"
           placeholder={placeholder}
           onChange={HandleSearchInput}
         />
@@ -41,7 +41,7 @@ const MasterKarigarListing = ({
             : karigarData?.length}
         </div>
       )}
-      <div className="table-responsive  mt-3">
+      <div className="table-responsive  mt-2">
         <table className="table table-hover table-striped w-100 table-bordered ">
           <thead>
             <tr className="table_row">

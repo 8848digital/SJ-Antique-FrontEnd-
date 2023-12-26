@@ -32,7 +32,7 @@ const MasterMaterialListing = ({
           name="input1"
           id="input1"
           aria-describedby="emailHelp"
-          className="form-control min-vw-50  mx-2"
+          className="form-control min-vw-50 h-50 mx-2 p-1"
           placeholder={placeholder1}
           onChange={handleInputChange1}
         />
@@ -42,7 +42,7 @@ const MasterMaterialListing = ({
           name="input2"
           id="input2"
           aria-describedby="emailHelp"
-          className="form-control min-vw-50 mx-2"
+          className="form-control min-vw-50 h-50 mx-2 p-1"
           placeholder={placeholder2}
           onChange={handleInputChange2}
         />
@@ -55,7 +55,7 @@ const MasterMaterialListing = ({
             : materialList?.length}
         </div>
       )}
-      <div className="table-responsive mt-3 ">
+      <div className="table-responsive mt-2 ">
         <table className="table table-hover table-striped table-bordered w-100 ">
           <thead>
             <tr className="table_row">
