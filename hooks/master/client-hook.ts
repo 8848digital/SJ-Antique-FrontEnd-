@@ -3,6 +3,7 @@ import getClientApi from '@/services/api/Master/get-client-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
 import postBBCategoryApi from '@/services/api/Master/post-bbCategory-api';
 import postClientApi from '@/services/api/Master/post-client-api';
+import postClientGroupApi from '@/services/api/Master/post-client-group-api';
 import postKunCsOtCategoryApi from '@/services/api/Master/post-kunCsOtCategory-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
@@ -17,6 +18,9 @@ const useClientHook = () => {
   const [KunCsOtCategory, setKunCsOtCategory] = useState();
   const [BBCategory, setBBCategory] = useState();
   const [searchClient, setSearchClient] = useState('');
+
+  const [inputValue1, setInputValue1] = useState('');
+  const [errorC, setErrorC] = useState('');
 
   console.log(searchClient, 'search client in dropdown');
   // get api function
@@ -182,6 +186,40 @@ const useClientHook = () => {
     }
   };
 
+  // client group post api
+  const HandleClientGrpSubmit = async () => {
+    const values = {
+      version: 'v1',
+      method: 'create_client_group',
+      entity: 'client_group_post_api',
+      client_group: inputValue1,
+    };
+    console.log(values, 'valuesname');
+    if (inputValue1.trim() === '') {
+      setErrorC('Input field cannot be empty');
+    } else {
+      let apiRes: any = await postClientGroupApi(
+        loginAcessToken?.token,
+        values
+      );
+      console.log('apires', apiRes);
+      if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+        toast.success('Client Group Created');
+        const clientGrpData: any = await getClientApi(loginAcessToken.token);
+        setClientList(clientGrpData);
+      } else {
+        toast.error('Client Group already exist');
+      }
+      setErrorC('');
+      setInputValue1('');
+    }
+  };
+  const HandleClientGrpValue = (e: any) => {
+    setErrorC('');
+    setInputValue1(e.target.value);
+    console.log(inputValue1, 'input value');
+  };
+
   return {
     clientList,
     HandleClientNameChange,
@@ -197,6 +235,11 @@ const useClientHook = () => {
     searchClient,
     errorC1,
     errorC2,
+    errorC,
+    setErrorC,
+    HandleClientGrpSubmit,
+    HandleClientGrpValue,
+    inputValue1,
   };
 };
 export default useClientHook;

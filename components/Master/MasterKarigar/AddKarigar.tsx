@@ -22,7 +22,7 @@ const AddKarigar = ({
         <div className="p-1">
           <input
             type="text"
-            className="form-control w-50 border p-1"
+            className="form-control w-50 border p-1 h-50"
             value={inputValue}
             onChange={(e) => {
               HandleInputValue(e);
@@ -34,7 +34,7 @@ const AddKarigar = ({
         <div className="d-flex justify-content-start">
           <button
             type="submit"
-            className=" btn btn-outline-primary py-1 mt-2 form-submit-button"
+            className=" btn btn-outline-primary p-0 px-1  mt-2 form-submit-button"
             onClick={HandleSubmit}
           >
             Save

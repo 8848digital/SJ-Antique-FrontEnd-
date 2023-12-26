@@ -40,6 +40,11 @@ const IndexPage = () => {
     searchClient,
     errorC1,
     errorC2,
+    errorC,
+    setErrorC,
+    HandleClientGrpSubmit,
+    HandleClientGrpValue,
+    inputValue1,
   }: any = useClientHook();
   console.log(clientList, 'indexPage client list');
   const router = useRouter();
@@ -52,6 +57,7 @@ const IndexPage = () => {
     clientList.map((data: any) => ({
       karigar_name: data.client_group,
     }));
+  console.log(clientGroup, 'client grp in index');
   let clientNameList: any =
     clientList?.length > 0 &&
     clientList !== null &&
@@ -107,11 +113,11 @@ const IndexPage = () => {
       {key === 'clientGroup' && (
         <MasterKarigar
           karigarData={clientGroup}
-          inputValue={inputValue}
-          HandleInputValue={HandleKunInputValue}
-          HandleSubmit={HandleKunSubmit}
-          error={error}
-          setError={setError}
+          inputValue={inputValue1}
+          HandleInputValue={HandleClientGrpValue}
+          HandleSubmit={HandleClientGrpSubmit}
+          error={errorC}
+          setError={setErrorC}
           value={key}
           placeholder={'Client Group Name'}
           tab1={'Client Group List'}
