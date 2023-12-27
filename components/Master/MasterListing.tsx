@@ -4,7 +4,7 @@ const MasterListing: any = ({ value }: any) => {
   return (
     <div>
       <div className="container-lg p-0">
-        <div className="d-flex justify-content-center">
+        <div className="d-flex flex-wrap justify-content-center">
           <Link href="/master/karigar" className="text-decoration-none ">
             <button
               className={`${styles.button} ${
