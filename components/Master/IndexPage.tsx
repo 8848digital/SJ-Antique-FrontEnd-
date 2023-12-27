@@ -47,7 +47,7 @@ const IndexPage = () => {
     inputValue1,
     clientGroupList,
   }: any = useClientHook();
-  console.log(clientList, 'indexPage client list');
+  console.log(clientGroupList, 'indexPage client list');
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
   console.log(pathcontent, 'pathcontent index');

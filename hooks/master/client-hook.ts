@@ -33,9 +33,14 @@ const useClientHook = () => {
       );
       const kunCsOtData = await getKunCsOtCategoryApi(loginAcessToken.token);
       const BBData = await getBBCategoryApi(loginAcessToken.token);
-      console.log(clientGroupData, 'client Group data');
-      setClientList(clientData);
-      setClientGroupList(clientGroupData);
+      console.log(clientData, 'kuncsotdata');
+
+      if (clientGroupData?.data?.message?.status === 'success') {
+        setClientGroupList(clientGroupData?.data?.message?.data);
+      }
+      if (clientData?.data?.message?.status === 'success') {
+        setClientList(clientData?.data?.message?.data);
+      }
       if (kunCsOtData?.data?.message?.status === 'success') {
         setKunCsOtCategory(kunCsOtData?.data?.message?.data);
       }
@@ -52,18 +57,27 @@ const useClientHook = () => {
     material_abbr: '',
   });
   // client post api
-  const HandleClientNameChange = (e: any) => {
-    const { name, value } = e.target;
+  useEffect(() => {
     setClientNameValue({
       ...clientName,
-      [name]: value,
+      material_abbr: searchClient,
+    });
+    setError1('');
+    setError2('');
+  }, [searchClient]);
+  const HandleClientNameChange = (e: any) => {
+    const { value } = e.target;
+
+    console.log(clientName, searchClient, 'client name saved');
+    setClientNameValue({
+      ...clientName,
+      material: value,
       material_abbr: searchClient,
     });
     setError1('');
     setError2('');
   };
   const HandleClientSave = async () => {
-    console.log(clientName, 'client name saved');
     const values = {
       version: 'v1',
       method: 'client_create',
@@ -73,20 +87,23 @@ const useClientHook = () => {
     };
     console.log(values, 'valuesname');
     if (clientName?.material === '' || clientName.material === undefined) {
+      console.log('inside console1');
       setError1('Input field cannot be empty');
       console.log(errorC1);
     } else if (
       clientName.material_abbr === '' ||
       clientName.material_abbr === undefined
     ) {
+      console.log('inside console2');
       setError2('Input field cannot be empty');
     } else {
+      console.log('inside console3');
       let apiRes: any = await postClientApi(loginAcessToken?.token, values);
       console.log('apires', apiRes);
       if (apiRes?.status === 'success') {
         toast.success('Client Name Created');
         const clientData = await getClientApi(loginAcessToken.token);
-        setClientList(clientData);
+        setClientList(clientData?.data?.message?.data);
       } else {
         toast.error('Client Name already exist');
       }
@@ -135,7 +152,7 @@ const useClientHook = () => {
       if (apiRes?.status === 'success') {
         toast.success('Kun-Cs-Ot Category Created');
         const KunData = await getKunCsOtCategoryApi(loginAcessToken.token);
-        setKunCsOtCategory(KunData);
+        setKunCsOtCategory(KunData?.data?.message?.data);
       } else {
         toast.error('Kun-Cs-Ot Category already exist');
       }
@@ -179,7 +196,7 @@ const useClientHook = () => {
       if (apiRes?.status === 'success') {
         toast.success('BB Category Created');
         const BbData = await getBBCategoryApi(loginAcessToken.token);
-        setBBCategory(BbData);
+        setBBCategory(BbData?.data?.message?.data);
       } else {
         toast.error('BB Category already exist');
       }
@@ -210,8 +227,10 @@ const useClientHook = () => {
       console.log('apires', apiRes);
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Client Group Created');
-        const clientGrpData: any = await getClientApi(loginAcessToken.token);
-        setClientList(clientGrpData);
+        const clientGrpData: any = await getClientGroupApi(
+          loginAcessToken.token
+        );
+        setClientGroupList(clientGrpData?.data?.message?.data);
       } else {
         toast.error('Client Group already exist');
       }

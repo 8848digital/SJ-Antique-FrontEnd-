@@ -105,7 +105,6 @@ const MasterMaterialMaster: any = ({
             searchClient={searchClient}
             setSearchClient={setSearchClient}
             key1={key1}
-            materialList={materialList}
             clientGroup={clientGroup}
           />
         </div>

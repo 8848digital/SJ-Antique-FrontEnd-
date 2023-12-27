@@ -47,6 +47,7 @@ const useMasterHooks = () => {
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Karigar Name Created');
         const karigarApi: any = await getKarigarApi(loginAcessToken.token);
+        console.log(karigarApi, 'data after post api');
         setKarigarList(karigarApi);
       } else {
         toast.error('Karigar Name already exist');
