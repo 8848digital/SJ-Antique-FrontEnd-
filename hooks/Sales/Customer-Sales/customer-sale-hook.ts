@@ -87,23 +87,32 @@ const UseCustomerSaleHook = () => {
     setSalesTableData(updatedData);
   }
 
-  console.log('selected sale client table', salesTableData);
   const updateSalesTableData = (data: any) => {
-    if (selectedItemCodeForCustomerSale.id) {
+    console.log('selected sale client table', selectedItemCodeForCustomerSale);
+
+    if (selectedItemCodeForCustomerSale?.id) {
       // Assuming data is a list with a single object
-      console.log("data", data)
-      const updatedTable = salesTableData?.map((tableData: any) => ({
-        ...tableData,
-        custom_gross_wt: data[0]?.custom_gross_wt,
-        custom_kun_wt: data[0]?.custom_kun_wt,
-        custom_cs_wt: data[0]?.custom_cs_wt,
-        custom_bb_wt: data[0]?.custom_bb_wt,
-        custom_other_wt: data[0]?.custom_other_wt,
-      }));
+      console.log("data", selectedItemCodeForCustomerSale);
+      const updatedTable = salesTableData?.map((tableData: any) => {
+        console.log("idd", tableData.idx, selectedItemCodeForCustomerSale.id);
+        if (tableData.idx === selectedItemCodeForCustomerSale.id) {
+          return {
+            ...tableData,
+            custom_gross_wt: data[0]?.custom_gross_wt,
+            custom_kun_wt: data[0]?.custom_kun_wt,
+            custom_cs_wt: data[0]?.custom_cs_wt,
+            custom_bb_wt: data[0]?.custom_bb_wt,
+            custom_other_wt: data[0]?.custom_other_wt,
+          };
+        } else {
+          return tableData;
+        }
+      });
 
       setSalesTableData(updatedTable);
     }
   };
+
 
 
   useEffect(() => {

@@ -30,6 +30,8 @@ const SelectInputKunKarigar = ({
     }
   };
 
+  console.log("iddd", id)
+
   useEffect(() => {
     if (
       kunKarigarDropdownReset !== undefined &&

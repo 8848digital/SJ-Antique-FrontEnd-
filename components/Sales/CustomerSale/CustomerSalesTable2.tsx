@@ -4,7 +4,7 @@ const CustomerSalesTable2 = ({
   kunCsOtCategoryListData,
   BBCategoryListData,
 }: any) => {
-  console.log('kunCsOtCategoryListData first', BBCategoryListData);
+
   return (
     <div className="table-responsive">
       <table className="table table-hover table-bordered">

@@ -217,7 +217,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                             item.custom_net_wt
                           }
                           defaultValue={item.custom_net_wt}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -257,7 +257,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                             item.custom_cs_amt
                           }
                           defaultValue={item.custom_cs_amt}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -317,7 +317,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                             item.custom_kun_amt
                           }
                           defaultValue={item.custom_kun_amt}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -357,7 +357,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                             item.custom_ot_amt
                           }
                           defaultValue={item.custom_ot_amt}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -397,7 +397,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                             item.custom_amount
                           }
                           defaultValue={item.custom_amount}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
