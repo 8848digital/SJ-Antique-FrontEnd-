@@ -12,16 +12,10 @@ const AddMaterial = ({
   searchClient,
   setSearchClient,
   key1,
-  materialList,
+  clientGroup,
 }: any) => {
-  console.log(key1, error1, materialList, 'karigar data in search');
+  console.log(key1, error1, 'karigar data in search');
 
-  let clientGroup: any =
-    materialList?.length > 0 &&
-    materialList !== null &&
-    materialList.map((data: any) => ({
-      karigar_name: data.material_abbr,
-    }));
   return (
     <div
       className="tab-pane fade"

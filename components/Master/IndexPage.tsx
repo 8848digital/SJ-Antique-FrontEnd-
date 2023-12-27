@@ -45,6 +45,7 @@ const IndexPage = () => {
     HandleClientGrpSubmit,
     HandleClientGrpValue,
     inputValue1,
+    clientGroupList,
   }: any = useClientHook();
   console.log(clientList, 'indexPage client list');
   const router = useRouter();
@@ -52,9 +53,9 @@ const IndexPage = () => {
   console.log(pathcontent, 'pathcontent index');
   const key = pathcontent[pathcontent?.length - 1];
   let clientGroup: any =
-    clientList?.length > 0 &&
-    clientList !== null &&
-    clientList.map((data: any) => ({
+    clientGroupList?.length > 0 &&
+    clientGroupList !== null &&
+    clientGroupList.map((data: any) => ({
       karigar_name: data.client_group,
     }));
   console.log(clientGroup, 'client grp in index');
@@ -79,6 +80,7 @@ const IndexPage = () => {
       material: data.name1,
       type: data.type,
     }));
+
   console.log(kunCsOtList, 'kuncsotdata');
   return (
     <div>
@@ -143,6 +145,7 @@ const IndexPage = () => {
         <MasterMaterialMaster
           value={key}
           materialList={clientNameList}
+          clientGroup={clientGroup}
           HandleNameChange={HandleClientNameChange}
           HandleSave={HandleClientSave}
           nameValue={clientName}

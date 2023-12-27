@@ -1,5 +1,6 @@
 import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getClientApi from '@/services/api/Master/get-client-api';
+import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
 import postBBCategoryApi from '@/services/api/Master/post-bbCategory-api';
 import postClientApi from '@/services/api/Master/post-client-api';
@@ -15,10 +16,10 @@ const useClientHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   // api states
   const [clientList, setClientList] = useState();
+  const [clientGroupList, setClientGroupList] = useState();
   const [KunCsOtCategory, setKunCsOtCategory] = useState();
   const [BBCategory, setBBCategory] = useState();
   const [searchClient, setSearchClient] = useState('');
-
   const [inputValue1, setInputValue1] = useState('');
   const [errorC, setErrorC] = useState('');
 
@@ -27,10 +28,14 @@ const useClientHook = () => {
   useEffect(() => {
     const getStateData: any = async () => {
       const clientData: any = await getClientApi(loginAcessToken.token);
+      const clientGroupData: any = await getClientGroupApi(
+        loginAcessToken.token
+      );
       const kunCsOtData = await getKunCsOtCategoryApi(loginAcessToken.token);
       const BBData = await getBBCategoryApi(loginAcessToken.token);
-      console.log(clientData, 'kuncsotdata');
+      console.log(clientGroupData, 'client Group data');
       setClientList(clientData);
+      setClientGroupList(clientGroupData);
       if (kunCsOtData?.data?.message?.status === 'success') {
         setKunCsOtCategory(kunCsOtData?.data?.message?.data);
       }
@@ -240,6 +245,7 @@ const useClientHook = () => {
     HandleClientGrpSubmit,
     HandleClientGrpValue,
     inputValue1,
+    clientGroupList,
   };
 };
 export default useClientHook;

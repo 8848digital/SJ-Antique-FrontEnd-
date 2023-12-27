@@ -17,6 +17,7 @@ const MasterMaterialMaster: any = ({
   key1,
   searchClient,
   setSearchClient,
+  clientGroup,
 }: any) => {
   console.log(key1, 'kuncsotdata');
   const [inputName, setInputName] = useState('');
@@ -105,6 +106,7 @@ const MasterMaterialMaster: any = ({
             setSearchClient={setSearchClient}
             key1={key1}
             materialList={materialList}
+            clientGroup={clientGroup}
           />
         </div>
       </div>

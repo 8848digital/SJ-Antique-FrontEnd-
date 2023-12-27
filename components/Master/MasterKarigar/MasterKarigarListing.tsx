@@ -16,7 +16,10 @@ const MasterKarigarListing = ({
   const HandleDetails = (name: any) => {
     router.push({
       pathname: '/master/[karigarId]/KarigarDetailsMaster',
-      query: name,
+      query: {
+        name: name,
+        placeholder: placeholder,
+      },
     });
   };
 

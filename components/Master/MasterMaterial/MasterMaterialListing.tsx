@@ -21,7 +21,12 @@ const MasterMaterialListing = ({
     console.log(name, abbr, 'name abbr1');
     router.push({
       pathname: '/masterMaterialDetails',
-      query: { name, abbr },
+      query: {
+        name1: name,
+        name2: abbr,
+        placeholder1: placeholder1,
+        placeholder2: placeholder2,
+      },
     });
   };
   return (

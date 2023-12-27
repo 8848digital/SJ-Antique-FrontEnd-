@@ -3,9 +3,10 @@ import React from 'react';
 
 const KarigarDetailsMaster = () => {
   const router = useRouter();
-  console.log(Object.keys(router.query), 'query11');
-  const pathContent = Object.keys(router.query);
-  const value = pathContent[0];
+  // console.log(Object.keys(router.query), 'query11');
+  // const pathContent = Object.keys(router.query);
+  // const value = pathContent[0];
+  const { name, placeholder } = router.query;
 
   return (
     <div className="container mt-5">
@@ -23,14 +24,14 @@ const KarigarDetailsMaster = () => {
         </div>
         <div className="my-2 p-4">
           <label htmlFor="basic-url " className="fs-5">
-            Karigar Name
+            {placeholder}
             <span className="text-danger">*</span>
           </label>
           <div className="input-group my-2 w-25">
             <input
               type="text"
               className="form-control py-1 ps-1"
-              defaultValue={value}
+              defaultValue={name}
               required
               id="basic-url"
               readOnly

@@ -28,7 +28,6 @@ const useMaterialHook = () => {
     setError1('');
     setError2('');
   };
-  console.log(nameValue, 'namevalue');
   const HandleSave = async () => {
     console.log(nameValue, 'material saved');
     const values = {
