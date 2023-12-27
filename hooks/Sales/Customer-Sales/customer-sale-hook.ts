@@ -1,6 +1,7 @@
 import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getClientApi from '@/services/api/Master/get-client-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
+import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,9 +15,9 @@ const UseCustomerSaleHook = () => {
   );
   const [BBCategoryListData, setBBCategoryListData] = useState<any>([]);
   const [clientNameListData, setClientNameListData] = useState<any>([]);
-  const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] = useState<any>([]);
+  const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] = useState<any>("");
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
-  console.log('selected sale client', selectedDropdownValue);
+  console.log('selected sale client', selectedItemCodeForCustomerSale);
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
@@ -41,6 +42,8 @@ const UseCustomerSaleHook = () => {
 
     getKunCsOTCategoryData();
   }, []);
+
+
 
   const SalesTableInitialState: any = {
     idx: 1,
@@ -85,6 +88,19 @@ const UseCustomerSaleHook = () => {
     setSalesTableData(updatedData);
   }
 
+  console.log('selected sale client table', salesTableData);
+
+  useEffect(() => {
+    if (selectedItemCodeForCustomerSale) {
+      const getItemCodeDetails = async () => {
+
+        let getItemCodeDetailsApi: any = await getItemDetailsInSalesApi(loginAcessToken?.token, "nfsam-3")
+        console.log("getItemCodeDetails api res", getItemCodeDetailsApi)
+      }
+
+      getItemCodeDetails()
+    }
+  }, [selectedItemCodeForCustomerSale])
   const handleAddRowForSales: any = () => {
     const newRow: any = {
       idx: salesTableData?.length + 1,

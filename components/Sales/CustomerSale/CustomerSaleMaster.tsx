@@ -36,6 +36,7 @@ const CustomerSaleMaster = () => {
         />
         <CustomerSalesTable
           handleSalesTableFieldChange={handleSalesTableFieldChange}
+          clientNameListData={clientNameListData}
           salesTableData={salesTableData}
           setSalesTableData={setSalesTableData}
           selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}

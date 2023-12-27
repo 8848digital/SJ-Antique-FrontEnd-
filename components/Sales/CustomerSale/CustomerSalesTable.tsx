@@ -5,7 +5,7 @@ import styles from '../../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
 
 const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale, handleSalesTableFieldChange,
-  handleAddRowForSales, handleDeleteRowOfSalesTable }: any) => {
+  handleAddRowForSales, handleDeleteRowOfSalesTable, clientNameListData }: any) => {
 
   const itemCodeData: any = ["item1", "item2", "item3"];
 
@@ -95,15 +95,17 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                       <td className="table_row">{item.idx}</td>
                       <td className="table_row">
                         <SelectInputKunKarigar
-                          kundanKarigarData={itemCodeData}
+                          kundanKarigarData={clientNameListData?.length > 0 &&
+                            clientNameListData !== null &&
+                            clientNameListData.map((data: any) => ({ karigar_name: data.client_name }))}
                           // kunKarigarDropdownReset={kunKarigarDropdownReset}
                           defaultValue={item.item_code}
                           tableData={salesTableData}
                           setTableData={setSalesTableData}
-                          selectedKundanKarigarDropdownValue={
+                          selectedItemCodeForCustomerSale={
                             selectedItemCodeForCustomerSale
                           }
-                          setSelectedKundanKarigarDropdownValue={
+                          setSelectedItemCodeForCustomerSale={
                             setSelectedItemCodeForCustomerSale
                           }
                           placeholderValue="Item code"

@@ -11,6 +11,7 @@ const SelectInputKunKarigar = ({
   setStateForDocStatus,
   readOnlyFields,
   kunKarigarDropdownReset,
+  setSelectedItemCodeForCustomerSale
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -37,8 +38,13 @@ const SelectInputKunKarigar = ({
       setSelectedDropdownValue('');
   }, [kunKarigarDropdownReset, selectedDropdownValue]);
 
+  console.log("state", setSelectedItemCodeForCustomerSale)
   const handleSelectedOption = (data: any, i: any) => {
     setSelectedDropdownValue(data?.karigar_name);
+    if (setSelectedItemCodeForCustomerSale !== undefined) {
+      setSelectedItemCodeForCustomerSale(data?.karigar_name);
+    }
+
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
     const updatedData = tableData.map((item: any) => {
