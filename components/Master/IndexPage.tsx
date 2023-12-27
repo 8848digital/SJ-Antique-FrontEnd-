@@ -59,29 +59,6 @@ const IndexPage = () => {
       karigar_name: data.client_group,
     }));
   console.log(clientGroup, 'client grp in index');
-  let clientNameList: any =
-    clientList?.length > 0 &&
-    clientList !== null &&
-    clientList.map((data: any) => ({
-      material: data.client_name,
-      material_abbr: data.client_group,
-    }));
-  let kunCsOtList: any =
-    KunCsOtCategory?.length > 0 &&
-    KunCsOtCategory !== null &&
-    KunCsOtCategory.map((data: any) => ({
-      material: data.name1,
-      type: data.type,
-    }));
-  let BBList: any =
-    BBCategory?.length > 0 &&
-    BBCategory !== null &&
-    BBCategory.map((data: any) => ({
-      material: data.name1,
-      type: data.type,
-    }));
-
-  console.log(kunCsOtList, 'kuncsotdata');
   return (
     <div>
       {key === 'karigar' && (
@@ -144,7 +121,14 @@ const IndexPage = () => {
       {key === 'client' && (
         <MasterMaterialMaster
           value={key}
-          materialList={clientNameList}
+          materialList={
+            clientList?.length > 0 &&
+            clientList !== null &&
+            clientList.map((data: any) => ({
+              material: data.client_name,
+              material_abbr: data.client_group,
+            }))
+          }
           clientGroup={clientGroup}
           HandleNameChange={HandleClientNameChange}
           HandleSave={HandleClientSave}
@@ -163,7 +147,14 @@ const IndexPage = () => {
       {key === 'kunCsOtCategory' && (
         <MasterMaterialMaster
           value={key}
-          materialList={kunCsOtList}
+          materialList={
+            KunCsOtCategory?.length > 0 &&
+            KunCsOtCategory !== null &&
+            KunCsOtCategory.map((data: any) => ({
+              material: data.name1,
+              type: data.type,
+            }))
+          }
           HandleNameChange={HandleKunCsOtChange}
           HandleSave={HandleKunCsOtSave}
           nameValue={clientName}
@@ -178,7 +169,14 @@ const IndexPage = () => {
       {key === 'BBCategory' && (
         <MasterMaterialMaster
           value={key}
-          materialList={BBList}
+          materialList={
+            BBCategory?.length > 0 &&
+            BBCategory !== null &&
+            BBCategory.map((data: any) => ({
+              material: data.name1,
+              type: data.type,
+            }))
+          }
           HandleNameChange={HandleBBChange}
           HandleSave={HandleBBSave}
           nameValue={clientName}

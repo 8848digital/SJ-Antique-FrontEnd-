@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
-import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
+import styles from '../../../styles/master.module.css';
 
 const MasterMaterialListing = ({
   materialList,
@@ -31,13 +31,15 @@ const MasterMaterialListing = ({
   };
   return (
     <div>
-      <div className="mx-4 d-flex justify-content-start w-50">
+      <div
+        className={` mx-4 d-flex justify-content-start ${styles.input_width}`}
+      >
         <input
           type="text"
           name="input1"
           id="input1"
           aria-describedby="emailHelp"
-          className="form-control min-vw-50 h-50 mx-2 p-1"
+          className="form-control h-50 mx-2 p-1"
           placeholder={placeholder1}
           onChange={handleInputChange1}
         />
@@ -47,7 +49,7 @@ const MasterMaterialListing = ({
           name="input2"
           id="input2"
           aria-describedby="emailHelp"
-          className="form-control min-vw-50 h-50 mx-2 p-1"
+          className="form-control h-50 mx-2 p-1"
           placeholder={placeholder2}
           onChange={handleInputChange2}
         />
