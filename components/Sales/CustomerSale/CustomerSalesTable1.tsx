@@ -1,17 +1,14 @@
 import CurrentDate from '@/components/CurrentDate';
 import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
+import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
+import React from 'react';
 
 const CustomerSalesTable1 = ({
-  clientList,
-  setSearchClient,
-  searchClient,
+  clientNameListData,
+  setSelectedDropdownValue,
+  selectedDropdownValue,
 }: any) => {
-  let clientData: any =
-    clientList?.length > 0 &&
-    clientList !== null &&
-    clientList.map((data: any) => ({
-      karigar_name: data.client_name,
-    }));
+  console.log('client name list', clientNameListData);
   return (
     <div className=" mt-2">
       <table className="table table-hover">
@@ -46,13 +43,14 @@ const CustomerSalesTable1 = ({
             </td>
             <td className="table_row">
               <SearchSelectInputField
-                karigarData={clientData}
-                className={
-                  'form-control input-sm border border-secondary light-background'
+                karigarData={
+                  clientNameListData?.length > 0 &&
+                  clientNameListData !== null &&
+                  clientNameListData.map((data: any) => data.client_name)
                 }
                 placeholder={'Client Name'}
-                selectedDropdownValue={searchClient}
-                setSelectedDropdownValue={setSearchClient}
+                className={'form-control input-sm border border-secondary'}
+              // readOnlyFields={readOnlyFields}
               />
             </td>
             <td className="table_row">
