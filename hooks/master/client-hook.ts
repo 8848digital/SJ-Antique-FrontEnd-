@@ -26,7 +26,10 @@ const useClientHook = () => {
       const kunCsOtData = await getKunCsOtCategoryApi(loginAcessToken.token);
       const BBData = await getBBCategoryApi(loginAcessToken.token);
       console.log(clientData, 'kuncsotdata');
-      setClientList(clientData);
+
+      if (clientData?.data?.message?.status === 'success') {
+        setClientList(clientData?.data?.message?.data);
+      }
       if (kunCsOtData?.data?.message?.status === 'success') {
         setKunCsOtCategory(kunCsOtData?.data?.message?.data);
       }

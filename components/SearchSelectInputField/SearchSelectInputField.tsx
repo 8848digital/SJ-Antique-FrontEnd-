@@ -22,7 +22,7 @@ const SearchSelectInputField = ({
   const [filterDropdownList, setFilterDropdownList] = useState([]);
   const dropdownRef = useRef<HTMLUListElement>(null);
 
-  console.log(karigarData, ' karigar data in search');
+  console.log(karigarData, 'karigar data in search');
 
   const handleShowDropdown = () => {
     console.log('read', readOnlyFields);
@@ -34,6 +34,7 @@ const SearchSelectInputField = ({
   };
 
   const handleSelectedOption = (data: any, i: any) => {
+    console.log("select option", data)
     setSelectedDropdownValue(data?.karigar_name);
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
@@ -157,9 +158,8 @@ const SearchSelectInputField = ({
                   <li
                     key={i}
                     onMouseDown={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>
@@ -173,9 +173,8 @@ const SearchSelectInputField = ({
                   <li
                     key={i}
                     onMouseDown={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>

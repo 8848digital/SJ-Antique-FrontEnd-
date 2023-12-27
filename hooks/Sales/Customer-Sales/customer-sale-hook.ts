@@ -33,6 +33,7 @@ const UseCustomerSaleHook = () => {
       }
 
       let ClientNameApi: any = await getClientApi(loginAcessToken.token);
+      console.log("client name api res", ClientNameApi)
       if (ClientNameApi?.data?.message?.status === 'success') {
         setClientNameListData(ClientNameApi?.data?.message?.data);
       }

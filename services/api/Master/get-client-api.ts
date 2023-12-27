@@ -12,7 +12,7 @@ const getClientApi = async (get_access_token: any) => {
     )
     .then((res: any) => {
       console.log('get client', res);
-      response = res?.data?.message?.data;
+      response = res;
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
