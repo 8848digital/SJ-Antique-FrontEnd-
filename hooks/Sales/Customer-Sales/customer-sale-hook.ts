@@ -15,7 +15,7 @@ const UseCustomerSaleHook = () => {
   );
   const [BBCategoryListData, setBBCategoryListData] = useState<any>([]);
   const [clientNameListData, setClientNameListData] = useState<any>([]);
-  const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] = useState<any>("");
+  const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] = useState<any>({ id: "", item_code: '' });
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   console.log('selected sale client', selectedItemCodeForCustomerSale);
 
@@ -73,7 +73,6 @@ const UseCustomerSaleHook = () => {
   const handleSalesTableFieldChange: any = (
     id: number, field: string, newValue: any
   ) => {
-    console.log('handlechange of sales', id, field, newValue);
 
     const updatedData = salesTableData?.map((item: any) => {
       if (item.idx === id) {
@@ -89,18 +88,51 @@ const UseCustomerSaleHook = () => {
   }
 
   console.log('selected sale client table', salesTableData);
+  const updateSalesTableData = (data: any) => {
+    if (selectedItemCodeForCustomerSale.id) {
+      // Assuming data is a list with a single object
+      console.log("data", data)
+      const updatedTable = salesTableData?.map((tableData: any) => ({
+        ...tableData,
+        custom_gross_wt: data[0]?.custom_gross_wt,
+        custom_kun_wt: data[0]?.custom_kun_wt,
+        custom_cs_wt: data[0]?.custom_cs_wt,
+        custom_bb_wt: data[0]?.custom_bb_wt,
+        custom_other_wt: data[0]?.custom_other_wt,
+      }));
+
+      setSalesTableData(updatedTable);
+    }
+  };
+
 
   useEffect(() => {
     if (selectedItemCodeForCustomerSale) {
-      const getItemCodeDetails = async () => {
+      const getItemCodeDetailsFun = async () => {
+        try {
+          let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
+            loginAcessToken?.token,
+            // selectedItemCodeForCustomerSale.item_code
+            "nfsam-3"
+          );
 
-        let getItemCodeDetailsApi: any = await getItemDetailsInSalesApi(loginAcessToken?.token, "nfsam-3")
-        console.log("getItemCodeDetails api res", getItemCodeDetailsApi)
-      }
+          console.log("getItemCodeDetails api res", getItemCodeDetailsApi);
+          if (getItemCodeDetailsApi?.data?.message?.status === "success") {
+            // Call the function to update salesTableData
+            updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+          }
+        } catch (error) {
+          console.error("Error fetching item details:", error);
+        }
+      };
 
-      getItemCodeDetails()
+      getItemCodeDetailsFun();
     }
-  }, [selectedItemCodeForCustomerSale])
+  }, [selectedItemCodeForCustomerSale]);
+
+  console.log("updated sales table", salesTableData)
+
+
   const handleAddRowForSales: any = () => {
     const newRow: any = {
       idx: salesTableData?.length + 1,
