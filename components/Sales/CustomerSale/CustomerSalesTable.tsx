@@ -4,15 +4,21 @@ import React from 'react';
 import styles from '../../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
 
-const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale, handleSalesTableFieldChange,
-  handleAddRowForSales, handleDeleteRowOfSalesTable, clientNameListData }: any) => {
-
-  const itemCodeData: any = ["item1", "item2", "item3"];
+const CustomerSalesTable = ({
+  salesTableData,
+  setSalesTableData,
+  selectedItemCodeForCustomerSale,
+  setSelectedItemCodeForCustomerSale,
+  handleSalesTableFieldChange,
+  handleAddRowForSales,
+  handleDeleteRowOfSalesTable,
+  clientNameListData,
+}: any) => {
+  const itemCodeData: any = ['item1', 'item2', 'item3'];
 
   return (
     <>
       <div>
-
         <div className="container d-flex justify-content-end px-1">
           <button
             className="btn btn-link p-0"
@@ -27,7 +33,6 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
           </button>
         </div>
         <div className="table responsive">
-
           <table className="table table-hover table-bordered ">
             <thead>
               <tr>
@@ -92,14 +97,18 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                 salesTableData.map((item: any, i: any) => (
                   <>
                     <tr key={item.idx} className={`${styles.table_row}`}>
-                      <td className="table_row">{item.idx}</td>
+                      <td className="table_row">{item?.idx}</td>
                       <td className="table_row">
                         <SelectInputKunKarigar
-                          kundanKarigarData={clientNameListData?.length > 0 &&
+                          kundanKarigarData={
+                            clientNameListData?.length > 0 &&
                             clientNameListData !== null &&
-                            clientNameListData.map((data: any) => ({ karigar_name: data.client_name }))}
+                            clientNameListData.map((data: any) => ({
+                              karigar_name: data.client_name,
+                            }))
+                          }
                           // kunKarigarDropdownReset={kunKarigarDropdownReset}
-                          defaultValue={item.item_code}
+                          defaultValue={item?.item_code}
                           tableData={salesTableData}
                           setTableData={setSalesTableData}
                           selectedItemCodeForCustomerSale={
@@ -110,16 +119,16 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                           }
                           placeholderValue="Item code"
                           item={item}
-                          id={item.idx}
-                        // setStateForDocStatus={setStateForDocStatus}
-                        // readOnlyFields={readOnlyFields}
+                          id={item?.idx}
+                          // setStateForDocStatus={setStateForDocStatus}
+                          // readOnlyFields={readOnlyFields}
                         />
                       </td>
                       <td className="table_row">
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={item.custom_gross_wt}
+                          value={item?.custom_gross_wt}
                           defaultValue={item?.custom_gross_wt}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -145,7 +154,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // readOnly={readOnlyFields}
+                          // readOnly={readOnlyFields}
                         />
                       </td>
                       <td className="table_row">
@@ -165,7 +174,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -185,7 +194,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -205,7 +214,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -225,7 +234,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -245,7 +254,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -265,7 +274,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -285,7 +294,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -305,7 +314,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -325,7 +334,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -345,7 +354,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -365,7 +374,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -385,7 +394,7 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -405,14 +414,14 @@ const CustomerSalesTable = ({ salesTableData, setSalesTableData, selectedItemCod
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
                         <button
                           className="d-flex align-items-center delete-link p-1 border-0"
                           onClick={() => handleDeleteRowOfSalesTable(item.idx)}
-                        //   disabled={readOnlyFields}
+                          //   disabled={readOnlyFields}
                         >
                           <FontAwesomeIcon
                             icon={faTrash}

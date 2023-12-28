@@ -3,7 +3,7 @@ import getClientApi from '@/services/api/Master/get-client-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const UseCustomerSaleHook = () => {
@@ -15,7 +15,8 @@ const UseCustomerSaleHook = () => {
   );
   const [BBCategoryListData, setBBCategoryListData] = useState<any>([]);
   const [clientNameListData, setClientNameListData] = useState<any>([]);
-  const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] = useState<any>({ id: "", item_code: '' });
+  const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
+    useState<any>({ id: '', item_code: '' });
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   console.log('selected sale client', selectedItemCodeForCustomerSale);
 
@@ -34,7 +35,7 @@ const UseCustomerSaleHook = () => {
       }
 
       let ClientNameApi: any = await getClientApi(loginAcessToken.token);
-      console.log("client name api res", ClientNameApi)
+      console.log('client name api res', ClientNameApi);
       if (ClientNameApi?.data?.message?.status === 'success') {
         setClientNameListData(ClientNameApi?.data?.message?.data);
       }
@@ -42,8 +43,6 @@ const UseCustomerSaleHook = () => {
 
     getKunCsOTCategoryData();
   }, []);
-
-
 
   const SalesTableInitialState: any = {
     idx: 1,
@@ -68,12 +67,12 @@ const UseCustomerSaleHook = () => {
   const [salesTableData, setSalesTableData] = useState<any>([
     SalesTableInitialState,
   ]);
-
-
+  console.log(salesTableData, 'data in sales hook');
   const handleSalesTableFieldChange: any = (
-    id: number, field: string, newValue: any
+    id: number,
+    field: string,
+    newValue: any
   ) => {
-
     const updatedData = salesTableData?.map((item: any) => {
       if (item.idx === id) {
         return {
@@ -85,26 +84,30 @@ const UseCustomerSaleHook = () => {
     });
 
     setSalesTableData(updatedData);
-  }
+  };
 
   console.log('selected sale client table', salesTableData);
   const updateSalesTableData = (data: any) => {
+    // console.log(data, 'data in sales hook');
     if (selectedItemCodeForCustomerSale.id) {
       // Assuming data is a list with a single object
-      console.log("data", data)
-      const updatedTable = salesTableData?.map((tableData: any) => ({
-        ...tableData,
-        custom_gross_wt: data[0]?.custom_gross_wt,
-        custom_kun_wt: data[0]?.custom_kun_wt,
-        custom_cs_wt: data[0]?.custom_cs_wt,
-        custom_bb_wt: data[0]?.custom_bb_wt,
-        custom_other_wt: data[0]?.custom_other_wt,
-      }));
-
+      console.log('data', data);
+      const updatedTable = salesTableData?.map((tableData: any) => {
+        if (selectedItemCodeForCustomerSale.id) {
+          return {
+            ...tableData,
+            custom_gross_wt: data[0]?.custom_gross_wt,
+            custom_kun_wt: data[0]?.custom_kun_wt,
+            custom_cs_wt: data[0]?.custom_cs_wt,
+            custom_bb_wt: data[0]?.custom_bb_wt,
+            custom_other_wt: data[0]?.custom_other_wt,
+          };
+        }
+      });
+      console.log(updatedTable, 'data in sales hook');
       setSalesTableData(updatedTable);
     }
   };
-
 
   useEffect(() => {
     if (selectedItemCodeForCustomerSale) {
@@ -113,16 +116,16 @@ const UseCustomerSaleHook = () => {
           let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
             loginAcessToken?.token,
             // selectedItemCodeForCustomerSale.item_code
-            "nfsam-3"
+            'nfsam-3'
           );
 
-          console.log("getItemCodeDetails api res", getItemCodeDetailsApi);
-          if (getItemCodeDetailsApi?.data?.message?.status === "success") {
+          console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
+          if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
             // Call the function to update salesTableData
             updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
           }
         } catch (error) {
-          console.error("Error fetching item details:", error);
+          console.error('Error fetching item details:', error);
         }
       };
 
@@ -130,8 +133,7 @@ const UseCustomerSaleHook = () => {
     }
   }, [selectedItemCodeForCustomerSale]);
 
-  console.log("updated sales table", salesTableData)
-
+  console.log('updated sales table', salesTableData);
 
   const handleAddRowForSales: any = () => {
     const newRow: any = {
@@ -152,13 +154,13 @@ const UseCustomerSaleHook = () => {
       custom_ot_amt: 0,
       custom_other: '',
       custom_amount: 0,
-    }
+    };
 
-    setSalesTableData([...salesTableData, newRow])
+    setSalesTableData([...salesTableData, newRow]);
   };
 
   const handleDeleteRowOfSalesTable: any = (id: any) => {
-    console.log("delete row id", id)
+    console.log('delete row id', id);
     if (salesTableData?.length > 1) {
       const updatedData =
         salesTableData?.length > 0 &&
@@ -168,9 +170,9 @@ const UseCustomerSaleHook = () => {
           .map((row: any, index: number) => ({ ...row, idx: index + 1 }));
       setSalesTableData(updatedData);
     }
-  }
+  };
 
-  console.log("sales table data", salesTableData)
+  console.log('sales table data', salesTableData);
   return {
     salesTableData,
     setSalesTableData,
@@ -183,7 +185,7 @@ const UseCustomerSaleHook = () => {
     setSelectedItemCodeForCustomerSale,
     handleSalesTableFieldChange,
     handleAddRowForSales,
-    handleDeleteRowOfSalesTable
+    handleDeleteRowOfSalesTable,
   };
 };
 

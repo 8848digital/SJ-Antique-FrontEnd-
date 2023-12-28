@@ -34,7 +34,7 @@ const SearchSelectInputField = ({
   };
 
   const handleSelectedOption = (data: any, i: any) => {
-    console.log("select option", data)
+    console.log('select option', data);
     setSelectedDropdownValue(data?.karigar_name);
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
@@ -158,8 +158,9 @@ const SearchSelectInputField = ({
                   <li
                     key={i}
                     onMouseDown={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
-                      }`}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
                   >
                     {name.karigar_name}
                   </li>
@@ -173,8 +174,9 @@ const SearchSelectInputField = ({
                   <li
                     key={i}
                     onMouseDown={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
-                      }`}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
                   >
                     {name.karigar_name}
                   </li>
