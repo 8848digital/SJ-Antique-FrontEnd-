@@ -2,8 +2,9 @@ import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getClientApi from '@/services/api/Master/get-client-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
+import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const UseCustomerSaleHook = () => {
@@ -15,10 +16,17 @@ const UseCustomerSaleHook = () => {
   );
   const [BBCategoryListData, setBBCategoryListData] = useState<any>([]);
   const [clientNameListData, setClientNameListData] = useState<any>([]);
+  const [itemList, setItemList] = useState<any>([]);
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState<any>({ id: '', item_code: '' });
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
-  console.log('selected sale client', selectedItemCodeForCustomerSale);
+  const [selectedCategory, setSeletedCategory] = useState<any>({
+    KunCategory: '',
+    CsCategory: '',
+    BBCategory: '',
+    OtCategory: '',
+  });
+  const [itemListDropDown, setItemListDropDown] = useState<any>(false);
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
@@ -35,10 +43,14 @@ const UseCustomerSaleHook = () => {
       }
 
       let ClientNameApi: any = await getClientApi(loginAcessToken.token);
-      console.log('client name api res', ClientNameApi);
       if (ClientNameApi?.data?.message?.status === 'success') {
         setClientNameListData(ClientNameApi?.data?.message?.data);
       }
+      let itemListApi: any = await getItemListInSalesApi(loginAcessToken.token);
+
+      // if (itemListApi?.data?.message?.status === 'success') {
+      setItemList(itemListApi?.data?.data);
+      // }
     };
 
     getKunCsOTCategoryData();
@@ -67,7 +79,7 @@ const UseCustomerSaleHook = () => {
   const [salesTableData, setSalesTableData] = useState<any>([
     SalesTableInitialState,
   ]);
-  console.log(salesTableData, 'data in sales hook');
+
   const handleSalesTableFieldChange: any = (
     id: number,
     field: string,
@@ -80,20 +92,22 @@ const UseCustomerSaleHook = () => {
           [field]: newValue,
         };
       }
+      console.log(item, 'item in onchange');
       return item;
     });
 
     setSalesTableData(updatedData);
   };
 
-  console.log('selected sale client table', salesTableData);
   const updateSalesTableData = (data: any) => {
-    // console.log(data, 'data in sales hook');
-    if (selectedItemCodeForCustomerSale.id) {
+    console.log('selected sale client table', selectedItemCodeForCustomerSale);
+
+    if (selectedItemCodeForCustomerSale?.id) {
       // Assuming data is a list with a single object
-      console.log('data', data);
+      console.log('data', selectedItemCodeForCustomerSale);
       const updatedTable = salesTableData?.map((tableData: any) => {
-        if (selectedItemCodeForCustomerSale.id) {
+        console.log('idd', tableData.idx, selectedItemCodeForCustomerSale.id);
+        if (tableData.idx === selectedItemCodeForCustomerSale.id) {
           return {
             ...tableData,
             custom_gross_wt: data[0]?.custom_gross_wt,
@@ -101,10 +115,33 @@ const UseCustomerSaleHook = () => {
             custom_cs_wt: data[0]?.custom_cs_wt,
             custom_bb_wt: data[0]?.custom_bb_wt,
             custom_other_wt: data[0]?.custom_other_wt,
+            // custom_kun_wt:
+            //   selectedCategory.KunCategory !== ''
+            //     ? (data[0]?.custom_kun_wt *
+            //         (data[0]?.custom_kun_wt *
+            //           selectedCategory.KunCategory.type)) /
+            //       100
+            //     : data[0]?.custom_kun_wt,
+            // custom_cs_wt:
+            //   selectedCategory.CsCategory !== ''
+            //     ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory) / 100
+            //     : data[0]?.custom_cs_wt,
+            // custom_bb_wt:
+            //   selectedCategory.BBCategory !== ''
+            //     ? data[0]?.custom_bb_wt - 0.7
+            //     : data[0].custom_bb_wt,
+            // custom_other_wt:
+            //   selectedCategory.OtCategory !== ''
+            //     ? (data[0]?.custom_other_wt *
+            //         selectedCategory.OtCategory.type) /
+            //       100
+            //     : data[0]?.custom_other_wt,
           };
+        } else {
+          return tableData;
         }
       });
-      console.log(updatedTable, 'data in sales hook');
+
       setSalesTableData(updatedTable);
     }
   };
@@ -121,6 +158,10 @@ const UseCustomerSaleHook = () => {
 
           console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
           if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
+            console.log(
+              getItemCodeDetailsApi?.data,
+              'selected sale client table'
+            );
             // Call the function to update salesTableData
             updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
           }
@@ -134,7 +175,7 @@ const UseCustomerSaleHook = () => {
   }, [selectedItemCodeForCustomerSale]);
 
   console.log('updated sales table', salesTableData);
-
+  console.log(selectedCategory, 'selected category');
   const handleAddRowForSales: any = () => {
     const newRow: any = {
       idx: salesTableData?.length + 1,
@@ -171,6 +212,29 @@ const UseCustomerSaleHook = () => {
       setSalesTableData(updatedData);
     }
   };
+  const handleSelectChange = (event: any) => {
+    const { name, value } = event.target;
+    // console.log(name, value, 'selected name and value');
+    const selectedArray =
+      name === 'BBCategory' ? BBCategoryListData : kunCsOtCategoryListData;
+    const selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
+    // console.log(selectedObj, 'selected name and value');
+
+    setSeletedCategory((prevState: any) => ({
+      ...prevState,
+      [name]: selectedObj,
+    }));
+  };
+  const handleEmptyDeliveryNote = () => {
+    setSeletedCategory({
+      KunCategory: '',
+      CsCategory: '',
+      BBCategory: '',
+      OtCategory: '',
+    });
+    setSalesTableData([SalesTableInitialState]);
+    setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
+  };
 
   console.log('sales table data', salesTableData);
   return {
@@ -186,6 +250,11 @@ const UseCustomerSaleHook = () => {
     handleSalesTableFieldChange,
     handleAddRowForSales,
     handleDeleteRowOfSalesTable,
+    selectedCategory,
+    setSeletedCategory,
+    handleSelectChange,
+    itemList,
+    handleEmptyDeliveryNote,
   };
 };
 

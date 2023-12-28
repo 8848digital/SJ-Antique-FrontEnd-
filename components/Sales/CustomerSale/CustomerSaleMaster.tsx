@@ -17,7 +17,12 @@ const CustomerSaleMaster = () => {
     setSelectedItemCodeForCustomerSale,
     handleSalesTableFieldChange,
     handleAddRowForSales,
-    handleDeleteRowOfSalesTable
+    handleDeleteRowOfSalesTable,
+    selectedCategory,
+    setSeletedCategory,
+    handleSelectChange,
+    itemList,
+    handleEmptyDeliveryNote,
   }: any = UseCustomerSaleHook();
 
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
@@ -25,6 +30,22 @@ const CustomerSaleMaster = () => {
     <div className="container-lg">
       <SalesHeader />
       <div>
+        <div className={`text-end mb-1`}>
+          <button
+            type="submit"
+            onClick={handleEmptyDeliveryNote}
+            className=" btn btn-outline-primary px-2 py-0 form-submit-button"
+          >
+            New
+          </button>
+          <button
+            type="button"
+            className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
+            // onClick={handleCreate}
+          >
+            Create
+          </button>
+        </div>
         <CustomerSaleTable1
           clientNameListData={clientNameListData}
           selectedDropdownValue={selectedDropdownValue}
@@ -33,6 +54,9 @@ const CustomerSaleMaster = () => {
         <CustomerSalesTable2
           kunCsOtCategoryListData={kunCsOtCategoryListData}
           BBCategoryListData={BBCategoryListData}
+          selectedCategory={selectedCategory}
+          setSeletedCategory={setSeletedCategory}
+          handleSelectChange={handleSelectChange}
         />
         <CustomerSalesTable
           handleSalesTableFieldChange={handleSalesTableFieldChange}
@@ -40,9 +64,13 @@ const CustomerSaleMaster = () => {
           salesTableData={salesTableData}
           setSalesTableData={setSalesTableData}
           selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
-          setSelectedItemCodeForCustomerSale={setSelectedItemCodeForCustomerSale}
+          setSelectedItemCodeForCustomerSale={
+            setSelectedItemCodeForCustomerSale
+          }
           handleAddRowForSales={handleAddRowForSales}
           handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
+          selectedCategory={selectedCategory}
+          itemList={itemList}
         />
       </div>
     </div>

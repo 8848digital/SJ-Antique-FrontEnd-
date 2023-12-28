@@ -13,9 +13,10 @@ const CustomerSalesTable = ({
   handleAddRowForSales,
   handleDeleteRowOfSalesTable,
   clientNameListData,
+  selectedCategory,
+  itemList,
 }: any) => {
-  const itemCodeData: any = ['item1', 'item2', 'item3'];
-
+  console.log(selectedCategory, 'selected name and value');
   return (
     <>
       <div>
@@ -101,10 +102,10 @@ const CustomerSalesTable = ({
                       <td className="table_row">
                         <SelectInputKunKarigar
                           kundanKarigarData={
-                            clientNameListData?.length > 0 &&
-                            clientNameListData !== null &&
-                            clientNameListData.map((data: any) => ({
-                              karigar_name: data.client_name,
+                            itemList?.length > 0 &&
+                            itemList !== null &&
+                            itemList.map((data: any) => ({
+                              karigar_name: data.name,
                             }))
                           }
                           // kunKarigarDropdownReset={kunKarigarDropdownReset}
@@ -138,6 +139,7 @@ const CustomerSalesTable = ({
                             )
                           }
                           readOnly
+                          disabled
                         />
                       </td>
 
@@ -145,8 +147,16 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={item.custom_kun_wt}
-                          defaultValue={item.custom_kun_wt}
+                          // value={item.custom_kun_wt}
+                          value={
+                            selectedCategory.KunCategory !== ''
+                              ? item.custom_kun_wt *
+                                ((item.custom_kun_wt *
+                                  selectedCategory.KunCategory.type) /
+                                  100)
+                              : item.custom_kun_wt
+                          }
+                          defaultValue={item?.custom_kun_wt}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -162,8 +172,12 @@ const CustomerSalesTable = ({
                           className={` ${styles.input_field} `}
                           type="number"
                           value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_cs_wt
+                            selectedCategory.CsCategory !== ''
+                              ? item.custom_cs_wt *
+                                ((item.custom_cs_wt *
+                                  selectedCategory.CsCategory.type) /
+                                  100)
+                              : item.custom_cs_wt
                           }
                           defaultValue={item.custom_cs_wt}
                           // readOnly={readOnlyFields}
@@ -182,8 +196,9 @@ const CustomerSalesTable = ({
                           className={` ${styles.input_field} `}
                           type="number"
                           value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_bb_wt
+                            selectedCategory.BBCategory !== ''
+                              ? item.custom_bb_wt - 0.7
+                              : item.custom_bb_wt
                           }
                           defaultValue={item.custom_bb_wt}
                           // readOnly={readOnlyFields}
@@ -202,8 +217,12 @@ const CustomerSalesTable = ({
                           className={` ${styles.input_field} `}
                           type="number"
                           value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_other_wt
+                            selectedCategory.OtCategory !== ''
+                              ? (item.custom_other_wt *
+                                  item.custom_other_wt *
+                                  selectedCategory.OtCategory.type) /
+                                100
+                              : item.custom_other_wt
                           }
                           defaultValue={item.custom_other_wt}
                           // readOnly={readOnlyFields}
@@ -223,10 +242,14 @@ const CustomerSalesTable = ({
                           type="number"
                           value={
                             // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_net_wt
+                            Number(item.custom_gross_wt) -
+                            (Number(item.custom_kun_wt) +
+                              Number(item.custom_cs_wt) +
+                              Number(item.custom_bb_wt) +
+                              Number(item.custom_other_wt))
                           }
                           defaultValue={item.custom_net_wt}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -234,6 +257,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          disabled
                           // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
@@ -243,7 +267,7 @@ const CustomerSalesTable = ({
                           type="number"
                           value={
                             // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_cs
+                            Number(item.custom_cs)
                           }
                           defaultValue={item.custom_cs}
                           // readOnly={readOnlyFields}
@@ -262,11 +286,13 @@ const CustomerSalesTable = ({
                           className={` ${styles.input_field} `}
                           type="number"
                           value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_cs_amt
+                            Number(item.custom_cs_wt) !== 0
+                              ? Number(item.custom_cs) *
+                                Number(item.custom_cs_wt)
+                              : Number(item.custom_cs)
                           }
                           defaultValue={item.custom_cs_amt}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -274,6 +300,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          disabled
                           // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
@@ -281,16 +308,13 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_kun_pc
-                          }
+                          value={Number(item.custom_kun_pc)}
                           defaultValue={item.custom_kun_pc}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
-                              'custom_kun_wt',
+                              'custom_kun_pc',
                               e.target.value
                             )
                           }
@@ -301,10 +325,7 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_kun
-                          }
+                          value={Number(item.custom_kun)}
                           defaultValue={item.custom_kun}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -322,11 +343,10 @@ const CustomerSalesTable = ({
                           className={` ${styles.input_field} `}
                           type="number"
                           value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_kun_amt
+                            Number(item.custom_kun_pc) * Number(item.custom_kun)
                           }
                           defaultValue={item.custom_kun_amt}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -334,6 +354,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          disabled
                           // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
@@ -341,11 +362,8 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_ot_
-                          }
-                          defaultValue={item.custom_ot_}
+                          value={Number(item.custom_ot_)}
+                          defaultValue={Number(item.custom_ot_)}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -362,11 +380,11 @@ const CustomerSalesTable = ({
                           className={` ${styles.input_field} `}
                           type="number"
                           value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_ot_amt
+                            Number(item.custom_other_wt) *
+                            Number(item.custom_ot_)
                           }
                           defaultValue={item.custom_ot_amt}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -374,6 +392,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          disabled
                           // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
@@ -381,10 +400,7 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_other
-                          }
+                          value={Number(item.custom_other)}
                           defaultValue={item.custom_other}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -402,11 +418,13 @@ const CustomerSalesTable = ({
                           className={` ${styles.input_field} `}
                           type="number"
                           value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            item.custom_amount
+                            Number(item.custom_cs_amt) +
+                            Number(item.custom_kun_amt) +
+                            Number(item.custom_ot_amt) +
+                            Number(item.custom_other)
                           }
                           defaultValue={item.custom_amount}
-                          // readOnly={readOnlyFields}
+                          readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -414,6 +432,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          disabled
                           // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>

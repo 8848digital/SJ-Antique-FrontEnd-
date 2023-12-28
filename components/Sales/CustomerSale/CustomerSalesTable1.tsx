@@ -8,7 +8,7 @@ const CustomerSalesTable1 = ({
   setSelectedDropdownValue,
   selectedDropdownValue,
 }: any) => {
-  console.log('client name list', clientNameListData);
+  // console.log('client name list', clientNameListData);
   return (
     <div className=" mt-2">
       <table className="table table-hover">

@@ -1,10 +1,10 @@
-import React from 'react';
-
 const CustomerSalesTable2 = ({
   kunCsOtCategoryListData,
   BBCategoryListData,
+  selectedCategory,
+  setSeletedCategory,
+  handleSelectChange,
 }: any) => {
-  console.log('kunCsOtCategoryListData first', BBCategoryListData);
   return (
     <div className="table-responsive">
       <table className="table table-hover table-bordered">
@@ -20,9 +20,10 @@ const CustomerSalesTable2 = ({
           <tr>
             <td className="table_row w-25" scope="row">
               <select
-                name=""
+                name="KunCategory"
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
+                onChange={handleSelectChange}
               >
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
@@ -33,9 +34,10 @@ const CustomerSalesTable2 = ({
             </td>
             <td className="table_row w-25" scope="row">
               <select
-                name=""
+                name="CsCategory"
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
+                onChange={handleSelectChange}
               >
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
@@ -47,9 +49,10 @@ const CustomerSalesTable2 = ({
 
             <td className="table_row w-25" scope="row">
               <select
-                name=""
+                name="BBCategory"
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
+                onChange={handleSelectChange}
               >
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
@@ -60,9 +63,10 @@ const CustomerSalesTable2 = ({
             </td>
             <td className="table_row w-25" scope="row">
               <select
-                name=""
+                name="OtCategory"
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
+                onChange={handleSelectChange}
               >
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
