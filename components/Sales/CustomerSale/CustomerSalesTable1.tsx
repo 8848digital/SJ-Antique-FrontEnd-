@@ -5,8 +5,8 @@ import React from 'react';
 
 const CustomerSalesTable1 = ({
   clientNameListData,
-  setSelectedDropdownValue,
-  selectedDropdownValue,
+  selectedClient,
+  setSelectedClient,
 }: any) => {
   // console.log('client name list', clientNameListData);
   return (
@@ -46,13 +46,15 @@ const CustomerSalesTable1 = ({
                 karigarData={
                   clientNameListData?.length > 0 &&
                   clientNameListData !== null &&
-                  clientNameListData.map((data: any) => ({ karigar_name: data.client_name }))
+                  clientNameListData.map((data: any) => ({
+                    karigar_name: data.client_name,
+                  }))
                 }
-                setSelectedDropdownValue={setSelectedDropdownValue}
-                selectedDropdownValue={selectedDropdownValue}
+                setSelectedDropdownValue={setSelectedClient}
+                selectedDropdownValue={selectedClient}
                 placeholder={'Client Name'}
                 className={'form-control input-sm border border-secondary'}
-              // readOnlyFields={readOnlyFields}
+                // readOnlyFields={readOnlyFields}
               />
             </td>
             <td className="table_row">

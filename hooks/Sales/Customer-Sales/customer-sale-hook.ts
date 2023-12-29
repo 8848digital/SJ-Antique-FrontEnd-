@@ -27,6 +27,10 @@ const UseCustomerSaleHook = () => {
     OtCategory: '',
   });
   const [itemListDropDown, setItemListDropDown] = useState<any>(false);
+  const [deliveryNoteData, setDeliveryNoteData] = useState({
+    Client: '',
+  });
+  const [selectedClient, setSelectedClient] = useState('');
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
@@ -71,7 +75,7 @@ const UseCustomerSaleHook = () => {
     custom_kun: '',
     custom_kun_amt: '',
     custom_ot_: '',
-    custom_ot_amt: 0,
+    custom_ot_amt: '',
     custom_other: '',
     custom_amount: 0,
   };
@@ -79,26 +83,53 @@ const UseCustomerSaleHook = () => {
   const [salesTableData, setSalesTableData] = useState<any>([
     SalesTableInitialState,
   ]);
+  console.log('updated sales table datas', salesTableData);
 
   const handleSalesTableFieldChange: any = (
-    id: number,
-    field: string,
-    newValue: any
+    itemIdx: number,
+    fieldName: string,
+    value: any
   ) => {
-    const updatedData = salesTableData?.map((item: any) => {
-      if (item.idx === id) {
-        return {
-          ...item,
-          [field]: newValue,
-        };
-      }
-      console.log(item, 'item in onchange');
-      return item;
+    setSalesTableData((prevData: any) => {
+      return prevData.map((item: any) => {
+        if (item.idx === itemIdx) {
+          // Update the field value
+
+          return {
+            ...item,
+            [fieldName]: value,
+
+            custom_net_wt:
+              Number(item.custom_gross_wt) -
+              (Number(item.custom_kun_wt) +
+                Number(item.custom_cs_wt) +
+                Number(item.custom_bb_wt) +
+                Number(item.custom_other_wt)),
+            custom_cs_amt:
+              fieldName === 'custom_cs'
+                ? value * Number(item.custom_cs_wt)
+                : item.custom_cs_amt,
+            custom_kun_amt:
+              fieldName === 'custom_kun'
+                ? value * Number(item.custom_kun_pc)
+                : item.custom_kun_amt,
+            custom_ot_amt:
+              fieldName === 'custom_ot_'
+                ? Number(item.custom_other_wt) * value
+                : item.custom_other_wt,
+            custom_amount:
+              fieldName === 'custom_other'
+                ? Number(item.custom_amount) + Number(value)
+                : Number(item.custom_cs_amt) +
+                  Number(item.custom_kun_amt) +
+                  Number(item.custom_ot_amt),
+          };
+        } else {
+          return item;
+        }
+      });
     });
-
-    setSalesTableData(updatedData);
   };
-
   const updateSalesTableData = (data: any) => {
     console.log('selected sale client table', selectedItemCodeForCustomerSale);
 
@@ -111,31 +142,31 @@ const UseCustomerSaleHook = () => {
           return {
             ...tableData,
             custom_gross_wt: data[0]?.custom_gross_wt,
-            custom_kun_wt: data[0]?.custom_kun_wt,
-            custom_cs_wt: data[0]?.custom_cs_wt,
-            custom_bb_wt: data[0]?.custom_bb_wt,
-            custom_other_wt: data[0]?.custom_other_wt,
-            // custom_kun_wt:
-            //   selectedCategory.KunCategory !== ''
-            //     ? (data[0]?.custom_kun_wt *
-            //         (data[0]?.custom_kun_wt *
-            //           selectedCategory.KunCategory.type)) /
-            //       100
-            //     : data[0]?.custom_kun_wt,
-            // custom_cs_wt:
-            //   selectedCategory.CsCategory !== ''
-            //     ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory) / 100
-            //     : data[0]?.custom_cs_wt,
-            // custom_bb_wt:
-            //   selectedCategory.BBCategory !== ''
-            //     ? data[0]?.custom_bb_wt - 0.7
-            //     : data[0].custom_bb_wt,
-            // custom_other_wt:
-            //   selectedCategory.OtCategory !== ''
-            //     ? (data[0]?.custom_other_wt *
-            //         selectedCategory.OtCategory.type) /
-            //       100
-            //     : data[0]?.custom_other_wt,
+            custom_kun_wt:
+              selectedCategory.KunCategory !== ''
+                ? (data[0]?.custom_kun_wt *
+                    (data[0]?.custom_kun_wt *
+                      selectedCategory.KunCategory.type)) /
+                  100
+                : data[0]?.custom_kun_wt,
+            custom_cs_wt:
+              selectedCategory.CsCategory !== ''
+                ? (data[0]?.custom_cs_wt *
+                    (data[0]?.custom_cs_wt *
+                      selectedCategory.CsCategory.type)) /
+                  100
+                : data[0]?.custom_cs_wt,
+            custom_bb_wt:
+              selectedCategory.BBCategory !== ''
+                ? data[0]?.custom_bb_wt - 0.7
+                : data[0].custom_bb_wt,
+            custom_other_wt:
+              selectedCategory.OtCategory !== ''
+                ? (data[0]?.custom_other_wt *
+                    data[0]?.custom_other_wt *
+                    selectedCategory.OtCategory.type) /
+                  100
+                : data[0]?.custom_other_wt,
           };
         } else {
           return tableData;
@@ -214,11 +245,9 @@ const UseCustomerSaleHook = () => {
   };
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
-    // console.log(name, value, 'selected name and value');
     const selectedArray =
       name === 'BBCategory' ? BBCategoryListData : kunCsOtCategoryListData;
     const selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
-    // console.log(selectedObj, 'selected name and value');
 
     setSeletedCategory((prevState: any) => ({
       ...prevState,
@@ -226,14 +255,39 @@ const UseCustomerSaleHook = () => {
     }));
   };
   const handleEmptyDeliveryNote = () => {
-    setSeletedCategory({
-      KunCategory: '',
-      CsCategory: '',
-      BBCategory: '',
-      OtCategory: '',
-    });
+    // setSeletedCategory({
+    //   KunCategory: '',
+    //   CsCategory: '',
+    //   BBCategory: '',
+    //   OtCategory: '',
+    // });
     setSalesTableData([SalesTableInitialState]);
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
+  };
+
+  const handleDNCreate: any = () => {
+    const updatedData =
+      salesTableData?.length > 0 &&
+      salesTableData !== null &&
+      salesTableData.map((data: any) => {
+        return {
+          ...data,
+          item_code: data?.custom_kun_karigar,
+        };
+      });
+    console.log(updatedData, 'updated sales table');
+    const values = {
+      ...deliveryNoteData,
+      Client: selectedClient,
+      version: 'v1',
+      method: 'create_delivery_note',
+      entity: 'delivery_note_api',
+      custom_kun_category: selectedCategory?.KunCategory?.name1,
+      custom_cs_category: selectedCategory?.CsCategory?.name1,
+      custom_bb_category: selectedCategory?.BBCategory?.name1,
+      custom_ot_category: selectedCategory?.OtCategory?.name1,
+      items: updatedData,
+    };
   };
 
   console.log('sales table data', salesTableData);
@@ -255,6 +309,9 @@ const UseCustomerSaleHook = () => {
     handleSelectChange,
     itemList,
     handleEmptyDeliveryNote,
+    selectedClient,
+    setSelectedClient,
+    handleDNCreate,
   };
 };
 

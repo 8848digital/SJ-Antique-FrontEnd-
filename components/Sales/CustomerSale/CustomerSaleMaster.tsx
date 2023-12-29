@@ -3,6 +3,7 @@ import CustomerSalesTable from './CustomerSalesTable';
 import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
 import UseCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sale-hook';
+import UseDeliveryNoteHook from '@/hooks/Sales/Customer-Sales/delivery-note-hook';
 
 const CustomerSaleMaster = () => {
   const {
@@ -11,8 +12,6 @@ const CustomerSaleMaster = () => {
     kunCsOtCategoryListData,
     BBCategoryListData,
     clientNameListData,
-    selectedDropdownValue,
-    setSelectedDropdownValue,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
     handleSalesTableFieldChange,
@@ -23,6 +22,9 @@ const CustomerSaleMaster = () => {
     handleSelectChange,
     itemList,
     handleEmptyDeliveryNote,
+    selectedClient,
+    setSelectedClient,
+    handleDNCreate,
   }: any = UseCustomerSaleHook();
 
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
@@ -41,15 +43,15 @@ const CustomerSaleMaster = () => {
           <button
             type="button"
             className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
-            // onClick={handleCreate}
+            onClick={handleDNCreate}
           >
             Create
           </button>
         </div>
         <CustomerSaleTable1
           clientNameListData={clientNameListData}
-          selectedDropdownValue={selectedDropdownValue}
-          setSelectedDropdownValue={setSelectedDropdownValue}
+          selectedClient={selectedClient}
+          setSelectedClient={setSelectedClient}
         />
         <CustomerSalesTable2
           kunCsOtCategoryListData={kunCsOtCategoryListData}

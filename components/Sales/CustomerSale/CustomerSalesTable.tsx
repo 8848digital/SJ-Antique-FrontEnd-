@@ -147,15 +147,15 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          // value={item.custom_kun_wt}
-                          value={
-                            selectedCategory.KunCategory !== ''
-                              ? item.custom_kun_wt *
-                                ((item.custom_kun_wt *
-                                  selectedCategory.KunCategory.type) /
-                                  100)
-                              : item.custom_kun_wt
-                          }
+                          value={item.custom_kun_wt}
+                          // value={
+                          //   selectedCategory.KunCategory !== ''
+                          //     ? item.custom_kun_wt *
+                          //       ((item.custom_kun_wt *
+                          //         selectedCategory.KunCategory.type) /
+                          //         100)
+                          //     : item.custom_kun_wt
+                          // }
                           defaultValue={item?.custom_kun_wt}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -171,14 +171,15 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={
-                            selectedCategory.CsCategory !== ''
-                              ? item.custom_cs_wt *
-                                ((item.custom_cs_wt *
-                                  selectedCategory.CsCategory.type) /
-                                  100)
-                              : item.custom_cs_wt
-                          }
+                          value={item.custom_cs_wt}
+                          // value={
+                          //   selectedCategory.CsCategory !== ''
+                          //     ? item.custom_cs_wt *
+                          //       ((item.custom_cs_wt *
+                          //         selectedCategory.CsCategory.type) /
+                          //         100)
+                          //     : item.custom_cs_wt
+                          // }
                           defaultValue={item.custom_cs_wt}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -195,11 +196,12 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={
-                            selectedCategory.BBCategory !== ''
-                              ? item.custom_bb_wt - 0.7
-                              : item.custom_bb_wt
-                          }
+                          value={item.custom_bb_wt}
+                          // value={
+                          //   selectedCategory.BBCategory !== ''
+                          //     ? item.custom_bb_wt - 0.7
+                          //     : item.custom_bb_wt
+                          // }
                           defaultValue={item.custom_bb_wt}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -216,14 +218,15 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={
-                            selectedCategory.OtCategory !== ''
-                              ? (item.custom_other_wt *
-                                  item.custom_other_wt *
-                                  selectedCategory.OtCategory.type) /
-                                100
-                              : item.custom_other_wt
-                          }
+                          value={item.custom_other_wt}
+                          // value={
+                          //   selectedCategory.OtCategory !== ''
+                          //     ? (item.custom_other_wt *
+                          //         item.custom_other_wt *
+                          //         selectedCategory.OtCategory.type) /
+                          //       100
+                          //     : item.custom_other_wt
+                          // }
                           defaultValue={item.custom_other_wt}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -265,10 +268,7 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={
-                            // Number(tableData[i]?.totalModalWeight) ||
-                            Number(item.custom_cs)
-                          }
+                          value={item.custom_cs}
                           defaultValue={item.custom_cs}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -308,7 +308,7 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={Number(item.custom_kun_pc)}
+                          value={item.custom_kun_pc}
                           defaultValue={item.custom_kun_pc}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -325,7 +325,7 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={Number(item.custom_kun)}
+                          value={item.custom_kun}
                           defaultValue={item.custom_kun}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -362,8 +362,8 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={Number(item.custom_ot_)}
-                          defaultValue={Number(item.custom_ot_)}
+                          value={item.custom_ot_}
+                          defaultValue={item.custom_ot_}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -400,7 +400,7 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
-                          value={Number(item.custom_other)}
+                          value={item.custom_other}
                           defaultValue={item.custom_other}
                           // readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -417,6 +417,7 @@ const CustomerSalesTable = ({
                         <input
                           className={` ${styles.input_field} `}
                           type="number"
+                          // value={item.custom_amount}
                           value={
                             Number(item.custom_cs_amt) +
                             Number(item.custom_kun_amt) +
