@@ -94,11 +94,9 @@ const UseCustomerSaleHook = () => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
           // Update the field value
-
           return {
             ...item,
             [fieldName]: value,
-
             custom_net_wt:
               Number(item.custom_gross_wt) -
               (Number(item.custom_kun_wt) +
@@ -116,13 +114,13 @@ const UseCustomerSaleHook = () => {
             custom_ot_amt:
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
-                : item.custom_other_wt,
-            custom_amount:
-              fieldName === 'custom_other'
-                ? Number(item.custom_amount) + Number(value)
-                : Number(item.custom_cs_amt) +
-                  Number(item.custom_kun_amt) +
-                  Number(item.custom_ot_amt),
+                : item.custom_ot_amt,
+            // custom_amount:
+            //   fieldName === 'custom_other'
+            //     ? Number(item.custom_amount) + Number(value)
+            //     : Number(item.custom_cs_amt) +
+            //       Number(item.custom_kun_amt) +
+            //       Number(item.custom_ot_amt),
           };
         } else {
           return item;
@@ -266,16 +264,25 @@ const UseCustomerSaleHook = () => {
   };
 
   const handleDNCreate: any = () => {
+    // const updatedData =
+    //   salesTableData?.length > 0 &&
+    //   salesTableData !== null &&
+    //   salesTableData.map((data: any) => {});
+    // console.log(updatedData, 'updated sales table');
+    console.log('dn api values');
     const updatedData =
-      salesTableData?.length > 0 &&
+      salesTableData.length > 0 &&
       salesTableData !== null &&
       salesTableData.map((data: any) => {
         return {
           ...data,
-          item_code: data?.custom_kun_karigar,
+          custom_amount:
+            Number(data.custom_cs_amt) +
+            Number(data.custom_kun_amt) +
+            Number(data.custom_ot_amt) +
+            Number(data.custom_other),
         };
       });
-    console.log(updatedData, 'updated sales table');
     const values = {
       ...deliveryNoteData,
       Client: selectedClient,
@@ -288,6 +295,7 @@ const UseCustomerSaleHook = () => {
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
+    console.log(values, 'dn api values');
   };
 
   console.log('sales table data', salesTableData);

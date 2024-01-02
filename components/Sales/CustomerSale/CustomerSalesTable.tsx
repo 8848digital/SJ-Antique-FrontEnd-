@@ -121,6 +121,7 @@ const CustomerSalesTable = ({
                           placeholderValue="Item code"
                           item={item}
                           id={item?.idx}
+                          fieldName={'item_code'}
                           // setStateForDocStatus={setStateForDocStatus}
                           // readOnlyFields={readOnlyFields}
                         />

@@ -12,6 +12,7 @@ const SelectInputKunKarigar = ({
   readOnlyFields,
   kunKarigarDropdownReset,
   setSelectedItemCodeForCustomerSale,
+  fieldName,
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -54,9 +55,13 @@ const SelectInputKunKarigar = ({
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
     const updatedData = tableData.map((item: any) => {
-      if (item.idx === id) {
+      if (item.idx === id && fieldName === 'custom_kun_karigar') {
         return { ...item, custom_kun_karigar: 0 || data?.karigar_name };
       }
+      if (item.idx === id && fieldName === 'item_code') {
+        return { ...item, item_code: 0 || data?.karigar_name };
+      }
+
       return item;
     });
     setTableData(updatedData);
@@ -127,7 +132,7 @@ const SelectInputKunKarigar = ({
     <div>
       <input
         type="text"
-        name="custom_karigar"
+        name={fieldName}
         className={` ${styles.table_select}`}
         placeholder={`${
           placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
@@ -153,12 +158,19 @@ const SelectInputKunKarigar = ({
             tableData?.length > 0 &&
             tableData !== null &&
             tableData.map((item: any) => {
-              if (item.idx === id) {
+              if (item.idx === id && fieldName === 'custom_kun_karigar') {
                 return {
                   ...item,
                   custom_kun_karigar: 0 || selectedDropdownValue,
                 };
               }
+              if (item.idx === id && fieldName === 'item_code') {
+                return {
+                  ...item,
+                  item_code: 0 || selectedDropdownValue,
+                };
+              }
+
               return item;
             });
           setTableData(updatedData);

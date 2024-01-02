@@ -42,8 +42,8 @@ const CustomerSaleMaster = () => {
           </button>
           <button
             type="button"
-            className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
             onClick={handleDNCreate}
+            className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
           >
             Create
           </button>
