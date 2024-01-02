@@ -3,30 +3,29 @@ import CustomerSalesTable from '../CustomerSalesTable';
 import CustomerSalesTable2 from '../CustomerSalesTable2';
 import CustomerSalesTable1 from '../CustomerSalesTable1';
 import SalesHeader from '@/components/Header/SalesHeader';
-import UseCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sale-hook';
 import UseCustomerSaleDetailHook from '@/hooks/Sales/Customer-Sales/detail-page-hook';
 
 const DetailPageCustomerSale = () => {
-  // const {
-  //   salesTableData,
-  //   setSalesTableData,
-  //   kunCsOtCategoryListData,
-  //   BBCategoryListData,
-  //   clientNameListData,
-  //   selectedItemCodeForCustomerSale,
-  //   setSelectedItemCodeForCustomerSale,
-  //   handleSalesTableFieldChange,
-  //   handleAddRowForSales,
-  //   handleDeleteRowOfSalesTable,
-  //   selectedCategory,
-  //   setSeletedCategory,
-  //   handleSelectChange,
-  //   itemList,
-  //   handleEmptyDeliveryNote,
-  //   selectedClient,
-  //   setSelectedClient,
-  //   handleDNCreate,
-  // }: any = UseCustomerSaleDetailHook();
+  const {
+    salesTableData,
+    setSalesTableData,
+    kunCsOtCategoryListData,
+    BBCategoryListData,
+    clientNameListData,
+    selectedItemCodeForCustomerSale,
+    setSelectedItemCodeForCustomerSale,
+    handleSalesTableFieldChange,
+    handleAddRowForSales,
+    handleDeleteRowOfSalesTable,
+    selectedCategory,
+    setSeletedCategory,
+    handleSelectChange,
+    itemList,
+    handleEmptyDeliveryNote,
+    selectedClient,
+    setSelectedClient,
+    handleDNCreate,
+  }: any = UseCustomerSaleDetailHook();
 
   return (
     <div className="container-lg">

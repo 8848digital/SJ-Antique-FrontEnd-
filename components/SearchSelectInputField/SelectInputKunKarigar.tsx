@@ -44,6 +44,8 @@ const SelectInputKunKarigar = ({
   }, [kunKarigarDropdownReset, selectedDropdownValue]);
 
   const handleSelectedOption = (data: any, i: any) => {
+    console.log('selected item code for selection', data);
+
     setSelectedDropdownValue(data?.karigar_name);
     if (setSelectedItemCodeForCustomerSale !== undefined) {
       setSelectedItemCodeForCustomerSale({
@@ -58,8 +60,9 @@ const SelectInputKunKarigar = ({
       if (item.idx === id && fieldName === 'custom_kun_karigar') {
         return { ...item, custom_kun_karigar: 0 || data?.karigar_name };
       }
+      console.log('selected item code', item.idx, id);
       if (item.idx === id && fieldName === 'item_code') {
-        return { ...item, item_code: 0 || data?.karigar_name };
+        return { ...item, item_code: data?.karigar_name };
       }
 
       return item;

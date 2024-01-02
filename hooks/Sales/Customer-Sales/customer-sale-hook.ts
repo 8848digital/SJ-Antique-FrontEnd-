@@ -5,12 +5,15 @@ import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api'
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import postDeliveryNoteApi from '@/services/api/Sales/post-delivery-note-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const UseCustomerSaleHook = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
 
   const [kunCsOtCategoryListData, setKunCsOtCategoryListData] = useState<any>(
@@ -313,7 +316,6 @@ const UseCustomerSaleHook = () => {
   };
 
   const handleDNCreate: any = async () => {
-    console.log('dn api values');
     const updatedData =
       salesTableData.length > 0 &&
       salesTableData !== null &&
@@ -347,16 +349,13 @@ const UseCustomerSaleHook = () => {
         loginAcessToken.token,
         values
       );
-      console.log(postDeliveryNote.data, 'post delivery note');
-      if (
-        postDeliveryNote.status === 200 &&
-        postDeliveryNote?.data?.hasOwnProperty('message')
-      ) {
-        toast.success('Purchase Receipt Created Sucessfully');
+      console.log('post delivery note', postDeliveryNote, query);
+      if (postDeliveryNote?.data?.message?.status === 'success') {
+        // toast.success('Delivery note Created Sucessfully');
+        router.push(`${query.saleId}/${postDeliveryNote?.data?.message?.name}`);
       } else {
-        toast.error('Error in Creating Purchase Receipt');
+        toast.error('Error in Creating Delivery note');
       }
-      console.log(values, 'dn api values');
     }
   };
   console.log('sales table data', salesTableData);

@@ -16,7 +16,7 @@ const CustomerSalesTable = ({
   selectedCategory,
   itemList,
 }: any) => {
-  console.log(selectedCategory, 'selected name and value');
+  console.log(salesTableData, 'selected name and value');
   return (
     <>
       <div className="container d-flex justify-content-end px-1">
@@ -118,6 +118,7 @@ const CustomerSalesTable = ({
                           setSelectedItemCodeForCustomerSale
                         }
                         placeholderValue="Item code"
+                        fieldName={'item_code'}
                         item={item}
                         id={item?.idx}
                         // setStateForDocStatus={setStateForDocStatus}
