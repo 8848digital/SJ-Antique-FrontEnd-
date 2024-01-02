@@ -7,7 +7,7 @@ const getItemListInSalesApi = async (get_access_token: any) => {
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/resource/Item?fields=[%22name%22]&limit_page_length=500`,
+      `${CONSTANTS.API_BASE_URL}/api/resource/Item?fields=[%22name%22]&limit_page_length=["*"]`,
       getHeaders
     )
     .then((res: any) => {

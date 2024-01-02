@@ -1,20 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from '../../styles/header.module.css';
-import ReadyReceiptsTabs from '../KundanReadyReceipts/ReadyReceiptsTabs';
-const ReceiptsHeader = () => {
-  const [showReceipt, setShowReceipts] = useState<any>(false);
-  const [showSales, setShowSales] = useState<any>(false);
-  const [showMaster, setShowMaster] = useState<any>(false);
 
+const ReceiptsHeader = ({
+  showReceipt,
+  setShowReceipts,
+  showSales,
+  setShowSales,
+  showMaster,
+  setShowMaster,
+}: any) => {
   const router = useRouter();
-  console.log(router, 'header router');
   const pathcontent = router?.asPath?.split('/');
-  console.log(pathcontent, 'pathcontent header');
   const value = pathcontent[1];
-  console.log(value, 'value header');
+
   useEffect(() => {
     if (value === 'readyReceipt') {
       setShowReceipts(true);
@@ -52,9 +53,9 @@ const ReceiptsHeader = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="row justify-content-center">
-        <div className="col-lg-2 col-md-3 col-3 text-center">
+        <div className="col-lg-2 col-md-3 col-3 text-end">
           <Link className="text-decoration-none btn-margin" href="/master">
             <button
               className={`${styles.button} ${showMaster ? 'activeColor' : ''}`}
@@ -68,7 +69,7 @@ const ReceiptsHeader = () => {
             </button>
           </Link>
         </div>
-        <div className="col-lg-2 col-md-3 col-6 text-center">
+        <div className="col-lg-3 col-md-3 col-6 text-end">
           <Link
             className="text-decoration-none btn-margin"
             href="/readyReceipt/kundan"
@@ -87,7 +88,7 @@ const ReceiptsHeader = () => {
             </button>
           </Link>
         </div>
-        <div className="col-lg-2 col-md-3 col-3 text-center">
+        <div className="col-lg-2 col-md-3 col-3 text-end">
           <Link className="text-decoration-none btn-margin" href="/sales">
             <button
               className={`${styles.button} ${showSales ? 'activeColor' : ''}`}
@@ -102,12 +103,7 @@ const ReceiptsHeader = () => {
           </Link>
         </div>
       </div>
-      <ReadyReceiptsTabs
-        showReceipt={showReceipt}
-        showSales={showSales}
-        showMaster={showMaster}
-      />
-    </div>
+    </>
   );
 };
 

@@ -29,7 +29,7 @@ const CustomerSaleMaster = () => {
 
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
   return (
-    <div className="container-lg">
+    <div className="container-lg px-0">
       <SalesHeader />
       <div>
         <div className={`text-end mb-1`}>

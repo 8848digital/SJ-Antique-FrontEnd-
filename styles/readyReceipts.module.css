@@ -24,6 +24,14 @@
     border: #808080 1px solid;
 }
 
+.customer_sale_input_field {
+    margin-top: 1%;
+    justify-content: center;
+    max-width: 60px !important;
+    text-align: center;
+    border: #808080 1px solid;
+}
+
 .table_select {
     width: 120px;
     line-height: 15px;
