@@ -29,7 +29,7 @@ const SelectInputKunKarigar = ({
     if (!readOnlyFields) {
       setShowDropdown(!showDropdown);
       setSelectedIndex(-1);
-      setFilterDropdownList(kundanKarigarData);
+      // setFilterDropdownList(kundanKarigarData);
     }
   };
 
@@ -85,7 +85,7 @@ const SelectInputKunKarigar = ({
         e.preventDefault();
         setShowDropdown(true);
         setSelectedIndex(-1);
-        setFilterDropdownList(kundanKarigarData);
+        // setFilterDropdownList(kundanKarigarData);
       } else if (e.key === 'ArrowDown' && showDropdown) {
         setSelectedIndex((prevIndex: any) =>
           prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
@@ -127,7 +127,47 @@ const SelectInputKunKarigar = ({
       }
     }
   }, [selectedIndex, showDropdown]);
+  const handleFieldChange = (e: any) => {
+    if (!readOnlyFields) {
+      setShowDropdown(true);
+    }
+    setSelectedDropdownValue(e.target.value);
+    const query = e.target.value;
+    const updatedFilterList: any =
+      kundanKarigarData?.length > 0 &&
+      kundanKarigarData.filter((item: any) => {
+        return (
+          item.karigar_name?.toLowerCase()?.indexOf(query?.toLowerCase()) !== -1
+        );
+      });
+    console.log(updatedFilterList, 'filter list1');
+    setFilterDropdownList(updatedFilterList);
+    setNoRecordsFound(true);
+    const updatedData =
+      tableData?.length > 0 &&
+      tableData !== null &&
+      tableData.map((item: any) => {
+        if (item.idx === id && fieldName === 'custom_kun_karigar') {
+          return {
+            ...item,
+            custom_kun_karigar: 0 || selectedDropdownValue,
+          };
+        }
+        if (item.idx === id && fieldName === 'item_code') {
+          return {
+            ...item,
+            item_code: 0 || selectedDropdownValue,
+          };
+        }
 
+        return item;
+      });
+    setTableData(updatedData);
+    if (setStateForDocStatus !== undefined) {
+      setStateForDocStatus(true);
+    }
+    handleKeyDown(e);
+  };
   return (
     <div>
       <input
@@ -138,46 +178,7 @@ const SelectInputKunKarigar = ({
           placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
         }`}
         onChange={(e) => {
-          if (!readOnlyFields) {
-            setShowDropdown(true);
-          }
-          setSelectedDropdownValue(e.target.value);
-          const query = e.target.value;
-          const updatedFilterList: any =
-            kundanKarigarData?.length > 0 &&
-            kundanKarigarData.filter((item: any) => {
-              return (
-                item.karigar_name
-                  ?.toLowerCase()
-                  ?.indexOf(query?.toLowerCase()) !== -1
-              );
-            });
-          setFilterDropdownList(updatedFilterList);
-          setNoRecordsFound(true);
-          const updatedData =
-            tableData?.length > 0 &&
-            tableData !== null &&
-            tableData.map((item: any) => {
-              if (item.idx === id && fieldName === 'custom_kun_karigar') {
-                return {
-                  ...item,
-                  custom_kun_karigar: 0 || selectedDropdownValue,
-                };
-              }
-              if (item.idx === id && fieldName === 'item_code') {
-                return {
-                  ...item,
-                  item_code: 0 || selectedDropdownValue,
-                };
-              }
-
-              return item;
-            });
-          setTableData(updatedData);
-          if (setStateForDocStatus !== undefined) {
-            setStateForDocStatus(true);
-          }
-          handleKeyDown(e);
+          handleFieldChange(e);
         }}
         onClick={handleShowDropdown}
         value={selectedDropdownValue || defaultValue}

@@ -50,6 +50,7 @@ const useClientHook = () => {
     };
     getStateData();
   }, []);
+  console.log(clientGroupList, 'client group list');
   const [errorC1, setError1] = useState('');
   const [errorC2, setError2] = useState('');
   const [clientName, setClientNameValue] = useState({
@@ -243,6 +244,9 @@ const useClientHook = () => {
     setInputValue1(e.target.value);
     console.log(inputValue1, 'input value');
   };
+  const handleSelectClientGroup = (value: any) => {
+    setSearchClient(value);
+  };
 
   return {
     clientList,
@@ -265,6 +269,7 @@ const useClientHook = () => {
     HandleClientGrpValue,
     inputValue1,
     clientGroupList,
+    handleSelectClientGroup,
   };
 };
 export default useClientHook;

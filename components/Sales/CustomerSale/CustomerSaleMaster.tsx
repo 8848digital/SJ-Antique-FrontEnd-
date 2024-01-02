@@ -25,6 +25,8 @@ const CustomerSaleMaster = () => {
     selectedClient,
     setSelectedClient,
     handleDNCreate,
+    handleSelectClientGroup,
+    clientGroupList,
   }: any = UseCustomerSaleHook();
 
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
@@ -52,6 +54,8 @@ const CustomerSaleMaster = () => {
           clientNameListData={clientNameListData}
           selectedClient={selectedClient}
           setSelectedClient={setSelectedClient}
+          handleSelectClientGroup={handleSelectClientGroup}
+          clientGroupList={clientGroupList}
         />
         <CustomerSalesTable2
           kunCsOtCategoryListData={kunCsOtCategoryListData}
