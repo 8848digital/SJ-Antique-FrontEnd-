@@ -13,6 +13,8 @@ const SearchSelectInputField = ({
   className,
   readOnlyFields,
   style,
+  clientGroupList,
+  handleSelectClientGroup,
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -105,6 +107,31 @@ const SearchSelectInputField = ({
       }
     }
   }, [selectedIndex, showDropdown]);
+  const handleFieldChange = (e: any) => {
+    setShowDropdown(true);
+    setSelectedDropdownValue(e.target.value);
+    const query = e.target.value;
+    const updatedFilterList: any =
+      karigarData?.length > 0 &&
+      karigarData.filter((item: any) => {
+        return (
+          item.karigar_name?.toLowerCase()?.indexOf(query?.toLowerCase()) !== -1
+        );
+      });
+    console.log(updatedFilterList, clientGroupList, 'filter list');
+    setFilterDropdownList(updatedFilterList);
+    setNoRecordsFound(true);
+    if (setRecipitData !== undefined) {
+      setRecipitData({
+        ...recipitData,
+        custom_karigar: selectedDropdownValue,
+      });
+    }
+    if (setStateForDocStatus !== undefined) {
+      setStateForDocStatus(true);
+    }
+    handleKeyDown(e);
+  };
 
   return (
     <div>
@@ -115,30 +142,7 @@ const SearchSelectInputField = ({
         placeholder={placeholder}
         onBlur={() => setShowDropdown(false)}
         onChange={(e) => {
-          setShowDropdown(true);
-          setSelectedDropdownValue(e.target.value);
-          const query = e.target.value;
-          const updatedFilterList: any =
-            karigarData?.length > 0 &&
-            karigarData.filter((item: any) => {
-              return (
-                item.karigar_name
-                  ?.toLowerCase()
-                  ?.indexOf(query?.toLowerCase()) !== -1
-              );
-            });
-          setFilterDropdownList(updatedFilterList);
-          setNoRecordsFound(true);
-          if (setRecipitData !== undefined) {
-            setRecipitData({
-              ...recipitData,
-              custom_karigar: selectedDropdownValue,
-            });
-          }
-          if (setStateForDocStatus !== undefined) {
-            setStateForDocStatus(true);
-          }
-          handleKeyDown(e);
+          handleFieldChange(e);
         }}
         onMouseDown={handleShowDropdown}
         value={selectedDropdownValue}
@@ -181,6 +185,33 @@ const SearchSelectInputField = ({
                     {name.karigar_name}
                   </li>
                 ))}
+            </>
+          )}
+          {clientGroupList?.length > 0 && (
+            <>
+              {noRecords === true && filterDropdownList?.length === 0 && (
+                <>
+                  <div className="text-uppercase px-2 mt-1">Client Group</div>
+                  <li className="dropdown-list p-1">
+                    <select
+                      className="form-select form-select-sm "
+                      aria-label="Default select example"
+                      onChange={(e) => handleSelectClientGroup(e.target.value)}
+                    >
+                      <option>Select client group</option>
+                      {clientGroupList?.length > 0 &&
+                        clientGroupList !== null &&
+                        clientGroupList.map((data: any, index: any) => {
+                          return (
+                            <>
+                              <option key={index}>{data.client_group}</option>
+                            </>
+                          );
+                        })}
+                    </select>
+                  </li>
+                </>
+              )}
             </>
           )}
         </ul>

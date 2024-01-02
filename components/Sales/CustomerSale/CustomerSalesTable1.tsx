@@ -7,6 +7,8 @@ const CustomerSalesTable1 = ({
   clientNameListData,
   selectedClient,
   setSelectedClient,
+  handleSelectClientGroup,
+  clientGroupList,
 }: any) => {
   // console.log('client name list', clientNameListData);
   return (
@@ -55,6 +57,8 @@ const CustomerSalesTable1 = ({
                 selectedDropdownValue={selectedClient}
                 placeholder={'Client Name'}
                 className={'form-control input-sm border border-secondary'}
+                handleSelectClientGroup={handleSelectClientGroup}
+                clientGroupList={clientGroupList}
                 // readOnlyFields={readOnlyFields}
               />
             </td>
