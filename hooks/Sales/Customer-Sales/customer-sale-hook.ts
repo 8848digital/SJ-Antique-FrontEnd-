@@ -3,9 +3,11 @@ import getClientApi from '@/services/api/Master/get-client-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
+import postDeliveryNoteApi from '@/services/api/Sales/post-delivery-note-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const UseCustomerSaleHook = () => {
   const dispatch = useDispatch();
@@ -97,6 +99,9 @@ const UseCustomerSaleHook = () => {
           return {
             ...item,
             [fieldName]: value,
+            // custom_kun_wt:
+            //   item.custom_kun_wt *
+            //   ((item.custom_kun_wt * selectedCategory.KunCategory.type) / 100),
             custom_net_wt:
               Number(item.custom_gross_wt) -
               (Number(item.custom_kun_wt) +
@@ -252,6 +257,43 @@ const UseCustomerSaleHook = () => {
       [name]: selectedObj,
     }));
   };
+  // useEffect(() => {
+  //   console.log('useEffect');
+  //   const updatedData =
+  //     salesTableData.length > 0 &&
+  //     salesTableData !== null &&
+  //     salesTableData.map((data: any, i: any) => {
+  //       return {
+  //         ...data,
+  //         custom_gross_wt: data?.custom_gross_wt,
+  //         custom_kun_wt:
+  //           selectedCategory.KunCategory !== ''
+  //             ? (data.custom_kun_wt *
+  //                 (data?.custom_kun_wt * selectedCategory.KunCategory.type)) /
+  //               100
+  //             : data?.custom_kun_wt,
+  //         custom_cs_wt:
+  //           selectedCategory.CsCategory !== ''
+  //             ? (data?.custom_cs_wt *
+  //                 (data?.custom_cs_wt * selectedCategory.CsCategory.type)) /
+  //               100
+  //             : data?.custom_cs_wt,
+  //         custom_bb_wt:
+  //           selectedCategory.BBCategory !== ''
+  //             ? data?.custom_bb_wt - 0.7
+  //             : data?.custom_bb_wt,
+  //         custom_other_wt:
+  //           selectedCategory.OtCategory !== ''
+  //             ? (data?.custom_other_wt *
+  //                 data?.custom_other_wt *
+  //                 selectedCategory.OtCategory.type) /
+  //               100
+  //             : data?.custom_other_wt,
+  //         custom_cs_amt: data?.custom_cs_wt * data?.custom_cs,
+  //       };
+  //     });
+  //   setSalesTableData(updatedData);
+  // }, [selectedCategory]);
   const handleEmptyDeliveryNote = () => {
     // setSeletedCategory({
     //   KunCategory: '',
@@ -263,12 +305,7 @@ const UseCustomerSaleHook = () => {
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
   };
 
-  const handleDNCreate: any = () => {
-    // const updatedData =
-    //   salesTableData?.length > 0 &&
-    //   salesTableData !== null &&
-    //   salesTableData.map((data: any) => {});
-    // console.log(updatedData, 'updated sales table');
+  const handleDNCreate: any = async () => {
     console.log('dn api values');
     const updatedData =
       salesTableData.length > 0 &&
@@ -295,9 +332,26 @@ const UseCustomerSaleHook = () => {
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
-    console.log(values, 'dn api values');
+    let reqField = values.Client;
+    if (reqField === '') {
+      toast.error('Client Name is Empty');
+    } else {
+      const postDeliveryNote: any = await postDeliveryNoteApi(
+        loginAcessToken.token,
+        values
+      );
+      console.log(postDeliveryNote.data, 'post delivery note');
+      if (
+        postDeliveryNote.status === 200 &&
+        postDeliveryNote?.data?.hasOwnProperty('message')
+      ) {
+        toast.success('Purchase Receipt Created Sucessfully');
+      } else {
+        toast.error('Error in Creating Purchase Receipt');
+      }
+      console.log(values, 'dn api values');
+    }
   };
-
   console.log('sales table data', salesTableData);
   return {
     salesTableData,
