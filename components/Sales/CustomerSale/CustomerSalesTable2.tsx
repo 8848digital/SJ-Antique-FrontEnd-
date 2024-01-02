@@ -22,13 +22,14 @@ const CustomerSalesTable2 = ({
               <select
                 name="KunCategory"
                 id=""
-                className=" form-select form-select-sm border-secondary  p-0 px-2 "
+                className=" form-select form-select-sm border-secondary p-0 px-2 "
                 onChange={handleSelectChange}
               >
+                <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option selected>{categoryData.name1}</option>
+                    <option>{categoryData.name1}</option>
                   ))}
               </select>
             </td>
@@ -39,10 +40,11 @@ const CustomerSalesTable2 = ({
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
               >
+                <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option selected>{categoryData.name1}</option>
+                    <option>{categoryData.name1}</option>
                   ))}
               </select>
             </td>
@@ -54,10 +56,11 @@ const CustomerSalesTable2 = ({
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
               >
+                <option selected></option>
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
                   BBCategoryListData.map((BBCategoryData: any) => (
-                    <option selected>{BBCategoryData.name1}</option>
+                    <option>{BBCategoryData.name1}</option>
                   ))}
               </select>
             </td>
@@ -68,10 +71,11 @@ const CustomerSalesTable2 = ({
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
               >
+                <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option selected>{categoryData.name1}</option>
+                    <option>{categoryData.name1}</option>
                   ))}
               </select>
             </td>

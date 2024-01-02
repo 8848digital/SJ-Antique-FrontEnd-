@@ -11,31 +11,32 @@ const CustomerSalesTable1 = ({
   // console.log('client name list', clientNameListData);
   return (
     <div className=" mt-2">
-      <table className="table table-hover">
+      <table className="table table-hover table-bordered">
         <thead>
           <tr>
-            <th className="text-center p-0" scope="col">
+            <th className="thead " scope="col">
               Chitti No.
             </th>
-            <th className="text-center p-0" scope="col">
+            <th className="thead" scope="col">
               Transaction Date
             </th>
-            <th className="text-center p-0" scope="col">
+            <th className="thead" scope="col">
               Client
             </th>
-            <th className="text-center p-0" scope="col">
+            <th className="thead " scope="col">
               Remarks
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td className="table_row" scope="row">
+            <td className="table_row " scope="row">
               <input
                 className=" form-control input-sm border border-secondary light-background"
                 type="text"
                 name="remarks"
                 autoComplete="off"
+                readOnly
               />
             </td>
             <td className="table_row">

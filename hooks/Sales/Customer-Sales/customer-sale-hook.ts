@@ -55,8 +55,10 @@ const UseCustomerSaleHook = () => {
       let itemListApi: any = await getItemListInSalesApi(loginAcessToken.token);
 
       // if (itemListApi?.data?.message?.status === 'success') {
-      setItemList(itemListApi?.data?.data);
       // }
+      if (itemListApi?.data?.data?.length > 0) {
+        setItemList(itemListApi?.data?.data);
+      }
     };
 
     getKunCsOTCategoryData();
@@ -133,6 +135,7 @@ const UseCustomerSaleHook = () => {
       });
     });
   };
+
   const updateSalesTableData = (data: any) => {
     console.log('selected sale client table', selectedItemCodeForCustomerSale);
 
@@ -181,13 +184,17 @@ const UseCustomerSaleHook = () => {
   };
 
   useEffect(() => {
-    if (selectedItemCodeForCustomerSale) {
+    console.log(
+      'selected item code initially ',
+      selectedItemCodeForCustomerSale
+    );
+    if (selectedItemCodeForCustomerSale.item_code?.length > 0) {
       const getItemCodeDetailsFun = async () => {
         try {
           let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
             loginAcessToken?.token,
-            // selectedItemCodeForCustomerSale.item_code
-            'nfsam-3'
+            selectedItemCodeForCustomerSale.item_code
+            // 'nfsam-3'
           );
 
           console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
@@ -209,7 +216,7 @@ const UseCustomerSaleHook = () => {
   }, [selectedItemCodeForCustomerSale]);
 
   console.log('updated sales table', salesTableData);
-  console.log(selectedCategory, 'selected category');
+
   const handleAddRowForSales: any = () => {
     const newRow: any = {
       idx: salesTableData?.length + 1,
