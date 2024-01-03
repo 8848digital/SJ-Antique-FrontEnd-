@@ -23,6 +23,7 @@ const SearchSelectInputField = ({
   const [noRecords, setNoRecordsFound] = useState(false);
   const [filterDropdownList, setFilterDropdownList] = useState([]);
   const dropdownRef = useRef<HTMLUListElement>(null);
+  const [showClientGroupSelect, setShowClientGroupSelect] = useState(false);
 
   console.log(defaultValue, 'karigar data in search');
 
@@ -49,10 +50,12 @@ const SearchSelectInputField = ({
   };
 
   const handleDocumentClick = (e: any) => {
-    // Check if the input element itself was clicked
+    // Check if the input element itself or the client group select dropdown was clicked
     if (
       e?.target !== inputRef?.current &&
-      !inputRef?.current?.contains(e.target)
+      !inputRef?.current?.contains(e.target) &&
+      !dropdownRef?.current?.contains(e.target) &&
+      !e.target.classList.contains('form-select') // Adjust this selector based on your client group select dropdown
     ) {
       setShowDropdown(false);
     }
@@ -91,11 +94,33 @@ const SearchSelectInputField = ({
   };
 
   useEffect(() => {
+    const handleDocumentClick = (e: any) => {
+      // Check if the input element itself was clicked
+      if (
+        e?.target !== inputRef?.current &&
+        !inputRef?.current?.contains(e?.target)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    const handleClientGroupDropdownClick = (e: any) => {
+      // Stop event propagation for client group dropdown
+      e.stopPropagation();
+    };
+
     document.addEventListener('click', handleDocumentClick);
+    document
+      .querySelector('.form-select form-select-sm border')
+      ?.addEventListener('click', handleClientGroupDropdownClick);
+
     return () => {
       document.removeEventListener('click', handleDocumentClick);
+      document
+        .querySelector('.form-select form-select-sm border')
+        ?.removeEventListener('click', handleClientGroupDropdownClick);
     };
-  }, []);
+  }, [inputRef]);
 
   useEffect(() => {
     if (showDropdown && dropdownRef.current) {
@@ -132,6 +157,17 @@ const SearchSelectInputField = ({
     }
     handleKeyDown(e);
   };
+  const handleShowClientGroupSelect = (
+    e: React.MouseEvent<HTMLSelectElement>
+  ) => {
+    e.stopPropagation(); // Stop event propagation
+    setShowClientGroupSelect(!showClientGroupSelect);
+    setShowDropdown(false); // Ensure that the parent dropdown doesn't close
+  };
+
+  const HandleClientBlur = () => {
+    setShowDropdown(false);
+  };
 
   return (
     <div>
@@ -144,6 +180,7 @@ const SearchSelectInputField = ({
         onChange={(e) => {
           handleFieldChange(e);
         }}
+        // onClick={handleDocumentClick}
         onMouseDown={handleShowDropdown}
         value={selectedDropdownValue}
         defaultValue={defaultValue}
@@ -153,22 +190,30 @@ const SearchSelectInputField = ({
         ref={inputRef}
       />
       {showDropdown && (
-        <ul className={`dropdown-ul-list  ${style}`} ref={dropdownRef}>
-          {noRecords === false && filterDropdownList?.length === 0 ? (
+        <ul className={`dropdown-ul-list ${style}`} ref={dropdownRef}>
+          {(noRecords && filterDropdownList?.length === 0) ||
+          karigarData?.length === 0 ? (
             <>
-              {karigarData?.length > 0 &&
-                karigarData !== null &&
-                karigarData.map((name: any, i: any) => (
-                  <li
-                    key={i}
-                    onMouseDown={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
-                  >
-                    {name.karigar_name}
-                  </li>
-                ))}
+              <div className="text-small px-2 mt-1">Client Group</div>
+              <li className="dropdown-list p-1">
+                <select
+                  className="form-select form-select-sm border"
+                  aria-label="Default select example"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Stop event propagation
+                    handleShowClientGroupSelect(e);
+                  }}
+                  onChange={(e) => handleSelectClientGroup(e.target.value)}
+                  onBlur={HandleClientBlur}
+                >
+                  <option>Select client group</option>
+                  {clientGroupList?.length > 0 &&
+                    clientGroupList !== null &&
+                    clientGroupList.map((data: any, index: any) => (
+                      <option key={index}>{data.client_group}</option>
+                    ))}
+                </select>
+              </li>
             </>
           ) : (
             <>
@@ -185,33 +230,19 @@ const SearchSelectInputField = ({
                     {name.karigar_name}
                   </li>
                 ))}
-            </>
-          )}
-          {clientGroupList?.length > 0 && (
-            <>
-              {noRecords === true && filterDropdownList?.length === 0 && (
-                <>
-                  <div className="text-uppercase px-2 mt-1">Client Group</div>
-                  <li className="dropdown-list p-1">
-                    <select
-                      className="form-select form-select-sm "
-                      aria-label="Default select example"
-                      onChange={(e) => handleSelectClientGroup(e.target.value)}
-                    >
-                      <option>Select client group</option>
-                      {clientGroupList?.length > 0 &&
-                        clientGroupList !== null &&
-                        clientGroupList.map((data: any, index: any) => {
-                          return (
-                            <>
-                              <option key={index}>{data.client_group}</option>
-                            </>
-                          );
-                        })}
-                    </select>
+              {karigarData?.length > 0 &&
+                karigarData !== null &&
+                karigarData.map((name: any, i: any) => (
+                  <li
+                    key={i}
+                    onMouseDown={() => handleSelectedOption(name, i)}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
+                  >
+                    {name.karigar_name}
                   </li>
-                </>
-              )}
+                ))}
             </>
           )}
         </ul>
