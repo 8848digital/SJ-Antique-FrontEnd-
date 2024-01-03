@@ -1,5 +1,6 @@
 import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getClientApi from '@/services/api/Master/get-client-api';
+import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
@@ -36,6 +37,7 @@ const UseCustomerSaleHook = () => {
     Client: '',
   });
   const [selectedClient, setSelectedClient] = useState('');
+  const [clientGroupList, setClientGroupList] = useState();
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
@@ -62,6 +64,12 @@ const UseCustomerSaleHook = () => {
       if (itemListApi?.data?.data?.length > 0) {
         setItemList(itemListApi?.data?.data);
       }
+      const clientGroupData: any = await getClientGroupApi(
+        loginAcessToken.token
+      );
+      if (clientGroupData?.data?.message?.status === 'success') {
+        setClientGroupList(clientGroupData?.data?.message?.data);
+      }
     };
 
     getKunCsOTCategoryData();
@@ -69,6 +77,10 @@ const UseCustomerSaleHook = () => {
 
   const SalesTableInitialState: any = {
     idx: 1,
+    kun_wt_initial: '',
+    cs_wt_initial: '',
+    bb_wt_initial: '',
+    ot_wt_initial: '',
     item_code: '',
     custom_gross_wt: '',
     custom_kun_wt: '',
@@ -85,10 +97,6 @@ const UseCustomerSaleHook = () => {
     custom_ot_amt: '',
     custom_other: '',
     custom_amount: 0,
-    kun_wt_initial: '',
-    cs_wt_initial: '',
-    bb_wt_initial: '',
-    ot_wt_initial: '',
   };
 
   const [salesTableData, setSalesTableData] = useState<any>([
@@ -108,9 +116,7 @@ const UseCustomerSaleHook = () => {
           return {
             ...item,
             [fieldName]: value,
-            // custom_kun_wt:
-            //   item.custom_kun_wt *
-            //   ((item.custom_kun_wt * selectedCategory.KunCategory.type) / 100),
+
             custom_net_wt:
               Number(item.custom_gross_wt) -
               (Number(item.custom_kun_wt) +
@@ -123,18 +129,18 @@ const UseCustomerSaleHook = () => {
                 : item.custom_cs_amt,
             custom_kun_amt:
               fieldName === 'custom_kun'
-                ? value * Number(item.custom_kun_pc)
+                ? item?.custom_kun === ''
+                  ? 1
+                  : Number(item?.custom_kun_pc) * value
+                : fieldName === 'custom_kun_pc'
+                ? item.custom_kun === ''
+                  ? 1
+                  : Number(item.custom_kun) * value
                 : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
                 : item.custom_ot_amt,
-            // custom_amount:
-            //   fieldName === 'custom_other'
-            //     ? Number(item.custom_amount) + Number(value)
-            //     : Number(item.custom_cs_amt) +
-            //       Number(item.custom_kun_amt) +
-            //       Number(item.custom_ot_amt),
           };
         } else {
           return item;
@@ -274,60 +280,21 @@ const UseCustomerSaleHook = () => {
       ...prevState,
       [name]: selectedObj,
     }));
-    // setSalesTableData((prevState: any) => {
-    //   prevState?.map((data: any) => {
-    //     const kunInitial = Number(data?.kun_wt_initial) || 0;
-    //     const csWtInitial = Number(data?.cs_wt_initial) || 0;
-    //     const bbWtInitial = Number(data?.bb_wt_initial) || 0;
-    //     const otWtInitial = Number(data?.ot_wt_initial) || 0;
-    //     return {
-    //       ...data,
 
-    //       custom_gross_wt: data?.custom_gross_wt,
-    //       custom_kun_wt:
-    //         selectedCategory.KunCategory !== ''
-    //           ? (kunInitial *
-    //               (kunInitial * selectedCategory.KunCategory.type)) /
-    //             100
-    //           : data?.custom_kun_wt,
-    //       custom_cs_wt:
-    //         selectedCategory.CsCategory !== ''
-    //           ? (csWtInitial *
-    //               (csWtInitial * selectedCategory.CsCategory.type)) /
-    //             100
-    //           : Number(data?.custom_cs_wt),
-    //       custom_bb_wt:
-    //         selectedCategory.BBCategory !== ''
-    //           ? bbWtInitial - 0.7
-    //           : bbWtInitial,
-    //       custom_other_wt:
-    //         selectedCategory.OtCategory !== ''
-    //           ? (otWtInitial * otWtInitial * selectedCategory.OtCategory.type) /
-    //             100
-    //           : data?.custom_other_wt,
-    //     };
-    //   });
-    // });
     console.log(salesTableData, 'updated sales table data');
   };
   useEffect(() => {
     const updatedData =
       salesTableData.length > 0 &&
       salesTableData !== null &&
-      salesTableData.map((data: any, i: any) => {
+      salesTableData.map((data: any) => {
         const kunInitial = Number(data?.kun_wt_initial) || 0;
         const csWtInitial = Number(data?.cs_wt_initial) || 0;
         const bbWtInitial = Number(data?.bb_wt_initial) || 0;
         const otWtInitial = Number(data?.ot_wt_initial) || 0;
-        const {
-          kun_wt_initial,
-          cs_wt_initial,
-          bb_wt_initial,
-          ot_wt_initial,
-          ...updatedObject
-        } = data;
+
         return {
-          ...updatedObject,
+          ...data,
           custom_gross_wt: data?.custom_gross_wt,
           custom_kun_wt:
             selectedCategory.KunCategory !== ''
@@ -342,20 +309,43 @@ const UseCustomerSaleHook = () => {
                 100
               : Number(data?.custom_cs_wt),
           custom_bb_wt:
-            selectedCategory.BBCategory !== ''
+            selectedCategory?.BBCategory !== ''
               ? bbWtInitial - 0.7
               : bbWtInitial,
           custom_other_wt:
             selectedCategory.OtCategory !== ''
-              ? (otWtInitial * otWtInitial * selectedCategory.OtCategory.type) /
+              ? (otWtInitial *
+                  otWtInitial *
+                  selectedCategory.OtCategory?.type) /
                 100
               : data?.custom_other_wt,
-          custom_cs_amt: data?.custom_cs_wt * data?.custom_cs,
-          custom_ot_amt: data?.custom_other_wt * data?.custom_ot_,
+          custom_cs_amt:
+            (selectedCategory.CsCategory !== ''
+              ? (csWtInitial *
+                  (csWtInitial * selectedCategory.CsCategory.type)) /
+                100
+              : Number(data?.custom_cs_wt)) * data?.custom_cs,
+          custom_ot_amt:
+            (selectedCategory.OtCategory !== ''
+              ? (otWtInitial * otWtInitial * selectedCategory.OtCategory.type) /
+                100
+              : data?.custom_other_wt) * data?.custom_ot_,
+          custom_net_wt:
+            Number(data?.custom_gross_wt) -
+            Number(data?.custom_kun_wt) +
+            Number(data?.custom_cs_wt) +
+            Number(data?.custom_bb_wt) +
+            Number(data?.custom_other_wt),
+          custom_amount:
+            Number(data.custom_cs_amt) +
+            Number(data.custom_kun_amt) +
+            Number(data.custom_ot_amt) +
+            Number(data.custom_other),
         };
       });
     setSalesTableData(updatedData);
   }, [selectedCategory]);
+
   const handleEmptyDeliveryNote = () => {
     // setSeletedCategory({
     //   KunCategory: '',
@@ -372,8 +362,21 @@ const UseCustomerSaleHook = () => {
       salesTableData.length > 0 &&
       salesTableData !== null &&
       salesTableData.map((data: any) => {
+        const {
+          kun_wt_initial,
+          cs_wt_initial,
+          bb_wt_initial,
+          ot_wt_initial,
+          ...updatedObject
+        } = data;
         return {
-          ...data,
+          ...updatedObject,
+          custom_net_wt:
+            Number(data?.custom_gross_wt) -
+            Number(data?.custom_kun_wt) +
+            Number(data?.custom_cs_wt) +
+            Number(data?.custom_bb_wt) +
+            Number(data?.custom_other_wt),
           custom_amount:
             Number(data.custom_cs_amt) +
             Number(data.custom_kun_amt) +
@@ -403,7 +406,7 @@ const UseCustomerSaleHook = () => {
       );
       console.log('post delivery note', postDeliveryNote, query);
       if (postDeliveryNote?.data?.message?.status === 'success') {
-        // toast.success('Delivery note Created Sucessfully');
+        toast.success('Delivery note Created Sucessfully');
         router.push(`${query.saleId}/${postDeliveryNote?.data?.message?.name}`);
       } else {
         toast.error('Error in Creating Delivery note');
@@ -432,6 +435,7 @@ const UseCustomerSaleHook = () => {
     selectedClient,
     setSelectedClient,
     handleDNCreate,
+    clientGroupList,
   };
 };
 

@@ -170,11 +170,14 @@ button.btn.btn-primary.mx-5.px-5{
   position: absolute;
   max-height: 170px;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: #ffffff;
   list-style: none;
   padding: 0;
   cursor: pointer;
+}
+.form-select{
+  z-index: 900;
 }
 .responsive{
   position: relative;
