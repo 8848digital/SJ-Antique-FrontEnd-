@@ -14,6 +14,8 @@ const CustomerSalesTable = ({
   handleDeleteRowOfSalesTable,
   clientNameListData,
   selectedCategory,
+  setStateForDocStatus,
+  readOnlyFields,
   itemList,
 }: any) => {
   console.log(salesTableData, 'selected name and value');
@@ -121,8 +123,8 @@ const CustomerSalesTable = ({
                         fieldName={'item_code'}
                         item={item}
                         id={item?.idx}
-                        // setStateForDocStatus={setStateForDocStatus}
-                        // readOnlyFields={readOnlyFields}
+                        setStateForDocStatus={setStateForDocStatus}
+                        readOnlyFields={readOnlyFields}
                       />
                     </td>
                     <td className="table_row">

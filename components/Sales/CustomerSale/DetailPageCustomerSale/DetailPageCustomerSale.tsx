@@ -3,7 +3,8 @@ import CustomerSalesTable from '../CustomerSalesTable';
 import CustomerSalesTable2 from '../CustomerSalesTable2';
 import CustomerSalesTable1 from '../CustomerSalesTable1';
 import SalesHeader from '@/components/Header/SalesHeader';
-import UseCustomerSaleDetailHook from '@/hooks/Sales/Customer-Sales/detail-page-hook';
+import UseCustomerSaleDetailHook from '@/hooks/Sales/Customer-Sales/sales-detail-page-hook';
+import CustomerSalesButtonsSection from './CustomerSalesButtonsSection';
 
 const DetailPageCustomerSale = () => {
   const {
@@ -25,53 +26,61 @@ const DetailPageCustomerSale = () => {
     selectedClient,
     setSelectedClient,
     handleDNCreate,
+    stateForDocStatus,
+    setStateForDocStatus,
+    handleUpdateDeliveryNote,
+    readOnlyFields,
+    setReadOnlyFields,
+    showSaveButtonForAmendFlow,
+    setShowSaveButtonForAmendFlow,
   }: any = UseCustomerSaleDetailHook();
+
+  console.log('stateee', stateForDocStatus);
 
   return (
     <div className="container-lg">
       <SalesHeader />
       <div>
         <div className={`text-end mb-1`}>
-          <button
-            type="submit"
-            // onClick={handleEmptyDeliveryNote}
-            className=" btn btn-outline-primary px-2 py-0 form-submit-button"
-          >
-            New
-          </button>
-          <button
-            type="button"
-            className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
-            // onClick={handleDNCreate}
-          >
-            Create
-          </button>
+          <CustomerSalesButtonsSection
+            stateForDocStatus={stateForDocStatus}
+            setStateForDocStatus={setStateForDocStatus}
+            handleUpdateDeliveryNote={handleUpdateDeliveryNote}
+            readOnlyFields={readOnlyFields}
+            setReadOnlyFields={setReadOnlyFields}
+            showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
+            setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
+          />
         </div>
         <CustomerSalesTable1
-        // clientNameListData={clientNameListData}
-        // selectedClient={selectedClient}
-        // setSelectedClient={setSelectedClient}
+          clientNameListData={clientNameListData}
+          selectedClient={selectedClient}
+          setSelectedClient={setSelectedClient}
+          readOnlyFields={readOnlyFields}
         />
         <CustomerSalesTable2
-        // kunCsOtCategoryListData={kunCsOtCategoryListData}
-        // BBCategoryListData={BBCategoryListData}
-        // selectedCategory={selectedCategory}
-        // setSeletedCategory={setSeletedCategory}
-        // handleSelectChange={handleSelectChange}
+          kunCsOtCategoryListData={kunCsOtCategoryListData}
+          BBCategoryListData={BBCategoryListData}
+          selectedCategory={selectedCategory}
+          setSeletedCategory={setSeletedCategory}
+          handleSelectChange={handleSelectChange}
+          readOnlyFields={readOnlyFields}
         />
         <CustomerSalesTable
-        // handleSalesTableFieldChange={handleSalesTableFieldChange}
-        // clientNameListData={clientNameListData}
-        // salesTableData={salesTableData}
-        // setSalesTableData={setSalesTableData}
-        // selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
-        // setSelectedItemCodeForCustomerSale={
-        //   setSelectedItemCodeForCustomerSale
-        // }
-        // handleAddRowForSales={handleAddRowForSales}
-        // handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
-        // selectedCategory={selectedCategory}
-        // itemList={itemList}
+          handleSalesTableFieldChange={handleSalesTableFieldChange}
+          clientNameListData={clientNameListData}
+          salesTableData={salesTableData}
+          setSalesTableData={setSalesTableData}
+          selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
+          setSelectedItemCodeForCustomerSale={
+            setSelectedItemCodeForCustomerSale
+          }
+          handleAddRowForSales={handleAddRowForSales}
+          handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
+          selectedCategory={selectedCategory}
+          itemList={itemList}
+          readOnlyFields={readOnlyFields}
+          setStateForDocStatus={setStateForDocStatus}
         />
       </div>
     </div>

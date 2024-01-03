@@ -1,4 +1,5 @@
 import GetSpecificPurchaseReceiptData from '@/services/api/PurchaseReceipt/get-specific-purchase-receipt-api';
+import GetDetailOfDeliveryNoteAPi from '@/services/api/Sales/get-detail-delivery-note-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -6,7 +7,7 @@ export const GetDetailOfDeliveryNote: any = createAsyncThunk(
   'detailOfDeliveryNote/getDetailOfDeliveryNote',
   async (params: any) => {
     const DetailOfDeliveryNoteData: any =
-      await GetSpecificPurchaseReceiptData(params);
+      await GetDetailOfDeliveryNoteAPi(params);
     console.log('DetailOfDeliveryNoteData res', DetailOfDeliveryNoteData);
     return DetailOfDeliveryNoteData;
   }
@@ -37,16 +38,17 @@ export const GetDetailOfDeliveryNoteDataScreen = createSlice({
       state.docStatus = '';
     });
     builder.addCase(GetDetailOfDeliveryNote.fulfilled, (state, action) => {
-      // console.log('first', action?.payload?.data?.message[0].docstatus);
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'
       ) {
         state.data = action?.payload?.data?.message?.data;
-        state.docStatus = action?.payload?.data?.message?.data[0]?.docstatus;
+        state.docStatus = action?.payload?.data?.message?.data?.docstatus;
+        state.isLoading = 'succeeded';
       } else {
         state.data = '';
         state.docStatus = '';
+        state.isLoading = 'succeeded';
       }
     });
     builder.addCase(GetDetailOfDeliveryNote.rejected, (state) => {

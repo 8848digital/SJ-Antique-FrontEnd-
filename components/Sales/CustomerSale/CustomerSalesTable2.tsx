@@ -1,3 +1,6 @@
+import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
+import { useSelector } from 'react-redux';
+
 const CustomerSalesTable2 = ({
   kunCsOtCategoryListData,
   BBCategoryListData,
@@ -5,6 +8,14 @@ const CustomerSalesTable2 = ({
   setSeletedCategory,
   handleSelectChange,
 }: any) => {
+  const DetailOfDeliveryNoteFromStore: any = useSelector(
+    get_detail_delivery_note_data
+  );
+  console.log(
+    'DetailOfDeliveryNote from store in tsx',
+    DetailOfDeliveryNoteFromStore
+  );
+  console.log('selected category in tsx', selectedCategory);
   return (
     <div className="table-responsive">
       <table className="table table-hover table-bordered">
@@ -24,12 +35,19 @@ const CustomerSalesTable2 = ({
                 id=""
                 className=" form-select form-select-sm border-secondary p-0 px-2 "
                 onChange={handleSelectChange}
+                value={
+                  selectedCategory.KunCategory
+                    ? selectedCategory.KunCategory.name1
+                    : ''
+                }
               >
                 <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option>{categoryData.name1}</option>
+                    <option value={categoryData.name1}>
+                      {categoryData.name1}
+                    </option>
                   ))}
               </select>
             </td>

@@ -24,7 +24,7 @@ const SearchSelectInputField = ({
   const [filterDropdownList, setFilterDropdownList] = useState([]);
   const dropdownRef = useRef<HTMLUListElement>(null);
 
-  console.log(karigarData, 'karigar data in search');
+  console.log(defaultValue, 'karigar data in search');
 
   const handleShowDropdown = () => {
     console.log('read', readOnlyFields);
