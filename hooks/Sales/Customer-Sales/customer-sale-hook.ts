@@ -36,7 +36,6 @@ const UseCustomerSaleHook = () => {
     Client: '',
   });
   const [selectedClient, setSelectedClient] = useState('');
-  const [apiValues, setApiValues] = useState<any>();
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
@@ -86,6 +85,10 @@ const UseCustomerSaleHook = () => {
     custom_ot_amt: '',
     custom_other: '',
     custom_amount: 0,
+    kun_wt_initial: '',
+    cs_wt_initial: '',
+    bb_wt_initial: '',
+    ot_wt_initial: '',
   };
 
   const [salesTableData, setSalesTableData] = useState<any>([
@@ -177,6 +180,10 @@ const UseCustomerSaleHook = () => {
                     selectedCategory.OtCategory.type) /
                   100
                 : data[0]?.custom_other_wt,
+            kun_wt_initial: data[0]?.custom_kun_wt,
+            cs_wt_initial: data[0]?.custom_cs_wt,
+            bb_wt_initial: data[0]?.custom_bb_wt,
+            ot_wt_initial: data[0]?.custom_other_wt,
           };
         } else {
           return tableData;
@@ -207,9 +214,8 @@ const UseCustomerSaleHook = () => {
               getItemCodeDetailsApi?.data,
               'selected sale client table'
             );
-            setApiValues(getItemCodeDetailsApi?.data?.message?.data);
             // Call the function to update salesTableData
-            updateSalesTableData(apiValues);
+            updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
           }
         } catch (error) {
           console.error('Error fetching item details:', error);
@@ -268,42 +274,84 @@ const UseCustomerSaleHook = () => {
       ...prevState,
       [name]: selectedObj,
     }));
+    // setSalesTableData((prevState: any) => {
+    //   prevState?.map((data: any) => {
+    //     const kunInitial = Number(data?.kun_wt_initial) || 0;
+    //     const csWtInitial = Number(data?.cs_wt_initial) || 0;
+    //     const bbWtInitial = Number(data?.bb_wt_initial) || 0;
+    //     const otWtInitial = Number(data?.ot_wt_initial) || 0;
+    //     return {
+    //       ...data,
+
+    //       custom_gross_wt: data?.custom_gross_wt,
+    //       custom_kun_wt:
+    //         selectedCategory.KunCategory !== ''
+    //           ? (kunInitial *
+    //               (kunInitial * selectedCategory.KunCategory.type)) /
+    //             100
+    //           : data?.custom_kun_wt,
+    //       custom_cs_wt:
+    //         selectedCategory.CsCategory !== ''
+    //           ? (csWtInitial *
+    //               (csWtInitial * selectedCategory.CsCategory.type)) /
+    //             100
+    //           : Number(data?.custom_cs_wt),
+    //       custom_bb_wt:
+    //         selectedCategory.BBCategory !== ''
+    //           ? bbWtInitial - 0.7
+    //           : bbWtInitial,
+    //       custom_other_wt:
+    //         selectedCategory.OtCategory !== ''
+    //           ? (otWtInitial * otWtInitial * selectedCategory.OtCategory.type) /
+    //             100
+    //           : data?.custom_other_wt,
+    //     };
+    //   });
+    // });
+    console.log(salesTableData, 'updated sales table data');
   };
-  console.log(apiValues, 'api values wt');
   useEffect(() => {
     const updatedData =
       salesTableData.length > 0 &&
       salesTableData !== null &&
       salesTableData.map((data: any, i: any) => {
+        const kunInitial = Number(data?.kun_wt_initial) || 0;
+        const csWtInitial = Number(data?.cs_wt_initial) || 0;
+        const bbWtInitial = Number(data?.bb_wt_initial) || 0;
+        const otWtInitial = Number(data?.ot_wt_initial) || 0;
+        const {
+          kun_wt_initial,
+          cs_wt_initial,
+          bb_wt_initial,
+          ot_wt_initial,
+          ...updatedObject
+        } = data;
         return {
-          ...data,
+          ...updatedObject,
           custom_gross_wt: data?.custom_gross_wt,
           custom_kun_wt:
             selectedCategory.KunCategory !== ''
-              ? (Number(apiValues?.custom_kun_wt) *
-                  (Number(apiValues?.custom_kun_wt) *
-                    selectedCategory.KunCategory.type)) /
+              ? (kunInitial *
+                  (kunInitial * selectedCategory.KunCategory.type)) /
                 100
-              : apiValues?.custom_kun_wt,
+              : data?.custom_kun_wt,
           custom_cs_wt:
             selectedCategory.CsCategory !== ''
-              ? (Number(apiValues?.custom_cs_wt) *
-                  (Number(apiValues?.custom_cs_wt) *
-                    selectedCategory.CsCategory.type)) /
+              ? (csWtInitial *
+                  (csWtInitial * selectedCategory.CsCategory.type)) /
                 100
-              : Number(apiValues?.custom_cs_wt),
+              : Number(data?.custom_cs_wt),
           custom_bb_wt:
             selectedCategory.BBCategory !== ''
-              ? Number(apiValues?.custom_bb_wt) - 0.7
-              : Number(apiValues?.custom_bb_wt),
+              ? bbWtInitial - 0.7
+              : bbWtInitial,
           custom_other_wt:
             selectedCategory.OtCategory !== ''
-              ? (Number(apiValues?.custom_other_wt) *
-                  Number(apiValues?.custom_other_wt) *
-                  selectedCategory.OtCategory.type) /
+              ? (otWtInitial * otWtInitial * selectedCategory.OtCategory.type) /
                 100
-              : apiValues?.custom_other_wt,
-          custom_cs_amt: apiValues?.custom_cs_wt * apiValues?.custom_cs,
+              : data?.custom_other_wt,
+          custom_cs_amt: data?.custom_cs_wt * data?.custom_cs,
+          custom_ot_amt: data?.custom_other_wt * data?.custom_ot_,
         };
       });
     setSalesTableData(updatedData);

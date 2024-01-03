@@ -147,7 +147,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={item.custom_kun_wt}
+                        value={item?.custom_kun_wt}
                         // value={
                         //   selectedCategory.KunCategory !== ''
                         //     ? item.custom_kun_wt *
