@@ -17,6 +17,10 @@ const KundanListing = ({
   setKundanListing,
   HandleDeleteReceipt,
   karigarData,
+  colPlaceholder1,
+  colPlaceholder2,
+
+  filterPlaceholder,
 }: any) => {
   const router = useRouter();
   const pathParts = router.asPath.split('/');
@@ -28,7 +32,7 @@ const KundanListing = ({
   const HandleTableViewRows: any = (data: any) => {
     setTableViewData(data);
   };
-
+  console.log(kundanListing, 'client name in listing');
   console.log('router query', query);
   let url: any = router?.query?.receipt;
   const loginAcessToken = useSelector(get_access_token);
@@ -168,6 +172,8 @@ const KundanListing = ({
         setSearchKarigar={setSearchKarigar}
         searchInputValues={searchInputValues}
         karigarData={karigarData}
+        colPlaceholder1={colPlaceholder1}
+        colPlaceholder2={colPlaceholder2}
       />
       {filteredList?.length > 0 && (
         <div className="text-end pe-3 p-0 text-gray small ">
@@ -181,13 +187,13 @@ const KundanListing = ({
         <thead>
           <tr>
             <th className="thead" scope="col">
-              Receipt No.
+              {colPlaceholder1}
             </th>
             <th className="thead" scope="col">
               Transaction Date
             </th>
             <th className="thead" scope="col">
-              Karigar
+              {colPlaceholder2}
             </th>
             <th className="thead" scope="col">
               Status
@@ -218,7 +224,9 @@ const KundanListing = ({
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
                 >
-                  {item.custom_karigar}
+                  {item.custom_karigar
+                    ? item.custom_karigar
+                    : item.custom_client_name}
                 </td>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}

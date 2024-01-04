@@ -9,6 +9,8 @@ const FilterKundanReadyReceiptListing = ({
   karigarData,
   searchKarigar,
   setSearchKarigar,
+  colPlaceholder1,
+  colPlaceholder2,
 }: any) => {
   console.log('receipt no list', receiptNoList);
   let ReceiptNumber: any =
@@ -24,7 +26,7 @@ const FilterKundanReadyReceiptListing = ({
         <div className="col-md-2 ">
           <SearchSelectInputField
             karigarData={ReceiptNumber}
-            placeholder={'Receipt No'}
+            placeholder={colPlaceholder1}
             className={
               'form-control input-fields custom-input-field line-height'
             }
@@ -51,7 +53,7 @@ const FilterKundanReadyReceiptListing = ({
               'form-control input-fields custom-input-field line-height'
             }
             style={'max-width'}
-            placeholder={'Karigar'}
+            placeholder={colPlaceholder2}
             karigarData={karigarData}
             selectedDropdownValue={searchKarigar}
             setSelectedDropdownValue={setSearchKarigar}

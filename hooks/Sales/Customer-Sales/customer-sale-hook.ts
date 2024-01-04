@@ -2,6 +2,7 @@ import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getClientApi from '@/services/api/Master/get-client-api';
 import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
+import getDeliveryNoteApi from '@/services/api/Sales/get-delivery-note-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import postDeliveryNoteApi from '@/services/api/Sales/post-delivery-note-api';

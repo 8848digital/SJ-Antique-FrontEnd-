@@ -39,25 +39,25 @@
     margin-right: 20%;
 }
 @media screen and (max-width:856px) {
-.button{
+/* .button{
     padding: 2px 3px !important;
     margin: 3px;
     border-radius: 5px;
     font-size: small;
 
-}
+} */
 .button_container{
     margin-left: 0;
     margin-right: 0;
 }
 }
 @media screen and (max-width:576px) {
-.button{
+/* .button{
     padding: 2px 3px !important;
     margin: 3px;
     border-radius: 5px;
 
-}
+} */
 .button_container{
     margin-left: 0;
     margin-right: 0;

@@ -114,6 +114,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
               HandleDeleteReceipt={HandleDeleteReceipt}
               HandleUpdateDocStatus={HandleUpdateDocStatus}
               karigarData={karigarData}
+              colPlaceholder1={'Receipt No.'}
+              colPlaceholder2={'Karigar'}
             />
           </div>
           <div
