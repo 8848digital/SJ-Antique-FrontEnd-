@@ -8,10 +8,14 @@ import {
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import UpdateDeliveryNoteApi from '@/services/api/Sales/put-update-delivery-note-api';
+import UpdateSalesDocStatusApi from '@/services/api/Sales/update-sales-docStatus-api';
+import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
+import PrintApi from '@/services/api/Sales/print-api';
 
 const UseCustomerSaleDetailHook = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
+  const router = useRouter();
   const {
     salesTableData,
     setSalesTableData,
@@ -117,6 +121,71 @@ const UseCustomerSaleDetailHook = () => {
     }
   };
 
+  const HandleUpdateSalesdocStatus: any = async (docStatusvalue: any) => {
+    let updateDocStatusApi: any = await UpdateSalesDocStatusApi(
+      loginAcessToken?.token,
+      docStatusvalue,
+      query?.deliveryNoteId
+    );
+    console.log('update docstatus api res', updateDocStatusApi);
+    const reqParams: any = {
+      token: loginAcessToken.token,
+      name: query?.deliveryNoteId,
+    };
+    dispatch(GetDetailOfDeliveryNote(reqParams));
+  };
+
+  const HandleAmendButtonForCustomerSales: any = async () => {
+    const updatedSalesTableData: any = salesTableData.map((tableData: any) => ({
+      ...tableData,
+      qty: 1,
+    }));
+    console.log('updated sales table data for amend', updatedSalesTableData);
+    const values = {
+      amended_from: query?.deliveryNoteId,
+      custom_client_name: selectedClient,
+      custom_kun_category: selectedCategory?.KunCategory?.name1,
+      custom_cs_category: selectedCategory?.CsCategory?.name1,
+      custom_bb_category: selectedCategory?.BBCategory?.name1,
+      custom_ot_category: selectedCategory?.OtCategory?.name1,
+      items: updatedSalesTableData,
+    };
+    let amendDeliveryNoteApi: any = await AmendDeliveryNoteApi(
+      loginAcessToken?.token,
+      values
+    );
+
+    console.log('update delivery note api res', amendDeliveryNoteApi);
+    if (amendDeliveryNoteApi?.data?.hasOwnProperty('data')) {
+      setStateForDocStatus(false);
+      setShowSaveButtonForAmendFlow(false);
+
+      const newURL = `/sales/${query?.saleId}/${amendDeliveryNoteApi?.data?.data?.name}`;
+      const asPath = `/sales/${query?.saleId}/${amendDeliveryNoteApi?.data?.data?.name}`;
+
+      // Update the URL with the required query parameter
+      router.push(newURL, asPath);
+    }
+  };
+
+  const HandleDeleteDeliveryNote: any = async (id: any) => {
+    // let deleteDeliveryNoteApi:any = await
+  };
+
+  const handleDeliveryNotePrintApi: any = async (id: any) => {
+    const reqParams = {
+      token: loginAcessToken?.token,
+      name: id,
+      version: 'v1',
+      method: 'print_delivery_note',
+      entity: 'delivery_note_api',
+    };
+    let deliveryNotePrintApi: any = await PrintApi(reqParams);
+    if (deliveryNotePrintApi?.status === 'success') {
+      window.open(deliveryNotePrintApi?.data?.data[0]?.print_url);
+    }
+  };
+
   return {
     salesTableData,
     setSalesTableData,
@@ -143,6 +212,10 @@ const UseCustomerSaleDetailHook = () => {
     setReadOnlyFields,
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
+    HandleUpdateSalesdocStatus,
+    HandleAmendButtonForCustomerSales,
+    HandleDeleteDeliveryNote,
+    handleDeliveryNotePrintApi,
   };
 };
 

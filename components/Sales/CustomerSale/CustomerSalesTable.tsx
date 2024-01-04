@@ -24,12 +24,11 @@ const CustomerSalesTable = ({
       <div className="container d-flex justify-content-end px-1">
         <button
           className="btn btn-link p-0"
-          // onClick={() => {
-          //   // if (!readOnlyFields) {
-          //   handleAddRowForSales();
-          //   // }
-          // }}
-          onClick={handleAddRowForSales}
+          onClick={() => {
+            if (!readOnlyFields) {
+              handleAddRowForSales();
+            }
+          }}
         >
           Add Row
         </button>
@@ -158,7 +157,7 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                       />
                     </td>
                     <td className="table_row">
@@ -167,7 +166,7 @@ const CustomerSalesTable = ({
                         type="number"
                         value={item.custom_cs_wt}
                         defaultValue={item.custom_cs_wt}
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -184,7 +183,7 @@ const CustomerSalesTable = ({
                         type="number"
                         value={item.custom_bb_wt}
                         defaultValue={item.custom_bb_wt}
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -209,7 +208,7 @@ const CustomerSalesTable = ({
                         //     : item.custom_other_wt
                         // }
                         defaultValue={item.custom_other_wt}
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -224,8 +223,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={
-                          // Number(tableData[i]?.totalModalWeight) ||
+                        value={(
                           Number(item.custom_gross_wt) -
                             (Number(item.custom_kun_wt) +
                               Number(item.custom_cs_wt) +
@@ -249,7 +247,6 @@ const CustomerSalesTable = ({
                           )
                         }
                         disabled
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
@@ -258,7 +255,7 @@ const CustomerSalesTable = ({
                         type="number"
                         value={item.custom_cs}
                         defaultValue={item.custom_cs}
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -266,18 +263,16 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={
-                          Number(item.custom_cs_wt) !== 0
-                            ? Number(item.custom_cs) * Number(item.custom_cs_wt)
-                            : Number(item.custom_cs)
-                        }
+                        value={(Number(item.custom_cs_wt) !== 0
+                          ? Number(item.custom_cs) * Number(item.custom_cs_wt)
+                          : Number(item.custom_cs)
+                        )?.toFixed(2)}
                         defaultValue={item.custom_cs_amt}
                         readOnly
                         onChange={(e) =>
@@ -288,7 +283,6 @@ const CustomerSalesTable = ({
                           )
                         }
                         disabled
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
@@ -297,7 +291,7 @@ const CustomerSalesTable = ({
                         type="number"
                         value={item.custom_kun_pc}
                         defaultValue={item.custom_kun_pc}
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -305,7 +299,6 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
@@ -314,7 +307,7 @@ const CustomerSalesTable = ({
                         type="number"
                         value={item.custom_kun}
                         defaultValue={item.custom_kun}
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -322,16 +315,15 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={
+                        value={(
                           Number(item.custom_kun_pc) * Number(item.custom_kun)
-                        }
+                        )?.toFixed(2)}
                         defaultValue={item.custom_kun_amt}
                         readOnly
                         onChange={(e) =>
@@ -342,7 +334,6 @@ const CustomerSalesTable = ({
                           )
                         }
                         disabled
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
@@ -351,7 +342,7 @@ const CustomerSalesTable = ({
                         type="number"
                         value={item.custom_ot_}
                         defaultValue={item.custom_ot_}
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -359,16 +350,15 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={
+                        value={(
                           Number(item.custom_other_wt) * Number(item.custom_ot_)
-                        }
+                        )?.toFixed(2)}
                         defaultValue={item.custom_ot_amt}
                         readOnly
                         onChange={(e) =>
@@ -379,7 +369,6 @@ const CustomerSalesTable = ({
                           )
                         }
                         disabled
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
@@ -388,7 +377,7 @@ const CustomerSalesTable = ({
                         type="number"
                         value={item.custom_other}
                         defaultValue={item.custom_other}
-                        // readOnly={readOnlyFields}
+                        readOnly={readOnlyFields}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -396,21 +385,19 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        // value={item.custom_amount}
-                        value={
+                        value={(
                           Number(item.custom_cs_amt) +
                           Number(item.custom_kun) *
                             Number(item?.custom_kun_pc) +
                           Number(item.custom_ot_amt) +
                           Number(item.custom_other)
-                        }
+                        )?.toFixed(2)}
                         defaultValue={item.custom_amount}
                         readOnly
                         onChange={(e) =>
@@ -421,7 +408,6 @@ const CustomerSalesTable = ({
                           )
                         }
                         disabled
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
