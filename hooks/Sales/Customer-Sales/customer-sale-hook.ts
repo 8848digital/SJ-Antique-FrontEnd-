@@ -378,10 +378,17 @@ const UseCustomerSaleHook = () => {
           ...updatedObject,
           custom_net_wt:
             Number(data?.custom_gross_wt) -
-            Number(data?.custom_kun_wt) +
-            Number(data?.custom_cs_wt) +
-            Number(data?.custom_bb_wt) +
-            Number(data?.custom_other_wt),
+              (Number(data?.custom_kun_wt) +
+                Number(data?.custom_cs_wt) +
+                Number(data?.custom_bb_wt) +
+                Number(data?.custom_other_wt)) <
+            0
+              ? 0
+              : Number(data?.custom_gross_wt) -
+                (Number(data?.custom_kun_wt) +
+                  Number(data?.custom_cs_wt) +
+                  Number(data?.custom_bb_wt) +
+                  Number(data?.custom_other_wt)),
           custom_amount:
             Number(data.custom_cs_amt) +
             Number(data.custom_kun_amt) +
@@ -418,6 +425,7 @@ const UseCustomerSaleHook = () => {
       }
     }
   };
+
   console.log('sales table data', salesTableData);
   return {
     salesTableData,

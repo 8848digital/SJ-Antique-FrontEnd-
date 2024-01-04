@@ -65,6 +65,7 @@ const DetailPageCustomerSale = () => {
           setSeletedCategory={setSeletedCategory}
           handleSelectChange={handleSelectChange}
           readOnlyFields={readOnlyFields}
+          key={'edit'}
         />
         <CustomerSalesTable
           handleSalesTableFieldChange={handleSalesTableFieldChange}

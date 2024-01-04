@@ -150,14 +150,6 @@ const CustomerSalesTable = ({
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
                         value={item?.custom_kun_wt}
-                        // value={
-                        //   selectedCategory.KunCategory !== ''
-                        //     ? item.custom_kun_wt *
-                        //       ((item.custom_kun_wt *
-                        //         selectedCategory.KunCategory.type) /
-                        //         100)
-                        //     : item.custom_kun_wt
-                        // }
                         defaultValue={item?.custom_kun_wt}
                         onChange={(e) =>
                           handleSalesTableFieldChange(
@@ -174,14 +166,6 @@ const CustomerSalesTable = ({
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
                         value={item.custom_cs_wt}
-                        // value={
-                        //   selectedCategory.CsCategory !== ''
-                        //     ? item.custom_cs_wt *
-                        //       ((item.custom_cs_wt *
-                        //         selectedCategory.CsCategory.type) /
-                        //         100)
-                        //     : item.custom_cs_wt
-                        // }
                         defaultValue={item.custom_cs_wt}
                         // readOnly={readOnlyFields}
                         onChange={(e) =>
@@ -199,11 +183,6 @@ const CustomerSalesTable = ({
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
                         value={item.custom_bb_wt}
-                        // value={
-                        //   selectedCategory.BBCategory !== ''
-                        //     ? item.custom_bb_wt - 0.7
-                        //     : item.custom_bb_wt
-                        // }
                         defaultValue={item.custom_bb_wt}
                         // readOnly={readOnlyFields}
                         onChange={(e) =>
@@ -248,10 +227,17 @@ const CustomerSalesTable = ({
                         value={
                           // Number(tableData[i]?.totalModalWeight) ||
                           Number(item.custom_gross_wt) -
-                          (Number(item.custom_kun_wt) +
-                            Number(item.custom_cs_wt) +
-                            Number(item.custom_bb_wt) +
-                            Number(item.custom_other_wt))
+                            (Number(item.custom_kun_wt) +
+                              Number(item.custom_cs_wt) +
+                              Number(item.custom_bb_wt) +
+                              Number(item.custom_other_wt)) <
+                          0
+                            ? 0
+                            : Number(item.custom_gross_wt) -
+                              (Number(item.custom_kun_wt) +
+                                Number(item.custom_cs_wt) +
+                                Number(item.custom_bb_wt) +
+                                Number(item.custom_other_wt))
                         }
                         defaultValue={item.custom_net_wt}
                         readOnly
@@ -420,7 +406,8 @@ const CustomerSalesTable = ({
                         // value={item.custom_amount}
                         value={
                           Number(item.custom_cs_amt) +
-                          Number(item.custom_kun_amt) +
+                          Number(item.custom_kun) *
+                            Number(item?.custom_kun_pc) +
                           Number(item.custom_ot_amt) +
                           Number(item.custom_other)
                         }

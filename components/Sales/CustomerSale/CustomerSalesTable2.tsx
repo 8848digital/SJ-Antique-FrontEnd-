@@ -7,7 +7,9 @@ const CustomerSalesTable2 = ({
   selectedCategory,
   setSeletedCategory,
   handleSelectChange,
+  key,
 }: any) => {
+  console.log(key, 'key in details page');
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
@@ -16,6 +18,7 @@ const CustomerSalesTable2 = ({
     DetailOfDeliveryNoteFromStore
   );
   console.log('selected category in tsx', selectedCategory);
+
   return (
     <div className="table-responsive">
       <table className="table table-hover table-bordered">
@@ -35,13 +38,27 @@ const CustomerSalesTable2 = ({
                 id=""
                 className=" form-select form-select-sm border-secondary p-0 px-2 "
                 onChange={handleSelectChange}
-                value={
-                  selectedCategory.KunCategory
-                    ? selectedCategory.KunCategory.name1
+                defaultValue={
+                  key === 'edit'
+                    ? DetailOfDeliveryNoteFromStore.data.custom_kun_category
                     : ''
                 }
+                // value={
+                //   selectedCategory.KunCategory
+                //     ? selectedCategory.KunCategory.name1
+                //     : ''
+                // }
               >
-                <option selected></option>
+                <option
+                  selected
+                  value={
+                    DetailOfDeliveryNoteFromStore?.data?.custom_kun_category
+                  }
+                >
+                  {key === 'edit'
+                    ? DetailOfDeliveryNoteFromStore.data.custom_kun_category
+                    : ''}
+                </option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map((categoryData: any) => (
@@ -58,7 +75,11 @@ const CustomerSalesTable2 = ({
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
               >
-                <option selected></option>
+                <option selected>
+                  {key === 'edit'
+                    ? DetailOfDeliveryNoteFromStore?.data?.custom_kun_category
+                    : ''}
+                </option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map((categoryData: any) => (
@@ -74,7 +95,11 @@ const CustomerSalesTable2 = ({
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
               >
-                <option selected></option>
+                <option selected>
+                  {key === 'edit'
+                    ? DetailOfDeliveryNoteFromStore?.data?.custom_kun_category
+                    : ''}
+                </option>
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
                   BBCategoryListData.map((BBCategoryData: any) => (
@@ -89,7 +114,11 @@ const CustomerSalesTable2 = ({
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
               >
-                <option selected></option>
+                <option selected>
+                  {key === 'edit'
+                    ? DetailOfDeliveryNoteFromStore?.data?.custom_kun_category
+                    : ''}
+                </option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map((categoryData: any) => (

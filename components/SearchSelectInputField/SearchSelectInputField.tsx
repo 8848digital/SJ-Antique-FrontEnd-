@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const SearchSelectInputField = ({
   karigarData,
@@ -14,21 +14,66 @@ const SearchSelectInputField = ({
   readOnlyFields,
   style,
   clientGroupList,
-  handleSelectClientGroup,
 }: any) => {
   const inputRef = useRef<any>(null);
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
   const [scrollIndex, setScrollIndex] = useState(0);
   const [noRecords, setNoRecordsFound] = useState(false);
   const [filterDropdownList, setFilterDropdownList] = useState([]);
-  const dropdownRef = useRef<HTMLUListElement>(null);
   const [showClientGroupSelect, setShowClientGroupSelect] = useState(false);
 
   console.log(defaultValue, 'karigar data in search');
 
+  useEffect(() => {
+    const handleDocumentClick = (e: any) => {
+      // Check if the input element itself or the client group select dropdown was clicked
+      const isSelectClicked =
+        e.target.tagName === 'SELECT' &&
+        e.target.classList.contains('form-select');
+
+      if (
+        e?.target !== inputRef?.current &&
+        !inputRef?.current?.contains(e.target) &&
+        !dropdownRef?.current?.contains(e.target) &&
+        !isSelectClicked
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    const handleClientGroupDropdownClick = (e: any) => {
+      // Stop event propagation for client group dropdown
+      e.stopPropagation();
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+    document
+      .querySelector('.form-select.form-select-sm.border')
+      ?.addEventListener('click', handleClientGroupDropdownClick);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+      document
+        .querySelector('.form-select.form-select-sm.border')
+        ?.removeEventListener('click', handleClientGroupDropdownClick);
+    };
+  }, [inputRef]);
+
+  useEffect(() => {
+    if (showDropdown && dropdownRef.current) {
+      const selectedItem = dropdownRef.current.childNodes[
+        selectedIndex
+      ] as HTMLElement;
+      if (selectedItem) {
+        selectedItem.scrollIntoView({ block: 'nearest' });
+      }
+    }
+  }, [selectedIndex, showDropdown]);
+
   const handleShowDropdown = () => {
-    console.log('read', readOnlyFields);
     if (!readOnlyFields) {
       setShowDropdown(!showDropdown);
       setSelectedIndex(-1);
@@ -37,27 +82,25 @@ const SearchSelectInputField = ({
   };
 
   const handleSelectedOption = (data: any, i: any) => {
-    console.log('select option', data);
     setSelectedDropdownValue(data?.karigar_name);
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
+
     if (setRecipitData !== undefined) {
       setRecipitData({ ...recipitData, custom_karigar: data?.karigar_name });
     }
+
     if (setStateForDocStatus !== undefined) {
       setStateForDocStatus(true);
     }
   };
 
   const handleDocumentClick = (e: any) => {
-    // Check if the input element itself or the client group select dropdown was clicked
     if (
       e?.target !== inputRef?.current &&
-      !inputRef?.current?.contains(e.target) &&
-      !dropdownRef?.current?.contains(e.target) &&
-      !e.target.classList.contains('form-select') // Adjust this selector based on your client group select dropdown
+      !inputRef?.current?.contains(e?.target)
     ) {
-      setShowDropdown(false);
+      setShowDropdown(true);
     }
   };
 
@@ -69,7 +112,6 @@ const SearchSelectInputField = ({
         setSelectedIndex(-1);
         setFilterDropdownList(karigarData);
       } else if (e.key === 'ArrowDown' && showDropdown) {
-        // setSelectedIndex((prevIndex: any) => ( prevIndex + 1));
         setSelectedIndex((prevIndex: any) =>
           prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
         );
@@ -93,45 +135,6 @@ const SearchSelectInputField = ({
     }
   };
 
-  useEffect(() => {
-    const handleDocumentClick = (e: any) => {
-      // Check if the input element itself was clicked
-      if (
-        e?.target !== inputRef?.current &&
-        !inputRef?.current?.contains(e?.target)
-      ) {
-        setShowDropdown(false);
-      }
-    };
-
-    const handleClientGroupDropdownClick = (e: any) => {
-      // Stop event propagation for client group dropdown
-      e.stopPropagation();
-    };
-
-    document.addEventListener('click', handleDocumentClick);
-    document
-      .querySelector('.form-select form-select-sm border')
-      ?.addEventListener('click', handleClientGroupDropdownClick);
-
-    return () => {
-      document.removeEventListener('click', handleDocumentClick);
-      document
-        .querySelector('.form-select form-select-sm border')
-        ?.removeEventListener('click', handleClientGroupDropdownClick);
-    };
-  }, [inputRef]);
-
-  useEffect(() => {
-    if (showDropdown && dropdownRef.current) {
-      const selectedItem = dropdownRef.current.childNodes[
-        selectedIndex
-      ] as HTMLElement;
-      if (selectedItem) {
-        selectedItem.scrollIntoView({ block: 'nearest' });
-      }
-    }
-  }, [selectedIndex, showDropdown]);
   const handleFieldChange = (e: any) => {
     setShowDropdown(true);
     setSelectedDropdownValue(e.target.value);
@@ -143,32 +146,45 @@ const SearchSelectInputField = ({
           item.karigar_name?.toLowerCase()?.indexOf(query?.toLowerCase()) !== -1
         );
       });
-    console.log(updatedFilterList, clientGroupList, 'filter list');
+
     setFilterDropdownList(updatedFilterList);
     setNoRecordsFound(true);
+
     if (setRecipitData !== undefined) {
       setRecipitData({
         ...recipitData,
         custom_karigar: selectedDropdownValue,
       });
     }
+
     if (setStateForDocStatus !== undefined) {
       setStateForDocStatus(true);
     }
+
     handleKeyDown(e);
   };
+
   const handleShowClientGroupSelect = (
     e: React.MouseEvent<HTMLSelectElement>
   ) => {
     e.stopPropagation(); // Stop event propagation
     setShowClientGroupSelect(!showClientGroupSelect);
-    setShowDropdown(false); // Ensure that the parent dropdown doesn't close
+    setShowDropdown(true);
   };
 
   const HandleClientBlur = () => {
-    setShowDropdown(false);
+    if (!document.activeElement?.classList.contains('form-select')) {
+      if (filterDropdownList.length === 0) {
+        setShowDropdown(true);
+      } else {
+        setShowDropdown(false);
+      }
+    }
   };
-
+  const handleSelectClientGroup = (value: any) => {
+    setSelectedDropdownValue(value);
+    setShowDropdown(!showDropdown);
+  };
   return (
     <div>
       <input
@@ -176,11 +192,9 @@ const SearchSelectInputField = ({
         name="custom_karigar"
         className={className}
         placeholder={placeholder}
-        onBlur={() => setShowDropdown(false)}
-        onChange={(e) => {
-          handleFieldChange(e);
-        }}
-        // onClick={handleDocumentClick}
+        onBlur={HandleClientBlur}
+        onChange={(e) => handleFieldChange(e)}
+        onClick={handleDocumentClick}
         onMouseDown={handleShowDropdown}
         value={selectedDropdownValue}
         defaultValue={defaultValue}
@@ -204,7 +218,6 @@ const SearchSelectInputField = ({
                     handleShowClientGroupSelect(e);
                   }}
                   onChange={(e) => handleSelectClientGroup(e.target.value)}
-                  onBlur={HandleClientBlur}
                 >
                   <option>Select client group</option>
                   {clientGroupList?.length > 0 &&
@@ -222,7 +235,9 @@ const SearchSelectInputField = ({
                 filterDropdownList.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onMouseDown={() => handleSelectedOption(name, i)}
+                    onMouseDown={(e) => {
+                      handleSelectedOption(name, i);
+                    }}
                     className={`dropdown-list ${
                       i === selectedIndex ? 'selected' : ''
                     }`}
@@ -235,7 +250,9 @@ const SearchSelectInputField = ({
                 karigarData.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onMouseDown={() => handleSelectedOption(name, i)}
+                    onMouseDown={(e) => {
+                      handleSelectedOption(name, i);
+                    }}
                     className={`dropdown-list ${
                       i === selectedIndex ? 'selected' : ''
                     }`}
