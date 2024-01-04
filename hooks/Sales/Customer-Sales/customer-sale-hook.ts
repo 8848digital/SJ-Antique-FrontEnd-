@@ -98,6 +98,7 @@ const UseCustomerSaleHook = () => {
     custom_ot_amt: '',
     custom_other: '',
     custom_amount: 0,
+    warehouse: '',
   };
 
   const [salesTableData, setSalesTableData] = useState<any>([
@@ -192,6 +193,7 @@ const UseCustomerSaleHook = () => {
             cs_wt_initial: data[0]?.custom_cs_wt,
             bb_wt_initial: data[0]?.custom_bb_wt,
             ot_wt_initial: data[0]?.custom_other_wt,
+            warehouse: data[0].custom_warehouse,
           };
         } else {
           return tableData;
@@ -212,8 +214,8 @@ const UseCustomerSaleHook = () => {
         try {
           let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
             loginAcessToken?.token,
-            // selectedItemCodeForCustomerSale.item_code
-            'nfsam-3'
+            selectedItemCodeForCustomerSale.item_code
+            // 'nfsam-3'
           );
 
           console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
@@ -391,7 +393,7 @@ const UseCustomerSaleHook = () => {
       });
     const values = {
       ...deliveryNoteData,
-      Client: selectedClient,
+      custom_client_name: selectedClient,
       version: 'v1',
       method: 'create_delivery_note',
       entity: 'delivery_note_api',
@@ -401,7 +403,7 @@ const UseCustomerSaleHook = () => {
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
-    let reqField = values.Client;
+    let reqField = values.custom_client_name;
     if (reqField === '') {
       toast.error('Client Name is Empty');
     } else {

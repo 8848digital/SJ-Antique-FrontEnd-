@@ -6,12 +6,16 @@ import { useRouter } from 'next/router';
 
 const CustomerSalesButtonsSection = ({
   stateForDocStatus,
-  setstateForDocStatus,
+  setStateForDocStatus,
   handleUpdateDeliveryNote,
   readOnlyFields,
   setReadOnlyFields,
   showSaveButtonForAmendFlow,
   setShowSaveButtonForAmendFlow,
+  HandleUpdateSalesdocStatus,
+  HandleAmendButtonForCustomerSales,
+  HandleDeleteDeliveryNote,
+  handleDeliveryNotePrintApi,
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
@@ -28,7 +32,7 @@ const CustomerSalesButtonsSection = ({
   const HandleAmendButtonChanges: any = async () => {
     console.log('docStatus from store in amend func');
     setShowSaveButtonForAmendFlow(true);
-    setstateForDocStatus(true);
+    setStateForDocStatus(true);
     setReadOnlyFields(false);
   };
 
@@ -71,17 +75,16 @@ const CustomerSalesButtonsSection = ({
               </span>
             </button>
           )}
-          {DetailOfDeliveryNoteFromStore?.docStatus === 2 && (
-            //   && readOnlyFields
+          {DetailOfDeliveryNoteFromStore?.docStatus === 2 && readOnlyFields && (
             <button type="button" className={`btn ${styles.docstatus_button}`}>
               <span className={`${styles.docstatus_button_text}`}>
                 Cancelled
               </span>
             </button>
           )}
-          {
-            //   showSaveButtonForAmendFlow &&
-            stateForDocStatus && readOnlyFields === false && (
+          {showSaveButtonForAmendFlow &&
+            stateForDocStatus &&
+            readOnlyFields === false && (
               <button
                 type="button"
                 className={`btn ${styles.docstatus_button}`}
@@ -90,8 +93,7 @@ const CustomerSalesButtonsSection = ({
                   Not saved
                 </span>
               </button>
-            )
-          }
+            )}
         </div>
         <div className={`${styles.button_field}`}>
           {DetailOfDeliveryNoteFromStore?.docStatus === 0 &&
@@ -109,7 +111,19 @@ const CustomerSalesButtonsSection = ({
               <button
                 type="button"
                 className={`${styles.create_button} px-2 py-0 me-2`}
-                //   onClick={() => HandleUpdatedocStatus('1')}
+                onClick={() =>
+                  handleDeliveryNotePrintApi(query?.deliveryNoteId)
+                }
+              >
+                Print
+              </button>
+            )}
+          {DetailOfDeliveryNoteFromStore?.docStatus === 0 &&
+            stateForDocStatus === false && (
+              <button
+                type="button"
+                className={`${styles.create_button} px-2 py-0 me-2`}
+                onClick={() => HandleUpdateSalesdocStatus('1')}
               >
                 Submit
               </button>
@@ -119,48 +133,48 @@ const CustomerSalesButtonsSection = ({
               <button
                 type="button"
                 className={`${styles.create_button} px-2 py-0 me-2`}
-                //   onClick={() => HandleUpdatedocStatus('2')}
+                onClick={() => HandleUpdateSalesdocStatus('2')}
               >
                 Cancel
               </button>
             )}
-          {DetailOfDeliveryNoteFromStore?.posting_date ===
+          {/* {DetailOfDeliveryNoteFromStore?.posting_date ===
             new Date()?.toISOString()?.split('T')[0] && (
-            <>
-              {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
-                stateForDocStatus === false && (
-                  <button
-                    type="button"
-                    className={`${styles.create_button} px-2 py-0 me-2`}
-                    //   onClick={HandleAmendButtonChanges}
-                  >
-                    Amend
-                  </button>
-                )}
-            </>
-          )}
+            <> */}
+          {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
+            stateForDocStatus === false && (
+              <button
+                type="button"
+                className={`${styles.create_button} px-2 py-0 me-2`}
+                onClick={HandleAmendButtonChanges}
+              >
+                Amend
+              </button>
+            )}
+          {/* </>
+          )} */}
 
           {showSaveButtonForAmendFlow &&
             stateForDocStatus &&
             readOnlyFields === false && (
               <button
                 type="submit"
-                // onClick={HandleAmendButtonForDuplicateChitti}
+                onClick={HandleAmendButtonForCustomerSales}
                 className={`${styles.create_button} px-2 py-0 me-2 `}
               >
                 Save
               </button>
             )}
 
-          {DetailOfDeliveryNoteFromStore?.docStatus === 2 && (
+          {/* {DetailOfDeliveryNoteFromStore?.docStatus === 2 && (
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2 `}
-              //   onClick={() => HandleDeleteReceipt(query?.receiptId)}
+              onClick={() => HandleDeleteDeliveryNote(query?.deliveryNoteId)}
             >
               Delete
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </>

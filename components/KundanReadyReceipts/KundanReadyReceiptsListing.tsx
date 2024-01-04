@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/readyReceiptTableListing.module.css';
 import FilterKundanReadyReceiptListing from './FilterKundanReadyReceiptListing';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
+import PrintApi from '@/services/api/Sales/print-api';
 
 const KundanListing = ({
   kundanListing,
@@ -146,10 +147,14 @@ const KundanListing = ({
   };
 
   const HandlePrintApi: any = async (name: any) => {
-    let printApiRes: any = await PrintPurchaseReceiptApi(
-      loginAcessToken?.token,
-      name
-    );
+    const reqParams = {
+      token: loginAcessToken?.token,
+      name: name,
+      version: 'v1',
+      method: 'get_print_purchase_receipt',
+      entity: 'print_purchase_receipt',
+    };
+    let printApiRes: any = await PrintApi(reqParams);
     if (printApiRes?.status === 'success') {
       if (printApiRes?.data?.data?.length > 0) {
         window.open(printApiRes?.data?.data[0]?.print_url);

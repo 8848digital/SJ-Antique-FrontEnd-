@@ -13,6 +13,7 @@ const CustomerSalesTable1 = ({
   handleSelectClientGroup,
   clientGroupList,
   readOnlyFields,
+  setStateForDocStatus,
 }: any) => {
   const { query } = useRouter();
   // console.log('client name list', clientNameListData);
@@ -77,6 +78,7 @@ const CustomerSalesTable1 = ({
                 handleSelectClientGroup={handleSelectClientGroup}
                 clientGroupList={clientGroupList}
                 readOnlyFields={readOnlyFields}
+                setStateForDocStatus={setStateForDocStatus}
               />
             </td>
             {/* <td className="table_row">

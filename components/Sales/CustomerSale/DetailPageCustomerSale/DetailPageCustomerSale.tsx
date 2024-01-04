@@ -33,6 +33,10 @@ const DetailPageCustomerSale = () => {
     setReadOnlyFields,
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
+    HandleUpdateSalesdocStatus,
+    HandleAmendButtonForCustomerSales,
+    HandleDeleteDeliveryNote,
+    handleDeliveryNotePrintApi,
   }: any = UseCustomerSaleDetailHook();
 
   console.log('stateee', stateForDocStatus);
@@ -50,6 +54,12 @@ const DetailPageCustomerSale = () => {
             setReadOnlyFields={setReadOnlyFields}
             showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
             setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
+            HandleUpdateSalesdocStatus={HandleUpdateSalesdocStatus}
+            HandleAmendButtonForCustomerSales={
+              HandleAmendButtonForCustomerSales
+            }
+            HandleDeleteDeliveryNote={HandleDeleteDeliveryNote}
+            handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
           />
         </div>
         <CustomerSalesTable1
@@ -57,6 +67,7 @@ const DetailPageCustomerSale = () => {
           selectedClient={selectedClient}
           setSelectedClient={setSelectedClient}
           readOnlyFields={readOnlyFields}
+          setStateForDocStatus={setStateForDocStatus}
         />
         <CustomerSalesTable2
           kunCsOtCategoryListData={kunCsOtCategoryListData}
