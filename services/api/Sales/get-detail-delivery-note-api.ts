@@ -5,8 +5,8 @@ const GetDetailOfDeliveryNoteAPi = async (request: any) => {
   console.log('tokennnn', request);
   let response: any;
   const version = 'v1';
-  const method = 'get_name_specific_purchase_receipt';
-  const entity = 'name_specific_purchase_receipt';
+  const method = 'get_specific_delivery_note';
+  const entity = 'delivery_note_api';
 
   const params = `/api/method/sj_antique.sdk.api?version=${version}&method=${method}&entity=${entity}&name=${request.name}`;
 

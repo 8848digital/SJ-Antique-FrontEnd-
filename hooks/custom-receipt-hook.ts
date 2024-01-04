@@ -380,8 +380,11 @@ const UseCustomReceiptHook: any = () => {
         return {
           ...item,
           [field]:
-            // field === 'custom_add_photo' ? fileData : newValue,
-            field === 'custom_add_photo' ? filePath : formatInput(newValue),
+            field === 'custom_add_photo'
+              ? filePath
+              : field === 'product_code'
+              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+              : formatInput(newValue),
         };
       }
       return item;

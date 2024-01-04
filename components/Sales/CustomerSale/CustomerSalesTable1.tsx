@@ -1,7 +1,10 @@
 import CurrentDate from '@/components/CurrentDate';
 import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
 import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
+import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
+import { useRouter } from 'next/router';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const CustomerSalesTable1 = ({
   clientNameListData,
@@ -9,8 +12,18 @@ const CustomerSalesTable1 = ({
   setSelectedClient,
   handleSelectClientGroup,
   clientGroupList,
+  readOnlyFields,
 }: any) => {
+  const { query } = useRouter();
   // console.log('client name list', clientNameListData);
+  const DetailOfDeliveryNoteFromStore: any = useSelector(
+    get_detail_delivery_note_data
+  );
+  console.log(
+    'DetailOfDeliveryNote from store in tsx',
+    DetailOfDeliveryNoteFromStore?.data?.custom_client_name,
+    query
+  );
   return (
     <div className=" mt-2">
       <table className="table table-hover table-bordered">
@@ -25,9 +38,9 @@ const CustomerSalesTable1 = ({
             <th className="thead" scope="col">
               Client
             </th>
-            <th className="thead " scope="col">
+            {/* <th className="thead " scope="col">
               Remarks
-            </th>
+            </th> */}
           </tr>
         </thead>
         <tbody>
@@ -38,6 +51,7 @@ const CustomerSalesTable1 = ({
                 type="text"
                 name="remarks"
                 autoComplete="off"
+                value={query?.deliveryNoteId}
                 readOnly
               />
             </td>
@@ -55,21 +69,24 @@ const CustomerSalesTable1 = ({
                 }
                 setSelectedDropdownValue={setSelectedClient}
                 selectedDropdownValue={selectedClient}
+                defaultValue={
+                  DetailOfDeliveryNoteFromStore?.data?.custom_client_name
+                }
                 placeholder={'Client Name'}
                 className={'form-control input-sm border border-secondary'}
                 handleSelectClientGroup={handleSelectClientGroup}
                 clientGroupList={clientGroupList}
-                // readOnlyFields={readOnlyFields}
+                readOnlyFields={readOnlyFields}
               />
             </td>
-            <td className="table_row">
+            {/* <td className="table_row">
               <input
                 className="form-control input-sm border border-secondary"
                 type="text"
                 name="remarks"
                 autoComplete="off"
               />
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </table>

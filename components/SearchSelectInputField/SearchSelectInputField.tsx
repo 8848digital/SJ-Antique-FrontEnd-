@@ -25,7 +25,7 @@ const SearchSelectInputField = ({
   const dropdownRef = useRef<HTMLUListElement>(null);
   const [showClientGroupSelect, setShowClientGroupSelect] = useState(false);
 
-  console.log(clientGroupList, 'karigar data in search');
+  console.log(defaultValue, 'karigar data in search');
 
   const handleShowDropdown = () => {
     console.log('read', readOnlyFields);
