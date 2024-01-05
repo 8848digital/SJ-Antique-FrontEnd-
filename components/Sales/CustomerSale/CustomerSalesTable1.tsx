@@ -14,6 +14,7 @@ const CustomerSalesTable1 = ({
   clientGroupList,
   readOnlyFields,
   setStateForDocStatus,
+  defaultSalesDate,
 }: any) => {
   const { query } = useRouter();
   // console.log('client name list', clientNameListData);
@@ -57,7 +58,7 @@ const CustomerSalesTable1 = ({
               />
             </td>
             <td className="table_row">
-              <CurrentDate />
+              <CurrentDate defaultSalesDate={defaultSalesDate} />
             </td>
             <td className="table_row">
               <SearchSelectInputField

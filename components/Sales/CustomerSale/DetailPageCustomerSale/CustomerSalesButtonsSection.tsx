@@ -140,21 +140,21 @@ const CustomerSalesButtonsSection = ({
                 Cancel
               </button>
             )}
-          {/* {DetailOfDeliveryNoteFromStore?.posting_date ===
+          {DetailOfDeliveryNoteFromStore?.data?.posting_date ===
             new Date()?.toISOString()?.split('T')[0] && (
-            <> */}
-          {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
-            stateForDocStatus === false && (
-              <button
-                type="button"
-                className={`${styles.create_button} px-2 py-0 me-2`}
-                onClick={HandleAmendButtonChanges}
-              >
-                Amend
-              </button>
-            )}
-          {/* </>
-          )} */}
+            <>
+              {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
+                stateForDocStatus === false && (
+                  <button
+                    type="button"
+                    className={`${styles.create_button} px-2 py-0 me-2`}
+                    onClick={HandleAmendButtonChanges}
+                  >
+                    Amend
+                  </button>
+                )}
+            </>
+          )}
 
           {showSaveButtonForAmendFlow &&
             stateForDocStatus &&

@@ -52,6 +52,8 @@ const UseCustomerSaleDetailHook = () => {
   );
 
   const [readOnlyFields, setReadOnlyFields] = useState<boolean>(false);
+  const [defaultSalesDate, setDefaultSalesDate] = useState<any>('');
+
   const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] =
     useState<boolean>(false);
 
@@ -80,6 +82,7 @@ const UseCustomerSaleDetailHook = () => {
       setSelectedClient(
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
+      setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
       // setSeletedCategory({
       //   KunCategory: DetailOfDeliveryNoteFromStore?.data?.custom_kun_category,
       //   CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
@@ -216,6 +219,7 @@ const UseCustomerSaleDetailHook = () => {
     HandleAmendButtonForCustomerSales,
     HandleDeleteDeliveryNote,
     handleDeliveryNotePrintApi,
+    defaultSalesDate,
   };
 };
 

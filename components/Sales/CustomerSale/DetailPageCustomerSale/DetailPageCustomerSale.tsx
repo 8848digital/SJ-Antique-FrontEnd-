@@ -37,9 +37,10 @@ const DetailPageCustomerSale = () => {
     HandleAmendButtonForCustomerSales,
     HandleDeleteDeliveryNote,
     handleDeliveryNotePrintApi,
+    defaultSalesDate,
   }: any = UseCustomerSaleDetailHook();
 
-  console.log('stateee', stateForDocStatus);
+  console.log('stateee', salesTableData);
 
   return (
     <div className="container-lg">
@@ -68,6 +69,7 @@ const DetailPageCustomerSale = () => {
           setSelectedClient={setSelectedClient}
           readOnlyFields={readOnlyFields}
           setStateForDocStatus={setStateForDocStatus}
+          defaultSalesDate={defaultSalesDate}
         />
         <CustomerSalesTable2
           kunCsOtCategoryListData={kunCsOtCategoryListData}

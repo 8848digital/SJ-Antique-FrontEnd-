@@ -5,8 +5,8 @@ const CustomerSalesTable2 = ({
   kunCsOtCategoryListData,
   BBCategoryListData,
   selectedCategory,
-  setSeletedCategory,
   handleSelectChange,
+  readOnlyFields,
   key,
 }: any) => {
   console.log(key, 'key in details page');
@@ -38,6 +38,7 @@ const CustomerSalesTable2 = ({
                 id=""
                 className=" form-select form-select-sm border-secondary p-0 px-2 "
                 onChange={handleSelectChange}
+                disabled={readOnlyFields}
                 defaultValue={
                   key === 'edit'
                     ? DetailOfDeliveryNoteFromStore.data.custom_kun_category
@@ -74,6 +75,7 @@ const CustomerSalesTable2 = ({
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
+                disabled={readOnlyFields}
               >
                 <option selected>
                   {key === 'edit'
@@ -94,6 +96,7 @@ const CustomerSalesTable2 = ({
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
+                disabled={readOnlyFields}
               >
                 <option selected>
                   {key === 'edit'
@@ -111,8 +114,9 @@ const CustomerSalesTable2 = ({
               <select
                 name="OtCategory"
                 id=""
-                className=" form-select form-select-sm border-secondary  p-0 px-2 "
+                className="form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
+                disabled={readOnlyFields}
               >
                 <option selected>
                   {key === 'edit'
