@@ -5,8 +5,8 @@ const CustomerSalesTable2 = ({
   kunCsOtCategoryListData,
   BBCategoryListData,
   selectedCategory,
-  setSeletedCategory,
   handleSelectChange,
+  readOnlyFields,
 }: any) => {
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
@@ -35,6 +35,7 @@ const CustomerSalesTable2 = ({
                 id=""
                 className=" form-select form-select-sm border-secondary p-0 px-2 "
                 onChange={handleSelectChange}
+                disabled={readOnlyFields}
                 value={
                   selectedCategory.KunCategory
                     ? selectedCategory.KunCategory.name1
@@ -57,6 +58,7 @@ const CustomerSalesTable2 = ({
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
+                disabled={readOnlyFields}
               >
                 <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
@@ -73,6 +75,7 @@ const CustomerSalesTable2 = ({
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
+                disabled={readOnlyFields}
               >
                 <option selected></option>
                 {BBCategoryListData?.length > 0 &&
@@ -86,8 +89,9 @@ const CustomerSalesTable2 = ({
               <select
                 name="OtCategory"
                 id=""
-                className=" form-select form-select-sm border-secondary  p-0 px-2 "
+                className="form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
+                disabled={readOnlyFields}
               >
                 <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
