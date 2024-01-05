@@ -83,18 +83,55 @@ const UseCustomerSaleDetailHook = () => {
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
       setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
-      // setSeletedCategory({
-      //   KunCategory: DetailOfDeliveryNoteFromStore?.data?.custom_kun_category,
-      //   CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
-      //   BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
-      //   OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
-      // });
+      setSeletedCategory({
+        KunCategory: DetailOfDeliveryNoteFromStore?.data?.custom_kun_category,
+        CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
+        BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
+        OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
+      });
     }
   }, [DetailOfDeliveryNoteFromStore]);
 
-  console.log('sales table data with default values', selectedClient);
+  console.log(
+    'sales table data with default values',
+    selectedClient,
+    selectedCategory
+  );
 
   const handleUpdateDeliveryNote: any = async () => {
+    const updatedData =
+      salesTableData.length > 0 &&
+      salesTableData !== null &&
+      salesTableData.map((data: any) => {
+        const {
+          kun_wt_initial,
+          cs_wt_initial,
+          bb_wt_initial,
+          ot_wt_initial,
+          ...updatedObject
+        } = data;
+        return {
+          ...updatedObject,
+          custom_net_wt:
+            Number(data?.custom_gross_wt) -
+              (Number(data?.custom_kun_wt) +
+                Number(data?.custom_cs_wt) +
+                Number(data?.custom_bb_wt) +
+                Number(data?.custom_other_wt)) <
+            0
+              ? 0
+              : Number(data?.custom_gross_wt) -
+                (Number(data?.custom_kun_wt) +
+                  Number(data?.custom_cs_wt) +
+                  Number(data?.custom_bb_wt) +
+                  Number(data?.custom_other_wt)),
+          custom_amount:
+            Number(data.custom_cs_amt) +
+            Number(data.custom_kun_amt) +
+            Number(data.custom_ot_amt) +
+            Number(data.custom_other),
+        };
+      });
     const values = {
       version: 'v1',
       method: 'put_delivery_note',
@@ -105,7 +142,7 @@ const UseCustomerSaleDetailHook = () => {
       custom_cs_category: selectedCategory?.CsCategory?.name1,
       custom_bb_category: selectedCategory?.BBCategory?.name1,
       custom_ot_category: selectedCategory?.OtCategory?.name1,
-      items: salesTableData,
+      items: updatedData,
     };
     let updateDeliveryNoteApi: any = await UpdateDeliveryNoteApi(
       loginAcessToken?.token,
@@ -188,6 +225,68 @@ const UseCustomerSaleDetailHook = () => {
       window.open(deliveryNotePrintApi?.data?.data[0]?.print_url);
     }
   };
+  useEffect(() => {
+    const updatedData =
+      salesTableData.length > 0 &&
+      salesTableData !== null &&
+      salesTableData.map((data: any) => {
+        const kunInitial = Number(data?.kun_wt_initial) || 0;
+        const csWtInitial = Number(data?.cs_wt_initial) || 0;
+        const bbWtInitial = Number(data?.bb_wt_initial) || 0;
+        const otWtInitial = Number(data?.ot_wt_initial) || 0;
+
+        return {
+          ...data,
+          custom_gross_wt: data?.custom_gross_wt,
+          custom_kun_wt:
+            selectedCategory.KunCategory !== ''
+              ? (kunInitial *
+                  (kunInitial * selectedCategory?.KunCategory?.type)) /
+                100
+              : data?.custom_kun_wt,
+          custom_cs_wt:
+            selectedCategory.CsCategory !== ''
+              ? (csWtInitial *
+                  (csWtInitial * selectedCategory?.CsCategory?.type)) /
+                100
+              : Number(data?.custom_cs_wt),
+          custom_bb_wt:
+            selectedCategory?.BBCategory !== ''
+              ? bbWtInitial - 0.7
+              : bbWtInitial,
+          custom_other_wt:
+            selectedCategory.OtCategory !== ''
+              ? (otWtInitial *
+                  otWtInitial *
+                  selectedCategory.OtCategory?.type) /
+                100
+              : data?.custom_other_wt,
+          custom_cs_amt:
+            (selectedCategory.CsCategory !== ''
+              ? (csWtInitial *
+                  (csWtInitial * selectedCategory.CsCategory.type)) /
+                100
+              : Number(data?.custom_cs_wt)) * data?.custom_cs,
+          custom_ot_amt:
+            (selectedCategory.OtCategory !== ''
+              ? (otWtInitial * otWtInitial * selectedCategory.OtCategory.type) /
+                100
+              : data?.custom_other_wt) * data?.custom_ot_,
+          custom_net_wt:
+            Number(data?.custom_gross_wt) -
+            Number(data?.custom_kun_wt) +
+            Number(data?.custom_cs_wt) +
+            Number(data?.custom_bb_wt) +
+            Number(data?.custom_other_wt),
+          custom_amount:
+            Number(data.custom_cs_amt) +
+            Number(data.custom_kun_amt) +
+            Number(data.custom_ot_amt) +
+            Number(data.custom_other),
+        };
+      });
+    setSalesTableData(updatedData);
+  }, [selectedCategory]);
 
   return {
     salesTableData,
