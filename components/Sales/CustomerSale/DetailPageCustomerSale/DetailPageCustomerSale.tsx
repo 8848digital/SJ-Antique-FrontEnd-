@@ -40,8 +40,6 @@ const DetailPageCustomerSale = () => {
     defaultSalesDate,
   }: any = UseCustomerSaleDetailHook();
 
-  console.log('stateee', salesTableData);
-
   return (
     <div className="container-lg">
       <SalesHeader />
@@ -78,7 +76,7 @@ const DetailPageCustomerSale = () => {
           setSeletedCategory={setSeletedCategory}
           handleSelectChange={handleSelectChange}
           readOnlyFields={readOnlyFields}
-          key={'edit'}
+          keyValue={'edit'}
         />
         <CustomerSalesTable
           handleSalesTableFieldChange={handleSalesTableFieldChange}

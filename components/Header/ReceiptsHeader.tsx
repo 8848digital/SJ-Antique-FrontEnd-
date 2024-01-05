@@ -89,7 +89,10 @@ const ReceiptsHeader = ({
           </Link>
         </div>
         <div className="col-lg-2 col-md-3 col-3 text-end">
-          <Link className="text-decoration-none btn-margin" href="/sales">
+          <Link
+            className="text-decoration-none btn-margin"
+            href="/sales/customerSale"
+          >
             <button
               className={`${styles.button} ${showSales ? 'activeColor' : ''}`}
               onClick={() => handleReadyRecipt('Sales')}
