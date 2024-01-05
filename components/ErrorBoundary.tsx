@@ -23,7 +23,7 @@ const ErrorBoundary = ({ children }: any) => {
           className="fa-solid fa-ghost text-secondary"
           style={{ fontSize: 50 }}
         ></i>
-        <h1>Somthing Went Wrong!!</h1>
+        <h1>Something Went Wrong!!</h1>
       </div>
     );
   }

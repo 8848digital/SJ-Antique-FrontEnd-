@@ -19,7 +19,9 @@ const CustomerSalesButtonsSection = ({
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
-  console.log('queryy', query);
+  const pathParts = router?.asPath?.split('/');
+  const salesId = pathParts[1];
+  console.log('queryy', query, pathParts);
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
@@ -43,7 +45,7 @@ const CustomerSalesButtonsSection = ({
           <button
             type="button"
             className={`${styles.create_button} px-2 py-0 me-2`}
-            onClick={() => router.push(`/sales/${query?.saleId}`)}
+            onClick={() => router.back()}
           >
             Back
           </button>

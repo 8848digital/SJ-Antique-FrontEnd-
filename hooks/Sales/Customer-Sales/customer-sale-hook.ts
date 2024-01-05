@@ -2,6 +2,7 @@ import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getClientApi from '@/services/api/Master/get-client-api';
 import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
+import getDeliveryNoteApi from '@/services/api/Sales/get-delivery-note-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import postDeliveryNoteApi from '@/services/api/Sales/post-delivery-note-api';
@@ -132,11 +133,11 @@ const UseCustomerSaleHook = () => {
             custom_kun_amt:
               fieldName === 'custom_kun'
                 ? item?.custom_kun === ''
-                  ? 1
+                  ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
                 ? item.custom_kun === ''
-                  ? 1
+                  ? 1 * value
                   : Number(item.custom_kun) * value
                 : item.custom_kun_amt,
             custom_ot_amt:
@@ -383,10 +384,17 @@ const UseCustomerSaleHook = () => {
           ...updatedObject,
           custom_net_wt:
             Number(data?.custom_gross_wt) -
-            Number(data?.custom_kun_wt) +
-            Number(data?.custom_cs_wt) +
-            Number(data?.custom_bb_wt) +
-            Number(data?.custom_other_wt),
+              (Number(data?.custom_kun_wt) +
+                Number(data?.custom_cs_wt) +
+                Number(data?.custom_bb_wt) +
+                Number(data?.custom_other_wt)) <
+            0
+              ? 0
+              : Number(data?.custom_gross_wt) -
+                (Number(data?.custom_kun_wt) +
+                  Number(data?.custom_cs_wt) +
+                  Number(data?.custom_bb_wt) +
+                  Number(data?.custom_other_wt)),
           custom_amount:
             Number(data.custom_cs_amt) +
             Number(data.custom_kun_amt) +
@@ -423,7 +431,9 @@ const UseCustomerSaleHook = () => {
       }
     }
   };
+
   console.log('sales table data', salesTableData);
+  const HandleDeleteDeliveryNote: any = () => {};
   return {
     salesTableData,
     setSalesTableData,
@@ -448,6 +458,7 @@ const UseCustomerSaleHook = () => {
     stateForDocStatus,
     setStateForDocStatus,
     clientGroupList,
+    HandleDeleteDeliveryNote,
   };
 };
 

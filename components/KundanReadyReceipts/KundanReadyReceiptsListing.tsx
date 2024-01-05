@@ -18,6 +18,8 @@ const KundanListing = ({
   setKundanListing,
   HandleDeleteReceipt,
   karigarData,
+  colPlaceholder1,
+  colPlaceholder2,
 }: any) => {
   const router = useRouter();
   const pathParts = router.asPath.split('/');
@@ -30,8 +32,8 @@ const KundanListing = ({
     setTableViewData(data);
   };
 
-  console.log('router query', query);
-  let url: any = router?.query?.receipt;
+  let url: any = router?.query?.receipt || router?.query?.saleId;
+
   const loginAcessToken = useSelector(get_access_token);
 
   const [searchReceiptNumber, setSearchReceiptNumber] = useState<any>('');
@@ -62,6 +64,8 @@ const KundanListing = ({
     setSearchKarigar('');
   }, [query.receipt]);
 
+  console.log('sales listing', kundanListing);
+
   const filteredList =
     kundanListing?.length > 0 &&
     kundanListing !== null &&
@@ -76,12 +80,13 @@ const KundanListing = ({
           // const currentDateMatch = searchInputValues.current_date
           //   ? item?.date?.includes(searchInputValues.current_date)
           //   : true;
-          console.log(searchKarigar, 'searchKarigar');
-          console.log(item.name, 'item33');
+
           const karigarMatch = searchKarigar
             ? item?.custom_karigar
-                ?.toLowerCase()
-                ?.includes(searchKarigar?.toLowerCase())
+              ? item.custom_karigar
+              : item?.custom_client_name
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
             : true;
           console.log(searchReceiptNumber, 'searchReceipt');
           const receiptNumberMatch = searchReceiptNumber
@@ -173,6 +178,8 @@ const KundanListing = ({
         setSearchKarigar={setSearchKarigar}
         searchInputValues={searchInputValues}
         karigarData={karigarData}
+        colPlaceholder1={colPlaceholder1}
+        colPlaceholder2={colPlaceholder2}
       />
       {filteredList?.length > 0 && (
         <div className="text-end pe-3 p-0 text-gray small ">
@@ -186,13 +193,13 @@ const KundanListing = ({
         <thead>
           <tr>
             <th className="thead" scope="col">
-              Receipt No.
+              {colPlaceholder1}
             </th>
             <th className="thead" scope="col">
               Transaction Date
             </th>
             <th className="thead" scope="col">
-              Karigar
+              {colPlaceholder2}
             </th>
             <th className="thead" scope="col">
               Status
@@ -223,7 +230,9 @@ const KundanListing = ({
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
                 >
-                  {item.custom_karigar}
+                  {item.custom_karigar
+                    ? item.custom_karigar
+                    : item.custom_client_name}
                 </td>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}

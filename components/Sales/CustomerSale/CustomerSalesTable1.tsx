@@ -76,7 +76,6 @@ const CustomerSalesTable1 = ({
                 }
                 placeholder={'Client Name'}
                 className={'form-control input-sm border border-secondary'}
-                handleSelectClientGroup={handleSelectClientGroup}
                 clientGroupList={clientGroupList}
                 readOnlyFields={readOnlyFields}
                 setStateForDocStatus={setStateForDocStatus}
