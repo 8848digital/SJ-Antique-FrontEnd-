@@ -16,6 +16,8 @@ const SearchSelectInputField = ({
   style,
   clientGroupList,
 }: any) => {
+  console.log('karigar dataa', karigarData);
+
   const inputRef = useRef<any>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
 
@@ -147,6 +149,8 @@ const SearchSelectInputField = ({
         );
       });
 
+    console.log('updated list after search', updatedFilterList);
+
     setFilterDropdownList(updatedFilterList);
     setNoRecordsFound(true);
 
@@ -206,30 +210,19 @@ const SearchSelectInputField = ({
       />
       {showDropdown && (
         <ul className={`dropdown-ul-list ${style}`} ref={dropdownRef}>
-          {(noRecords &&
-            filterDropdownList?.length === 0 &&
-            clientGroupList !== undefined) ||
-          (karigarData?.length === 0 && clientGroupList !== undefined) ? (
+          {noRecords === false && filterDropdownList?.length === 0 ? (
             <>
-              <div className="text-small px-2 mt-1">Client Group</div>
-              <li className="dropdown-list p-1">
-                <select
-                  className="form-select form-select-sm border"
-                  aria-label="Default select example"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Stop event propagation
-                    handleShowClientGroupSelect(e);
-                  }}
-                  onChange={(e) => handleSelectClientGroup(e.target.value)}
-                >
-                  <option>Select client group</option>
-                  {clientGroupList?.length > 0 &&
-                    clientGroupList !== null &&
-                    clientGroupList.map((data: any, index: any) => (
-                      <option key={index}>{data.client_group}</option>
-                    ))}
-                </select>
-              </li>
+              {karigarData?.length > 0 &&
+                karigarData !== null &&
+                karigarData.map((list: any, index: any) => (
+                  <li
+                    key={index}
+                    onClick={() => handleSelectedOption(list, index)}
+                    className="dropdown-list"
+                  >
+                    {list.karigar_name}
+                  </li>
+                ))}
             </>
           ) : (
             <>
@@ -248,21 +241,33 @@ const SearchSelectInputField = ({
                     {name.karigar_name}
                   </li>
                 ))}
-              {karigarData?.length > 0 &&
-                karigarData !== null &&
-                karigarData.map((name: any, i: any) => (
-                  <li
-                    key={i}
-                    onMouseDown={(e) => {
-                      handleSelectedOption(name, i);
-                    }}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
-                  >
-                    {name.karigar_name}
+            </>
+          )}
+          {clientGroupList?.length > 0 && (
+            <>
+              {noRecords === true && filterDropdownList?.length === 0 && (
+                <>
+                  <div className="text-small px-2 mt-1">Client Group</div>
+                  <li className="dropdown-list p-1">
+                    <select
+                      className="form-select form-select-sm border"
+                      aria-label="Default select example"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Stop event propagation
+                        handleShowClientGroupSelect(e);
+                      }}
+                      onChange={(e) => handleSelectClientGroup(e.target.value)}
+                    >
+                      <option>Select client group</option>
+                      {clientGroupList?.length > 0 &&
+                        clientGroupList !== null &&
+                        clientGroupList.map((data: any, index: any) => (
+                          <option key={index}>{data.client_group}</option>
+                        ))}
+                    </select>
                   </li>
-                ))}
+                </>
+              )}
             </>
           )}
         </ul>

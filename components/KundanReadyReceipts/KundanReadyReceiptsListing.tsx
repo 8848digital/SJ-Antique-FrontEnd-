@@ -20,8 +20,6 @@ const KundanListing = ({
   karigarData,
   colPlaceholder1,
   colPlaceholder2,
-
-  filterPlaceholder,
 }: any) => {
   const router = useRouter();
   const pathParts = router.asPath.split('/');
@@ -33,10 +31,9 @@ const KundanListing = ({
   const HandleTableViewRows: any = (data: any) => {
     setTableViewData(data);
   };
-  console.log(kundanListing, 'client name in listing');
-  console.log('router query', query);
-  let url: any = router?.query?.receipt;
-  console.log(url, 'url in listing page');
+
+  let url: any = router?.query?.receipt || router?.query?.saleId;
+
   const loginAcessToken = useSelector(get_access_token);
 
   const [searchReceiptNumber, setSearchReceiptNumber] = useState<any>('');
@@ -65,7 +62,9 @@ const KundanListing = ({
     });
     setSearchReceiptNumber('');
     setSearchKarigar('');
-  }, [query.receipt]);
+  }, [query.receipt, todayDate]);
+
+  console.log('sales listing', kundanListing);
 
   const filteredList =
     kundanListing?.length > 0 &&
@@ -81,8 +80,7 @@ const KundanListing = ({
           // const currentDateMatch = searchInputValues.current_date
           //   ? item?.date?.includes(searchInputValues.current_date)
           //   : true;
-          console.log(searchKarigar, 'searchKarigar');
-          console.log(item.name, 'item33');
+
           const karigarMatch = searchKarigar
             ? item?.custom_karigar
               ? item.custom_karigar

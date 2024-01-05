@@ -26,7 +26,7 @@ const ReceiptsHeader = ({
     if (value === 'sales') {
       setShowSales(true);
     }
-  }, []);
+  }, [setShowMaster, setShowReceipts, setShowSales, value]);
 
   const handleReadyRecipt = (val: any) => {
     switch (val) {

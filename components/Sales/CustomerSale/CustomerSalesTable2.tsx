@@ -38,7 +38,7 @@ const CustomerSalesTable2 = ({
               <select
                 name="KunCategory"
                 id=""
-                className=" form-select form-select-sm border-secondary p-0 px-2 "
+                className="form-select form-select-sm border-secondary p-0 px-2 "
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
@@ -50,11 +50,13 @@ const CustomerSalesTable2 = ({
                 <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
-                  kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option value={categoryData.name1}>
-                      {categoryData.name1}
-                    </option>
-                  ))}
+                  kunCsOtCategoryListData.map(
+                    (categoryData: any, index: any) => (
+                      <option value={categoryData.name1} key={index}>
+                        {categoryData.name1}
+                      </option>
+                    )
+                  )}
               </select>
             </td>
 
@@ -74,9 +76,11 @@ const CustomerSalesTable2 = ({
                 <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
-                  kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option>{categoryData.name1}</option>
-                  ))}
+                  kunCsOtCategoryListData.map(
+                    (categoryData: any, index: any) => (
+                      <option key={index}>{categoryData.name1} </option>
+                    )
+                  )}
               </select>
             </td>
 
@@ -96,8 +100,8 @@ const CustomerSalesTable2 = ({
                 <option selected></option>
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
-                  BBCategoryListData.map((BBCategoryData: any) => (
-                    <option>{BBCategoryData.name1}</option>
+                  BBCategoryListData.map((BBCategoryData: any, index: any) => (
+                    <option key={index}>{BBCategoryData.name1}</option>
                   ))}
               </select>
             </td>
@@ -117,9 +121,11 @@ const CustomerSalesTable2 = ({
                 <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
-                  kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option>{categoryData.name1}</option>
-                  ))}
+                  kunCsOtCategoryListData.map(
+                    (categoryData: any, index: any) => (
+                      <option key={index}>{categoryData.name1}</option>
+                    )
+                  )}
               </select>
             </td>
           </tr>

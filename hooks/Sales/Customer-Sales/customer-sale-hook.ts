@@ -354,12 +354,15 @@ const UseCustomerSaleHook = () => {
   }, [selectedCategory]);
 
   const handleEmptyDeliveryNote = () => {
+    console.log('selected category', selectedCategory);
+
     // setSeletedCategory({
     //   KunCategory: '',
     //   CsCategory: '',
     //   BBCategory: '',
     //   OtCategory: '',
     // });
+    setSelectedClient('');
     setSalesTableData([SalesTableInitialState]);
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
     setStateForDocStatus(true);
@@ -430,6 +433,7 @@ const UseCustomerSaleHook = () => {
   };
 
   console.log('sales table data', salesTableData);
+  const HandleDeleteDeliveryNote: any = () => {};
   return {
     salesTableData,
     setSalesTableData,
@@ -454,6 +458,7 @@ const UseCustomerSaleHook = () => {
     stateForDocStatus,
     setStateForDocStatus,
     clientGroupList,
+    HandleDeleteDeliveryNote,
   };
 };
 

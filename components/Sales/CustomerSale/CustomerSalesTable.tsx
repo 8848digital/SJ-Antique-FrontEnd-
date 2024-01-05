@@ -12,8 +12,6 @@ const CustomerSalesTable = ({
   handleSalesTableFieldChange,
   handleAddRowForSales,
   handleDeleteRowOfSalesTable,
-  clientNameListData,
-  selectedCategory,
   setStateForDocStatus,
   readOnlyFields,
   itemList,

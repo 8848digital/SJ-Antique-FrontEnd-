@@ -4,6 +4,7 @@ import CustomerSalesTable from './CustomerSalesTable';
 import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
 import UseDeliveryNoteHook from '@/hooks/Sales/Customer-Sales/delivery-note-hook';
+
 import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
 
 const CustomerSaleMaster = () => {
@@ -28,10 +29,27 @@ const CustomerSaleMaster = () => {
     handleDNCreate,
     handleSelectClientGroup,
     clientGroupList,
+    HandleDeleteDeliveryNote,
   }: any = UseCustomerSaleHook();
   const { deliveryNoteListing }: any = UseDeliveryNoteHook();
   console.log(deliveryNoteListing, 'client name in listing');
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
+  // useEffect(() => {
+  //   const handleKeyDown = (event: any) => {
+  //     console.log('event for save', event);
+  //     event.preventDefault();
+  //     const code = event.which || event.keyCode;
+
+  //     let charCode = String.fromCharCode(code).toLowerCase();
+  //     if ((event.ctrlKey || event.metaKey) && charCode === 's') {
+  //       handleDNCreate();
+  //     }
+  //   };
+
+  //   window.addEventListener('keydown', handleKeyDown);
+
+  //   return () => window.removeEventListener('keydown', handleKeyDown);
+  // }, []);
   return (
     <div className="container-lg px-0">
       <SalesHeader />
@@ -87,6 +105,7 @@ const CustomerSaleMaster = () => {
             }
             colPlaceholder1={'Delivery Note No.'}
             colPlaceholder2={'Client '}
+            HandleDeleteReceipt={HandleDeleteDeliveryNote}
           />
         </div>
         <div
