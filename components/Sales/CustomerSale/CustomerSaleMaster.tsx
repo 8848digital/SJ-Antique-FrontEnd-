@@ -4,6 +4,7 @@ import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
 import UseCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sale-hook';
 import UseDeliveryNoteHook from '@/hooks/Sales/Customer-Sales/delivery-note-hook';
+import { useEffect } from 'react';
 
 const CustomerSaleMaster = () => {
   const {
@@ -30,6 +31,22 @@ const CustomerSaleMaster = () => {
   }: any = UseCustomerSaleHook();
 
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
+  // useEffect(() => {
+  //   const handleKeyDown = (event: any) => {
+  //     console.log('event for save', event);
+  //     event.preventDefault();
+  //     const code = event.which || event.keyCode;
+
+  //     let charCode = String.fromCharCode(code).toLowerCase();
+  //     if ((event.ctrlKey || event.metaKey) && charCode === 's') {
+  //       handleDNCreate();
+  //     }
+  //   };
+
+  //   window.addEventListener('keydown', handleKeyDown);
+
+  //   return () => window.removeEventListener('keydown', handleKeyDown);
+  // }, []);
   return (
     <div className="container-lg px-0">
       <SalesHeader />

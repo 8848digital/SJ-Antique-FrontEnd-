@@ -353,12 +353,15 @@ const UseCustomerSaleHook = () => {
   }, [selectedCategory]);
 
   const handleEmptyDeliveryNote = () => {
+    console.log('selected category', selectedCategory);
+
     // setSeletedCategory({
     //   KunCategory: '',
     //   CsCategory: '',
     //   BBCategory: '',
     //   OtCategory: '',
     // });
+    setSelectedClient('');
     setSalesTableData([SalesTableInitialState]);
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
     setStateForDocStatus(true);

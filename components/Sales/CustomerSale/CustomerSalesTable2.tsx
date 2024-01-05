@@ -33,14 +33,10 @@ const CustomerSalesTable2 = ({
               <select
                 name="KunCategory"
                 id=""
-                className=" form-select form-select-sm border-secondary p-0 px-2 "
+                className="form-select form-select-sm border-secondary p-0 px-2 "
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
-                value={
-                  selectedCategory.KunCategory
-                    ? selectedCategory.KunCategory.name1
-                    : ''
-                }
+                value={selectedCategory.KunCategory.name1}
               >
                 <option selected></option>
                 {kunCsOtCategoryListData?.length > 0 &&
