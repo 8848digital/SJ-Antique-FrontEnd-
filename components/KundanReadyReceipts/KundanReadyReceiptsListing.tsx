@@ -62,7 +62,7 @@ const KundanListing = ({
     });
     setSearchReceiptNumber('');
     setSearchKarigar('');
-  }, [query.receipt]);
+  }, [query.receipt, todayDate]);
 
   console.log('sales listing', kundanListing);
 

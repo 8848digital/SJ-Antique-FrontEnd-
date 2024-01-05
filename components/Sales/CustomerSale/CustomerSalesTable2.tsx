@@ -62,11 +62,13 @@ const CustomerSalesTable2 = ({
                 </option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
-                  kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option value={categoryData.name1}>
-                      {categoryData.name1}
-                    </option>
-                  ))}
+                  kunCsOtCategoryListData.map(
+                    (categoryData: any, index: any) => (
+                      <option value={categoryData.name1} key={index}>
+                        {categoryData.name1}
+                      </option>
+                    )
+                  )}
               </select>
             </td>
             <td className="table_row w-25" scope="row">
@@ -84,9 +86,11 @@ const CustomerSalesTable2 = ({
                 </option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
-                  kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option>{categoryData.name1}</option>
-                  ))}
+                  kunCsOtCategoryListData.map(
+                    (categoryData: any, index: any) => (
+                      <option key={index}>{categoryData.name1} </option>
+                    )
+                  )}
               </select>
             </td>
 
@@ -105,8 +109,8 @@ const CustomerSalesTable2 = ({
                 </option>
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
-                  BBCategoryListData.map((BBCategoryData: any) => (
-                    <option>{BBCategoryData.name1}</option>
+                  BBCategoryListData.map((BBCategoryData: any, index: any) => (
+                    <option key={index}>{BBCategoryData.name1}</option>
                   ))}
               </select>
             </td>
@@ -125,9 +129,11 @@ const CustomerSalesTable2 = ({
                 </option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
-                  kunCsOtCategoryListData.map((categoryData: any) => (
-                    <option>{categoryData.name1}</option>
-                  ))}
+                  kunCsOtCategoryListData.map(
+                    (categoryData: any, index: any) => (
+                      <option key={index}>{categoryData.name1}</option>
+                    )
+                  )}
               </select>
             </td>
           </tr>
