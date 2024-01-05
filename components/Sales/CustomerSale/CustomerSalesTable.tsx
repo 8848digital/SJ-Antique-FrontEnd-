@@ -223,7 +223,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={(
+                        value={
                           Number(item.custom_gross_wt) -
                             (Number(item.custom_kun_wt) +
                               Number(item.custom_cs_wt) +

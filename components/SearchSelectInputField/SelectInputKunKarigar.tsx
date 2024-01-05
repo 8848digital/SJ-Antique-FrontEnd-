@@ -91,10 +91,19 @@ const SelectInputKunKarigar = ({
         // setFilterDropdownList(kundanKarigarData);
       } else if (e.key === 'ArrowDown' && showDropdown) {
         setSelectedIndex((prevIndex: any) =>
-          prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
+          prevIndex <
+          (filterDropdownList ? filterDropdownList : kundanKarigarData)
+            ?.length -
+            1
+            ? prevIndex + 1
+            : prevIndex
         );
         setScrollIndex((prevScrollIndex) =>
-          Math.min(prevScrollIndex + 1, filterDropdownList?.length - 1)
+          Math.min(
+            prevScrollIndex + 1,
+            (filterDropdownList ? filterDropdownList : kundanKarigarData)
+              ?.length - 1
+          )
         );
       } else if (e.key === 'ArrowUp' && showDropdown) {
         e.preventDefault();

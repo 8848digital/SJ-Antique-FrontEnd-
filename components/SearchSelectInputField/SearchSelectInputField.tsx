@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { clearScreenDown } from 'readline';
 
 const SearchSelectInputField = ({
   karigarData,
@@ -77,7 +78,7 @@ const SearchSelectInputField = ({
     if (!readOnlyFields) {
       setShowDropdown(!showDropdown);
       setSelectedIndex(-1);
-      setFilterDropdownList(karigarData);
+      // setFilterDropdownList(karigarData);
     }
   };
 
@@ -110,7 +111,7 @@ const SearchSelectInputField = ({
         e.preventDefault();
         setShowDropdown(true);
         setSelectedIndex(-1);
-        setFilterDropdownList(karigarData);
+        // setFilterDropdownList(kundanKarigarData);
       } else if (e.key === 'ArrowDown' && showDropdown) {
         setSelectedIndex((prevIndex: any) =>
           prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
@@ -134,7 +135,6 @@ const SearchSelectInputField = ({
       }
     }
   };
-
   const handleFieldChange = (e: any) => {
     setShowDropdown(true);
     setSelectedDropdownValue(e.target.value);
@@ -174,7 +174,7 @@ const SearchSelectInputField = ({
 
   const HandleClientBlur = () => {
     if (!document.activeElement?.classList.contains('form-select')) {
-      if (filterDropdownList.length === 0) {
+      if (filterDropdownList?.length === 0) {
         setShowDropdown(true);
       } else {
         setShowDropdown(false);
@@ -185,6 +185,7 @@ const SearchSelectInputField = ({
     setSelectedDropdownValue(value);
     setShowDropdown(!showDropdown);
   };
+  console.log(filterDropdownList, 'filter list in search');
   return (
     <div>
       <input
@@ -205,8 +206,10 @@ const SearchSelectInputField = ({
       />
       {showDropdown && (
         <ul className={`dropdown-ul-list ${style}`} ref={dropdownRef}>
-          {(noRecords && filterDropdownList?.length === 0) ||
-          karigarData?.length === 0 ? (
+          {(noRecords &&
+            filterDropdownList?.length === 0 &&
+            clientGroupList !== undefined) ||
+          (karigarData?.length === 0 && clientGroupList !== undefined) ? (
             <>
               <div className="text-small px-2 mt-1">Client Group</div>
               <li className="dropdown-list p-1">

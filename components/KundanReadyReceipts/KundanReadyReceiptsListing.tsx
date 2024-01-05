@@ -36,6 +36,7 @@ const KundanListing = ({
   console.log(kundanListing, 'client name in listing');
   console.log('router query', query);
   let url: any = router?.query?.receipt;
+  console.log(url, 'url in listing page');
   const loginAcessToken = useSelector(get_access_token);
 
   const [searchReceiptNumber, setSearchReceiptNumber] = useState<any>('');
@@ -84,8 +85,10 @@ const KundanListing = ({
           console.log(item.name, 'item33');
           const karigarMatch = searchKarigar
             ? item?.custom_karigar
-                ?.toLowerCase()
-                ?.includes(searchKarigar?.toLowerCase())
+              ? item.custom_karigar
+              : item?.custom_client_name
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
             : true;
           console.log(searchReceiptNumber, 'searchReceipt');
           const receiptNumberMatch = searchReceiptNumber

@@ -78,9 +78,6 @@ const CustomerSaleMaster = () => {
         >
           <KundanListing
             kundanListing={deliveryNoteListing}
-            // setKundanListing={setKundanListing}
-            // HandleDeleteReceipt={HandleDeleteReceipt}
-            // HandleUpdateDocStatus={HandleUpdateDocStatus}
             karigarData={
               clientNameListData?.length > 0 &&
               clientNameListData !== null &&
