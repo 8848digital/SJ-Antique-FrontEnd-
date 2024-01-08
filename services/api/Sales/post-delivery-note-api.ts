@@ -14,7 +14,6 @@ const postDeliveryNoteApi = async (get_access_token: any, val: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('post delivery note', res);
       response = res;
     })
     .catch((err: any) => {

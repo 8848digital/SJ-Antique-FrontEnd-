@@ -28,7 +28,7 @@ const LoginMaster = () => {
     const loginsucess = await dispatch(getAccessToken(userData));
     console.log(loginsucess, 'loginsucess');
     if (loginsucess.payload.msg == 'success') {
-      toast.success('Login Sucessfully');
+      toast.success('Login Successfully');
       setTimeout(() => {
         router.push('/master');
       }, 900);
@@ -44,8 +44,8 @@ const LoginMaster = () => {
     }
   };
   const HandleShowPassword: any = () => {
-    console.log("eye click")
-    setShowPassword(!showPassword)
+    console.log('eye click');
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -73,7 +73,7 @@ const LoginMaster = () => {
                     <div className="my-4">
                       <div className="d-flex justify-content-center pswd-container">
                         <input
-                          type={`${showPassword ? 'text':'password'}`}
+                          type={`${showPassword ? 'text' : 'password'}`}
                           id="password"
                           name="password"
                           onChange={HandleInputChange}
@@ -84,8 +84,11 @@ const LoginMaster = () => {
                           placeholder="Password"
                           required
                         />
-                        <i className={`fa fa-eye p-0 pt-2 fs-6 pswd-eye-icon ${showPassword ? 'text-primary':''} `}
-                        onClick={HandleShowPassword}
+                        <i
+                          className={`fa fa-eye p-0 pt-2 fs-6 pswd-eye-icon ${
+                            showPassword ? 'text-primary' : ''
+                          } `}
+                          onClick={HandleShowPassword}
                         ></i>
                       </div>
                     </div>

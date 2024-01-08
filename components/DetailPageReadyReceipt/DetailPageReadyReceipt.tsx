@@ -6,10 +6,18 @@ import useReadyReceiptKarigar from '@/hooks/readyReceiptKarigarHooks';
 import DocStatusButtonChanges from '../ButtonChanges/DocStatusButtonChanges';
 import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
 import '../../styles/detailPage.module.css';
+import { useSelector } from 'react-redux';
+import { get_specific_receipt_data } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import Loader from '../NoRecord/Loader';
+import NoRecord from '../NoRecord/NoRecord';
+import { useRouter } from 'next/router';
 
 const DetailPageReadyReceipt = () => {
-  const { defaultKarigarData, readOnlyFields, setReadOnlyFields } =
+  const { defaultKarigarData, readOnlyFields, setReadOnlyFields, isLoading } =
     UseKundanKarigarDetailHook();
+
+  const { query } = useRouter();
+  console.log('query in receipt', query);
   const {
     setClick,
     kundanListing,
@@ -52,9 +60,9 @@ const DetailPageReadyReceipt = () => {
     calculateEditTotal,
     handleClearFileUploadInput,
   } = useReadyReceiptKarigar();
-  console.log('default dataa', defaultKarigarData);
-  console.log('readyonly condn', readOnlyFields);
+  const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
 
+  console.log('SpecificDataFromStore', SpecificDataFromStore);
   useEffect(() => {
     if (defaultKarigarData?.length > 0 && defaultKarigarData !== null) {
       defaultKarigarData.map((data: any) => {
@@ -71,102 +79,116 @@ const DetailPageReadyReceipt = () => {
     setRecipitData,
     setTableData,
   ]);
-  console.log(recipitData, 'receiptData');
-  console.log(tableData, 'defaultKarigarData');
 
   return (
     <div className="container">
-      <div>
-        {defaultKarigarData?.length > 0 &&
-          defaultKarigarData !== null &&
-          defaultKarigarData.map((data: any, index: any) => (
-            <div key={index}>
-              <DocStatusButtonChanges
-                data={data}
-                stateForDocStatus={stateForDocStatus}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          {SpecificDataFromStore?.data?.length === 0 && isLoading === false ? (
+            <NoRecord
+              title="Record not found !!"
+              heading=""
+              backButtonUrl={`/readyReceipt/${query?.receipt}`}
+            />
+          ) : (
+            <div>
+              {defaultKarigarData?.length > 0 &&
+                defaultKarigarData !== null &&
+                defaultKarigarData.map((data: any, index: any) => (
+                  <div key={index}>
+                    <DocStatusButtonChanges
+                      data={data}
+                      stateForDocStatus={stateForDocStatus}
+                      setStateForDocStatus={setStateForDocStatus}
+                      handleUpdateReceipt={handleUpdateReceipt}
+                      readOnlyFields={readOnlyFields}
+                      setReadOnlyFields={setReadOnlyFields}
+                      setShowSaveButtonForAmendFlow={
+                        setShowSaveButtonForAmendFlow
+                      }
+                      showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
+                      HandleAmendButtonForDuplicateChitti={
+                        HandleAmendButtonForDuplicateChitti
+                      }
+                    />
+                  </div>
+                ))}
+
+              <div className=" table">
+                <KundanTable
+                  handleRecipietChange={handleRecipietChange}
+                  recieptData={recipitData}
+                  karigarData={karigarData}
+                  setRecipitData={setRecipitData}
+                  selectedDropdownValue={selectedDropdownValue}
+                  setSelectedDropdownValue={setSelectedDropdownValue}
+                  defaultKarigarData={defaultKarigarData}
+                  setReadyReceiptType={setReadyReceiptType}
+                  setStateForDocStatus={setStateForDocStatus}
+                  readOnlyFields={readOnlyFields}
+                  setReadOnlyFields={setReadOnlyFields}
+                />
+              </div>
+              <div className="container d-flex justify-content-end p-o">
+                <button
+                  className="btn btn-link p-0"
+                  onClick={() => {
+                    if (!readOnlyFields) {
+                      handleAddRow('tableRow');
+                    }
+                  }}
+                >
+                  Add Row
+                </button>
+              </div>
+              <div className="table">
+                <KundanKarigarReadyReceiptMasterTable
+                  handleFieldChange={handleFieldChange}
+                  tableData={tableData}
+                  selectedKundanKarigarDropdownValue={
+                    selectedKundanKarigarDropdownValue
+                  }
+                  setSelectedKundanKarigarDropdownValue={
+                    setSelectedKundanKarigarDropdownValue
+                  }
+                  handleDeleteRow={handleDeleteRow}
+                  handleTabPress={handleTabPress}
+                  setTableData={setTableData}
+                  kundanKarigarData={kundanKarigarData}
+                  handleModal={handleModal}
+                  setStateForDocStatus={setStateForDocStatus}
+                  readOnlyFields={readOnlyFields}
+                  setReadOnlyFields={setReadOnlyFields}
+                  calculateEditTotal={calculateEditTotal}
+                  handleClearFileUploadInput={handleClearFileUploadInput}
+                />
+              </div>
+              <PurchaseReceiptModal
+                tableData={tableData}
+                showModal={showModal}
+                closeModal={closeModal}
+                handleModalFieldChange={handleModalFieldChange}
+                handleAddRow={handleAddRow}
+                materialWeight={materialWeight}
+                setMaterialWeight={setMaterialWeight}
+                materialListData={materialListData}
+                calculateRowValue={calculateRowValue}
+                handleDeleteChildTableRow={handleDeleteChildTableRow}
+                setRecipitData={setRecipitData}
+                recipitData={recipitData}
+                selectedDropdownValue={selectedDropdownValue}
+                setSelectedDropdownValue={setSelectedDropdownValue}
+                handleSaveModal={handleSaveModal}
                 setStateForDocStatus={setStateForDocStatus}
-                handleUpdateReceipt={handleUpdateReceipt}
                 readOnlyFields={readOnlyFields}
                 setReadOnlyFields={setReadOnlyFields}
-                setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
-                showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
-                HandleAmendButtonForDuplicateChitti={
-                  HandleAmendButtonForDuplicateChitti
-                }
               />
             </div>
-          ))}
-
-        <div className=" table">
-          <KundanTable
-            handleRecipietChange={handleRecipietChange}
-            recieptData={recipitData}
-            karigarData={karigarData}
-            setRecipitData={setRecipitData}
-            selectedDropdownValue={selectedDropdownValue}
-            setSelectedDropdownValue={setSelectedDropdownValue}
-            defaultKarigarData={defaultKarigarData}
-            setReadyReceiptType={setReadyReceiptType}
-            setStateForDocStatus={setStateForDocStatus}
-            readOnlyFields={readOnlyFields}
-            setReadOnlyFields={setReadOnlyFields}
-          />
-        </div>
-        <div className="container d-flex justify-content-end p-o">
-          <button
-            className="btn btn-link p-0"
-            onClick={() => {
-              if (!readOnlyFields) {
-                handleAddRow('tableRow');
-              }
-            }}
-          >
-            Add Row
-          </button>
-        </div>
-        <div className="table">
-          <KundanKarigarReadyReceiptMasterTable
-            handleFieldChange={handleFieldChange}
-            tableData={tableData}
-            selectedKundanKarigarDropdownValue={
-              selectedKundanKarigarDropdownValue
-            }
-            setSelectedKundanKarigarDropdownValue={
-              setSelectedKundanKarigarDropdownValue
-            }
-            handleDeleteRow={handleDeleteRow}
-            handleTabPress={handleTabPress}
-            setTableData={setTableData}
-            kundanKarigarData={kundanKarigarData}
-            handleModal={handleModal}
-            setStateForDocStatus={setStateForDocStatus}
-            readOnlyFields={readOnlyFields}
-            setReadOnlyFields={setReadOnlyFields}
-            calculateEditTotal={calculateEditTotal}
-            handleClearFileUploadInput={handleClearFileUploadInput}
-          />
-        </div>
-        <PurchaseReceiptModal
-          tableData={tableData}
-          showModal={showModal}
-          closeModal={closeModal}
-          handleModalFieldChange={handleModalFieldChange}
-          handleAddRow={handleAddRow}
-          materialWeight={materialWeight}
-          setMaterialWeight={setMaterialWeight}
-          materialListData={materialListData}
-          calculateRowValue={calculateRowValue}
-          handleDeleteChildTableRow={handleDeleteChildTableRow}
-          setRecipitData={setRecipitData}
-          recipitData={recipitData}
-          selectedDropdownValue={selectedDropdownValue}
-          setSelectedDropdownValue={setSelectedDropdownValue}
-          handleSaveModal={handleSaveModal}
-          setStateForDocStatus={setStateForDocStatus}
-          readOnlyFields={readOnlyFields}
-          setReadOnlyFields={setReadOnlyFields}
-        />
-      </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

@@ -16,6 +16,7 @@ const UseKundanKarigarDetailHook = () => {
   const { defaultKarigarData, setDefaultKarigarData }: any =
     UseCustomReceiptHook();
   const [readOnlyFields, setReadOnlyFields] = useState<any>(false);
+  const [isLoading, setIsLoading] = useState<any>(false);
 
   console.log('default karigar data initially', defaultKarigarData);
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
@@ -32,10 +33,28 @@ const UseKundanKarigarDetailHook = () => {
     }
   }, [query]);
 
+  // useEffect(() => {
+  //   if (SpecificDataFromStore?.data?.length > 0) {
+  //     setDefaultKarigarData([...SpecificDataFromStore?.data]);
+  //   } else {
+  //     setDefaultKarigarData([]);
+  //   }
+  // }, [SpecificDataFromStore]);
+
   useEffect(() => {
-    if (SpecificDataFromStore?.data?.length > 0) {
+    if (
+      SpecificDataFromStore?.data?.length === 0 &&
+      SpecificDataFromStore?.isLoading === 'pending'
+    ) {
+      setIsLoading(true);
+    } else if (
+      SpecificDataFromStore?.hasOwnProperty('data') &&
+      SpecificDataFromStore?.isLoading === 'succeeded'
+    ) {
+      setIsLoading(false);
       setDefaultKarigarData([...SpecificDataFromStore?.data]);
     } else {
+      setIsLoading(false);
       setDefaultKarigarData([]);
     }
   }, [SpecificDataFromStore]);
@@ -50,7 +69,7 @@ const UseKundanKarigarDetailHook = () => {
 
   console.log('default karigar data readonly', readOnlyFields);
 
-  return { defaultKarigarData, readOnlyFields, setReadOnlyFields };
+  return { defaultKarigarData, readOnlyFields, setReadOnlyFields, isLoading };
 };
 
 export default UseKundanKarigarDetailHook;
