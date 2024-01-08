@@ -7,6 +7,7 @@ import getDeliveryNoteApi from '@/services/api/Sales/get-delivery-note-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import postDeliveryNoteApi from '@/services/api/Sales/post-delivery-note-api';
+import DeleteApi from '@/services/api/general/delete-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -437,8 +438,25 @@ const UseCustomerSaleHook = () => {
     setSelectedClientGroup(value);
   };
 
-  console.log('sales table data', salesTableData);
-  const HandleDeleteDeliveryNote: any = () => {};
+  const HandleDeleteDeliveryNote: any = async (name: any) => {
+    const version = 'v1';
+    const method = 'delete_delivery_note_api';
+    const entity = 'delivery_note_api';
+
+    let deleteApi: any = await DeleteApi(
+      loginAcessToken?.token,
+      version,
+      method,
+      entity,
+      name
+    );
+
+    if (deleteApi?.message?.status === 'success') {
+      toast.success('Sales note Deleted');
+    } else {
+      toast.error('Failed to delete Sales note');
+    }
+  };
   return {
     salesTableData,
     setSalesTableData,
