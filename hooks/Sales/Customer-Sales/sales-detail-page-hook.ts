@@ -53,7 +53,7 @@ const UseCustomerSaleDetailHook = () => {
 
   const [readOnlyFields, setReadOnlyFields] = useState<boolean>(false);
   const [defaultSalesDate, setDefaultSalesDate] = useState<any>('');
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] =
     useState<boolean>(false);
 
@@ -76,27 +76,45 @@ const UseCustomerSaleDetailHook = () => {
     }
   }, [DetailOfDeliveryNoteFromStore]);
 
+  // useEffect(() => {
+  //   if (DetailOfDeliveryNoteFromStore?.hasOwnProperty('data')) {
+  //     setIsLoading(false);
+  //     setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
+  //     setSelectedClient(
+  //       DetailOfDeliveryNoteFromStore?.data?.custom_client_name
+  //     );
+  //     setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
+  //     // setSeletedCategory({
+  //     //   KunCategory: DetailOfDeliveryNoteFromStore?.data?.custom_kun_category,
+  //     //   CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
+  //     //   BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
+  //     //   OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
+  //     // });
+  //   }
+  // }, [DetailOfDeliveryNoteFromStore]);
+
   useEffect(() => {
-    if (DetailOfDeliveryNoteFromStore?.hasOwnProperty('data')) {
+    if (
+      DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
+      DetailOfDeliveryNoteFromStore?.isLoading === 'pending'
+    ) {
+      setIsLoading(true);
+    } else if (
+      DetailOfDeliveryNoteFromStore?.hasOwnProperty('data') &&
+      DetailOfDeliveryNoteFromStore?.isLoading === 'succeeded'
+    ) {
+      setIsLoading(false);
       setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
       setSelectedClient(
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
       setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
-      setSeletedCategory({
-        KunCategory: DetailOfDeliveryNoteFromStore?.data?.custom_kun_category,
-        CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
-        BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
-        OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
-      });
+    } else {
+      setIsLoading(false);
     }
   }, [DetailOfDeliveryNoteFromStore]);
 
-  console.log(
-    'sales table data with default values',
-    selectedClient,
-    selectedCategory
-  );
+  console.log('isLoading status', isLoading);
 
   const handleUpdateDeliveryNote: any = async () => {
     const updatedData =
@@ -319,6 +337,7 @@ const UseCustomerSaleDetailHook = () => {
     HandleDeleteDeliveryNote,
     handleDeliveryNotePrintApi,
     defaultSalesDate,
+    isLoading,
   };
 };
 

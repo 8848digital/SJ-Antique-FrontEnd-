@@ -44,9 +44,11 @@ export const GetSpecificReceiptDataScreen = createSlice({
       ) {
         state.data = action?.payload?.data?.message?.data;
         state.docStatus = action?.payload?.data?.message?.data[0]?.docstatus;
+        state.isLoading = 'succeeded';
       } else {
         state.data = '';
         state.docStatus = '';
+        state.isLoading = 'succeeded';
       }
     });
     builder.addCase(getSpecificReceipt.rejected, (state) => {
