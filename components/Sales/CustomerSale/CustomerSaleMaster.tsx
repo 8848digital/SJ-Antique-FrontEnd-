@@ -30,6 +30,7 @@ const CustomerSaleMaster = () => {
     handleSelectClientGroup,
     clientGroupList,
     HandleDeleteDeliveryNote,
+    itemCodeDropdownReset,
   }: any = UseCustomerSaleHook();
   const { deliveryNoteListing }: any = UseDeliveryNoteHook();
   const { handleDeliveryNotePrintApi }: any = UseCustomerSaleHook;
@@ -70,7 +71,7 @@ const CustomerSaleMaster = () => {
             aria-controls="pills-home"
             aria-selected="true"
           >
-            Delivery note list
+            Sales list
           </button>
         </div>
         <div className="nav-tabs tabs-container w-50" role="presentation">
@@ -84,7 +85,7 @@ const CustomerSaleMaster = () => {
             aria-controls="pills-profile"
             aria-selected="false"
           >
-            Create new delivery note
+            Create new Sales
           </button>
         </div>
       </div>
@@ -162,6 +163,7 @@ const CustomerSaleMaster = () => {
               handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
               selectedCategory={selectedCategory}
               itemList={itemList}
+              itemCodeDropdownReset={itemCodeDropdownReset}
             />
           </div>
         </div>

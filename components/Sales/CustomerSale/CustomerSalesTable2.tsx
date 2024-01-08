@@ -19,7 +19,6 @@ const CustomerSalesTable2 = ({
     'DetailOfDeliveryNote from store in tsx',
     DetailOfDeliveryNoteFromStore
   );
-  console.log('selected category in customer hook', selectedCategory);
 
   return (
     <div className="table-responsive">
@@ -44,7 +43,9 @@ const CustomerSalesTable2 = ({
                 value={
                   selectedCategory?.KunCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_kun_category
-                    : selectedCategory?.KunCategory?.name1
+                    : selectedCategory?.KunCategory?.name1 !== undefined
+                    ? selectedCategory?.KunCategory?.name1
+                    : ''
                 }
               >
                 <option selected></option>
@@ -70,7 +71,9 @@ const CustomerSalesTable2 = ({
                 value={
                   selectedCategory?.CsCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_cs_category
-                    : selectedCategory?.CsCategory?.name1
+                    : selectedCategory?.CsCategory?.name1 !== undefined
+                    ? selectedCategory?.CsCategory?.name1
+                    : ''
                 }
               >
                 <option selected></option>
@@ -94,7 +97,9 @@ const CustomerSalesTable2 = ({
                 value={
                   selectedCategory?.BBCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_bb_category
-                    : selectedCategory?.BBCategory?.name1
+                    : selectedCategory?.BBCategory?.name1 !== undefined
+                    ? selectedCategory?.BBCategory?.name1
+                    : ''
                 }
               >
                 <option selected></option>
@@ -115,7 +120,9 @@ const CustomerSalesTable2 = ({
                 value={
                   selectedCategory?.OtCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_ot_category
-                    : selectedCategory?.OtCategory?.name1
+                    : selectedCategory?.OtCategory?.name1 !== undefined
+                    ? selectedCategory?.OtCategory?.name1
+                    : ''
                 }
               >
                 <option selected></option>

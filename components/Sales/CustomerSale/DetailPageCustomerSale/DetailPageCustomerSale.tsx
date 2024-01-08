@@ -62,7 +62,7 @@ const DetailPageCustomerSale = () => {
           {DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
           isLoading === false ? (
             <NoRecord
-              title="Record not found !!"
+              title={`No Record Found 😥`}
               heading=""
               backButtonUrl={`/sales/${query?.saleId}`}
             />

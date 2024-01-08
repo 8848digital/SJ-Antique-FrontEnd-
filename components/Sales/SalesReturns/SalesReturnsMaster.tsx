@@ -1,58 +1,11 @@
 import React, { useState } from 'react';
 import styles from '../../../styles/readyReceipts.module.css';
-import CurrentDate from '@/components/CurrentDate';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
 import SalesHeader from '@/components/Header/SalesHeader';
+import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
+import CustomerSalesTable from '../CustomerSale/CustomerSalesTable';
 
 const SaleReturnsMaster = () => {
-  const [tableData, setTableData] = useState<any>([
-    {
-      id: 1,
-      item: '',
-      Gwt: '',
-      CsWt: '',
-      KunWt: '',
-      NetWt: '',
-      CS: '',
-      KunPc: '',
-      Other: '',
-      Total: '',
-    },
-  ]);
-  const handleFieldChange = (id: number, field: string, newValue: any) => {
-    const updatedData = tableData.map((item: any) => {
-      if (item.id === id) {
-        return { ...item, [field]: newValue };
-      }
-      return item;
-    });
-    setTableData(updatedData);
-  };
-  const handleAddRow = () => {
-    const newRow = {
-      id: tableData.length + 1,
-      item: '',
-      Gwt: '',
-      CsWt: '',
-      KunWt: '',
-      NetWt: '',
-      CS: '',
-      KunPc: '',
-      Other: '',
-      Total: '',
-    };
-    setTableData([...tableData, newRow]);
-  };
-  const handleDeleteRow = (id: any) => {
-    const updatedData = tableData.filter((item: any) => item.id !== id);
-    setTableData(updatedData);
-  };
-  const handleTabPress = (event: any, id: any) => {
-    if (event.key === 'Tab' && id === tableData[tableData.length - 1].id) {
-      handleAddRow();
-    }
-  };
   return (
     <div className="container-lg">
       <SalesHeader />
@@ -73,7 +26,7 @@ const SaleReturnsMaster = () => {
               aria-controls="pills-home"
               aria-selected="true"
             >
-              Sale Returns- (Customer)
+              Sale Returns
             </button>
           </div>
           <div className="nav-tabs tabs-container w-50" role="presentation">
@@ -87,7 +40,7 @@ const SaleReturnsMaster = () => {
               aria-controls="pills-profile"
               aria-selected="false"
             >
-              Create new sale return
+              Create new sales Return
             </button>
           </div>
         </div>
@@ -98,7 +51,7 @@ const SaleReturnsMaster = () => {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            Sale Returns-(Customer)
+            Sale Returns
           </div>
           <div
             className="tab-pane fade"
@@ -107,235 +60,51 @@ const SaleReturnsMaster = () => {
             aria-labelledby="pills-profile-tab"
           >
             <div>
-              <div>
-                <div className={`${styles.button_field}`}>
-                  <button type="submit" className={`${styles.create_button}`}>
-                    Create
-                  </button>
-                </div>
-                <div className="table-responsive">
-                  <table className="table table-hover">
-                    <thead>
-                      <tr>
-                        <th className="thead" scope="col">
-                          Transaction Date
-                        </th>
-                        <th className="thead" scope="col">
-                          Receipt no
-                        </th>
-                        <th className="thead" scope="col">
-                          Customer
-                        </th>
-                        <th className="thead" scope="col">
-                          Detail
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="table_row" scope="row">
-                          <CurrentDate />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className="form-control input-sm"
-                            type="number"
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className="form-control input-sm"
-                            type="text"
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className="form-control input-sm"
-                            type="text"
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div className="container d-flex justify-content-end">
+              <div className={`text-end mb-1`}>
                 <button
-                  className={`btn btn-link p-0`}
-                  onClick={() => handleAddRow()}
+                  type="submit"
+                  // onClick={handleEmptyDeliveryNote}
+                  className=" btn btn-outline-primary px-2 py-0 form-submit-button"
                 >
-                  Add Row
+                  New
+                </button>
+                <button
+                  type="button"
+                  // onClick={handleDNCreate}
+                  className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
+                >
+                  Create
                 </button>
               </div>
-              <div className="table-responsive">
-                <table className="table table-bordered table-hover table-striped ">
-                  <thead>
-                    <tr>
-                      <th className="thead" scope="col">
-                        Sr. no
-                      </th>
-                      <th className="thead" scope="col">
-                        Item
-                      </th>
-                      <th className="thead" scope="col">
-                        G Wt
-                      </th>
-                      <th className="thead" scope="col">
-                        C/s Wt
-                      </th>
-                      <th className="thead" scope="col">
-                        Kun Wt
-                      </th>
-                      <th className="thead" scope="col">
-                        Net Wt
-                      </th>
-                      <th className="thead" scope="col">
-                        C/S
-                      </th>
-                      <th className="thead" scope="col">
-                        Kun Pc
-                      </th>
-                      <th className="thead" scope="col">
-                        Other
-                      </th>
-                      <th className="thead" scope="col">
-                        Total
-                      </th>
-                      <th className="thead" scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tableData.map((item: any) => (
-                      <tr key={item.id}>
-                        <td className="table_row">{item.id}</td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="text"
-                            value={item.item}
-                            onChange={(e) =>
-                              handleFieldChange(item.id, 'item', e.target.value)
-                            }
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="number"
-                            value={item.Gwt}
-                            onChange={(e) =>
-                              handleFieldChange(item.id, 'Gwt', e.target.value)
-                            }
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="number"
-                            value={item.CsWt}
-                            onChange={(e) =>
-                              handleFieldChange(item.id, 'CsWt', e.target.value)
-                            }
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="number"
-                            value={item.KunWt}
-                            onChange={(e) =>
-                              handleFieldChange(
-                                item.id,
-                                'KunWt',
-                                e.target.value
-                              )
-                            }
-                            //onKeyDown={(e) => handleModal(e, item.id)}
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="number"
-                            value={item.NetWt}
-                            onChange={(e) =>
-                              handleFieldChange(
-                                item.id,
-                                'NetWt',
-                                e.target.value
-                              )
-                            }
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="number"
-                            value={item.CS}
-                            onChange={(e) =>
-                              handleFieldChange(item.id, 'CS', e.target.value)
-                            }
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="number"
-                            value={item.KunPc}
-                            onChange={(e) =>
-                              handleFieldChange(
-                                item.id,
-                                'KunPc',
-                                e.target.value
-                              )
-                            }
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="text"
-                            value={item.Other}
-                            onChange={(e) =>
-                              handleFieldChange(
-                                item.id,
-                                'Other',
-                                e.target.value
-                              )
-                            }
-                          />
-                        </td>
-                        <td className="table_row">
-                          <input
-                            className={` ${styles.input_field}`}
-                            type="text"
-                            value={item.Total}
-                            onChange={(e) =>
-                              handleFieldChange(
-                                item.id,
-                                'Total',
-                                e.target.value
-                              )
-                            }
-                          />
-                        </td>
-                        <td className="table_row">
-                          <button
-                            onKeyDown={(e) => handleTabPress(e, item.id)}
-                            className="d-flex align-items-center delete-link p-1 border-0"
-                            onClick={() => handleDeleteRow(item.id)}
-                          >
-                            <FontAwesomeIcon
-                              icon={faTrash}
-                              style={{ color: 'red', fontSize: 15 }}
-                            />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <CustomerSalesTable1
+              // clientNameListData={clientNameListData}
+              // selectedClient={selectedClient}
+              // setSelectedClient={setSelectedClient}
+              // handleSelectClientGroup={handleSelectClientGroup}
+              // clientGroupList={clientGroupList}
+              />
+              {/* <CustomerSalesTable2
+              kunCsOtCategoryListData={kunCsOtCategoryListData}
+              BBCategoryListData={BBCategoryListData}
+              selectedCategory={selectedCategory}
+              setSeletedCategory={setSeletedCategory}
+              handleSelectChange={handleSelectChange}
+            /> */}
+              <CustomerSalesTable
+              // handleSalesTableFieldChange={handleSalesTableFieldChange}
+              // clientNameListData={clientNameListData}
+              // salesTableData={salesTableData}
+              // setSalesTableData={setSalesTableData}
+              // selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
+              // setSelectedItemCodeForCustomerSale={
+              //   setSelectedItemCodeForCustomerSale
+              // }
+              // handleAddRowForSales={handleAddRowForSales}
+              // handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
+              // selectedCategory={selectedCategory}
+              // itemList={itemList}
+              // itemCodeDropdownReset={itemCodeDropdownReset}
+              />
             </div>
           </div>
         </div>
