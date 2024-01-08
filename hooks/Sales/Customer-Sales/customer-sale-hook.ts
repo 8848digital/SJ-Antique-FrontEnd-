@@ -2,6 +2,7 @@ import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getClientApi from '@/services/api/Master/get-client-api';
 import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
+import postClientApi from '@/services/api/Master/post-client-api';
 import getDeliveryNoteApi from '@/services/api/Sales/get-delivery-note-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
@@ -34,11 +35,10 @@ const UseCustomerSaleHook = () => {
     BBCategory: '',
     OtCategory: '',
   });
-  const [itemListDropDown, setItemListDropDown] = useState<any>(false);
-  const [deliveryNoteData, setDeliveryNoteData] = useState({
-    Client: '',
-  });
-  const [selectedClient, setSelectedClient] = useState('');
+
+  const [deliveryNoteData, setDeliveryNoteData] = useState({});
+  const [selectedClient, setSelectedClient] = useState<string>('');
+  const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
   const [clientGroupList, setClientGroupList] = useState();
 
   useEffect(() => {
@@ -167,16 +167,12 @@ const UseCustomerSaleHook = () => {
             custom_gross_wt: data[0]?.custom_gross_wt,
             custom_kun_wt:
               selectedCategory.KunCategory !== ''
-                ? (data[0]?.custom_kun_wt *
-                    (data[0]?.custom_kun_wt *
-                      selectedCategory.KunCategory.type)) /
+                ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
                   100
                 : data[0]?.custom_kun_wt,
             custom_cs_wt:
               selectedCategory.CsCategory !== ''
-                ? (data[0]?.custom_cs_wt *
-                    (data[0]?.custom_cs_wt *
-                      selectedCategory.CsCategory.type)) /
+                ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
                   100
                 : data[0]?.custom_cs_wt,
             custom_bb_wt:
@@ -186,7 +182,6 @@ const UseCustomerSaleHook = () => {
             custom_other_wt:
               selectedCategory.OtCategory !== ''
                 ? (data[0]?.custom_other_wt *
-                    data[0]?.custom_other_wt *
                     selectedCategory.OtCategory.type) /
                   100
                 : data[0]?.custom_other_wt,
@@ -278,6 +273,7 @@ const UseCustomerSaleHook = () => {
     }
   };
   const handleSelectChange = (event: any) => {
+    console.log(selectedCategory, 'selected category in customer hook');
     const { name, value } = event.target;
     const selectedArray =
       name === 'BBCategory' ? BBCategoryListData : kunCsOtCategoryListData;
@@ -289,10 +285,10 @@ const UseCustomerSaleHook = () => {
     }));
     setStateForDocStatus(true);
   };
-
+  console.log(selectedCategory, 'selected category in customer hook');
   useEffect(() => {
     const updatedData =
-      salesTableData.length > 0 &&
+      salesTableData?.length > 0 &&
       salesTableData !== null &&
       salesTableData.map((data: any) => {
         const kunInitial = Number(data?.kun_wt_initial) || 0;
@@ -305,15 +301,11 @@ const UseCustomerSaleHook = () => {
           custom_gross_wt: data?.custom_gross_wt,
           custom_kun_wt:
             selectedCategory.KunCategory !== ''
-              ? (kunInitial *
-                  (kunInitial * selectedCategory?.KunCategory?.type)) /
-                100
+              ? (kunInitial * selectedCategory?.KunCategory?.type) / 100
               : data?.custom_kun_wt,
           custom_cs_wt:
             selectedCategory.CsCategory !== ''
-              ? (csWtInitial *
-                  (csWtInitial * selectedCategory?.CsCategory?.type)) /
-                100
+              ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
               : Number(data?.custom_cs_wt),
           custom_bb_wt:
             selectedCategory?.BBCategory !== ''
@@ -321,21 +313,15 @@ const UseCustomerSaleHook = () => {
               : bbWtInitial,
           custom_other_wt:
             selectedCategory.OtCategory !== ''
-              ? (otWtInitial *
-                  otWtInitial *
-                  selectedCategory.OtCategory?.type) /
-                100
+              ? (otWtInitial * selectedCategory.OtCategory?.type) / 100
               : data?.custom_other_wt,
           custom_cs_amt:
             (selectedCategory.CsCategory !== ''
-              ? (csWtInitial *
-                  (csWtInitial * selectedCategory.CsCategory.type)) /
-                100
+              ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
               : Number(data?.custom_cs_wt)) * data?.custom_cs,
           custom_ot_amt:
             (selectedCategory.OtCategory !== ''
-              ? (otWtInitial * otWtInitial * selectedCategory.OtCategory.type) /
-                100
+              ? (otWtInitial * selectedCategory?.OtCategory?.type) / 100
               : data?.custom_other_wt) * data?.custom_ot_,
           custom_net_wt:
             Number(data?.custom_gross_wt) -
@@ -356,12 +342,12 @@ const UseCustomerSaleHook = () => {
   const handleEmptyDeliveryNote = () => {
     console.log('selected category', selectedCategory);
 
-    // setSeletedCategory({
-    //   KunCategory: '',
-    //   CsCategory: '',
-    //   BBCategory: '',
-    //   OtCategory: '',
-    // });
+    setSeletedCategory({
+      KunCategory: '',
+      CsCategory: '',
+      BBCategory: '',
+      OtCategory: '',
+    });
     setSelectedClient('');
     setSalesTableData([SalesTableInitialState]);
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
@@ -397,7 +383,7 @@ const UseCustomerSaleHook = () => {
                   Number(data?.custom_other_wt)),
           custom_amount:
             Number(data.custom_cs_amt) +
-            Number(data.custom_kun_amt) +
+            Number(data.custom_kun) * Number(data.custom_kun_pc) +
             Number(data.custom_ot_amt) +
             Number(data.custom_other),
         };
@@ -405,6 +391,7 @@ const UseCustomerSaleHook = () => {
     const values = {
       ...deliveryNoteData,
       custom_client_name: selectedClient,
+      // client_group: selectedClientGroup,
       version: 'v1',
       method: 'create_delivery_note',
       entity: 'delivery_note_api',
@@ -414,6 +401,20 @@ const UseCustomerSaleHook = () => {
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
+    // const clientValues = {
+    //   version: 'v1',
+    //   method: 'client_create',
+    //   entity: 'client_api',
+    //   client_name: selectedClient,
+    //   client_group: selectedClientGroup,
+    // };
+    // if (selectedClientGroup !== '') {
+    //   let apiRes: any = await postClientApi(
+    //     loginAcessToken?.token,
+    //     clientValues
+    //   );
+    //   console.log(apiRes, 'api res when client created in sales');
+    // }
     let reqField = values.custom_client_name;
     if (reqField === '') {
       toast.error('Client Name is Empty');
@@ -422,6 +423,7 @@ const UseCustomerSaleHook = () => {
         loginAcessToken.token,
         values
       );
+
       console.log('post delivery note', postDeliveryNote, query);
       if (postDeliveryNote?.data?.message?.status === 'success') {
         toast.success('Delivery note Created Sucessfully');
@@ -430,6 +432,9 @@ const UseCustomerSaleHook = () => {
         toast.error('Error in Creating Delivery note');
       }
     }
+  };
+  const handleSelectClientGroup = async (value: any) => {
+    setSelectedClientGroup(value);
   };
 
   console.log('sales table data', salesTableData);
@@ -459,6 +464,7 @@ const UseCustomerSaleHook = () => {
     setStateForDocStatus,
     clientGroupList,
     HandleDeleteDeliveryNote,
+    handleSelectClientGroup,
   };
 };
 

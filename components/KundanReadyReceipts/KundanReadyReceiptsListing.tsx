@@ -20,6 +20,8 @@ const KundanListing = ({
   karigarData,
   colPlaceholder1,
   colPlaceholder2,
+  deliveryNoteEntity,
+  deliveryNoteMethod,
 }: any) => {
   const router = useRouter();
   const pathParts = router.asPath.split('/');
@@ -150,14 +152,22 @@ const KundanListing = ({
       dispatch(getSpecificReceipt(params));
     }
   };
+  const entity =
+    deliveryNoteEntity !== undefined
+      ? deliveryNoteEntity
+      : 'get_print_purchase_receipt';
+  const method =
+    deliveryNoteMethod !== undefined
+      ? deliveryNoteMethod
+      : 'print_purchase_receipt';
 
   const HandlePrintApi: any = async (name: any) => {
     const reqParams = {
       token: loginAcessToken?.token,
       name: name,
       version: 'v1',
-      method: 'get_print_purchase_receipt',
-      entity: 'print_purchase_receipt',
+      method: method,
+      entity: entity,
     };
     let printApiRes: any = await PrintApi(reqParams);
     if (printApiRes?.status === 'success') {

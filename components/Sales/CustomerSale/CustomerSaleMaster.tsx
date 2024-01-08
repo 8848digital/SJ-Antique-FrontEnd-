@@ -32,6 +32,7 @@ const CustomerSaleMaster = () => {
     HandleDeleteDeliveryNote,
   }: any = UseCustomerSaleHook();
   const { deliveryNoteListing }: any = UseDeliveryNoteHook();
+  const { handleDeliveryNotePrintApi }: any = UseCustomerSaleHook;
   console.log(deliveryNoteListing, 'client name in listing');
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
   // useEffect(() => {
@@ -106,6 +107,9 @@ const CustomerSaleMaster = () => {
             colPlaceholder1={'Delivery Note No.'}
             colPlaceholder2={'Client '}
             HandleDeleteReceipt={HandleDeleteDeliveryNote}
+            handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
+            deliveryNoteMethod={'print_delivery_note'}
+            deliveryNoteEntity={'delivery_note_api'}
           />
         </div>
         <div

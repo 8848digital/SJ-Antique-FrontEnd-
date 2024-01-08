@@ -79,6 +79,7 @@ const CustomerSalesTable1 = ({
                 clientGroupList={clientGroupList}
                 readOnlyFields={readOnlyFields}
                 setStateForDocStatus={setStateForDocStatus}
+                handleSelectClientGroup={handleSelectClientGroup}
               />
             </td>
             {/* <td className="table_row">

@@ -19,7 +19,7 @@ const CustomerSalesTable2 = ({
     'DetailOfDeliveryNote from store in tsx',
     DetailOfDeliveryNoteFromStore
   );
-  console.log('selected category in tsx', selectedCategory);
+  console.log('selected category in customer hook', selectedCategory);
 
   return (
     <div className="table-responsive">
@@ -42,9 +42,9 @@ const CustomerSalesTable2 = ({
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === 'edit'
+                  selectedCategory?.KunCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_kun_category
-                    : ''
+                    : selectedCategory?.KunCategory?.name1
                 }
               >
                 <option selected></option>
@@ -68,9 +68,9 @@ const CustomerSalesTable2 = ({
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === 'edit'
+                  selectedCategory?.CsCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_cs_category
-                    : ''
+                    : selectedCategory?.CsCategory?.name1
                 }
               >
                 <option selected></option>
@@ -92,9 +92,9 @@ const CustomerSalesTable2 = ({
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === 'edit'
+                  selectedCategory?.BBCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_bb_category
-                    : ''
+                    : selectedCategory?.BBCategory?.name1
                 }
               >
                 <option selected></option>
@@ -113,9 +113,9 @@ const CustomerSalesTable2 = ({
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === 'edit'
+                  selectedCategory?.OtCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_ot_category
-                    : ''
+                    : selectedCategory?.OtCategory?.name1
                 }
               >
                 <option selected></option>

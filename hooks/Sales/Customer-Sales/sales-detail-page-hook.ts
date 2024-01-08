@@ -83,20 +83,14 @@ const UseCustomerSaleDetailHook = () => {
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
       setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
-      setSeletedCategory({
-        KunCategory: DetailOfDeliveryNoteFromStore?.data?.custom_kun_category,
-        CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
-        BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
-        OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
-      });
+      // setSeletedCategory({
+      //   KunCategory: DetailOfDeliveryNoteFromStore?.data?.custom_kun_category,
+      //   CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
+      //   BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
+      //   OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
+      // });
     }
   }, [DetailOfDeliveryNoteFromStore]);
-
-  console.log(
-    'sales table data with default values',
-    selectedClient,
-    selectedCategory
-  );
 
   const handleUpdateDeliveryNote: any = async () => {
     const updatedData =
@@ -226,8 +220,9 @@ const UseCustomerSaleDetailHook = () => {
     }
   };
   useEffect(() => {
+    console.log('inside useEffect in details page');
     const updatedData =
-      salesTableData.length > 0 &&
+      salesTableData?.length > 0 &&
       salesTableData !== null &&
       salesTableData.map((data: any) => {
         const kunInitial = Number(data?.kun_wt_initial) || 0;
@@ -239,7 +234,7 @@ const UseCustomerSaleDetailHook = () => {
           ...data,
           custom_gross_wt: data?.custom_gross_wt,
           custom_kun_wt:
-            selectedCategory.KunCategory !== ''
+            selectedCategory?.KunCategory?.type !== ''
               ? (kunInitial *
                   (kunInitial * selectedCategory?.KunCategory?.type)) /
                 100
@@ -264,12 +259,14 @@ const UseCustomerSaleDetailHook = () => {
           custom_cs_amt:
             (selectedCategory.CsCategory !== ''
               ? (csWtInitial *
-                  (csWtInitial * selectedCategory.CsCategory.type)) /
+                  (csWtInitial * selectedCategory?.CsCategory?.type)) /
                 100
               : Number(data?.custom_cs_wt)) * data?.custom_cs,
           custom_ot_amt:
             (selectedCategory.OtCategory !== ''
-              ? (otWtInitial * otWtInitial * selectedCategory.OtCategory.type) /
+              ? (otWtInitial *
+                  otWtInitial *
+                  selectedCategory?.OtCategory?.type) /
                 100
               : data?.custom_other_wt) * data?.custom_ot_,
           custom_net_wt:
@@ -287,6 +284,11 @@ const UseCustomerSaleDetailHook = () => {
       });
     setSalesTableData(updatedData);
   }, [selectedCategory]);
+  console.log(
+    'sales table data with default values',
+    DetailOfDeliveryNoteFromStore?.data,
+    selectedCategory
+  );
 
   return {
     salesTableData,

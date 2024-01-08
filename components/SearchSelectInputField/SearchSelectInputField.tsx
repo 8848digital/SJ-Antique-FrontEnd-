@@ -15,6 +15,7 @@ const SearchSelectInputField = ({
   readOnlyFields,
   style,
   clientGroupList,
+  handleSelectClientGroup,
 }: any) => {
   console.log('karigar dataa', karigarData);
 
@@ -185,10 +186,7 @@ const SearchSelectInputField = ({
       }
     }
   };
-  const handleSelectClientGroup = (value: any) => {
-    setSelectedDropdownValue(value);
-    setShowDropdown(!showDropdown);
-  };
+
   console.log(filterDropdownList, 'filter list in search');
   return (
     <div>
@@ -256,7 +254,10 @@ const SearchSelectInputField = ({
                         e.stopPropagation(); // Stop event propagation
                         handleShowClientGroupSelect(e);
                       }}
-                      onChange={(e) => handleSelectClientGroup(e.target.value)}
+                      onChange={(e) => {
+                        handleSelectClientGroup(e.target.value);
+                        setSelectedDropdownValue(selectedDropdownValue);
+                      }}
                     >
                       <option>Select client group</option>
                       {clientGroupList?.length > 0 &&
