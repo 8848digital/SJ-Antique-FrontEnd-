@@ -15,6 +15,7 @@ const CustomerSalesTable = ({
   setStateForDocStatus,
   readOnlyFields,
   itemList,
+  itemCodeDropdownReset,
 }: any) => {
   console.log(salesTableData, 'selected name and value');
   return (
@@ -106,7 +107,7 @@ const CustomerSalesTable = ({
                             karigar_name: data.name,
                           }))
                         }
-                        // kunKarigarDropdownReset={kunKarigarDropdownReset}
+                        kunKarigarDropdownReset={itemCodeDropdownReset}
                         defaultValue={item?.item_code}
                         tableData={salesTableData}
                         setTableData={setSalesTableData}

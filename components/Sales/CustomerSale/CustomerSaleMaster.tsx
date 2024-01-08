@@ -30,6 +30,7 @@ const CustomerSaleMaster = () => {
     handleSelectClientGroup,
     clientGroupList,
     HandleDeleteDeliveryNote,
+    itemCodeDropdownReset,
   }: any = UseCustomerSaleHook();
   const { deliveryNoteListing }: any = UseDeliveryNoteHook();
   const { handleDeliveryNotePrintApi }: any = UseCustomerSaleHook;
@@ -162,6 +163,7 @@ const CustomerSaleMaster = () => {
               handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
               selectedCategory={selectedCategory}
               itemList={itemList}
+              itemCodeDropdownReset={itemCodeDropdownReset}
             />
           </div>
         </div>

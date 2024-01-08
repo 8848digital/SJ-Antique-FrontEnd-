@@ -7,6 +7,7 @@ import getDeliveryNoteApi from '@/services/api/Sales/get-delivery-note-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import postDeliveryNoteApi from '@/services/api/Sales/post-delivery-note-api';
+import { get_client_data } from '@/store/slices/Master/get-client-group-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -18,6 +19,8 @@ const UseCustomerSaleHook = () => {
   const router = useRouter();
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
+  const clientDataSlice: any = useSelector(get_client_data);
+  console.log('client data from slice', clientDataSlice, loginAcessToken);
 
   const [kunCsOtCategoryListData, setKunCsOtCategoryListData] = useState<any>(
     []
@@ -40,6 +43,8 @@ const UseCustomerSaleHook = () => {
   const [selectedClient, setSelectedClient] = useState<string>('');
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
   const [clientGroupList, setClientGroupList] = useState();
+  const [itemCodeDropdownReset, setItemCodeDropdownReset] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
@@ -273,7 +278,6 @@ const UseCustomerSaleHook = () => {
     }
   };
   const handleSelectChange = (event: any) => {
-    console.log(selectedCategory, 'selected category in customer hook');
     const { name, value } = event.target;
     const selectedArray =
       name === 'BBCategory' ? BBCategoryListData : kunCsOtCategoryListData;
@@ -285,7 +289,7 @@ const UseCustomerSaleHook = () => {
     }));
     setStateForDocStatus(true);
   };
-  console.log(selectedCategory, 'selected category in customer hook');
+
   useEffect(() => {
     const updatedData =
       salesTableData?.length > 0 &&
@@ -340,7 +344,7 @@ const UseCustomerSaleHook = () => {
   }, [selectedCategory]);
 
   const handleEmptyDeliveryNote = () => {
-    console.log('selected category', selectedCategory);
+    console.log('selected category11', selectedCategory, salesTableData);
 
     setSeletedCategory({
       KunCategory: '',
@@ -352,6 +356,7 @@ const UseCustomerSaleHook = () => {
     setSalesTableData([SalesTableInitialState]);
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
     setStateForDocStatus(true);
+    setItemCodeDropdownReset(true);
   };
 
   const handleDNCreate: any = async () => {
@@ -391,7 +396,7 @@ const UseCustomerSaleHook = () => {
     const values = {
       ...deliveryNoteData,
       custom_client_name: selectedClient,
-      // client_group: selectedClientGroup,
+      custom_client_group: selectedClientGroup,
       version: 'v1',
       method: 'create_delivery_note',
       entity: 'delivery_note_api',
@@ -465,6 +470,7 @@ const UseCustomerSaleHook = () => {
     clientGroupList,
     HandleDeleteDeliveryNote,
     handleSelectClientGroup,
+    itemCodeDropdownReset,
   };
 };
 
