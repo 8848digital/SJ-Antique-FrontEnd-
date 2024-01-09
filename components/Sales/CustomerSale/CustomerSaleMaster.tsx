@@ -5,6 +5,7 @@ import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
 import UseDeliveryNoteHook from '@/hooks/Sales/Customer-Sales/delivery-note-hook';
 import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
+import TabSection from '@/components/TabSection';
 
 const CustomerSaleMaster = () => {
   const {
@@ -34,63 +35,17 @@ const CustomerSaleMaster = () => {
     deliveryNoteListing,
     handleDeliveryNotePrintApi,
   }: any = UseCustomerSaleHook();
-  // const {}: any = UseDeliveryNoteHook();
-  // const { handleDeliveryNotePrintApi }: any = UseCustomerSaleHook();
+
   console.log(deliveryNoteListing, 'client name in listing');
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
-  // useEffect(() => {
-  //   const handleKeyDown = (event: any) => {
-  //     console.log('event for save', event);
-  //     event.preventDefault();
-  //     const code = event.which || event.keyCode;
 
-  //     let charCode = String.fromCharCode(code).toLowerCase();
-  //     if ((event.ctrlKey || event.metaKey) && charCode === 's') {
-  //       handleDNCreate();
-  //     }
-  //   };
-
-  //   window.addEventListener('keydown', handleKeyDown);
-
-  //   return () => window.removeEventListener('keydown', handleKeyDown);
-  // }, []);
   return (
     <div className="container-lg px-0">
       <SalesHeader />
-      <div
-        className="nav nav-pills mb-3 justify-content-center"
-        id="pills-tab"
-        role="tablist"
-      >
-        <div className="nav-tabs tabs-container w-50" role="presentation">
-          <button
-            className="nav-link active w-100 border p-1"
-            id="pills-home-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-home"
-            type="button"
-            role="tab"
-            aria-controls="pills-home"
-            aria-selected="true"
-          >
-            Sales list
-          </button>
-        </div>
-        <div className="nav-tabs tabs-container w-50" role="presentation">
-          <button
-            className="nav-link w-100 border p-1"
-            id="pills-profile-tab"
-            data-bs-toggle="pill"
-            data-bs-target="#pills-profile"
-            type="button"
-            role="tab"
-            aria-controls="pills-profile"
-            aria-selected="false"
-          >
-            Create new Sales
-          </button>
-        </div>
-      </div>
+      <TabSection
+        firstTabHeading="Sales list"
+        secondTabHeading="Create new Sales "
+      />
       <div className="tab-content" id="pills-tabContent">
         <div
           className="tab-pane fade show active"
