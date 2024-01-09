@@ -1,7 +1,7 @@
-import getKarigarApi from '@/services/api/get-karigar-list-api';
-import kundanKarigarApi from '@/services/api/get-kundan-karigar-list-api';
 import postKarigarApi from '@/services/api/Master/post-karigar-name';
 import postKunKarigarApi from '@/services/api/Master/post-kundan-karigar-name';
+import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';

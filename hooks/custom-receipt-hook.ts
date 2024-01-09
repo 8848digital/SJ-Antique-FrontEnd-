@@ -1,11 +1,12 @@
 import DeletePurchaseReceiptApi from '@/services/api/PurchaseReceipt/delete-purchase-receipt';
+import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
+import postUploadFile from '@/services/api/PurchaseReceipt/post-upload-file-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
-import getPurchasreceiptListApi from '@/services/api/get-purchase-recipts-list-api';
-import postUploadFile from '@/services/api/post-upload-file-api';
+
 import {
   getSpecificReceipt,
   get_specific_receipt_data,
-} from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+} from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../root-reducer';
-import getAccessTokenApi from '@/services/api/get-login-api';
+import getAccessTokenApi from '@/services/api/auth/get-login-api';
 
 export const getAccessToken: any = createAsyncThunk(
   'accessToken/getAccessToken',

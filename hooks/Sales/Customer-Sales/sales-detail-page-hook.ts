@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import UpdateDeliveryNoteApi from '@/services/api/Sales/put-update-delivery-note-api';
 import UpdateSalesDocStatusApi from '@/services/api/Sales/update-sales-docStatus-api';
 import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
-import PrintApi from '@/services/api/Sales/print-api';
+import PrintApi from '@/services/api/general/print-api';
 
 const UseCustomerSaleDetailHook = () => {
   const dispatch = useDispatch();

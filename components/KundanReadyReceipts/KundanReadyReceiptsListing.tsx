@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import PrintPurchaseReceiptApi from '@/services/api/PurchaseReceipt/print-purchase-receipt-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
-import getPurchasreceiptListApi from '@/services/api/get-purchase-recipts-list-api';
-import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import { getSpecificReceipt } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,7 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/readyReceiptTableListing.module.css';
 import FilterKundanReadyReceiptListing from './FilterKundanReadyReceiptListing';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
-import PrintApi from '@/services/api/Sales/print-api';
+
+import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
+import PrintApi from '@/services/api/general/print-api';
 
 const KundanListing = ({
   kundanListing,
@@ -160,11 +160,11 @@ const KundanListing = ({
   const entity =
     deliveryNoteEntity !== undefined
       ? deliveryNoteEntity
-      : 'get_print_purchase_receipt';
+      : 'print_purchase_receipt';
   const method =
     deliveryNoteMethod !== undefined
       ? deliveryNoteMethod
-      : 'print_purchase_receipt';
+      : 'get_print_purchase_receipt';
 
   const HandlePrintApi: any = async (name: any) => {
     const reqParams = {
