@@ -180,7 +180,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={item.custom_bb_wt}
+                        value={parseFloat(item.custom_bb_wt).toFixed(3)}
                         defaultValue={item.custom_bb_wt}
                         readOnly={readOnlyFields}
                         onChange={(e) =>

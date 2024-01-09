@@ -10,7 +10,7 @@ export const getClientGroupData: any = createAsyncThunk(
     return ClientGroupData;
   }
 );
-
+console.log('inside slice', getClientGroupData);
 interface RepoClientGroupDataState {
   data: any;
   docStatus: any;
@@ -32,8 +32,6 @@ export const GetClientGroupDataScreen = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getClientGroupData.pending, (state) => {
       state.isLoading = 'pending';
-      state.data = '';
-      state.docStatus = '';
     });
     builder.addCase(getClientGroupData.fulfilled, (state, action) => {
       if (
@@ -41,18 +39,15 @@ export const GetClientGroupDataScreen = createSlice({
         action?.payload?.data?.message?.status === 'success'
       ) {
         state.data = action?.payload?.data?.message?.data;
-        state.docStatus = action?.payload?.data?.message?.data?.docstatus;
         state.isLoading = 'succeeded';
       } else {
         state.data = '';
-        state.docStatus = '';
+        // state.docStatus = '';
         state.isLoading = 'succeeded';
       }
     });
     builder.addCase(getClientGroupData.rejected, (state) => {
       state.isLoading = 'failed';
-      state.data = '';
-      state.docStatus = '';
       state.error = 'failed to store data';
     });
   },

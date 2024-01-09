@@ -77,6 +77,7 @@ const UseCustomerSaleHook = () => {
       const clientGroupData: any = await getClientGroupApi(
         loginAcessToken.token
       );
+      console.log(clientGroupData, 'client group data in hook');
       if (clientGroupData?.data?.message?.status === 'success') {
         setClientGroupList(clientGroupData?.data?.message?.data);
       }
@@ -315,7 +316,7 @@ const UseCustomerSaleHook = () => {
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
               : Number(data?.custom_cs_wt),
           custom_bb_wt:
-            selectedCategory?.BBCategory !== ''
+            selectedCategory?.BBCategory !== '' && bbWtInitial !== 0
               ? bbWtInitial - 0.7
               : bbWtInitial,
           custom_other_wt:
