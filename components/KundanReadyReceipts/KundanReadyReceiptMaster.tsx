@@ -56,6 +56,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     calculateEditTotal,
     purchasRecieptListParams,
     handleClearFileUploadInput,
+    handleUpdateReceipt,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();

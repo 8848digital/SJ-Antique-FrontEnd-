@@ -59,6 +59,8 @@ const DetailPageReadyReceipt = () => {
     setSelectedKundanKarigarDropdownValue,
     calculateEditTotal,
     handleClearFileUploadInput,
+    lastInputRef,
+    firstInputRef,
   } = useReadyReceiptKarigar();
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
 
@@ -164,6 +166,9 @@ const DetailPageReadyReceipt = () => {
                   calculateEditTotal={calculateEditTotal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
                   keyValue={'edit'}
+                  handleUpdateReceipt={handleUpdateReceipt}
+                  lastInputRef={lastInputRef}
+                  firstInputRef={firstInputRef}
                 />
               </div>
               <PurchaseReceiptModal

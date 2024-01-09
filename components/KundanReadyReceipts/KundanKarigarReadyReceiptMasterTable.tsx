@@ -4,6 +4,9 @@ import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 import PurchaseReceiptFileUploadMaster from '../PurchaseReceiptFileUpload/PurchaseReceiptFileUploadMaster';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
@@ -24,11 +27,28 @@ const KundanKarigarReadyReceiptMasterTable = ({
   handleClearFileUploadInput,
   handleCreate,
   keyValue,
+  handleUpdateReceipt,
+  lastInputRef,
+  firstInputRef,
 }: any) => {
   console.log('table data receipt', tableData);
   const { query } = useRouter();
   console.log('query pa', query);
+  const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
 
+  console.log(
+    keyValue,
+    tableData.length,
+    'key value in table',
+    SpecificDataFromStore?.data[0].items.length
+  );
+  useEffect(() => {
+    if (SpecificDataFromStore?.data[0]?.items?.length === tableData.length) {
+      lastInputRef?.current?.focus();
+    } else {
+      firstInputRef?.current?.focus();
+    }
+  }, []);
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -71,7 +91,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Add Photo
             </th>
             <th className="thead" scope="col"></th>
-            {/* <th className="thead" scope="col"></th> */}
+            <th className="thead" scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -96,7 +116,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         )
                       }
                       readOnly={readOnlyFields}
-                      autoFocus
+                      ref={firstInputRef}
                     />
                   </td>
                   <td className="table_row">
@@ -255,9 +275,23 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   <td className="table_row">
                     <button
                       className="d-flex align-items-center delete-link p-1 border-0"
-                      onClick={() => handleDeleteRow(item.idx)}
-                      onKeyDown={(e) => handleTabPress(e, item.idx, keyValue)}
+                      onKeyDown={(e) => {
+                        keyValue === 'edit'
+                          ? handleUpdateReceipt()
+                          : handleCreate();
+                      }}
                       disabled={readOnlyFields}
+                    >
+                      <i className="fa-solid fa-plus"></i>
+                    </button>
+                  </td>
+                  <td className="table_row">
+                    <button
+                      className="d-flex align-items-center delete-link p-1 border-0"
+                      onClick={() => handleDeleteRow(item.idx)}
+                      onKeyDown={(e) => handleTabPress(e, item.idx)}
+                      disabled={readOnlyFields}
+                      ref={lastInputRef}
                     >
                       <FontAwesomeIcon
                         icon={faTrash}
@@ -265,17 +299,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       />
                     </button>
                   </td>
-                  {/* <td className="table_row">
-                    <button
-                      className="d-flex align-items-center delete-link p-1 border-0"
-                      onKeyDown={(e) => handleTabPress(e, item.idx)}
-                      disabled={readOnlyFields}
-                    >
-                      <i className="fa-solid fa-plus"></i>
-                    </button>
-                  </td> */}
                 </tr>
-                <tr></tr>
               </>
             ))}
         </tbody>

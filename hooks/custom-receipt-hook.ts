@@ -116,8 +116,7 @@ const UseCustomReceiptHook: any = () => {
 
       let updatedData: any = await getPurchasreceiptListApi(
         loginAcessToken,
-        capitalizeFirstLetter(lastPartOfURL),
-        listParams
+        capitalizeFirstLetter(lastPartOfURL)
       );
       console.log('resss', updatedData);
       if (updatedData?.data?.message?.status === 'success') {
