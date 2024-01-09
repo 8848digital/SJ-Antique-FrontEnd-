@@ -22,6 +22,8 @@ const useReadyReceiptKarigar = () => {
   const lastPartOfURL: any = pathParts[pathParts?.length - 1];
 
   const inputRef = useRef<any>(null);
+  const lastInputRef = useRef<any>(null);
+  const firstInputRef = useRef<any>(null);
   const [readyReceiptType, setReadyReceiptType] = useState<any>('');
   const [recipitData, setRecipitData] = useState({
     custom_karigar: ' ',
@@ -38,7 +40,6 @@ const useReadyReceiptKarigar = () => {
   const [activeModalId, setActiveModalId] = useState<any>(null);
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
-
   const loginAcessToken = useSelector(get_access_token);
   console.log(loginAcessToken, 'loginAcessToken');
   let disabledValue: any;
@@ -363,11 +364,7 @@ const useReadyReceiptKarigar = () => {
   };
 
   const handleTabPress = (event: any, id: any, keyValue: any) => {
-    if (
-      event.key === 'Tab' &&
-      id === tableData[tableData.length - 1].idx &&
-      keyValue === 'edit'
-    ) {
+    if (event.key === 'Tab' && id === tableData[tableData.length - 1].idx) {
       // if (query?.hasOwnProperty('receiptId')) {
       // } else {
       //   // handleCreate();
@@ -627,6 +624,7 @@ const useReadyReceiptKarigar = () => {
       console.error('Error during API call:', error);
     }
   };
+  // useEffect(() => {}, [tableData]);
 
   return {
     setClick,
@@ -679,6 +677,8 @@ const useReadyReceiptKarigar = () => {
     calculateEditTotal,
     handleClearFileUploadInput,
     purchasRecieptListParams,
+    lastInputRef,
+    firstInputRef,
   };
 };
 

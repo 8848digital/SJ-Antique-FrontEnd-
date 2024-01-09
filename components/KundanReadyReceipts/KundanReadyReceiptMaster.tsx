@@ -5,9 +5,10 @@ import styles from '../../styles/readyReceipts.module.css';
 import KundanListing from './KundanReadyReceiptsListing';
 import KundanKarigarReadyReceiptMasterTable from './KundanKarigarReadyReceiptMasterTable';
 import KundanTable from './KundanTable';
-import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptFileUploadHook/readyReceiptKarigarHooks';
+
 import { useRouter } from 'next/router';
 import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
+import useReadyReceiptKarigar from '@/hooks/readyReceiptKarigarHooks';
 
 const ReadyReceiptKundanKarigarMaster = () => {
   const {
