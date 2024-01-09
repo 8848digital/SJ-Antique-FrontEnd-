@@ -54,6 +54,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
     calculateEditTotal,
+    purchasRecieptListParams,
     handleClearFileUploadInput,
   } = useReadyReceiptKarigar();
 
@@ -112,6 +113,10 @@ const ReadyReceiptKundanKarigarMaster = () => {
               karigarData={karigarData}
               colPlaceholder1={'Receipt No.'}
               colPlaceholder2={'Karigar'}
+              deleteApiVersion={'v1'}
+              deleteApiMethod={'delete_purchase_receipt_delete'}
+              deleteApiEntity={'delete_purchase_receipts'}
+              purchasRecieptListParams={purchasRecieptListParams}
             />
           </div>
           <div

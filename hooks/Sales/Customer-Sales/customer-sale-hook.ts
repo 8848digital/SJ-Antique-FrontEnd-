@@ -12,8 +12,12 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import UseDeliveryNoteHook from './delivery-note-hook';
+import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 
 const UseCustomerSaleHook = () => {
+  const { deliveryNoteListing, setDeliveryNoteListing }: any =
+    UseDeliveryNoteHook();
   const dispatch = useDispatch();
   const router = useRouter();
   const { query } = useRouter();
@@ -456,9 +460,23 @@ const UseCustomerSaleHook = () => {
 
     if (deleteApi?.message?.status === 'success') {
       toast.success('Sales note Deleted');
+
+      let updatedData: any = await getDeliveryNoteListing(
+        loginAcessToken.token
+      );
+      console.log('resss', updatedData?.data?.message?.data);
+      if (updatedData?.data?.message?.status === 'success') {
+        setDeliveryNoteListing(updatedData?.data?.message?.data);
+        console.log(deliveryNoteListing, 'delivery note listing');
+      }
     } else {
       toast.error('Failed to delete Sales note');
     }
+  };
+  const deliveryNoteListParams = {
+    version: 'v1',
+    method: 'get_delivery_note',
+    entity: 'delivery_note_api',
   };
   return {
     salesTableData,
@@ -487,6 +505,8 @@ const UseCustomerSaleHook = () => {
     HandleDeleteDeliveryNote,
     handleSelectClientGroup,
     itemCodeDropdownReset,
+    deliveryNoteListParams,
+    deliveryNoteListing,
   };
 };
 

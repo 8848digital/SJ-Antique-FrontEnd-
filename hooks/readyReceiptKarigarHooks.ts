@@ -12,6 +12,7 @@ import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
 import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
 import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
+import postMaterialApi from '@/services/api/PurchaseReceipt/post-material-api';
 
 const useReadyReceiptKarigar = () => {
   const { query } = useRouter();
@@ -81,6 +82,7 @@ const useReadyReceiptKarigar = () => {
     showModal,
     setShowModal,
     handleFieldChange,
+    purchasRecieptListParams,
   }: any = UseCustomReceiptHook();
 
   const initialState: any = {
@@ -360,8 +362,12 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus(true);
   };
 
-  const handleTabPress = (event: any, id: any) => {
-    if (event.key === 'Tab' && id === tableData[tableData.length - 1].idx) {
+  const handleTabPress = (event: any, id: any, keyValue: any) => {
+    if (
+      event.key === 'Tab' &&
+      id === tableData[tableData.length - 1].idx &&
+      keyValue === 'edit'
+    ) {
       // if (query?.hasOwnProperty('receiptId')) {
       // } else {
       //   // handleCreate();
@@ -672,6 +678,7 @@ const useReadyReceiptKarigar = () => {
     setKunKarigarDropdownReset,
     calculateEditTotal,
     handleClearFileUploadInput,
+    purchasRecieptListParams,
   };
 };
 

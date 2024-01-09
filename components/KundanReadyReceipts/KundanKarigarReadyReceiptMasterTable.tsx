@@ -23,6 +23,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   calculateEditTotal,
   handleClearFileUploadInput,
   handleCreate,
+  keyValue,
 }: any) => {
   console.log('table data receipt', tableData);
   const { query } = useRouter();
@@ -95,6 +96,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         )
                       }
                       readOnly={readOnlyFields}
+                      autoFocus
                     />
                   </td>
                   <td className="table_row">
@@ -254,7 +256,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <button
                       className="d-flex align-items-center delete-link p-1 border-0"
                       onClick={() => handleDeleteRow(item.idx)}
-                      onKeyDown={handleCreate}
+                      onKeyDown={(e) => handleTabPress(e, item.idx, keyValue)}
                       disabled={readOnlyFields}
                     >
                       <FontAwesomeIcon

@@ -30,9 +30,12 @@ const CustomerSaleMaster = () => {
     clientGroupList,
     HandleDeleteDeliveryNote,
     itemCodeDropdownReset,
+    deliveryNoteListParams,
+    deliveryNoteListing,
+    handleDeliveryNotePrintApi,
   }: any = UseCustomerSaleHook();
-  const { deliveryNoteListing }: any = UseDeliveryNoteHook();
-  const { handleDeliveryNotePrintApi }: any = UseCustomerSaleHook;
+  // const {}: any = UseDeliveryNoteHook();
+  // const { handleDeliveryNotePrintApi }: any = UseCustomerSaleHook();
   console.log(deliveryNoteListing, 'client name in listing');
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
   // useEffect(() => {
@@ -110,6 +113,10 @@ const CustomerSaleMaster = () => {
             handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
             deliveryNoteMethod={'print_delivery_note'}
             deliveryNoteEntity={'delivery_note_api'}
+            deleteApiVersion={'v1'}
+            deleteApiMethod={'delete_delivery_note_api'}
+            deleteApiEntity={'delivery_note_api'}
+            purchasRecieptListParams={deliveryNoteListParams}
           />
         </div>
         <div
