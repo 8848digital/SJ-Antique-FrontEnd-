@@ -362,8 +362,12 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus(true);
   };
 
-  const handleTabPress = (event: any, id: any) => {
-    if (event.key === 'Tab' && id === tableData[tableData.length - 1].idx) {
+  const handleTabPress = (event: any, id: any, keyValue: any) => {
+    if (
+      event.key === 'Tab' &&
+      id === tableData[tableData.length - 1].idx &&
+      keyValue === 'edit'
+    ) {
       // if (query?.hasOwnProperty('receiptId')) {
       // } else {
       //   // handleCreate();

@@ -88,7 +88,7 @@ const DetailPageReadyReceipt = () => {
         <>
           {SpecificDataFromStore?.data?.length === 0 && isLoading === false ? (
             <NoRecord
-              title="Record not found !!"
+              title="Record not found 😥"
               heading=""
               backButtonUrl={`/readyReceipt/${query?.receipt}`}
             />
@@ -163,6 +163,7 @@ const DetailPageReadyReceipt = () => {
                   setReadOnlyFields={setReadOnlyFields}
                   calculateEditTotal={calculateEditTotal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
+                  keyValue={'edit'}
                 />
               </div>
               <PurchaseReceiptModal
