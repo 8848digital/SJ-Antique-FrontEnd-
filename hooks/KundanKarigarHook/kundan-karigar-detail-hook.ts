@@ -6,7 +6,7 @@ import UseCustomReceiptHook from '../custom-receipt-hook';
 import {
   getSpecificReceipt,
   get_specific_receipt_data,
-} from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+} from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 
 const UseKundanKarigarDetailHook = () => {
   const dispatch = useDispatch();

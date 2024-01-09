@@ -1,4 +1,3 @@
-import GetSpecificPurchaseReceiptData from '@/services/api/PurchaseReceipt/get-specific-purchase-receipt-api';
 import GetDetailOfDeliveryNoteAPi from '@/services/api/Sales/get-detail-delivery-note-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';

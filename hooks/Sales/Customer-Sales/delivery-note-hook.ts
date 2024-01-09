@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import UseCustomerSaleHook from './customer-sale-hook';
-import getDeliveryNoteApi from '@/services/api/Sales/get-delivery-note-api';
 import { useSelector } from 'react-redux';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';

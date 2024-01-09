@@ -19,12 +19,10 @@ const UpdateDocStatusApi: any = async (
       Authorization: token,
     },
   };
-  console.log('body', body);
 
   await axios
     .put(`${CONSTANTS.API_BASE_URL}${params}`, body, config)
     .then((res: any) => {
-      console.log('create chitti res', res);
       response = res;
     })
     .catch((err: any) => {

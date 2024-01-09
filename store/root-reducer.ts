@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import GetAccessTokenScreen from '../store/slices/auth/login-slice';
-import GetSpecificReceiptDataReducer from '../store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import GetSpecificReceiptDataReducer from './slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import GetDetailOfDeliveryNoteDataReducer from '../store/slices/Sales/getDetailOfDeliveryNoteApi';
 import GetClientGroupDataReducer from '../store/slices/Master/get-client-group-slice';
 const appReducer = combineReducers({

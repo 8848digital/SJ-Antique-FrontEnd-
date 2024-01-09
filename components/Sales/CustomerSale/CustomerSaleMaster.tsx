@@ -4,7 +4,6 @@ import CustomerSalesTable from './CustomerSalesTable';
 import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
 import UseDeliveryNoteHook from '@/hooks/Sales/Customer-Sales/delivery-note-hook';
-
 import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
 
 const CustomerSaleMaster = () => {

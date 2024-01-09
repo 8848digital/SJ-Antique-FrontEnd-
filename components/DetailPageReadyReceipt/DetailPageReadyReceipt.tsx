@@ -7,7 +7,7 @@ import DocStatusButtonChanges from '../ButtonChanges/DocStatusButtonChanges';
 import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
 import '../../styles/detailPage.module.css';
 import { useSelector } from 'react-redux';
-import { get_specific_receipt_data } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import Loader from '../NoRecord/Loader';
 import NoRecord from '../NoRecord/NoRecord';
 import { useRouter } from 'next/router';

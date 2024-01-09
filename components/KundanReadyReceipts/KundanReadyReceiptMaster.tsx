@@ -54,14 +54,10 @@ const ReadyReceiptKundanKarigarMaster = () => {
     kunKarigarDropdownReset,
     setKunKarigarDropdownReset,
     calculateEditTotal,
-
     handleClearFileUploadInput,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
-  console.log('show modal', showModal);
-
-  console.log('table data', readOnlyFields);
 
   return (
     <div className="container-lg">

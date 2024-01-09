@@ -1,6 +1,6 @@
 import GetSpecificPurchaseReceiptData from '@/services/api/PurchaseReceipt/get-specific-purchase-receipt-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../root-reducer';
+import { RootState } from '../../root-reducer';
 
 export const getSpecificReceipt: any = createAsyncThunk(
   'specificReceipt/getSpecificReceipt',

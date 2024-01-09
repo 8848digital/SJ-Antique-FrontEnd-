@@ -1,9 +1,10 @@
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useSelector } from 'react-redux';
 import React, { useEffect, useState, useRef } from 'react';
-import materialApi from '@/services/api/get-material-list-api';
+
 import { toast } from 'react-toastify';
 import postMaterialMasterApi from '@/services/api/Master/post-material-name';
+import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
 
 const useMaterialHook = () => {
   const loginAcessToken = useSelector(get_access_token);

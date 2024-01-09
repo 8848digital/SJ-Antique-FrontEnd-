@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CONSTANTS } from '../config/api-config';
+import { CONSTANTS } from '../../config/api-config';
 
 const getAccessTokenApi = async (param: any) => {
   let response: any;

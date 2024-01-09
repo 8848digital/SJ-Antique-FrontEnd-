@@ -1,18 +1,17 @@
-import getPurchasreceiptListApi from '@/services/api/get-purchase-recipts-list-api';
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import getKarigarApi from '@/services/api/get-karigar-list-api';
-import kundanKarigarApi from '@/services/api/get-kundan-karigar-list-api';
-import materialApi from '@/services/api/get-material-list-api';
-import postMaterialApi from '@/services/api/post-material-api';
-import purchaseReceiptApi from '@/services/api/post-purchase-receipt-api';
 import { toast } from 'react-toastify';
 import UseCustomReceiptHook from './custom-receipt-hook';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
-import { getSpecificReceipt } from '@/store/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import { getSpecificReceipt } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import AmendPurchaseReceiptApi from '@/services/api/PurchaseReceipt/Amend-purchase-receipt-api';
+import purchaseReceiptApi from '@/services/api/PurchaseReceipt/post-purchase-receipt-api';
+import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
+import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
+import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 
 const useReadyReceiptKarigar = () => {
   const { query } = useRouter();
