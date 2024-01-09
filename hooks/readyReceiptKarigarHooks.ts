@@ -82,6 +82,7 @@ const useReadyReceiptKarigar = () => {
     showModal,
     setShowModal,
     handleFieldChange,
+    purchasRecieptListParams,
   }: any = UseCustomReceiptHook();
 
   const initialState: any = {
@@ -673,6 +674,7 @@ const useReadyReceiptKarigar = () => {
     setKunKarigarDropdownReset,
     calculateEditTotal,
     handleClearFileUploadInput,
+    purchasRecieptListParams,
   };
 };
 

@@ -22,7 +22,12 @@ const KundanListing = ({
   colPlaceholder2,
   deliveryNoteEntity,
   deliveryNoteMethod,
+  deleteApiVersion,
+  deleteApiMethod,
+  deleteApiEntity,
+  purchasRecieptListParams,
 }: any) => {
+  console.log(purchasRecieptListParams, 'param in listing');
   const router = useRouter();
   const pathParts = router.asPath.split('/');
   const lastPartOfURL = pathParts[pathParts.length - 1];
@@ -176,7 +181,12 @@ const KundanListing = ({
       }
     }
   };
-
+  const deleteParams = {
+    version: deleteApiVersion,
+    method: deleteApiMethod,
+    entity: deleteApiEntity,
+  };
+  console.log(deleteParams, 'delete params');
   return (
     <div className=" table">
       <FilterKundanReadyReceiptListing
@@ -273,7 +283,13 @@ const KundanListing = ({
                         </div>
                         <div className="col">
                           <a
-                            onClick={() => HandleDeleteReceipt(item.name)}
+                            onClick={() =>
+                              HandleDeleteReceipt(
+                                item.name,
+                                deleteParams,
+                                purchasRecieptListParams
+                              )
+                            }
                             className={`button-section-text text-danger ${styles.cursor_pointer}`}
                           >
                             Delete

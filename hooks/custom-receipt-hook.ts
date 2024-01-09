@@ -89,11 +89,22 @@ const UseCustomReceiptHook: any = () => {
       return updatedTable;
     });
   }, [query]);
+  const purchasRecieptListParams = {
+    version: 'v1',
+    method: 'get_specific_purchase_receipt',
+    entity: 'specific_purchase_receipt',
+  };
 
-  const HandleDeleteReceipt: any = async (name: any) => {
+  const HandleDeleteReceipt: any = async (
+    name: any,
+    params: any,
+    listParams: any
+  ) => {
+    console.log(listParams, 'param in listing');
     let deletePurchaseReceiptApi: any = await DeletePurchaseReceiptApi(
       loginAcessToken?.token,
-      name
+      name,
+      params
     );
     console.log('deletereciept api', deletePurchaseReceiptApi);
     if (deletePurchaseReceiptApi?.message?.status === 'success') {
@@ -104,7 +115,8 @@ const UseCustomReceiptHook: any = () => {
 
       let updatedData: any = await getPurchasreceiptListApi(
         loginAcessToken,
-        capitalizeFirstLetter(lastPartOfURL)
+        capitalizeFirstLetter(lastPartOfURL),
+        listParams
       );
       console.log('resss', updatedData);
       if (updatedData?.data?.message?.status === 'success') {
@@ -440,6 +452,7 @@ const UseCustomReceiptHook: any = () => {
     indexVal,
     showModal,
     handleFieldChange,
+    purchasRecieptListParams,
   };
 };
 

@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import styles from '../../../styles/readyReceipts.module.css';
-
 import SalesHeader from '@/components/Header/SalesHeader';
-import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
 import CustomerSalesTable from '../CustomerSale/CustomerSalesTable';
+import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
 
 const SaleReturnsMaster = () => {
   return (
-    <div className="container-lg">
+    <div className="container-lg px-0">
       <SalesHeader />
       <div>
         <div
