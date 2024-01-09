@@ -43,7 +43,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
     SpecificDataFromStore?.data[0].items.length
   );
   useEffect(() => {
-    if (SpecificDataFromStore?.data[0]?.items?.length === tableData.length) {
+    if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
     } else {
       firstInputRef?.current?.focus();

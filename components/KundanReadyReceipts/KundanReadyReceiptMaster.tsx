@@ -8,7 +8,7 @@ import KundanTable from './KundanTable';
 
 import { useRouter } from 'next/router';
 import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
-import useReadyReceiptKarigar from '@/hooks/readyReceiptKarigarHooks';
+import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
 
 const ReadyReceiptKundanKarigarMaster = () => {
   const {
