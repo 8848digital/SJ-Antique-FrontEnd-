@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import UseDeliveryNoteHook from './delivery-note-hook';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
+import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 
 const UseCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -437,7 +438,7 @@ const UseCustomerSaleHook = () => {
     if (reqField === '') {
       toast.error('Client Name is Empty');
     } else {
-      const postDeliveryNote: any = await postDeliveryNoteApi(
+      const postDeliveryNote: any = await PostSalesApi(
         loginAcessToken.token,
         values
       );
