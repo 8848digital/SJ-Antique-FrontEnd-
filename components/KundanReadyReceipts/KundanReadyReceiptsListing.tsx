@@ -20,8 +20,8 @@ const KundanListing = ({
   karigarData,
   colPlaceholder1,
   colPlaceholder2,
-  deliveryNoteEntity,
-  deliveryNoteMethod,
+  printApiEntity,
+  printApiMethod,
   deleteApiVersion,
   deleteApiMethod,
   deleteApiEntity,
@@ -97,7 +97,7 @@ const KundanListing = ({
                   ?.toLowerCase()
                   ?.includes(searchKarigar?.toLowerCase())
             : true;
-          console.log(searchReceiptNumber, 'searchReceipt');
+
           const receiptNumberMatch = searchReceiptNumber
             ? item?.name
                 ?.toLowerCase()
@@ -159,22 +159,14 @@ const KundanListing = ({
       dispatch(getSpecificReceipt(params));
     }
   };
-  const entity =
-    deliveryNoteEntity !== undefined
-      ? deliveryNoteEntity
-      : 'print_purchase_receipt';
-  const method =
-    deliveryNoteMethod !== undefined
-      ? deliveryNoteMethod
-      : 'get_print_purchase_receipt';
 
   const HandlePrintApi: any = async (name: any) => {
     const reqParams = {
       token: loginAcessToken?.token,
       name: name,
       version: 'v1',
-      method: method,
-      entity: entity,
+      method: printApiMethod,
+      entity: printApiEntity,
     };
     let printApiRes: any = await PrintApi(reqParams);
     if (printApiRes?.status === 'success') {
@@ -188,7 +180,7 @@ const KundanListing = ({
     method: deleteApiMethod,
     entity: deleteApiEntity,
   };
-  console.log(deleteParams, 'delete params');
+
   return (
     <div className=" table">
       <FilterKundanReadyReceiptListing

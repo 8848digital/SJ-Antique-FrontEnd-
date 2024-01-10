@@ -5,6 +5,8 @@ import TabSection from '@/components/TabSection';
 import UseSalesReturnMasterHook from '@/hooks/Sales/Sales-Returns/sales-return-master-hook';
 import UseCustomSalesReturnHook from '@/hooks/Sales/Sales-Returns/custom-sales-return-hook';
 import DetailsPageSalesReturn from './DetailPageSalesReturn/DetailsPageSalesReturn';
+import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
+import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
 
 const SaleReturnsMaster = () => {
   const {
@@ -28,9 +30,10 @@ const SaleReturnsMaster = () => {
 
     handleSelectClientGroup,
   }: any = UseCustomSalesReturnHook();
-
+  const { saleReturnDeliveryNoteListing, HandleDeleteDeliveryNote } =
+    UseSalesReturnDetailHook();
   console.log('sales return table data in tsx', salesReturnTableData);
-
+  console.log(saleReturnDeliveryNoteListing, 'sales return listing');
   return (
     <div className="container-lg px-0">
       <SalesHeader />
@@ -47,7 +50,26 @@ const SaleReturnsMaster = () => {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <DetailsPageSalesReturn />
+            <KundanListing
+              kundanListing={saleReturnDeliveryNoteListing}
+              karigarData={
+                clientNameListData?.length > 0 &&
+                clientNameListData !== null &&
+                clientNameListData.map((data: any) => ({
+                  karigar_name: data.client_name,
+                }))
+              }
+              colPlaceholder1={'Delivery Note No.'}
+              colPlaceholder2={'Client '}
+              HandleDeleteReceipt={HandleDeleteDeliveryNote}
+              // handleDeliveryNotePrintApi={HandleDeleteDeliveryNote}
+              printApiMethod={'get_print_purchase_receipt'}
+              printApiEntity={'print_purchase_receipt'}
+              deleteApiVersion={'v1'}
+              deleteApiMethod={'delete_delivery_note_api'}
+              deleteApiEntity={'delivery_note_api'}
+              // purchasRecieptListParams={deliveryNoteListParams}
+            />
           </div>
           <div
             className="tab-pane fade"

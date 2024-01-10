@@ -121,7 +121,7 @@ const UseCustomSalesReturnHook = () => {
 
   const handleEmptySaleReturnData = () => {
     // setSeletedCategory({
-    //   KunCategory: '',
+    //  KunCategory: '',
     //   CsCategory: '',
     //   BBCategory: '',
     //   OtCategory: '',

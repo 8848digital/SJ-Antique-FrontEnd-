@@ -1,9 +1,7 @@
 import CurrentDate from '@/components/CurrentDate';
 import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
-import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
 import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { useSelector } from 'react-redux';
 
 const CustomerSalesTable1 = ({

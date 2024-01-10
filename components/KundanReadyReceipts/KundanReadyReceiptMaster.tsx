@@ -88,6 +88,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
               deleteApiMethod={'delete_purchase_receipt_delete'}
               deleteApiEntity={'delete_purchase_receipts'}
               purchasRecieptListParams={purchasRecieptListParams}
+              printApiMethod={'get_print_purchase_receipt'}
+              printApiEntity={'print_purchase_receipt'}
             />
           </div>
           <div

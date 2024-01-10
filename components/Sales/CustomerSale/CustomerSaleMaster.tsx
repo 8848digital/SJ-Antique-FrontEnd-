@@ -1,11 +1,10 @@
 import SalesHeader from '@/components/Header/SalesHeader';
+import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
+import TabSection from '@/components/TabSection';
 import UseCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sale-hook';
 import CustomerSalesTable from './CustomerSalesTable';
 import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
-import UseDeliveryNoteHook from '@/hooks/Sales/Customer-Sales/delivery-note-hook';
-import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
-import TabSection from '@/components/TabSection';
 
 const CustomerSaleMaster = () => {
   const {
@@ -65,9 +64,8 @@ const CustomerSaleMaster = () => {
             colPlaceholder1={'Delivery Note No.'}
             colPlaceholder2={'Client '}
             HandleDeleteReceipt={HandleDeleteDeliveryNote}
-            handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
-            deliveryNoteMethod={'print_delivery_note'}
-            deliveryNoteEntity={'delivery_note_api'}
+            printApiMethod={'print_delivery_note'}
+            printApiEntity={'delivery_note_api'}
             deleteApiVersion={'v1'}
             deleteApiMethod={'delete_delivery_note_api'}
             deleteApiEntity={'delivery_note_api'}
