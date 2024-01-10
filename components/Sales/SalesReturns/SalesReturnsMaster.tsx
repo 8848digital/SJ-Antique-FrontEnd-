@@ -4,6 +4,7 @@ import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
 import TabSection from '@/components/TabSection';
 import UseSalesReturnMasterHook from '@/hooks/Sales/Sales-Returns/sales-return-master-hook';
 import UseCustomSalesReturnHook from '@/hooks/Sales/Sales-Returns/custom-sales-return-hook';
+import DetailsPageSalesReturn from './DetailPageSalesReturn/DetailsPageSalesReturn';
 
 const SaleReturnsMaster = () => {
   const {
@@ -45,7 +46,7 @@ const SaleReturnsMaster = () => {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            Sale Returns
+            <DetailsPageSalesReturn />
           </div>
           <div
             className="tab-pane fade"
