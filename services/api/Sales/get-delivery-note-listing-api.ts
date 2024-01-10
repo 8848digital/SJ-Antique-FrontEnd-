@@ -1,13 +1,13 @@
 import { CONSTANTS, headerGenerator } from '@/services/config/api-config';
 import axios from 'axios';
 
-const getDeliveryNoteListing = async (get_access_token: any) => {
+const getDeliveryNoteListing = async (get_access_token: any, params: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
-  console.log('inside api call');
+  console.log('inside api call', params);
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_listening_delivery_note&entity=delivery_note_api`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=${params?.version}&method=${params?.method}&entity=${params?.entity}`,
       getHeaders
     )
     .then((res: any) => {

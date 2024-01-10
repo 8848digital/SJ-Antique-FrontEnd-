@@ -88,10 +88,10 @@ const UseCustomerSaleHook = () => {
 
   const SalesTableInitialState: any = {
     idx: 1,
-    kun_wt_initial: '',
-    cs_wt_initial: '',
-    bb_wt_initial: '',
-    ot_wt_initial: '',
+    custom_pr_bb_wt: '',
+    custom_pr_cs_wt: '',
+    custom_pr_kun_wt: '',
+    custom_pr_other_wt: '',
     item_code: '',
     custom_gross_wt: '',
     custom_kun_wt: '',
@@ -130,11 +130,18 @@ const UseCustomerSaleHook = () => {
             [fieldName]: value,
 
             custom_net_wt:
-              Number(item.custom_gross_wt) -
-              (Number(item.custom_kun_wt) +
-                Number(item.custom_cs_wt) +
-                Number(item.custom_bb_wt) +
-                Number(item.custom_other_wt)),
+              Number(item?.custom_gross_wt) -
+                (Number(item?.custom_kun_wt) +
+                  Number(item?.custom_cs_wt) +
+                  Number(item?.custom_bb_wt) +
+                  Number(item?.custom_other_wt)) <
+              0
+                ? 0
+                : Number(item?.custom_gross_wt) -
+                  (Number(item?.custom_kun_wt) +
+                    Number(item?.custom_cs_wt) +
+                    Number(item?.custom_bb_wt) +
+                    Number(item?.custom_other_wt)),
             custom_cs_amt:
               fieldName === 'custom_cs'
                 ? value * Number(item.custom_cs_wt)
@@ -194,10 +201,10 @@ const UseCustomerSaleHook = () => {
                     selectedCategory.OtCategory.type) /
                   100
                 : data[0]?.custom_other_wt,
-            kun_wt_initial: data[0]?.custom_kun_wt,
-            cs_wt_initial: data[0]?.custom_cs_wt,
-            bb_wt_initial: data[0]?.custom_bb_wt,
-            ot_wt_initial: data[0]?.custom_other_wt,
+            custom_pr_kun_wt: data[0]?.custom_kun_wt,
+            custom_pr_cs_wt: data[0]?.custom_cs_wt,
+            custom_pr_bb_wt: data[0]?.custom_bb_wt,
+            custom_pr_other_wt: data[0]?.custom_other_wt,
             warehouse: data[0].custom_warehouse,
           };
         } else {
@@ -299,10 +306,10 @@ const UseCustomerSaleHook = () => {
       salesTableData?.length > 0 &&
       salesTableData !== null &&
       salesTableData.map((data: any) => {
-        const kunInitial = Number(data?.kun_wt_initial) || 0;
-        const csWtInitial = Number(data?.cs_wt_initial) || 0;
-        const bbWtInitial = Number(data?.bb_wt_initial) || 0;
-        const otWtInitial = Number(data?.ot_wt_initial) || 0;
+        const kunInitial = Number(data?.custom_pr_kun_wt) || 0;
+        const csWtInitial = Number(data?.custom_pr_cs_wt) || 0;
+        const bbWtInitial = Number(data?.custom_pr_bb_wt) || 0;
+        const otWtInitial = Number(data?.custom_pr_other_wt) || 0;
 
         return {
           ...data,
@@ -310,14 +317,17 @@ const UseCustomerSaleHook = () => {
           custom_kun_wt:
             selectedCategory.KunCategory !== ''
               ? (kunInitial * selectedCategory?.KunCategory?.type) / 100
-              : data?.custom_kun_wt,
+              : // : selectedCategory?.KunCategory?.name1 !== ''?
+                data?.custom_kun_wt,
           custom_cs_wt:
             selectedCategory.CsCategory !== ''
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
               : Number(data?.custom_cs_wt),
           custom_bb_wt:
-            selectedCategory?.BBCategory !== '' && bbWtInitial !== 0
-              ? bbWtInitial - 0.7
+            selectedCategory?.BBCategory?.name1 !== ''
+              ? bbWtInitial === 0
+                ? 0
+                : bbWtInitial - 0.7
               : bbWtInitial,
           custom_other_wt:
             selectedCategory.OtCategory !== ''
@@ -330,7 +340,7 @@ const UseCustomerSaleHook = () => {
           custom_ot_amt:
             (selectedCategory.OtCategory !== ''
               ? (otWtInitial * selectedCategory?.OtCategory?.type) / 100
-              : data?.custom_other_wt) * data?.custom_ot_,
+              : Number(data?.custom_other_wt)) * data?.custom_ot_,
           custom_net_wt:
             Number(data?.custom_gross_wt) -
             Number(data?.custom_kun_wt) +
@@ -369,10 +379,10 @@ const UseCustomerSaleHook = () => {
       salesTableData !== null &&
       salesTableData.map((data: any) => {
         const {
-          kun_wt_initial,
-          cs_wt_initial,
-          bb_wt_initial,
-          ot_wt_initial,
+          custom_pr_bb_wt,
+          custom_pr_cs_wt,
+          custom_pr_kun_wt,
+          custom_pr_other_wt,
           ...updatedObject
         } = data;
         return {
@@ -445,7 +455,11 @@ const UseCustomerSaleHook = () => {
   const handleSelectClientGroup = async (value: any) => {
     setSelectedClientGroup(value);
   };
-
+  const deliveryNoteListParams = {
+    version: 'v1',
+    method: 'get_listening_delivery_note',
+    entity: 'delivery_note_api',
+  };
   const HandleDeleteDeliveryNote: any = async (name: any) => {
     const version = 'v1';
     const method = 'delete_delivery_note_api';
@@ -463,7 +477,8 @@ const UseCustomerSaleHook = () => {
       toast.success('Sales note Deleted');
 
       let updatedData: any = await getDeliveryNoteListing(
-        loginAcessToken.token
+        loginAcessToken.token,
+        deliveryNoteListParams
       );
       console.log('resss', updatedData?.data?.message?.data);
       if (updatedData?.data?.message?.status === 'success') {
@@ -474,11 +489,7 @@ const UseCustomerSaleHook = () => {
       toast.error('Failed to delete Sales note');
     }
   };
-  const deliveryNoteListParams = {
-    version: 'v1',
-    method: 'get_delivery_note',
-    entity: 'delivery_note_api',
-  };
+
   return {
     salesTableData,
     setSalesTableData,

@@ -246,15 +246,15 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       disabled
                       name={`sum-${i + 1}`}
                       defaultValue={tableData[i]?.custom_total}
-                      value={
+                      value={parseFloat(
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                            Number(tableData[i]?.totalAmount)
+                              Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
                           ? tableData[i]?.custom_total
                           : tableData[i]?.custom_other
-                      }
+                      ).toFixed(3)}
                     />
                   </td>
 

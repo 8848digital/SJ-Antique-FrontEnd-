@@ -7,10 +7,16 @@ const UseDeliveryNoteHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   const [deliveryNoteListing, setDeliveryNoteListing] = useState();
   console.log('inside dn hook');
+  const deliveryNoteListParams = {
+    version: 'v1',
+    method: 'get_listening_delivery_note',
+    entity: 'delivery_note_api',
+  };
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
       const deliveryNoteApi: any = await getDeliveryNoteListing(
-        loginAcessToken.token
+        loginAcessToken.token,
+        deliveryNoteListParams
       );
       if (deliveryNoteApi?.data?.message?.status === 'success') {
         setDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);

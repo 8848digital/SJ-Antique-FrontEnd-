@@ -392,8 +392,7 @@ const CustomerSalesTable = ({
                         type="number"
                         value={(
                           Number(item.custom_cs_amt) +
-                          Number(item.custom_kun) *
-                            Number(item?.custom_kun_pc) +
+                          Number(item?.custom_kun_amt) +
                           Number(item.custom_ot_amt) +
                           Number(item.custom_other)
                         )?.toFixed(2)}
