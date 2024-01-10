@@ -11,6 +11,7 @@ import UpdateDeliveryNoteApi from '@/services/api/Sales/put-update-delivery-note
 import UpdateSalesDocStatusApi from '@/services/api/Sales/update-sales-docStatus-api';
 import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
 import PrintApi from '@/services/api/general/print-api';
+import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
 
 const UseCustomerSaleDetailHook = () => {
   const dispatch = useDispatch();
@@ -162,7 +163,7 @@ const UseCustomerSaleDetailHook = () => {
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
-    let updateDeliveryNoteApi: any = await UpdateDeliveryNoteApi(
+    let updateDeliveryNoteApi: any = await UpdateSaleApi(
       loginAcessToken?.token,
       values
     );

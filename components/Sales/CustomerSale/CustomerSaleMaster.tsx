@@ -62,7 +62,7 @@ const CustomerSaleMaster = () => {
                 karigar_name: data.client_name,
               }))
             }
-            colPlaceholder1={'Delivery Note No.'}
+            colPlaceholder1={'Sales No.'}
             colPlaceholder2={'Client '}
             HandleDeleteReceipt={HandleDeleteDeliveryNote}
             handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
@@ -103,6 +103,7 @@ const CustomerSaleMaster = () => {
               setSelectedClient={setSelectedClient}
               handleSelectClientGroup={handleSelectClientGroup}
               clientGroupList={clientGroupList}
+              title="Sales No"
             />
             <CustomerSalesTable2
               kunCsOtCategoryListData={kunCsOtCategoryListData}

@@ -47,7 +47,7 @@ const SaleReturnsMaster = () => {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <DetailsPageSalesReturn />
+            listing
           </div>
           <div
             className="tab-pane fade"
@@ -85,6 +85,7 @@ const SaleReturnsMaster = () => {
                     client_group: clientData.client_group,
                   }))
                 }
+                title="Sales Return No"
               />
 
               <CustomerSalesTable

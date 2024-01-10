@@ -8,6 +8,7 @@ import {
   get_specific_receipt_data,
 } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import UseCustomReceiptHook from '@/hooks/PurchaseReceiptHook/custom-receipt-hook';
+import PrintApi from '@/services/api/general/print-api';
 
 const UseKundanKarigarDetailHook = () => {
   const dispatch = useDispatch();
@@ -68,9 +69,27 @@ const UseKundanKarigarDetailHook = () => {
     }
   }, [SpecificDataFromStore]);
 
-  console.log('default karigar data readonly', readOnlyFields);
+  const handlePrintApi: any = async (id: any) => {
+    const reqParams = {
+      token: loginAcessToken?.token,
+      name: id,
+      version: 'v1',
+      method: 'get_print_purchase_receipt',
+      entity: 'print_purchase_receipt',
+    };
+    let deliveryNotePrintApi: any = await PrintApi(reqParams);
+    if (deliveryNotePrintApi?.status === 'success') {
+      window.open(deliveryNotePrintApi?.data?.data[0]?.print_url);
+    }
+  };
 
-  return { defaultKarigarData, readOnlyFields, setReadOnlyFields, isLoading };
+  return {
+    defaultKarigarData,
+    readOnlyFields,
+    setReadOnlyFields,
+    isLoading,
+    handlePrintApi,
+  };
 };
 
 export default UseKundanKarigarDetailHook;

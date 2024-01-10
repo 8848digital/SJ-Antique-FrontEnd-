@@ -14,6 +14,7 @@ const DocStatusButtonChanges = ({
   showSaveButtonForAmendFlow,
   setStateForDocStatus,
   HandleAmendButtonForDuplicateChitti,
+  handlePrintApi,
 }: any) => {
   const { query } = useRouter();
   const router = useRouter();
@@ -25,6 +26,8 @@ const DocStatusButtonChanges = ({
     HandleDeleteReceipt,
     HandleAmendBtnForEdit,
   }: any = UseCustomReceiptHook();
+
+  console.log('queryyy', query);
 
   const HandleAmendButtonChanges: any = async () => {
     console.log('docStatus from store in amend func');
@@ -97,6 +100,16 @@ const DocStatusButtonChanges = ({
               Save
             </button>
           )}
+          {(data?.docstatus === 0 || data?.docstatus === 1) &&
+            stateForDocStatus === false && (
+              <button
+                type="button"
+                className={`${styles.create_button} px-2 py-0 me-2`}
+                onClick={() => handlePrintApi(query?.receiptId)}
+              >
+                Print
+              </button>
+            )}
           {data?.docstatus === 0 && stateForDocStatus === false && (
             <button
               type="button"

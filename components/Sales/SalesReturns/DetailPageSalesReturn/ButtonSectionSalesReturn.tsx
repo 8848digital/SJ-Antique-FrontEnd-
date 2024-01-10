@@ -1,10 +1,10 @@
-import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from '../../../../styles/readyReceipts.module.css';
 import { useRouter } from 'next/router';
+import { get_detail_sales_return_data } from '@/store/slices/Sales/get-detail-sales-return-slice';
 
-const SaleReurnsButtonSection = ({
+const SaleReturnsButtonSection = ({
   stateForDocStatus,
   setStateForDocStatus,
   handleUpdateDeliveryNote,
@@ -15,7 +15,7 @@ const SaleReurnsButtonSection = ({
   HandleUpdateSalesdocStatus,
   HandleAmendButtonForCustomerSales,
   HandleDeleteDeliveryNote,
-  handleDeliveryNotePrintApi,
+  handlePrintApi,
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
@@ -23,12 +23,7 @@ const SaleReurnsButtonSection = ({
   const salesId = pathParts[1];
   console.log('queryy', query, pathParts);
   const DetailOfDeliveryNoteFromStore: any = useSelector(
-    get_detail_delivery_note_data
-  );
-  console.log(
-    'DetailOfDeliveryNote from store',
-    DetailOfDeliveryNoteFromStore,
-    stateForDocStatus
+    get_detail_sales_return_data
   );
 
   const HandleAmendButtonChanges: any = async () => {
@@ -51,12 +46,12 @@ const SaleReurnsButtonSection = ({
           </button>
 
           {stateForDocStatus === true &&
-            DetailOfDeliveryNoteFromStore?.docstatus === 0 && (
+            DetailOfDeliveryNoteFromStore?.docStatus === 0 && (
               <button
                 type="button"
                 className={`btn ${styles.docstatus_button}`}
               >
-                <span className={`${styles.docstatus_button_text}`}>
+                <span className={`${styles.dosStatus_button_text}`}>
                   Not saved
                 </span>
               </button>
@@ -114,9 +109,7 @@ const SaleReurnsButtonSection = ({
               <button
                 type="button"
                 className={`${styles.create_button} px-2 py-0 me-2`}
-                onClick={() =>
-                  handleDeliveryNotePrintApi(query?.deliveryNoteId)
-                }
+                onClick={() => handlePrintApi(query?.deliveryNoteId)}
               >
                 Print
               </button>
@@ -184,4 +177,4 @@ const SaleReurnsButtonSection = ({
   );
 };
 
-export default SaleReurnsButtonSection;
+export default SaleReturnsButtonSection;
