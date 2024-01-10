@@ -38,6 +38,7 @@ const useReadyReceiptKarigar = () => {
   const [kundanKarigarData, setKundanKarigarData] = useState<any>();
   const [materialListData, setMaterialListData] = useState<any>();
   const [activeModalId, setActiveModalId] = useState<any>(null);
+  const [matWt, setMatWt] = useState<any>();
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
   const loginAcessToken = useSelector(get_access_token);
@@ -191,7 +192,7 @@ const useReadyReceiptKarigar = () => {
     );
     console.log(totalAmmount, 'bfggh');
     const weightAddition = materialWeight.reduce((accu: any, val: any) => {
-      console.log(accu, 'accu23');
+      console.log(accu, 'accu23', val);
       let weight = val.weight;
       if (val.weight === '') {
         weight = 0;
@@ -554,7 +555,7 @@ const useReadyReceiptKarigar = () => {
       console.error('Error during API call:', error);
     }
   };
-
+  console.log('mat wt', matWt);
   return {
     setClick,
     kundanListing,
@@ -608,6 +609,7 @@ const useReadyReceiptKarigar = () => {
     purchasRecieptListParams,
     lastInputRef,
     firstInputRef,
+    setMatWt,
   };
 };
 

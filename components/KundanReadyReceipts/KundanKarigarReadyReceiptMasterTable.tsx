@@ -30,6 +30,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   handleUpdateReceipt,
   lastInputRef,
   firstInputRef,
+  setMatWt,
 }: any) => {
   console.log('table data receipt', tableData);
   const { query } = useRouter();
@@ -177,14 +178,15 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       // }
                       defaultValue={item.custom_mat_wt}
                       readOnly={readOnlyFields}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         handleFieldChange(
                           item.idx,
                           'tableRow',
                           'custom_mat_wt',
                           e.target.value
-                        )
-                      }
+                        );
+                        setMatWt(e.target.value);
+                      }}
                       onKeyDown={(e) => handleModal(e, item.idx, item)}
                     />
                   </td>

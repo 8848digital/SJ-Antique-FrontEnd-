@@ -58,6 +58,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     purchasRecieptListParams,
     handleClearFileUploadInput,
     handleUpdateReceipt,
+    setMatWt,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -169,6 +170,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   calculateEditTotal={calculateEditTotal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
                   handleCreate={handleCreate}
+                  setMatWt={setMatWt}
                 />
               </div>
             </div>
