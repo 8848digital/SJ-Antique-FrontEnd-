@@ -11,6 +11,8 @@ const SaleReturnsMaster = () => {
     setSalesReturnTableData,
     itemList,
     clientNameListData,
+    selectedClient,
+    setSelectedClient,
     handleSRCreate,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
@@ -22,8 +24,7 @@ const SaleReturnsMaster = () => {
     handleDeleteRowOfSalesReturnTable,
     handleEmptySaleReturnData,
     itemCodeDropdownReset,
-    selectedClient,
-    setSelectedClient,
+
     handleSelectClientGroup,
   }: any = UseCustomSalesReturnHook();
 

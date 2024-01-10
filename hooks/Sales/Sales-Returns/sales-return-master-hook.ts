@@ -5,8 +5,13 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useSelector } from 'react-redux';
 import getClientApi from '@/services/api/Master/get-client-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
+import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 const UseSalesReturnMasterHook = () => {
+  const router = useRouter();
+  const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
 
   const {
@@ -47,23 +52,29 @@ const UseSalesReturnMasterHook = () => {
   }, []);
 
   const updateSalesTableData = (data: any) => {
-    console.log('data for update', data, salesReturnTableData);
+    console.log('dataaa', data);
+    setSelectedClient(data[0]?.custom_client_name);
     if (data?.length > 0) {
       if (selectedItemCodeForCustomerSale?.id) {
-        const updatedTable = salesReturnTableData?.map((tableData: any) => {
-          if (tableData.idx === selectedItemCodeForCustomerSale.id) {
-            setSalesReturnTableData(data[0]?.items);
-          } else {
-            salesReturnTableData([SalesTableInitialState]);
+        const updatedTable = salesReturnTableData?.map(
+          (tableData: any, index: any) => {
+            if (tableData.idx === selectedItemCodeForCustomerSale.id) {
+              setSalesReturnTableData(data[0]?.items);
+            } else {
+              salesReturnTableData([SalesTableInitialState]);
+            }
           }
-        });
+        );
       }
     } else {
-      setSalesReturnTableData([SalesTableInitialState]);
+      const updatedInitialState = {
+        ...SalesTableInitialState,
+        itemCode: salesReturnTableData.itemCode, // Preserve the original itemCode
+      };
+      setSalesReturnTableData([updatedInitialState]);
     }
   };
 
-  console.log('updated sale return table outside ', salesReturnTableData);
   useEffect(() => {
     if (selectedItemCodeForCustomerSale?.item_code?.length > 0) {
       const getItemCodeDetailsFun = async () => {
@@ -90,13 +101,37 @@ const UseSalesReturnMasterHook = () => {
       getItemCodeDetailsFun();
     }
   }, [selectedItemCodeForCustomerSale]);
-  const handleSRCreate: any = () => {
+  const handleSRCreate: any = async () => {
     console.log(
       'handleSR create values',
       salesReturnTableData,
       selectedClient,
       selectedClientGroup
     );
+
+    const values = {
+      custom_client_name: selectedClient,
+      custom_client_group: selectedClientGroup,
+      is_return: '1',
+      version: 'v1',
+      method: 'create_delivery_note_sales_return',
+      entity: 'delivery_note_api',
+
+      items: salesReturnTableData,
+    };
+
+    const postSalesReturnApi: any = await PostSalesApi(
+      loginAcessToken.token,
+      values
+    );
+    if (postSalesReturnApi?.data?.message?.status === 'success') {
+      toast.success('Delivery note Created Sucessfully');
+      console.log('queryyy', query, router);
+      router.push(`${query.saleId}/${postSalesReturnApi?.data?.message?.name}`);
+    } else {
+      toast.error('Error in Creating Delivery note');
+    }
+    console.log('postSalesReturnApi res', postSalesReturnApi);
   };
 
   return {
