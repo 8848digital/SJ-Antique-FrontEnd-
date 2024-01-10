@@ -3,14 +3,17 @@ import axios from 'axios';
 
 const getItemDetailsInSalesApi = async (
   get_access_token: any,
-  item_code: any
+  item_code: any,
+  method: any,
+  entity: any
 ) => {
+  console.log('item req', method, entity);
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_item_specific&entity=item_specific&name=${item_code}`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=${method}&entity=${entity}&name=${item_code}`,
       getHeaders
     )
     .then((res: any) => {
