@@ -162,7 +162,7 @@ const SaleReturnsButtonSection = ({
               </button>
             )}
 
-          {/* {DetailOfDeliveryNoteFromStore?.docStatus === 2 && (
+          {DetailOfDeliveryNoteFromStore?.docStatus === 2 && (
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2 `}
@@ -170,7 +170,7 @@ const SaleReturnsButtonSection = ({
             >
               Delete
             </button>
-          )} */}
+          )}
         </div>
       </div>
     </>

@@ -141,6 +141,8 @@ const UseSalesReturnMasterHook = () => {
     setSalesReturnTableData,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
+    selectedClient,
+    setSelectedClient,
   };
 };
 

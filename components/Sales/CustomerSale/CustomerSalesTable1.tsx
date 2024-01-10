@@ -68,9 +68,9 @@ const CustomerSalesTable1 = ({
                 }
                 setSelectedDropdownValue={setSelectedClient}
                 selectedDropdownValue={selectedClient}
-                defaultValue={
-                  DetailOfDeliveryNoteFromStore?.data?.custom_client_name
-                }
+                // defaultValue={
+                //   DetailOfDeliveryNoteFromStore?.data?.custom_client_name
+                // }
                 placeholder={'Client Name'}
                 className={'form-control input-sm border border-secondary'}
                 clientGroupList={clientGroupList}

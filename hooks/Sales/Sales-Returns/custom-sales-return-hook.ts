@@ -32,7 +32,7 @@ const UseCustomSalesReturnHook = () => {
     SalesTableInitialState,
   ]);
   const [stateForDocStatus, setStateForDocStatus] = useState<boolean>(false);
-  const [selectedClient, setSelectedClient] = useState<string>('');
+  const [selectedClient, setSelectedClient] = useState<any>('');
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
   const [itemCodeDropdownReset, setItemCodeDropdownReset] =
     useState<boolean>(false);

@@ -11,6 +11,7 @@ import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
 import UseSalesReturnMasterHook from './sales-return-master-hook';
 import UpdateSalesDocStatusApi from '@/services/api/Sales/update-sales-docStatus-api';
 import PrintApi from '@/services/api/general/print-api';
+import DeleteApi from '@/services/api/general/delete-api';
 
 const UseSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
@@ -148,6 +149,22 @@ const UseSalesReturnDetailHook = () => {
     }
   };
 
+  const handleDeleteSalesReturn: any = async (id: any) => {
+    const version = 'v1';
+    const method = 'delete_delivery_note_api';
+    const entity = 'delivery_note_api';
+
+    let deleteapi: any = await DeleteApi(
+      loginAcessToken?.token,
+      version,
+      method,
+      entity,
+      id
+    );
+
+    console.log('deleteapi res', deleteapi);
+  };
+
   return {
     readOnlyFields,
     isLoading,
@@ -175,6 +192,7 @@ const UseSalesReturnDetailHook = () => {
     selectedClientGroup,
     handleSelectClientGroup,
     handlePrintApi,
+    handleDeleteSalesReturn,
   };
 };
 
