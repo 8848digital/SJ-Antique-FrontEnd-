@@ -5,10 +5,10 @@ import styles from '../../styles/readyReceipts.module.css';
 import KundanListing from './KundanReadyReceiptsListing';
 import KundanKarigarReadyReceiptMasterTable from './KundanKarigarReadyReceiptMasterTable';
 import KundanTable from './KundanTable';
-
 import { useRouter } from 'next/router';
 import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
-import useReadyReceiptKarigar from '@/hooks/readyReceiptKarigarHooks';
+import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
+import TabSection from '../TabSection';
 
 const ReadyReceiptKundanKarigarMaster = () => {
   const {
@@ -65,41 +65,10 @@ const ReadyReceiptKundanKarigarMaster = () => {
   return (
     <div className="container-lg">
       <div>
-        <div
-          className="nav nav-pills my-2 justify-content-center "
-          id="pills-tab"
-          role="tablist"
-        >
-          <div className="nav-tabs tabs-container w-50 " role="presentation">
-            <button
-              className="nav-link active w-100 p-1 border h-100 "
-              id="pills-home-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-home"
-              type="button"
-              role="tab"
-              aria-controls="pills-home"
-              aria-selected="true"
-              // onClick={() => setClick(true)}
-            >
-              Ready receipts {lastPartOfURL} karigar
-            </button>
-          </div>
-          <div className="nav-tabs tabs-container w-50 " role="presentation">
-            <button
-              className="nav-link  w-100 p-1 border h-100"
-              id="pills-profile-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-profile"
-              type="button"
-              role="tab"
-              aria-controls="pills-profile"
-              aria-selected="false"
-            >
-              Create new ready receipt
-            </button>
-          </div>
-        </div>
+        <TabSection
+          firstTabHeading={`Ready receipts ${lastPartOfURL} karigar`}
+          secondTabHeading="Create new ready receipt"
+        />
         <div className="tab-content" id="pills-tabContent">
           <div
             className="tab-pane fade show active"

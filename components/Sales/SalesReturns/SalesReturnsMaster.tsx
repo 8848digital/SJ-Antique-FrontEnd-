@@ -1,46 +1,18 @@
 import SalesHeader from '@/components/Header/SalesHeader';
 import CustomerSalesTable from '../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
+import TabSection from '@/components/TabSection';
 
 const SaleReturnsMaster = () => {
   return (
     <div className="container-lg px-0">
       <SalesHeader />
       <div>
-        <div
-          className="nav nav-pills mb-3 justify-content-center"
-          id="pills-tab"
-          role="tablist"
-        >
-          <div className="nav-tabs tabs-container w-50" role="presentation">
-            <button
-              className="nav-link active w-100 border p-1"
-              id="pills-home-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-home"
-              type="button"
-              role="tab"
-              aria-controls="pills-home"
-              aria-selected="true"
-            >
-              Sale Returns
-            </button>
-          </div>
-          <div className="nav-tabs tabs-container w-50" role="presentation">
-            <button
-              className="nav-link w-100 border p-1"
-              id="pills-profile-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-profile"
-              type="button"
-              role="tab"
-              aria-controls="pills-profile"
-              aria-selected="false"
-            >
-              Create new sales Return
-            </button>
-          </div>
-        </div>
+        <TabSection
+          firstTabHeading="Sale Returns"
+          secondTabHeading="Create new sales Return"
+        />
+
         <div className="tab-content" id="pills-tabContent">
           <div
             className="tab-pane fade show active"

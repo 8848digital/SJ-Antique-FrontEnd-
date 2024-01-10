@@ -45,7 +45,7 @@ const UseCustomReceiptHook: any = () => {
     },
   ]);
 
-  const initialState: any = {
+  const initialTableState: any = {
     idx: 1,
     product_code: '',
     custom_kun_karigar: '',
@@ -75,7 +75,7 @@ const UseCustomReceiptHook: any = () => {
     ],
   };
 
-  const [tableData, setTableData] = useState<any>([initialState]);
+  const [tableData, setTableData] = useState<any>([initialTableState]);
 
   useEffect(() => {
     setTableData((prevTableData: any) => {
@@ -425,6 +425,42 @@ const UseCustomReceiptHook: any = () => {
     setStateForDocStatus(true);
   };
 
+  const handleAddRow = (value: any) => {
+    const newRow = {
+      idx: tableData?.length + 1,
+      product_code: '',
+      custom_kun_karigar: '',
+      custom_net_wt: '',
+      custom_few_wt: '',
+      custom_gross_wt: '',
+      custom_mat_wt: '',
+      custom_other: '',
+      custom_total: '',
+      custom_add_photo: '',
+      table: [
+        {
+          idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
+          material_abbr: '',
+          material: '',
+          pcs: '',
+          piece_: '',
+          carat: '',
+          carat_: '',
+          weight: '',
+          gm_: '',
+          amount: '',
+        },
+      ],
+    };
+    if (value === 'tableRow') {
+      setTableData([...tableData, newRow]);
+    } else {
+      setMaterialWeight([...materialWeight, ...newRow?.table]);
+    }
+
+    setStateForDocStatus(true);
+  };
+
   return {
     setKundanListing,
     kundanListing,
@@ -453,6 +489,8 @@ const UseCustomReceiptHook: any = () => {
     showModal,
     handleFieldChange,
     purchasRecieptListParams,
+    initialTableState,
+    handleAddRow,
   };
 };
 

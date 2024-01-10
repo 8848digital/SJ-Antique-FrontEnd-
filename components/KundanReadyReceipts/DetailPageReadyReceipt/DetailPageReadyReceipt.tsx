@@ -1,15 +1,15 @@
-import UseKundanKarigarDetailHook from '@/hooks/KundanKarigarHook/kundan-karigar-detail-hook';
+import UseKundanKarigarDetailHook from '@/hooks/PurchaseReceiptHook/PurchaseReceiptDetailHook/kundan-karigar-detail-hook';
 import React, { useEffect } from 'react';
-import KundanTable from '../KundanReadyReceipts/KundanTable';
-import KundanKarigarReadyReceiptMasterTable from '../KundanReadyReceipts/KundanKarigarReadyReceiptMasterTable';
-import useReadyReceiptKarigar from '@/hooks/readyReceiptKarigarHooks';
-import DocStatusButtonChanges from '../ButtonChanges/DocStatusButtonChanges';
-import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
-import '../../styles/detailPage.module.css';
+import KundanTable from '../KundanTable';
+import KundanKarigarReadyReceiptMasterTable from '../KundanKarigarReadyReceiptMasterTable';
+import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
+import DocStatusButtonChanges from '../../ButtonChanges/DocStatusButtonChanges';
+import PurchaseReceiptModal from '../../ModalMaster/PurchaseReceiptModal';
+import '../../../styles/detailPage.module.css';
 import { useSelector } from 'react-redux';
 import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
-import Loader from '../NoRecord/Loader';
-import NoRecord from '../NoRecord/NoRecord';
+import Loader from '../../NoRecord/Loader';
+import NoRecord from '../../NoRecord/NoRecord';
 import { useRouter } from 'next/router';
 
 const DetailPageReadyReceipt = () => {
@@ -64,7 +64,6 @@ const DetailPageReadyReceipt = () => {
   } = useReadyReceiptKarigar();
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
 
-  console.log('SpecificDataFromStore', SpecificDataFromStore);
   useEffect(() => {
     if (defaultKarigarData?.length > 0 && defaultKarigarData !== null) {
       defaultKarigarData.map((data: any) => {

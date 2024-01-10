@@ -71,7 +71,7 @@ const KundanListing = ({
     setSearchKarigar('');
   }, [query.receipt, todayDate]);
 
-  console.log('sales listing', kundanListing);
+  console.log('sales listing', searchKarigar);
 
   const filteredList =
     kundanListing?.length > 0 &&
@@ -91,6 +91,8 @@ const KundanListing = ({
           const karigarMatch = searchKarigar
             ? item?.custom_karigar
               ? item.custom_karigar
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
               : item?.custom_client_name
                   ?.toLowerCase()
                   ?.includes(searchKarigar?.toLowerCase())

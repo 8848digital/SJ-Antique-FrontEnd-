@@ -2,11 +2,12 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import UseCustomReceiptHook from '../custom-receipt-hook';
+
 import {
   getSpecificReceipt,
   get_specific_receipt_data,
 } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import UseCustomReceiptHook from '@/hooks/PurchaseReceiptHook/custom-receipt-hook';
 
 const UseKundanKarigarDetailHook = () => {
   const dispatch = useDispatch();

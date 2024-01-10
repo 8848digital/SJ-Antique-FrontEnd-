@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { toast } from 'react-toastify';
-import UseCustomReceiptHook from './custom-receipt-hook';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
 import { getSpecificReceipt } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import AmendPurchaseReceiptApi from '@/services/api/PurchaseReceipt/Amend-purchase-receipt-api';
@@ -13,6 +12,7 @@ import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
 import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import postMaterialApi from '@/services/api/PurchaseReceipt/post-material-api';
+import UseCustomReceiptHook from './custom-receipt-hook';
 
 const useReadyReceiptKarigar = () => {
   const { query } = useRouter();
@@ -84,37 +84,9 @@ const useReadyReceiptKarigar = () => {
     setShowModal,
     handleFieldChange,
     purchasRecieptListParams,
+    initialTableState,
+    handleAddRow,
   }: any = UseCustomReceiptHook();
-
-  const initialState: any = {
-    idx: 1,
-    product_code: '',
-    custom_kun_karigar: '',
-    custom_net_wt: '',
-    custom_few_wt: '',
-    custom_gross_wt: '',
-    custom_mat_wt: '',
-    custom_other: '',
-    custom_total: '',
-    custom_add_photo: '',
-    totalModalWeight: 0,
-    totalAmount: 0,
-    table: [
-      {
-        idx: materialWeight === undefined ? 1 : materialWeight?.length,
-        material_abbr: '',
-        material: '',
-        pcs: '',
-        piece_: '',
-        carat: '',
-        carat_: '',
-        weight: '',
-        gm_: '',
-        amount: '',
-      },
-    ],
-  };
-  console.log('table data updated', tableData);
 
   useEffect(() => {
     const getPurchaseList = async () => {
@@ -319,43 +291,6 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus(true);
   };
 
-  const handleAddRow = (value: any) => {
-    console.log('add row', value);
-    const newRow = {
-      idx: tableData?.length + 1,
-      product_code: '',
-      custom_kun_karigar: '',
-      custom_net_wt: '',
-      custom_few_wt: '',
-      custom_gross_wt: '',
-      custom_mat_wt: '',
-      custom_other: '',
-      custom_total: '',
-      custom_add_photo: '',
-      table: [
-        {
-          idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
-          material_abbr: '',
-          material: '',
-          pcs: '',
-          piece_: '',
-          carat: '',
-          carat_: '',
-          weight: '',
-          gm_: '',
-          amount: '',
-        },
-      ],
-    };
-    if (value === 'tableRow') {
-      setTableData([...tableData, newRow]);
-    } else {
-      setMaterialWeight([...materialWeight, ...newRow?.table]);
-    }
-
-    setStateForDocStatus(true);
-  };
-
   const handleTabPressOnModal = (event: any, id: any) => {
     if (event.key === 'Tab') {
       handleAddRow('modalRow');
@@ -365,10 +300,6 @@ const useReadyReceiptKarigar = () => {
 
   const handleTabPress = (event: any, id: any, keyValue: any) => {
     if (event.key === 'Tab' && id === tableData[tableData.length - 1].idx) {
-      // if (query?.hasOwnProperty('receiptId')) {
-      // } else {
-      //   // handleCreate();
-      // }
       handleAddRow('tableRow');
     }
     setStateForDocStatus(true);
@@ -466,7 +397,7 @@ const useReadyReceiptKarigar = () => {
       custom_ready_receipt_type: readyReceiptType,
       posting_date: '',
     });
-    setTableData([initialState]);
+    setTableData([initialTableState]);
     setSelectedDropdownValue('');
     setSelectedKundanKarigarDropdownValue('');
     setKunKarigarDropdownReset(true);
@@ -557,7 +488,6 @@ const useReadyReceiptKarigar = () => {
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
-    console.log('tabledata in amend', tableData);
     const updatedtableData =
       tableData?.length > 0 &&
       tableData !== null &&
@@ -624,7 +554,6 @@ const useReadyReceiptKarigar = () => {
       console.error('Error during API call:', error);
     }
   };
-  // useEffect(() => {}, [tableData]);
 
   return {
     setClick,
