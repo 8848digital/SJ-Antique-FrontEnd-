@@ -209,17 +209,16 @@ const UseCustomerSaleHook = () => {
   };
 
   useEffect(() => {
-    console.log(
-      'selected item code initially ',
-      selectedItemCodeForCustomerSale
-    );
     if (selectedItemCodeForCustomerSale.item_code?.length > 0) {
+      const itemDetailsMethod = 'get_item_specific';
+      const itemDetailsEntity = 'item_specific';
       const getItemCodeDetailsFun = async () => {
         try {
           let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
             loginAcessToken?.token,
-            selectedItemCodeForCustomerSale.item_code
-            // 'nfsam-3'
+            selectedItemCodeForCustomerSale.item_code,
+            itemDetailsMethod,
+            itemDetailsEntity
           );
 
           console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
