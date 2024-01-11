@@ -3,45 +3,57 @@ import UseCustomSalesReturnHook from '@/hooks/Sales/Sales-Returns/custom-sales-r
 import UseSalesReturnMasterHook from '@/hooks/Sales/Sales-Returns/sales-return-master-hook';
 import CustomerSalesTable from '../../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../../CustomerSale/CustomerSalesTable1';
-import SaleReurnsButtonSection from './ButtonSectionSalesReturn';
+
+import SaleReturnsButtonSection from './ButtonSectionSalesReturn';
+import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
 
 const DetailsPageSalesReturn = () => {
   const {
+    readOnlyFields,
+    isLoading,
     salesReturnTableData,
     setSalesReturnTableData,
+    defaultSalesDate,
+    selectedClient,
+    setReadOnlyFields,
+    showSaveButtonForAmendFlow,
+    setShowSaveButtonForAmendFlow,
+    HandleUpdateSalesdocStatus,
+    handleUpdateSalesReturn,
+    stateForDocStatus,
+    setStateForDocStatus,
     itemList,
     clientNameListData,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
-  }: any = UseSalesReturnMasterHook();
-
-  const {
     handleSalesReturnTableFieldChange,
     handleAddRowForSalesReturn,
     handleDeleteRowOfSalesReturnTable,
+    handleEmptySaleReturnData,
     itemCodeDropdownReset,
-    selectedClient,
     setSelectedClient,
+    selectedClientGroup,
     handleSelectClientGroup,
-  }: any = UseCustomSalesReturnHook();
+    handlePrintApi,
+    handleDeleteSalesReturn,
+  }: any = UseSalesReturnDetailHook();
+
   return (
     <div className="container-lg px-0">
       <SalesHeader />
       <div>
-        <SaleReurnsButtonSection
-        // stateForDocStatus={stateForDocStatus}
-        // setStateForDocStatus={setStateForDocStatus}
-        // handleUpdateDeliveryNote={handleUpdateDeliveryNote}
-        // readOnlyFields={readOnlyFields}
-        // setReadOnlyFields={setReadOnlyFields}
-        // showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
-        // setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
-        // HandleUpdateSalesdocStatus={HandleUpdateSalesdocStatus}
-        // HandleAmendButtonForCustomerSales={
-        //   HandleAmendButtonForCustomerSales
-        // }
-        // HandleDeleteDeliveryNote={HandleDeleteDeliveryNote}
-        // handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
+        <SaleReturnsButtonSection
+          stateForDocStatus={stateForDocStatus}
+          setStateForDocStatus={setStateForDocStatus}
+          handleUpdateDeliveryNote={handleUpdateSalesReturn}
+          readOnlyFields={readOnlyFields}
+          setReadOnlyFields={setReadOnlyFields}
+          showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
+          setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
+          HandleUpdateSalesdocStatus={HandleUpdateSalesdocStatus}
+          // HandleAmendButtonForCustomerSales={HandleAmendButtonForCustomerSales}
+          HandleDeleteDeliveryNote={handleDeleteSalesReturn}
+          handlePrintApi={handlePrintApi}
         />
       </div>
       <div>

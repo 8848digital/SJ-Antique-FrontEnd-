@@ -355,7 +355,7 @@ const UseCustomerSaleHook = () => {
         };
       });
     setSalesTableData(updatedData);
-  }, [selectedCategory, salesTableData.length]);
+  }, [selectedCategory, salesTableData?.length]);
 
   const handleEmptyDeliveryNote = () => {
     console.log('selected category11', selectedCategory, salesTableData);

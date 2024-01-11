@@ -1,7 +1,7 @@
 import { CONSTANTS, headerGenerator } from '@/services/config/api-config';
 import axios from 'axios';
 
-const UpdateDeliveryNoteApi = async (token: any, val: any) => {
+const UpdateSaleApi = async (token: any, val: any) => {
   console.log(val, 'vals');
 
   let response: any;
@@ -35,4 +35,4 @@ const UpdateDeliveryNoteApi = async (token: any, val: any) => {
   return response;
 };
 
-export default UpdateDeliveryNoteApi;
+export default UpdateSaleApi;

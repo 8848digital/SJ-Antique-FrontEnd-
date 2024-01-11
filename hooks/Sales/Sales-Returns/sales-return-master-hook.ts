@@ -22,7 +22,6 @@ const UseSalesReturnMasterHook = () => {
     handleSalesReturnTableFieldChange,
     handleAddRowForSalesReturn,
     handleDeleteRowOfSalesReturnTable,
-    stateForDocStatus,
     handleEmptySaleReturnData,
     itemCodeDropdownReset,
     selectedClient,

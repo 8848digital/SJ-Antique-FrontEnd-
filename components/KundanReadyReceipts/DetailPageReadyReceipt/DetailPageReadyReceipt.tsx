@@ -13,8 +13,13 @@ import NoRecord from '../../NoRecord/NoRecord';
 import { useRouter } from 'next/router';
 
 const DetailPageReadyReceipt = () => {
-  const { defaultKarigarData, readOnlyFields, setReadOnlyFields, isLoading } =
-    UseKundanKarigarDetailHook();
+  const {
+    defaultKarigarData,
+    readOnlyFields,
+    setReadOnlyFields,
+    isLoading,
+    handlePrintApi,
+  } = UseKundanKarigarDetailHook();
 
   const { query } = useRouter();
   console.log('query in receipt', query);
@@ -113,6 +118,7 @@ const DetailPageReadyReceipt = () => {
                       HandleAmendButtonForDuplicateChitti={
                         HandleAmendButtonForDuplicateChitti
                       }
+                      handlePrintApi={handlePrintApi}
                     />
                   </div>
                 ))}

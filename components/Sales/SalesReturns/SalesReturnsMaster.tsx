@@ -30,7 +30,7 @@ const SaleReturnsMaster = () => {
 
     handleSelectClientGroup,
   }: any = UseCustomSalesReturnHook();
-  const { saleReturnDeliveryNoteListing, HandleDeleteDeliveryNote } =
+  const { saleReturnDeliveryNoteListing, handleDeleteSalesReturn } =
     UseSalesReturnDetailHook();
   console.log('sales return table data in tsx', salesReturnTableData);
   console.log(saleReturnDeliveryNoteListing, 'sales return listing');
@@ -61,7 +61,7 @@ const SaleReturnsMaster = () => {
               }
               colPlaceholder1={'Delivery Note No.'}
               colPlaceholder2={'Client '}
-              HandleDeleteReceipt={HandleDeleteDeliveryNote}
+              HandleDeleteReceipt={handleDeleteSalesReturn}
               // handleDeliveryNotePrintApi={HandleDeleteDeliveryNote}
               printApiMethod={'get_print_purchase_receipt'}
               printApiEntity={'print_purchase_receipt'}
@@ -107,6 +107,7 @@ const SaleReturnsMaster = () => {
                     client_group: clientData.client_group,
                   }))
                 }
+                title="Sales Return No"
               />
 
               <CustomerSalesTable

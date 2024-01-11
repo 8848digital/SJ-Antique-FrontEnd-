@@ -13,24 +13,21 @@ const CustomerSalesTable1 = ({
   readOnlyFields,
   setStateForDocStatus,
   defaultSalesDate,
+  title,
 }: any) => {
   const { query } = useRouter();
   // console.log('client name list', clientNameListData);
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
-  console.log(
-    'DetailOfDeliveryNote from store in tsx',
-    DetailOfDeliveryNoteFromStore?.data?.custom_client_name,
-    query
-  );
+
   return (
     <div className=" mt-2">
       <table className="table table-hover table-bordered">
         <thead>
           <tr>
             <th className="thead " scope="col">
-              Chitti No.
+              {title}
             </th>
             <th className="thead" scope="col">
               Transaction Date
@@ -69,9 +66,9 @@ const CustomerSalesTable1 = ({
                 }
                 setSelectedDropdownValue={setSelectedClient}
                 selectedDropdownValue={selectedClient}
-                defaultValue={
-                  DetailOfDeliveryNoteFromStore?.data?.custom_client_name
-                }
+                // defaultValue={
+                //   DetailOfDeliveryNoteFromStore?.data?.custom_client_name
+                // }
                 placeholder={'Client Name'}
                 className={'form-control input-sm border border-secondary'}
                 clientGroupList={clientGroupList}
