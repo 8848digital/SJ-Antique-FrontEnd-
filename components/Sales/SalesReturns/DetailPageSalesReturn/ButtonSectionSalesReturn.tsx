@@ -13,7 +13,7 @@ const SaleReturnsButtonSection = ({
   showSaveButtonForAmendFlow,
   setShowSaveButtonForAmendFlow,
   HandleUpdateSalesdocStatus,
-  HandleAmendButtonForCustomerSales,
+  HandleAmendButtonForSalesReturn,
   HandleDeleteDeliveryNote,
   handlePrintApi,
 }: any) => {
@@ -155,7 +155,7 @@ const SaleReturnsButtonSection = ({
             readOnlyFields === false && (
               <button
                 type="submit"
-                onClick={HandleAmendButtonForCustomerSales}
+                onClick={HandleAmendButtonForSalesReturn}
                 className={`${styles.create_button} px-2 py-0 me-2 `}
               >
                 Save

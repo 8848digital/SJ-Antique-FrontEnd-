@@ -36,6 +36,7 @@ const DetailsPageSalesReturn = () => {
     handleSelectClientGroup,
     handlePrintApi,
     handleDeleteSalesReturn,
+    handleAmendButtonForSalesReturn,
   }: any = UseSalesReturnDetailHook();
 
   return (
@@ -51,7 +52,7 @@ const DetailsPageSalesReturn = () => {
           showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
           setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
           HandleUpdateSalesdocStatus={HandleUpdateSalesdocStatus}
-          // HandleAmendButtonForCustomerSales={HandleAmendButtonForCustomerSales}
+          HandleAmendButtonForSalesReturn={handleAmendButtonForSalesReturn}
           HandleDeleteDeliveryNote={handleDeleteSalesReturn}
           handlePrintApi={handlePrintApi}
         />

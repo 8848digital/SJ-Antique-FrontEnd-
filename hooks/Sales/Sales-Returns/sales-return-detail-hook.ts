@@ -193,6 +193,8 @@ const UseSalesReturnDetailHook = () => {
     console.log('deleteapi res', deleteapi);
   };
 
+  const handleAmendButtonForSalesReturn: any = async () => {};
+
   return {
     readOnlyFields,
     isLoading,
@@ -222,6 +224,7 @@ const UseSalesReturnDetailHook = () => {
     handlePrintApi,
     handleDeleteSalesReturn,
     saleReturnDeliveryNoteListing,
+    handleAmendButtonForSalesReturn,
   };
 };
 

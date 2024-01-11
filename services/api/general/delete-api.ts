@@ -24,7 +24,7 @@ const DeleteApi = async (
   await axios
     .delete(`${CONSTANTS.API_BASE_URL}${params}`, config)
     .then((res: any) => {
-      response = res.data;
+      response = res;
       console.log(response, 'deleteRes');
     })
     .catch((err: any) => {

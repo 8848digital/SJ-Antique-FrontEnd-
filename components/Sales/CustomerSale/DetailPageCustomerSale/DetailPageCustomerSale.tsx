@@ -42,7 +42,7 @@ const DetailPageCustomerSale = () => {
     setShowSaveButtonForAmendFlow,
     HandleUpdateSalesdocStatus,
     HandleAmendButtonForCustomerSales,
-    HandleDeleteDeliveryNote,
+    HandleDeleteRecords,
     handleDeliveryNotePrintApi,
     defaultSalesDate,
     isLoading,
@@ -81,7 +81,7 @@ const DetailPageCustomerSale = () => {
                   HandleAmendButtonForCustomerSales={
                     HandleAmendButtonForCustomerSales
                   }
-                  HandleDeleteDeliveryNote={HandleDeleteDeliveryNote}
+                  HandleDeleteRecords={HandleDeleteRecords}
                   handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
                 />
               </div>
