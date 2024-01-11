@@ -66,6 +66,7 @@ const DetailPageReadyReceipt = () => {
     handleClearFileUploadInput,
     lastInputRef,
     firstInputRef,
+    setMatWt,
   } = useReadyReceiptKarigar();
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
 
@@ -174,6 +175,7 @@ const DetailPageReadyReceipt = () => {
                   handleUpdateReceipt={handleUpdateReceipt}
                   lastInputRef={lastInputRef}
                   firstInputRef={firstInputRef}
+                  setMatWt={setMatWt}
                 />
               </div>
               <PurchaseReceiptModal

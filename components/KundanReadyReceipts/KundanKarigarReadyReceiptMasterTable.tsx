@@ -176,6 +176,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       //   // Number(tableData[i]?.totalModalWeight) ||
                       //   item.custom_mat_wt
                       // }
+                      value={item?.custom_mat_wt}
                       defaultValue={item.custom_mat_wt}
                       readOnly={readOnlyFields}
                       onChange={(e) => {

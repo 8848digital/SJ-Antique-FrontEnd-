@@ -28,6 +28,7 @@ const UseCustomReceiptHook: any = () => {
   const [indexVal, setIndexVal] = useState<any>();
   const [stateForDocStatus, setStateForDocStatus] = useState<any>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [matWt, setMatWt] = useState<any>();
   const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] =
     useState<any>(false);
   const [materialWeight, setMaterialWeight] = useState<any>([
@@ -454,6 +455,7 @@ const UseCustomReceiptHook: any = () => {
     };
     if (value === 'tableRow') {
       setTableData([...tableData, newRow]);
+      setMatWt('');
     } else {
       setMaterialWeight([...materialWeight, ...newRow?.table]);
     }
@@ -491,6 +493,8 @@ const UseCustomReceiptHook: any = () => {
     purchasRecieptListParams,
     initialTableState,
     handleAddRow,
+    matWt,
+    setMatWt,
   };
 };
 

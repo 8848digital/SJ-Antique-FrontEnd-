@@ -38,7 +38,7 @@ const useReadyReceiptKarigar = () => {
   const [kundanKarigarData, setKundanKarigarData] = useState<any>();
   const [materialListData, setMaterialListData] = useState<any>();
   const [activeModalId, setActiveModalId] = useState<any>(null);
-  const [matWt, setMatWt] = useState<any>();
+
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
   const loginAcessToken = useSelector(get_access_token);
@@ -87,6 +87,8 @@ const useReadyReceiptKarigar = () => {
     purchasRecieptListParams,
     initialTableState,
     handleAddRow,
+    matWt,
+    setMatWt,
   }: any = UseCustomReceiptHook();
 
   useEffect(() => {
@@ -251,8 +253,9 @@ const useReadyReceiptKarigar = () => {
       if (row.idx === indexVal) {
         return {
           ...row,
-          table: row.table.map((tableItem: any) => ({
+          table: row.table.map((tableItem: any, index: any) => ({
             ...tableItem,
+            weight: index === 0 && matWt !== '' ? matWt : tableItem?.weight,
             amount:
               (Number(tableItem.pcs) || 0) * (Number(tableItem.piece_) || 0) +
               (Number(tableItem.carat) || 0) * (Number(tableItem.carat_) || 0) +
@@ -280,6 +283,7 @@ const useReadyReceiptKarigar = () => {
     const materialApiVal = await postMaterialApi(loginAcessToken.token, values);
     setShowModal(false);
     setStateForDocStatus(true);
+    setMatWt('');
   };
 
   const closeModal = () => {
