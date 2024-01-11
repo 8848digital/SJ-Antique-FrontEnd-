@@ -136,7 +136,7 @@ const SaleReturnsButtonSection = ({
                 Cancel
               </button>
             )}
-          {DetailOfDeliveryNoteFromStore?.data?.data?.posting_date ===
+          {DetailOfDeliveryNoteFromStore?.data?.posting_date ===
             new Date()?.toISOString()?.split('T')[0] && (
             <>
               {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&

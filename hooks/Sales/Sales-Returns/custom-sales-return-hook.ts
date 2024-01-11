@@ -146,7 +146,6 @@ const UseCustomSalesReturnHook = () => {
     handleAddRowForSalesReturn,
     handleDeleteRowOfSalesReturnTable,
     handleEmptySaleReturnData,
-    itemCodeDropdownReset,
     selectedClient,
     setSelectedClient,
     selectedClientGroup,
@@ -154,6 +153,8 @@ const UseCustomSalesReturnHook = () => {
     SalesTableInitialState,
     stateForDocStatus,
     setStateForDocStatus,
+    itemCodeDropdownReset,
+    setItemCodeDropdownReset,
   };
 };
 

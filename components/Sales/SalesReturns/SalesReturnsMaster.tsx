@@ -25,6 +25,7 @@ const SaleReturnsMaster = () => {
     handleEmptySaleReturnData,
     itemCodeDropdownReset,
     handleSelectClientGroup,
+    setItemCodeDropdownReset,
   }: any = UseSalesReturnMasterHook();
 
   const { saleReturnDeliveryNoteListing, handleDeleteSalesReturn } =
@@ -120,6 +121,7 @@ const SaleReturnsMaster = () => {
                 handleDeleteRowOfSalesTable={handleDeleteRowOfSalesReturnTable}
                 itemList={itemList}
                 itemCodeDropdownReset={itemCodeDropdownReset}
+                setItemCodeDropdownReset={setItemCodeDropdownReset}
               />
             </div>
           </div>

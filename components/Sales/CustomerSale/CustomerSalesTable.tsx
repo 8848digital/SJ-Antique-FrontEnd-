@@ -129,7 +129,7 @@ const CustomerSalesTable = ({
                         readOnlyFields={readOnlyFields}
                         selectedKundanKarigarDropdownValue={selectedItemCode}
                         setSelectedKundanKarigarDropdownValue={
-                          setSelectedItemCode
+                          setSelectedItemCodeForCustomerSale
                         }
                       />
                     </td>

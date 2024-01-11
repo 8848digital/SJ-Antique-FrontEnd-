@@ -71,6 +71,7 @@ const DetailsPageSalesReturn = () => {
               client_group: clientData.client_group,
             }))
           }
+          readOnlyFields={readOnlyFields}
         />
 
         <CustomerSalesTable
@@ -85,6 +86,7 @@ const DetailsPageSalesReturn = () => {
           handleDeleteRowOfSalesTable={handleDeleteRowOfSalesReturnTable}
           itemList={itemList}
           itemCodeDropdownReset={itemCodeDropdownReset}
+          readOnlyFields={readOnlyFields}
         />
       </div>
     </div>
