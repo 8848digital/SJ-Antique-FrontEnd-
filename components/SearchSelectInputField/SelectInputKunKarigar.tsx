@@ -14,13 +14,17 @@ const SelectInputKunKarigar = ({
   setKunKarigarDropdownReset,
   setSelectedItemCodeForCustomerSale,
   fieldName,
-  selectedKundanKarigarDropdownValue,
-  setSelectedKundanKarigarDropdownValue,
+  // selectedKundanKarigarDropdownValue,
+  // setSelectedKundanKarigarDropdownValue,
+  item,
 }: any) => {
   console.log(id, 'id in dropdown');
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  // const [selectedDropdownValue, setSelectedDropdownValue] = useState('')
+  const [
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+  ] = useState('');
   const [noRecords, setNoRecordsFound] = useState(false);
   const [filterDropdownList, setFilterDropdownList] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
@@ -122,6 +126,9 @@ const SelectInputKunKarigar = ({
         selectedIndex !== -1
       ) {
         e.preventDefault();
+        // setSelectedKundanKarigarDropdownValue(
+        //   filterDropdownList[selectedIndex]?.karigar_name
+        // );
         handleSelectedOption(filterDropdownList[selectedIndex], selectedIndex);
       }
     }
@@ -198,7 +205,7 @@ const SelectInputKunKarigar = ({
           handleFieldChange(e);
         }}
         onClick={handleShowDropdown}
-        value={selectedKundanKarigarDropdownValue || defaultValue}
+        value={selectedKundanKarigarDropdownValue}
         defaultValue={defaultValue}
         onKeyDown={handleKeyDown}
         autoComplete="off"
@@ -214,7 +221,10 @@ const SelectInputKunKarigar = ({
                 kundanKarigarData.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onClick={() => handleSelectedOption(name, i)}
+                    onClick={() => {
+                      handleSelectedOption(name, i);
+                      setSelectedKundanKarigarDropdownValue(name?.karigar_name);
+                    }}
                     className={`dropdown-list ${
                       i === selectedIndex ? 'selected' : ''
                     }`}
@@ -230,7 +240,10 @@ const SelectInputKunKarigar = ({
                 filterDropdownList.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onClick={() => handleSelectedOption(name, i)}
+                    onClick={() => {
+                      handleSelectedOption(name, i);
+                      setSelectedKundanKarigarDropdownValue(name?.karigar_name);
+                    }}
                     className={`dropdown-list ${
                       i === selectedIndex ? 'selected' : ''
                     }`}

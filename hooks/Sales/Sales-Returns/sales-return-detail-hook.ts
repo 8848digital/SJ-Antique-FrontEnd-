@@ -35,6 +35,7 @@ const UseSalesReturnDetailHook = () => {
     selectedClientGroup,
     handleSelectClientGroup,
     SalesTableInitialState,
+    setItemCodeDropdownReset,
   }: any = UseCustomSalesReturnHook();
 
   const {
@@ -230,6 +231,7 @@ const UseSalesReturnDetailHook = () => {
     handleDeleteSalesReturn,
     saleReturnDeliveryNoteListing,
     handleAmendButtonForSalesReturn,
+    setItemCodeDropdownReset,
   };
 };
 

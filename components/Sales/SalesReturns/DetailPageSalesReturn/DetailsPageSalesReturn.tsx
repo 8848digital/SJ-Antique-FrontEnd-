@@ -37,6 +37,7 @@ const DetailsPageSalesReturn = () => {
     handlePrintApi,
     handleDeleteSalesReturn,
     handleAmendButtonForSalesReturn,
+    setItemCodeDropdownReset,
   }: any = UseSalesReturnDetailHook();
 
   return (
@@ -87,6 +88,7 @@ const DetailsPageSalesReturn = () => {
           itemList={itemList}
           itemCodeDropdownReset={itemCodeDropdownReset}
           readOnlyFields={readOnlyFields}
+          setItemCodeDropdownReset={setItemCodeDropdownReset}
         />
       </div>
     </div>

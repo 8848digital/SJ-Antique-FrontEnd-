@@ -39,6 +39,7 @@ const UseCustomerSaleDetailHook = () => {
     handleDNCreate,
     stateForDocStatus,
     setStateForDocStatus,
+    setItemCodeDropdownReset,
   }: any = UseCustomerSaleHook();
 
   console.log('selected category default', selectedCategory);
@@ -292,6 +293,7 @@ const UseCustomerSaleDetailHook = () => {
     handleDeliveryNotePrintApi,
     defaultSalesDate,
     isLoading,
+    setItemCodeDropdownReset,
   };
 };
 
