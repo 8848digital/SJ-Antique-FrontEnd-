@@ -52,6 +52,8 @@ const DetailPageCustomerSale = () => {
     get_detail_delivery_note_data
   );
 
+  console.log('stateForDocStatus in page', stateForDocStatus);
+
   return (
     <div className="container-lg">
       <SalesHeader />

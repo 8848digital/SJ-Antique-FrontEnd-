@@ -51,7 +51,7 @@ const CustomerSalesButtonsSection = ({
           </button>
 
           {stateForDocStatus === true &&
-            DetailOfDeliveryNoteFromStore?.docstatus === 0 && (
+            DetailOfDeliveryNoteFromStore?.docStatus === 0 && (
               <button
                 type="button"
                 className={`btn ${styles.docstatus_button}`}
