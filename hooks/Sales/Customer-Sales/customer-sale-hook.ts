@@ -474,9 +474,8 @@ const UseCustomerSaleHook = () => {
       name
     );
 
-    if (deleteApi?.message?.status === 'success') {
+    if (Object?.keys(deleteApi?.data)?.length === 0) {
       toast.success('Sales note Deleted');
-
       let updatedData: any = await getDeliveryNoteListing(
         loginAcessToken.token,
         deliveryNoteListParams

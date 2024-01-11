@@ -13,7 +13,7 @@ const SaleReturnsButtonSection = ({
   showSaveButtonForAmendFlow,
   setShowSaveButtonForAmendFlow,
   HandleUpdateSalesdocStatus,
-  HandleAmendButtonForCustomerSales,
+  HandleAmendButtonForSalesReturn,
   HandleDeleteDeliveryNote,
   handlePrintApi,
 }: any) => {
@@ -25,6 +25,8 @@ const SaleReturnsButtonSection = ({
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_sales_return_data
   );
+
+  console.log('sales return data from store', DetailOfDeliveryNoteFromStore);
 
   const HandleAmendButtonChanges: any = async () => {
     console.log('docStatus from store in amend func');
@@ -134,7 +136,7 @@ const SaleReturnsButtonSection = ({
                 Cancel
               </button>
             )}
-          {DetailOfDeliveryNoteFromStore?.data?.posting_date ===
+          {DetailOfDeliveryNoteFromStore?.data?.data?.posting_date ===
             new Date()?.toISOString()?.split('T')[0] && (
             <>
               {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
@@ -155,7 +157,7 @@ const SaleReturnsButtonSection = ({
             readOnlyFields === false && (
               <button
                 type="submit"
-                onClick={HandleAmendButtonForCustomerSales}
+                onClick={HandleAmendButtonForSalesReturn}
                 className={`${styles.create_button} px-2 py-0 me-2 `}
               >
                 Save

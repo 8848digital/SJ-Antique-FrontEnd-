@@ -14,7 +14,7 @@ const CustomerSalesButtonsSection = ({
   setShowSaveButtonForAmendFlow,
   HandleUpdateSalesdocStatus,
   HandleAmendButtonForCustomerSales,
-  HandleDeleteDeliveryNote,
+  HandleDeleteRecords,
   handleDeliveryNotePrintApi,
 }: any) => {
   const router = useRouter();
@@ -169,15 +169,15 @@ const CustomerSalesButtonsSection = ({
               </button>
             )}
 
-          {/* {DetailOfDeliveryNoteFromStore?.docStatus === 2 && (
+          {DetailOfDeliveryNoteFromStore?.docStatus === 2 && (
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2 `}
-              onClick={() => HandleDeleteDeliveryNote(query?.deliveryNoteId)}
+              onClick={() => HandleDeleteRecords(query?.deliveryNoteId)}
             >
               Delete
             </button>
-          )} */}
+          )}
         </div>
       </div>
     </>

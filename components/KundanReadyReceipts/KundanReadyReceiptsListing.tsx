@@ -12,6 +12,7 @@ import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import PrintApi from '@/services/api/general/print-api';
+import { toast } from 'react-toastify';
 
 const KundanListing = ({
   kundanListing,
@@ -139,7 +140,6 @@ const KundanListing = ({
       name
     );
     if (cancelReceipt?.hasOwnProperty('data')) {
-      console.log('canclereciept api inn', cancelReceipt);
       const capitalizeFirstLetter = (str: any) => {
         return str?.charAt(0)?.toUpperCase() + str?.slice(1);
       };
@@ -157,6 +157,8 @@ const KundanListing = ({
         name: query?.receiptId,
       };
       dispatch(getSpecificReceipt(params));
+    } else {
+      toast.error('Failed to Cancel records');
     }
   };
 

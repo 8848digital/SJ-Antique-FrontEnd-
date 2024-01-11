@@ -12,6 +12,7 @@ import UpdateSalesDocStatusApi from '@/services/api/Sales/update-sales-docStatus
 import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
 import PrintApi from '@/services/api/general/print-api';
 import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
+import DeleteApi from '@/services/api/general/delete-api';
 
 const UseCustomerSaleDetailHook = () => {
   const dispatch = useDispatch();
@@ -227,8 +228,20 @@ const UseCustomerSaleDetailHook = () => {
     }
   };
 
-  const HandleDeleteDeliveryNote: any = async (id: any) => {
-    // let deleteDeliveryNoteApi:any = await
+  const HandleDeleteRecords: any = async (id: any) => {
+    const version: any = 'v1';
+    const method: any = 'delete_delivery_note_api';
+    const entity: any = 'delivery_note_api';
+    let deleteSalesReturnNoteApi: any = await DeleteApi(
+      loginAcessToken?.token,
+      version,
+      method,
+      entity,
+      id
+    );
+    console.log('delete api res', deleteSalesReturnNoteApi);
+
+    // if (deleteSalesReturnNoteApi?.message?.status === 'success') {
   };
 
   const handleDeliveryNotePrintApi: any = async (id: any) => {
@@ -273,7 +286,7 @@ const UseCustomerSaleDetailHook = () => {
     setShowSaveButtonForAmendFlow,
     HandleUpdateSalesdocStatus,
     HandleAmendButtonForCustomerSales,
-    HandleDeleteDeliveryNote,
+    HandleDeleteRecords,
     handleDeliveryNotePrintApi,
     defaultSalesDate,
     isLoading,
