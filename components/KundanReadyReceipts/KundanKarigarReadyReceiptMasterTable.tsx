@@ -123,9 +123,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       defaultValue={item.custom_kun_karigar}
                       tableData={tableData}
                       setTableData={setTableData}
-                      selectedKundanKarigarDropdownValue={
-                        selectedKundanKarigarDropdownValue
-                      }
+                      // selectedKundanKarigarDropdownValue={
+                      //   selectedKundanKarigarDropdownValue
+                      // }
                       setSelectedKundanKarigarDropdownValue={
                         setSelectedKundanKarigarDropdownValue
                       }
