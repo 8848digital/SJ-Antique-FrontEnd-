@@ -46,6 +46,7 @@ const DetailPageCustomerSale = () => {
     handleDeliveryNotePrintApi,
     defaultSalesDate,
     isLoading,
+    setItemCodeDropdownReset,
   }: any = UseCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -121,6 +122,7 @@ const DetailPageCustomerSale = () => {
                 itemList={itemList}
                 readOnlyFields={readOnlyFields}
                 setStateForDocStatus={setStateForDocStatus}
+                setItemCodeDropdownReset={setItemCodeDropdownReset}
               />
             </div>
           )}
