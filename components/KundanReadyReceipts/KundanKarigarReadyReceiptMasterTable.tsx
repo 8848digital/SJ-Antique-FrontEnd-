@@ -23,6 +23,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   selectedKundanKarigarDropdownValue,
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
+  setKunKarigarDropdownReset,
   calculateEditTotal,
   handleClearFileUploadInput,
   handleCreate,
@@ -118,6 +119,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <SelectInputKunKarigar
                       kundanKarigarData={kundanKarigarData}
                       kunKarigarDropdownReset={kunKarigarDropdownReset}
+                      setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                       defaultValue={item.custom_kun_karigar}
                       tableData={tableData}
                       setTableData={setTableData}
@@ -131,7 +133,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       id={item.idx}
                       setStateForDocStatus={setStateForDocStatus}
                       readOnlyFields={readOnlyFields}
-                      fieldName={'custom_karigar'}
+                      fieldName={'custom_kun_karigar'}
                     />
                   </td>
                   <td className="table_row">

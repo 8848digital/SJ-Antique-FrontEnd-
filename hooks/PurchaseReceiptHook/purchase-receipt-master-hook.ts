@@ -46,10 +46,7 @@ const useReadyReceiptKarigar = () => {
   let disabledValue: any;
 
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
-  const [
-    selectedKundanKarigarDropdownValue,
-    setSelectedKundanKarigarDropdownValue,
-  ] = useState('');
+
   useEffect(() => {
     setRecipitData({
       ...recipitData,
@@ -89,6 +86,8 @@ const useReadyReceiptKarigar = () => {
     handleAddRow,
     matWt,
     setMatWt,
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
   }: any = UseCustomReceiptHook();
 
   useEffect(() => {
@@ -407,7 +406,7 @@ const useReadyReceiptKarigar = () => {
     setSelectedKundanKarigarDropdownValue('');
     setKunKarigarDropdownReset(true);
   };
-
+  console.log(selectedKundanKarigarDropdownValue, 'kundan karigar value');
   const handleUpdateReceipt: any = async () => {
     console.log('update receipt', tableData);
     const updatedtableData =

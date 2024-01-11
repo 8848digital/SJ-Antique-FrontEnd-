@@ -11,12 +11,15 @@ const SelectInputKunKarigar = ({
   setStateForDocStatus,
   readOnlyFields,
   kunKarigarDropdownReset,
+  setKunKarigarDropdownReset,
   setSelectedItemCodeForCustomerSale,
   fieldName,
+  selectedKundanKarigarDropdownValue,
+  setSelectedKundanKarigarDropdownValue,
 }: any) => {
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedDropdownValue, setSelectedDropdownValue] = useState('');
+  // const [selectedDropdownValue, setSelectedDropdownValue] = useState('')
   const [noRecords, setNoRecordsFound] = useState(false);
   const [filterDropdownList, setFilterDropdownList] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
@@ -29,6 +32,7 @@ const SelectInputKunKarigar = ({
     if (!readOnlyFields) {
       setShowDropdown(!showDropdown);
       setSelectedIndex(-1);
+      setKunKarigarDropdownReset(false);
       // setFilterDropdownList(kundanKarigarData);
     }
   };
@@ -40,13 +44,13 @@ const SelectInputKunKarigar = ({
       kunKarigarDropdownReset !== undefined &&
       kunKarigarDropdownReset === true
     )
-      setSelectedDropdownValue('');
-  }, [kunKarigarDropdownReset, selectedDropdownValue]);
+      setSelectedKundanKarigarDropdownValue('');
+  }, [kunKarigarDropdownReset, selectedKundanKarigarDropdownValue]);
 
   const handleSelectedOption = (data: any, i: any) => {
     console.log('selected item code for selection', data);
 
-    setSelectedDropdownValue(data?.karigar_name);
+    setSelectedKundanKarigarDropdownValue(data?.karigar_name);
     if (setSelectedItemCodeForCustomerSale !== undefined) {
       setSelectedItemCodeForCustomerSale({
         id: id,
@@ -143,7 +147,7 @@ const SelectInputKunKarigar = ({
     if (!readOnlyFields) {
       setShowDropdown(true);
     }
-    setSelectedDropdownValue(e.target.value);
+    setSelectedKundanKarigarDropdownValue(e.target.value);
     const query = e.target.value;
     const updatedFilterList: any =
       kundanKarigarData?.length > 0 &&
@@ -162,13 +166,13 @@ const SelectInputKunKarigar = ({
         if (item.idx === id && fieldName === 'custom_kun_karigar') {
           return {
             ...item,
-            custom_kun_karigar: 0 || selectedDropdownValue,
+            custom_kun_karigar: 0 || selectedKundanKarigarDropdownValue,
           };
         }
         if (item.idx === id && fieldName === 'item_code') {
           return {
             ...item,
-            item_code: 0 || selectedDropdownValue,
+            item_code: 0 || selectedKundanKarigarDropdownValue,
           };
         }
 
@@ -193,7 +197,7 @@ const SelectInputKunKarigar = ({
           handleFieldChange(e);
         }}
         onClick={handleShowDropdown}
-        value={selectedDropdownValue || defaultValue}
+        value={selectedKundanKarigarDropdownValue || defaultValue}
         defaultValue={defaultValue}
         onKeyDown={handleKeyDown}
         autoComplete="off"
