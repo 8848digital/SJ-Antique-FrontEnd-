@@ -201,6 +201,15 @@ const useReadyReceiptKarigar = () => {
       const total = Number(accu) + Number(weight);
       return total;
     }, 0);
+    const piecesAddition = materialWeight.reduce((accu: any, val: any) => {
+      console.log(accu, 'accu23', val);
+      let pcs = val.pcs;
+      if (val.pcs === '') {
+        pcs = 0;
+      }
+      const total = Number(accu) + Number(pcs);
+      return total;
+    }, 0);
     const updatedMaterialVal = materialWeight.map((item: any) => {
       return {
         ...item,
@@ -235,9 +244,11 @@ const useReadyReceiptKarigar = () => {
           return {
             ...row,
             totalModalWeight: weightAddition,
+            totalModalPcs: piecesAddition,
             totalAmount: totalAmmountValues,
             table: materialWeight.map(({ id, ...rest }: any) => ({ ...rest })),
             custom_mat_wt: weightAddition,
+            custom_pcs: piecesAddition,
             custom_gross_wt:
               Number(row.custom_net_wt) +
               Number(row.custom_few_wt) +

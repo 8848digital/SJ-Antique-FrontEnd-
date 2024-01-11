@@ -217,11 +217,12 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         type="number"
                         // value={item.custom_pcs}
                         // defaultValue={item.pcs}
+                        value={item?.custom_pcs}
                         onChange={(e) =>
                           handleFieldChange(
                             item.idx,
                             'tableRow',
-                            'BB_pcs',
+                            'custom_pcs',
                             e.target.value
                           )
                         }

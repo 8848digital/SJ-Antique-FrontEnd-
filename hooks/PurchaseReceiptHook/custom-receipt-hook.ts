@@ -63,6 +63,7 @@ const UseCustomReceiptHook: any = () => {
     custom_total: '',
     custom_add_photo: '',
     totalModalWeight: 0,
+    totalModalPcs: 0,
     totalAmount: 0,
     table: [
       {
@@ -419,7 +420,7 @@ const UseCustomReceiptHook: any = () => {
         UpdateMaterialWeight(id, formatInput(newValue));
       }
     }
-    if (field === 'BB_pcs') {
+    if (field === 'custom_pcs') {
       const numericValue =
         typeof newValue === 'string' ? parseFloat(newValue) : newValue;
       if (!isNaN(numericValue)) {

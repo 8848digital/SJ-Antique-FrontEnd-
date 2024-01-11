@@ -333,7 +333,7 @@ const UseCustomerSaleHook = () => {
           custom_other_wt:
             selectedCategory.OtCategory !== ''
               ? (otWtInitial * selectedCategory.OtCategory?.type) / 100
-              : data?.custom_other_wt,
+              : Number(data?.custom_other_wt),
           custom_cs_amt:
             (selectedCategory.CsCategory !== ''
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
