@@ -490,6 +490,8 @@ const UseCustomerSaleHook = () => {
     }
   };
 
+  console.log('stateForDocStatus', stateForDocStatus);
+
   return {
     salesTableData,
     setSalesTableData,

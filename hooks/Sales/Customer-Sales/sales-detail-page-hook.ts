@@ -258,6 +258,8 @@ const UseCustomerSaleDetailHook = () => {
     }
   };
 
+  console.log('stateForDocStatus in detail', stateForDocStatus);
+
   return {
     salesTableData,
     setSalesTableData,
