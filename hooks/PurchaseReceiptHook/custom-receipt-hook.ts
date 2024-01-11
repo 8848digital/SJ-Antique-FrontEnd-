@@ -385,7 +385,6 @@ const UseCustomReceiptHook: any = () => {
       return value; // Return the original value for non-numeric inputs
     };
 
-    console.log(selectedKundanKarigarDropdownValue, 'value56');
     const updatedData = tableData?.map((item: any) => {
       if (item.idx === id) {
         let filePath;

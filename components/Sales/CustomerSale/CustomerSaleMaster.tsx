@@ -30,9 +30,12 @@ const CustomerSaleMaster = () => {
     clientGroupList,
     HandleDeleteDeliveryNote,
     itemCodeDropdownReset,
+    setItemCodeDropdownReset,
     deliveryNoteListParams,
     deliveryNoteListing,
     handleDeliveryNotePrintApi,
+    selectedItemCode,
+    setSelectedItemCode,
   }: any = UseCustomerSaleHook();
 
   console.log(deliveryNoteListing, 'client name in listing');
@@ -124,6 +127,9 @@ const CustomerSaleMaster = () => {
               selectedCategory={selectedCategory}
               itemList={itemList}
               itemCodeDropdownReset={itemCodeDropdownReset}
+              setItemCodeDropdownReset={setItemCodeDropdownReset}
+              selectedItemCode={selectedItemCode}
+              setSelectedItemCode={setSelectedItemCode}
             />
           </div>
         </div>

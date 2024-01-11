@@ -36,6 +36,7 @@ const UseCustomerSaleHook = () => {
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState<any>({ id: '', item_code: '' });
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
+  const [selectedItemCode, setSelectedItemCode] = useState();
   const [selectedCategory, setSeletedCategory] = useState<any>({
     KunCategory: '',
     CsCategory: '',
@@ -517,8 +518,11 @@ const UseCustomerSaleHook = () => {
     HandleDeleteDeliveryNote,
     handleSelectClientGroup,
     itemCodeDropdownReset,
+    setItemCodeDropdownReset,
     deliveryNoteListParams,
     deliveryNoteListing,
+    selectedItemCode,
+    setSelectedItemCode,
   };
 };
 

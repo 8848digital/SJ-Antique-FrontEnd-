@@ -17,6 +17,7 @@ const SelectInputKunKarigar = ({
   selectedKundanKarigarDropdownValue,
   setSelectedKundanKarigarDropdownValue,
 }: any) => {
+  console.log(id, 'id in dropdown');
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   // const [selectedDropdownValue, setSelectedDropdownValue] = useState('')
@@ -68,7 +69,7 @@ const SelectInputKunKarigar = ({
       if (item.idx === id && fieldName === 'item_code') {
         return { ...item, item_code: data?.karigar_name };
       }
-
+      console.log(item, 'iten when kun karigar selected');
       return item;
     });
     setTableData(updatedData);

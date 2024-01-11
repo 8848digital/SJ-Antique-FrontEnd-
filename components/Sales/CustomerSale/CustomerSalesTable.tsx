@@ -16,6 +16,9 @@ const CustomerSalesTable = ({
   readOnlyFields,
   itemList,
   itemCodeDropdownReset,
+  setItemCodeDropdownReset,
+  selectedItemCode,
+  setSelectedItemCode,
 }: any) => {
   console.log(salesTableData, 'selected name and value');
   return (
@@ -108,6 +111,7 @@ const CustomerSalesTable = ({
                           }))
                         }
                         kunKarigarDropdownReset={itemCodeDropdownReset}
+                        setKunKarigarDropdownReset={setItemCodeDropdownReset}
                         defaultValue={item?.item_code}
                         tableData={salesTableData}
                         setTableData={setSalesTableData}
@@ -123,6 +127,10 @@ const CustomerSalesTable = ({
                         id={item?.idx}
                         setStateForDocStatus={setStateForDocStatus}
                         readOnlyFields={readOnlyFields}
+                        selectedKundanKarigarDropdownValue={selectedItemCode}
+                        setSelectedKundanKarigarDropdownValue={
+                          setSelectedItemCode
+                        }
                       />
                     </td>
                     <td className="table_row">
