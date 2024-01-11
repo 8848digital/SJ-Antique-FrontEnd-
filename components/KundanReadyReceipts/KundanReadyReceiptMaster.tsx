@@ -167,6 +167,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   setReadOnlyFields={setReadOnlyFields}
                   materialWeight={materialWeight}
                   kunKarigarDropdownReset={kunKarigarDropdownReset}
+                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                   calculateEditTotal={calculateEditTotal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
                   handleCreate={handleCreate}

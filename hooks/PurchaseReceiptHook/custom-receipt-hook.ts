@@ -29,6 +29,10 @@ const UseCustomReceiptHook: any = () => {
   const [stateForDocStatus, setStateForDocStatus] = useState<any>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [matWt, setMatWt] = useState<any>();
+  const [
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+  ] = useState('');
   const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] =
     useState<any>(false);
   const [materialWeight, setMaterialWeight] = useState<any>([
@@ -381,6 +385,7 @@ const UseCustomReceiptHook: any = () => {
       return value; // Return the original value for non-numeric inputs
     };
 
+    console.log(selectedKundanKarigarDropdownValue, 'value56');
     const updatedData = tableData?.map((item: any) => {
       if (item.idx === id) {
         let filePath;
@@ -389,7 +394,6 @@ const UseCustomReceiptHook: any = () => {
         } else {
           filePath = '/files/capture.jpg';
         }
-
         return {
           ...item,
           [field]:
@@ -495,6 +499,8 @@ const UseCustomReceiptHook: any = () => {
     handleAddRow,
     matWt,
     setMatWt,
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
   };
 };
 

@@ -67,6 +67,8 @@ const DetailPageReadyReceipt = () => {
     lastInputRef,
     firstInputRef,
     setMatWt,
+    kunKarigarDropdownReset,
+    setKunKarigarDropdownReset,
   } = useReadyReceiptKarigar();
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
 
@@ -176,6 +178,7 @@ const DetailPageReadyReceipt = () => {
                   lastInputRef={lastInputRef}
                   firstInputRef={firstInputRef}
                   setMatWt={setMatWt}
+                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                 />
               </div>
               <PurchaseReceiptModal
