@@ -448,8 +448,9 @@ const UseCustomerSaleHook = () => {
       if (postDeliveryNote?.data?.message?.status === 'success') {
         toast.success('Delivery note Created Sucessfully');
         router.push(`${query.saleId}/${postDeliveryNote?.data?.message?.name}`);
-      } else {
-        toast.error('Error in Creating Delivery note');
+      }
+      if (postDeliveryNote?.data?.message?.status === 'error') {
+        toast.error(`${postDeliveryNote?.data?.message?.message}`);
       }
     }
   };
