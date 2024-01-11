@@ -26,6 +26,8 @@ const SaleReturnsButtonSection = ({
     get_detail_sales_return_data
   );
 
+  console.log('sales return data from store', DetailOfDeliveryNoteFromStore);
+
   const HandleAmendButtonChanges: any = async () => {
     console.log('docStatus from store in amend func');
     setShowSaveButtonForAmendFlow(true);
@@ -134,7 +136,7 @@ const SaleReturnsButtonSection = ({
                 Cancel
               </button>
             )}
-          {DetailOfDeliveryNoteFromStore?.data?.posting_date ===
+          {DetailOfDeliveryNoteFromStore?.data?.data?.posting_date ===
             new Date()?.toISOString()?.split('T')[0] && (
             <>
               {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&

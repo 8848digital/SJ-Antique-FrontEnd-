@@ -13,6 +13,7 @@ import UpdateSalesDocStatusApi from '@/services/api/Sales/update-sales-docStatus
 import PrintApi from '@/services/api/general/print-api';
 import DeleteApi from '@/services/api/general/delete-api';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
+import { toast } from 'react-toastify';
 
 const UseSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
@@ -175,22 +176,26 @@ const UseSalesReturnDetailHook = () => {
     const method = 'delete_delivery_note_api';
     const entity = 'delivery_note_api';
 
-    let deleteapi: any = await DeleteApi(
+    let deleteApi: any = await DeleteApi(
       loginAcessToken?.token,
       version,
       method,
       entity,
       id
     );
-    const deliveryNoteApi: any = await getDeliveryNoteListing(
-      loginAcessToken.token,
-      deliveryNoteListParams
-    );
-    if (deliveryNoteApi?.data?.message?.status === 'success') {
-      setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
-    }
 
-    console.log('deleteapi res', deleteapi);
+    if (Object?.keys(deleteApi?.data)?.length === 0) {
+      toast.success('Sales Return note Deleted');
+      const deliveryNoteApi: any = await getDeliveryNoteListing(
+        loginAcessToken.token,
+        deliveryNoteListParams
+      );
+      if (deliveryNoteApi?.data?.message?.status === 'success') {
+        setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
+      }
+    } else {
+      toast.error('Failed to delete Sales Return');
+    }
   };
 
   const handleAmendButtonForSalesReturn: any = async () => {};
