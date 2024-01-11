@@ -143,6 +143,12 @@ const UseSalesReturnMasterHook = () => {
     setSelectedItemCodeForCustomerSale,
     selectedClient,
     setSelectedClient,
+    handleAddRowForSalesReturn,
+    handleDeleteRowOfSalesReturnTable,
+    handleSalesReturnTableFieldChange,
+    handleEmptySaleReturnData,
+    itemCodeDropdownReset,
+    handleSelectClientGroup,
   };
 };
 

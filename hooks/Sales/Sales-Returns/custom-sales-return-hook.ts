@@ -84,6 +84,7 @@ const UseCustomSalesReturnHook = () => {
   };
 
   const handleAddRowForSalesReturn: any = () => {
+    console.log('add row in sales return');
     const newRow: any = {
       idx: salesReturnTableData?.length + 1,
       item_code: '',

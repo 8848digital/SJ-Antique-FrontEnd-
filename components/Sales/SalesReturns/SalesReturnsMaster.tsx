@@ -19,21 +19,17 @@ const SaleReturnsMaster = () => {
     handleSRCreate,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
-  }: any = UseSalesReturnMasterHook();
-
-  const {
-    handleSalesReturnTableFieldChange,
     handleAddRowForSalesReturn,
     handleDeleteRowOfSalesReturnTable,
+    handleSalesReturnTableFieldChange,
     handleEmptySaleReturnData,
     itemCodeDropdownReset,
-
     handleSelectClientGroup,
-  }: any = UseCustomSalesReturnHook();
+  }: any = UseSalesReturnMasterHook();
+
   const { saleReturnDeliveryNoteListing, handleDeleteSalesReturn } =
     UseSalesReturnDetailHook();
-  console.log('sales return table data in tsx', salesReturnTableData);
-  console.log(saleReturnDeliveryNoteListing, 'sales return listing');
+
   return (
     <div className="container-lg px-0">
       <SalesHeader />
