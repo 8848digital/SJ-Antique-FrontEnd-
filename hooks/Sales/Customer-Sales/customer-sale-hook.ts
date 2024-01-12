@@ -324,8 +324,7 @@ const UseCustomerSaleHook = () => {
           custom_kun_wt:
             selectedCategory.KunCategory !== ''
               ? (kunInitial * selectedCategory?.KunCategory?.type) / 100
-              : // : selectedCategory?.KunCategory?.name1 !== ''?
-                data?.custom_kun_wt,
+              : data?.custom_kun_wt,
           custom_cs_wt:
             selectedCategory.CsCategory !== ''
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
@@ -452,7 +451,7 @@ const UseCustomerSaleHook = () => {
   };
   const deliveryNoteListParams = {
     version: 'v1',
-    method: 'get_listening_delivery_note',
+    method: 'get_listening_delivery_note_sales_return',
     entity: 'delivery_note_api',
   };
   const HandleDeleteDeliveryNote: any = async (name: any) => {
@@ -474,7 +473,7 @@ const UseCustomerSaleHook = () => {
         loginAcessToken.token,
         deliveryNoteListParams
       );
-      console.log('resss', updatedData?.data?.message?.data);
+      console.log('resss', updatedData);
       if (updatedData?.data?.message?.status === 'success') {
         setDeliveryNoteListing(updatedData?.data?.message?.data);
         console.log(deliveryNoteListing, 'delivery note listing');

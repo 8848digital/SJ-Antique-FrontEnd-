@@ -40,7 +40,14 @@ const CustomerSaleMaster = () => {
 
   console.log(deliveryNoteListing, 'client name in listing');
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
+  const kundanListing =
+    deliveryNoteListing && deliveryNoteListing.length > 0
+      ? deliveryNoteListing.filter((data: any) => {
+          return data.is_return === 0;
+        })
+      : [];
 
+  console.log('kundan listing', kundanListing);
   return (
     <div className="container-lg px-0">
       <SalesHeader />
@@ -56,7 +63,7 @@ const CustomerSaleMaster = () => {
           aria-labelledby="pills-home-tab"
         >
           <KundanListing
-            kundanListing={deliveryNoteListing}
+            kundanListing={kundanListing}
             karigarData={
               clientNameListData?.length > 0 &&
               clientNameListData !== null &&

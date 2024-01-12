@@ -31,6 +31,13 @@ const SaleReturnsMaster = () => {
   const { saleReturnDeliveryNoteListing, handleDeleteSalesReturn } =
     UseSalesReturnDetailHook();
 
+  const salesReturnListing =
+    saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
+      ? saleReturnDeliveryNoteListing.filter((data: any) => {
+          return data.is_return === 1;
+        })
+      : [];
+
   return (
     <div className="container-lg px-0">
       <SalesHeader />
@@ -48,7 +55,7 @@ const SaleReturnsMaster = () => {
             aria-labelledby="pills-home-tab"
           >
             <KundanListing
-              kundanListing={saleReturnDeliveryNoteListing}
+              kundanListing={salesReturnListing}
               karigarData={
                 clientNameListData?.length > 0 &&
                 clientNameListData !== null &&

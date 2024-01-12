@@ -11,6 +11,9 @@ const PurchaseReceiptFileUploadMaster = ({
   item,
   handleClearFileUploadInput,
   readOnlyFields,
+  keyValue,
+  handleCreate,
+  handleUpdateReceipt,
 }: any) => {
   const {
     handlePhotaModalClose,
@@ -39,6 +42,9 @@ const PurchaseReceiptFileUploadMaster = ({
             className={` ${styles.input_field} cursor`}
             placeholder="Attach"
             value={item?.custom_add_photo}
+            onKeyDown={(e) => {
+              keyValue === 'edit' ? handleUpdateReceipt() : handleCreate();
+            }}
             onClick={() => {
               // if (!readOnlyFields) {
               handleShowPhotoModal(item);

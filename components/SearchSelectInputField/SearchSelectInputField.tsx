@@ -81,7 +81,7 @@ const SearchSelectInputField = ({
     if (!readOnlyFields) {
       setShowDropdown(!showDropdown);
       setSelectedIndex(-1);
-      // setFilterDropdownList(karigarData);
+      setFilterDropdownList(karigarData?.length > 0 && karigarData);
     }
   };
 
