@@ -462,8 +462,8 @@ const UseCustomReceiptHook: any = () => {
       table: [
         {
           idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
-          material_abbr: query?.receipt === 'kundan' ? 'CS' : 'BB',
-          material: query?.receipt === 'kundan' ? 'Colorstone' : 'BlackBeads',
+          material_abbr: '',
+          material: '',
           pcs: '',
           piece_: '',
           carat: '',
