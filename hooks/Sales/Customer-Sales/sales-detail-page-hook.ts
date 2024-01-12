@@ -13,6 +13,7 @@ import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
 import PrintApi from '@/services/api/general/print-api';
 import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
 import DeleteApi from '@/services/api/general/delete-api';
+import { toast } from 'react-toastify';
 
 const UseCustomerSaleDetailHook = () => {
   const dispatch = useDispatch();
@@ -171,6 +172,9 @@ const UseCustomerSaleDetailHook = () => {
     );
 
     console.log('update delivery note api res', updateDeliveryNoteApi);
+    if (updateDeliveryNoteApi?.data?.message?.status === 'error') {
+      toast.error(`${updateDeliveryNoteApi?.data?.message?.message}`);
+    }
     if (updateDeliveryNoteApi?.data?.message?.status === 'success') {
       setStateForDocStatus(false);
 

@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/readyReceiptTableListing.module.css';
 import FilterKundanReadyReceiptListing from './FilterKundanReadyReceiptListing';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
-
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import PrintApi from '@/services/api/general/print-api';
 import { toast } from 'react-toastify';
@@ -28,7 +27,7 @@ const KundanListing = ({
   deleteApiEntity,
   purchasRecieptListParams,
 }: any) => {
-  console.log(purchasRecieptListParams, 'param in listing');
+  console.log(kundanListing, 'param in listing');
   const router = useRouter();
   const pathParts = router.asPath.split('/');
   const lastPartOfURL = pathParts[pathParts.length - 1];
@@ -48,15 +47,14 @@ const KundanListing = ({
   const [searchKarigar, setSearchKarigar] = useState<any>('');
 
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
+
   const [searchInputValues, setSearchInputValues] = useState({
     transaction_date: todayDate,
     status: '',
   });
 
   const HandleSearchInput: any = (e: any) => {
-    console.log('event', e.target.name, e.target.value);
     const { name, value } = e.target;
-
     setSearchInputValues({
       ...searchInputValues,
       [name]: value,
@@ -72,7 +70,10 @@ const KundanListing = ({
     setSearchKarigar('');
   }, [query.receipt, todayDate]);
 
-  console.log('sales listing', searchKarigar);
+  const formattedDate: any = (date: any) => {
+    const updatedDate = date?.split('-')?.reverse()?.join('-');
+    return updatedDate;
+  };
 
   const filteredList =
     kundanListing?.length > 0 &&
@@ -85,10 +86,6 @@ const KundanListing = ({
           const submittedDateMatch = searchInputValues.transaction_date
             ? item?.posting_date?.includes(searchInputValues.transaction_date)
             : true;
-          // const currentDateMatch = searchInputValues.current_date
-          //   ? item?.date?.includes(searchInputValues.current_date)
-          //   : true;
-
           const karigarMatch = searchKarigar
             ? item?.custom_karigar
               ? item.custom_karigar
@@ -241,7 +238,7 @@ const KundanListing = ({
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
                 >
-                  {item.posting_date}
+                  {formattedDate(item.posting_date)}
                 </td>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}

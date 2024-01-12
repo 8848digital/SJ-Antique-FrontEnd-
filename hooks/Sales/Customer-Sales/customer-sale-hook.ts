@@ -327,7 +327,7 @@ const UseCustomerSaleHook = () => {
             selectedCategory?.BBCategory?.name1 !== ''
               ? bbWtInitial === 0
                 ? 0
-                : bbWtInitial - 0.7
+                : bbWtInitial - selectedCategory?.BBCategory?.type
               : bbWtInitial,
           custom_other_wt:
             selectedCategory.OtCategory !== ''
@@ -420,20 +420,7 @@ const UseCustomerSaleHook = () => {
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
-    // const clientValues = {
-    //   version: 'v1',
-    //   method: 'client_create',
-    //   entity: 'client_api',
-    //   client_name: selectedClient,
-    //   client_group: selectedClientGroup,
-    // };
-    // if (selectedClientGroup !== '') {
-    //   let apiRes: any = await postClientApi(
-    //     loginAcessToken?.token,
-    //     clientValues
-    //   );
-    //   console.log(apiRes, 'api res when client created in sales');
-    // }
+
     let reqField = values.custom_client_name;
     if (reqField === '') {
       toast.error('Client Name is Empty');
@@ -447,8 +434,9 @@ const UseCustomerSaleHook = () => {
       if (postDeliveryNote?.data?.message?.status === 'success') {
         toast.success('Delivery note Created Sucessfully');
         router.push(`${query.saleId}/${postDeliveryNote?.data?.message?.name}`);
-      } else {
-        toast.error('Error in Creating Delivery note');
+      }
+      if (postDeliveryNote?.data?.message?.status === 'error') {
+        toast.error(`${postDeliveryNote?.data?.message?.message}`);
       }
     }
   };

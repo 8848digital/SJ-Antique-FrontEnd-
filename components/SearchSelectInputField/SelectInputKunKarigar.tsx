@@ -14,17 +14,13 @@ const SelectInputKunKarigar = ({
   setKunKarigarDropdownReset,
   setSelectedItemCodeForCustomerSale,
   fieldName,
-  // selectedKundanKarigarDropdownValue,
-  // setSelectedKundanKarigarDropdownValue,
-  item,
+  selectedKundanKarigarDropdownValue,
+  setSelectedKundanKarigarDropdownValue,
 }: any) => {
   console.log(id, 'id in dropdown');
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [
-    selectedKundanKarigarDropdownValue,
-    setSelectedKundanKarigarDropdownValue,
-  ] = useState('');
+  // const [selectedDropdownValue, setSelectedDropdownValue] = useState('')
   const [noRecords, setNoRecordsFound] = useState(false);
   const [filterDropdownList, setFilterDropdownList] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
@@ -126,9 +122,6 @@ const SelectInputKunKarigar = ({
         selectedIndex !== -1
       ) {
         e.preventDefault();
-        // setSelectedKundanKarigarDropdownValue(
-        //   filterDropdownList[selectedIndex]?.karigar_name
-        // );
         handleSelectedOption(filterDropdownList[selectedIndex], selectedIndex);
       }
     }
@@ -239,10 +232,7 @@ const SelectInputKunKarigar = ({
                 kundanKarigarData.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onClick={() => {
-                      handleSelectedOption(name, i);
-                      setSelectedKundanKarigarDropdownValue(name?.karigar_name);
-                    }}
+                    onClick={() => handleSelectedOption(name, i)}
                     className={`dropdown-list ${
                       i === selectedIndex ? 'selected' : ''
                     }`}
@@ -258,10 +248,7 @@ const SelectInputKunKarigar = ({
                 filterDropdownList.map((name: any, i: any) => (
                   <li
                     key={i}
-                    onClick={() => {
-                      handleSelectedOption(name, i);
-                      setSelectedKundanKarigarDropdownValue(name?.karigar_name);
-                    }}
+                    onClick={() => handleSelectedOption(name, i)}
                     className={`dropdown-list ${
                       i === selectedIndex ? 'selected' : ''
                     }`}

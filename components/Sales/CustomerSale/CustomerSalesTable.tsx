@@ -230,20 +230,19 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={
-                          Number(item.custom_gross_wt) -
+                        value={(Number(item.custom_gross_wt) -
+                          (Number(item.custom_kun_wt) +
+                            Number(item.custom_cs_wt) +
+                            Number(item.custom_bb_wt) +
+                            Number(item.custom_other_wt)) <
+                        0
+                          ? 0
+                          : Number(item.custom_gross_wt) -
                             (Number(item.custom_kun_wt) +
                               Number(item.custom_cs_wt) +
                               Number(item.custom_bb_wt) +
-                              Number(item.custom_other_wt)) <
-                          0
-                            ? 0
-                            : Number(item.custom_gross_wt) -
-                              (Number(item.custom_kun_wt) +
-                                Number(item.custom_cs_wt) +
-                                Number(item.custom_bb_wt) +
-                                Number(item.custom_other_wt))
-                        }
+                              Number(item.custom_other_wt))
+                        )?.toFixed(3)}
                         defaultValue={item.custom_net_wt}
                         readOnly
                         onChange={(e) =>

@@ -123,9 +123,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       defaultValue={item.custom_kun_karigar}
                       tableData={tableData}
                       setTableData={setTableData}
-                      selectedKundanKarigarDropdownValue={
-                        selectedKundanKarigarDropdownValue
-                      }
+                      // selectedKundanKarigarDropdownValue={
+                      //   selectedKundanKarigarDropdownValue
+                      // }
                       setSelectedKundanKarigarDropdownValue={
                         setSelectedKundanKarigarDropdownValue
                       }
@@ -203,13 +203,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      value={parseFloat(
-                        (
-                          Number(tableData[i]?.custom_net_wt) +
-                          Number(tableData[i]?.custom_few_wt) +
-                          Number(tableData[i]?.custom_mat_wt)
-                        ).toFixed(3)
-                      )}
+                      value={(
+                        parseFloat(tableData[i]?.custom_net_wt) +
+                        parseFloat(tableData[i]?.custom_few_wt) +
+                        parseFloat(tableData[i]?.custom_mat_wt)
+                      )?.toFixed(3)}
                     />
                   </td>
                   {(query?.receipt === 'mangalsutra' ||
@@ -254,7 +252,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      defaultValue={tableData[i]?.custom_total}
+                      // defaultValue={tableData[i]?.custom_total}
                       value={parseFloat(
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
@@ -263,7 +261,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                             tableData[i]?.custom_total !== undefined
                           ? tableData[i]?.custom_total
                           : tableData[i]?.custom_other
-                      ).toFixed(3)}
+                      )?.toFixed(2)}
                     />
                   </td>
 
