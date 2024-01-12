@@ -158,6 +158,7 @@ const UseCustomReceiptHook: any = () => {
         item.idx === id ? { ...item, custom_add_photo: '' } : item
       )
     );
+    setStateForDocStatus(true);
   };
 
   const calculateEditTotal = (i: number, value: any) => {
@@ -445,8 +446,8 @@ const UseCustomReceiptHook: any = () => {
       table: [
         {
           idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
-          material_abbr: '',
-          material: '',
+          material_abbr: query?.receipt === 'kundan' ? 'CS' : 'BB',
+          material: query?.receipt === 'kundan' ? 'Colorstone' : 'BlackBeads',
           pcs: '',
           piece_: '',
           carat: '',

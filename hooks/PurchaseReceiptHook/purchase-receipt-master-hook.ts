@@ -417,7 +417,7 @@ const useReadyReceiptKarigar = () => {
     setSelectedKundanKarigarDropdownValue('');
     setKunKarigarDropdownReset(true);
   };
-  console.log(selectedKundanKarigarDropdownValue, 'kundan karigar value');
+
   const handleUpdateReceipt: any = async () => {
     console.log('update receipt', tableData);
     const updatedtableData =
@@ -472,32 +472,34 @@ const useReadyReceiptKarigar = () => {
       ...recipitData,
       items: updatedMergedList,
     };
-    // const NoDataInReceiptTableData = values?.items?.some(
-    //   (item: any) => Object?.keys(item)?.length === 0
-    // );
-    // console.log('NoDataInReceiptTableData', NoDataInReceiptTableData);
+    const isEmptyProductCode = values?.items?.some(
+      (obj: any) => obj.product_code === ''
+    );
 
-    // List of keys to be excluded from the API request
+    const productVal = values.custom_karigar;
     const keyToExclude = ['posting_date'];
 
     const updatedReceiptData: any = { ...values };
     keyToExclude?.forEach((key: any) => delete updatedReceiptData[key]);
 
-    console.log('santitizedData', updatedReceiptData);
-    let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
-      loginAcessToken.token,
-      updatedReceiptData,
-      query?.receiptId
-    );
-    console.log('updated purchase receipt api res', updateReceiptApi);
-    if (Object?.keys(updateReceiptApi?.data)?.length > 0) {
-      if (Object?.keys(updateReceiptApi?.data?.message)?.length > 0) {
-        setStateForDocStatus(false);
-        const params: any = {
-          token: loginAcessToken?.token,
-          name: query?.receiptId,
-        };
-        dispatch(getSpecificReceipt(params));
+    if (isEmptyProductCode || productVal === '') {
+      toast.error('Mandatory fields Item code Or Karigar');
+    } else {
+      let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
+        loginAcessToken.token,
+        updatedReceiptData,
+        query?.receiptId
+      );
+      console.log('updated purchase receipt api res', updateReceiptApi);
+      if (Object?.keys(updateReceiptApi?.data)?.length > 0) {
+        if (Object?.keys(updateReceiptApi?.data?.message)?.length > 0) {
+          setStateForDocStatus(false);
+          const params: any = {
+            token: loginAcessToken?.token,
+            name: query?.receiptId,
+          };
+          dispatch(getSpecificReceipt(params));
+        }
       }
     }
   };
