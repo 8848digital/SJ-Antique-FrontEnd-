@@ -95,7 +95,7 @@ const UseCustomerSaleHook = () => {
     custom_pr_kun_wt: '',
     custom_pr_other_wt: '',
     item_code: '',
-    custom_gross_wt: '',
+    custom_gross_wt: 0,
     custom_kun_wt: '',
     custom_cs_wt: '',
     custom_bb_wt: '',
@@ -172,7 +172,7 @@ const UseCustomerSaleHook = () => {
   };
 
   const updateSalesTableData = (data: any) => {
-    console.log('selected sale client table', selectedItemCodeForCustomerSale);
+    console.log('selected sale client table', data);
 
     if (selectedItemCodeForCustomerSale?.id) {
       // Assuming data is a list with a single object
@@ -195,7 +195,7 @@ const UseCustomerSaleHook = () => {
                 : data[0]?.custom_cs_wt,
             custom_bb_wt:
               selectedCategory.BBCategory !== ''
-                ? data[0]?.custom_bb_wt - 0.7
+                ? data[0]?.custom_bb_wt - selectedCategory.BBCategory.type
                 : data[0].custom_bb_wt,
             custom_other_wt:
               selectedCategory.OtCategory !== ''
@@ -252,10 +252,15 @@ const UseCustomerSaleHook = () => {
   console.log('updated sales table', salesTableData);
 
   const handleAddRowForSales: any = () => {
+    console.log('handle ADD row');
     const newRow: any = {
       idx: salesTableData?.length + 1,
+      custom_pr_bb_wt: '',
+      custom_pr_cs_wt: '',
+      custom_pr_kun_wt: '',
+      custom_pr_other_wt: '',
       item_code: '',
-      custom_gross_wt: '',
+      custom_gross_wt: 0,
       custom_kun_wt: '',
       custom_cs_wt: '',
       custom_bb_wt: '',
@@ -267,9 +272,10 @@ const UseCustomerSaleHook = () => {
       custom_kun: '',
       custom_kun_amt: '',
       custom_ot_: '',
-      custom_ot_amt: 0,
+      custom_ot_amt: '',
       custom_other: '',
       custom_amount: 0,
+      warehouse: '',
     };
 
     setSalesTableData([...salesTableData, newRow]);

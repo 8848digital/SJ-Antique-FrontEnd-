@@ -459,12 +459,21 @@ const UseCustomReceiptHook: any = () => {
       ],
     };
     if (value === 'tableRow') {
-      setTableData([...tableData, newRow]);
+      setTableData([
+        ...tableData,
+        {
+          ...newRow,
+          table: newRow.table.map((row) => ({
+            ...row,
+            material: query?.receipt === 'kundan' ? 'Colorstone' : 'BlackBeads',
+            material_abbr: query?.receipt === 'kundan' ? 'CS' : 'BB',
+          })),
+        },
+      ]);
       setMatWt('');
     } else {
-      setMaterialWeight([...materialWeight, ...newRow?.table]);
+      setMaterialWeight([...materialWeight, ...newRow.table]);
     }
-
     setStateForDocStatus(true);
   };
 

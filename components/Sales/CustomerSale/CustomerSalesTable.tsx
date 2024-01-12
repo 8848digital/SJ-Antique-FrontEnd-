@@ -137,8 +137,14 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={item?.custom_gross_wt}
-                        defaultValue={item?.custom_gross_wt}
+                        value={
+                          item?.custom_gross_wt !== '' &&
+                          item?.custom_gross_wt?.toFixed(3)
+                        }
+                        defaultValue={
+                          item?.custom_gross_wt !== '' &&
+                          item?.custom_gross_wt?.toFixed(3)
+                        }
                         onChange={(e) =>
                           handleSalesTableFieldChange(
                             item.idx,
@@ -181,14 +187,13 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
-                        value={parseFloat(item.custom_bb_wt).toFixed(3)}
+                        value={item.custom_bb_wt}
                         defaultValue={item.custom_bb_wt}
                         readOnly={readOnlyFields}
                         onChange={(e) =>
@@ -198,7 +203,6 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
