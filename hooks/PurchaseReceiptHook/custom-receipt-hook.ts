@@ -28,7 +28,10 @@ const UseCustomReceiptHook: any = () => {
   const [indexVal, setIndexVal] = useState<any>();
   const [stateForDocStatus, setStateForDocStatus] = useState<any>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [matWt, setMatWt] = useState<any>();
+  const [matWt, setMatWt] = useState<any>({
+    tableMatWt: '',
+    bbPcs: '',
+  });
   const [
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
@@ -291,8 +294,21 @@ const UseCustomReceiptHook: any = () => {
       tableData?.filter((item: any) => {
         if (item.idx === id && event.key === 'F2') {
           setShowModal(true);
+          setMaterialWeight(item?.table);
           // if (item.totalAmount > 0) {
-          setMaterialWeight(item.table);
+          // setMaterialWeight((prevState: any) => {
+          //   prevState?.table?.map((data: any, index: any) => {
+          //     return {
+          //       ...data,
+          //       pcs:
+          //         index === 0 && matWt?.bbPcs !== '' ? matWt?.bbPcs : data?.pcs,
+          //       weight:
+          //         index === 0 && matWt?.tableMatWt !== ''
+          //           ? matWt?.tableMatWt
+          //           : data?.weight,
+          //     };
+          //   });
+          // });
           // } else {
           // setMaterialWeight(data.table);
           // }
@@ -459,7 +475,7 @@ const UseCustomReceiptHook: any = () => {
     };
     if (value === 'tableRow') {
       setTableData([...tableData, newRow]);
-      setMatWt('');
+      setMatWt({ tableMatWt: '', bbPcs: '' });
     } else {
       setMaterialWeight([...materialWeight, ...newRow?.table]);
     }

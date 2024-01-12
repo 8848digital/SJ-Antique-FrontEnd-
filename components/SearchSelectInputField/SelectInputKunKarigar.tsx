@@ -38,7 +38,7 @@ const SelectInputKunKarigar = ({
       setShowDropdown(!showDropdown);
       setSelectedIndex(-1);
       setKunKarigarDropdownReset(false);
-      // setFilterDropdownList(kundanKarigarData);
+      setFilterDropdownList(kundanKarigarData?.length > 0 && kundanKarigarData);
     }
   };
 
@@ -135,9 +135,27 @@ const SelectInputKunKarigar = ({
   };
 
   useEffect(() => {
+    const handleDocumentClick = (e: any) => {
+      // Check if the input element itself was clicked
+      if (
+        e?.target !== inputRef?.current &&
+        !inputRef?.current?.contains(e.target)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+    const handleKeyDropdown = (e: any) => {
+      // Check if a key other than arrow keys or Enter key was pressed
+      if (![37, 38, 39, 40, 13].includes(e.keyCode)) {
+        setShowDropdown(false);
+      }
+    };
     document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleKeyDropdown);
+
     return () => {
       document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleKeyDropdown);
     };
   }, []);
 
@@ -205,7 +223,7 @@ const SelectInputKunKarigar = ({
           handleFieldChange(e);
         }}
         onClick={handleShowDropdown}
-        value={selectedKundanKarigarDropdownValue}
+        value={selectedKundanKarigarDropdownValue || defaultValue}
         defaultValue={defaultValue}
         onKeyDown={handleKeyDown}
         autoComplete="off"

@@ -188,7 +188,10 @@ const KundanKarigarReadyReceiptMasterTable = ({
                           'custom_mat_wt',
                           e.target.value
                         );
-                        setMatWt(e.target.value);
+                        setMatWt((prevState: any) => ({
+                          ...prevState,
+                          tableMatWt: e.target.value,
+                        }));
                       }}
                       onKeyDown={(e) => handleModal(e, item.idx, item)}
                     />
@@ -270,16 +273,14 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       item={item}
                       readOnlyFields={readOnlyFields}
                       handleClearFileUploadInput={handleClearFileUploadInput}
+                      keyValue={keyValue}
+                      handleUpdateReceipt={handleUpdateReceipt}
+                      handleCreate={handleCreate}
                     />
                   </td>
                   <td className="table_row">
                     <button
                       className="d-flex align-items-center delete-link p-1 border-0"
-                      onKeyDown={(e) => {
-                        keyValue === 'edit'
-                          ? handleUpdateReceipt()
-                          : handleCreate();
-                      }}
                       disabled={readOnlyFields}
                     >
                       <i className="fa-solid fa-plus"></i>

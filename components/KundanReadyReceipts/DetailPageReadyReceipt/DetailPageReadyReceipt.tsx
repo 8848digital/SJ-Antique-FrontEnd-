@@ -68,6 +68,7 @@ const DetailPageReadyReceipt = () => {
     firstInputRef,
     setMatWt,
     kunKarigarDropdownReset,
+    handleTabPressOnModal,
     setKunKarigarDropdownReset,
   } = useReadyReceiptKarigar();
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
@@ -200,6 +201,7 @@ const DetailPageReadyReceipt = () => {
                 setStateForDocStatus={setStateForDocStatus}
                 readOnlyFields={readOnlyFields}
                 setReadOnlyFields={setReadOnlyFields}
+                handleTabPressOnModal={handleTabPressOnModal}
               />
             </div>
           )}

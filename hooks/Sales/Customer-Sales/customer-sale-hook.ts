@@ -318,8 +318,7 @@ const UseCustomerSaleHook = () => {
           custom_kun_wt:
             selectedCategory.KunCategory !== ''
               ? (kunInitial * selectedCategory?.KunCategory?.type) / 100
-              : // : selectedCategory?.KunCategory?.name1 !== ''?
-                data?.custom_kun_wt,
+              : data?.custom_kun_wt,
           custom_cs_wt:
             selectedCategory.CsCategory !== ''
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
