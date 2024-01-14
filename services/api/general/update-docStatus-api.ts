@@ -4,11 +4,11 @@ import axios from 'axios';
 const UpdateDocStatusApi: any = async (
   token: any,
   docStatus: any,
-  name: any
+  params: any
 ) => {
   let response: any;
 
-  const params = `/api/resource/Purchase Receipt/${name}`;
+  // const params = `/api/resource/Purchase Receipt/${name}`;
 
   let body = {
     docstatus: docStatus,

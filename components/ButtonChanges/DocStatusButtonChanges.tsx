@@ -18,6 +18,8 @@ const DocStatusButtonChanges = ({
 }: any) => {
   const { query } = useRouter();
   const router = useRouter();
+
+  console.log("query", query)
   const pathParts = router?.asPath?.split('/');
   const receiptType = pathParts[2];
   const specificDataFromStore: any = useSelector(get_specific_receipt_data);
@@ -114,7 +116,7 @@ const DocStatusButtonChanges = ({
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2`}
-              onClick={() => HandleUpdateDocStatus('1')}
+              onClick={() => HandleUpdateDocStatus(query?.receiptId, '1')}
             >
               Submit
             </button>
@@ -123,7 +125,7 @@ const DocStatusButtonChanges = ({
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2`}
-              onClick={() => HandleUpdateDocStatus('2')}
+              onClick={() => HandleUpdateDocStatus(query?.receiptId, '2')}
             >
               Cancel
             </button>
@@ -164,7 +166,7 @@ const DocStatusButtonChanges = ({
             </button>
           )}
         </div>
-      </div>
+      </div >
     </>
   );
 };

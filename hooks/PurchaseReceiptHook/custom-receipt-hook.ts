@@ -106,11 +106,14 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const HandleDeleteReceipt: any = async (
-    name: any,
-    params: any,
-    listParams: any
+    name: any
   ) => {
-    console.log(listParams, 'param in listing');
+    const params: any = {
+      version: 'v1',
+      method: 'delete_purchase_receipt_delete',
+      entity: 'delete_purchase_receipts'
+    };
+
     let deletePurchaseReceiptApi: any = await DeletePurchaseReceiptApi(
       loginAcessToken?.token,
       name,
@@ -136,22 +139,36 @@ const UseCustomReceiptHook: any = () => {
     }
   };
 
-  const HandleUpdateDocStatus: any = async (docStatus: any, name?: any) => {
+  const HandleUpdateDocStatus: any = async (name?: any, docStatus?: any,) => {
+    const params = `/api/resource/Purchase Receipt/${name}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
       docStatus,
-      query.receiptId
+      params
     );
-    console.log('updatedocstatus api', updateDocStatus);
-    if (updateDocStatus?.hasOwnProperty('data')) {
-      console.log('updatedocstatus api inn', updateDocStatus);
-
+    console.log("update doc status purchase", updateDocStatus)
+    if (updateDocStatus?.data?.hasOwnProperty("data")) {
       const params: any = {
         token: loginAcessToken?.token,
         name: query?.receiptId,
       };
       dispatch(getSpecificReceipt(params));
-      // setStateForDocStatus(false)
+      const capitalizeFirstLetter = (str: any) => {
+        return str?.charAt(0)?.toUpperCase() + str?.slice(1);
+      };
+
+
+      let updatedData: any = await getPurchasreceiptListApi(
+        loginAcessToken,
+        capitalizeFirstLetter(lastPartOfURL)
+      );
+      console.log('resss', updatedData);
+      if (updatedData?.data?.message?.status === 'success') {
+        setKundanListing(updatedData?.data?.message?.data);
+
+        // setStateForDocStatus(false)
+      }
+
     }
   };
 
@@ -199,7 +216,7 @@ const UseCustomReceiptHook: any = () => {
             return {
               ...item,
               custom_other: Number(value),
-              totalAmount: totalAmountValues?.toFixed(2),
+              totalAmount: totalAmountValues,
               custom_total:
                 totalAmountValues >= 0
                   ? totalAmountValues + Number(value)
@@ -209,7 +226,7 @@ const UseCustomReceiptHook: any = () => {
             return {
               ...item,
               custom_other: value,
-              totalAmount: totalAmountValues?.toFixed(2),
+              totalAmount: totalAmountValues,
             };
         }
         console.log(item, 'updated data after edit2');
@@ -417,8 +434,8 @@ const UseCustomReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-              : formatInput(newValue),
+                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+                : formatInput(newValue),
         };
       }
       return item;
@@ -528,6 +545,7 @@ const UseCustomReceiptHook: any = () => {
     setMatWt,
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
+
   };
 };
 

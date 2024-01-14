@@ -14,15 +14,15 @@ import PrintApi from '@/services/api/general/print-api';
 import DeleteApi from '@/services/api/general/delete-api';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import { toast } from 'react-toastify';
+import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
 
 const UseSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
-
+  const router = useRouter()
   const {
     salesReturnTableData,
     setSalesReturnTableData,
-
     handleSalesReturnTableFieldChange,
     handleAddRowForSalesReturn,
     handleDeleteRowOfSalesReturnTable,
@@ -36,6 +36,8 @@ const UseSalesReturnDetailHook = () => {
     handleSelectClientGroup,
     SalesTableInitialState,
     setItemCodeDropdownReset,
+    saleReturnDeliveryNoteListing,
+    setSaleReturnDeliveryNoteListing
   }: any = UseCustomSalesReturnHook();
 
   const {
@@ -56,8 +58,7 @@ const UseSalesReturnDetailHook = () => {
   const [readOnlyFields, setReadOnlyFields] = useState<any>(false);
   const [defaultSalesDate, setDefaultSalesDate] = useState<any>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [saleReturnDeliveryNoteListing, setSaleReturnDeliveryNoteListing] =
-    useState<any>();
+
   const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] =
     useState<boolean>(false);
 
@@ -199,7 +200,35 @@ const UseSalesReturnDetailHook = () => {
     }
   };
 
-  const handleAmendButtonForSalesReturn: any = async () => {};
+  const handleAmendButtonForSalesReturn: any = async () => {
+    const updatedSalesTableData: any = salesReturnTableData.map((tableData: any) => ({
+      ...tableData,
+      qty: 1,
+    }));
+    console.log('updated sales return data for amend', updatedSalesTableData);
+    const values = {
+      amended_from: query?.deliveryNoteId,
+      custom_client_name: selectedClient,
+      is_return: "1",
+      items: updatedSalesTableData,
+    };
+    let amendDeliveryNoteApi: any = await AmendDeliveryNoteApi(
+      loginAcessToken?.token,
+      values
+    );
+
+    console.log('update delivery note api res', amendDeliveryNoteApi);
+    if (amendDeliveryNoteApi?.data?.hasOwnProperty('data')) {
+      setStateForDocStatus(false);
+      setShowSaveButtonForAmendFlow(false);
+
+      const newURL = `/sales/${query?.saleId}/${amendDeliveryNoteApi?.data?.data?.name}`;
+      const asPath = `/sales/${query?.saleId}/${amendDeliveryNoteApi?.data?.data?.name}`;
+
+      // Update the URL with the required query parameter
+      router.push(newURL, asPath);
+    }
+  };
 
   return {
     readOnlyFields,
@@ -232,6 +261,7 @@ const UseSalesReturnDetailHook = () => {
     saleReturnDeliveryNoteListing,
     handleAmendButtonForSalesReturn,
     setItemCodeDropdownReset,
+    setSaleReturnDeliveryNoteListing
   };
 };
 

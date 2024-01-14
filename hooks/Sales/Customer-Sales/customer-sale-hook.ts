@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import UseDeliveryNoteHook from './delivery-note-hook';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
+import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 
 const UseCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -137,13 +138,13 @@ const UseCustomerSaleHook = () => {
                   Number(item?.custom_cs_wt) +
                   Number(item?.custom_bb_wt) +
                   Number(item?.custom_other_wt)) <
-              0
+                0
                 ? 0
                 : Number(item?.custom_gross_wt) -
-                  (Number(item?.custom_kun_wt) +
-                    Number(item?.custom_cs_wt) +
-                    Number(item?.custom_bb_wt) +
-                    Number(item?.custom_other_wt)),
+                (Number(item?.custom_kun_wt) +
+                  Number(item?.custom_cs_wt) +
+                  Number(item?.custom_bb_wt) +
+                  Number(item?.custom_other_wt)),
             custom_cs_amt:
               fieldName === 'custom_cs'
                 ? value * Number(item.custom_cs_wt)
@@ -154,10 +155,10 @@ const UseCustomerSaleHook = () => {
                   ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                ? item.custom_kun === ''
-                  ? 1 * value
-                  : Number(item.custom_kun) * value
-                : item.custom_kun_amt,
+                  ? item.custom_kun === ''
+                    ? 1 * value
+                    : Number(item.custom_kun) * value
+                  : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
@@ -186,12 +187,12 @@ const UseCustomerSaleHook = () => {
             custom_kun_wt:
               selectedCategory.KunCategory !== ''
                 ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
-                  100
+                100
                 : data[0]?.custom_kun_wt,
             custom_cs_wt:
               selectedCategory.CsCategory !== ''
                 ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
-                  100
+                100
                 : data[0]?.custom_cs_wt,
             custom_bb_wt:
               selectedCategory.BBCategory !== ''
@@ -200,8 +201,8 @@ const UseCustomerSaleHook = () => {
             custom_other_wt:
               selectedCategory.OtCategory !== ''
                 ? (data[0]?.custom_other_wt *
-                    selectedCategory.OtCategory.type) /
-                  100
+                  selectedCategory.OtCategory.type) /
+                100
                 : data[0]?.custom_other_wt,
             custom_pr_kun_wt: data[0]?.custom_kun_wt,
             custom_pr_cs_wt: data[0]?.custom_cs_wt,
@@ -399,13 +400,13 @@ const UseCustomerSaleHook = () => {
                 Number(data?.custom_cs_wt) +
                 Number(data?.custom_bb_wt) +
                 Number(data?.custom_other_wt)) <
-            0
+              0
               ? 0
               : Number(data?.custom_gross_wt) -
-                (Number(data?.custom_kun_wt) +
-                  Number(data?.custom_cs_wt) +
-                  Number(data?.custom_bb_wt) +
-                  Number(data?.custom_other_wt)),
+              (Number(data?.custom_kun_wt) +
+                Number(data?.custom_cs_wt) +
+                Number(data?.custom_bb_wt) +
+                Number(data?.custom_other_wt)),
           custom_amount:
             Number(data.custom_cs_amt) +
             Number(data.custom_kun) * Number(data.custom_kun_pc) +
@@ -483,7 +484,28 @@ const UseCustomerSaleHook = () => {
     }
   };
 
-  console.log('stateForDocStatus', stateForDocStatus);
+  const HandleUpdateDocStatus: any = async (name?: any, docStatus?: any,) => {
+    const params = `/api/resource/Delivery Note/${name}`;
+    let updateDocStatus: any = await UpdateDocStatusApi(
+      loginAcessToken?.token,
+      docStatus,
+      params
+    );
+    console.log("HandleUpdateDocStatus api ress", updateDocStatus)
+    if (updateDocStatus?.data?.hasOwnProperty("data")) {
+      let updatedData: any = await getDeliveryNoteListing(
+        loginAcessToken.token,
+        deliveryNoteListParams
+      );
+
+      if (updatedData?.data?.message?.status === 'success') {
+        setDeliveryNoteListing(updatedData?.data?.message?.data);
+        console.log(deliveryNoteListing, 'delivery note listing');
+      }
+
+    }
+  };
+
 
   return {
     salesTableData,
@@ -517,6 +539,7 @@ const UseCustomerSaleHook = () => {
     deliveryNoteListing,
     selectedItemCode,
     setSelectedItemCode,
+    HandleUpdateDocStatus
   };
 };
 
