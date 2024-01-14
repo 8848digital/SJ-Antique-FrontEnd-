@@ -21,6 +21,7 @@ const CustomerSalesTable1 = ({
     get_detail_delivery_note_data
   );
 
+  console.log("query in sales", query)
   return (
     <div className=" mt-2">
       <table className="table table-hover table-bordered">
@@ -35,9 +36,11 @@ const CustomerSalesTable1 = ({
             <th className="thead" scope="col">
               Client
             </th>
-            {/* <th className="thead " scope="col">
-              Remarks
-            </th> */}
+            {query?.saleId === "saleReturns" && (
+              <th className="thead " scope="col">
+                Sales Type
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -77,14 +80,18 @@ const CustomerSalesTable1 = ({
                 handleSelectClientGroup={handleSelectClientGroup}
               />
             </td>
-            {/* <td className="table_row">
-              <input
-                className="form-control input-sm border border-secondary"
-                type="text"
-                name="remarks"
-                autoComplete="off"
-              />
-            </td> */}
+            {query?.saleId === "saleReturns" && (
+              <td className="table_row">
+                <input
+                  className="form-control input-sm border border-secondary"
+                  type="text"
+                  name="remarks"
+                  autoComplete="off"
+                  readOnly
+                  value="Is Return"
+                />
+              </td>
+            )}
           </tr>
         </tbody>
       </table>
