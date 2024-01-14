@@ -149,37 +149,37 @@ const UseCustomSalesReturnHook = () => {
     setSelectedClientGroup(value);
   };
 
-  const HandleUpdateDocStatus: any = async (name?: any, docStatus?: any,) => {
-    const params = `/api/resource/Delivery Note/${name}`;
+  const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
+    let id: any = name === undefined ? query?.deliveryNoteId : name
+    const params = `/api/resource/Delivery Note/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
       docStatus,
       params
     );
 
-    console.log(updateDocStatus, 'return docstatus ');
     if (updateDocStatus?.data?.hasOwnProperty("data")) {
-      const deliveryNoteListParams = {
-        version: 'v1',
-        method: 'get_listening_delivery_note_sales_return',
-        entity: 'delivery_note_api',
-      };
+      if (name === undefined) {
+        const reqParams: any = {
+          token: loginAcessToken.token,
+          name: query?.deliveryNoteId,
+        };
+        dispatch(GetDetailOfSalesReturn(reqParams));
+      } else {
+        const deliveryNoteListParams = {
+          version: 'v1',
+          method: 'get_listening_delivery_note_sales_return',
+          entity: 'delivery_note_api',
+        };
+        let updatedData: any = await getDeliveryNoteListing(
+          loginAcessToken.token,
+          deliveryNoteListParams
+        );
 
-      let updatedData: any = await getDeliveryNoteListing(
-        loginAcessToken.token,
-        deliveryNoteListParams
-      );
-
-      console.log(updatedData, 'delivery note listing dataa');
-      if (updatedData?.data?.message?.status === 'success') {
-        setSaleReturnDeliveryNoteListing(updatedData?.data?.message?.data);
+        if (updatedData?.data?.message?.status === 'success') {
+          setSaleReturnDeliveryNoteListing(updatedData?.data?.message?.data);
+        }
       }
-
-      const reqParams: any = {
-        token: loginAcessToken.token,
-        name: query?.deliveryNoteId,
-      };
-      dispatch(GetDetailOfSalesReturn(reqParams));
     }
   };
 

@@ -41,6 +41,7 @@ const UseCustomerSaleDetailHook = () => {
     stateForDocStatus,
     setStateForDocStatus,
     setItemCodeDropdownReset,
+    HandleUpdateDocStatus
   }: any = UseCustomerSaleHook();
 
   console.log('selected category default', selectedCategory);
@@ -140,13 +141,13 @@ const UseCustomerSaleDetailHook = () => {
                 Number(data?.custom_cs_wt) +
                 Number(data?.custom_bb_wt) +
                 Number(data?.custom_other_wt)) <
-            0
+              0
               ? 0
               : Number(data?.custom_gross_wt) -
-                (Number(data?.custom_kun_wt) +
-                  Number(data?.custom_cs_wt) +
-                  Number(data?.custom_bb_wt) +
-                  Number(data?.custom_other_wt)),
+              (Number(data?.custom_kun_wt) +
+                Number(data?.custom_cs_wt) +
+                Number(data?.custom_bb_wt) +
+                Number(data?.custom_other_wt)),
           custom_amount:
             Number(data.custom_cs_amt) +
             Number(data.custom_kun_amt) +
@@ -184,20 +185,6 @@ const UseCustomerSaleDetailHook = () => {
       };
       dispatch(GetDetailOfDeliveryNote(reqParams));
     }
-  };
-
-  const HandleUpdateSalesdocStatus: any = async (docStatusvalue: any) => {
-    let updateDocStatusApi: any = await UpdateSalesDocStatusApi(
-      loginAcessToken?.token,
-      docStatusvalue,
-      query?.deliveryNoteId
-    );
-    console.log('update docstatus api res', updateDocStatusApi);
-    const reqParams: any = {
-      token: loginAcessToken.token,
-      name: query?.deliveryNoteId,
-    };
-    dispatch(GetDetailOfDeliveryNote(reqParams));
   };
 
   const HandleAmendButtonForCustomerSales: any = async () => {
@@ -291,7 +278,8 @@ const UseCustomerSaleDetailHook = () => {
     setReadOnlyFields,
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
-    HandleUpdateSalesdocStatus,
+    // HandleUpdateSalesdocStatus,
+    HandleUpdateDocStatus,
     HandleAmendButtonForCustomerSales,
     HandleDeleteRecords,
     handleDeliveryNotePrintApi,

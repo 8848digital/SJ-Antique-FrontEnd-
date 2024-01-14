@@ -139,36 +139,39 @@ const UseCustomReceiptHook: any = () => {
     }
   };
 
-  const HandleUpdateDocStatus: any = async (name?: any, docStatus?: any,) => {
-    const params = `/api/resource/Purchase Receipt/${name}`;
+  const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
+    console.log("nameee", name)
+    let id: any = name === undefined ? query?.receiptId : name
+
+    const params = `/api/resource/Purchase Receipt/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
       docStatus,
       params
     );
-    console.log("update doc status purchase", updateDocStatus)
+
     if (updateDocStatus?.data?.hasOwnProperty("data")) {
-      const params: any = {
-        token: loginAcessToken?.token,
-        name: query?.receiptId,
-      };
-      dispatch(getSpecificReceipt(params));
-      const capitalizeFirstLetter = (str: any) => {
-        return str?.charAt(0)?.toUpperCase() + str?.slice(1);
-      };
+      if (name === undefined) {
+        const params: any = {
+          token: loginAcessToken?.token,
+          name: query?.receiptId,
+        };
+        dispatch(getSpecificReceipt(params));
+      } else {
+        const capitalizeFirstLetter = (str: any) => {
+          return str?.charAt(0)?.toUpperCase() + str?.slice(1);
+        };
 
 
-      let updatedData: any = await getPurchasreceiptListApi(
-        loginAcessToken,
-        capitalizeFirstLetter(lastPartOfURL)
-      );
-      console.log('resss', updatedData);
-      if (updatedData?.data?.message?.status === 'success') {
-        setKundanListing(updatedData?.data?.message?.data);
-
-        // setStateForDocStatus(false)
+        let updatedData: any = await getPurchasreceiptListApi(
+          loginAcessToken,
+          capitalizeFirstLetter(lastPartOfURL)
+        );
+        console.log('resss', updatedData);
+        if (updatedData?.data?.message?.status === 'success') {
+          setKundanListing(updatedData?.data?.message?.data);
+        }
       }
-
     }
   };
 
@@ -415,7 +418,7 @@ const UseCustomReceiptHook: any = () => {
     const formatInput = (value: any) => {
       if (typeof value === 'number' || !isNaN(parseFloat(value))) {
         const floatValue = parseFloat(value);
-        return parseFloat(floatValue.toFixed(3));
+        return parseFloat(floatValue?.toFixed(3));
       }
       return value; // Return the original value for non-numeric inputs
     };

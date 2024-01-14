@@ -16,6 +16,7 @@ import UseDeliveryNoteHook from './delivery-note-hook';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
+import { GetDetailOfDeliveryNote } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 
 const UseCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -484,8 +485,9 @@ const UseCustomerSaleHook = () => {
     }
   };
 
-  const HandleUpdateDocStatus: any = async (name?: any, docStatus?: any,) => {
-    const params = `/api/resource/Delivery Note/${name}`;
+  const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
+    let id: any = name === undefined ? query?.deliveryNoteId : name
+    const params = `/api/resource/Delivery Note/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
       docStatus,
@@ -493,16 +495,23 @@ const UseCustomerSaleHook = () => {
     );
     console.log("HandleUpdateDocStatus api ress", updateDocStatus)
     if (updateDocStatus?.data?.hasOwnProperty("data")) {
-      let updatedData: any = await getDeliveryNoteListing(
-        loginAcessToken.token,
-        deliveryNoteListParams
-      );
+      if (name === undefined) {
+        const reqParams: any = {
+          token: loginAcessToken.token,
+          name: query?.deliveryNoteId,
+        };
+        dispatch(GetDetailOfDeliveryNote(reqParams));
+      } else {
+        let updatedData: any = await getDeliveryNoteListing(
+          loginAcessToken.token,
+          deliveryNoteListParams
+        );
 
-      if (updatedData?.data?.message?.status === 'success') {
-        setDeliveryNoteListing(updatedData?.data?.message?.data);
-        console.log(deliveryNoteListing, 'delivery note listing');
+        if (updatedData?.data?.message?.status === 'success') {
+          setDeliveryNoteListing(updatedData?.data?.message?.data);
+          console.log(deliveryNoteListing, 'delivery note listing');
+        }
       }
-
     }
   };
 

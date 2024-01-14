@@ -281,8 +281,8 @@ const KundanListing = ({
                           <a
                             onClick={() =>
                               HandleUpdateDocStatus(
-                                item.name,
-                                "1"
+                                "1",
+                                item.name
                               )
                             }
                             className={`button-section-text text-danger ${styles.cursor_pointer}`}
@@ -321,8 +321,8 @@ const KundanListing = ({
                             // href="#"
                             onClick={() =>
                               HandleUpdateDocStatus(
-                                item.name,
-                                "2"
+                                "2",
+                                item.name
                               )
                             }
                             className={`button-section-text text-danger ${styles.cursor_pointer}`}

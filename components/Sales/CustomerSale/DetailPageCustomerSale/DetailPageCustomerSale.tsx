@@ -40,13 +40,14 @@ const DetailPageCustomerSale = () => {
     setReadOnlyFields,
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
-    HandleUpdateSalesdocStatus,
+    // HandleUpdateSalesdocStatus,
     HandleAmendButtonForCustomerSales,
     HandleDeleteRecords,
     handleDeliveryNotePrintApi,
     defaultSalesDate,
     isLoading,
     setItemCodeDropdownReset,
+    HandleUpdateDocStatus
   }: any = UseCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -63,7 +64,7 @@ const DetailPageCustomerSale = () => {
       ) : (
         <>
           {DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
-          isLoading === false ? (
+            isLoading === false ? (
             <NoRecord
               title={`No Record Found 😥`}
               heading=""
@@ -80,7 +81,7 @@ const DetailPageCustomerSale = () => {
                   setReadOnlyFields={setReadOnlyFields}
                   showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
                   setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
-                  HandleUpdateSalesdocStatus={HandleUpdateSalesdocStatus}
+                  HandleUpdateSalesdocStatus={HandleUpdateDocStatus}
                   HandleAmendButtonForCustomerSales={
                     HandleAmendButtonForCustomerSales
                   }

@@ -15,6 +15,8 @@ const DocStatusButtonChanges = ({
   setStateForDocStatus,
   HandleAmendButtonForDuplicateChitti,
   handlePrintApi,
+  HandleUpdateDocStatus,
+  HandleDeleteReceipt,
 }: any) => {
   const { query } = useRouter();
   const router = useRouter();
@@ -22,14 +24,6 @@ const DocStatusButtonChanges = ({
   console.log("query", query)
   const pathParts = router?.asPath?.split('/');
   const receiptType = pathParts[2];
-  const specificDataFromStore: any = useSelector(get_specific_receipt_data);
-  const {
-    HandleUpdateDocStatus,
-    HandleDeleteReceipt,
-    HandleAmendBtnForEdit,
-  }: any = UseCustomReceiptHook();
-
-  console.log('queryyy', query);
 
   const HandleAmendButtonChanges: any = async () => {
     console.log('docStatus from store in amend func');
@@ -37,11 +31,7 @@ const DocStatusButtonChanges = ({
     setStateForDocStatus(true);
     setReadOnlyFields(false);
   };
-  // useEffect(() => {
-  //   if (Object?.keys(specificDataFromStore)?.length > 0) {
-  //     setReadOnlyFields(specificDataFromStore?.docstatus);
-  //   }
-  // }, [setReadOnlyFields, specificDataFromStore]);
+
   return (
     <>
       <div className="d-flex align-items-center justify-content-between">
@@ -116,7 +106,7 @@ const DocStatusButtonChanges = ({
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2`}
-              onClick={() => HandleUpdateDocStatus(query?.receiptId, '1')}
+              onClick={() => HandleUpdateDocStatus('1')}
             >
               Submit
             </button>
@@ -125,7 +115,7 @@ const DocStatusButtonChanges = ({
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2`}
-              onClick={() => HandleUpdateDocStatus(query?.receiptId, '2')}
+              onClick={() => HandleUpdateDocStatus('2')}
             >
               Cancel
             </button>

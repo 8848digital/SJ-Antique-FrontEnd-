@@ -37,7 +37,8 @@ const UseSalesReturnDetailHook = () => {
     SalesTableInitialState,
     setItemCodeDropdownReset,
     saleReturnDeliveryNoteListing,
-    setSaleReturnDeliveryNoteListing
+    setSaleReturnDeliveryNoteListing,
+    HandleUpdateDocStatus
   }: any = UseCustomSalesReturnHook();
 
   const {
@@ -145,20 +146,6 @@ const UseSalesReturnDetailHook = () => {
     }
   };
 
-  const HandleUpdateSalesdocStatus: any = async (docStatusvalue: any) => {
-    let updateDocStatusApi: any = await UpdateSalesDocStatusApi(
-      loginAcessToken?.token,
-      docStatusvalue,
-      query?.deliveryNoteId
-    );
-    console.log('update docstatus api res', updateDocStatusApi);
-    const reqParams: any = {
-      token: loginAcessToken.token,
-      name: query?.deliveryNoteId,
-    };
-    dispatch(GetDetailOfSalesReturn(reqParams));
-  };
-
   const handlePrintApi: any = async (id: any) => {
     const reqParams = {
       token: loginAcessToken?.token,
@@ -240,7 +227,7 @@ const UseSalesReturnDetailHook = () => {
     setReadOnlyFields,
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
-    HandleUpdateSalesdocStatus,
+    HandleUpdateDocStatus,
     handleUpdateSalesReturn,
     stateForDocStatus,
     setStateForDocStatus,
