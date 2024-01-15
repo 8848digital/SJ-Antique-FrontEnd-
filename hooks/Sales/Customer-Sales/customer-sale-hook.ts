@@ -334,7 +334,8 @@ const UseCustomerSaleHook = () => {
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
               : csWtInitial,
           custom_bb_wt:
-            selectedCategory?.BBCategory?.name1 !== ''
+            selectedCategory?.BBCategory !== '' &&
+            selectedCategory?.BBCategory !== undefined
               ? bbWtInitial === 0
                 ? 0
                 : bbWtInitial - selectedCategory?.BBCategory?.type
