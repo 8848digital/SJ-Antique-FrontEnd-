@@ -26,7 +26,7 @@ const SaleReturnsMaster = () => {
     itemCodeDropdownReset,
     handleSelectClientGroup,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus
+    HandleUpdateDocStatus,
   }: any = UseSalesReturnMasterHook();
 
   const { saleReturnDeliveryNoteListing, handleDeleteSalesReturn } =
@@ -35,8 +35,8 @@ const SaleReturnsMaster = () => {
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
-        return data.is_return === 1;
-      })
+          return data.is_return === 1;
+        })
       : [];
 
   return (
@@ -68,12 +68,12 @@ const SaleReturnsMaster = () => {
               colPlaceholder2={'Client '}
               HandleDeleteReceipt={handleDeleteSalesReturn}
               HandleUpdateDocStatus={HandleUpdateDocStatus}
-              printApiMethod={'get_print_purchase_receipt'}
-              printApiEntity={'print_purchase_receipt'}
+              printApiMethod={'print_delivery_note'}
+              printApiEntity={'delivery_note_api'}
               deleteApiVersion={'v1'}
               deleteApiMethod={'delete_delivery_note_api'}
               deleteApiEntity={'delivery_note_api'}
-            // purchasRecieptListParams={deliveryNoteListParams}
+              // purchasRecieptListParams={deliveryNoteListParams}
             />
           </div>
           <div

@@ -6,7 +6,7 @@ import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api'
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import postDeliveryNoteApi from '@/services/api/Sales/post-delivery-note-api';
 import DeleteApi from '@/services/api/general/delete-api';
-import { get_client_data } from '@/store/slices/Master/get-client-group-slice';
+// import { get_client_data } from '@/store/slices/Master/get-client-group-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -25,8 +25,8 @@ const UseCustomerSaleHook = () => {
   const router = useRouter();
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
-  const clientDataSlice: any = useSelector(get_client_data);
-  console.log('client data from slice', clientDataSlice, loginAcessToken);
+  // const clientDataSlice: any = useSelector(get_client_data);
+  // console.log('client data from slice', clientDataSlice, loginAcessToken);
 
   const [kunCsOtCategoryListData, setKunCsOtCategoryListData] = useState<any>(
     []
@@ -443,7 +443,7 @@ const UseCustomerSaleHook = () => {
 
       console.log('post delivery note', postDeliveryNote, query);
       if (postDeliveryNote?.data?.message?.status === 'success') {
-        toast.success('Delivery note Created Sucessfully');
+        toast.success('Delivery note Created Successfully');
         router.push(`${query.saleId}/${postDeliveryNote?.data?.message?.name}`);
       }
       if (postDeliveryNote?.data?.message?.status === 'error') {
@@ -484,7 +484,7 @@ const UseCustomerSaleHook = () => {
         console.log(deliveryNoteListing, 'delivery note listing');
       }
     } else {
-      toast.error('Failed to delete Sales note');
+      toast.error('Failed to delete sales note');
     }
   };
 

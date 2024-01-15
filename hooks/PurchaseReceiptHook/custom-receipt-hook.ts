@@ -105,13 +105,11 @@ const UseCustomReceiptHook: any = () => {
     entity: 'specific_purchase_receipt',
   };
 
-  const HandleDeleteReceipt: any = async (
-    name: any
-  ) => {
+  const HandleDeleteReceipt: any = async (name: any) => {
     const params: any = {
       version: 'v1',
       method: 'delete_purchase_receipt_delete',
-      entity: 'delete_purchase_receipts'
+      entity: 'delete_purchase_receipts',
     };
 
     let deletePurchaseReceiptApi: any = await DeletePurchaseReceiptApi(
@@ -140,8 +138,8 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
-    console.log("nameee", name)
-    let id: any = name === undefined ? query?.receiptId : name
+    console.log('nameee', name);
+    let id: any = name === undefined ? query?.receiptId : name;
 
     const params = `/api/resource/Purchase Receipt/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
@@ -150,7 +148,7 @@ const UseCustomReceiptHook: any = () => {
       params
     );
 
-    if (updateDocStatus?.data?.hasOwnProperty("data")) {
+    if (updateDocStatus?.data?.hasOwnProperty('data')) {
       if (name === undefined) {
         const params: any = {
           token: loginAcessToken?.token,
@@ -161,7 +159,6 @@ const UseCustomReceiptHook: any = () => {
         const capitalizeFirstLetter = (str: any) => {
           return str?.charAt(0)?.toUpperCase() + str?.slice(1);
         };
-
 
         let updatedData: any = await getPurchasreceiptListApi(
           loginAcessToken,
@@ -281,12 +278,12 @@ const UseCustomReceiptHook: any = () => {
         tableData !== null &&
         tableData
           .filter((item: any) => item.idx !== id)
-          .map((row: any, index: number) => ({ ...row, id: index + 1 }));
+          .map((row: any, index: number) => ({ ...row, idx: index + 1 }));
+
       setTableData(updatedData);
     }
     setStateForDocStatus(true);
   };
-
   const handleDeleteChildTableRow = (id: any) => {
     if (materialWeight?.length > 1) {
       const updatedData = materialWeight?.filter(
@@ -379,7 +376,7 @@ const UseCustomReceiptHook: any = () => {
         if (item.idx === id) {
           return {
             ...item,
-            custom_pcs: pcsAmt,
+            // custom_pcs: pcsAmt,
             table: item.table?.map((materialData: any) => ({
               ...materialData,
               pcs: pcsAmt,
@@ -437,8 +434,8 @@ const UseCustomReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-                : formatInput(newValue),
+              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+              : formatInput(newValue),
         };
       }
       return item;
@@ -548,7 +545,6 @@ const UseCustomReceiptHook: any = () => {
     setMatWt,
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
-
   };
 };
 

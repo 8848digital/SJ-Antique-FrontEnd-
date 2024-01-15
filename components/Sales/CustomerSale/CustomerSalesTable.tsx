@@ -137,6 +137,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={
                           item?.custom_gross_wt !== '' &&
                           item?.custom_gross_wt?.toFixed(3)
@@ -161,6 +162,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item?.custom_kun_wt}
                         defaultValue={item?.custom_kun_wt}
                         onChange={(e) =>
@@ -177,6 +179,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item.custom_cs_wt}
                         defaultValue={item.custom_cs_wt}
                         readOnly={readOnlyFields}
@@ -193,6 +196,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item.custom_bb_wt}
                         defaultValue={item.custom_bb_wt}
                         readOnly={readOnlyFields}
@@ -209,6 +213,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item.custom_other_wt}
                         // value={
                         //   selectedCategory.OtCategory !== ''
@@ -234,6 +239,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={(Number(item.custom_gross_wt) -
                           (Number(item.custom_kun_wt) +
                             Number(item.custom_cs_wt) +
@@ -263,6 +269,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item.custom_cs}
                         defaultValue={item.custom_cs}
                         readOnly={readOnlyFields}
@@ -279,6 +286,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={(Number(item.custom_cs_wt) !== 0
                           ? Number(item.custom_cs) * Number(item.custom_cs_wt)
                           : Number(item.custom_cs)
@@ -299,6 +307,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item.custom_kun_pc}
                         defaultValue={item.custom_kun_pc}
                         readOnly={readOnlyFields}
@@ -315,6 +324,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item.custom_kun}
                         defaultValue={item.custom_kun}
                         readOnly={readOnlyFields}
@@ -331,6 +341,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={(
                           Number(item.custom_kun_pc) * Number(item.custom_kun)
                         )?.toFixed(2)}
@@ -350,6 +361,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item.custom_ot_}
                         defaultValue={item.custom_ot_}
                         readOnly={readOnlyFields}
@@ -366,6 +378,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={(
                           Number(item.custom_other_wt) * Number(item.custom_ot_)
                         )?.toFixed(2)}
@@ -385,6 +398,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={item.custom_other}
                         defaultValue={item.custom_other}
                         readOnly={readOnlyFields}
@@ -401,6 +415,7 @@ const CustomerSalesTable = ({
                       <input
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
+                        min={0}
                         value={(
                           Number(item.custom_cs_amt) +
                           Number(item?.custom_kun_amt) +

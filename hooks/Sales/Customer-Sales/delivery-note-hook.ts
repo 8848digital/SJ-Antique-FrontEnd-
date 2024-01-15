@@ -3,7 +3,7 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-const UseDeliveryNoteHook = () => {
+const UseDeliveryNoteReturnHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   const [deliveryNoteListing, setDeliveryNoteListing] = useState();
   console.log('inside dn hook');
@@ -31,4 +31,4 @@ const UseDeliveryNoteHook = () => {
     setDeliveryNoteListing,
   };
 };
-export default UseDeliveryNoteHook;
+export default UseDeliveryNoteReturnHook;

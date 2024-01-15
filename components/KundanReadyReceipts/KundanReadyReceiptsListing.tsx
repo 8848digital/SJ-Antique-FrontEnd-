@@ -26,7 +26,7 @@ const KundanListing = ({
   deleteApiMethod,
   deleteApiEntity,
   purchasRecieptListParams,
-  HandleUpdateDocStatus
+  HandleUpdateDocStatus,
 }: any) => {
   console.log(kundanListing, 'param in listing');
   const router = useRouter();
@@ -78,56 +78,56 @@ const KundanListing = ({
 
   const filteredList =
     kundanListing?.length > 0 &&
-      kundanListing !== null &&
-      (searchInputValues.transaction_date ||
-        searchKarigar ||
-        searchReceiptNumber ||
-        searchInputValues.status)
+    kundanListing !== null &&
+    (searchInputValues.transaction_date ||
+      searchKarigar ||
+      searchReceiptNumber ||
+      searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-        const submittedDateMatch = searchInputValues.transaction_date
-          ? item?.posting_date?.includes(searchInputValues.transaction_date)
-          : true;
-        const karigarMatch = searchKarigar
-          ? item?.custom_karigar
-            ? item.custom_karigar
-              ?.toLowerCase()
-              ?.includes(searchKarigar?.toLowerCase())
-            : item?.custom_client_name
-              ?.toLowerCase()
-              ?.includes(searchKarigar?.toLowerCase())
-          : true;
+          const submittedDateMatch = searchInputValues.transaction_date
+            ? item?.posting_date?.includes(searchInputValues.transaction_date)
+            : true;
+          const karigarMatch = searchKarigar
+            ? item?.custom_karigar
+              ? item.custom_karigar
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
+              : item?.custom_client_name
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
+            : true;
 
-        const receiptNumberMatch = searchReceiptNumber
-          ? item?.name
-            ?.toLowerCase()
-            .includes(searchReceiptNumber.toString().toLowerCase())
-          : true;
+          const receiptNumberMatch = searchReceiptNumber
+            ? item?.name
+                ?.toLowerCase()
+                .includes(searchReceiptNumber.toString().toLowerCase())
+            : true;
 
-        if (searchInputValues.status === 'Draft') {
-          return (
-            item?.docstatus === 0 &&
-            submittedDateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Submitted') {
-          return (
-            item?.docstatus === 1 &&
-            submittedDateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Cancel') {
-          return (
-            item?.docstatus === 2 &&
-            submittedDateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        }
+          if (searchInputValues.status === 'Draft') {
+            return (
+              item?.docstatus === 0 &&
+              submittedDateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Submitted') {
+            return (
+              item?.docstatus === 1 &&
+              submittedDateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Cancel') {
+            return (
+              item?.docstatus === 2 &&
+              submittedDateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          }
 
-        return submittedDateMatch && karigarMatch && receiptNumberMatch;
-      })
+          return submittedDateMatch && karigarMatch && receiptNumberMatch;
+        })
       : kundanListing;
 
   const HandleCancelReceipt: any = async (name: any) => {
@@ -156,7 +156,7 @@ const KundanListing = ({
       };
       dispatch(getSpecificReceipt(params));
     } else {
-      toast.error('Failed to Cancel records');
+      toast.error('Failed to cancel records');
     }
   };
 
@@ -180,8 +180,6 @@ const KundanListing = ({
     method: deleteApiMethod,
     entity: deleteApiEntity,
   };
-
-
 
   return (
     <div className=" table">
@@ -280,10 +278,7 @@ const KundanListing = ({
                         <div className="col">
                           <a
                             onClick={() =>
-                              HandleUpdateDocStatus(
-                                "1",
-                                item.name
-                              )
+                              HandleUpdateDocStatus('1', item.name)
                             }
                             className={`button-section-text text-danger ${styles.cursor_pointer}`}
                           >
@@ -320,10 +315,7 @@ const KundanListing = ({
                           <a
                             // href="#"
                             onClick={() =>
-                              HandleUpdateDocStatus(
-                                "2",
-                                item.name
-                              )
+                              HandleUpdateDocStatus('2', item.name)
                             }
                             className={`button-section-text text-danger ${styles.cursor_pointer}`}
                           >
@@ -351,15 +343,15 @@ const KundanListing = ({
                         <div className="col">
                           {item?.posting_date ===
                             new Date()?.toISOString()?.split('T')[0] && (
-                              <>
-                                <Link
-                                  href={`${url}/${item.name}`}
-                                  className="button-section-text text-info "
-                                >
-                                  Amend
-                                </Link>
-                              </>
-                            )}
+                            <>
+                              <Link
+                                href={`${url}/${item.name}`}
+                                className="button-section-text text-info "
+                              >
+                                Amend
+                              </Link>
+                            </>
+                          )}
                         </div>
 
                         <div className="col">

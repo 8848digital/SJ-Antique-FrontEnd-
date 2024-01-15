@@ -201,15 +201,15 @@ const useReadyReceiptKarigar = () => {
       const total = Number(accu) + Number(weight);
       return total;
     }, 0);
-    const piecesAddition = materialWeight.reduce((accu: any, val: any) => {
-      console.log(accu, 'accu23', val);
-      let pcs = val.pcs;
-      if (val.pcs === '') {
-        pcs = 0;
-      }
-      const total = Number(accu) + Number(pcs);
-      return total;
-    }, 0);
+    // const piecesAddition = materialWeight.reduce((accu: any, val: any) => {
+    //   console.log(accu, 'accu23', val);
+    //   let pcs = val.pcs;
+    //   if (val.pcs === '') {
+    //     pcs = 0;
+    //   }
+    //   const total = Number(accu) + Number(pcs);
+    //   return total;
+    // }, 0);
     const updatedMaterialVal = materialWeight.map((item: any) => {
       return {
         ...item,
@@ -244,11 +244,10 @@ const useReadyReceiptKarigar = () => {
           return {
             ...row,
             totalModalWeight: weightAddition,
-            totalModalPcs: piecesAddition,
+            // totalModalPcs: piecesAddition,
             totalAmount: totalAmmountValues,
             table: materialWeight.map(({ id, ...rest }: any) => ({ ...rest })),
             custom_mat_wt: weightAddition,
-            custom_pcs: piecesAddition,
             custom_gross_wt:
               Number(row.custom_net_wt) +
               Number(row.custom_few_wt) +
@@ -370,7 +369,14 @@ const useReadyReceiptKarigar = () => {
       });
 
     const modalValue = updatedtableData?.map(
-      ({ id, totalModalWeight, totalAmount, ...rest }: any) => ({
+      ({
+        id,
+        totalModalWeight,
+        totalAmount,
+        // custom_pcs,
+        totalModalPcs,
+        ...rest
+      }: any) => ({
         ...rest,
       })
     );
@@ -405,7 +411,7 @@ const useReadyReceiptKarigar = () => {
           `${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`
         );
 
-        toast.success('Purchase Receipt Created Sucessfully');
+        toast.success('Purchase Receipt Created Successfully');
       } else {
         toast.error('Error in Creating Purchase Receipt');
       }
@@ -431,11 +437,13 @@ const useReadyReceiptKarigar = () => {
     // Filter out objects with no values except "idx" key
     const filteredTableData = tableData.filter((row: any) => {
       // Check if there are no values except "idx"
-      const hasNoValues = Object.keys(row).every((key) => key === 'idx' || key === 'table' || row[key] === '');
+      const hasNoValues = Object.keys(row).every(
+        (key) => key === 'idx' || key === 'table' || row[key] === ''
+      );
       return !hasNoValues;
     });
 
-    console.log("filtered tablee data", filteredTableData)
+    console.log('filtered tablee data', filteredTableData);
     const updatedtableData =
       filteredTableData?.length > 0 &&
       filteredTableData !== null &&
@@ -489,7 +497,7 @@ const useReadyReceiptKarigar = () => {
       items: updatedMergedList,
     };
 
-    console.log("updatedd values", values)
+    console.log('updatedd values', values);
     const isEmptyProductCode = values?.items?.some(
       (obj: any) => obj.product_code === ''
     );

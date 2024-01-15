@@ -140,7 +140,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
-                      value={item.custom_net_wt}
+                      min={0}
+                      value={parseFloat(item.custom_net_wt)}
                       defaultValue={item?.custom_net_wt}
                       onChange={(e) =>
                         handleFieldChange(
@@ -157,6 +158,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
+                      min={0}
                       value={item.custom_few_wt}
                       defaultValue={item.custom_few_wt}
                       onChange={(e) =>
@@ -174,6 +176,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
+                      min={0}
                       // value={
                       //   // Number(tableData[i]?.totalModalWeight) ||
                       //   item.custom_mat_wt
@@ -200,6 +203,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
+                      min={0}
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
@@ -216,17 +220,18 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       <input
                         className={` ${styles.input_field} `}
                         type="number"
+                        min={0}
                         // value={item.custom_pcs}
-                        // defaultValue={item.pcs}
-                        value={item?.custom_pcs}
-                        onChange={(e) =>
+                        defaultValue={item?.table[0]?.pcs}
+                        value={item?.table[0]?.pcs}
+                        onChange={(e) => {
                           handleFieldChange(
                             item.idx,
                             'tableRow',
                             'custom_pcs',
                             e.target.value
-                          )
-                        }
+                          );
+                        }}
                         readOnly={readOnlyFields}
                       />
                     </td>
@@ -236,6 +241,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
+                      min={0}
                       value={Number(item.custom_other)}
                       defaultValue={Number(item.custom_other)}
                       onChange={(e) => {
@@ -249,6 +255,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <input
                       className={` ${styles.input_field} `}
                       type="number"
+                      min={0}
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
