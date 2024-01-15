@@ -1,8 +1,17 @@
+import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
+import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
+import { GetDetailOfSalesReturn } from '@/store/slices/Sales/get-detail-sales-return-slice';
+import { get_access_token } from '@/store/slices/auth/login-slice';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UseCustomSalesReturnHook = () => {
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState<any>({ id: '', item_code: '' });
+  const dispatch = useDispatch()
+  const { query } = useRouter()
+  const loginAcessToken = useSelector(get_access_token);
   const SalesTableInitialState: any = {
     idx: 1,
     // kun_wt_initial: '',
@@ -36,6 +45,8 @@ const UseCustomSalesReturnHook = () => {
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
   const [itemCodeDropdownReset, setItemCodeDropdownReset] =
     useState<boolean>(false);
+  const [saleReturnDeliveryNoteListing, setSaleReturnDeliveryNoteListing] =
+    useState<any>();
 
   const handleSalesReturnTableFieldChange: any = (
     itemIdx: number,
@@ -66,10 +77,10 @@ const UseCustomSalesReturnHook = () => {
                   ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                ? item.custom_kun === ''
-                  ? 1 * value
-                  : Number(item.custom_kun) * value
-                : item.custom_kun_amt,
+                  ? item.custom_kun === ''
+                    ? 1 * value
+                    : Number(item.custom_kun) * value
+                  : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
@@ -137,6 +148,41 @@ const UseCustomSalesReturnHook = () => {
   const handleSelectClientGroup = async (value: any) => {
     setSelectedClientGroup(value);
   };
+
+  const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
+    let id: any = name === undefined ? query?.deliveryNoteId : name
+    const params = `/api/resource/Delivery Note/${id}`;
+    let updateDocStatus: any = await UpdateDocStatusApi(
+      loginAcessToken?.token,
+      docStatus,
+      params
+    );
+
+    if (updateDocStatus?.data?.hasOwnProperty("data")) {
+      if (name === undefined) {
+        const reqParams: any = {
+          token: loginAcessToken.token,
+          name: query?.deliveryNoteId,
+        };
+        dispatch(GetDetailOfSalesReturn(reqParams));
+      } else {
+        const deliveryNoteListParams = {
+          version: 'v1',
+          method: 'get_listening_delivery_note_sales_return',
+          entity: 'delivery_note_api',
+        };
+        let updatedData: any = await getDeliveryNoteListing(
+          loginAcessToken.token,
+          deliveryNoteListParams
+        );
+
+        if (updatedData?.data?.message?.status === 'success') {
+          setSaleReturnDeliveryNoteListing(updatedData?.data?.message?.data);
+        }
+      }
+    }
+  };
+
   return {
     salesReturnTableData,
     setSalesReturnTableData,
@@ -155,6 +201,9 @@ const UseCustomSalesReturnHook = () => {
     setStateForDocStatus,
     itemCodeDropdownReset,
     setItemCodeDropdownReset,
+    saleReturnDeliveryNoteListing,
+    setSaleReturnDeliveryNoteListing,
+    HandleUpdateDocStatus
   };
 };
 

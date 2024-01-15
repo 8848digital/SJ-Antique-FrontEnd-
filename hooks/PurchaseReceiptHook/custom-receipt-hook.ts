@@ -106,11 +106,14 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const HandleDeleteReceipt: any = async (
-    name: any,
-    params: any,
-    listParams: any
+    name: any
   ) => {
-    console.log(listParams, 'param in listing');
+    const params: any = {
+      version: 'v1',
+      method: 'delete_purchase_receipt_delete',
+      entity: 'delete_purchase_receipts'
+    };
+
     let deletePurchaseReceiptApi: any = await DeletePurchaseReceiptApi(
       loginAcessToken?.token,
       name,
@@ -136,22 +139,39 @@ const UseCustomReceiptHook: any = () => {
     }
   };
 
-  const HandleUpdateDocStatus: any = async (docStatus: any, name?: any) => {
+  const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
+    console.log("nameee", name)
+    let id: any = name === undefined ? query?.receiptId : name
+
+    const params = `/api/resource/Purchase Receipt/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
       docStatus,
-      query.receiptId
+      params
     );
-    console.log('updatedocstatus api', updateDocStatus);
-    if (updateDocStatus?.hasOwnProperty('data')) {
-      console.log('updatedocstatus api inn', updateDocStatus);
 
-      const params: any = {
-        token: loginAcessToken?.token,
-        name: query?.receiptId,
-      };
-      dispatch(getSpecificReceipt(params));
-      // setStateForDocStatus(false)
+    if (updateDocStatus?.data?.hasOwnProperty("data")) {
+      if (name === undefined) {
+        const params: any = {
+          token: loginAcessToken?.token,
+          name: query?.receiptId,
+        };
+        dispatch(getSpecificReceipt(params));
+      } else {
+        const capitalizeFirstLetter = (str: any) => {
+          return str?.charAt(0)?.toUpperCase() + str?.slice(1);
+        };
+
+
+        let updatedData: any = await getPurchasreceiptListApi(
+          loginAcessToken,
+          capitalizeFirstLetter(lastPartOfURL)
+        );
+        console.log('resss', updatedData);
+        if (updatedData?.data?.message?.status === 'success') {
+          setKundanListing(updatedData?.data?.message?.data);
+        }
+      }
     }
   };
 
@@ -199,7 +219,7 @@ const UseCustomReceiptHook: any = () => {
             return {
               ...item,
               custom_other: Number(value),
-              totalAmount: totalAmountValues?.toFixed(2),
+              totalAmount: totalAmountValues,
               custom_total:
                 totalAmountValues >= 0
                   ? totalAmountValues + Number(value)
@@ -209,7 +229,7 @@ const UseCustomReceiptHook: any = () => {
             return {
               ...item,
               custom_other: value,
-              totalAmount: totalAmountValues?.toFixed(2),
+              totalAmount: totalAmountValues,
             };
         }
         console.log(item, 'updated data after edit2');
@@ -398,7 +418,7 @@ const UseCustomReceiptHook: any = () => {
     const formatInput = (value: any) => {
       if (typeof value === 'number' || !isNaN(parseFloat(value))) {
         const floatValue = parseFloat(value);
-        return parseFloat(floatValue.toFixed(3));
+        return parseFloat(floatValue?.toFixed(3));
       }
       return value; // Return the original value for non-numeric inputs
     };
@@ -417,8 +437,8 @@ const UseCustomReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-              : formatInput(newValue),
+                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+                : formatInput(newValue),
         };
       }
       return item;
@@ -475,12 +495,22 @@ const UseCustomReceiptHook: any = () => {
       ],
     };
     if (value === 'tableRow') {
-      setTableData([...tableData, newRow]);
+      setTableData([
+        ...tableData,
+        {
+          ...newRow,
+          table: newRow.table.map((row) => ({
+            ...row,
+            material: query?.receipt === 'kundan' ? 'Colorstone' : 'BlackBeads',
+            material_abbr: query?.receipt === 'kundan' ? 'CS' : 'BB',
+          })),
+        },
+      ]);
+
       setMatWt({ tableMatWt: '', bbPcs: '' });
     } else {
-      setMaterialWeight([...materialWeight, ...newRow?.table]);
+      setMaterialWeight([...materialWeight, ...newRow.table]);
     }
-
     setStateForDocStatus(true);
   };
 
@@ -518,6 +548,7 @@ const UseCustomReceiptHook: any = () => {
     setMatWt,
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
+
   };
 };
 

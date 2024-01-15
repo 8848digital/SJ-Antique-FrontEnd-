@@ -67,10 +67,11 @@ const DetailPageReadyReceipt = () => {
     lastInputRef,
     firstInputRef,
     setMatWt,
-    kunKarigarDropdownReset,
+    HandleUpdateDocStatus,
     handleTabPressOnModal,
     setKunKarigarDropdownReset,
   } = useReadyReceiptKarigar();
+
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
 
   useEffect(() => {
@@ -123,6 +124,8 @@ const DetailPageReadyReceipt = () => {
                         HandleAmendButtonForDuplicateChitti
                       }
                       handlePrintApi={handlePrintApi}
+                      HandleUpdateDocStatus={HandleUpdateDocStatus}
+                      HandleDeleteReceipt={HandleDeleteReceipt}
                     />
                   </div>
                 ))}

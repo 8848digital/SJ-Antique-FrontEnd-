@@ -26,10 +26,18 @@ const SaleReturnsMaster = () => {
     itemCodeDropdownReset,
     handleSelectClientGroup,
     setItemCodeDropdownReset,
+    HandleUpdateDocStatus
   }: any = UseSalesReturnMasterHook();
 
   const { saleReturnDeliveryNoteListing, handleDeleteSalesReturn } =
     UseSalesReturnDetailHook();
+
+  const salesReturnListing =
+    saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
+      ? saleReturnDeliveryNoteListing.filter((data: any) => {
+        return data.is_return === 1;
+      })
+      : [];
 
   return (
     <div className="container-lg px-0">
@@ -48,7 +56,7 @@ const SaleReturnsMaster = () => {
             aria-labelledby="pills-home-tab"
           >
             <KundanListing
-              kundanListing={saleReturnDeliveryNoteListing}
+              kundanListing={salesReturnListing}
               karigarData={
                 clientNameListData?.length > 0 &&
                 clientNameListData !== null &&
@@ -59,13 +67,13 @@ const SaleReturnsMaster = () => {
               colPlaceholder1={'Delivery Note No.'}
               colPlaceholder2={'Client '}
               HandleDeleteReceipt={handleDeleteSalesReturn}
-              // handleDeliveryNotePrintApi={HandleDeleteDeliveryNote}
+              HandleUpdateDocStatus={HandleUpdateDocStatus}
               printApiMethod={'get_print_purchase_receipt'}
               printApiEntity={'print_purchase_receipt'}
               deleteApiVersion={'v1'}
               deleteApiMethod={'delete_delivery_note_api'}
               deleteApiEntity={'delivery_note_api'}
-              // purchasRecieptListParams={deliveryNoteListParams}
+            // purchasRecieptListParams={deliveryNoteListParams}
             />
           </div>
           <div

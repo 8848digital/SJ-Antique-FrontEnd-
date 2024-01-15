@@ -427,10 +427,19 @@ const useReadyReceiptKarigar = () => {
 
   const handleUpdateReceipt: any = async () => {
     console.log('update receipt', tableData);
+
+    // Filter out objects with no values except "idx" key
+    const filteredTableData = tableData.filter((row: any) => {
+      // Check if there are no values except "idx"
+      const hasNoValues = Object.keys(row).every((key) => key === 'idx' || key === 'table' || row[key] === '');
+      return !hasNoValues;
+    });
+
+    console.log("filtered tablee data", filteredTableData)
     const updatedtableData =
-      tableData?.length > 0 &&
-      tableData !== null &&
-      tableData?.map((row: any, i: any) => {
+      filteredTableData?.length > 0 &&
+      filteredTableData !== null &&
+      filteredTableData?.map((row: any, i: any) => {
         if (row.idx === indexVal) {
           if (
             row.totalAmount !== undefined &&
@@ -479,6 +488,8 @@ const useReadyReceiptKarigar = () => {
       ...recipitData,
       items: updatedMergedList,
     };
+
+    console.log("updatedd values", values)
     const isEmptyProductCode = values?.items?.some(
       (obj: any) => obj.product_code === ''
     );

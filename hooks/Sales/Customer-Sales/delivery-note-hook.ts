@@ -9,7 +9,7 @@ const UseDeliveryNoteHook = () => {
   console.log('inside dn hook');
   const deliveryNoteListParams = {
     version: 'v1',
-    method: 'get_listening_delivery_note',
+    method: 'get_listening_delivery_note_sales_return',
     entity: 'delivery_note_api',
   };
   useEffect(() => {

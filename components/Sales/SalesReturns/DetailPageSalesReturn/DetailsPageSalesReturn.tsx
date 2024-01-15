@@ -18,7 +18,7 @@ const DetailsPageSalesReturn = () => {
     setReadOnlyFields,
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
-    HandleUpdateSalesdocStatus,
+    HandleUpdateDocStatus,
     handleUpdateSalesReturn,
     stateForDocStatus,
     setStateForDocStatus,
@@ -52,7 +52,7 @@ const DetailsPageSalesReturn = () => {
           setReadOnlyFields={setReadOnlyFields}
           showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
           setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
-          HandleUpdateSalesdocStatus={HandleUpdateSalesdocStatus}
+          HandleUpdateSalesdocStatus={HandleUpdateDocStatus}
           HandleAmendButtonForSalesReturn={handleAmendButtonForSalesReturn}
           HandleDeleteDeliveryNote={handleDeleteSalesReturn}
           handlePrintApi={handlePrintApi}

@@ -59,6 +59,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     handleClearFileUploadInput,
     handleUpdateReceipt,
     setMatWt,
+
   } = useReadyReceiptKarigar();
 
   const router = useRouter();

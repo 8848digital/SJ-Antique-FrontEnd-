@@ -15,19 +15,15 @@ const DocStatusButtonChanges = ({
   setStateForDocStatus,
   HandleAmendButtonForDuplicateChitti,
   handlePrintApi,
+  HandleUpdateDocStatus,
+  HandleDeleteReceipt,
 }: any) => {
   const { query } = useRouter();
   const router = useRouter();
+
+  console.log("query", query)
   const pathParts = router?.asPath?.split('/');
   const receiptType = pathParts[2];
-  const specificDataFromStore: any = useSelector(get_specific_receipt_data);
-  const {
-    HandleUpdateDocStatus,
-    HandleDeleteReceipt,
-    HandleAmendBtnForEdit,
-  }: any = UseCustomReceiptHook();
-
-  console.log('queryyy', query);
 
   const HandleAmendButtonChanges: any = async () => {
     console.log('docStatus from store in amend func');
@@ -35,11 +31,7 @@ const DocStatusButtonChanges = ({
     setStateForDocStatus(true);
     setReadOnlyFields(false);
   };
-  // useEffect(() => {
-  //   if (Object?.keys(specificDataFromStore)?.length > 0) {
-  //     setReadOnlyFields(specificDataFromStore?.docstatus);
-  //   }
-  // }, [setReadOnlyFields, specificDataFromStore]);
+
   return (
     <>
       <div className="d-flex align-items-center justify-content-between">
@@ -164,7 +156,7 @@ const DocStatusButtonChanges = ({
             </button>
           )}
         </div>
-      </div>
+      </div >
     </>
   );
 };
