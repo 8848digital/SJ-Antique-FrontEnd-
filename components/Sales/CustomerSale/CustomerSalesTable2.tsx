@@ -6,6 +6,7 @@ const CustomerSalesTable2 = ({
   kunCsOtCategoryListData,
   BBCategoryListData,
   selectedCategory,
+  setSeletedCategory,
   handleSelectChange,
   readOnlyFields,
   keyValue,
@@ -48,7 +49,18 @@ const CustomerSalesTable2 = ({
                     : ''
                 }
               >
-                <option selected></option>
+                <option
+                  selected
+                  onChange={(e) =>
+                    setSeletedCategory((prevState: any) => ({
+                      ...prevState,
+                      KunCategory: {
+                        // ...prevState.KunCategory,
+                        type: 100,
+                      },
+                    }))
+                  }
+                ></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map(
@@ -76,7 +88,18 @@ const CustomerSalesTable2 = ({
                     : ''
                 }
               >
-                <option selected></option>
+                <option
+                  selected
+                  // onChange={(e) =>
+                  //   setSeletedCategory((prevState: any) => ({
+                  //     ...prevState,
+                  //     CsCategory: {
+                  //       ...prevState.CsCategory,
+                  //       type: 100,
+                  //     },
+                  //   }))
+                  // }
+                ></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map(
@@ -102,7 +125,18 @@ const CustomerSalesTable2 = ({
                     : ''
                 }
               >
-                <option selected></option>
+                <option
+                  selected
+                  onChange={(e) =>
+                    setSeletedCategory((prevState: any) => ({
+                      ...prevState,
+                      BBCategory: {
+                        ...prevState.BBCategory,
+                        name1: 0,
+                      },
+                    }))
+                  }
+                ></option>
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
                   BBCategoryListData.map((BBCategoryData: any, index: any) => (
@@ -125,7 +159,18 @@ const CustomerSalesTable2 = ({
                     : ''
                 }
               >
-                <option selected></option>
+                <option
+                  selected
+                  onChange={(e) =>
+                    setSeletedCategory((prevState: any) => ({
+                      ...prevState,
+                      OtCategory: {
+                        ...prevState.OtCategory,
+                        name1: 100,
+                      },
+                    }))
+                  }
+                ></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map(

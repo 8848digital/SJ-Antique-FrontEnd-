@@ -139,13 +139,13 @@ const UseCustomerSaleHook = () => {
                   Number(item?.custom_cs_wt) +
                   Number(item?.custom_bb_wt) +
                   Number(item?.custom_other_wt)) <
-                0
+              0
                 ? 0
                 : Number(item?.custom_gross_wt) -
-                (Number(item?.custom_kun_wt) +
-                  Number(item?.custom_cs_wt) +
-                  Number(item?.custom_bb_wt) +
-                  Number(item?.custom_other_wt)),
+                  (Number(item?.custom_kun_wt) +
+                    Number(item?.custom_cs_wt) +
+                    Number(item?.custom_bb_wt) +
+                    Number(item?.custom_other_wt)),
             custom_cs_amt:
               fieldName === 'custom_cs'
                 ? value * Number(item.custom_cs_wt)
@@ -156,10 +156,10 @@ const UseCustomerSaleHook = () => {
                   ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                  ? item.custom_kun === ''
-                    ? 1 * value
-                    : Number(item.custom_kun) * value
-                  : item.custom_kun_amt,
+                ? item.custom_kun === ''
+                  ? 1 * value
+                  : Number(item.custom_kun) * value
+                : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
@@ -188,12 +188,12 @@ const UseCustomerSaleHook = () => {
             custom_kun_wt:
               selectedCategory.KunCategory !== ''
                 ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
-                100
+                  100
                 : data[0]?.custom_kun_wt,
             custom_cs_wt:
               selectedCategory.CsCategory !== ''
                 ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
-                100
+                  100
                 : data[0]?.custom_cs_wt,
             custom_bb_wt:
               selectedCategory.BBCategory !== ''
@@ -202,8 +202,8 @@ const UseCustomerSaleHook = () => {
             custom_other_wt:
               selectedCategory.OtCategory !== ''
                 ? (data[0]?.custom_other_wt *
-                  selectedCategory.OtCategory.type) /
-                100
+                    selectedCategory.OtCategory.type) /
+                  100
                 : data[0]?.custom_other_wt,
             custom_pr_kun_wt: data[0]?.custom_kun_wt,
             custom_pr_cs_wt: data[0]?.custom_cs_wt,
@@ -324,19 +324,15 @@ const UseCustomerSaleHook = () => {
           ...data,
           custom_gross_wt: data?.custom_gross_wt,
           custom_kun_wt:
-            selectedCategory.KunCategory !== ''
-              ? selectedCategory?.KunCategory?.name1 === '' ||
-                selectedCategory?.KunCategory?.name1 === null
-              : Number(data?.custom_kun_wt)
+            selectedCategory.KunCategory !== '' &&
+            selectedCategory?.KunCategory !== undefined
               ? (kunInitial * selectedCategory?.KunCategory?.type) / 100
-              : Number(data?.custom_kun_wt),
+              : kunInitial,
           custom_cs_wt:
-            selectedCategory.CsCategory !== ''
-              ? selectedCategory?.CsCategory?.name1 === '' ||
-                selectedCategory?.CsCategory?.name1 === null
-              : Number(data?.custom_kun_wt)
+            selectedCategory.CsCategory !== '' &&
+            selectedCategory?.CsCategory !== undefined
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-              : Number(data?.custom_cs_wt),
+              : csWtInitial,
           custom_bb_wt:
             selectedCategory?.BBCategory?.name1 !== ''
               ? bbWtInitial === 0
@@ -344,12 +340,10 @@ const UseCustomerSaleHook = () => {
                 : bbWtInitial - selectedCategory?.BBCategory?.type
               : bbWtInitial,
           custom_other_wt:
-            selectedCategory.OtCategory !== ''
-              ? selectedCategory?.OtCategory?.name1 === '' ||
-                selectedCategory?.OtCategory?.name1 === null
-              : Number(data?.custom_kun_wt)
+            selectedCategory.OtCategory !== '' &&
+            selectedCategory?.OtCategory !== undefined
               ? (otWtInitial * selectedCategory.OtCategory?.type) / 100
-              : Number(data?.custom_other_wt),
+              : otWtInitial,
           custom_cs_amt:
             (selectedCategory.CsCategory !== ''
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
@@ -374,9 +368,8 @@ const UseCustomerSaleHook = () => {
     setSalesTableData(updatedData);
   }, [selectedCategory, salesTableData?.length]);
 
+  console.log('selected category11', selectedCategory, salesTableData);
   const handleEmptyDeliveryNote = () => {
-    console.log('selected category11', selectedCategory, salesTableData);
-
     setSeletedCategory({
       KunCategory: '',
       CsCategory: '',
@@ -410,13 +403,13 @@ const UseCustomerSaleHook = () => {
                 Number(data?.custom_cs_wt) +
                 Number(data?.custom_bb_wt) +
                 Number(data?.custom_other_wt)) <
-              0
+            0
               ? 0
               : Number(data?.custom_gross_wt) -
-              (Number(data?.custom_kun_wt) +
-                Number(data?.custom_cs_wt) +
-                Number(data?.custom_bb_wt) +
-                Number(data?.custom_other_wt)),
+                (Number(data?.custom_kun_wt) +
+                  Number(data?.custom_cs_wt) +
+                  Number(data?.custom_bb_wt) +
+                  Number(data?.custom_other_wt)),
           custom_amount:
             Number(data.custom_cs_amt) +
             Number(data.custom_kun) * Number(data.custom_kun_pc) +
@@ -495,15 +488,15 @@ const UseCustomerSaleHook = () => {
   };
 
   const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
-    let id: any = name === undefined ? query?.deliveryNoteId : name
+    let id: any = name === undefined ? query?.deliveryNoteId : name;
     const params = `/api/resource/Delivery Note/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
       docStatus,
       params
     );
-    console.log("HandleUpdateDocStatus api ress", updateDocStatus)
-    if (updateDocStatus?.data?.hasOwnProperty("data")) {
+    console.log('HandleUpdateDocStatus api ress', updateDocStatus);
+    if (updateDocStatus?.data?.hasOwnProperty('data')) {
       if (name === undefined) {
         const reqParams: any = {
           token: loginAcessToken.token,
@@ -523,7 +516,6 @@ const UseCustomerSaleHook = () => {
       }
     }
   };
-
 
   return {
     salesTableData,
@@ -557,7 +549,7 @@ const UseCustomerSaleHook = () => {
     deliveryNoteListing,
     selectedItemCode,
     setSelectedItemCode,
-    HandleUpdateDocStatus
+    HandleUpdateDocStatus,
   };
 };
 
