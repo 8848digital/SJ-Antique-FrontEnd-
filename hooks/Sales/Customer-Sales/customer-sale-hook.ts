@@ -317,10 +317,16 @@ const UseCustomerSaleHook = () => {
           custom_gross_wt: data?.custom_gross_wt,
           custom_kun_wt:
             selectedCategory.KunCategory !== ''
+              ? selectedCategory?.KunCategory?.name1 === '' ||
+                selectedCategory?.KunCategory?.name1 === null
+              : Number(data?.custom_kun_wt)
               ? (kunInitial * selectedCategory?.KunCategory?.type) / 100
-              : data?.custom_kun_wt,
+              : Number(data?.custom_kun_wt),
           custom_cs_wt:
             selectedCategory.CsCategory !== ''
+              ? selectedCategory?.CsCategory?.name1 === '' ||
+                selectedCategory?.CsCategory?.name1 === null
+              : Number(data?.custom_kun_wt)
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
               : Number(data?.custom_cs_wt),
           custom_bb_wt:
@@ -331,6 +337,9 @@ const UseCustomerSaleHook = () => {
               : bbWtInitial,
           custom_other_wt:
             selectedCategory.OtCategory !== ''
+              ? selectedCategory?.OtCategory?.name1 === '' ||
+                selectedCategory?.OtCategory?.name1 === null
+              : Number(data?.custom_kun_wt)
               ? (otWtInitial * selectedCategory.OtCategory?.type) / 100
               : Number(data?.custom_other_wt),
           custom_cs_amt:
