@@ -182,21 +182,25 @@ const UseCustomerSaleHook = () => {
             ...tableData,
             custom_gross_wt: data[0]?.custom_gross_wt,
             custom_kun_wt:
-              selectedCategory.KunCategory !== ''
+              selectedCategory.KunCategory !== '' &&
+              selectedCategory?.KunCategory !== undefined
                 ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
                   100
                 : data[0]?.custom_kun_wt,
             custom_cs_wt:
-              selectedCategory.CsCategory !== ''
+              selectedCategory.CsCategory !== '' &&
+              selectedCategory?.CsCategory !== undefined
                 ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
                   100
                 : data[0]?.custom_cs_wt,
             custom_bb_wt:
-              selectedCategory.BBCategory !== ''
+              selectedCategory.BBCategory !== '' &&
+              selectedCategory?.BBCategory !== undefined
                 ? data[0]?.custom_bb_wt - selectedCategory.BBCategory.type
                 : data[0].custom_bb_wt,
             custom_other_wt:
-              selectedCategory.OtCategory !== ''
+              selectedCategory.OtCategory !== '' &&
+              selectedCategory?.OtCategory !== undefined
                 ? (data[0]?.custom_other_wt *
                     selectedCategory.OtCategory.type) /
                   100
@@ -208,6 +212,7 @@ const UseCustomerSaleHook = () => {
             warehouse: data[0].custom_warehouse,
           };
         } else {
+          console.log(tableData, 'selected category in detail');
           return tableData;
         }
       });
@@ -232,7 +237,7 @@ const UseCustomerSaleHook = () => {
           console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
           if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
             console.log(
-              getItemCodeDetailsApi?.data,
+              getItemCodeDetailsApi?.data.message.data,
               'selected sale client table'
             );
             // Call the function to update salesTableData

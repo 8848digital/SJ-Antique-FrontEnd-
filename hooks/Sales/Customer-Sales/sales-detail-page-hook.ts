@@ -118,8 +118,6 @@ const UseCustomerSaleDetailHook = () => {
 
       // Filtering kunCsOtCategoryListData based on custom_category
 
-      console.log(BBCategoryListData, 'selected category in detail');
-
       const kunCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
@@ -143,7 +141,7 @@ const UseCustomerSaleDetailHook = () => {
           ? BBCategoryListData.find(
               (data: any) => data.name1 === customBBCategory
             )
-          : null;
+          : { name1: '', type: 0 };
 
       // Setting selected category state
       setSeletedCategory({
@@ -159,11 +157,7 @@ const UseCustomerSaleDetailHook = () => {
     kunCsOtCategoryListData,
   ]);
 
-  console.log(
-    'selected category in detail',
-
-    BBCategoryListData
-  );
+  console.log('selected category in detail', selectedCategory);
   useEffect(() => {
     if (
       DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
