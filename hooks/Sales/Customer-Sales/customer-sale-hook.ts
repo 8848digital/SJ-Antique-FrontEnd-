@@ -385,6 +385,7 @@ const UseCustomerSaleHook = () => {
   };
 
   const handleDNCreate: any = async () => {
+    console.log('handle DN create', salesTableData);
     const updatedData =
       salesTableData.length > 0 &&
       salesTableData !== null &&
@@ -416,8 +417,10 @@ const UseCustomerSaleHook = () => {
             Number(data.custom_kun) * Number(data.custom_kun_pc) +
             Number(data.custom_ot_amt) +
             Number(data.custom_other),
+          custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
         };
       });
+    console.log('updated data of DN', updatedData);
     const values = {
       ...deliveryNoteData,
       custom_client_name: selectedClient,
