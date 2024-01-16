@@ -93,7 +93,7 @@ const SelectInputKunKarigar = ({
         e.preventDefault();
         setShowDropdown(true);
         setSelectedIndex(-1);
-        // setFilterDropdownList(kundanKarigarData);
+        setFilterDropdownList(kundanKarigarData);
       } else if (e.key === 'ArrowDown' && showDropdown) {
         setSelectedIndex((prevIndex: any) =>
           prevIndex <
