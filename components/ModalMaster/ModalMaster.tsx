@@ -112,6 +112,7 @@ const ModalMaster = ({
                           <input
                             className={` ${styles.input_field} modal-input`}
                             type="number"
+                            min={0}
                             value={element.pcs}
                             onChange={(e) =>
                               handleModalFieldChange(
@@ -128,6 +129,7 @@ const ModalMaster = ({
                           <input
                             className={` ${styles.input_field} modal-input`}
                             type="number"
+                            min={0}
                             value={element.piece_}
                             onChange={(e) =>
                               handleModalFieldChange(
@@ -144,6 +146,7 @@ const ModalMaster = ({
                           <input
                             className={` ${styles.input_field} modal-input`}
                             type="number"
+                            min={0}
                             value={element.carat}
                             onChange={(e) =>
                               handleModalFieldChange(
@@ -160,6 +163,7 @@ const ModalMaster = ({
                           <input
                             className={` ${styles.input_field} modal-input`}
                             type="number"
+                            min={0}
                             value={element.carat_}
                             onChange={(e) =>
                               handleModalFieldChange(
@@ -176,6 +180,7 @@ const ModalMaster = ({
                           <input
                             className={` ${styles.input_field} modal-input`}
                             type="number"
+                            min={0}
                             value={element.weight}
                             onChange={(e) =>
                               handleModalFieldChange(
@@ -192,6 +197,7 @@ const ModalMaster = ({
                           <input
                             className={` ${styles.input_field} modal-input`}
                             type="number"
+                            min={0}
                             value={element.gm_}
                             onChange={(e) =>
                               handleModalFieldChange(
@@ -208,6 +214,7 @@ const ModalMaster = ({
                           <input
                             className={`${styles.input_field} modal-input`}
                             type="number"
+                            min={0}
                             readOnly
                             disabled
                             onChange={(e) =>
