@@ -1,11 +1,14 @@
 import SalesHeader from '@/components/Header/SalesHeader';
-import UseCustomSalesReturnHook from '@/hooks/Sales/Sales-Returns/custom-sales-return-hook';
-import UseSalesReturnMasterHook from '@/hooks/Sales/Sales-Returns/sales-return-master-hook';
 import CustomerSalesTable from '../../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../../CustomerSale/CustomerSalesTable1';
 
 import SaleReturnsButtonSection from './ButtonSectionSalesReturn';
 import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
+import Loader from '@/components/NoRecord/Loader';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { get_detail_sales_return_data } from '@/store/slices/Sales/get-detail-sales-return-slice';
+import NoRecord from '@/components/NoRecord/NoRecord';
 
 const DetailsPageSalesReturn = () => {
   const {
@@ -40,57 +43,87 @@ const DetailsPageSalesReturn = () => {
     setItemCodeDropdownReset,
   }: any = UseSalesReturnDetailHook();
 
+  const { query }: any = useRouter();
+  const DetailOfSalesReturnFromStore: any = useSelector(
+    get_detail_sales_return_data
+  );
   return (
     <div className="container-lg px-0">
       <SalesHeader />
-      <div>
-        <SaleReturnsButtonSection
-          stateForDocStatus={stateForDocStatus}
-          setStateForDocStatus={setStateForDocStatus}
-          handleUpdateDeliveryNote={handleUpdateSalesReturn}
-          readOnlyFields={readOnlyFields}
-          setReadOnlyFields={setReadOnlyFields}
-          showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
-          setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
-          HandleUpdateSalesdocStatus={HandleUpdateDocStatus}
-          HandleAmendButtonForSalesReturn={handleAmendButtonForSalesReturn}
-          HandleDeleteDeliveryNote={handleDeleteSalesReturn}
-          handlePrintApi={handlePrintApi}
-        />
-      </div>
-      <div>
-        <CustomerSalesTable1
-          clientNameListData={clientNameListData}
-          selectedClient={selectedClient}
-          setSelectedClient={setSelectedClient}
-          handleSelectClientGroup={handleSelectClientGroup}
-          clientGroupList={
-            clientNameListData?.length > 0 &&
-            clientNameListData !== null &&
-            clientNameListData.map((clientData: any) => ({
-              ...clientData,
-              client_group: clientData.client_group,
-            }))
-          }
-          readOnlyFields={readOnlyFields}
-        />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          {DetailOfSalesReturnFromStore?.data?.length === 0 &&
+          isLoading === false ? (
+            <NoRecord
+              title={`No Record Found 😥`}
+              heading=""
+              backButtonUrl={`/sales/${query?.saleId}`}
+            />
+          ) : (
+            <>
+              <div>
+                <SaleReturnsButtonSection
+                  stateForDocStatus={stateForDocStatus}
+                  setStateForDocStatus={setStateForDocStatus}
+                  handleUpdateDeliveryNote={handleUpdateSalesReturn}
+                  readOnlyFields={readOnlyFields}
+                  setReadOnlyFields={setReadOnlyFields}
+                  showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
+                  setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
+                  HandleUpdateSalesdocStatus={HandleUpdateDocStatus}
+                  HandleAmendButtonForSalesReturn={
+                    handleAmendButtonForSalesReturn
+                  }
+                  HandleDeleteDeliveryNote={handleDeleteSalesReturn}
+                  handlePrintApi={handlePrintApi}
+                />
+              </div>
+              <div>
+                <CustomerSalesTable1
+                  clientNameListData={clientNameListData}
+                  selectedClient={selectedClient}
+                  setSelectedClient={setSelectedClient}
+                  handleSelectClientGroup={handleSelectClientGroup}
+                  clientGroupList={
+                    clientNameListData?.length > 0 &&
+                    clientNameListData !== null &&
+                    clientNameListData.map((clientData: any) => ({
+                      ...clientData,
+                      client_group: clientData.client_group,
+                    }))
+                  }
+                  readOnlyFields={readOnlyFields}
+                  defaultSalesDate={defaultSalesDate}
+                />
 
-        <CustomerSalesTable
-          handleSalesTableFieldChange={handleSalesReturnTableFieldChange}
-          salesTableData={salesReturnTableData}
-          setSalesTableData={setSalesReturnTableData}
-          selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
-          setSelectedItemCodeForCustomerSale={
-            setSelectedItemCodeForCustomerSale
-          }
-          handleAddRowForSales={handleAddRowForSalesReturn}
-          handleDeleteRowOfSalesTable={handleDeleteRowOfSalesReturnTable}
-          itemList={itemList}
-          itemCodeDropdownReset={itemCodeDropdownReset}
-          readOnlyFields={readOnlyFields}
-          setItemCodeDropdownReset={setItemCodeDropdownReset}
-        />
-      </div>
+                <CustomerSalesTable
+                  handleSalesTableFieldChange={
+                    handleSalesReturnTableFieldChange
+                  }
+                  salesTableData={salesReturnTableData}
+                  setSalesTableData={setSalesReturnTableData}
+                  selectedItemCodeForCustomerSale={
+                    selectedItemCodeForCustomerSale
+                  }
+                  setSelectedItemCodeForCustomerSale={
+                    setSelectedItemCodeForCustomerSale
+                  }
+                  handleAddRowForSales={handleAddRowForSalesReturn}
+                  handleDeleteRowOfSalesTable={
+                    handleDeleteRowOfSalesReturnTable
+                  }
+                  itemList={itemList}
+                  itemCodeDropdownReset={itemCodeDropdownReset}
+                  readOnlyFields={readOnlyFields}
+                  setItemCodeDropdownReset={setItemCodeDropdownReset}
+                />
+              </div>
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };

@@ -31,7 +31,7 @@ const SaleReturnsMaster = () => {
     handleDeleteSalesReturn,
   }: any = UseSalesReturnMasterHook();
 
-  // const { handleDeleteSalesReturn } = UseSalesReturnDetailHook();
+  // const {} = UseSalesReturnDetailHook();
 
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0

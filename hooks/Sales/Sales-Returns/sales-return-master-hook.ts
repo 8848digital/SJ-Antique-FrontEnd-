@@ -8,6 +8,7 @@ import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api'
 import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 
 const UseSalesReturnMasterHook = () => {
   const router = useRouter();
@@ -32,11 +33,18 @@ const UseSalesReturnMasterHook = () => {
     setItemCodeDropdownReset,
     HandleUpdateDocStatus,
     saleReturnDeliveryNoteListing,
+    setSaleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
   }: any = UseCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
 
   const [itemList, setItemList] = useState<any>([]);
+
+  const deliveryNoteListParams = {
+    version: 'v1',
+    method: 'get_listening_delivery_note_sales_return',
+    entity: 'delivery_note_api',
+  };
 
   useEffect(() => {
     const getDataFromapi: any = async () => {
@@ -50,7 +58,15 @@ const UseSalesReturnMasterHook = () => {
       if (ClientNameApi?.data?.message?.status === 'success') {
         setClientNameListData(ClientNameApi?.data?.message?.data);
       }
+      const deliveryNoteApi: any = await getDeliveryNoteListing(
+        loginAcessToken.token,
+        deliveryNoteListParams
+      );
+      if (deliveryNoteApi?.data?.message?.status === 'success') {
+        setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
+      }
     };
+
     getDataFromapi();
   }, []);
 

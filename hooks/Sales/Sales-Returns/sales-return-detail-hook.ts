@@ -101,24 +101,6 @@ const UseSalesReturnDetailHook = () => {
       setIsLoading(false);
     }
   }, [DetailOfSalesReturnFromStore]);
-  const deliveryNoteListParams = {
-    version: 'v1',
-    method: 'get_listening_delivery_note_sales_return',
-    entity: 'delivery_note_api',
-  };
-  useEffect(() => {
-    const getKunCsOTCategoryData = async () => {
-      const deliveryNoteApi: any = await getDeliveryNoteListing(
-        loginAcessToken.token,
-        deliveryNoteListParams
-      );
-      if (deliveryNoteApi?.data?.message?.status === 'success') {
-        setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
-      }
-    };
-
-    getKunCsOTCategoryData();
-  }, []);
 
   const handleUpdateSalesReturn: any = async () => {
     const values = {
