@@ -1,10 +1,12 @@
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
+import DeleteApi from '@/services/api/general/delete-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import { GetDetailOfSalesReturn } from '@/store/slices/Sales/get-detail-sales-return-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const UseCustomSalesReturnHook = () => {
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
@@ -188,6 +190,38 @@ const UseCustomSalesReturnHook = () => {
     }
   };
 
+  const handleDeleteSalesReturn: any = async (id: any) => {
+    const version = 'v1';
+    const method = 'delete_delivery_note_api';
+    const entity = 'delivery_note_api';
+
+    let deleteApi: any = await DeleteApi(
+      loginAcessToken?.token,
+      version,
+      method,
+      entity,
+      id
+    );
+
+    if (Object?.keys(deleteApi?.data)?.length === 0) {
+      toast.success('Sales Return note Deleted');
+      const deliveryNoteListParams = {
+        version: 'v1',
+        method: 'get_listening_delivery_note_sales_return',
+        entity: 'delivery_note_api',
+      };
+      const deliveryNoteApi: any = await getDeliveryNoteListing(
+        loginAcessToken.token,
+        deliveryNoteListParams
+      );
+      if (deliveryNoteApi?.data?.message?.status === 'success') {
+        setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
+      }
+    } else {
+      toast.error('Failed to delete Sales Return');
+    }
+  };
+
   return {
     salesReturnTableData,
     setSalesReturnTableData,
@@ -209,6 +243,7 @@ const UseCustomSalesReturnHook = () => {
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
     HandleUpdateDocStatus,
+    handleDeleteSalesReturn,
   };
 };
 

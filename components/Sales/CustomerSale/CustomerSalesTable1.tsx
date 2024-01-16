@@ -16,12 +16,12 @@ const CustomerSalesTable1 = ({
   title,
 }: any) => {
   const { query } = useRouter();
-  // console.log('client name list', clientNameListData);
+
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
 
-  console.log("query in sales", query)
+  console.log('defaultSalesDate in sales', defaultSalesDate);
   return (
     <div className=" mt-2">
       <table className="table table-hover table-bordered">
@@ -36,7 +36,7 @@ const CustomerSalesTable1 = ({
             <th className="thead" scope="col">
               Client
             </th>
-            {query?.saleId === "saleReturns" && (
+            {query?.saleId === 'saleReturns' && (
               <th className="thead " scope="col">
                 Sales Type
               </th>
@@ -80,7 +80,7 @@ const CustomerSalesTable1 = ({
                 handleSelectClientGroup={handleSelectClientGroup}
               />
             </td>
-            {query?.saleId === "saleReturns" && (
+            {query?.saleId === 'saleReturns' && (
               <td className="table_row">
                 <input
                   className="form-control input-sm border border-secondary"

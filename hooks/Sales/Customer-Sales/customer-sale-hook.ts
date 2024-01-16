@@ -444,7 +444,6 @@ const UseCustomerSaleHook = () => {
         values
       );
 
-      console.log('post delivery note', postDeliveryNote, query);
       if (postDeliveryNote?.data?.message?.status === 'success') {
         toast.success('Delivery note Created Successfully');
         router.push(`${query.saleId}/${postDeliveryNote?.data?.message?.name}`);

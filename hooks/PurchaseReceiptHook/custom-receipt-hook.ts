@@ -498,8 +498,14 @@ const UseCustomReceiptHook: any = () => {
           ...newRow,
           table: newRow.table.map((row) => ({
             ...row,
-            material: query?.receipt === 'kundan' ? 'Colorstone' : 'BlackBeads',
-            material_abbr: query?.receipt === 'kundan' ? 'CS' : 'BB',
+            material:
+              query?.receipt === 'kundan' || query?.receipt === 'Kundan'
+                ? 'Colorstone'
+                : 'BlackBeads',
+            material_abbr:
+              query?.receipt === 'kundan' || query?.receipt === 'Kundan'
+                ? 'CS'
+                : 'BB',
           })),
         },
       ]);

@@ -27,10 +27,11 @@ const SaleReturnsMaster = () => {
     handleSelectClientGroup,
     setItemCodeDropdownReset,
     HandleUpdateDocStatus,
+    saleReturnDeliveryNoteListing,
+    handleDeleteSalesReturn,
   }: any = UseSalesReturnMasterHook();
 
-  const { saleReturnDeliveryNoteListing, handleDeleteSalesReturn } =
-    UseSalesReturnDetailHook();
+  // const {} = UseSalesReturnDetailHook();
 
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
