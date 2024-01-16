@@ -328,6 +328,7 @@ const useReadyReceiptKarigar = () => {
 
   const handleCreate = async () => {
     console.log(tableData, 'table56', recipitData);
+
     const updatedtableData =
       tableData?.length > 0 &&
       tableData !== null &&
@@ -431,23 +432,44 @@ const useReadyReceiptKarigar = () => {
     setKunKarigarDropdownReset(true);
   };
 
-  const handleUpdateReceipt: any = async () => {
-    console.log('update receipt', tableData);
-
-    // Filter out objects with no values except "idx" key
+  const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
       // Check if there are no values except "idx"
       const hasNoValues = Object.keys(row).every(
         (key) => key === 'idx' || key === 'table' || row[key] === ''
       );
-      return !hasNoValues;
-    });
 
-    console.log('filtered tablee data', filteredTableData);
+      // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
+      const shouldExclude =
+        row.product_code === '' && Number(row.custom_gross_wt) === 0;
+
+      return !hasNoValues && !shouldExclude;
+    });
+    return filteredTableData;
+  };
+
+  const handleUpdateReceipt: any = async () => {
+    console.log('update receipt', tableData);
+
+    // const filteredTableData = tableData.filter((row: any) => {
+    //   // Check if there are no values except "idx"
+    //   const hasNoValues = Object.keys(row).every(
+    //     (key) => key === 'idx' || key === 'table' || row[key] === ''
+    //   );
+
+    //   // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
+    //   const shouldExclude =
+    //     row.product_code === '' && Number(row.custom_gross_wt) === 0;
+
+    //   return !hasNoValues && !shouldExclude;
+    // });
+    const filteredDataa = filteredTableDataForUpdate(tableData);
+    // filteredTableData(tableData);
+    console.log('filtered tablee data', filteredDataa);
     const updatedtableData =
-      filteredTableData?.length > 0 &&
-      filteredTableData !== null &&
-      filteredTableData?.map((row: any, i: any) => {
+      filteredDataa?.length > 0 &&
+      filteredDataa !== null &&
+      filteredDataa?.map((row: any, i: any) => {
         if (row.idx === indexVal) {
           if (
             row.totalAmount !== undefined &&
@@ -508,26 +530,26 @@ const useReadyReceiptKarigar = () => {
     const updatedReceiptData: any = { ...values };
     keyToExclude?.forEach((key: any) => delete updatedReceiptData[key]);
 
-    if (isEmptyProductCode || productVal === '') {
-      toast.error('Mandatory fields Item code Or Karigar');
-    } else {
-      let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
-        loginAcessToken.token,
-        updatedReceiptData,
-        query?.receiptId
-      );
-      console.log('updated purchase receipt api res', updateReceiptApi);
-      if (Object?.keys(updateReceiptApi?.data)?.length > 0) {
-        if (Object?.keys(updateReceiptApi?.data?.message)?.length > 0) {
-          setStateForDocStatus(false);
-          const params: any = {
-            token: loginAcessToken?.token,
-            name: query?.receiptId,
-          };
-          dispatch(getSpecificReceipt(params));
-        }
+    // if (isEmptyProductCode) {
+    //   toast.error('Mandatory fields Item code Or Karigar');
+    // } else {
+    let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
+      loginAcessToken.token,
+      updatedReceiptData,
+      query?.receiptId
+    );
+    console.log('updated purchase receipt api res', updateReceiptApi);
+    if (Object?.keys(updateReceiptApi?.data)?.length > 0) {
+      if (Object?.keys(updateReceiptApi?.data?.message)?.length > 0) {
+        setStateForDocStatus(false);
+        const params: any = {
+          token: loginAcessToken?.token,
+          name: query?.receiptId,
+        };
+        dispatch(getSpecificReceipt(params));
       }
     }
+    // }
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
