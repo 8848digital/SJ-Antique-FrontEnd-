@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 const UseCustomSalesReturnHook = () => {
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState<any>({ id: '', item_code: '' });
-  const dispatch = useDispatch()
-  const { query } = useRouter()
+  const dispatch = useDispatch();
+  const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
   const SalesTableInitialState: any = {
     idx: 1,
@@ -48,11 +48,16 @@ const UseCustomSalesReturnHook = () => {
   const [saleReturnDeliveryNoteListing, setSaleReturnDeliveryNoteListing] =
     useState<any>();
 
+  console.log('salesReturnTableData initially', salesReturnTableData);
   const handleSalesReturnTableFieldChange: any = (
     itemIdx: number,
     fieldName: string,
     value: any
   ) => {
+    console.log(
+      'handleSalesReturnTableFieldChange',
+      handleSalesReturnTableFieldChange
+    );
     setSalesReturnTableData((prevData: any) => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
@@ -77,12 +82,12 @@ const UseCustomSalesReturnHook = () => {
                   ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                  ? item.custom_kun === ''
-                    ? 1 * value
-                    : Number(item.custom_kun) * value
-                  : item.custom_kun_amt,
+                ? item.custom_kun === ''
+                  ? 1 * value
+                  : Number(item.custom_kun) * value
+                : item.custom_kun_amt,
             custom_ot_amt:
-              fieldName === 'custom_ot_'
+              fieldName === 'custom_ot_amt'
                 ? Number(item.custom_other_wt) * value
                 : item.custom_ot_amt,
           };
@@ -150,7 +155,7 @@ const UseCustomSalesReturnHook = () => {
   };
 
   const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
-    let id: any = name === undefined ? query?.deliveryNoteId : name
+    let id: any = name === undefined ? query?.deliveryNoteId : name;
     const params = `/api/resource/Delivery Note/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
@@ -158,7 +163,7 @@ const UseCustomSalesReturnHook = () => {
       params
     );
 
-    if (updateDocStatus?.data?.hasOwnProperty("data")) {
+    if (updateDocStatus?.data?.hasOwnProperty('data')) {
       if (name === undefined) {
         const reqParams: any = {
           token: loginAcessToken.token,
@@ -203,7 +208,7 @@ const UseCustomSalesReturnHook = () => {
     setItemCodeDropdownReset,
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
-    HandleUpdateDocStatus
+    HandleUpdateDocStatus,
   };
 };
 

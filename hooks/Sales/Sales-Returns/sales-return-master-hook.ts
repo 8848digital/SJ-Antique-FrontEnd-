@@ -30,7 +30,7 @@ const UseSalesReturnMasterHook = () => {
     handleSelectClientGroup,
     SalesTableInitialState,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus
+    HandleUpdateDocStatus,
   }: any = UseCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
 
@@ -102,6 +102,7 @@ const UseSalesReturnMasterHook = () => {
       getItemCodeDetailsFun();
     }
   }, [selectedItemCodeForCustomerSale]);
+
   const handleSRCreate: any = async () => {
     console.log(
       'handleSR create values',
@@ -152,7 +153,7 @@ const UseSalesReturnMasterHook = () => {
     itemCodeDropdownReset,
     handleSelectClientGroup,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus
+    HandleUpdateDocStatus,
   };
 };
 
