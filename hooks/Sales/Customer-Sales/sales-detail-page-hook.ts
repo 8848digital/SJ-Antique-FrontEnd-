@@ -84,21 +84,86 @@ const UseCustomerSaleDetailHook = () => {
 
   // useEffect(() => {
   //   if (DetailOfDeliveryNoteFromStore?.hasOwnProperty('data')) {
-  //     setIsLoading(false);
-  //     setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
-  //     setSelectedClient(
-  //       DetailOfDeliveryNoteFromStore?.data?.custom_client_name
-  //     );
-  //     setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
-  //     // setSeletedCategory({
-  //     //   KunCategory: DetailOfDeliveryNoteFromStore?.data?.custom_kun_category,
-  //     //   CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
-  //     //   BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
-  //     //   OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
-  //     // });
+  //     // setIsLoading(false);
+  //     // setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
+  //     // setSelectedClient(
+  //     //   DetailOfDeliveryNoteFromStore?.data?.custom_client_name
+  //     // );
+  //     // setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
+  //     setSeletedCategory({
+  //       KunCategory:
+  //         kunCsOtCategoryListData?.length > 0 &&
+  //         kunCsOtCategoryListData.filter((data: any) => {
+  //           data.name1 ===
+  //             DetailOfDeliveryNoteFromStore?.data?.custom_kun_category && data;
+  //         }),
+  //       CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
+  //       BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
+  //       OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
+  //     });
   //   }
   // }, [DetailOfDeliveryNoteFromStore]);
 
+  useEffect(() => {
+    if (DetailOfDeliveryNoteFromStore?.hasOwnProperty('data')) {
+      // Extracting data from DetailOfDeliveryNoteFromStore
+      const customKunCategory =
+        DetailOfDeliveryNoteFromStore?.data?.custom_kun_category;
+      const customCsCategory =
+        DetailOfDeliveryNoteFromStore?.data?.custom_cs_category;
+      const customBBCategory =
+        DetailOfDeliveryNoteFromStore?.data?.custom_bb_category;
+      const customOtCategory =
+        DetailOfDeliveryNoteFromStore?.data?.custom_ot_category;
+
+      // Filtering kunCsOtCategoryListData based on custom_category
+
+      console.log(BBCategoryListData, 'selected category in detail');
+
+      const kunCategoryData =
+        kunCsOtCategoryListData?.length > 0
+          ? kunCsOtCategoryListData.find(
+              (data: any) => data.name1 === customKunCategory
+            )
+          : null;
+      const csCategoryData =
+        kunCsOtCategoryListData?.length > 0
+          ? kunCsOtCategoryListData.find(
+              (data: any) => data.name1 === customCsCategory
+            )
+          : null;
+      const otCategoryData =
+        kunCsOtCategoryListData?.length > 0
+          ? kunCsOtCategoryListData.find(
+              (data: any) => data.name1 === customOtCategory
+            )
+          : null;
+      const bbCategoryData =
+        BBCategoryListData?.length > 0
+          ? BBCategoryListData.find(
+              (data: any) => data.name1 === customBBCategory
+            )
+          : null;
+
+      // Setting selected category state
+      setSeletedCategory({
+        KunCategory: kunCategoryData,
+        CsCategory: csCategoryData,
+        BBCategory: bbCategoryData,
+        OtCategory: otCategoryData,
+      });
+    }
+  }, [
+    DetailOfDeliveryNoteFromStore,
+    BBCategoryListData,
+    kunCsOtCategoryListData,
+  ]);
+
+  console.log(
+    'selected category in detail',
+
+    BBCategoryListData
+  );
   useEffect(() => {
     if (
       DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
