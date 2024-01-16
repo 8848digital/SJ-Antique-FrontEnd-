@@ -287,10 +287,9 @@ const CustomerSalesTable = ({
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
                         min={0}
-                        value={(Number(item.custom_cs_wt) !== 0
-                          ? Number(item.custom_cs) * Number(item.custom_cs_wt)
-                          : Number(item.custom_cs)
-                        )?.toFixed(2)}
+                        value={
+                          Number(item.custom_cs) * Number(item.custom_cs_wt)
+                        }
                         defaultValue={item.custom_cs_amt}
                         readOnly
                         onChange={(e) =>

@@ -152,13 +152,9 @@ const UseCustomerSaleHook = () => {
                 : item.custom_cs_amt,
             custom_kun_amt:
               fieldName === 'custom_kun'
-                ? item?.custom_kun === ''
-                  ? 1 * value
-                  : Number(item?.custom_kun_pc) * value
+                ? Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                ? item.custom_kun === ''
-                  ? 1 * value
-                  : Number(item.custom_kun) * value
+                ? Number(item.custom_kun) * value
                 : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_'
