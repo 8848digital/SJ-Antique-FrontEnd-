@@ -456,6 +456,16 @@ const UseCustomerSaleHook = () => {
   const handleSelectClientGroup = async (value: any) => {
     setSelectedClientGroup(value);
   };
+
+  const handleTabPressInSales = (event: any, id: any, keyValue: any) => {
+    if (
+      event.key === 'Tab' &&
+      id === salesTableData[salesTableData.length - 1].idx
+    ) {
+      handleAddRowForSales();
+    }
+    setStateForDocStatus(true);
+  };
   const deliveryNoteListParams = {
     version: 'v1',
     method: 'get_listening_delivery_note_sales_return',
@@ -553,6 +563,7 @@ const UseCustomerSaleHook = () => {
     selectedItemCode,
     setSelectedItemCode,
     HandleUpdateDocStatus,
+    handleTabPressInSales,
   };
 };
 

@@ -42,6 +42,7 @@ const UseCustomerSaleDetailHook = () => {
     setStateForDocStatus,
     setItemCodeDropdownReset,
     HandleUpdateDocStatus,
+    handleTabPressInSales,
   }: any = UseCustomerSaleHook();
 
   console.log('selected category default', selectedCategory);
@@ -286,6 +287,7 @@ const UseCustomerSaleDetailHook = () => {
     defaultSalesDate,
     isLoading,
     setItemCodeDropdownReset,
+    handleTabPressInSales,
   };
 };
 

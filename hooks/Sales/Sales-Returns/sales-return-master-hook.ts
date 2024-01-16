@@ -35,6 +35,7 @@ const UseSalesReturnMasterHook = () => {
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
+    handleTabPressInSales,
   }: any = UseCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
 
@@ -174,6 +175,7 @@ const UseSalesReturnMasterHook = () => {
     HandleUpdateDocStatus,
     saleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
+    handleTabPressInSales,
   };
 };
 
