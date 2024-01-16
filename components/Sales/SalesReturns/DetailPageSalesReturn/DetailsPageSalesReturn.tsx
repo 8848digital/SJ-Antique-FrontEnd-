@@ -41,6 +41,7 @@ const DetailsPageSalesReturn = () => {
     handleDeleteSalesReturn,
     handleAmendButtonForSalesReturn,
     setItemCodeDropdownReset,
+    handleTabPressInSales,
   }: any = UseSalesReturnDetailHook();
 
   const { query }: any = useRouter();
@@ -118,6 +119,7 @@ const DetailsPageSalesReturn = () => {
                   itemCodeDropdownReset={itemCodeDropdownReset}
                   readOnlyFields={readOnlyFields}
                   setItemCodeDropdownReset={setItemCodeDropdownReset}
+                  handleTabPressInSales={handleTabPressInSales}
                 />
               </div>
             </>

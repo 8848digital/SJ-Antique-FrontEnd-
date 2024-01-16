@@ -19,6 +19,7 @@ const CustomerSalesTable = ({
   setItemCodeDropdownReset,
   selectedItemCode,
   setSelectedItemCode,
+  handleTabPressInSales,
 }: any) => {
   console.log(salesTableData, 'selected name and value');
   return (
@@ -438,6 +439,7 @@ const CustomerSalesTable = ({
                         className="d-flex align-items-center delete-link p-1 border-0"
                         onClick={() => handleDeleteRowOfSalesTable(item.idx)}
                         //   disabled={readOnlyFields}
+                        onKeyDown={(e) => handleTabPressInSales(e, item.idx)}
                       >
                         <FontAwesomeIcon
                           icon={faTrash}

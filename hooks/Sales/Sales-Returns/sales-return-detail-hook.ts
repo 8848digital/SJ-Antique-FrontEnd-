@@ -40,6 +40,7 @@ const UseSalesReturnDetailHook = () => {
     setSaleReturnDeliveryNoteListing,
     HandleUpdateDocStatus,
     handleDeleteSalesReturn,
+    handleTabPressInSales,
   }: any = UseCustomSalesReturnHook();
 
   const {
@@ -234,6 +235,7 @@ const UseSalesReturnDetailHook = () => {
     handleAmendButtonForSalesReturn,
     setItemCodeDropdownReset,
     setSaleReturnDeliveryNoteListing,
+    handleTabPressInSales,
   };
 };
 

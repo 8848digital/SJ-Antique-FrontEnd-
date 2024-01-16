@@ -29,6 +29,7 @@ const SaleReturnsMaster = () => {
     HandleUpdateDocStatus,
     saleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
+    handleTabPressInSales,
   }: any = UseSalesReturnMasterHook();
 
   // const {} = UseSalesReturnDetailHook();
@@ -131,6 +132,7 @@ const SaleReturnsMaster = () => {
                 itemList={itemList}
                 itemCodeDropdownReset={itemCodeDropdownReset}
                 setItemCodeDropdownReset={setItemCodeDropdownReset}
+                handleTabPressInSales={handleTabPressInSales}
               />
             </div>
           </div>

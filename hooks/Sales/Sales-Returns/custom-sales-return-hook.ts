@@ -222,6 +222,16 @@ const UseCustomSalesReturnHook = () => {
     }
   };
 
+  const handleTabPressInSales = (event: any, id: any, keyValue: any) => {
+    if (
+      event.key === 'Tab' &&
+      id === salesReturnTableData[salesReturnTableData.length - 1].idx
+    ) {
+      handleAddRowForSalesReturn();
+    }
+    setStateForDocStatus(true);
+  };
+
   return {
     salesReturnTableData,
     setSalesReturnTableData,
@@ -244,6 +254,7 @@ const UseCustomSalesReturnHook = () => {
     setSaleReturnDeliveryNoteListing,
     HandleUpdateDocStatus,
     handleDeleteSalesReturn,
+    handleTabPressInSales,
   };
 };
 
