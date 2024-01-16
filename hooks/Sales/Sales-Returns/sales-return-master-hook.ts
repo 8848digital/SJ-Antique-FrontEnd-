@@ -81,7 +81,7 @@ const UseSalesReturnMasterHook = () => {
             if (tableData.idx === selectedItemCodeForCustomerSale.id) {
               setSalesReturnTableData(data[0]?.items);
             } else {
-              salesReturnTableData([SalesTableInitialState]);
+              setSalesReturnTableData([SalesTableInitialState]);
             }
           }
         );
