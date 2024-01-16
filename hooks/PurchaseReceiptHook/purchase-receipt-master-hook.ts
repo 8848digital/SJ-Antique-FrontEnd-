@@ -244,7 +244,7 @@ const useReadyReceiptKarigar = () => {
           return {
             ...row,
             totalModalWeight: weightAddition,
-            // totalModalPcs: piecesAddition,
+
             totalAmount: totalAmmountValues,
             table: materialWeight.map(({ id, ...rest }: any) => ({ ...rest })),
             custom_mat_wt: weightAddition,
@@ -264,14 +264,14 @@ const useReadyReceiptKarigar = () => {
           ...row,
           table: row.table.map((tableItem: any, index: any) => ({
             ...tableItem,
-            weight:
-              index === 0 && matWt?.tableMatWt !== ''
-                ? matWt?.tableMatWt
-                : tableItem?.weight,
-            pcs:
-              index === 0 && matWt?.bbPcs !== ''
-                ? matWt?.bbPcs
-                : tableItem?.pcs,
+            // weight:
+            //   index === 0 && matWt?.tableMatWt !== ''
+            //     ? matWt?.tableMatWt
+            //     : tableItem?.weight,
+            // pcs:
+            //   index === 0 && matWt?.bbPcs !== ''
+            //     ? matWt?.bbPcs
+            //     : tableItem?.pcs,
             amount:
               (Number(tableItem.pcs) || 0) * (Number(tableItem.piece_) || 0) +
               (Number(tableItem.carat) || 0) * (Number(tableItem.carat_) || 0) +
