@@ -31,6 +31,8 @@ const UseSalesReturnMasterHook = () => {
     SalesTableInitialState,
     setItemCodeDropdownReset,
     HandleUpdateDocStatus,
+    saleReturnDeliveryNoteListing,
+    handleDeleteSalesReturn,
   }: any = UseCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
 
@@ -154,6 +156,8 @@ const UseSalesReturnMasterHook = () => {
     handleSelectClientGroup,
     setItemCodeDropdownReset,
     HandleUpdateDocStatus,
+    saleReturnDeliveryNoteListing,
+    handleDeleteSalesReturn,
   };
 };
 

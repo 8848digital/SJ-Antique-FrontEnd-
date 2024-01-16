@@ -19,7 +19,7 @@ import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
 const UseSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
-  const router = useRouter()
+  const router = useRouter();
   const {
     salesReturnTableData,
     setSalesReturnTableData,
@@ -38,7 +38,8 @@ const UseSalesReturnDetailHook = () => {
     setItemCodeDropdownReset,
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
-    HandleUpdateDocStatus
+    HandleUpdateDocStatus,
+    handleDeleteSalesReturn,
   }: any = UseCustomSalesReturnHook();
 
   const {
@@ -160,43 +161,45 @@ const UseSalesReturnDetailHook = () => {
     }
   };
 
-  const handleDeleteSalesReturn: any = async (id: any) => {
-    const version = 'v1';
-    const method = 'delete_delivery_note_api';
-    const entity = 'delivery_note_api';
+  // const handleDeleteSalesReturn: any = async (id: any) => {
+  //   const version = 'v1';
+  //   const method = 'delete_delivery_note_api';
+  //   const entity = 'delivery_note_api';
 
-    let deleteApi: any = await DeleteApi(
-      loginAcessToken?.token,
-      version,
-      method,
-      entity,
-      id
-    );
+  //   let deleteApi: any = await DeleteApi(
+  //     loginAcessToken?.token,
+  //     version,
+  //     method,
+  //     entity,
+  //     id
+  //   );
 
-    if (Object?.keys(deleteApi?.data)?.length === 0) {
-      toast.success('Sales Return note Deleted');
-      const deliveryNoteApi: any = await getDeliveryNoteListing(
-        loginAcessToken.token,
-        deliveryNoteListParams
-      );
-      if (deliveryNoteApi?.data?.message?.status === 'success') {
-        setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
-      }
-    } else {
-      toast.error('Failed to delete Sales Return');
-    }
-  };
+  //   if (Object?.keys(deleteApi?.data)?.length === 0) {
+  //     toast.success('Sales Return note Deleted');
+  //     const deliveryNoteApi: any = await getDeliveryNoteListing(
+  //       loginAcessToken.token,
+  //       deliveryNoteListParams
+  //     );
+  //     if (deliveryNoteApi?.data?.message?.status === 'success') {
+  //       setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
+  //     }
+  //   } else {
+  //     toast.error('Failed to delete Sales Return');
+  //   }
+  // };
 
   const handleAmendButtonForSalesReturn: any = async () => {
-    const updatedSalesTableData: any = salesReturnTableData.map((tableData: any) => ({
-      ...tableData,
-      qty: 1,
-    }));
+    const updatedSalesTableData: any = salesReturnTableData.map(
+      (tableData: any) => ({
+        ...tableData,
+        qty: 1,
+      })
+    );
     console.log('updated sales return data for amend', updatedSalesTableData);
     const values = {
       amended_from: query?.deliveryNoteId,
       custom_client_name: selectedClient,
-      is_return: "1",
+      is_return: '1',
       items: updatedSalesTableData,
     };
     let amendDeliveryNoteApi: any = await AmendDeliveryNoteApi(
@@ -248,7 +251,7 @@ const UseSalesReturnDetailHook = () => {
     saleReturnDeliveryNoteListing,
     handleAmendButtonForSalesReturn,
     setItemCodeDropdownReset,
-    setSaleReturnDeliveryNoteListing
+    setSaleReturnDeliveryNoteListing,
   };
 };
 
