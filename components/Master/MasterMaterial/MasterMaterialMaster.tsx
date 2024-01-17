@@ -10,12 +10,12 @@ const MasterMaterialMaster: any = ({
   nameValue,
   error1,
   error2,
+  error3,
   placeholder1,
   placeholder2,
   placeholder3,
   tab1,
   tab2,
-  key1,
   searchClient,
   setSearchClient,
   clientGroup,
@@ -46,7 +46,7 @@ const MasterMaterialMaster: any = ({
             .toLowerCase()
             .includes(inputGroup?.toLowerCase())) ||
         (client?.type && client?.type.toString().includes(inputGroup)) ||
-        false; // Ensuring that if none of the conditions match, materialMatch is false
+        false;
 
       const materialGroupMatch =
         !inputMatGroup ||
@@ -120,11 +120,13 @@ const MasterMaterialMaster: any = ({
             HandleSave={HandleSave}
             error1={error1}
             error2={error2}
+            error3={error3}
             placeholder1={placeholder1}
             placeholder2={placeholder2}
+            placeholder3={placeholder3}
             searchClient={searchClient}
             setSearchClient={setSearchClient}
-            key1={key1}
+            value={value}
             clientGroup={clientGroup}
           />
         </div>

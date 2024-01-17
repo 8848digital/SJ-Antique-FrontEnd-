@@ -1,19 +1,19 @@
 import axios from 'axios';
 import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
-const postGroupDataApi = async (get_access_token: any, val: any) => {
+const getMaterialGroupApi = async (get_access_token: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
-  console.log(getHeaders, 'getHeaders');
+
   await axios
-    .post(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`,
-      val,
+    .get(
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_material_group&entity=material_api`,
       getHeaders
     )
     .then((res: any) => {
-      console.log('post client group', res);
-      response = res?.data?.message;
+      console.log('get material group', res);
+      response = res;
+      console.log(response, 'get client group');
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
@@ -30,4 +30,4 @@ const postGroupDataApi = async (get_access_token: any, val: any) => {
   return response;
 };
 
-export default postGroupDataApi;
+export default getMaterialGroupApi;

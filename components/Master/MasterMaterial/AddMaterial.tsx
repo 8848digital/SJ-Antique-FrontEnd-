@@ -7,15 +7,15 @@ const AddMaterial = ({
   HandleSave,
   error1,
   error2,
+  error3,
   placeholder1,
   placeholder2,
+  placeholder3,
   searchClient,
   setSearchClient,
-  key1,
+  value,
   clientGroup,
 }: any) => {
-  console.log(key1, error1, 'karigar data in search');
-
   return (
     <div
       className="tab-pane fade"
@@ -40,13 +40,14 @@ const AddMaterial = ({
             required
           />
         </div>
+
         <div> {error1 && <p className="text-danger">{error1}</p>}</div>
         <div className=" m-1">
           <label htmlFor="">{placeholder2}</label>
           <span className="text-danger">*</span>
         </div>
         <div className="p-1">
-          {key1 === 'clientName' && (
+          {value === 'client' ? (
             <SearchSelectInputField
               karigarData={clientGroup}
               className={'form-control w-50 border p-0 px-2'}
@@ -55,8 +56,7 @@ const AddMaterial = ({
               setSelectedDropdownValue={setSearchClient}
               style={'client-width'}
             />
-          )}
-          {key1 !== 'clientName' && (
+          ) : (
             <input
               type="text"
               className="form-control w-50 border p-0 px-2"
@@ -70,6 +70,23 @@ const AddMaterial = ({
           )}
         </div>
         <div> {error2 && <p className="text-danger">{error2}</p>}</div>
+        {value === 'material' && (
+          <>
+            <div className=" m-1">
+              <label htmlFor="">{placeholder3}</label>
+              <span className="text-danger">*</span>
+            </div>
+            <SearchSelectInputField
+              karigarData={clientGroup}
+              className={'form-control w-50 border p-0 px-2'}
+              placeholder={'Material Group'}
+              selectedDropdownValue={searchClient}
+              setSelectedDropdownValue={setSearchClient}
+              style={'client-width'}
+            />
+            {/* <div> {error3 && <p className="text-danger">{error3}</p>}</div> */}
+          </>
+        )}
         <div className="d-flex justify-content-start">
           <button
             type="submit"

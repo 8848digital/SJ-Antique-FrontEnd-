@@ -71,10 +71,14 @@ const KundanKarigarReadyReceiptMasterTable = ({
             <th className="thead" scope="col">
               Gross Wt
             </th>
-            {(query?.receipt === 'mangalsutra' ||
-              query?.receipt === 'Mangalsutra') && (
+            {query?.receipt === 'mangalsutra' ||
+            query?.receipt === 'Mangalsutra' ? (
               <th className="thead" scope="col">
                 BB Pcs
+              </th>
+            ) : (
+              <th className="thead" scope="col">
+                Kun Pcs
               </th>
             )}
             <th className="thead" scope="col">
@@ -214,8 +218,28 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       )?.toFixed(3)}
                     />
                   </td>
-                  {(query?.receipt === 'mangalsutra' ||
-                    query?.receipt === 'Mangalsutra') && (
+                  {query?.receipt === 'mangalsutra' ||
+                  query?.receipt === 'Mangalsutra' ? (
+                    <td className="table_row">
+                      <input
+                        className={` ${styles.input_field} `}
+                        type="number"
+                        min={0}
+                        // value={item.custom_pcs}
+                        defaultValue={item?.table[0]?.pcs}
+                        value={item?.table[0]?.pcs}
+                        onChange={(e) => {
+                          handleFieldChange(
+                            item.idx,
+                            'tableRow',
+                            'custom_pcs',
+                            e.target.value
+                          );
+                        }}
+                        readOnly={readOnlyFields}
+                      />
+                    </td>
+                  ) : (
                     <td className="table_row">
                       <input
                         className={` ${styles.input_field} `}

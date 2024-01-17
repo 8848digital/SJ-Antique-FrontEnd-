@@ -92,8 +92,8 @@ const UseCustomReceiptHook: any = () => {
         ...tableItems,
         table: tableItems.table.map((tableItem: any) => ({
           ...tableItem,
-          material_abbr: query?.receipt === 'kundan' ? 'CS' : 'BB',
-          material: query?.receipt === 'kundan' ? 'Colorstone' : 'BlackBeads',
+          material_abbr: query?.receipt === 'kundan' ? 'Kun' : 'BB',
+          material: query?.receipt === 'kundan' ? 'Kundan' : 'BlackBeads',
         })),
       }));
       return updatedTable;
@@ -500,11 +500,11 @@ const UseCustomReceiptHook: any = () => {
             ...row,
             material:
               query?.receipt === 'kundan' || query?.receipt === 'Kundan'
-                ? 'Colorstone'
+                ? 'Kundan'
                 : 'BlackBeads',
             material_abbr:
               query?.receipt === 'kundan' || query?.receipt === 'Kundan'
-                ? 'CS'
+                ? 'Kun'
                 : 'BB',
           })),
         },

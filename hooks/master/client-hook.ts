@@ -4,7 +4,7 @@ import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
 import postBBCategoryApi from '@/services/api/Master/post-bbCategory-api';
 import postClientApi from '@/services/api/Master/post-client-api';
-import postClientGroupApi from '@/services/api/Master/post-client-group-api';
+import postGroupDataApi from '@/services/api/Master/post-client-group-api';
 import postKunCsOtCategoryApi from '@/services/api/Master/post-kunCsOtCategory-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
@@ -221,10 +221,7 @@ const useClientHook = () => {
     if (inputValue1.trim() === '') {
       setErrorC('Input field cannot be empty');
     } else {
-      let apiRes: any = await postClientGroupApi(
-        loginAcessToken?.token,
-        values
-      );
+      let apiRes: any = await postGroupDataApi(loginAcessToken?.token, values);
       console.log('apires', apiRes);
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Client Group Created');

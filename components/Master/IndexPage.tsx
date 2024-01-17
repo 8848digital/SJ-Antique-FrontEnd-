@@ -24,6 +24,7 @@ const IndexPage = () => {
     nameValue,
     error1,
     error2,
+    error3,
     HandleMaterialGrpSubmit,
     HandleMaterialGrpValue,
     errorM,
@@ -65,6 +66,12 @@ const IndexPage = () => {
     clientGroupList !== null &&
     clientGroupList.map((data: any) => ({
       karigar_name: data.client_group,
+    }));
+  let materialGroup: any =
+    materialGroupList?.length > 0 &&
+    materialGroupList !== null &&
+    materialGroupList.map((data: any) => ({
+      karigar_name: data.material_group,
     }));
   console.log(clientGroup, 'client grp in index');
   return (
@@ -113,13 +120,7 @@ const IndexPage = () => {
       )}
       {key === 'materialGroup' && (
         <MasterKarigar
-          karigarData={
-            materialGroupList?.length > 0 &&
-            materialGroupList !== null &&
-            materialGroupList.map((data: any) => ({
-              karigar_name: data.client_group,
-            }))
-          }
+          karigarData={materialGroup}
           inputValue={inputValueM}
           HandleInputValue={HandleMaterialGrpValue}
           HandleSubmit={HandleMaterialGrpSubmit}
@@ -140,11 +141,15 @@ const IndexPage = () => {
           nameValue={nameValue}
           error1={error1}
           error2={error2}
+          error3={error3}
           tab1={'Material List'}
           tab2={'Create New Material'}
           placeholder1={'Material Name'}
           placeholder2={'Material Abbr'}
           placeholder3={'Material Group'}
+          clientGroup={materialGroup}
+          setSearchClient={setSelectedMaterialGroup}
+          searchClient={selectedMaterialGroup}
         />
       )}
       {key === 'client' && (
@@ -170,7 +175,6 @@ const IndexPage = () => {
           tab2={'Create New Client Name'}
           setSearchClient={setSearchClient}
           searchClient={searchClient}
-          key1={'clientName'}
         />
       )}
       {key === 'kunCsOtCategory' && (

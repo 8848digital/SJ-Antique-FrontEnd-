@@ -1,18 +1,20 @@
 import { get_access_token } from '@/store/slices/auth/login-slice';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import React, { useEffect, useState, useRef } from 'react';
 
-import { toast } from 'react-toastify';
+import getClientGroupApi from '@/services/api/Master/get-client-group-api';
+import getMaterialGroupApi from '@/services/api/Master/get-material-group-api';
+import postGroupDataApi from '@/services/api/Master/post-client-group-api';
 import postMaterialMasterApi from '@/services/api/Master/post-material-name';
 import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
-import postClientGroupApi from '@/services/api/Master/post-client-group-api';
-import getClientGroupApi from '@/services/api/Master/get-client-group-api';
+import { toast } from 'react-toastify';
 
 const useMaterialHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   const [materialList, setMaterialList] = useState();
   const [error1, setError1] = useState('');
   const [error2, setError2] = useState('');
+  const [error3, setError3] = useState('');
   const [nameValue, setNameValue] = useState({
     material: '',
     material_abbr: '',
@@ -24,9 +26,10 @@ const useMaterialHook = () => {
   useEffect(() => {
     const getStateData: any = async () => {
       const materialData = await materialApi(loginAcessToken.token);
-      const materialGroupData = await getClientGroupApi(loginAcessToken.token);
+      const materialGroupData = await getMaterialGroupApi(
+        loginAcessToken.token
+      );
       setMaterialList(materialData);
-      console.log(materialGroupData.data.message.data, 'material group data');
       if (materialGroupData?.data?.message?.status === 'success') {
         setMaterialGroupList(materialGroupData?.data?.message?.data);
       }
@@ -47,7 +50,7 @@ const useMaterialHook = () => {
       version: 'v1',
       method: 'create_material',
       entity: 'material_post_api',
-      data: [nameValue],
+      data: [{ ...nameValue, material_group: selectedMaterialGroup }],
     };
     console.log(values, 'valuesname');
     if (nameValue.material === '' || nameValue.material === undefined) {
@@ -58,6 +61,11 @@ const useMaterialHook = () => {
       nameValue.material_abbr === undefined
     ) {
       setError2('Input field cannot be empty');
+    } else if (
+      selectedMaterialGroup === '' ||
+      selectedMaterialGroup === undefined
+    ) {
+      setError3('Input field cannot be empty');
     } else {
       let apiRes: any = await postMaterialMasterApi(
         loginAcessToken?.token,
@@ -84,25 +92,22 @@ const useMaterialHook = () => {
       version: 'v1',
       method: 'create_material_group',
       entity: 'material_post_api',
-      client_group: inputValueM,
+      material_group: inputValueM,
     };
     console.log(values, 'valuesname');
     if (inputValueM.trim() === '') {
       setErrorM('Input field cannot be empty');
     } else {
-      let apiRes: any = await postClientGroupApi(
-        loginAcessToken?.token,
-        values
-      );
+      let apiRes: any = await postGroupDataApi(loginAcessToken?.token, values);
       console.log('apires', apiRes);
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
-        toast.success('Client Group Created');
-        const clientGrpData: any = await getClientGroupApi(
+        toast.success('Material Group Created');
+        const materialGrpData: any = await getMaterialGroupApi(
           loginAcessToken.token
         );
-        setMaterialGroupList(clientGrpData?.data?.message?.data);
+        setMaterialGroupList(materialGrpData?.data?.message?.data);
       } else {
-        toast.error('Client Group already exist');
+        toast.error('Material Group already exist');
       }
       setErrorM('');
       setInputValueM('');
@@ -113,11 +118,12 @@ const useMaterialHook = () => {
     setInputValueM(e.target.value);
     console.log(inputValueM, 'input value');
   };
-
+  console.log(selectedMaterialGroup, 'selected material');
   return {
     materialList,
     error1,
     error2,
+    error3,
     nameValue,
     HandleNameChange,
     HandleSave,
