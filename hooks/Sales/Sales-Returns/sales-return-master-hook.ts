@@ -106,13 +106,14 @@ const UseSalesReturnMasterHook = () => {
         const updatedTable = salesReturnTableData?.map(
           (tableData: any, index: any) => {
             console.log(
-              data[0]?.items,
+              data[0]?.items[0],
               tableData?.idx,
               selectedItemCodeForCustomerSale.id,
+              tableData,
               'table data in sale return'
             );
             return tableData.idx === selectedItemCodeForCustomerSale.id
-              ? { ...tableData, items: data[0]?.items }
+              ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
               : tableData;
           }
         );
@@ -121,11 +122,13 @@ const UseSalesReturnMasterHook = () => {
       }
     } else {
       // Create a new row for each item in data[0]?.items
-      const newRows = data[0]?.items?.map((item: any, index: any) => ({
-        ...SalesTableInitialState,
-        ...item,
-        idx: salesReturnTableData.length + index + 1, // Use a unique idx for each row
-      }));
+      const newRows = removeIdxKey(data[0]?.items[0])?.map(
+        (item: any, index: any) => ({
+          ...SalesTableInitialState,
+          ...item,
+          idx: index + 1, // Use a unique idx for each row
+        })
+      );
 
       setSalesReturnTableData((prevData: any) =>
         prevData
@@ -134,7 +137,10 @@ const UseSalesReturnMasterHook = () => {
       );
     }
   };
-
+  const removeIdxKey = (item: any) => {
+    const { idx, ...itemWithoutIdx } = item;
+    return itemWithoutIdx;
+  };
   useEffect(() => {
     if (selectedItemCodeForCustomerSale?.item_code?.length > 0) {
       const getItemCodeDetailsFun = async () => {
