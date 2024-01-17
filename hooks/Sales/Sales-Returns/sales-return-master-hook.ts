@@ -71,27 +71,67 @@ const UseSalesReturnMasterHook = () => {
     getDataFromapi();
   }, []);
 
+  // const updateSalesTableData = (data: any) => {
+  //   console.log('dataaa', data);
+  //   // setSelectedClient(data[0]?.custom_client_name);
+  //   if (data?.length > 0) {
+  //     if (selectedItemCodeForCustomerSale?.id) {
+  //       const updatedTable = salesReturnTableData?.map(
+  //         (tableData: any, index: any) => {
+  //           if (tableData.idx === selectedItemCodeForCustomerSale.id) {
+  //             setSalesReturnTableData(data[0]?.items);
+  //           } else {
+  //             setSalesReturnTableData([SalesTableInitialState]);
+  //           }
+  //         }
+  //       );
+  //     }
+  //   } else {
+  //     // Create a new row for each item in data[0]?.items
+  //     const newRows = data[0]?.items?.map((item: any, index: any) => ({
+  //       ...SalesTableInitialState,
+  //       ...item,
+  //       idx: index + 1, // Assuming idx should be unique for each row
+  //     }));
+
+  //     setSalesReturnTableData(newRows || [SalesTableInitialState]);
+  //   }
+  // };
+
   const updateSalesTableData = (data: any) => {
     console.log('dataaa', data);
-    setSelectedClient(data[0]?.custom_client_name);
-    if (data?.length > 0) {
+    // setSelectedClient(data[0]?.custom_client_name);
+    if (data?.length >= 0) {
       if (selectedItemCodeForCustomerSale?.id) {
         const updatedTable = salesReturnTableData?.map(
           (tableData: any, index: any) => {
-            if (tableData.idx === selectedItemCodeForCustomerSale.id) {
-              setSalesReturnTableData(data[0]?.items);
-            } else {
-              setSalesReturnTableData([SalesTableInitialState]);
-            }
+            console.log(
+              data[0]?.items,
+              tableData?.idx,
+              selectedItemCodeForCustomerSale.id,
+              'table data in sale return'
+            );
+            return tableData.idx === selectedItemCodeForCustomerSale.id
+              ? { ...tableData, items: data[0]?.items }
+              : tableData;
           }
         );
+        console.log(updatedTable, 'table data in sale return');
+        setSalesReturnTableData(updatedTable);
       }
     } else {
-      const updatedInitialState = {
+      // Create a new row for each item in data[0]?.items
+      const newRows = data[0]?.items?.map((item: any, index: any) => ({
         ...SalesTableInitialState,
-        itemCode: salesReturnTableData.itemCode, // Preserve the original itemCode
-      };
-      setSalesReturnTableData([updatedInitialState]);
+        ...item,
+        idx: salesReturnTableData.length + index + 1, // Use a unique idx for each row
+      }));
+
+      setSalesReturnTableData((prevData: any) =>
+        prevData
+          ? [...prevData, ...newRows]
+          : newRows || [SalesTableInitialState]
+      );
     }
   };
 
@@ -121,6 +161,60 @@ const UseSalesReturnMasterHook = () => {
       getItemCodeDetailsFun();
     }
   }, [selectedItemCodeForCustomerSale]);
+  // const updateSalesTableData = (data: any) => {
+  //   console.log('dataaa', data);
+  //   // setSelectedClient(data[0]?.custom_client_name);
+
+  //   if (data?.length > 0) {
+  //     if (selectedItemCodeForCustomerSale?.id) {
+  //       const updatedTable = salesReturnTableData?.map((tableData: any) => {
+  //         if (tableData.idx === selectedItemCodeForCustomerSale.id) {
+  //           return { ...tableData, items: data?.items };
+  //         }
+  //         console.log(tableData, 'table data in sale return');
+  //         return tableData;
+  //       });
+
+  //       setSalesReturnTableData(updatedTable);
+  //     }
+  //   } else {
+  //     const updatedInitialState = {
+  //       ...SalesTableInitialState,
+  //       itemCode: salesReturnTableData.itemCode, // Preserve the original itemCode
+  //     };
+  //     setSalesReturnTableData([updatedInitialState]);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (selectedItemCodeForCustomerSale?.item_code?.length > 0) {
+  //     const getItemCodeDetailsFun = async () => {
+  //       const getItemDetailsmethod = 'get_delivery_note_specific_return_item';
+  //       const getItemDetailsEntity = 'delivery_note_api';
+
+  //       try {
+  //         let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
+  //           loginAcessToken?.token,
+  //           selectedItemCodeForCustomerSale.item_code,
+  //           getItemDetailsmethod,
+  //           getItemDetailsEntity
+  //         );
+
+  //         console.log('get details of sales return', getItemCodeDetailsApi);
+  //         if (
+  //           getItemCodeDetailsApi?.data?.message?.status === 'success' &&
+  //           getItemCodeDetailsApi?.data?.message?.data?.length > 0
+  //         ) {
+  //           updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+  //         }
+  //       } catch (error) {
+  //         console.error('Error fetching item details:', error);
+  //       }
+  //     };
+
+  //     getItemCodeDetailsFun();
+  //   }
+  // }, [selectedItemCodeForCustomerSale]);
 
   const handleSRCreate: any = async () => {
     console.log(

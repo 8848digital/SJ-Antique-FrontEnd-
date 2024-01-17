@@ -12,6 +12,7 @@ const MasterMaterialMaster: any = ({
   error2,
   placeholder1,
   placeholder2,
+  placeholder3,
   tab1,
   tab2,
   key1,
@@ -19,27 +20,43 @@ const MasterMaterialMaster: any = ({
   setSearchClient,
   clientGroup,
 }: any) => {
-  console.log(key1, 'kuncsotdata');
+  console.log(materialList, 'kuncsotdata');
   const [inputName, setInputName] = useState('');
+  const [inputMatGroup, setInputMatGrp] = useState('');
   const [inputGroup, setInputGroup] = useState('');
   const handleInputChange1 = (event: any) => {
     setInputName(event.target.value);
-    console.log(inputName, 'changing client');
   };
   const handleInputChange2 = (event: any) => {
     setInputGroup(event.target.value);
   };
+  const handleInputChange3 = (event: any) => {
+    setInputMatGrp(event.target.value);
+  };
+
   const filteredList: any =
     materialList?.length > 0 &&
     materialList !== null &&
-    materialList?.filter(
-      (client: any) =>
-        client?.material?.toLowerCase()?.includes(inputName?.toLowerCase()) &&
-        (client?.material_abbr
+    materialList?.filter((client: any) => {
+      const materialMatch =
+        (client?.material &&
+          client?.material.toLowerCase().includes(inputName?.toLowerCase()) &&
+          client?.material_abbr &&
+          client?.material_abbr
+            .toLowerCase()
+            .includes(inputGroup?.toLowerCase())) ||
+        (client?.type && client?.type.toString().includes(inputGroup)) ||
+        false; // Ensuring that if none of the conditions match, materialMatch is false
+
+      const materialGroupMatch =
+        !inputMatGroup ||
+        client?.material_group
           ?.toLowerCase()
-          ?.includes(inputGroup?.toLowerCase()) ||
-          client?.type?.toString()?.includes(inputGroup))
-    );
+          .includes(inputMatGroup?.toLowerCase());
+
+      return materialMatch && materialGroupMatch;
+    });
+
   console.log(filteredList, 'kuncsotdata');
   return (
     <div className="container-lg">
@@ -90,8 +107,11 @@ const MasterMaterialMaster: any = ({
               materialList={filteredList}
               handleInputChange1={handleInputChange1}
               handleInputChange2={handleInputChange2}
+              handleInputChange3={handleInputChange3}
               placeholder1={placeholder1}
               placeholder2={placeholder2}
+              placeholder3={placeholder3}
+              value={value}
             />
           </div>
           <AddMaterial

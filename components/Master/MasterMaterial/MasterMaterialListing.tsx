@@ -7,8 +7,11 @@ const MasterMaterialListing = ({
   materialList,
   handleInputChange1,
   handleInputChange2,
+  handleInputChange3,
   placeholder1,
   placeholder2,
+  placeholder3,
+  value,
 }: any) => {
   console.log(materialList, 'kuncsotdata');
   const [tableViewData, setTableViewData] = useState<any>(20);
@@ -31,15 +34,13 @@ const MasterMaterialListing = ({
   };
   return (
     <div>
-      <div
-        className={` mx-4 d-flex justify-content-start ${styles.input_width}`}
-      >
+      <div className={` mx-4 d-flex flex-wrap justify-content-start `}>
         <input
           type="text"
           name="input1"
           id="input1"
           aria-describedby="emailHelp"
-          className="form-control h-50 mx-2 p-1"
+          className="form-control h-50 mx-2 p-1 w-auto"
           placeholder={placeholder1}
           onChange={handleInputChange1}
         />
@@ -49,10 +50,21 @@ const MasterMaterialListing = ({
           name="input2"
           id="input2"
           aria-describedby="emailHelp"
-          className="form-control h-50 mx-2 p-1"
+          className="form-control h-50 mx-2 p-1 w-auto"
           placeholder={placeholder2}
           onChange={handleInputChange2}
         />
+        {value === 'material' && (
+          <input
+            type="text"
+            name="input3"
+            id="input3"
+            aria-describedby="emailHelp"
+            className="form-control h-50 mx-2 p-1 w-auto"
+            placeholder={placeholder3}
+            onChange={handleInputChange3}
+          />
+        )}
       </div>
       {materialList?.length > 0 && (
         <div className="text-end pe-3 text-gray small m-0">
@@ -66,8 +78,11 @@ const MasterMaterialListing = ({
         <table className="table table-hover table-striped table-bordered w-100 ">
           <thead>
             <tr className="table_row">
-              <th className="thead text-start w-50">{placeholder1}</th>
-              <th className="thead text-start">{placeholder2}</th>
+              <th className="thead text-start ">{placeholder1}</th>
+              <th className="thead text-start ">{placeholder2}</th>
+              {value === 'material' && (
+                <th className="thead text-start ">{placeholder3}</th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -76,7 +91,9 @@ const MasterMaterialListing = ({
               materialList.slice(0, tableViewData).map((item: any, i: any) => (
                 <tr key={i}>
                   <td
-                    className="table-body-row cursor w-50"
+                    className={`table-body-row cursor ${
+                      value === 'material' ? 'w-auto' : ' w-50 '
+                    } `}
                     onClick={() =>
                       HandleDetails(
                         item.material,
@@ -87,7 +104,7 @@ const MasterMaterialListing = ({
                     {item.material}
                   </td>
                   <td
-                    className="table-body-row cursor"
+                    className={`table-body-row cursor w-auto`}
                     onClick={() =>
                       HandleDetails(
                         item.material,
@@ -97,6 +114,19 @@ const MasterMaterialListing = ({
                   >
                     {item.material_abbr ? item.material_abbr : item.type}
                   </td>
+                  {value === 'material' && (
+                    <td
+                      className="table-body-row cursor w-auto"
+                      onClick={() =>
+                        HandleDetails(
+                          item.material,
+                          item.material_abbr ? item.material_abbr : item.type
+                        )
+                      }
+                    >
+                      {item.material_group}
+                    </td>
+                  )}
                 </tr>
               ))}
             {materialList?.length > 20 && materialList !== null && (

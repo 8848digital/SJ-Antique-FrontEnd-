@@ -25,6 +25,16 @@ const MasterListing: any = ({ value }: any) => {
               <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
             </button>
           </Link>
+          <Link href="/master/materialGroup" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${
+                value === 'materialGroup' ? 'activeColor' : ''
+              }`}
+            >
+              Material Group
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
           <Link href="/master/material" className="text-decoration-none ">
             <button
               className={`${styles.button} ${
@@ -32,16 +42,6 @@ const MasterListing: any = ({ value }: any) => {
               }`}
             >
               Material
-              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
-            </button>
-          </Link>
-          <Link href="/master/client" className="text-decoration-none ">
-            <button
-              className={`${styles.button} ${
-                value === 'client' ? 'activeColor' : ''
-              }`}
-            >
-              Client
               <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
             </button>
           </Link>
@@ -55,6 +55,17 @@ const MasterListing: any = ({ value }: any) => {
               <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
             </button>
           </Link>
+          <Link href="/master/client" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${
+                value === 'client' ? 'activeColor' : ''
+              }`}
+            >
+              Client
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
+
           <Link
             href="/master/kunCsOtCategory"
             className="text-decoration-none "

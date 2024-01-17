@@ -24,6 +24,14 @@ const IndexPage = () => {
     nameValue,
     error1,
     error2,
+    HandleMaterialGrpSubmit,
+    HandleMaterialGrpValue,
+    errorM,
+    setErrorM,
+    materialGroupList,
+    inputValueM,
+    selectedMaterialGroup,
+    setSelectedMaterialGroup,
   }: any = useMaterialHook();
   const {
     clientList,
@@ -47,7 +55,7 @@ const IndexPage = () => {
     inputValue1,
     clientGroupList,
   }: any = useClientHook();
-  console.log(clientGroupList, 'indexPage client list');
+  console.log(materialGroupList, 'indexPage material group data');
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
   console.log(pathcontent, 'pathcontent index');
@@ -103,6 +111,26 @@ const IndexPage = () => {
           tab2={'Create New Client Group'}
         />
       )}
+      {key === 'materialGroup' && (
+        <MasterKarigar
+          karigarData={
+            materialGroupList?.length > 0 &&
+            materialGroupList !== null &&
+            materialGroupList.map((data: any) => ({
+              karigar_name: data.client_group,
+            }))
+          }
+          inputValue={inputValueM}
+          HandleInputValue={HandleMaterialGrpValue}
+          HandleSubmit={HandleMaterialGrpSubmit}
+          error={errorM}
+          setError={setErrorM}
+          value={key}
+          placeholder={'Material Group Name'}
+          tab1={'Material Group List'}
+          tab2={'Create New Material Group'}
+        />
+      )}
       {key === 'material' && (
         <MasterMaterialMaster
           value={key}
@@ -114,8 +142,9 @@ const IndexPage = () => {
           error2={error2}
           tab1={'Material List'}
           tab2={'Create New Material'}
-          placeholder1={'Material name'}
+          placeholder1={'Material Name'}
           placeholder2={'Material Abbr'}
+          placeholder3={'Material Group'}
         />
       )}
       {key === 'client' && (
