@@ -198,7 +198,7 @@ const CustomerSalesTable = ({
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
                         min={0}
-                        value={item.custom_bb_wt}
+                        value={item.custom_bb_wt < 0 ? 0 : item.custom_bb_wt}
                         defaultValue={item.custom_bb_wt}
                         readOnly={readOnlyFields}
                         onChange={(e) =>
