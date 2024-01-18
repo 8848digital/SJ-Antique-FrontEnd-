@@ -60,7 +60,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Kun Karigar
             </th>
             <th className="thead" scope="col">
-              Net Wt
+              Net Wt<span className="text-danger">*</span>
             </th>
             <th className="thead" scope="col">
               Few Wt
