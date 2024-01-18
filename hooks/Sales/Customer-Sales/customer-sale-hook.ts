@@ -396,6 +396,7 @@ const UseCustomerSaleHook = () => {
           custom_pr_cs_wt,
           custom_pr_kun_wt,
           custom_pr_other_wt,
+          warehouse,
           ...updatedObject
         } = data;
         return {

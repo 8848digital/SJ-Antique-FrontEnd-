@@ -113,7 +113,7 @@ const ModalMaster = ({
                             className={` ${styles.input_field} modal-input`}
                             type="number"
                             min={0}
-                            value={element.pcs}
+                            value={element.pcs === '' ? 0 : element.pcs}
                             onChange={(e) =>
                               handleModalFieldChange(
                                 i,
@@ -181,7 +181,7 @@ const ModalMaster = ({
                             className={` ${styles.input_field} modal-input`}
                             type="number"
                             min={0}
-                            value={element.weight}
+                            value={element.weight === '' ? 0 : element.weight}
                             onChange={(e) =>
                               handleModalFieldChange(
                                 i,

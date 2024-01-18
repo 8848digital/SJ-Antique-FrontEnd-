@@ -223,9 +223,17 @@ const UseSalesReturnMasterHook = () => {
   // }, [selectedItemCodeForCustomerSale]);
 
   const handleSRCreate: any = async () => {
+    const updatedData =
+      salesReturnTableData?.length > 0 &&
+      salesReturnTableData !== null &&
+      salesReturnTableData.map((data: any) => {
+        const { warehouse, ...updatedObject } = data;
+
+        return { ...updatedObject };
+      });
     console.log(
       'handleSR create values',
-      salesReturnTableData,
+      updatedData,
       selectedClient,
       selectedClientGroup
     );
@@ -238,7 +246,7 @@ const UseSalesReturnMasterHook = () => {
       method: 'create_delivery_note_sales_return',
       entity: 'delivery_note_api',
 
-      items: salesReturnTableData,
+      items: updatedData,
     };
 
     const postSalesReturnApi: any = await PostSalesApi(
