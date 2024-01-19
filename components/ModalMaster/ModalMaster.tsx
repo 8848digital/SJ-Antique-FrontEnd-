@@ -31,7 +31,11 @@ const ModalMaster = ({
         <div className="container d-flex justify-content-end">
           <button
             className="btn btn-link"
-            onClick={() => handleAddRow('modalRow')}
+            onClick={() => {
+              if (!readOnlyFields) {
+                handleAddRow('modalRow');
+              }
+            }}
           >
             Add Row
           </button>

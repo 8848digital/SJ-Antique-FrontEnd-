@@ -313,26 +313,8 @@ const UseCustomReceiptHook: any = () => {
         if (item.idx === id && event.key === 'F2') {
           setShowModal(true);
           setMaterialWeight(item?.table);
-          // if (item.totalAmount > 0) {
-          // setMaterialWeight((prevState: any) => {
-          //   prevState?.table?.map((data: any, index: any) => {
-          //     return {
-          //       ...data,
-          //       pcs:
-          //         index === 0 && matWt?.bbPcs !== '' ? matWt?.bbPcs : data?.pcs,
-          //       weight:
-          //         index === 0 && matWt?.tableMatWt !== ''
-          //           ? matWt?.tableMatWt
-          //           : data?.weight,
-          //     };
-          //   });
-          // });
-          // } else {
-          // setMaterialWeight(data.table);
-          // }
         }
       });
-    // setStateForDocStatus(true);
   };
 
   const UpdateMaterialWeight: any = (id: any, weightAmt: any) => {
@@ -399,7 +381,6 @@ const UseCustomReceiptHook: any = () => {
         return item;
       }) || [];
 
-    // Assuming setMaterialWeight updates the state
     setMaterialWeight(updatedMaterialWeight);
   };
 

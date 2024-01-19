@@ -36,6 +36,7 @@ const UseSalesReturnMasterHook = () => {
     setSaleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
     handleTabPressInSales,
+    setStateForDocStatus,
   }: any = UseCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
 
@@ -70,33 +71,6 @@ const UseSalesReturnMasterHook = () => {
 
     getDataFromapi();
   }, []);
-
-  // const updateSalesTableData = (data: any) => {
-  //   console.log('dataaa', data);
-  //   // setSelectedClient(data[0]?.custom_client_name);
-  //   if (data?.length > 0) {
-  //     if (selectedItemCodeForCustomerSale?.id) {
-  //       const updatedTable = salesReturnTableData?.map(
-  //         (tableData: any, index: any) => {
-  //           if (tableData.idx === selectedItemCodeForCustomerSale.id) {
-  //             setSalesReturnTableData(data[0]?.items);
-  //           } else {
-  //             setSalesReturnTableData([SalesTableInitialState]);
-  //           }
-  //         }
-  //       );
-  //     }
-  //   } else {
-  //     // Create a new row for each item in data[0]?.items
-  //     const newRows = data[0]?.items?.map((item: any, index: any) => ({
-  //       ...SalesTableInitialState,
-  //       ...item,
-  //       idx: index + 1, // Assuming idx should be unique for each row
-  //     }));
-
-  //     setSalesReturnTableData(newRows || [SalesTableInitialState]);
-  //   }
-  // };
 
   const updateSalesTableData = (data: any) => {
     console.log('dataaa', data);
@@ -167,60 +141,6 @@ const UseSalesReturnMasterHook = () => {
       getItemCodeDetailsFun();
     }
   }, [selectedItemCodeForCustomerSale]);
-  // const updateSalesTableData = (data: any) => {
-  //   console.log('dataaa', data);
-  //   // setSelectedClient(data[0]?.custom_client_name);
-
-  //   if (data?.length > 0) {
-  //     if (selectedItemCodeForCustomerSale?.id) {
-  //       const updatedTable = salesReturnTableData?.map((tableData: any) => {
-  //         if (tableData.idx === selectedItemCodeForCustomerSale.id) {
-  //           return { ...tableData, items: data?.items };
-  //         }
-  //         console.log(tableData, 'table data in sale return');
-  //         return tableData;
-  //       });
-
-  //       setSalesReturnTableData(updatedTable);
-  //     }
-  //   } else {
-  //     const updatedInitialState = {
-  //       ...SalesTableInitialState,
-  //       itemCode: salesReturnTableData.itemCode, // Preserve the original itemCode
-  //     };
-  //     setSalesReturnTableData([updatedInitialState]);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (selectedItemCodeForCustomerSale?.item_code?.length > 0) {
-  //     const getItemCodeDetailsFun = async () => {
-  //       const getItemDetailsmethod = 'get_delivery_note_specific_return_item';
-  //       const getItemDetailsEntity = 'delivery_note_api';
-
-  //       try {
-  //         let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
-  //           loginAcessToken?.token,
-  //           selectedItemCodeForCustomerSale.item_code,
-  //           getItemDetailsmethod,
-  //           getItemDetailsEntity
-  //         );
-
-  //         console.log('get details of sales return', getItemCodeDetailsApi);
-  //         if (
-  //           getItemCodeDetailsApi?.data?.message?.status === 'success' &&
-  //           getItemCodeDetailsApi?.data?.message?.data?.length > 0
-  //         ) {
-  //           updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
-  //         }
-  //       } catch (error) {
-  //         console.error('Error fetching item details:', error);
-  //       }
-  //     };
-
-  //     getItemCodeDetailsFun();
-  //   }
-  // }, [selectedItemCodeForCustomerSale]);
 
   const handleSRCreate: any = async () => {
     const updatedData =
@@ -248,19 +168,26 @@ const UseSalesReturnMasterHook = () => {
 
       items: updatedData,
     };
+    const clientVal = values?.custom_client_name;
+    if (clientVal !== '') {
+      const postSalesReturnApi: any = await PostSalesApi(
+        loginAcessToken.token,
+        values
+      );
 
-    const postSalesReturnApi: any = await PostSalesApi(
-      loginAcessToken.token,
-      values
-    );
-    if (postSalesReturnApi?.data?.message?.status === 'success') {
-      toast.success('Delivery note Created Sucessfully');
-      console.log('queryyy', query, router);
-      router.push(`${query.saleId}/${postSalesReturnApi?.data?.message?.name}`);
+      if (postSalesReturnApi?.data?.message?.status === 'success') {
+        toast.success('Delivery note Created Sucessfully');
+        console.log('queryyy', query, router);
+        router.push(
+          `${query.saleId}/${postSalesReturnApi?.data?.message?.name}`
+        );
+      } else {
+        toast.error('Error in Creating Delivery note');
+      }
+      console.log('postSalesReturnApi res', postSalesReturnApi);
     } else {
-      toast.error('Error in Creating Delivery note');
+      toast.error('Client name is mandatory');
     }
-    console.log('postSalesReturnApi res', postSalesReturnApi);
   };
 
   return {
@@ -284,6 +211,7 @@ const UseSalesReturnMasterHook = () => {
     saleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
     handleTabPressInSales,
+    setStateForDocStatus,
   };
 };
 

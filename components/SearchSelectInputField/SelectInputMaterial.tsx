@@ -138,9 +138,18 @@ const SelectInputMaterial = ({
         setShowDropdown(false);
       }
     };
+    const handleKeyDropdown = (e: any) => {
+      // Check if a key other than arrow keys or Enter key was pressed
+      if (![37, 38, 39, 40, 13].includes(e.keyCode)) {
+        setShowDropdown(false);
+      }
+    };
     document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleKeyDropdown);
+
     return () => {
       document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleKeyDropdown);
     };
   }, []);
   useEffect(() => {

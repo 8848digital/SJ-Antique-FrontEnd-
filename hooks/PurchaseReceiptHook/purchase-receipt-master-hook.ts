@@ -397,7 +397,7 @@ const useReadyReceiptKarigar = () => {
     );
     const productVal = values.custom_karigar;
 
-    if (isEmptyProductCode || productVal || isEmptyNetWt === '') {
+    if (isEmptyProductCode || isEmptyNetWt) {
       toast.error('Please fill all the required fields');
     } else if (productVal === ' ') {
       toast.error('Mandatory field Karigar');

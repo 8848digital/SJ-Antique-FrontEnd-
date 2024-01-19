@@ -205,6 +205,7 @@ const UseCustomerSaleHook = () => {
                     selectedCategory.OtCategory.type) /
                   100
                 : data[0]?.custom_other_wt,
+            custom_kun_pc: data[0]?.custom_kun_pcs,
             custom_pr_kun_wt: data[0]?.custom_kun_wt,
             custom_pr_cs_wt: data[0]?.custom_cs_wt,
             custom_pr_bb_wt: data[0]?.custom_bb_wt,

@@ -97,6 +97,7 @@ const DetailsPageSalesReturn = () => {
                   }
                   readOnlyFields={readOnlyFields}
                   defaultSalesDate={defaultSalesDate}
+                  setStateForDocStatus={setStateForDocStatus}
                 />
 
                 <CustomerSalesTable
