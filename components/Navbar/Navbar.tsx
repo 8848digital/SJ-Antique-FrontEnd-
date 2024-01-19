@@ -15,6 +15,7 @@ const Navbar = () => {
   const [showReceipt, setShowReceipts] = useState<any>(false);
   const [showSales, setShowSales] = useState<any>(false);
   const [showMaster, setShowMaster] = useState<any>(false);
+  const [showReport, setShowReport] = useState<any>(false);
 
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -35,6 +36,8 @@ const Navbar = () => {
                 setShowSales={setShowSales}
                 showMaster={showMaster}
                 setShowMaster={setShowMaster}
+                showReport={showReport}
+                setShowReport={setShowReport}
               />
             </div>
             <div className="col-lg-1 text-end">
@@ -65,11 +68,7 @@ const Navbar = () => {
           </div>
         </div>
         <hr className="mx-3 my-1" />
-        <ReadyReceiptsTabs
-          showReceipt={showReceipt}
-          showSales={showSales}
-          showMaster={showMaster}
-        />
+        <ReadyReceiptsTabs showReceipt={showReceipt} />
       </div>
     </div>
   );

@@ -1,14 +1,9 @@
 import Link from 'next/link';
-import styles from '../../styles/header.module.css';
-import SalesHeader from '../Header/SalesHeader';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import styles from '../../styles/header.module.css';
 
-const ReadyReceiptsTabs: any = ({
-  showMaster,
-  showSales,
-  showReceipt,
-}: any) => {
+const ReadyReceiptsTabs: any = ({ showReceipt }: any) => {
   const router = useRouter();
 
   const pathcontent = router?.asPath?.split('/');

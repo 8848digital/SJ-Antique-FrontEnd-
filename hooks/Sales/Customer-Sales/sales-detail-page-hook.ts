@@ -1,19 +1,17 @@
-import { useEffect, useState } from 'react';
-import UseCustomerSaleHook from './customer-sale-hook';
-import { useDispatch, useSelector } from 'react-redux';
+import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
+import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
+import DeleteApi from '@/services/api/general/delete-api';
+import PrintApi from '@/services/api/general/print-api';
 import {
   GetDetailOfDeliveryNote,
   get_detail_delivery_note_data,
 } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
-import UpdateDeliveryNoteApi from '@/services/api/Sales/put-update-delivery-note-api';
-import UpdateSalesDocStatusApi from '@/services/api/Sales/update-sales-docStatus-api';
-import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
-import PrintApi from '@/services/api/general/print-api';
-import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
-import DeleteApi from '@/services/api/general/delete-api';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import UseCustomerSaleHook from './customer-sale-hook';
 
 const UseCustomerSaleDetailHook = () => {
   const dispatch = useDispatch();
@@ -82,28 +80,6 @@ const UseCustomerSaleDetailHook = () => {
     }
   }, [DetailOfDeliveryNoteFromStore]);
 
-  // useEffect(() => {
-  //   if (DetailOfDeliveryNoteFromStore?.hasOwnProperty('data')) {
-  //     // setIsLoading(false);
-  //     // setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
-  //     // setSelectedClient(
-  //     //   DetailOfDeliveryNoteFromStore?.data?.custom_client_name
-  //     // );
-  //     // setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
-  //     setSeletedCategory({
-  //       KunCategory:
-  //         kunCsOtCategoryListData?.length > 0 &&
-  //         kunCsOtCategoryListData.filter((data: any) => {
-  //           data.name1 ===
-  //             DetailOfDeliveryNoteFromStore?.data?.custom_kun_category && data;
-  //         }),
-  //       CsCategory: DetailOfDeliveryNoteFromStore?.data?.custom_cs_category,
-  //       BBCategory: DetailOfDeliveryNoteFromStore?.data?.custom_bb_category,
-  //       OtCategory: DetailOfDeliveryNoteFromStore?.data?.custom_ot_category,
-  //     });
-  //   }
-  // }, [DetailOfDeliveryNoteFromStore]);
-
   useEffect(() => {
     if (DetailOfDeliveryNoteFromStore?.hasOwnProperty('data')) {
       // Extracting data from DetailOfDeliveryNoteFromStore
@@ -169,7 +145,21 @@ const UseCustomerSaleDetailHook = () => {
       DetailOfDeliveryNoteFromStore?.isLoading === 'succeeded'
     ) {
       setIsLoading(false);
-      setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
+      const parseNumericValue = (value: any) => {
+        const parsedValue = parseFloat(value);
+        return isNaN(parsedValue) ? 0 : parsedValue;
+      };
+      const processedItems = DetailOfDeliveryNoteFromStore?.data?.items.map(
+        (item: any) => {
+          return {
+            ...item,
+            custom_amount: parseNumericValue(item.custom_amount) || 0,
+            custom_cs_amt: parseNumericValue(item.custom_cs_amt) || 0,
+          };
+        }
+      );
+      setSalesTableData(processedItems);
+
       setSelectedClient(
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
@@ -179,6 +169,11 @@ const UseCustomerSaleDetailHook = () => {
     }
   }, [DetailOfDeliveryNoteFromStore]);
 
+  console.log(
+    salesTableData,
+    'saletabledata in field change',
+    DetailOfDeliveryNoteFromStore?.data?.items
+  );
   console.log('isLoading status', isLoading);
 
   const handleUpdateDeliveryNote: any = async () => {

@@ -288,9 +288,9 @@ const CustomerSalesTable = ({
                         className={` ${styles.customer_sale_input_field} `}
                         type="number"
                         min={0}
-                        value={
+                        value={Number(
                           Number(item.custom_cs) * Number(item.custom_cs_wt)
-                        }
+                        )}
                         defaultValue={item.custom_cs_amt}
                         readOnly
                         onChange={(e) =>
@@ -417,12 +417,12 @@ const CustomerSalesTable = ({
                         type="number"
                         min={0}
                         value={(
-                          Number(item.custom_cs_amt) +
+                          Number(item?.custom_cs_amt) +
                           Number(item?.custom_kun_amt) +
-                          Number(item.custom_ot_amt) +
-                          Number(item.custom_other)
+                          Number(item?.custom_ot_amt) +
+                          Number(item?.custom_other)
                         )?.toFixed(2)}
-                        defaultValue={item.custom_amount}
+                        defaultValue={Number(item.custom_amount)}
                         readOnly
                         onChange={(e) =>
                           handleSalesTableFieldChange(

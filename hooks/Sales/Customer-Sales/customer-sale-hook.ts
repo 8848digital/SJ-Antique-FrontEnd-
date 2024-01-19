@@ -129,6 +129,23 @@ const UseCustomerSaleHook = () => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
           // Update the field value
+          // const amount = () => {
+          //   if (fieldName === 'custom_cs') {
+          //     return (
+          //       value * Number(item.custom_cs_wt) +
+          //       Number(item?.custom_kun_amt) +
+          //       Number(item?.custom_ot_amt) +
+          //       Number(item?.custom_other)
+          //     );
+          //   } else if (fieldName === 'custom_kun') {
+          //     return (
+          //       value * Number(item?.custom_kun_pc) +
+          //       Number(item?.custom_cs_amt) +
+          //       Number(item?.custom_ot_amt) +
+          //       Number(item?.custom_other)
+          //     );
+          //   }
+          // };
           return {
             ...item,
             [fieldName]: value,
@@ -148,7 +165,7 @@ const UseCustomerSaleHook = () => {
                     Number(item?.custom_other_wt)),
             custom_cs_amt:
               fieldName === 'custom_cs'
-                ? value * Number(item.custom_cs_wt)
+                ? Number(item.custom_cs_wt) * value
                 : item.custom_cs_amt,
             custom_kun_amt:
               fieldName === 'custom_kun'
@@ -160,12 +177,14 @@ const UseCustomerSaleHook = () => {
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
                 : item.custom_ot_amt,
+            // custom_amount: amount(),
           };
         } else {
           return item;
         }
       });
     });
+    console.log(salesTableData, 'saletabledata in field change');
     setStateForDocStatus(true);
   };
 

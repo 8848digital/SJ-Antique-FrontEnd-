@@ -390,14 +390,16 @@ const useReadyReceiptKarigar = () => {
       (obj: any) => obj.product_code === ''
     );
     const isEmptyNetWt = values?.items?.some(
-      (obj: any) => obj.custom_net_wt === ''
+      (obj: any) => obj.custom_net_wt === 0
     );
     const isEmptyMaterial = values?.items?.some((obj: any) =>
       obj.table.some((vals: any) => vals.material === '')
     );
     const productVal = values.custom_karigar;
 
-    if (isEmptyProductCode || isEmptyNetWt) {
+    if (isEmptyProductCode) {
+      toast.error('Please fill all the required fields');
+    } else if (isEmptyNetWt) {
       toast.error('Please fill all the required fields');
     } else if (productVal === ' ') {
       toast.error('Mandatory field Karigar');

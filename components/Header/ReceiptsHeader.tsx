@@ -11,6 +11,8 @@ const ReceiptsHeader = ({
   setShowSales,
   showMaster,
   setShowMaster,
+  showReport,
+  setShowReport,
 }: any) => {
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -26,7 +28,10 @@ const ReceiptsHeader = ({
     if (value === 'sales') {
       setShowSales(true);
     }
-  }, [setShowMaster, setShowReceipts, setShowSales, value]);
+    if (value === 'report') {
+      setShowReport(true);
+    }
+  }, [setShowMaster, setShowReceipts, setShowSales, setShowReport, value]);
 
   const handleReadyRecipt = (val: any) => {
     switch (val) {
@@ -34,21 +39,31 @@ const ReceiptsHeader = ({
         setShowReceipts(true);
         setShowSales(false);
         setShowMaster(false);
+        setShowReport(false);
         break;
       case 'Sales':
         setShowSales(true);
         setShowReceipts(false);
         setShowMaster(false);
+        setShowReport(false);
         break;
       case 'Master':
         setShowMaster(true);
         setShowReceipts(false);
         setShowSales(false);
+        setShowReport(false);
+        break;
+      case 'Report':
+        setShowMaster(false);
+        setShowReceipts(false);
+        setShowSales(false);
+        setShowReport(true);
         break;
       default:
         setShowMaster(true);
         setShowReceipts(false);
         setShowSales(false);
+        setShowReport(false);
     }
   };
 
@@ -102,6 +117,20 @@ const ReceiptsHeader = ({
                 style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
               ></i>
               Sales
+            </button>
+          </Link>
+        </div>
+        <div className="col-lg-2 col-md-3 col-3 text-center">
+          <Link className="text-decoration-none btn-margin" href="/report">
+            <button
+              className={`${styles.button} ${showReport ? 'activeColor' : ''}`}
+              onClick={() => handleReadyRecipt('Report')}
+            >
+              <i
+                className="fa-regular fa-file icons-color mr-2"
+                style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
+              ></i>
+              Report
             </button>
           </Link>
         </div>
