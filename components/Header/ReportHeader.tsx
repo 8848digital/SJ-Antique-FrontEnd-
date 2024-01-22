@@ -11,26 +11,27 @@ const ReportHeader = () => {
       pathcontent !== null &&
       pathcontent?.includes('salereturns')) ||
     pathcontent?.includes('saleReturns');
-  const customerSaleValue =
+  const itemStatusReportValue =
     pathcontent?.length > 0 &&
     pathcontent !== null &&
-    (pathcontent?.includes('customersale') ||
-      pathcontent?.includes('customerSale'));
+    (pathcontent?.includes('itemStatusReport') ||
+      pathcontent?.includes('itemStatusReport'));
 
   const [active, setActive] = useState(0);
   return (
     <div className="d-flex justify-content-center">
       <Link
-        href="/report"
+        href="/report/itemStatusReport"
         className="text-decoration-none btn-margin"
         onClick={() => setActive(1)}
       >
         <button
           className={`${styles.button} ${
-            customerSaleValue ? 'activeColor' : ''
+            itemStatusReportValue ? 'activeColor' : ''
           } `}
         >
-          Report 1<i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
+          Item Status Report
+          <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>
       <Link

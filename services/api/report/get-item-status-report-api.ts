@@ -1,18 +1,18 @@
 import axios from 'axios';
 import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
-const getItemStatusReport = async (get_access_token: any) => {
+const getItemStatusReportApi = async (get_access_token: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_item_status_report&entity=report_item_status_api`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_item_status_report&entity=report_item_status_api&name=DOC-7`,
       getHeaders
     )
     .then((res: any) => {
       console.log('get item status report', res);
-      response = res?.data?.message?.data;
+      response = res;
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {
@@ -29,4 +29,4 @@ const getItemStatusReport = async (get_access_token: any) => {
   return response;
 };
 
-export default getItemStatusReport;
+export default getItemStatusReportApi;

@@ -50,6 +50,9 @@ const KundanTable = ({
             <th className="thead" scope="col">
               Ready Receipt Type
             </th>
+            {/* <th className="thead" scope="col">
+              Location
+            </th> */}
           </tr>
         </thead>
         <tbody>
@@ -108,6 +111,14 @@ const KundanTable = ({
                 disabled
               />
             </td>
+            {/* <td className="table_row">
+              <select
+                name="location"
+                className="form-control input-sm border border-secondary p-0"
+              >
+                <option selected>Mumbai</option>
+              </select>
+            </td> */}
           </tr>
         </tbody>
       </table>
