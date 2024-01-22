@@ -104,12 +104,12 @@ const UseCustomerSaleHook = () => {
     custom_other_wt: '',
     custom_net_wt: '',
     custom_cs: '',
-    custom_cs_amt: '',
+    custom_cs_amt: 0,
     custom_kun_pc: '',
     custom_kun: '',
-    custom_kun_amt: '',
+    custom_kun_amt: 0,
     custom_ot_: '',
-    custom_ot_amt: '',
+    custom_ot_amt: 0,
     custom_other: '',
     custom_amount: 0,
     warehouse: '',
@@ -200,35 +200,39 @@ const UseCustomerSaleHook = () => {
           return {
             ...tableData,
             custom_gross_wt: data[0]?.custom_gross_wt,
-            custom_kun_wt:
+            custom_kun_wt: Number(
               selectedCategory.KunCategory !== '' &&
-              selectedCategory?.KunCategory !== undefined
+                selectedCategory?.KunCategory !== undefined
                 ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
-                  100
-                : data[0]?.custom_kun_wt,
-            custom_cs_wt:
+                    100
+                : data[0]?.custom_kun_wt
+            ),
+            custom_cs_wt: Number(
               selectedCategory.CsCategory !== '' &&
-              selectedCategory?.CsCategory !== undefined
+                selectedCategory?.CsCategory !== undefined
                 ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
-                  100
-                : data[0]?.custom_cs_wt,
-            custom_bb_wt:
+                    100
+                : data[0]?.custom_cs_wt
+            ),
+            custom_bb_wt: Number(
               selectedCategory.BBCategory !== '' &&
-              selectedCategory?.BBCategory !== undefined
+                selectedCategory?.BBCategory !== undefined
                 ? data[0]?.custom_bb_wt - selectedCategory.BBCategory.type
-                : data[0].custom_bb_wt,
-            custom_other_wt:
+                : data[0].custom_bb_wt
+            ),
+            custom_other_wt: Number(
               selectedCategory.OtCategory !== '' &&
-              selectedCategory?.OtCategory !== undefined
+                selectedCategory?.OtCategory !== undefined
                 ? (data[0]?.custom_other_wt *
                     selectedCategory.OtCategory.type) /
-                  100
-                : data[0]?.custom_other_wt,
-            custom_kun_pc: data[0]?.custom_kun_pcs,
-            custom_pr_kun_wt: data[0]?.custom_kun_wt,
-            custom_pr_cs_wt: data[0]?.custom_cs_wt,
-            custom_pr_bb_wt: data[0]?.custom_bb_wt,
-            custom_pr_other_wt: data[0]?.custom_other_wt,
+                    100
+                : data[0]?.custom_other_wt
+            ),
+            custom_kun_pc: Number(data[0]?.custom_kun_pcs),
+            custom_pr_kun_wt: Number(data[0]?.custom_kun_wt),
+            custom_pr_cs_wt: Number(data[0]?.custom_cs_wt),
+            custom_pr_bb_wt: Number(data[0]?.custom_bb_wt),
+            custom_pr_other_wt: Number(data[0]?.custom_other_wt),
             warehouse: data[0].custom_warehouse,
           };
         } else {
@@ -290,12 +294,12 @@ const UseCustomerSaleHook = () => {
       custom_other_wt: '',
       custom_net_wt: '',
       custom_cs: '',
-      custom_cs_amt: '',
+      custom_cs_amt: 0,
       custom_kun_pc: '',
       custom_kun: '',
-      custom_kun_amt: '',
+      custom_kun_amt: 0,
       custom_ot_: '',
-      custom_ot_amt: '',
+      custom_ot_amt: 0,
       custom_other: '',
       custom_amount: 0,
       warehouse: '',
@@ -344,47 +348,58 @@ const UseCustomerSaleHook = () => {
         return {
           ...data,
           custom_gross_wt: data?.custom_gross_wt,
-          custom_kun_wt:
+          custom_kun_wt: Number(
             selectedCategory.KunCategory !== '' &&
-            selectedCategory?.KunCategory !== undefined
+              selectedCategory?.KunCategory !== undefined
               ? (kunInitial * selectedCategory?.KunCategory?.type) / 100
-              : kunInitial,
-          custom_cs_wt:
+              : kunInitial
+          ),
+          custom_cs_wt: Number(
             selectedCategory.CsCategory !== '' &&
-            selectedCategory?.CsCategory !== undefined
+              selectedCategory?.CsCategory !== undefined
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-              : csWtInitial,
-          custom_bb_wt:
+              : csWtInitial
+          ),
+          custom_bb_wt: Number(
             selectedCategory?.BBCategory !== '' &&
-            selectedCategory?.BBCategory !== undefined
+              selectedCategory?.BBCategory !== undefined
               ? bbWtInitial === 0
                 ? 0
                 : bbWtInitial - selectedCategory?.BBCategory?.type
-              : bbWtInitial,
-          custom_other_wt:
+              : bbWtInitial
+          ),
+          custom_other_wt: Number(
             selectedCategory.OtCategory !== '' &&
-            selectedCategory?.OtCategory !== undefined
+              selectedCategory?.OtCategory !== undefined
               ? (otWtInitial * selectedCategory.OtCategory?.type) / 100
-              : otWtInitial,
-          custom_cs_amt:
+              : otWtInitial
+          ),
+          custom_cs_amt: Number(
             (selectedCategory.CsCategory !== ''
               ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-              : Number(data?.custom_cs_wt)) * data?.custom_cs,
-          custom_ot_amt:
+              : Number(data?.custom_cs_wt)) * data?.custom_cs
+          ),
+          custom_ot_amt: Number(
             (selectedCategory.OtCategory !== ''
               ? (otWtInitial * selectedCategory?.OtCategory?.type) / 100
-              : Number(data?.custom_other_wt)) * data?.custom_ot_,
+              : Number(data?.custom_other_wt)) * data?.custom_ot_
+          ),
           custom_net_wt:
             Number(data?.custom_gross_wt) -
             Number(data?.custom_kun_wt) +
             Number(data?.custom_cs_wt) +
             Number(data?.custom_bb_wt) +
             Number(data?.custom_other_wt),
-          custom_amount:
-            Number(data.custom_cs_amt) +
-            Number(data.custom_kun_amt) +
-            Number(data.custom_ot_amt) +
-            Number(data.custom_other),
+          custom_amount: Number(
+            (Number.isNaN(data.custom_cs_amt)
+              ? 0
+              : Number(data?.custom_cs_amt)) +
+              Number(data?.custom_kun_amt) +
+              (Number.isNaN(data.custom_ot_amt)
+                ? 0
+                : Number(data?.custom_ot_amt)) +
+              Number(data?.custom_other)
+          )?.toFixed(2),
         };
       });
     setSalesTableData(updatedData);
@@ -434,11 +449,16 @@ const UseCustomerSaleHook = () => {
                   Number(data?.custom_cs_wt) +
                   Number(data?.custom_bb_wt) +
                   Number(data?.custom_other_wt)),
-          custom_amount:
-            Number(data.custom_cs_amt) +
-            Number(data.custom_kun) * Number(data.custom_kun_pc) +
-            Number(data.custom_ot_amt) +
-            Number(data.custom_other),
+          custom_amount: Number(
+            (Number.isNaN(data.custom_cs_amt)
+              ? 0
+              : Number(data?.custom_cs_amt)) +
+              Number(data?.custom_kun_amt) +
+              (Number.isNaN(data.custom_ot_amt)
+                ? 0
+                : Number(data?.custom_ot_amt)) +
+              Number(data?.custom_other)
+          )?.toFixed(2),
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
         };
       });

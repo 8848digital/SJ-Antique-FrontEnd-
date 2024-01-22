@@ -149,16 +149,16 @@ const UseCustomerSaleDetailHook = () => {
         const parsedValue = parseFloat(value);
         return isNaN(parsedValue) ? 0 : parsedValue;
       };
-      const processedItems = DetailOfDeliveryNoteFromStore?.data?.items.map(
-        (item: any) => {
-          return {
-            ...item,
-            custom_amount: parseNumericValue(item.custom_amount) || 0,
-            custom_cs_amt: parseNumericValue(item.custom_cs_amt) || 0,
-          };
-        }
-      );
-      setSalesTableData(processedItems);
+      // const processedItems = DetailOfDeliveryNoteFromStore?.data?.items.map(
+      //   (item: any) => {
+      //     return {
+      //       ...item,
+      //       custom_amount: parseNumericValue(item.custom_amount) || 0,
+      //       custom_cs_amt: parseNumericValue(item.custom_cs_amt) || 0,
+      //     };
+      //   }
+      // );
+      setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
 
       setSelectedClient(
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
@@ -169,11 +169,14 @@ const UseCustomerSaleDetailHook = () => {
     }
   }, [DetailOfDeliveryNoteFromStore]);
 
-  console.log(
-    salesTableData,
-    'saletabledata in field change',
-    DetailOfDeliveryNoteFromStore?.data?.items
-  );
+  if (DetailOfDeliveryNoteFromStore?.data?.items) {
+    console.log(
+      salesTableData,
+      'sales detail from api'
+      // DetailOfDeliveryNoteFromStore?.data?.items,
+      // typeof DetailOfDeliveryNoteFromStore?.data?.items[0].custom_cs_amt
+    );
+  }
   console.log('isLoading status', isLoading);
 
   const handleUpdateDeliveryNote: any = async () => {
@@ -189,6 +192,7 @@ const UseCustomerSaleDetailHook = () => {
           warehouse,
           ...updatedObject
         } = data;
+
         return {
           ...updatedObject,
           custom_net_wt:
@@ -204,11 +208,24 @@ const UseCustomerSaleDetailHook = () => {
                   Number(data?.custom_cs_wt) +
                   Number(data?.custom_bb_wt) +
                   Number(data?.custom_other_wt)),
-          custom_amount:
-            Number(data.custom_cs_amt) +
-            Number(data.custom_kun_amt) +
-            Number(data.custom_ot_amt) +
-            Number(data.custom_other),
+          custom_amount: Number(
+            (Number.isNaN(data.custom_cs_amt)
+              ? 0
+              : Number(data?.custom_cs_amt)) +
+              Number(data?.custom_kun_amt) +
+              (Number.isNaN(data.custom_ot_amt)
+                ? 0
+                : Number(data?.custom_ot_amt)) +
+              Number(data?.custom_other)
+          )?.toFixed(2),
+          // custom_cs_amt:
+          //   Number(data?.custom_cs_amt) === null
+          //     ? 0
+          //     : Number(data?.custom_cs_amt),
+          // custom_ot_amt:
+          //   Number(data?.custom_ot_amt) === null
+          //     ? 0
+          //     : Number(data?.custom_ot_amt),
         };
       });
     const values = {
