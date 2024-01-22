@@ -141,12 +141,26 @@ const UseSalesReturnMasterHook = () => {
       getItemCodeDetailsFun();
     }
   }, [selectedItemCodeForCustomerSale]);
+  const filteredTableDataForUpdate = (tableData: any) => {
+    const filteredTableData = tableData.filter((row: any) => {
+      // Check if there are no values except "idx"
+      const hasNoValues = Object.keys(row).every(
+        (key) => key === 'idx' || key === 'table' || row[key] === ''
+      );
 
+      // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
+      const shouldExclude = row.item_code === '';
+
+      return !hasNoValues && !shouldExclude;
+    });
+    return filteredTableData;
+  };
   const handleSRCreate: any = async () => {
+    const filteredData = filteredTableDataForUpdate(salesReturnTableData);
     const updatedData =
-      salesReturnTableData?.length > 0 &&
-      salesReturnTableData !== null &&
-      salesReturnTableData.map((data: any) => {
+      filteredData?.length > 0 &&
+      filteredData !== null &&
+      filteredData.map((data: any) => {
         const { warehouse, ...updatedObject } = data;
 
         return { ...updatedObject };

@@ -419,13 +419,27 @@ const UseCustomerSaleHook = () => {
     setStateForDocStatus(true);
     setItemCodeDropdownReset(true);
   };
+  const filteredTableDataForUpdate = (tableData: any) => {
+    const filteredTableData = tableData.filter((row: any) => {
+      // Check if there are no values except "idx"
+      const hasNoValues = Object.keys(row).every(
+        (key) => key === 'idx' || key === 'table' || row[key] === ''
+      );
 
+      // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
+      const shouldExclude = row.item_code === '';
+
+      return !hasNoValues && !shouldExclude;
+    });
+    return filteredTableData;
+  };
   const handleDNCreate: any = async () => {
+    const filteredData = filteredTableDataForUpdate(salesTableData);
     console.log('handle DN create', salesTableData);
     const updatedData =
-      salesTableData.length > 0 &&
-      salesTableData !== null &&
-      salesTableData.map((data: any) => {
+      filteredData.length > 0 &&
+      filteredData !== null &&
+      filteredData.map((data: any) => {
         const {
           custom_pr_bb_wt,
           custom_pr_cs_wt,

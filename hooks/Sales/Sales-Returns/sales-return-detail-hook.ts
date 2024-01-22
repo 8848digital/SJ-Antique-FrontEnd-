@@ -102,8 +102,22 @@ const UseSalesReturnDetailHook = () => {
       setIsLoading(false);
     }
   }, [DetailOfSalesReturnFromStore]);
+  const filteredTableDataForUpdate = (tableData: any) => {
+    const filteredTableData = tableData.filter((row: any) => {
+      // Check if there are no values except "idx"
+      const hasNoValues = Object.keys(row).every(
+        (key) => key === 'idx' || key === 'table' || row[key] === ''
+      );
 
+      // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
+      const shouldExclude = row.item_code === '';
+
+      return !hasNoValues && !shouldExclude;
+    });
+    return filteredTableData;
+  };
   const handleUpdateSalesReturn: any = async () => {
+    const filteredData = filteredTableDataForUpdate(salesReturnTableData);
     const values = {
       version: 'v1',
       method: 'put_delivery_note_sales_return',
@@ -111,7 +125,7 @@ const UseSalesReturnDetailHook = () => {
       name: query?.deliveryNoteId,
       custom_client_name: selectedClient,
       is_return: '1',
-      items: salesReturnTableData,
+      items: filteredData,
     };
     let updateSalesReturnApi: any = await UpdateSaleApi(
       loginAcessToken?.token,
