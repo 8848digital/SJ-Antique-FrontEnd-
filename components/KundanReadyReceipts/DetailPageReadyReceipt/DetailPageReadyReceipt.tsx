@@ -70,6 +70,9 @@ const DetailPageReadyReceipt = () => {
     HandleUpdateDocStatus,
     handleTabPressOnModal,
     setKunKarigarDropdownReset,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
   } = useReadyReceiptKarigar();
 
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
@@ -81,6 +84,7 @@ const DetailPageReadyReceipt = () => {
         setRecipitData(data);
         setReadyReceiptType(data?.custom_ready_receipt_type);
         setSelectedDropdownValue(data?.custom_karigar);
+        setSelectedLocation(data?.custom_store_location);
       });
     }
   }, [
@@ -143,6 +147,9 @@ const DetailPageReadyReceipt = () => {
                   setStateForDocStatus={setStateForDocStatus}
                   readOnlyFields={readOnlyFields}
                   setReadOnlyFields={setReadOnlyFields}
+                  warehouseListData={warehouseListData}
+                  selectedLocation={selectedLocation}
+                  setSelectedLocation={setSelectedLocation}
                 />
               </div>
               <div className="container d-flex justify-content-end p-o">

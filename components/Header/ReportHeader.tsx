@@ -6,11 +6,11 @@ import { useRouter } from 'next/router';
 const ReportHeader = () => {
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
-  const saleReturnValue =
+  const dailyQtyStatusValue =
     (pathcontent?.length > 0 &&
       pathcontent !== null &&
-      pathcontent?.includes('salereturns')) ||
-    pathcontent?.includes('saleReturns');
+      pathcontent?.includes('dailyQtyStatus')) ||
+    pathcontent?.includes('dailyQtyStatus');
   const itemStatusReportValue =
     pathcontent?.length > 0 &&
     pathcontent !== null &&
@@ -35,14 +35,17 @@ const ReportHeader = () => {
         </button>
       </Link>
       <Link
-        href="/report"
+        href="/report/dailyQtyStatus"
         className="text-decoration-none btn-margin"
         onClick={() => setActive(0)}
       >
         <button
-          className={`${styles.button} ${saleReturnValue ? 'activeColor' : ''}`}
+          className={`${styles.button} ${
+            dailyQtyStatusValue ? 'activeColor' : ''
+          }`}
         >
-          Report 2<i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
+          Daily Quantity Status
+          <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>
     </div>

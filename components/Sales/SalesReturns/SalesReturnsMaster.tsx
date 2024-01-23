@@ -30,6 +30,11 @@ const SaleReturnsMaster = () => {
     saleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
     handleTabPressInSales,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
+    setDeliveryNoteData,
+    deliveryNoteData,
   }: any = UseSalesReturnMasterHook();
 
   // const {} = UseSalesReturnDetailHook();
@@ -115,6 +120,11 @@ const SaleReturnsMaster = () => {
                   }))
                 }
                 title="Sales Return No"
+                warehouseListData={warehouseListData}
+                selectedLocation={selectedLocation}
+                setSelectedLocation={setSelectedLocation}
+                setDeliveryNoteData={setDeliveryNoteData}
+                deliveryNoteData={deliveryNoteData}
               />
 
               <CustomerSalesTable

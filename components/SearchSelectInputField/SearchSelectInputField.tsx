@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { clearScreenDown } from 'readline';
 
 const SearchSelectInputField = ({
   karigarData,
   recipitData,
   setRecipitData,
   defaultValue,
-  kundanKarigarData,
   selectedDropdownValue,
   setSelectedDropdownValue,
   setStateForDocStatus,
@@ -16,6 +14,7 @@ const SearchSelectInputField = ({
   style,
   clientGroupList,
   handleSelectClientGroup,
+  name,
 }: any) => {
   console.log('karigar dataa', karigarData);
 
@@ -90,8 +89,14 @@ const SearchSelectInputField = ({
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
 
-    if (setRecipitData !== undefined) {
+    if (setRecipitData !== undefined && name === 'custom_karigar') {
       setRecipitData({ ...recipitData, custom_karigar: data?.karigar_name });
+    }
+    if (setRecipitData !== undefined && name === 'custom_store_location') {
+      setRecipitData({
+        ...recipitData,
+        custom_store_location: selectedDropdownValue,
+      });
     }
 
     if (setStateForDocStatus !== undefined) {
@@ -114,7 +119,6 @@ const SearchSelectInputField = ({
         e.preventDefault();
         setShowDropdown(true);
         setSelectedIndex(-1);
-        // setFilterDropdownList(kundanKarigarData);
       } else if (e.key === 'ArrowDown' && showDropdown) {
         setSelectedIndex((prevIndex: any) =>
           prevIndex < filterDropdownList?.length - 1 ? prevIndex + 1 : prevIndex
@@ -155,10 +159,16 @@ const SearchSelectInputField = ({
     setFilterDropdownList(updatedFilterList);
     setNoRecordsFound(true);
 
-    if (setRecipitData !== undefined) {
+    if (setRecipitData !== undefined && name === 'custom_karigar') {
       setRecipitData({
         ...recipitData,
         custom_karigar: selectedDropdownValue,
+      });
+    }
+    if (setRecipitData !== undefined && name === 'custom_store_location') {
+      setRecipitData({
+        ...recipitData,
+        custom_store_location: selectedDropdownValue,
       });
     }
 
@@ -192,7 +202,7 @@ const SearchSelectInputField = ({
     <div>
       <input
         type="text"
-        name="custom_karigar"
+        name={name}
         className={className}
         placeholder={placeholder}
         onBlur={HandleClientBlur}

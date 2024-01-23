@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import ReportHeader from '../Header/ReportHeader';
-import useItemStatusReportHook from '@/hooks/Report/item-status-report-hook';
+import { useState } from 'react';
 import styles from '../../styles/readyReceipts.module.css';
+import ReportHeader from '../Header/ReportHeader';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
+import ReportFilterListing from './ReportFilterListing';
 
-const ItemStatusReport = () => {
-  const { itemStatusReportState } = useItemStatusReportHook();
+const ItemStatusReport: any = ({ itemStatusReportState, reportName }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
   const HandleTableViewRows: any = (data: any) => {
@@ -15,7 +14,7 @@ const ItemStatusReport = () => {
     <div className="container-lg">
       <ReportHeader />
       <div className="d-flex justify-content-between">
-        <h4>Item Status Report</h4>
+        <h4>{reportName}</h4>
         <button
           type="submit"
           // onClick={handleEmptyDeliveryNote}
@@ -24,6 +23,7 @@ const ItemStatusReport = () => {
           Print
         </button>
       </div>
+      <ReportFilterListing reportName={reportName} />
       <div className="table-responsive">
         {itemStatusReportState?.length > 0 && (
           <div className="text-end pe-3 p-0 text-gray small ">

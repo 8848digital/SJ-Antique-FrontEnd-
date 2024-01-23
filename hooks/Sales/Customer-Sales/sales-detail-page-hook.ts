@@ -41,6 +41,11 @@ const UseCustomerSaleDetailHook = () => {
     setItemCodeDropdownReset,
     HandleUpdateDocStatus,
     handleTabPressInSales,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
+    deliveryNoteData,
+    setDeliveryNoteData,
   }: any = UseCustomerSaleHook();
 
   console.log('selected category default', selectedCategory);
@@ -163,6 +168,9 @@ const UseCustomerSaleDetailHook = () => {
       setSelectedClient(
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
+      setSelectedLocation(
+        DetailOfDeliveryNoteFromStore?.data?.custom_store_location
+      );
       setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
     } else {
       setIsLoading(false);
@@ -248,6 +256,10 @@ const UseCustomerSaleDetailHook = () => {
       entity: 'delivery_note_api',
       name: query?.deliveryNoteId,
       custom_client_name: selectedClient,
+      custom_store_location:
+        selectedLocation !== '' && selectedLocation !== undefined
+          ? selectedLocation
+          : 'Mumbai',
       custom_kun_category: selectedCategory?.KunCategory?.name1,
       custom_cs_category: selectedCategory?.CsCategory?.name1,
       custom_bb_category: selectedCategory?.BBCategory?.name1,
@@ -375,6 +387,11 @@ const UseCustomerSaleDetailHook = () => {
     setItemCodeDropdownReset,
     handleTabPressInSales,
     filteredTableDataForUpdate,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
+    deliveryNoteData,
+    setDeliveryNoteData,
   };
 };
 

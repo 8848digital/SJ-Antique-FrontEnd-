@@ -9,6 +9,7 @@ import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
+import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
 
 const UseSalesReturnMasterHook = () => {
   const router = useRouter();
@@ -37,10 +38,15 @@ const UseSalesReturnMasterHook = () => {
     handleDeleteSalesReturn,
     handleTabPressInSales,
     setStateForDocStatus,
+    selectedLocation,
+    setSelectedLocation,
   }: any = UseCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
-
+  const [deliveryNoteData, setDeliveryNoteData] = useState({
+    custom_store_location: '',
+  });
   const [itemList, setItemList] = useState<any>([]);
+  const [warehouseListData, setWarehouseListData] = useState<any>();
 
   const deliveryNoteListParams = {
     version: 'v1',
@@ -50,13 +56,15 @@ const UseSalesReturnMasterHook = () => {
 
   useEffect(() => {
     const getDataFromapi: any = async () => {
-      let itemListApi: any = await getItemListInSalesApi(loginAcessToken.token);
+      const itemListApi: any = await getItemListInSalesApi(
+        loginAcessToken.token
+      );
 
       if (itemListApi?.data?.data?.length > 0) {
         setItemList(itemListApi?.data?.data);
       }
 
-      let ClientNameApi: any = await getClientApi(loginAcessToken.token);
+      const ClientNameApi: any = await getClientApi(loginAcessToken.token);
       if (ClientNameApi?.data?.message?.status === 'success') {
         setClientNameListData(ClientNameApi?.data?.message?.data);
       }
@@ -66,6 +74,10 @@ const UseSalesReturnMasterHook = () => {
       );
       if (deliveryNoteApi?.data?.message?.status === 'success') {
         setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
+      }
+      const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
+      if (warehouseData?.data?.message?.status === 'success') {
+        setWarehouseListData(warehouseData?.data?.message?.data);
       }
     };
 
@@ -165,16 +177,15 @@ const UseSalesReturnMasterHook = () => {
 
         return { ...updatedObject };
       });
-    console.log(
-      'handleSR create values',
-      updatedData,
-      selectedClient,
-      selectedClientGroup
-    );
 
     const values = {
+      ...deliveryNoteData,
       custom_client_name: selectedClient,
       custom_client_group: selectedClientGroup,
+      custom_store_location:
+        selectedLocation !== '' && selectedLocation !== undefined
+          ? selectedLocation
+          : 'Mumbai',
       is_return: '1',
       version: 'v1',
       method: 'create_delivery_note_sales_return',
@@ -182,6 +193,7 @@ const UseSalesReturnMasterHook = () => {
 
       items: updatedData,
     };
+    console.log(values, 'values in sr dn');
     const clientVal = values?.custom_client_name;
     if (clientVal !== '') {
       const postSalesReturnApi: any = await PostSalesApi(
@@ -226,6 +238,11 @@ const UseSalesReturnMasterHook = () => {
     handleDeleteSalesReturn,
     handleTabPressInSales,
     setStateForDocStatus,
+    warehouseListData,
+    setSelectedLocation,
+    selectedLocation,
+    deliveryNoteData,
+    setDeliveryNoteData,
   };
 };
 

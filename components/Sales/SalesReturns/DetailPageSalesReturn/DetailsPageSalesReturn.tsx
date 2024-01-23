@@ -42,6 +42,7 @@ const DetailsPageSalesReturn = () => {
     handleAmendButtonForSalesReturn,
     setItemCodeDropdownReset,
     handleTabPressInSales,
+    warehouseListData,
   }: any = UseSalesReturnDetailHook();
 
   const { query }: any = useRouter();
@@ -98,6 +99,11 @@ const DetailsPageSalesReturn = () => {
                   readOnlyFields={readOnlyFields}
                   defaultSalesDate={defaultSalesDate}
                   setStateForDocStatus={setStateForDocStatus}
+                  warehouseListData={warehouseListData}
+                  // selectedLocation={selectedLocation}
+                  // setSelectedLocation={setSelectedLocation}
+                  // setDeliveryNoteData={setDeliveryNoteData}
+                  // deliveryNoteData={deliveryNoteData}
                 />
 
                 <CustomerSalesTable

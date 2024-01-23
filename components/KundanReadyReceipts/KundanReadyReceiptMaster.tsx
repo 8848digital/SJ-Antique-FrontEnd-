@@ -59,7 +59,9 @@ const ReadyReceiptKundanKarigarMaster = () => {
     handleClearFileUploadInput,
     handleUpdateReceipt,
     setMatWt,
-
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -131,6 +133,9 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   setStateForDocStatus={setStateForDocStatus}
                   readOnlyFields={readOnlyFields}
                   setReadOnlyFields={setReadOnlyFields}
+                  warehouseListData={warehouseListData}
+                  selectedLocation={selectedLocation}
+                  setSelectedLocation={setSelectedLocation}
                 />
               </div>
               <div className="container d-flex justify-content-end p-o">

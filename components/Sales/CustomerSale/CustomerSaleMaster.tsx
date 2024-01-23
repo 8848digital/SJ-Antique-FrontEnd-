@@ -38,6 +38,11 @@ const CustomerSaleMaster = () => {
     setSelectedItemCode,
     HandleUpdateDocStatus,
     handleTabPressInSales,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
+    setDeliveryNoteData,
+    deliveryNoteData,
   }: any = UseCustomerSaleHook();
 
   console.log(deliveryNoteListing, 'client name in listing');
@@ -115,6 +120,11 @@ const CustomerSaleMaster = () => {
               handleSelectClientGroup={handleSelectClientGroup}
               clientGroupList={clientGroupList}
               title="Sales No"
+              warehouseListData={warehouseListData}
+              selectedLocation={selectedLocation}
+              setSelectedLocation={setSelectedLocation}
+              setDeliveryNoteData={setDeliveryNoteData}
+              deliveryNoteData={deliveryNoteData}
             />
             <CustomerSalesTable2
               kunCsOtCategoryListData={kunCsOtCategoryListData}

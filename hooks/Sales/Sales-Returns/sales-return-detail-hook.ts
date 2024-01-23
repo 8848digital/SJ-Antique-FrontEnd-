@@ -41,6 +41,10 @@ const UseSalesReturnDetailHook = () => {
     HandleUpdateDocStatus,
     handleDeleteSalesReturn,
     handleTabPressInSales,
+    selectedLocation,
+    setSelectedLocation,
+    deliveryNoteData,
+    setDeliveryNoteData,
   }: any = UseCustomSalesReturnHook();
 
   const {
@@ -48,6 +52,7 @@ const UseSalesReturnDetailHook = () => {
     clientNameListData,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
+    warehouseListData,
   }: any = UseSalesReturnMasterHook();
 
   const loginAcessToken = useSelector(get_access_token);
@@ -97,6 +102,9 @@ const UseSalesReturnDetailHook = () => {
       setIsLoading(false);
       setSalesReturnTableData(DetailOfSalesReturnFromStore?.data?.items);
       setSelectedClient(DetailOfSalesReturnFromStore?.data?.custom_client_name);
+      setSelectedLocation(
+        DetailOfSalesReturnFromStore?.data?.custom_store_location
+      );
       setDefaultSalesDate(DetailOfSalesReturnFromStore?.data?.posting_date);
     } else {
       setIsLoading(false);
@@ -119,11 +127,16 @@ const UseSalesReturnDetailHook = () => {
   const handleUpdateSalesReturn: any = async () => {
     const filteredData = filteredTableDataForUpdate(salesReturnTableData);
     const values = {
+      ...deliveryNoteData,
       version: 'v1',
       method: 'put_delivery_note_sales_return',
       entity: 'delivery_note_api',
       name: query?.deliveryNoteId,
       custom_client_name: selectedClient,
+      custom_store_location:
+        selectedLocation !== '' && selectedLocation !== undefined
+          ? selectedLocation
+          : 'Mumbai',
       is_return: '1',
       items: filteredData,
     };
@@ -250,6 +263,11 @@ const UseSalesReturnDetailHook = () => {
     setItemCodeDropdownReset,
     setSaleReturnDeliveryNoteListing,
     handleTabPressInSales,
+    warehouseListData,
+    deliveryNoteData,
+    setDeliveryNoteData,
+    selectedLocation,
+    setSelectedLocation,
   };
 };
 

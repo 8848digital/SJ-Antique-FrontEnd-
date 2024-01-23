@@ -15,6 +15,9 @@ const KundanTable = ({
   defaultKarigarData,
   setStateForDocStatus,
   readOnlyFields,
+  warehouseListData,
+  selectedLocation,
+  setSelectedLocation,
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
@@ -50,9 +53,9 @@ const KundanTable = ({
             <th className="thead" scope="col">
               Ready Receipt Type
             </th>
-            {/* <th className="thead" scope="col">
+            <th className="thead" scope="col">
               Location
-            </th> */}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -82,6 +85,7 @@ const KundanTable = ({
                 placeholder={'Karigar Name'}
                 className={'form-control input-sm border border-secondary'}
                 readOnlyFields={readOnlyFields}
+                name="custom_karigar"
               />
             </td>
             <td className="table_row">
@@ -111,14 +115,26 @@ const KundanTable = ({
                 disabled
               />
             </td>
-            {/* <td className="table_row">
-              <select
-                name="location"
-                className="form-control input-sm border border-secondary p-0"
-              >
-                <option selected>Mumbai</option>
-              </select>
-            </td> */}
+            <td className="table_row">
+              <SearchSelectInputField
+                karigarData={
+                  warehouseListData?.length > 0 &&
+                  warehouseListData !== null &&
+                  warehouseListData.map((data: any) => ({
+                    karigar_name: data.custom_store_location,
+                  }))
+                }
+                defaultValue={'Mumbai'}
+                recipitData={recieptData}
+                setRecipitData={setRecipitData}
+                selectedDropdownValue={selectedLocation}
+                setSelectedDropdownValue={setSelectedLocation}
+                setStateForDocStatus={setStateForDocStatus}
+                className={'form-control input-sm border border-secondary'}
+                readOnlyFields={readOnlyFields}
+                name="custom_store_location"
+              />
+            </td>
           </tr>
         </tbody>
       </table>

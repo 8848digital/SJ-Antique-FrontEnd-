@@ -13,6 +13,7 @@ import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import postMaterialApi from '@/services/api/PurchaseReceipt/post-material-api';
 import UseCustomReceiptHook from './custom-receipt-hook';
+import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
 
 const useReadyReceiptKarigar = () => {
   const { query } = useRouter();
@@ -30,6 +31,7 @@ const useReadyReceiptKarigar = () => {
     remarks: '',
     custom_ready_receipt_type: readyReceiptType,
     posting_date: '',
+    custom_store_location: '',
   });
 
   const [clickBtn, setClickBtn] = useState<boolean>(false);
@@ -37,6 +39,7 @@ const useReadyReceiptKarigar = () => {
   const [karigarData, setKarigarData] = useState<any>();
   const [kundanKarigarData, setKundanKarigarData] = useState<any>();
   const [materialListData, setMaterialListData] = useState<any>();
+  const [warehouseListData, setWarehouseListData] = useState<any>();
   const [activeModalId, setActiveModalId] = useState<any>(null);
 
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
@@ -46,13 +49,17 @@ const useReadyReceiptKarigar = () => {
   let disabledValue: any;
 
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
-
+  const [selectedLocation, setSelectedLocation] = useState<any>();
   useEffect(() => {
     setRecipitData({
       ...recipitData,
       custom_ready_receipt_type: readyReceiptType,
+      custom_store_location:
+        selectedLocation !== '' && selectedLocation !== undefined
+          ? selectedLocation
+          : 'Mumbai',
     });
-  }, [readyReceiptType]);
+  }, [readyReceiptType, selectedLocation]);
 
   const {
     HandleDeleteReceipt,
@@ -114,10 +121,14 @@ const useReadyReceiptKarigar = () => {
       const stateData: any = await getKarigarApi(loginAcessToken.token);
       const KundanKarigarAPI = await kundanKarigarApi(loginAcessToken.token);
       const materialListApi = await materialApi(loginAcessToken.token);
-      console.log(KundanKarigarAPI, 'stateData');
+      const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
+      console.log(warehouseData, 'stateData');
       setKarigarData(stateData);
       setKundanKarigarData(KundanKarigarAPI);
       setMaterialListData(materialListApi);
+      if (warehouseData?.data?.message?.status === 'success') {
+        setWarehouseListData(warehouseData?.data?.message?.data);
+      }
     };
     getStateData();
   }, []);
@@ -201,15 +212,7 @@ const useReadyReceiptKarigar = () => {
       const total = Number(accu) + Number(weight);
       return total;
     }, 0);
-    // const piecesAddition = materialWeight.reduce((accu: any, val: any) => {
-    //   console.log(accu, 'accu23', val);
-    //   let pcs = val.pcs;
-    //   if (val.pcs === '') {
-    //     pcs = 0;
-    //   }
-    //   const total = Number(accu) + Number(pcs);
-    //   return total;
-    // }, 0);
+
     const updatedMaterialVal = materialWeight.map((item: any) => {
       return {
         ...item,
@@ -264,14 +267,7 @@ const useReadyReceiptKarigar = () => {
           ...row,
           table: row.table.map((tableItem: any, index: any) => ({
             ...tableItem,
-            // weight:
-            //   index === 0 && matWt?.tableMatWt !== ''
-            //     ? matWt?.tableMatWt
-            //     : tableItem?.weight,
-            // pcs:
-            //   index === 0 && matWt?.bbPcs !== ''
-            //     ? matWt?.bbPcs
-            //     : tableItem?.pcs,
+
             amount:
               (Number(tableItem.pcs) || 0) * (Number(tableItem.piece_) || 0) +
               (Number(tableItem.carat) || 0) * (Number(tableItem.carat_) || 0) +
@@ -386,6 +382,7 @@ const useReadyReceiptKarigar = () => {
       ...recipitData,
       items: modalValue,
     };
+    console.log(values, 'values on PR create');
     const isEmptyProductCode = values?.items?.some(
       (obj: any) => obj.product_code === ''
     );
@@ -416,7 +413,6 @@ const useReadyReceiptKarigar = () => {
         router.push(
           `${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`
         );
-
         toast.success('Purchase Receipt Created Successfully');
       } else {
         toast.error('Error in Creating Purchase Receipt');
@@ -430,6 +426,7 @@ const useReadyReceiptKarigar = () => {
       remarks: '',
       custom_ready_receipt_type: readyReceiptType,
       posting_date: '',
+      custom_store_location: 'Mumbai',
     });
     setTableData([initialTableState]);
     setSelectedDropdownValue('');
@@ -456,20 +453,8 @@ const useReadyReceiptKarigar = () => {
   const handleUpdateReceipt: any = async () => {
     console.log('update receipt', tableData);
 
-    // const filteredTableData = tableData.filter((row: any) => {
-    //   // Check if there are no values except "idx"
-    //   const hasNoValues = Object.keys(row).every(
-    //     (key) => key === 'idx' || key === 'table' || row[key] === ''
-    //   );
-
-    //   // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
-    //   const shouldExclude =
-    //     row.product_code === '' && Number(row.custom_gross_wt) === 0;
-
-    //   return !hasNoValues && !shouldExclude;
-    // });
     const filteredDataa = filteredTableDataForUpdate(tableData);
-    // filteredTableData(tableData);
+
     console.log('filtered tablee data', filteredDataa);
     const updatedtableData =
       filteredDataa?.length > 0 &&
@@ -679,6 +664,9 @@ const useReadyReceiptKarigar = () => {
     lastInputRef,
     firstInputRef,
     setMatWt,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
   };
 };
 

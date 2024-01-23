@@ -49,6 +49,11 @@ const DetailPageCustomerSale = () => {
     setItemCodeDropdownReset,
     HandleUpdateDocStatus,
     handleTabPressInSales,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
+    deliveryNoteData,
+    setDeliveryNoteData,
   }: any = UseCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -97,6 +102,11 @@ const DetailPageCustomerSale = () => {
                 readOnlyFields={readOnlyFields}
                 setStateForDocStatus={setStateForDocStatus}
                 defaultSalesDate={defaultSalesDate}
+                warehouseListData={warehouseListData}
+                selectedLocation={selectedLocation}
+                setSelectedLocation={setSelectedLocation}
+                setDeliveryNoteData={setDeliveryNoteData}
+                deliveryNoteData={deliveryNoteData}
               />
               <CustomerSalesTable2
                 kunCsOtCategoryListData={kunCsOtCategoryListData}

@@ -1,17 +1,17 @@
 import axios from 'axios';
 import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
-const getItemStatusReportApi = async (get_access_token: any) => {
+const getWarehouseListApi = async (get_access_token: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_item_status_report&entity=report_item_status_api&name=DOC-7`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_warehouse_list&entity=warehouse_list_api`,
       getHeaders
     )
     .then((res: any) => {
-      console.log('get item status report', res);
+      console.log('get warehouse list', res);
       response = res;
     })
     .catch((err: any) => {
@@ -29,4 +29,4 @@ const getItemStatusReportApi = async (get_access_token: any) => {
   return response;
 };
 
-export default getItemStatusReportApi;
+export default getWarehouseListApi;

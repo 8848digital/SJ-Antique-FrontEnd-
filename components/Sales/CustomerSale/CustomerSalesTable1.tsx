@@ -14,6 +14,11 @@ const CustomerSalesTable1 = ({
   setStateForDocStatus,
   defaultSalesDate,
   title,
+  warehouseListData,
+  selectedLocation,
+  setSelectedLocation,
+  setDeliveryNoteData,
+  deliveryNoteData,
 }: any) => {
   const { query } = useRouter();
 
@@ -41,6 +46,9 @@ const CustomerSalesTable1 = ({
                 Sales Type
               </th>
             )}
+            <th className="thead" scope="col">
+              Location
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -92,6 +100,26 @@ const CustomerSalesTable1 = ({
                 />
               </td>
             )}
+            <td className="table_row">
+              <SearchSelectInputField
+                karigarData={
+                  warehouseListData?.length > 0 &&
+                  warehouseListData !== null &&
+                  warehouseListData.map((data: any) => ({
+                    karigar_name: data.custom_store_location,
+                  }))
+                }
+                recipitData={deliveryNoteData}
+                setRecipitData={setDeliveryNoteData}
+                setSelectedDropdownValue={setSelectedLocation}
+                selectedDropdownValue={selectedLocation}
+                defaultValue={'Mumbai'}
+                className={'form-control input-sm border border-secondary'}
+                readOnlyFields={readOnlyFields}
+                setStateForDocStatus={setStateForDocStatus}
+                name="custom_store_location"
+              />
+            </td>
           </tr>
         </tbody>
       </table>

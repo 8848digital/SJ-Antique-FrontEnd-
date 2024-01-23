@@ -17,6 +17,7 @@ import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listi
 import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import { GetDetailOfDeliveryNote } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
+import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
 
 const UseCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -46,8 +47,12 @@ const UseCustomerSaleHook = () => {
     OtCategory: '',
   });
 
-  const [deliveryNoteData, setDeliveryNoteData] = useState({});
+  const [deliveryNoteData, setDeliveryNoteData] = useState({
+    custom_store_location: '',
+  });
+  const [warehouseListData, setWarehouseListData] = useState<any>();
   const [selectedClient, setSelectedClient] = useState<string>('');
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
   const [clientGroupList, setClientGroupList] = useState();
   const [itemCodeDropdownReset, setItemCodeDropdownReset] =
@@ -55,9 +60,11 @@ const UseCustomerSaleHook = () => {
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
-      let kunCsOtCategoryApi: any = await getKunCsOtCategoryApi(
+      const kunCsOtCategoryApi: any = await getKunCsOtCategoryApi(
         loginAcessToken.token
       );
+      const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
+
       if (kunCsOtCategoryApi?.data?.message?.status === 'success') {
         setKunCsOtCategoryListData(kunCsOtCategoryApi?.data?.message?.data);
       }
@@ -85,11 +92,16 @@ const UseCustomerSaleHook = () => {
       if (clientGroupData?.data?.message?.status === 'success') {
         setClientGroupList(clientGroupData?.data?.message?.data);
       }
+      if (warehouseData?.data?.message?.status === 'success') {
+        setWarehouseListData(warehouseData?.data?.message?.data);
+      }
     };
 
     getKunCsOTCategoryData();
   }, []);
-
+  useEffect(() => {
+    setSelectedLocation('Mumbai');
+  }, []);
   const SalesTableInitialState: any = {
     idx: 1,
     custom_pr_bb_wt: '',
@@ -128,24 +140,6 @@ const UseCustomerSaleHook = () => {
     setSalesTableData((prevData: any) => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
-          // Update the field value
-          // const amount = () => {
-          //   if (fieldName === 'custom_cs') {
-          //     return (
-          //       value * Number(item.custom_cs_wt) +
-          //       Number(item?.custom_kun_amt) +
-          //       Number(item?.custom_ot_amt) +
-          //       Number(item?.custom_other)
-          //     );
-          //   } else if (fieldName === 'custom_kun') {
-          //     return (
-          //       value * Number(item?.custom_kun_pc) +
-          //       Number(item?.custom_cs_amt) +
-          //       Number(item?.custom_ot_amt) +
-          //       Number(item?.custom_other)
-          //     );
-          //   }
-          // };
           return {
             ...item,
             [fieldName]: value,
@@ -481,6 +475,10 @@ const UseCustomerSaleHook = () => {
       ...deliveryNoteData,
       custom_client_name: selectedClient,
       custom_client_group: selectedClientGroup,
+      custom_store_location:
+        selectedLocation !== '' && selectedLocation !== undefined
+          ? selectedLocation
+          : 'Mumbai',
       version: 'v1',
       method: 'create_delivery_note',
       entity: 'delivery_note_api',
@@ -490,7 +488,7 @@ const UseCustomerSaleHook = () => {
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
-
+    console.log(values, 'values in delivery note');
     let reqField = values.custom_client_name;
     if (reqField === '') {
       toast.error('Client Name is Empty');
@@ -620,6 +618,11 @@ const UseCustomerSaleHook = () => {
     setSelectedItemCode,
     HandleUpdateDocStatus,
     handleTabPressInSales,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
+    setDeliveryNoteData,
+    deliveryNoteData,
   };
 };
 
