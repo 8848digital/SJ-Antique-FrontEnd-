@@ -2,7 +2,6 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getMaterialGroupApi from '@/services/api/Master/get-material-group-api';
 import postGroupDataApi from '@/services/api/Master/post-client-group-api';
 import postMaterialMasterApi from '@/services/api/Master/post-material-name';
@@ -23,6 +22,7 @@ const useMaterialHook = () => {
   const [errorM, setErrorM] = useState('');
   const [materialGroupList, setMaterialGroupList] = useState();
   const [selectedMaterialGroup, setSelectedMaterialGroup] = useState();
+  const [matDropdownReset, setMatDropDownReset] = useState<boolean>(false);
   useEffect(() => {
     const getStateData: any = async () => {
       const materialData = await materialApi(loginAcessToken.token);
@@ -84,6 +84,7 @@ const useMaterialHook = () => {
         material: '',
         material_abbr: '',
       });
+      setMatDropDownReset(true);
     }
   };
   // post material group
@@ -135,6 +136,8 @@ const useMaterialHook = () => {
     inputValueM,
     selectedMaterialGroup,
     setSelectedMaterialGroup,
+    matDropdownReset,
+    setMatDropDownReset,
   };
 };
 export default useMaterialHook;

@@ -94,6 +94,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
               purchasRecieptListParams={purchasRecieptListParams}
               printApiMethod={'get_print_purchase_receipt'}
               printApiEntity={'print_purchase_receipt'}
+              kunKarigarDropdownReset={kunKarigarDropdownReset}
+              setKunKarigarDropdownReset={setKunKarigarDropdownReset}
             />
           </div>
           <div
@@ -136,6 +138,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   warehouseListData={warehouseListData}
                   selectedLocation={selectedLocation}
                   setSelectedLocation={setSelectedLocation}
+                  kunKarigarDropdownReset={kunKarigarDropdownReset}
+                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                 />
               </div>
               <div className="container d-flex justify-content-end p-o">

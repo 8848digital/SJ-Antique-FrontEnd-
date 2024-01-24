@@ -33,6 +33,8 @@ const IndexPage = () => {
     inputValueM,
     selectedMaterialGroup,
     setSelectedMaterialGroup,
+    matDropdownReset,
+    setMatDropDownReset,
   }: any = useMaterialHook();
   const {
     clientList,
@@ -55,6 +57,8 @@ const IndexPage = () => {
     HandleClientGrpValue,
     inputValue1,
     clientGroupList,
+    selectDropDownReset,
+    setSelectDropDownReset,
   }: any = useClientHook();
   console.log(materialGroupList, 'indexPage material group data');
   const router = useRouter();
@@ -150,6 +154,8 @@ const IndexPage = () => {
           clientGroup={materialGroup}
           setSearchClient={setSelectedMaterialGroup}
           searchClient={selectedMaterialGroup}
+          selectDropDownReset={matDropdownReset}
+          setSelectDropDownReset={setMatDropDownReset}
         />
       )}
       {key === 'client' && (
@@ -175,6 +181,8 @@ const IndexPage = () => {
           tab2={'Create New Client Name'}
           setSearchClient={setSearchClient}
           searchClient={searchClient}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
         />
       )}
       {key === 'kunCsOtCategory' && (

@@ -11,6 +11,8 @@ const FilterKundanReadyReceiptListing = ({
   setSearchKarigar,
   colPlaceholder1,
   colPlaceholder2,
+  kunKarigarDropdownReset,
+  setKunKarigarDropdownReset,
 }: any) => {
   console.log('receipt no list', receiptNoList);
   let ReceiptNumber: any =
@@ -33,6 +35,8 @@ const FilterKundanReadyReceiptListing = ({
             style={'max-width'}
             selectedDropdownValue={searchReceiptNumber}
             setSelectedDropdownValue={setSearchReceiptNumber}
+            selectDropDownReset={kunKarigarDropdownReset}
+            setSelectDropDownReset={setKunKarigarDropdownReset}
           />
         </div>
 
@@ -57,6 +61,8 @@ const FilterKundanReadyReceiptListing = ({
             karigarData={karigarData}
             selectedDropdownValue={searchKarigar}
             setSelectedDropdownValue={setSearchKarigar}
+            selectDropDownReset={kunKarigarDropdownReset}
+            setSelectDropDownReset={setKunKarigarDropdownReset}
           />
         </div>
 

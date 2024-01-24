@@ -52,7 +52,7 @@ const UseCustomerSaleHook = () => {
   });
   const [warehouseListData, setWarehouseListData] = useState<any>();
   const [selectedClient, setSelectedClient] = useState<string>('');
-  const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [selectedLocation, setSelectedLocation] = useState<string>('Mumbai');
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
   const [clientGroupList, setClientGroupList] = useState();
   const [itemCodeDropdownReset, setItemCodeDropdownReset] =
@@ -171,7 +171,6 @@ const UseCustomerSaleHook = () => {
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
                 : item.custom_ot_amt,
-            // custom_amount: amount(),
           };
         } else {
           return item;

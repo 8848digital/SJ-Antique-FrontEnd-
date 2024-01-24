@@ -150,6 +150,8 @@ const DetailPageReadyReceipt = () => {
                   warehouseListData={warehouseListData}
                   selectedLocation={selectedLocation}
                   setSelectedLocation={setSelectedLocation}
+                  // kunKarigarDropdownReset={kunKarigarDropdownReset}
+                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                 />
               </div>
               <div className="container d-flex justify-content-end p-o">

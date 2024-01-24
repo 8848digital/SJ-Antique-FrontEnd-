@@ -44,7 +44,7 @@ const UseCustomSalesReturnHook = () => {
   ]);
   const [stateForDocStatus, setStateForDocStatus] = useState<boolean>(false);
   const [selectedClient, setSelectedClient] = useState<any>('');
-  const [selectedLocation, setSelectedLocation] = useState<any>('');
+  const [selectedLocation, setSelectedLocation] = useState<any>('Mumbai');
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
   const [itemCodeDropdownReset, setItemCodeDropdownReset] =
     useState<boolean>(false);

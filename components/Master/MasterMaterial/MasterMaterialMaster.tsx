@@ -19,6 +19,8 @@ const MasterMaterialMaster: any = ({
   searchClient,
   setSearchClient,
   clientGroup,
+  selectDropDownReset,
+  setSelectDropDownReset,
 }: any) => {
   console.log(materialList, 'kuncsotdata');
   const [inputName, setInputName] = useState('');
@@ -128,6 +130,8 @@ const MasterMaterialMaster: any = ({
             setSearchClient={setSearchClient}
             value={value}
             clientGroup={clientGroup}
+            selectDropDownReset={selectDropDownReset}
+            setSelectDropDownReset={setSelectDropDownReset}
           />
         </div>
       </div>

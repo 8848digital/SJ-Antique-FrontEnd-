@@ -107,6 +107,8 @@ const DetailPageCustomerSale = () => {
                 setSelectedLocation={setSelectedLocation}
                 setDeliveryNoteData={setDeliveryNoteData}
                 deliveryNoteData={deliveryNoteData}
+                // itemCodeDropdownReset={itemCodeDropdownReset}
+                setItemCodeDropdownReset={setItemCodeDropdownReset}
               />
               <CustomerSalesTable2
                 kunCsOtCategoryListData={kunCsOtCategoryListData}

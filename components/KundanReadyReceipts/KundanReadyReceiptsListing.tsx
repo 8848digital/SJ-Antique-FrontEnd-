@@ -27,6 +27,8 @@ const KundanListing = ({
   deleteApiEntity,
   purchasRecieptListParams,
   HandleUpdateDocStatus,
+  kunKarigarDropdownReset,
+  setKunKarigarDropdownReset,
 }: any) => {
   console.log(kundanListing, 'param in listing');
   const router = useRouter();
@@ -194,6 +196,8 @@ const KundanListing = ({
         karigarData={karigarData}
         colPlaceholder1={colPlaceholder1}
         colPlaceholder2={colPlaceholder2}
+        kunKarigarDropdownReset={kunKarigarDropdownReset}
+        setKunKarigarDropdownReset={setKunKarigarDropdownReset}
       />
       {filteredList?.length > 0 && (
         <div className="text-end pe-3 p-0 text-gray small ">
@@ -207,10 +211,10 @@ const KundanListing = ({
         <thead>
           <tr>
             <th className="thead" scope="col">
-              {colPlaceholder1}
+              Transaction Date
             </th>
             <th className="thead" scope="col">
-              Transaction Date
+              {colPlaceholder1}
             </th>
             <th className="thead" scope="col">
               {colPlaceholder2}
@@ -229,17 +233,17 @@ const KundanListing = ({
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
                 >
-                  <Link
-                    href={`${url}/${item.name}`}
-                    className="text-dark text-decoration-none"
-                  >
-                    {item.name}
-                  </Link>
+                  {formattedDate(item.posting_date)}
                 </td>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
                 >
-                  {formattedDate(item.posting_date)}
+                  <Link
+                    href={`${url}/${item.name}`}
+                    className="text-dark text-decoration-none"
+                  >
+                    {item.custom_number}
+                  </Link>
                 </td>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}

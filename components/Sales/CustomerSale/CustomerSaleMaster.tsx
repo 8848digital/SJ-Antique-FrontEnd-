@@ -88,6 +88,8 @@ const CustomerSaleMaster = () => {
             deleteApiMethod={'delete_delivery_note_api'}
             deleteApiEntity={'delivery_note_api'}
             purchasRecieptListParams={deliveryNoteListParams}
+            kunKarigarDropdownReset={itemCodeDropdownReset}
+            setKunKarigarDropdownReset={setItemCodeDropdownReset}
           />
         </div>
         <div
@@ -125,6 +127,8 @@ const CustomerSaleMaster = () => {
               setSelectedLocation={setSelectedLocation}
               setDeliveryNoteData={setDeliveryNoteData}
               deliveryNoteData={deliveryNoteData}
+              itemCodeDropdownReset={itemCodeDropdownReset}
+              setItemCodeDropdownReset={setItemCodeDropdownReset}
             />
             <CustomerSalesTable2
               kunCsOtCategoryListData={kunCsOtCategoryListData}

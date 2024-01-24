@@ -15,6 +15,8 @@ const SearchSelectInputField = ({
   clientGroupList,
   handleSelectClientGroup,
   name,
+  selectDropDownReset,
+  setSelectDropDownReset,
 }: any) => {
   console.log('karigar dataa', karigarData);
 
@@ -29,6 +31,10 @@ const SearchSelectInputField = ({
   const [showClientGroupSelect, setShowClientGroupSelect] = useState(false);
 
   console.log(defaultValue, 'karigar data in search');
+  useEffect(() => {
+    if (selectDropDownReset !== undefined && selectDropDownReset === true)
+      setSelectedDropdownValue('');
+  }, [selectDropDownReset]);
 
   useEffect(() => {
     const handleDocumentClick = (e: any) => {
@@ -81,6 +87,7 @@ const SearchSelectInputField = ({
       setShowDropdown(!showDropdown);
       setSelectedIndex(-1);
       setFilterDropdownList(karigarData?.length > 0 && karigarData);
+      setSelectDropDownReset(false);
     }
   };
 

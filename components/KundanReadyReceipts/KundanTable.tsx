@@ -18,6 +18,8 @@ const KundanTable = ({
   warehouseListData,
   selectedLocation,
   setSelectedLocation,
+  setKunKarigarDropdownReset,
+  kunKarigarDropdownReset,
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
@@ -86,6 +88,7 @@ const KundanTable = ({
                 className={'form-control input-sm border border-secondary'}
                 readOnlyFields={readOnlyFields}
                 name="custom_karigar"
+                setSelectDropDownReset={setKunKarigarDropdownReset}
               />
             </td>
             <td className="table_row">
@@ -133,6 +136,7 @@ const KundanTable = ({
                 className={'form-control input-sm border border-secondary'}
                 readOnlyFields={readOnlyFields}
                 name="custom_store_location"
+                setSelectDropDownReset={setKunKarigarDropdownReset}
               />
             </td>
           </tr>

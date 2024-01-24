@@ -12,13 +12,13 @@ const useItemStatusReportHook = () => {
     version: 'v1',
     method: 'get_item_status_report',
     entity: 'report_item_status_api',
-    name: 'DOC-7',
+    // name: 'DOC-7',
   };
   const dailyQtyStatusReportParams = {
     version: 'v1',
     method: 'get_daily_qty_status_report',
     entity: 'daily_qty_status',
-    name: 'CON',
+    // name: 'CON',
   };
   useEffect(() => {
     const getStateData: any = async () => {

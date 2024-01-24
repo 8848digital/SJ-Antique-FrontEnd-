@@ -15,6 +15,8 @@ const AddMaterial = ({
   setSearchClient,
   value,
   clientGroup,
+  selectDropDownReset,
+  setSelectDropDownReset,
 }: any) => {
   return (
     <div
@@ -55,6 +57,8 @@ const AddMaterial = ({
               selectedDropdownValue={searchClient}
               setSelectedDropdownValue={setSearchClient}
               style={'client-width'}
+              selectDropDownReset={selectDropDownReset}
+              setSelectDropDownReset={setSelectDropDownReset}
             />
           ) : (
             <input
@@ -83,6 +87,8 @@ const AddMaterial = ({
               selectedDropdownValue={searchClient}
               setSelectedDropdownValue={setSearchClient}
               style={'client-width'}
+              selectDropDownReset={selectDropDownReset}
+              setSelectDropDownReset={setSelectDropDownReset}
             />
             {/* <div> {error3 && <p className="text-danger">{error3}</p>}</div> */}
           </>

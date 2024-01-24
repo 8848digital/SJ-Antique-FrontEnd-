@@ -19,6 +19,8 @@ const CustomerSalesTable1 = ({
   setSelectedLocation,
   setDeliveryNoteData,
   deliveryNoteData,
+  itemCodeDropdownReset,
+  setItemCodeDropdownReset,
 }: any) => {
   const { query } = useRouter();
 
@@ -86,6 +88,8 @@ const CustomerSalesTable1 = ({
                 readOnlyFields={readOnlyFields}
                 setStateForDocStatus={setStateForDocStatus}
                 handleSelectClientGroup={handleSelectClientGroup}
+                selectDropDownReset={itemCodeDropdownReset}
+                setSelectDropDownReset={setItemCodeDropdownReset}
               />
             </td>
             {query?.saleId === 'saleReturns' && (
@@ -113,11 +117,13 @@ const CustomerSalesTable1 = ({
                 setRecipitData={setDeliveryNoteData}
                 setSelectedDropdownValue={setSelectedLocation}
                 selectedDropdownValue={selectedLocation}
-                defaultValue={'Mumbai'}
+                defaultValue="Mumbai"
                 className={'form-control input-sm border border-secondary'}
                 readOnlyFields={readOnlyFields}
                 setStateForDocStatus={setStateForDocStatus}
                 name="custom_store_location"
+                selectDropDownReset={itemCodeDropdownReset}
+                setSelectDropDownReset={setItemCodeDropdownReset}
               />
             </td>
           </tr>

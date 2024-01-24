@@ -23,7 +23,8 @@ const useClientHook = () => {
   const [searchClient, setSearchClient] = useState('');
   const [inputValue1, setInputValue1] = useState('');
   const [errorC, setErrorC] = useState('');
-
+  const [selectDropDownReset, setSelectDropDownReset] =
+    useState<boolean>(false);
   console.log(searchClient, 'search client in dropdown');
   // get api function
   useEffect(() => {
@@ -114,6 +115,7 @@ const useClientHook = () => {
         material: '',
         material_abbr: '',
       });
+      setSelectDropDownReset(true);
     }
   };
   // KunCsOt category post api
@@ -268,6 +270,8 @@ const useClientHook = () => {
     inputValue1,
     clientGroupList,
     handleSelectClientGroup,
+    selectDropDownReset,
+    setSelectDropDownReset,
   };
 };
 export default useClientHook;

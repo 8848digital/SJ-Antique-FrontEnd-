@@ -1,20 +1,16 @@
+import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
+import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
+import PrintApi from '@/services/api/general/print-api';
 import {
   GetDetailOfSalesReturn,
   get_detail_sales_return_data,
 } from '@/store/slices/Sales/get-detail-sales-return-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UseCustomSalesReturnHook from './custom-sales-return-hook';
-import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
 import UseSalesReturnMasterHook from './sales-return-master-hook';
-import UpdateSalesDocStatusApi from '@/services/api/Sales/update-sales-docStatus-api';
-import PrintApi from '@/services/api/general/print-api';
-import DeleteApi from '@/services/api/general/delete-api';
-import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
-import { toast } from 'react-toastify';
-import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
 
 const UseSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
@@ -118,7 +114,7 @@ const UseSalesReturnDetailHook = () => {
       );
 
       // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
-      const shouldExclude = row.item_code === '';
+      const shouldExclude = row.item_code === '' && row.custom_gross_wt === 0;
 
       return !hasNoValues && !shouldExclude;
     });
