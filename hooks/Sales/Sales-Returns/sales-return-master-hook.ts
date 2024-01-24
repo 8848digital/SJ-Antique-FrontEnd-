@@ -85,11 +85,11 @@ const UseSalesReturnMasterHook = () => {
   }, []);
 
   const updateSalesTableData = (data: any) => {
-    console.log('dataaa', salesReturnTableData);
+    console.log('dataaa', data);
     // setSelectedClient(data[0]?.custom_client_name);
     if (data?.length >= 0) {
       if (selectedItemCodeForCustomerSale?.id) {
-        const updatedTable = salesReturnTableData?.items?.map(
+        const updatedTable = salesReturnTableData?.map(
           (tableData: any, index: any) => {
             console.log(
               data[0]?.items[0],
@@ -98,7 +98,7 @@ const UseSalesReturnMasterHook = () => {
               tableData,
               'table data in sale return'
             );
-            return index + 1 === selectedItemCodeForCustomerSale.id
+            return tableData.idx === selectedItemCodeForCustomerSale.id
               ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
               : tableData;
           }
@@ -115,9 +115,11 @@ const UseSalesReturnMasterHook = () => {
           idx: index + 1, // Use a unique idx for each row
         })
       );
-      console.log(newRows, 'table data in sale return');
+
       setSalesReturnTableData((prevData: any) =>
-        prevData ? [...prevData, newRows] : newRows || [SalesTableInitialState]
+        prevData
+          ? [...prevData, ...newRows]
+          : newRows || [SalesTableInitialState]
       );
     }
   };

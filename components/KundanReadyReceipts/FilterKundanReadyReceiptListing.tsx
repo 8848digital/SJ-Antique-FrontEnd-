@@ -19,7 +19,7 @@ const FilterKundanReadyReceiptListing = ({
     receiptNoList?.length > 0 &&
     receiptNoList !== null &&
     receiptNoList.map((data: any) => ({
-      karigar_name: data.name,
+      karigar_name: data.custom_number,
     }));
   console.log('receiptt', searchReceiptNumber);
   return (
