@@ -1,10 +1,11 @@
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
+import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import DeleteApi from '@/services/api/general/delete-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import { GetDetailOfSalesReturn } from '@/store/slices/Sales/get-detail-sales-return-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -127,7 +128,7 @@ const UseCustomSalesReturnHook = () => {
     setSalesReturnTableData([...salesReturnTableData, newRow]);
     setStateForDocStatus(true);
   };
-
+  console.log(salesReturnTableData, 'sales return detail page');
   const handleDeleteRowOfSalesReturnTable: any = (id: any) => {
     console.log('delete row id', id);
     if (salesReturnTableData?.length > 1) {

@@ -52,6 +52,12 @@ const SearchSelectInputField = ({
         setShowDropdown(false);
       }
     };
+    const handleKeyDropdown = (e: any) => {
+      // Check if a key other than arrow keys or Enter key was pressed
+      if (![37, 38, 39, 40, 13].includes(e.keyCode)) {
+        setShowDropdown(false);
+      }
+    };
 
     const handleClientGroupDropdownClick = (e: any) => {
       // Stop event propagation for client group dropdown
@@ -59,6 +65,8 @@ const SearchSelectInputField = ({
     };
 
     document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleKeyDropdown);
+
     document
       .querySelector('.form-select.form-select-sm.border')
       ?.addEventListener('click', handleClientGroupDropdownClick);
@@ -68,6 +76,7 @@ const SearchSelectInputField = ({
       document
         .querySelector('.form-select.form-select-sm.border')
         ?.removeEventListener('click', handleClientGroupDropdownClick);
+      document.removeEventListener('keydown', handleKeyDropdown);
     };
   }, [inputRef]);
 
@@ -99,10 +108,10 @@ const SearchSelectInputField = ({
     if (setRecipitData !== undefined && name === 'custom_karigar') {
       setRecipitData({ ...recipitData, custom_karigar: data?.karigar_name });
     }
-    if (setRecipitData !== undefined && name === 'custom_store_location') {
+    if (setRecipitData !== undefined && name === 'store_location') {
       setRecipitData({
         ...recipitData,
-        custom_store_location: selectedDropdownValue,
+        store_location: selectedDropdownValue,
       });
     }
 
@@ -172,10 +181,10 @@ const SearchSelectInputField = ({
         custom_karigar: selectedDropdownValue,
       });
     }
-    if (setRecipitData !== undefined && name === 'custom_store_location') {
+    if (setRecipitData !== undefined && name === 'store_location') {
       setRecipitData({
         ...recipitData,
-        custom_store_location: selectedDropdownValue,
+        store_location: selectedDropdownValue,
       });
     }
 

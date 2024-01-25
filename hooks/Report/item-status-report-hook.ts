@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 const useItemStatusReportHook = () => {
   // access token
   const loginAcessToken = useSelector(get_access_token);
+
+  const [searchItem, setSearchItem] = useState<string>('');
+  const [selectDropDownReset, setSelectDropDownReset] = useState<string>('');
   const [itemStatusReportState, setItemStatusReportState] = useState<any>();
   const [dailyQtyStatusReport, setDailyQtyStatusReport] = useState<any>();
   const itemStatusReportParams = {
@@ -40,10 +43,22 @@ const useItemStatusReportHook = () => {
     };
     getStateData();
   }, []);
-  console.log(itemStatusReportState, 'item status report data');
+
+  const itemVoucherNumber: any =
+    itemStatusReportState?.length > 0 &&
+    itemStatusReportState !== null &&
+    itemStatusReportState.map((data: any) => ({
+      karigar_name: data.voucher_no,
+    }));
+
   return {
     itemStatusReportState,
     dailyQtyStatusReport,
+    itemVoucherNumber,
+    setSearchItem,
+    searchItem,
+    selectDropDownReset,
+    setSelectDropDownReset,
   };
 };
 export default useItemStatusReportHook;

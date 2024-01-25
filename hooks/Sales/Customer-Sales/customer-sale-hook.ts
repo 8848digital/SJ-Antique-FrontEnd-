@@ -48,7 +48,7 @@ const UseCustomerSaleHook = () => {
   });
 
   const [deliveryNoteData, setDeliveryNoteData] = useState({
-    custom_store_location: '',
+    store_location: '',
   });
   const [warehouseListData, setWarehouseListData] = useState<any>();
   const [selectedClient, setSelectedClient] = useState<string>('');
@@ -474,7 +474,7 @@ const UseCustomerSaleHook = () => {
       ...deliveryNoteData,
       custom_client_name: selectedClient,
       custom_client_group: selectedClientGroup,
-      custom_store_location:
+      store_location:
         selectedLocation !== '' && selectedLocation !== undefined
           ? selectedLocation
           : 'Mumbai',

@@ -135,7 +135,7 @@ const KundanTable = ({
                 setStateForDocStatus={setStateForDocStatus}
                 className={'form-control input-sm border border-secondary'}
                 readOnlyFields={readOnlyFields}
-                name="custom_store_location"
+                name="store_location"
                 setSelectDropDownReset={setKunKarigarDropdownReset}
               />
             </td>

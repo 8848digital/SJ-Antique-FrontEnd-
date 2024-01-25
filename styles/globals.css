@@ -328,4 +328,7 @@ hr {
 .client-width{
   width: 44% !important;
 }
-/* .report-table-ow */
+.report-table-row{
+  font-size: small;
+ padding: 2px 0px !important;
+}

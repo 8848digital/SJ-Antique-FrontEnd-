@@ -4,10 +4,17 @@ import ReportHeader from '../Header/ReportHeader';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 import ReportFilterListing from './ReportFilterListing';
 
-const ItemStatusReport: any = ({ itemStatusReportState, reportName }: any) => {
+const ItemStatusReport: any = ({
+  itemStatusReportState,
+  reportName,
+  itemVoucherNumber,
+  setSearchItem,
+  searchItem,
+}: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
   const HandleTableViewRows: any = (data: any) => {
+    console.log('inside load more', data);
     setTableViewData(data);
   };
   return (
@@ -23,7 +30,12 @@ const ItemStatusReport: any = ({ itemStatusReportState, reportName }: any) => {
           Print
         </button>
       </div>
-      <ReportFilterListing reportName={reportName} />
+      <ReportFilterListing
+        reportName={reportName}
+        itemVoucherNumber={itemVoucherNumber}
+        setSearchItem={setSearchItem}
+        searchItem={searchItem}
+      />
       <div className="table-responsive">
         {itemStatusReportState?.length > 0 && (
           <div className="text-end pe-3 p-0 text-gray small ">
@@ -49,18 +61,26 @@ const ItemStatusReport: any = ({ itemStatusReportState, reportName }: any) => {
           <tbody>
             {itemStatusReportState?.length > 0 &&
               itemStatusReportState !== null &&
-              itemStatusReportState.map((item: any, index: number) => (
-                <tr key={index} className={`${styles.table_row}`}>
-                  <td className="table_row" scope="row">
-                    {index + 1}
-                  </td>
-                  {Object.values(item).map((value: any, innerIndex: number) => (
-                    <td key={innerIndex} className="table_row">
-                      {value}
+              itemStatusReportState
+                .slice(0, tableViewData)
+                .map((item: any, index: number) => (
+                  <tr key={index} className={`${styles.table_row}`}>
+                    <td className="table_row" scope="row">
+                      {index + 1}
                     </td>
-                  ))}
-                </tr>
-              ))}
+                    {Object.values(item).map(
+                      (value: any, innerIndex: number) => (
+                        <td
+                          key={innerIndex}
+                          className="table_row report-table-row"
+                          scope="row"
+                        >
+                          {value}
+                        </td>
+                      )
+                    )}
+                  </tr>
+                ))}
             {itemStatusReportState?.length > 20 &&
               itemStatusReportState !== null && (
                 <LoadMoreTableDataInMaster

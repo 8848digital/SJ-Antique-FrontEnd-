@@ -168,9 +168,7 @@ const UseCustomerSaleDetailHook = () => {
       setSelectedClient(
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
-      setSelectedLocation(
-        DetailOfDeliveryNoteFromStore?.data?.custom_store_location
-      );
+      setSelectedLocation(DetailOfDeliveryNoteFromStore?.data?.store_location);
       setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
     } else {
       setIsLoading(false);
@@ -256,7 +254,7 @@ const UseCustomerSaleDetailHook = () => {
       entity: 'delivery_note_api',
       name: query?.deliveryNoteId,
       custom_client_name: selectedClient,
-      custom_store_location:
+      store_location:
         selectedLocation !== '' && selectedLocation !== undefined
           ? selectedLocation
           : 'Mumbai',

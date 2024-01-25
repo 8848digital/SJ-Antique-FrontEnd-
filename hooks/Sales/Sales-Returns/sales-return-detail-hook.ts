@@ -16,39 +16,66 @@ const UseSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const router = useRouter();
-  const {
-    salesReturnTableData,
-    setSalesReturnTableData,
-    handleSalesReturnTableFieldChange,
-    handleAddRowForSalesReturn,
-    handleDeleteRowOfSalesReturnTable,
-    stateForDocStatus,
-    setStateForDocStatus,
-    handleEmptySaleReturnData,
-    itemCodeDropdownReset,
-    selectedClient,
-    setSelectedClient,
-    selectedClientGroup,
-    handleSelectClientGroup,
-    SalesTableInitialState,
-    setItemCodeDropdownReset,
-    saleReturnDeliveryNoteListing,
-    setSaleReturnDeliveryNoteListing,
-    HandleUpdateDocStatus,
-    handleDeleteSalesReturn,
-    handleTabPressInSales,
-    selectedLocation,
-    setSelectedLocation,
-    deliveryNoteData,
-    setDeliveryNoteData,
-  }: any = UseCustomSalesReturnHook();
+  // const {
+  //   salesReturnTableData,
+  //   setSalesReturnTableData,
+  //   handleSalesReturnTableFieldChange,
+  //   handleAddRowForSalesReturn,
+  //   handleDeleteRowOfSalesReturnTable,
+  //   stateForDocStatus,
+  //   setStateForDocStatus,
+  //   handleEmptySaleReturnData,
+  //   itemCodeDropdownReset,
+  //   selectedClient,
+  //   setSelectedClient,
+  //   selectedClientGroup,
+  //   handleSelectClientGroup,
+  //   SalesTableInitialState,
+  //   setItemCodeDropdownReset,
+  //   saleReturnDeliveryNoteListing,
+  //   setSaleReturnDeliveryNoteListing,
+  //   HandleUpdateDocStatus,
+  //   handleDeleteSalesReturn,
+  //   handleTabPressInSales,
+  //   selectedLocation,
+  //   setSelectedLocation,
+  //   deliveryNoteData,
+  //   setDeliveryNoteData,
+  // }: any = UseCustomSalesReturnHook();
 
   const {
     itemList,
     clientNameListData,
+    handleSRCreate,
+    salesReturnTableData,
+    setSalesReturnTableData,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
+    selectedClient,
+    setSelectedClient,
+    handleAddRowForSalesReturn,
+    handleDeleteRowOfSalesReturnTable,
+    handleSalesReturnTableFieldChange,
+    handleEmptySaleReturnData,
+    itemCodeDropdownReset,
+    handleSelectClientGroup,
+    setItemCodeDropdownReset,
+    HandleUpdateDocStatus,
+    saleReturnDeliveryNoteListing,
+    handleDeleteSalesReturn,
+    handleTabPressInSales,
+    setStateForDocStatus,
     warehouseListData,
+    setSelectedLocation,
+    selectedLocation,
+    deliveryNoteData,
+    setDeliveryNoteData,
+    SalesTableInitialState,
+    stateForDocStatus,
+    filteredTableDataForUpdate,
+    selectedClientGroup,
+
+    setSaleReturnDeliveryNoteListing,
   }: any = UseSalesReturnMasterHook();
 
   const loginAcessToken = useSelector(get_access_token);
@@ -98,30 +125,23 @@ const UseSalesReturnDetailHook = () => {
       setIsLoading(false);
       setSalesReturnTableData(DetailOfSalesReturnFromStore?.data?.items);
       setSelectedClient(DetailOfSalesReturnFromStore?.data?.custom_client_name);
-      setSelectedLocation(
-        DetailOfSalesReturnFromStore?.data?.custom_store_location
-      );
+      setSelectedLocation(DetailOfSalesReturnFromStore?.data?.store_location);
       setDefaultSalesDate(DetailOfSalesReturnFromStore?.data?.posting_date);
     } else {
       setIsLoading(false);
     }
   }, [DetailOfSalesReturnFromStore]);
-  const filteredTableDataForUpdate = (tableData: any) => {
-    const filteredTableData = tableData.filter((row: any) => {
-      // Check if there are no values except "idx"
-      const hasNoValues = Object.keys(row).every(
-        (key) => key === 'idx' || key === 'table' || row[key] === ''
-      );
+  console.log(salesReturnTableData, 'sales return detail page');
 
-      // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
-      const shouldExclude = row.item_code === '' && row.custom_gross_wt === 0;
-
-      return !hasNoValues && !shouldExclude;
-    });
-    return filteredTableData;
-  };
   const handleUpdateSalesReturn: any = async () => {
     const filteredData = filteredTableDataForUpdate(salesReturnTableData);
+    const updatedData =
+      filteredData.length > 0 &&
+      filteredData !== null &&
+      filteredData.map((data: any) => {
+        const { warehouse, ...updatedObject } = data;
+        return updatedObject;
+      });
     const values = {
       ...deliveryNoteData,
       version: 'v1',
@@ -129,12 +149,12 @@ const UseSalesReturnDetailHook = () => {
       entity: 'delivery_note_api',
       name: query?.deliveryNoteId,
       custom_client_name: selectedClient,
-      custom_store_location:
+      store_location:
         selectedLocation !== '' && selectedLocation !== undefined
           ? selectedLocation
           : 'Mumbai',
       is_return: '1',
-      items: filteredData,
+      items: updatedData,
     };
     let updateSalesReturnApi: any = await UpdateSaleApi(
       loginAcessToken?.token,

@@ -25,25 +25,26 @@ const UseSalesReturnMasterHook = () => {
     handleAddRowForSalesReturn,
     handleDeleteRowOfSalesReturnTable,
     handleEmptySaleReturnData,
-    itemCodeDropdownReset,
     selectedClient,
     setSelectedClient,
     selectedClientGroup,
     handleSelectClientGroup,
     SalesTableInitialState,
+    stateForDocStatus,
+    setStateForDocStatus,
+    itemCodeDropdownReset,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus,
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
+    HandleUpdateDocStatus,
     handleDeleteSalesReturn,
     handleTabPressInSales,
-    setStateForDocStatus,
     selectedLocation,
     setSelectedLocation,
   }: any = UseCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
   const [deliveryNoteData, setDeliveryNoteData] = useState({
-    custom_store_location: '',
+    store_location: '',
   });
   const [itemList, setItemList] = useState<any>([]);
   const [warehouseListData, setWarehouseListData] = useState<any>();
@@ -86,18 +87,12 @@ const UseSalesReturnMasterHook = () => {
 
   const updateSalesTableData = (data: any) => {
     console.log('dataaa', data);
-    // setSelectedClient(data[0]?.custom_client_name);
+    setSelectedClient(data[0]?.custom_client_name);
     if (data?.length >= 0) {
       if (selectedItemCodeForCustomerSale?.id) {
+        console.log(salesReturnTableData, 'table data in sale return');
         const updatedTable = salesReturnTableData?.map(
           (tableData: any, index: any) => {
-            console.log(
-              data[0]?.items[0],
-              tableData?.idx,
-              selectedItemCodeForCustomerSale.id,
-              tableData,
-              'table data in sale return'
-            );
             return tableData.idx === selectedItemCodeForCustomerSale.id
               ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
               : tableData;
@@ -108,10 +103,10 @@ const UseSalesReturnMasterHook = () => {
       }
     } else {
       // Create a new row for each item in data[0]?.items
-      const newRows = removeIdxKey(data[0]?.items[0])?.map(
+      const newRows = removeIdxKey(data[0]?.items)?.map(
         (item: any, index: any) => ({
           ...SalesTableInitialState,
-          ...item,
+          ...removeIdxKey(item),
           idx: index + 1, // Use a unique idx for each row
         })
       );
@@ -183,7 +178,7 @@ const UseSalesReturnMasterHook = () => {
       ...deliveryNoteData,
       custom_client_name: selectedClient,
       custom_client_group: selectedClientGroup,
-      custom_store_location:
+      store_location:
         selectedLocation !== '' && selectedLocation !== undefined
           ? selectedLocation
           : 'Mumbai',
@@ -244,6 +239,12 @@ const UseSalesReturnMasterHook = () => {
     selectedLocation,
     deliveryNoteData,
     setDeliveryNoteData,
+    SalesTableInitialState,
+    stateForDocStatus,
+    filteredTableDataForUpdate,
+    selectedClientGroup,
+
+    setSaleReturnDeliveryNoteListing,
   };
 };
 

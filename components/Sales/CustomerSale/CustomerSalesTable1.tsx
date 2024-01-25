@@ -24,10 +24,6 @@ const CustomerSalesTable1 = ({
 }: any) => {
   const { query } = useRouter();
 
-  const DetailOfDeliveryNoteFromStore: any = useSelector(
-    get_detail_delivery_note_data
-  );
-
   console.log('defaultSalesDate in sales', defaultSalesDate);
   return (
     <div className=" mt-2">
@@ -121,7 +117,7 @@ const CustomerSalesTable1 = ({
                 className={'form-control input-sm border border-secondary'}
                 readOnlyFields={readOnlyFields}
                 setStateForDocStatus={setStateForDocStatus}
-                name="custom_store_location"
+                name="store_location"
                 selectDropDownReset={itemCodeDropdownReset}
                 setSelectDropDownReset={setItemCodeDropdownReset}
               />

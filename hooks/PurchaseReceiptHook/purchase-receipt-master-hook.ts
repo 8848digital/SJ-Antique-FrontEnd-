@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import { get_access_token } from '@/store/slices/auth/login-slice';
-import { toast } from 'react-toastify';
+import AmendPurchaseReceiptApi from '@/services/api/PurchaseReceipt/Amend-purchase-receipt-api';
+import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
+import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
+import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
+import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
+import postMaterialApi from '@/services/api/PurchaseReceipt/post-material-api';
+import purchaseReceiptApi from '@/services/api/PurchaseReceipt/post-purchase-receipt-api';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
 import { getSpecificReceipt } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
-import AmendPurchaseReceiptApi from '@/services/api/PurchaseReceipt/Amend-purchase-receipt-api';
-import purchaseReceiptApi from '@/services/api/PurchaseReceipt/post-purchase-receipt-api';
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
-import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
-import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
-import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
-import postMaterialApi from '@/services/api/PurchaseReceipt/post-material-api';
+import { get_access_token } from '@/store/slices/auth/login-slice';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import UseCustomReceiptHook from './custom-receipt-hook';
-import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
 
 const useReadyReceiptKarigar = () => {
   const { query } = useRouter();
@@ -31,7 +31,7 @@ const useReadyReceiptKarigar = () => {
     remarks: '',
     custom_ready_receipt_type: readyReceiptType,
     posting_date: '',
-    custom_store_location: '',
+    store_location: '',
   });
 
   const [clickBtn, setClickBtn] = useState<boolean>(false);
@@ -54,7 +54,7 @@ const useReadyReceiptKarigar = () => {
     setRecipitData({
       ...recipitData,
       custom_ready_receipt_type: readyReceiptType,
-      custom_store_location:
+      store_location:
         selectedLocation !== '' && selectedLocation !== undefined
           ? selectedLocation
           : 'Mumbai',
@@ -426,7 +426,7 @@ const useReadyReceiptKarigar = () => {
       remarks: '',
       custom_ready_receipt_type: readyReceiptType,
       posting_date: '',
-      custom_store_location: 'Mumbai',
+      store_location: 'Mumbai',
     });
     setTableData([initialTableState]);
     setSelectedDropdownValue('');
