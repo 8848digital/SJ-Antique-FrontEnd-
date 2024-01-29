@@ -39,7 +39,7 @@ const PurchaseReceiptFileUploadMaster = ({
         <div className="w-75 ">
           <input
             type="text"
-            className={` ${styles.input_field} cursor`}
+            className={` ${styles.input_field} text-center cursor`}
             placeholder="Attach"
             value={item?.custom_add_photo}
             onKeyDown={(e) => {

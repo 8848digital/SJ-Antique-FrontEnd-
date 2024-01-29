@@ -16,6 +16,14 @@ const ReportIndexPage = () => {
     searchItem,
     selectDropDownReset,
     setSelectDropDownReset,
+    searchVoucherNum,
+    setSearchVoucherNum,
+    dailyStatusVoucherNumber,
+    itemList,
+    HandleSearchInput,
+    searchInputValues,
+    isLoading,
+    HandleRefresh,
   }: any = useItemStatusReportHook();
   return (
     <div>
@@ -24,15 +32,31 @@ const ReportIndexPage = () => {
           itemStatusReportState={itemStatusReportState}
           reportName={'Item Status Report'}
           voucherNumber={itemVoucherNumber}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+          searchVoucherNum={searchVoucherNum}
+          setSearchVoucherNum={setSearchVoucherNum}
+          itemList={itemList}
           setSearchItem={setSearchItem}
           searchItem={searchItem}
-          se
+          HandleSearchInput={HandleSearchInput}
+          searchInputValues={searchInputValues}
+          isLoading={isLoading}
+          HandleRefresh={HandleRefresh}
         />
       )}
       {key === 'dailyQtyStatus' && (
         <ItemStatusReport
           itemStatusReportState={dailyQtyStatusReport}
           reportName={'Daily Quantity Status Report'}
+          voucherNumber={dailyStatusVoucherNumber}
+          setSearchItem={setSearchItem}
+          searchItem={searchItem}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+          itemList={itemList}
+          HandleSearchInput={HandleSearchInput}
+          searchInputValues={searchInputValues}
         />
       )}
     </div>

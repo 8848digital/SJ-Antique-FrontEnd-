@@ -44,7 +44,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
     } else {
       firstInputRef?.current?.focus();
     }
-  }, []);
+  }, [tableData.le]);
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -103,7 +103,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   <td className="table_row">{item.idx}</td>
                   <td className="table_row">
                     <input
-                      className={` ${styles.input_field} `}
+                      ref={firstInputRef}
+                      className={` ${styles.input_field} text-center`}
                       type="text"
                       defaultValue={item?.product_code}
                       value={item.product_code}
@@ -116,7 +117,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         )
                       }
                       readOnly={readOnlyFields}
-                      ref={firstInputRef}
                     />
                   </td>
                   <td className="table_row">
@@ -142,7 +142,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   </td>
                   <td className="table_row">
                     <input
-                      className={` ${styles.input_field} `}
+                      className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
                       value={parseFloat(item.custom_net_wt)}
@@ -160,7 +160,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   </td>
                   <td className="table_row">
                     <input
-                      className={` ${styles.input_field} `}
+                      className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
                       value={item.custom_few_wt}
@@ -178,7 +178,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   </td>
                   <td className="table_row">
                     <input
-                      className={` ${styles.input_field} `}
+                      className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
                       // value={
@@ -205,7 +205,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   </td>
                   <td className="table_row">
                     <input
-                      className={` ${styles.input_field} `}
+                      className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
                       readOnly
@@ -222,7 +222,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   query?.receipt === 'Mangalsutra' ? (
                     <td className="table_row">
                       <input
-                        className={` ${styles.input_field} `}
+                        className={` ${styles.input_field} text-end`}
                         type="number"
                         min={0}
                         // value={item.custom_pcs}
@@ -242,7 +242,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   ) : (
                     <td className="table_row">
                       <input
-                        className={` ${styles.input_field} `}
+                        className={` ${styles.input_field} text-end`}
                         type="number"
                         min={0}
                         // value={item.custom_pcs}
@@ -263,7 +263,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
 
                   <td className="table_row">
                     <input
-                      className={` ${styles.input_field} `}
+                      className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
                       value={Number(item.custom_other)}
@@ -277,7 +277,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   <td className="table_row">
                     {' '}
                     <input
-                      className={` ${styles.input_field} `}
+                      className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
                       readOnly

@@ -3,48 +3,73 @@ import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputF
 
 const ReportFilterListing: any = ({
   reportName,
-  itemVoucherNumber,
+  voucherNumber,
   setSearchItem,
   searchItem,
+  selectDropDownReset,
+  setSelectDropDownReset,
+  searchVoucherNum,
+  setSearchVoucherNum,
+  itemList,
+  HandleSearchInput,
 }: any) => {
+  console.log('@report item voucher number', itemList);
   return (
     <div className=" d-flex justify-content-center mb-2">
       {reportName === 'Item Status Report' && (
         <div className="m-1">
-          <label className="text-grey">item</label>
+          <label className="text-grey">Item</label>
           <SearchSelectInputField
-          // karigarData={ReceiptNumber}
-          // placeholder={colPlaceholder1}
-          // className={
-          //   'form-control input-fields custom-input-field line-height'
-          // }
-          // style={'max-width'}
-          // selectedDropdownValue={searchReceiptNumber}
-          // setSelectedDropdownValue={setSearchReceiptNumber}
-          // selectDropDownReset={kunKarigarDropdownReset}
-          // setSelectDropDownReset={setKunKarigarDropdownReset}
+            karigarData={
+              itemList?.length > 0 &&
+              itemList !== null &&
+              itemList.map((data: any) => ({
+                karigar_name: data.name,
+              }))
+            }
+            placeholder="Item"
+            className="form-control input-fields custom-input-field line-height"
+            style="max-width"
+            selectedDropdownValue={searchItem}
+            setSelectedDropdownValue={setSearchItem}
+            selectDropDownReset={selectDropDownReset}
+            setSelectDropDownReset={setSelectDropDownReset}
           />
         </div>
       )}
       <div className="m-1">
         <label className="text-grey">From Date</label>
-        <SearchSelectInputField />
+        <div>
+          <input
+            type="date"
+            name="fromDate"
+            className="form-control line-height"
+            onChange={HandleSearchInput}
+          />
+        </div>
       </div>
       <div className="m-1">
         <label className="text-grey">To Date</label>
-        <SearchSelectInputField />
+        <div>
+          <input
+            type="date"
+            name="toDate"
+            className="form-control line-height"
+            onChange={HandleSearchInput}
+          />
+        </div>
       </div>
       <div className="m-1">
         <label className="text-grey">Voucher Name</label>
         <SearchSelectInputField
-          karigarData={itemVoucherNumber}
+          karigarData={voucherNumber}
           placeholder="Voucher Number"
-          className={'form-control input-fields custom-input-field line-height'}
-          style={'max-width'}
-          selectedDropdownValue={searchItem}
-          setSelectedDropdownValue={setSearchItem}
-          // selectDropDownReset={kunKarigarDropdownReset}
-          // setSelectDropDownReset={setKunKarigarDropdownReset}
+          className="form-control input-fields custom-input-field line-height"
+          style="max-width"
+          selectedDropdownValue={searchVoucherNum}
+          setSelectedDropdownValue={setSearchVoucherNum}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
         />
       </div>
     </div>

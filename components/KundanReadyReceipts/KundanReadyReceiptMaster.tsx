@@ -62,6 +62,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
     warehouseListData,
     selectedLocation,
     setSelectedLocation,
+    firstInputRef,
+    lastInputRef,
   } = useReadyReceiptKarigar();
 
   const router = useRouter();
@@ -182,6 +184,8 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   handleClearFileUploadInput={handleClearFileUploadInput}
                   handleCreate={handleCreate}
                   setMatWt={setMatWt}
+                  firstInputRef={firstInputRef}
+                  lastInputRef={lastInputRef}
                 />
               </div>
             </div>

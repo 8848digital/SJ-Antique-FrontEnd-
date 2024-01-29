@@ -88,7 +88,7 @@ const UseCustomReceiptHook: any = () => {
 
   useEffect(() => {
     setTableData((prevTableData: any) => {
-      const updatedTable: any = prevTableData.map((tableItems: any) => ({
+      const updatedTable: any = prevTableData?.map((tableItems: any) => ({
         ...tableItems,
         table: tableItems.table.map((tableItem: any) => ({
           ...tableItem,

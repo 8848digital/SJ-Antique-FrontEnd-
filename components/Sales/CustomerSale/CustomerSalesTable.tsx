@@ -136,7 +136,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(
@@ -159,7 +159,7 @@ const CustomerSalesTable = ({
 
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(item?.custom_kun_wt)}
@@ -176,7 +176,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(item.custom_cs_wt)}
@@ -193,7 +193,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(
@@ -212,7 +212,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(item.custom_other_wt)}
@@ -238,7 +238,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(
@@ -269,7 +269,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(item.custom_cs)}
@@ -286,7 +286,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(
@@ -306,7 +306,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={item.custom_kun_pc}
@@ -323,7 +323,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={item.custom_kun}
@@ -340,7 +340,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={(
@@ -360,7 +360,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(item.custom_ot_)}
@@ -377,7 +377,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(
@@ -397,7 +397,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(item.custom_other)}
@@ -414,7 +414,7 @@ const CustomerSalesTable = ({
                     </td>
                     <td className="table_row">
                       <input
-                        className={` ${styles.customer_sale_input_field} `}
+                        className={` ${styles.customer_sale_input_field} text-end `}
                         type="number"
                         min={0}
                         value={Number(

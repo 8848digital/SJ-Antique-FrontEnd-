@@ -18,17 +18,18 @@
 
 .input_field {
     margin-top: 1%;
-    justify-content: center;
+    /* justify-content: center; */
     max-width: 80px !important;
-    text-align: center;
+    font-size: small;
+    /* text-align: end; */
     border: #808080 1px solid;
 }
 
 .customer_sale_input_field {
     margin-top: 1%;
-    justify-content: center;
+    font-size: small;
     max-width: 52px !important;
-    text-align: center;
+    /* text-align:end; */
     border: #808080 1px solid;
 }
 
