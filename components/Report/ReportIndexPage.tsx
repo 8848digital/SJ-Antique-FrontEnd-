@@ -24,6 +24,7 @@ const ReportIndexPage = () => {
     searchInputValues,
     isLoading,
     HandleRefresh,
+    dailyStatusLoading,
   }: any = useItemStatusReportHook();
   return (
     <div>
@@ -57,6 +58,7 @@ const ReportIndexPage = () => {
           itemList={itemList}
           HandleSearchInput={HandleSearchInput}
           searchInputValues={searchInputValues}
+          isLoading={dailyStatusLoading}
         />
       )}
     </div>

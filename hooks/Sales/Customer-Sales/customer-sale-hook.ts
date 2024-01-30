@@ -26,8 +26,6 @@ const UseCustomerSaleHook = () => {
   const router = useRouter();
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
-  // const clientDataSlice: any = useSelector(get_client_data);
-  // console.log('client data from slice', clientDataSlice, loginAcessToken);
 
   const [kunCsOtCategoryListData, setKunCsOtCategoryListData] = useState<any>(
     []

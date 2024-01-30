@@ -24,6 +24,7 @@ const useItemStatusReportHook = () => {
 
   // loader state
   const [isLoading, setIsLoading] = useState<number>(0);
+  const [dailyStatusLoading, setDailyStatusLoading] = useState<number>(0);
 
   const router = useRouter();
 
@@ -47,9 +48,9 @@ const useItemStatusReportHook = () => {
     version: 'v1',
     method: 'get_daily_qty_status_report',
     entity: 'daily_qty_status',
-    voucher_no: searchVoucherNum,
-    from_date: searchInputValues.fromDate,
-    to_date: searchInputValues.toDate,
+    // voucher_no: searchVoucherNum,
+    // from_date: searchInputValues.fromDate,
+    // to_date: searchInputValues.toDate,
   };
   useEffect(() => {
     const getStateData: any = async () => {
@@ -73,9 +74,9 @@ const useItemStatusReportHook = () => {
       }
       if (dailyQtyReportData?.data?.message?.status === 'success') {
         setDailyQtyStatusReport(dailyQtyReportData?.data?.message?.data);
-        // if (dailyQtyReportData?.data?.message?.data?.length > 0) {
-        //   setIsLoading(true);
-        // }
+        if (dailyQtyReportData?.data?.message?.data?.length > 0) {
+          setDailyStatusLoading(1);
+        } else setDailyStatusLoading(2);
       }
       if (itemListData?.data?.data?.length > 0) {
         setItemList(itemListData?.data?.data);
@@ -83,7 +84,7 @@ const useItemStatusReportHook = () => {
     };
     getStateData();
   }, []);
-
+  console.log('@report daily qty status', dailyQtyStatusReport);
   useEffect(() => {
     if (
       (searchItem !== '' &&
@@ -154,6 +155,7 @@ const useItemStatusReportHook = () => {
     searchInputValues,
     isLoading,
     HandleRefresh,
+    dailyStatusLoading,
   };
 };
 export default useItemStatusReportHook;
