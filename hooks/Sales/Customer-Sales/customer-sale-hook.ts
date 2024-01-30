@@ -57,6 +57,11 @@ const UseCustomerSaleHook = () => {
   const [clientGroupList, setClientGroupList] = useState();
   const [itemCodeDropdownReset, setItemCodeDropdownReset] =
     useState<boolean>(false);
+  const [kunCsOtFixedAmt, setKunCsOtFixedAmt] = useState({
+    csFixedAmt: 0,
+    kunFixedAmt: 0,
+    otFixedAmt: 0,
+  });
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
@@ -115,12 +120,12 @@ const UseCustomerSaleHook = () => {
     custom_bb_wt: '',
     custom_other_wt: '',
     custom_net_wt: '',
-    custom_cs: '',
+    custom_cs: kunCsOtFixedAmt?.csFixedAmt,
     custom_cs_amt: 0,
     custom_kun_pc: '',
-    custom_kun: '',
+    custom_kun: kunCsOtFixedAmt?.kunFixedAmt,
     custom_kun_amt: 0,
-    custom_ot_: '',
+    custom_ot_: kunCsOtFixedAmt?.otFixedAmt,
     custom_ot_amt: 0,
     custom_other: '',
     custom_amount: 0,
@@ -142,7 +147,7 @@ const UseCustomerSaleHook = () => {
         if (item.idx === itemIdx) {
           return {
             ...item,
-            [fieldName]: value,
+            [fieldName]: Number(value),
 
             custom_net_wt:
               Number(item?.custom_gross_wt) -
@@ -272,7 +277,6 @@ const UseCustomerSaleHook = () => {
   console.log('updated sales table', salesTableData);
 
   const handleAddRowForSales: any = () => {
-    console.log('handle ADD row');
     const newRow: any = {
       idx: salesTableData?.length + 1,
       custom_pr_bb_wt: '',
@@ -286,12 +290,12 @@ const UseCustomerSaleHook = () => {
       custom_bb_wt: '',
       custom_other_wt: '',
       custom_net_wt: '',
-      custom_cs: '',
+      custom_cs: Number(kunCsOtFixedAmt?.csFixedAmt),
       custom_cs_amt: 0,
       custom_kun_pc: '',
-      custom_kun: '',
+      custom_kun: Number(kunCsOtFixedAmt?.kunFixedAmt),
       custom_kun_amt: 0,
-      custom_ot_: '',
+      custom_ot_: Number(kunCsOtFixedAmt?.otFixedAmt),
       custom_ot_amt: 0,
       custom_other: '',
       custom_amount: 0,
@@ -583,6 +587,22 @@ const UseCustomerSaleHook = () => {
     }
   };
 
+  const HandleFixedAmt = (e: any) => {
+    const { name, value } = e.target;
+    setKunCsOtFixedAmt({ ...kunCsOtFixedAmt, [name]: value });
+
+    setSalesTableData((prevData: any) => {
+      return prevData.map((item: any) => {
+        return {
+          ...item,
+          custom_cs: Number(name === 'csFixedAmt' ? value : item?.custom_cs),
+          custom_kun: Number(name === 'kunFixedAmt' ? value : item?.custom_kun),
+          custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
+        };
+      });
+    });
+  };
+  console.log('@sales fixed amt values', kunCsOtFixedAmt, salesTableData);
   return {
     salesTableData,
     setSalesTableData,
@@ -622,6 +642,9 @@ const UseCustomerSaleHook = () => {
     setSelectedLocation,
     setDeliveryNoteData,
     deliveryNoteData,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   };
 };
 

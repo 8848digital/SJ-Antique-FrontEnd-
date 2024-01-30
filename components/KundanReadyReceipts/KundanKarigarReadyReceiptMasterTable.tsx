@@ -292,7 +292,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                             tableData[i]?.custom_total !== undefined
                           ? tableData[i]?.custom_total
                           : tableData[i]?.custom_other
-                      )?.toFixed(2)}
+                      )?.toFixed(3)}
                     />
                   </td>
 

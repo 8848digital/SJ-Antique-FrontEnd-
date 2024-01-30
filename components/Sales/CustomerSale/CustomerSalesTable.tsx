@@ -20,6 +20,8 @@ const CustomerSalesTable = ({
   selectedItemCode,
   setSelectedItemCode,
   handleTabPressInSales,
+  kunCsOtFixedAmt,
+  HandleFixedAmt,
 }: any) => {
   console.log(salesTableData, 'selected name and value');
   return (
@@ -39,6 +41,50 @@ const CustomerSalesTable = ({
       <div className="table responsive">
         <table className="table table-hover table-bordered">
           <thead>
+            <tr className={`${styles.table_row} border-0`}>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0">
+                <input
+                  type="text"
+                  name="csFixedAmt"
+                  className={` ${styles.customer_sale_input_field} text-end `}
+                  min={0}
+                  value={kunCsOtFixedAmt?.csFixedAmt}
+                  onChange={(e) => HandleFixedAmt(e)}
+                />
+              </td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0">
+                <input
+                  type="text"
+                  name="kunFixedAmt"
+                  className={` ${styles.customer_sale_input_field} text-end `}
+                  min={0}
+                  value={kunCsOtFixedAmt?.kunFixedAmt}
+                  onChange={(e) => HandleFixedAmt(e)}
+                />
+              </td>
+              <td className="table_row border-0"></td>
+              <td className="table_row border-0">
+                <input
+                  type="text"
+                  name="otFixedAmt"
+                  className={` ${styles.customer_sale_input_field} text-end `}
+                  min={0}
+                  value={kunCsOtFixedAmt?.otFixedAmt}
+                  onChange={(e) => HandleFixedAmt(e)}
+                />
+              </td>
+              <td className="table_row border-0"></td>
+            </tr>
             <tr>
               <th className="thead" scope="col">
                 No.
@@ -216,14 +262,6 @@ const CustomerSalesTable = ({
                         type="number"
                         min={0}
                         value={Number(item.custom_other_wt)}
-                        // value={
-                        //   selectedCategory.OtCategory !== ''
-                        //     ? (item.custom_other_wt *
-                        //         item.custom_other_wt *
-                        //         selectedCategory.OtCategory.type) /
-                        //       100
-                        //     : item.custom_other_wt
-                        // }
                         defaultValue={item.custom_other_wt}
                         readOnly={readOnlyFields}
                         onChange={(e) =>
@@ -255,7 +293,7 @@ const CustomerSalesTable = ({
                                   Number(item.custom_bb_wt) +
                                   Number(item.custom_other_wt))
                         )?.toFixed(3)}
-                        defaultValue={Number(item.custom_net_wt)}
+                        defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
                         readOnly
                         onChange={(e) =>
                           handleSalesTableFieldChange(
@@ -345,7 +383,7 @@ const CustomerSalesTable = ({
                         min={0}
                         value={(
                           Number(item.custom_kun_pc) * Number(item.custom_kun)
-                        )?.toFixed(2)}
+                        )?.toFixed(3)}
                         defaultValue={item.custom_kun_amt}
                         readOnly
                         onChange={(e) =>
@@ -382,7 +420,7 @@ const CustomerSalesTable = ({
                         min={0}
                         value={Number(
                           Number(item.custom_other_wt) * Number(item.custom_ot_)
-                        )?.toFixed(2)}
+                        )?.toFixed(3)}
                         defaultValue={Number(item.custom_ot_amt)}
                         readOnly
                         onChange={(e) =>
@@ -426,7 +464,7 @@ const CustomerSalesTable = ({
                               ? 0
                               : Number(item?.custom_ot_amt)) +
                             Number(item?.custom_other)
-                        )?.toFixed(2)}
+                        )?.toFixed(3)}
                         defaultValue={Number(item.custom_amount)}
                         readOnly
                         onChange={(e) =>

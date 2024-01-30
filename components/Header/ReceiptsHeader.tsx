@@ -13,6 +13,8 @@ const ReceiptsHeader = ({
   setShowMaster,
   showReport,
   setShowReport,
+  showBarcode,
+  setShowBarcode,
 }: any) => {
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -31,7 +33,17 @@ const ReceiptsHeader = ({
     if (value === 'report') {
       setShowReport(true);
     }
-  }, [setShowMaster, setShowReceipts, setShowSales, setShowReport, value]);
+    if (value === 'barcode') {
+      setShowBarcode(true);
+    }
+  }, [
+    setShowMaster,
+    setShowReceipts,
+    setShowSales,
+    setShowReport,
+    setShowBarcode,
+    value,
+  ]);
 
   const handleReadyRecipt = (val: any) => {
     switch (val) {
@@ -40,24 +52,39 @@ const ReceiptsHeader = ({
         setShowSales(false);
         setShowMaster(false);
         setShowReport(false);
+        setShowBarcode(false);
         break;
       case 'Sales':
         setShowSales(true);
         setShowReceipts(false);
         setShowMaster(false);
         setShowReport(false);
+        setShowBarcode(false);
+
         break;
       case 'Master':
         setShowMaster(true);
         setShowReceipts(false);
         setShowSales(false);
         setShowReport(false);
+        setShowBarcode(false);
+
         break;
       case 'Report':
         setShowMaster(false);
         setShowReceipts(false);
         setShowSales(false);
         setShowReport(true);
+        setShowBarcode(false);
+
+        break;
+      case 'Barcode  ':
+        setShowMaster(false);
+        setShowReceipts(false);
+        setShowSales(false);
+        setShowReport(true);
+        setShowBarcode(false);
+
         break;
       default:
         setShowMaster(true);
@@ -69,8 +96,8 @@ const ReceiptsHeader = ({
 
   return (
     <>
-      <div className="row justify-content-center">
-        <div className="col-lg-2 col-md-3 col-3 text-center">
+      <div className="d-flex flex-wrap justify-content-center">
+        <div>
           <Link className="text-decoration-none btn-margin" href="/master">
             <button
               className={`${styles.button} ${showMaster ? 'activeColor' : ''}`}
@@ -84,7 +111,7 @@ const ReceiptsHeader = ({
             </button>
           </Link>
         </div>
-        <div className="col-lg-3 col-md-3 col-6 text-center">
+        <div>
           <Link
             className="text-decoration-none btn-margin"
             href="/readyReceipt/kundan"
@@ -103,7 +130,7 @@ const ReceiptsHeader = ({
             </button>
           </Link>
         </div>
-        <div className="col-lg-2 col-md-3 col-3 text-center">
+        <div>
           <Link
             className="text-decoration-none btn-margin"
             href="/sales/customerSale"
@@ -120,7 +147,7 @@ const ReceiptsHeader = ({
             </button>
           </Link>
         </div>
-        <div className="col-lg-2 col-md-3 col-3 text-center">
+        <div>
           <Link className="text-decoration-none btn-margin" href="/report">
             <button
               className={`${styles.button} ${showReport ? 'activeColor' : ''}`}
@@ -133,6 +160,18 @@ const ReceiptsHeader = ({
               Report
             </button>
           </Link>
+          {/* <Link className="text-decoration-none btn-margin" href="/report">
+            <button
+              className={`${styles.button} ${showReport ? 'activeColor' : ''}`}
+              onClick={() => handleReadyRecipt('Report')}
+            >
+              <i
+                className="fa-regular fa-file icons-color mr-2"
+                style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
+              ></i>
+              Report
+            </button>
+          </Link> */}
         </div>
       </div>
     </>

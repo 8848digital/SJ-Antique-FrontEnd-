@@ -43,6 +43,9 @@ const CustomerSaleMaster = () => {
     setSelectedLocation,
     setDeliveryNoteData,
     deliveryNoteData,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   }: any = UseCustomerSaleHook();
 
   console.log(deliveryNoteListing, 'client name in listing');
@@ -155,6 +158,9 @@ const CustomerSaleMaster = () => {
               selectedItemCode={selectedItemCode}
               setSelectedItemCode={setSelectedItemCode}
               handleTabPressInSales={handleTabPressInSales}
+              kunCsOtFixedAmt={kunCsOtFixedAmt}
+              // setKunCsOtFixedAmt={setKunCsOtFixedAmt}
+              HandleFixedAmt={HandleFixedAmt}
             />
           </div>
         </div>
