@@ -47,6 +47,9 @@ const DetailsPageSalesReturn = () => {
     setSelectedLocation,
     deliveryNoteData,
     setDeliveryNoteData,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   }: any = UseSalesReturnDetailHook();
 
   const { query }: any = useRouter();
@@ -133,6 +136,9 @@ const DetailsPageSalesReturn = () => {
                   readOnlyFields={readOnlyFields}
                   setItemCodeDropdownReset={setItemCodeDropdownReset}
                   handleTabPressInSales={handleTabPressInSales}
+                  kunCsOtFixedAmt={kunCsOtFixedAmt}
+                  setKunCsOtFixedAmt={setKunCsOtFixedAmt}
+                  HandleFixedAmt={HandleFixedAmt}
                 />
               </div>
             </>

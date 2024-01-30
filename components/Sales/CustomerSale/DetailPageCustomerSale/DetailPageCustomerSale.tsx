@@ -54,6 +54,9 @@ const DetailPageCustomerSale = () => {
     setSelectedLocation,
     deliveryNoteData,
     setDeliveryNoteData,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   }: any = UseCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -138,6 +141,9 @@ const DetailPageCustomerSale = () => {
                 setStateForDocStatus={setStateForDocStatus}
                 setItemCodeDropdownReset={setItemCodeDropdownReset}
                 handleTabPressInSales={handleTabPressInSales}
+                kunCsOtFixedAmt={kunCsOtFixedAmt}
+                setKunCsOtFixedAmt={setKunCsOtFixedAmt}
+                HandleFixedAmt={HandleFixedAmt}
               />
             </div>
           )}

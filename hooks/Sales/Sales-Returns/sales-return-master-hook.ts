@@ -41,6 +41,9 @@ const UseSalesReturnMasterHook = () => {
     handleTabPressInSales,
     selectedLocation,
     setSelectedLocation,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   }: any = UseCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
   const [deliveryNoteData, setDeliveryNoteData] = useState({
@@ -243,8 +246,10 @@ const UseSalesReturnMasterHook = () => {
     stateForDocStatus,
     filteredTableDataForUpdate,
     selectedClientGroup,
-
     setSaleReturnDeliveryNoteListing,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   };
 };
 

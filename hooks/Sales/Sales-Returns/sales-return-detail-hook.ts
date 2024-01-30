@@ -76,6 +76,9 @@ const UseSalesReturnDetailHook = () => {
     selectedClientGroup,
 
     setSaleReturnDeliveryNoteListing,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   }: any = UseSalesReturnMasterHook();
 
   const loginAcessToken = useSelector(get_access_token);
@@ -284,6 +287,9 @@ const UseSalesReturnDetailHook = () => {
     setDeliveryNoteData,
     selectedLocation,
     setSelectedLocation,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   };
 };
 

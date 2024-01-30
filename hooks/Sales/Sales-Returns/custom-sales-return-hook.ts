@@ -1,11 +1,10 @@
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
-import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import DeleteApi from '@/services/api/general/delete-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import { GetDetailOfSalesReturn } from '@/store/slices/Sales/get-detail-sales-return-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -15,6 +14,11 @@ const UseCustomSalesReturnHook = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
+  const [kunCsOtFixedAmt, setKunCsOtFixedAmt] = useState<any>({
+    csFixedAmt: 0,
+    kunFixedAmt: 0,
+    otFixedAmt: 0,
+  });
   const SalesTableInitialState: any = {
     idx: 1,
     // kun_wt_initial: '',
@@ -114,12 +118,12 @@ const UseCustomSalesReturnHook = () => {
       custom_bb_wt: '',
       custom_other_wt: '',
       custom_net_wt: '',
-      custom_cs: '',
+      custom_cs: kunCsOtFixedAmt?.csFixedAmt,
       custom_cs_amt: '',
       custom_kun_pc: '',
-      custom_kun: '',
+      custom_kun: kunCsOtFixedAmt?.kunFixedAmt,
       custom_kun_amt: '',
-      custom_ot_: '',
+      custom_ot_: kunCsOtFixedAmt?.otFixedAmt,
       custom_ot_amt: 0,
       custom_other: '',
       custom_amount: 0,
@@ -152,6 +156,11 @@ const UseCustomSalesReturnHook = () => {
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
     setStateForDocStatus(true);
     setItemCodeDropdownReset(true);
+    setKunCsOtFixedAmt({
+      csFixedAmt: 0,
+      kunFixedAmt: 0,
+      otFixedAmt: 0,
+    });
   };
 
   const handleSelectClientGroup = async (value: any) => {
@@ -233,6 +242,28 @@ const UseCustomSalesReturnHook = () => {
     }
     setStateForDocStatus(true);
   };
+  const HandleFixedAmt = (e: any) => {
+    const { name, value } = e.target;
+    setKunCsOtFixedAmt({ ...kunCsOtFixedAmt, [name]: value });
+
+    setSalesReturnTableData((prevData: any) => {
+      return prevData.map((item: any, i: number) => {
+        return {
+          ...item,
+          custom_cs: Number(name === 'csFixedAmt' ? value : item?.custom_cs),
+          custom_kun: Number(name === 'kunFixedAmt' ? value : item?.custom_kun),
+          custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
+          custom_amount: Number(
+            Number(item[i]?.custom_cs_amt) +
+              Number(item[i]?.custom_kun_amt) +
+              Number(item[i]?.custom_ot_amt) +
+              Number(item[i]?.custom_other)
+          ),
+        };
+      });
+    });
+    setStateForDocStatus(true);
+  };
 
   return {
     salesReturnTableData,
@@ -259,6 +290,9 @@ const UseCustomSalesReturnHook = () => {
     handleTabPressInSales,
     selectedLocation,
     setSelectedLocation,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   };
 };
 

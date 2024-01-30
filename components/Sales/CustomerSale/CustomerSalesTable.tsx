@@ -421,7 +421,9 @@ const CustomerSalesTable = ({
                         value={Number(
                           Number(item.custom_other_wt) * Number(item.custom_ot_)
                         )?.toFixed(3)}
-                        defaultValue={Number(item.custom_ot_amt)}
+                        defaultValue={Number(
+                          Number(item.custom_other_wt) * Number(item.custom_ot_)
+                        )?.toFixed(3)}
                         readOnly
                         onChange={(e) =>
                           handleSalesTableFieldChange(
@@ -465,7 +467,12 @@ const CustomerSalesTable = ({
                               : Number(item?.custom_ot_amt)) +
                             Number(item?.custom_other)
                         )?.toFixed(3)}
-                        defaultValue={Number(item.custom_amount)}
+                        defaultValue={Number(
+                          Number(item?.custom_cs_amt) +
+                            Number(item?.custom_kun_amt) +
+                            Number(item?.custom_ot_amt) +
+                            Number(item?.custom_other)
+                        )}
                         readOnly
                         onChange={(e) =>
                           handleSalesTableFieldChange(

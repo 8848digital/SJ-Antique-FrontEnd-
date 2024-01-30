@@ -35,6 +35,9 @@ const SaleReturnsMaster = () => {
     setSelectedLocation,
     setDeliveryNoteData,
     deliveryNoteData,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   }: any = UseSalesReturnMasterHook();
 
   // const {} = UseSalesReturnDetailHook();
@@ -147,6 +150,9 @@ const SaleReturnsMaster = () => {
                 itemCodeDropdownReset={itemCodeDropdownReset}
                 setItemCodeDropdownReset={setItemCodeDropdownReset}
                 handleTabPressInSales={handleTabPressInSales}
+                kunCsOtFixedAmt={kunCsOtFixedAmt}
+                setKunCsOtFixedAmt={setKunCsOtFixedAmt}
+                HandleFixedAmt={HandleFixedAmt}
               />
             </div>
           </div>

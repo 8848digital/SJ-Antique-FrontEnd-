@@ -22,7 +22,7 @@ const CustomerSalesTable2 = ({
   );
 
   return (
-    <div className="table-responsive">
+    <div className="m-0">
       <table className="table table-hover table-bordered">
         <thead>
           <tr>

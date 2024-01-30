@@ -46,6 +46,9 @@ const UseCustomerSaleDetailHook = () => {
     setSelectedLocation,
     deliveryNoteData,
     setDeliveryNoteData,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   }: any = UseCustomerSaleHook();
 
   console.log('selected category default', selectedCategory);
@@ -390,6 +393,9 @@ const UseCustomerSaleDetailHook = () => {
     setSelectedLocation,
     deliveryNoteData,
     setDeliveryNoteData,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    HandleFixedAmt,
   };
 };
 

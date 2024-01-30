@@ -118,12 +118,12 @@ const UseCustomerSaleHook = () => {
     custom_bb_wt: '',
     custom_other_wt: '',
     custom_net_wt: '',
-    custom_cs: kunCsOtFixedAmt?.csFixedAmt,
+    custom_cs: '',
     custom_cs_amt: 0,
     custom_kun_pc: '',
-    custom_kun: kunCsOtFixedAmt?.kunFixedAmt,
+    custom_kun: '',
     custom_kun_amt: 0,
-    custom_ot_: kunCsOtFixedAmt?.otFixedAmt,
+    custom_ot_: '',
     custom_ot_amt: 0,
     custom_other: '',
     custom_amount: 0,
@@ -331,6 +331,7 @@ const UseCustomerSaleHook = () => {
   };
 
   useEffect(() => {
+    console.log('inside useEffect');
     const updatedData =
       salesTableData?.length > 0 &&
       salesTableData !== null &&
@@ -394,11 +395,11 @@ const UseCustomerSaleHook = () => {
                 ? 0
                 : Number(data?.custom_ot_amt)) +
               Number(data?.custom_other)
-          )?.toFixed(2),
+          )?.toFixed(3),
         };
       });
     setSalesTableData(updatedData);
-  }, [selectedCategory, salesTableData?.length]);
+  }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt]);
 
   console.log('selected category11', selectedCategory, salesTableData);
   const handleEmptyDeliveryNote = () => {
@@ -407,6 +408,11 @@ const UseCustomerSaleHook = () => {
       CsCategory: '',
       BBCategory: '',
       OtCategory: '',
+    });
+    setKunCsOtFixedAmt({
+      csFixedAmt: 0,
+      kunFixedAmt: 0,
+      otFixedAmt: 0,
     });
     setSelectedClient('');
     setSalesTableData([SalesTableInitialState]);
@@ -590,15 +596,22 @@ const UseCustomerSaleHook = () => {
     setKunCsOtFixedAmt({ ...kunCsOtFixedAmt, [name]: value });
 
     setSalesTableData((prevData: any) => {
-      return prevData.map((item: any) => {
+      return prevData.map((item: any, i: number) => {
         return {
           ...item,
           custom_cs: Number(name === 'csFixedAmt' ? value : item?.custom_cs),
           custom_kun: Number(name === 'kunFixedAmt' ? value : item?.custom_kun),
           custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
+          custom_amount: Number(
+            Number(item[i]?.custom_cs_amt) +
+              Number(item[i]?.custom_kun_amt) +
+              Number(item[i]?.custom_ot_amt) +
+              Number(item[i]?.custom_other)
+          ),
         };
       });
     });
+    setStateForDocStatus(true);
   };
   console.log('@sales fixed amt values', kunCsOtFixedAmt, salesTableData);
   return {
