@@ -93,7 +93,7 @@ const ReceiptsHeader = ({
 
   return (
     <>
-      <div className="d-flex flex-wrap justify-content-center">
+      <div className="d-flex flex-wrap justify-content-end">
         <div>
           <Link className="text-decoration-none btn-margin" href="/master">
             <button

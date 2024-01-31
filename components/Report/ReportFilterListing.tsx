@@ -12,6 +12,9 @@ const ReportFilterListing: any = ({
   setSearchVoucherNum,
   itemList,
   HandleSearchInput,
+  searchName,
+  setSearchName,
+  name,
 }: any) => {
   console.log('@report item voucher number', itemList);
   return (
@@ -59,19 +62,36 @@ const ReportFilterListing: any = ({
           />
         </div>
       </div>
-      <div className="m-1">
-        <label className="text-grey">Voucher Name</label>
-        <SearchSelectInputField
-          karigarData={voucherNumber}
-          placeholder="Voucher Number"
-          className="form-control input-fields custom-input-field line-height"
-          style="max-width"
-          selectedDropdownValue={searchVoucherNum}
-          setSelectedDropdownValue={setSearchVoucherNum}
-          selectDropDownReset={selectDropDownReset}
-          setSelectDropDownReset={setSelectDropDownReset}
-        />
-      </div>
+      {reportName === 'Item Status Report' && (
+        <div className="m-1">
+          <label className="text-grey">Voucher Name</label>
+          <SearchSelectInputField
+            karigarData={voucherNumber}
+            placeholder="Voucher Number"
+            className="form-control input-fields custom-input-field line-height"
+            style="max-width"
+            selectedDropdownValue={searchVoucherNum}
+            setSelectedDropdownValue={setSearchVoucherNum}
+            selectDropDownReset={selectDropDownReset}
+            setSelectDropDownReset={setSelectDropDownReset}
+          />
+        </div>
+      )}
+      {reportName === 'Daily Quantity Status Report' && (
+        <div className="m-1">
+          <label className="text-grey">Name</label>
+          <SearchSelectInputField
+            karigarData={name}
+            placeholder="name"
+            className="form-control input-fields custom-input-field line-height"
+            style="max-width"
+            selectedDropdownValue={searchName}
+            setSelectedDropdownValue={setSearchName}
+            selectDropDownReset={selectDropDownReset}
+            setSelectDropDownReset={setSelectDropDownReset}
+          />
+        </div>
+      )}
     </div>
   );
 };

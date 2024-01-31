@@ -4,13 +4,23 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import UseScrollbarHook from './report-table-scrollbar-hook';
 
 const useItemStatusReportHook = () => {
+  const {
+    scrollableTableRef,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseLeave,
+    handleMouseMove,
+  }: any = UseScrollbarHook();
+
   // access token
   const loginAcessToken = useSelector(get_access_token);
   // filter states
   const [searchItem, setSearchItem] = useState<string>('');
   const [searchVoucherNum, setSearchVoucherNum] = useState<string>('');
+  const [searchName, setSearchName] = useState('');
   const [selectDropDownReset, setSelectDropDownReset] = useState<string>('');
   const [searchInputValues, setSearchInputValues] = useState({
     fromDate: '',
@@ -48,9 +58,14 @@ const useItemStatusReportHook = () => {
     version: 'v1',
     method: 'get_daily_qty_status_report',
     entity: 'daily_qty_status',
-    // voucher_no: searchVoucherNum,
-    from_date: searchInputValues.fromDate,
-    to_date: searchInputValues.toDate,
+    name: searchName === undefined ? '' : searchName,
+    from_date:
+      searchInputValues.fromDate === undefined
+        ? ''
+        : searchInputValues.fromDate,
+    to_date:
+      searchInputValues.toDate === undefined ? '' : searchInputValues.toDate,
+    voucher_no: '',
   };
   useEffect(() => {
     const getStateData: any = async () => {
@@ -115,6 +130,35 @@ const useItemStatusReportHook = () => {
       itemReportDataFun();
     }
   }, [searchItem, searchInputValues, searchVoucherNum]);
+  useEffect(() => {
+    if (
+      searchName !== '' &&
+      searchName !== undefined &&
+      searchName.length > 4
+    ) {
+      const itemReportDataFun = async () => {
+        try {
+          let itemReportApi = await ReportApi(
+            loginAcessToken?.token,
+            dailyQtyStatusReportParams
+          );
+
+          console.log('getItemCodeDetails api res', itemReportApi);
+          if (itemReportApi?.data?.message?.status === 'success') {
+            setDailyQtyStatusReport(itemReportApi?.data?.message?.data);
+            if (itemReportApi?.data?.message?.data?.length > 0) {
+              setDailyStatusLoading(1);
+            } else {
+              setDailyStatusLoading(2);
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching item status report:', error);
+        }
+      };
+      itemReportDataFun();
+    }
+  }, [searchInputValues, searchName]);
 
   const itemVoucherNumber: any =
     itemStatusReportState?.length > 0 &&
@@ -123,11 +167,11 @@ const useItemStatusReportHook = () => {
       karigar_name: data.voucher_no,
     }));
 
-  const dailyStatusVoucherNumber: any =
+  const dailyStatusSearchName: any =
     dailyQtyStatusReport?.length > 0 &&
     dailyQtyStatusReport !== null &&
     dailyQtyStatusReport.map((data: any) => ({
-      karigar_name: data.voucher_no,
+      karigar_name: data.name,
     }));
   console.log(searchItem, '@report selected item');
 
@@ -149,13 +193,20 @@ const useItemStatusReportHook = () => {
     setSelectDropDownReset,
     searchVoucherNum,
     setSearchVoucherNum,
-    dailyStatusVoucherNumber,
+    dailyStatusSearchName,
     itemList,
     HandleSearchInput,
     searchInputValues,
     isLoading,
     HandleRefresh,
     dailyStatusLoading,
+    scrollableTableRef,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseLeave,
+    handleMouseMove,
+    searchName,
+    setSearchName,
   };
 };
 export default useItemStatusReportHook;

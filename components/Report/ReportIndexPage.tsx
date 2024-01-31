@@ -18,13 +18,20 @@ const ReportIndexPage = () => {
     setSelectDropDownReset,
     searchVoucherNum,
     setSearchVoucherNum,
-    dailyStatusVoucherNumber,
+    dailyStatusSearchName,
     itemList,
     HandleSearchInput,
     searchInputValues,
     isLoading,
     HandleRefresh,
     dailyStatusLoading,
+    scrollableTableRef,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseLeave,
+    handleMouseMove,
+    searchName,
+    setSearchName,
   }: any = useItemStatusReportHook();
   return (
     <div>
@@ -44,21 +51,31 @@ const ReportIndexPage = () => {
           searchInputValues={searchInputValues}
           isLoading={isLoading}
           HandleRefresh={HandleRefresh}
+          scrollableTableRef={scrollableTableRef}
+          handleMouseDown={handleMouseDown}
+          handleMouseUp={handleMouseUp}
+          handleMouseLeave={handleMouseLeave}
+          handleMouseMove={handleMouseMove}
         />
       )}
       {key === 'dailyQtyStatus' && (
         <ItemStatusReport
           itemStatusReportState={dailyQtyStatusReport}
           reportName={'Daily Quantity Status Report'}
-          voucherNumber={dailyStatusVoucherNumber}
-          setSearchItem={setSearchItem}
-          searchItem={searchItem}
           selectDropDownReset={selectDropDownReset}
           setSelectDropDownReset={setSelectDropDownReset}
           itemList={itemList}
           HandleSearchInput={HandleSearchInput}
           searchInputValues={searchInputValues}
           isLoading={dailyStatusLoading}
+          scrollableTableRef={scrollableTableRef}
+          handleMouseDown={handleMouseDown}
+          handleMouseUp={handleMouseUp}
+          handleMouseLeave={handleMouseLeave}
+          handleMouseMove={handleMouseMove}
+          searchName={searchName}
+          setSearchName={setSearchName}
+          name={dailyStatusSearchName}
         />
       )}
     </div>

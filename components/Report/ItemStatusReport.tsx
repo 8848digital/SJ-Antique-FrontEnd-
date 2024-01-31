@@ -22,6 +22,14 @@ const ItemStatusReport: any = ({
   searchInputValues,
   isLoading,
   HandleRefresh,
+  scrollableTableRef,
+  handleMouseDown,
+  handleMouseUp,
+  handleMouseLeave,
+  handleMouseMove,
+  searchName,
+  setSearchName,
+  name,
 }: any) => {
   const router = useRouter();
   const [tableViewData, setTableViewData] = useState<any>(20);
@@ -32,24 +40,6 @@ const ItemStatusReport: any = ({
   };
   console.log('@report daily qty status', itemStatusReportState);
 
-  // const filteredList =
-  //   itemStatusReportState?.length > 0 &&
-  //   itemStatusReportState !== null &&
-  //   searchVoucherNum
-  //     ? itemStatusReportState.filter((item: any) => {
-  //         const voucherNumberMatch = searchVoucherNum
-  //           ? item?.voucher_no
-  //               ?.toLowerCase()
-  //               .includes(searchVoucherNum.toString().toLowerCase())
-  //           : true;
-  //         const dateMatch =
-  //           searchInputValues.fromDate && searchInputValues.toDate
-  //             ? item?.posting_date >= searchInputValues.fromDate &&
-  //               item?.posting_date <= searchInputValues.toDate
-  //             : true;
-  //         return voucherNumberMatch || dateMatch;
-  //       })
-  //     : itemStatusReportState;
   return (
     <div className="container-lg">
       <ReportHeader />
@@ -74,6 +64,9 @@ const ItemStatusReport: any = ({
         setSearchVoucherNum={setSearchVoucherNum}
         itemList={itemList}
         HandleSearchInput={HandleSearchInput}
+        searchName={searchName}
+        setSearchName={setSearchName}
+        name={name}
       />
       {isLoading === 0 && <Loader />}
       {isLoading === 2 && (
@@ -94,34 +87,60 @@ const ItemStatusReport: any = ({
             </div>
           )}
           <div className="table-responsive">
-            <table className="table table-hover table-bordered table-striped">
-              <thead>
-                <th className="thead" scope="col">
-                  Sr.No.
-                </th>
-                {itemStatusReportState?.length > 0 &&
-                  itemStatusReportState !== null &&
-                  Object.keys(itemStatusReportState[0]).map((key) => (
-                    <th className="thead" scope="col" key={key}>
-                      {key}
-                    </th>
-                  ))}
-              </thead>
-              <tbody>
-                {itemStatusReportState?.length > 0 &&
-                  itemStatusReportState !== null &&
-                  itemStatusReportState
-                    .slice(0, tableViewData)
-                    .map((item: any, index: number) => (
-                      <tr key={index} className={`${styles.table_row}`}>
-                        <td className="table_row report-table-row" scope="row">
+            <div
+              ref={scrollableTableRef}
+              className="scrollable-table-container"
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+            >
+              <table className="table table-hover table-bordered table-striped cursor">
+                <thead>
+                  <th className="thead" scope="col">
+                    Sr.No.
+                  </th>
+                  {itemStatusReportState?.length > 0 &&
+                    itemStatusReportState !== null &&
+                    Object.keys(itemStatusReportState[0]).map((key) => (
+                      <th className="thead" scope="col" key={key}>
+                        {key}
+                      </th>
+                    ))}
+                </thead>
+                <tbody>
+                  {itemStatusReportState?.length > 0 &&
+                    itemStatusReportState !== null &&
+                    itemStatusReportState.map((item: any, index: number) => (
+                      <tr
+                        key={index}
+                        className={`${styles.table_row} ${
+                          index >= itemStatusReportState.length - 2
+                            ? 'last-two-rows'
+                            : ''
+                        }`}
+                      >
+                        <td
+                          className={`${
+                            index >= itemStatusReportState.length - 2 &&
+                            reportName === 'Daily Quantity Status Report'
+                              ? 'thead'
+                              : 'table_row report-table-row '
+                          }`}
+                          scope="row"
+                        >
                           {index + 1}
                         </td>
                         {Object.values(item).map(
                           (value: any, innerIndex: number) => (
                             <td
                               key={innerIndex}
-                              className="table_row report-table-row"
+                              className={`${
+                                index >= itemStatusReportState.length - 2 &&
+                                reportName === 'Daily Quantity Status Report'
+                                  ? 'thead'
+                                  : 'table_row report-table-row '
+                              }`}
                               scope="row"
                             >
                               {value}
@@ -130,14 +149,9 @@ const ItemStatusReport: any = ({
                         )}
                       </tr>
                     ))}
-                {itemStatusReportState?.length > 20 &&
-                  itemStatusReportState !== null && (
-                    <LoadMoreTableDataInMaster
-                      HandleTableViewRows={HandleTableViewRows}
-                    />
-                  )}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
         </>
       )}
