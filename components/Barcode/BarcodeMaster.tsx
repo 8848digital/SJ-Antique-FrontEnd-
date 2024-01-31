@@ -1,8 +1,8 @@
 import React from 'react';
 import BarcodeFilterListing from './BarcodeFilterListing';
-import BarcodeCategoryTable from './BarcodeCategoryTable';
 import BarcodeListingTable from './BarcodeListingTable';
 import UseBarcodeFilterList from '@/hooks/Barcode/barcode-filter-hook';
+import BarcodeCategorySection from './BarcodeCategoryTable';
 
 const BarcodeMaster = () => {
   const {
@@ -11,6 +11,14 @@ const BarcodeMaster = () => {
     setSearchKarigar,
     selectDropDownReset,
     setSelectDropDownReset,
+    handleSearchBarcodeItemCodeDetails,
+    handleSearchBtn,
+    itemCodeDataToShow,
+    showCategorySection,
+    handleGenerateBarcodeListBtn,
+    showBarcodeTableSection,
+    handleCheckboxChange,
+    checkedItems
   }: any = UseBarcodeFilterList();
   return (
     <div className="container-lg">
@@ -21,9 +29,22 @@ const BarcodeMaster = () => {
         setSearchKarigar={setSearchKarigar}
         selectDropDownReset={selectDropDownReset}
         setSelectDropDownReset={setSelectDropDownReset}
+        handleSearchBarcodeItemCodeDetails={handleSearchBarcodeItemCodeDetails}
+        handleSearchBtn={handleSearchBtn}
+
       />
-      <BarcodeCategoryTable />
-      <BarcodeListingTable />
+      {showCategorySection && (
+        <BarcodeCategorySection
+          itemCodeDataToShow={itemCodeDataToShow}
+          handleGenerateBarcodeListBtn={handleGenerateBarcodeListBtn}
+          handleCheckboxChange={handleCheckboxChange}
+          checkedItems={checkedItems}
+        />
+      )}
+
+      {showBarcodeTableSection && (
+        <BarcodeListingTable />
+      )}
     </div>
   );
 };

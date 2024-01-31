@@ -7,6 +7,8 @@ const BarcodeFilterListing: any = ({
   setSearchKarigar,
   selectDropDownReset,
   setSelectDropDownReset,
+  handleSearchBarcodeItemCodeDetails,
+  handleSearchBtn
 }: any) => {
   return (
     <div>
@@ -33,12 +35,14 @@ const BarcodeFilterListing: any = ({
           <th className="thead" scope="col">
             Barcode Created?
           </th>
-          <th className="thead" scope="col"></th>
+          <th className="thead " scope="col"></th>
         </thead>
         <tbody>
           <tr>
             <td className="table_row" scope="row">
-              <input type="date" className="form-control line-height" />
+              <input type="date" className="form-control line-height"
+                onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "date")}
+              />
             </td>
             <td className="table_row" scope="row">
               <SearchSelectInputField
@@ -54,28 +58,31 @@ const BarcodeFilterListing: any = ({
               />
             </td>
             <td className="table_row" scope="row">
-              <input type="text" className="form-control line-height" />
+              <input type="text" className="form-control line-height" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "item_group")} />
             </td>
             <td className="table_row" scope="row">
-              <input type="text" className="form-control line-height" />
+              <input type="text" className="form-control line-height" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "sr_no_from")} />
             </td>
             <td className="table_row" scope="row">
-              <input type="text" className="form-control line-height" />
+              <input type="text" className="form-control line-height" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "sr_no_to")} />
             </td>
             <td className="p-0">
-              <select
-                name=""
-                className="form-control form-select line-height"
-              ></select>
+              <select className="form-select" aria-label="Default select example" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "stock")}>
+                <option selected></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
             </td>
             <td className="p-0">
-              <select
-                name=""
-                className="form-control form-select line-height"
-              ></select>
+              <select className="form-select" aria-label="Default select example" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "barcode_created")}>
+                <option selected></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+
             </td>
             <td className="p-0 ">
-              <button className="btn   p-1">Search</button>
+              <button className="btn p-1 " onClick={handleSearchBtn}>Search</button>
             </td>
           </tr>
         </tbody>
