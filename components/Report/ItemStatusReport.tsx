@@ -111,44 +111,52 @@ const ItemStatusReport: any = ({
                 <tbody>
                   {itemStatusReportState?.length > 0 &&
                     itemStatusReportState !== null &&
-                    itemStatusReportState.map((item: any, index: number) => (
-                      <tr
-                        key={index}
-                        className={`${styles.table_row} ${
-                          index >= itemStatusReportState.length - 2
-                            ? 'last-two-rows'
-                            : ''
-                        }`}
-                      >
-                        <td
-                          className={`${
-                            index >= itemStatusReportState.length - 2 &&
-                            reportName === 'Daily Quantity Status Report'
-                              ? 'thead'
-                              : 'table_row report-table-row '
+                    itemStatusReportState
+                      .slice(0, tableViewData)
+                      .map((item: any, index: number) => (
+                        <tr
+                          key={index}
+                          className={`${styles.table_row} ${
+                            index >= itemStatusReportState.length - 2
+                              ? 'last-two-rows'
+                              : ''
                           }`}
-                          scope="row"
                         >
-                          {index + 1}
-                        </td>
-                        {Object.values(item).map(
-                          (value: any, innerIndex: number) => (
-                            <td
-                              key={innerIndex}
-                              className={`${
-                                index >= itemStatusReportState.length - 2 &&
-                                reportName === 'Daily Quantity Status Report'
-                                  ? 'thead'
-                                  : 'table_row report-table-row '
-                              }`}
-                              scope="row"
-                            >
-                              {value}
-                            </td>
-                          )
-                        )}
-                      </tr>
-                    ))}
+                          <td
+                            className={`${
+                              index >= itemStatusReportState.length - 2 &&
+                              reportName === 'Daily Quantity Status Report'
+                                ? 'thead'
+                                : 'table_row report-table-row '
+                            }`}
+                            scope="row"
+                          >
+                            {index + 1}
+                          </td>
+                          {Object.values(item).map(
+                            (value: any, innerIndex: number) => (
+                              <td
+                                key={innerIndex}
+                                className={`${
+                                  index >= itemStatusReportState.length - 2 &&
+                                  reportName === 'Daily Quantity Status Report'
+                                    ? 'thead'
+                                    : 'table_row report-table-row '
+                                }`}
+                                scope="row"
+                              >
+                                {value}
+                              </td>
+                            )
+                          )}
+                        </tr>
+                      ))}
+                  {itemStatusReportState?.length > 20 &&
+                    itemStatusReportState !== null && (
+                      <LoadMoreTableDataInMaster
+                        HandleTableViewRows={HandleTableViewRows}
+                      />
+                    )}
                 </tbody>
               </table>
             </div>
