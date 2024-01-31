@@ -253,6 +253,15 @@ const UseCustomSalesReturnHook = () => {
           custom_cs: Number(name === 'csFixedAmt' ? value : item?.custom_cs),
           custom_kun: Number(name === 'kunFixedAmt' ? value : item?.custom_kun),
           custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
+          custom_kun_amt:
+            Number(item.custom_kun_pc) *
+            Number(name === 'kunFixedAmt' ? value : item?.custom_kun),
+          custom_cs_amt:
+            Number(item?.custom_cs_wt) *
+            Number(name === 'csFixedAmt' ? value : item?.custom_cs),
+          custom_ot_amt:
+            Number(item.custom_other_wt) *
+            Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
               Number(item[i]?.custom_kun_amt) +

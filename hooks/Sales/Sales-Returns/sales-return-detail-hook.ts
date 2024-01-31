@@ -143,7 +143,18 @@ const UseSalesReturnDetailHook = () => {
       filteredData !== null &&
       filteredData.map((data: any) => {
         const { warehouse, ...updatedObject } = data;
-        return updatedObject;
+        return {
+          ...updatedObject,
+          custom_kun_amt: Number(data.custom_kun_pc) * Number(data?.custom_kun),
+          custom_cs_amt: Number(data?.custom_cs_wt) * Number(data?.custom_cs),
+          custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
+          custom_amount: Number(
+            Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
+              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+              Number(data?.custom_other)
+          )?.toFixed(2),
+        };
       });
     const values = {
       ...deliveryNoteData,

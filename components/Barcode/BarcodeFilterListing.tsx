@@ -1,8 +1,15 @@
 import React from 'react';
+import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
 
-const BarcodeFilterListing = () => {
+const BarcodeFilterListing: any = ({
+  karigarList,
+  searchKarigar,
+  setSearchKarigar,
+  selectDropDownReset,
+  setSelectDropDownReset,
+}: any) => {
   return (
-    <div className="table-responsive">
+    <div>
       <table className="table table-hover">
         <thead>
           <th className="thead" scope="col">
@@ -34,7 +41,17 @@ const BarcodeFilterListing = () => {
               <input type="date" className="form-control line-height" />
             </td>
             <td className="table_row" scope="row">
-              <input type="text" className="form-control line-height" />
+              <SearchSelectInputField
+                karigarData={karigarList}
+                placeholder="Karigar"
+                className={
+                  'form-control input-fields custom-input-field line-height text-center'
+                }
+                selectedDropdownValue={searchKarigar}
+                setSelectedDropdownValue={setSearchKarigar}
+                selectDropDownReset={selectDropDownReset}
+                setSelectDropDownReset={setSelectDropDownReset}
+              />
             </td>
             <td className="table_row" scope="row">
               <input type="text" className="form-control line-height" />

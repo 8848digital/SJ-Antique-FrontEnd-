@@ -49,8 +49,8 @@ const useItemStatusReportHook = () => {
     method: 'get_daily_qty_status_report',
     entity: 'daily_qty_status',
     // voucher_no: searchVoucherNum,
-    // from_date: searchInputValues.fromDate,
-    // to_date: searchInputValues.toDate,
+    from_date: searchInputValues.fromDate,
+    to_date: searchInputValues.toDate,
   };
   useEffect(() => {
     const getStateData: any = async () => {
