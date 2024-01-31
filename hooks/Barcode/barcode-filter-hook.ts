@@ -100,7 +100,10 @@ const UseBarcodeFilterList = () => {
   };
 
   const handleCheckboxChange = (id: any, name: any) => {
+    console.log('prev items check', id);
+
     setCheckedItems((prevItems: any) => {
+      console.log('prev items', prevItems);
       const index = prevItems.findIndex((item: any) => item.id === id);
       if (index !== -1) {
         // If checkbox is already checked, remove it from the list
@@ -113,6 +116,8 @@ const UseBarcodeFilterList = () => {
       }
     });
   };
+
+  console.log('checked items', checkedItems);
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
     const selectedArray =

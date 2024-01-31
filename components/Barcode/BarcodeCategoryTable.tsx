@@ -38,6 +38,14 @@ const BarcodeCategorySection = ({
                   className="form-check-input"
                   type="checkbox"
                   checked={checkedItems.some(
+                    (checkedItem: any) => checkedItem.id === data.idx
+                  )}
+                  onChange={() => handleCheckboxChange(data.idx, data.name)}
+                />
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  checked={checkedItems.some(
                     (checkedItem: any) => checkedItem.id === data.id
                   )}
                   onChange={() => handleCheckboxChange(data.id, data.name)}
