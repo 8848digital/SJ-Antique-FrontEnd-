@@ -18,7 +18,12 @@ const BarcodeMaster = () => {
     handleGenerateBarcodeListBtn,
     showBarcodeTableSection,
     handleCheckboxChange,
-    checkedItems
+    checkedItems,
+    kunCsOtCategoryData,
+    BBcategoryData,
+    selectedCategory,
+    setSeletedCategory,
+    handleSelectChange,
   }: any = UseBarcodeFilterList();
   return (
     <div className="container-lg">
@@ -31,7 +36,6 @@ const BarcodeMaster = () => {
         setSelectDropDownReset={setSelectDropDownReset}
         handleSearchBarcodeItemCodeDetails={handleSearchBarcodeItemCodeDetails}
         handleSearchBtn={handleSearchBtn}
-
       />
       {showCategorySection && (
         <BarcodeCategorySection
@@ -39,12 +43,14 @@ const BarcodeMaster = () => {
           handleGenerateBarcodeListBtn={handleGenerateBarcodeListBtn}
           handleCheckboxChange={handleCheckboxChange}
           checkedItems={checkedItems}
+          kunCsOtCategoryData={kunCsOtCategoryData}
+          BBcategoryData={BBcategoryData}
+          selectedCategory={selectedCategory}
+          setSeletedCategory={setSeletedCategory}
+          handleSelectChange={handleSelectChange}
         />
       )}
-
-      {showBarcodeTableSection && (
-        <BarcodeListingTable />
-      )}
+      {showBarcodeTableSection && <BarcodeListingTable />}
     </div>
   );
 };

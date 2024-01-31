@@ -8,7 +8,7 @@ const BarcodeFilterListing: any = ({
   selectDropDownReset,
   setSelectDropDownReset,
   handleSearchBarcodeItemCodeDetails,
-  handleSearchBtn
+  handleSearchBtn,
 }: any) => {
   return (
     <div>
@@ -40,8 +40,12 @@ const BarcodeFilterListing: any = ({
         <tbody>
           <tr>
             <td className="table_row" scope="row">
-              <input type="date" className="form-control line-height"
-                onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "date")}
+              <input
+                type="date"
+                className="form-control line-height"
+                onChange={(e: any) =>
+                  handleSearchBarcodeItemCodeDetails(e, 'date')
+                }
               />
             </td>
             <td className="table_row" scope="row">
@@ -58,31 +62,62 @@ const BarcodeFilterListing: any = ({
               />
             </td>
             <td className="table_row" scope="row">
-              <input type="text" className="form-control line-height" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "item_group")} />
+              <input
+                type="text"
+                className="form-control line-height"
+                onChange={(e: any) =>
+                  handleSearchBarcodeItemCodeDetails(e, 'item_group')
+                }
+              />
             </td>
             <td className="table_row" scope="row">
-              <input type="text" className="form-control line-height" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "sr_no_from")} />
+              <input
+                type="text"
+                className="form-control line-height"
+                onChange={(e: any) =>
+                  handleSearchBarcodeItemCodeDetails(e, 'sr_no_from')
+                }
+              />
             </td>
             <td className="table_row" scope="row">
-              <input type="text" className="form-control line-height" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "sr_no_to")} />
+              <input
+                type="text"
+                className="form-control line-height"
+                onChange={(e: any) =>
+                  handleSearchBarcodeItemCodeDetails(e, 'sr_no_to')
+                }
+              />
             </td>
             <td className="p-0">
-              <select className="form-select" aria-label="Default select example" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "stock")}>
+              <select
+                className="form-control"
+                aria-label="Default select example"
+                onChange={(e: any) =>
+                  handleSearchBarcodeItemCodeDetails(e, 'stock')
+                }
+              >
                 <option selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>
             </td>
             <td className="p-0">
-              <select className="form-select" aria-label="Default select example" onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, "barcode_created")}>
+              <select
+                className="form-control text-center"
+                aria-label="Default select example"
+                onChange={(e: any) =>
+                  handleSearchBarcodeItemCodeDetails(e, 'barcode_created')
+                }
+              >
                 <option selected></option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>
-
             </td>
             <td className="p-0 ">
-              <button className="btn p-1 " onClick={handleSearchBtn}>Search</button>
+              <button className="btn p-1 " onClick={handleSearchBtn}>
+                Search
+              </button>
             </td>
           </tr>
         </tbody>
