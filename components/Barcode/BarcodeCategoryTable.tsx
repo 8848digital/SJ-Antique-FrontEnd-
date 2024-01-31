@@ -46,9 +46,9 @@ const BarcodeCategorySection = ({
                   className="form-check-input"
                   type="checkbox"
                   checked={checkedItems.some(
-                    (checkedItem: any) => checkedItem.id === data.id
+                    (checkedItem: any) => checkedItem.id === data.idx
                   )}
-                  onChange={() => handleCheckboxChange(data.id, data.name)}
+                  onChange={() => handleCheckboxChange(data.idx, data.name)}
                 />
                 <label className="form-check-label" htmlFor="flexCheckChecked">
                   {data?.name}

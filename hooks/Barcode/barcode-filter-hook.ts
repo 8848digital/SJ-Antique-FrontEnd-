@@ -1,3 +1,4 @@
+import getBarcodeDetailsApi from '@/services/api/Barcode/barcode-details-by-item-code-api';
 import getSearchBarcodeItemCodeDetails from '@/services/api/Barcode/search-barcode-itemcode-details-api';
 import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
@@ -59,9 +60,8 @@ const UseBarcodeFilterList = () => {
     let value = e.target.value;
     if (fieldName === 'date') {
       const dateObj = new Date(value);
-      const formattedDate = `${dateObj.getDate()}/${
-        dateObj.getMonth() + 1
-      }/${dateObj.getFullYear()}`;
+      const formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1
+        }/${dateObj.getFullYear()}`;
       value = formattedDate;
     }
     setSearchBarcodeFilterData((prevState: any) => ({
@@ -95,8 +95,16 @@ const UseBarcodeFilterList = () => {
     itemCodeDataToShow
   );
 
-  const handleGenerateBarcodeListBtn: any = () => {
+  const handleGenerateBarcodeListBtn: any = async () => {
     setShowBarcodeTableSection(true);
+    const reqParams: any = {
+      version: "v1",
+      method: "get_item_specific_barcode",
+      entity: "barcode_api",
+      name: checkedItems.map((items: any) => items.name)
+    }
+    let getBarcodeDetails: any = await getBarcodeDetailsApi(loginAcessToken?.token, reqParams)
+    console.log("getBarcodeDetailsApi res", getBarcodeDetails)
   };
 
   const handleCheckboxChange = (id: any, name: any) => {
@@ -118,6 +126,7 @@ const UseBarcodeFilterList = () => {
   };
 
   console.log('checked items', checkedItems);
+
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
     const selectedArray =
@@ -130,6 +139,7 @@ const UseBarcodeFilterList = () => {
     }));
     // setStateForDocStatus(true);
   };
+
   console.log('@barcode selected Category', selectedCategory);
   return {
     karigarList,
