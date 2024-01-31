@@ -53,6 +53,7 @@ const UseBarcodeFilterList = () => {
     console.log("searchBarcodeItemCodeDetailsApi res", searchBarcodeItemCodeDetailsApi)
     if (searchBarcodeItemCodeDetailsApi?.data?.message?.status === "success") {
       setItemCodeDataToShow(searchBarcodeItemCodeDetailsApi?.data?.message?.data)
+
     }
     setShowCategorySection(true)
   }
@@ -64,7 +65,10 @@ const UseBarcodeFilterList = () => {
   };
 
   const handleCheckboxChange = (id: any, name: any) => {
+    console.log("prev items check", id)
+
     setCheckedItems((prevItems: any) => {
+      console.log("prev items", prevItems)
       const index = prevItems.findIndex((item: any) => item.id === id);
       if (index !== -1) {
         // If checkbox is already checked, remove it from the list
@@ -77,6 +81,8 @@ const UseBarcodeFilterList = () => {
       }
     });
   };
+
+  console.log("checked items", checkedItems)
   return {
     karigarList,
     searchKarigar,
