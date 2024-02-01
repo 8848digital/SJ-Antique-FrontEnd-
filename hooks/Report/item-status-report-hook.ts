@@ -117,16 +117,10 @@ const useItemStatusReportHook = () => {
     const getItemDataFun = async () => {
       const itemReportDataFun = () => {
         if (
-          (itemList?.length > 0 &&
-            itemList !== null &&
-            itemList.find((data: any) => {
-              data === searchItem;
-            })) ||
-          (itemVoucherNumber?.length > 0 &&
-            itemVoucherNumber !== null &&
-            itemVoucherNumber.find((data: any) => {
-              data === searchVoucherNum;
-            }))
+          (searchItem !== '' &&
+            searchItem !== undefined &&
+            searchItem.length > 4) ||
+          (searchVoucherNum !== undefined && searchVoucherNum.length > 16)
         ) {
           return true;
         }
@@ -195,9 +189,9 @@ const useItemStatusReportHook = () => {
   useEffect(() => {
     const getDailyStatusData = async () => {
       if (
-        dailyStatusSearchName?.length > 0 &&
-        dailyStatusSearchName !== null &&
-        dailyStatusSearchName.find((data: any) => data === searchName)
+        searchName !== '' &&
+        searchName !== undefined &&
+        searchName.length > 4
       ) {
         const itemReportDataFun = async () => {
           try {
