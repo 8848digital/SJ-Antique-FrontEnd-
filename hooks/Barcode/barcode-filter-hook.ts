@@ -10,7 +10,7 @@ import useBarcodeListingHook from './barcode-listing-hook';
 import UseBarcodeTableHook from './barcode-table-hook';
 
 const UseBarcodeFilterList = () => {
-  const { BarcodeListData }: any = useBarcodeListingHook();
+
   const loginAcessToken = useSelector(get_access_token);
   const [karigarList, setKarigarList] = useState<any>();
   const [kunCsOtCategoryData, setKunCsOtCategoryData] = useState<any>();
@@ -66,9 +66,8 @@ const UseBarcodeFilterList = () => {
     let value = e.target.value;
     if (fieldName === 'date') {
       const dateObj = new Date(value);
-      const formattedDate = `${dateObj.getDate()}/${
-        dateObj.getMonth() + 1
-      }/${dateObj.getFullYear()}`;
+      const formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1
+        }/${dateObj.getFullYear()}`;
       value = formattedDate;
     }
     setSearchBarcodeFilterData((prevState: any) => ({
@@ -136,7 +135,6 @@ const UseBarcodeFilterList = () => {
     console.log('prev items check', id);
 
     setCheckedItems((prevItems: any) => {
-      console.log('prev items', prevItems);
       const index = prevItems.findIndex((item: any) => item.id === id);
       if (index !== -1) {
         // If checkbox is already checked, remove it from the list
@@ -187,7 +185,7 @@ const UseBarcodeFilterList = () => {
     handleSelectChange,
     salesTableData,
     setSalesTableData,
-    BarcodeListData,
+
   };
 };
 export default UseBarcodeFilterList;
