@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useBarcodeListingHook from './barcode-listing-hook';
 import UseBarcodeTableHook from './barcode-table-hook';
+import PostCreateBarcodeApi from '@/services/api/Barcode/post-create-barcode-api';
+import { toast } from 'react-toastify';
 
 const UseBarcodeFilterList = () => {
   const { BarcodeListData }: any = useBarcodeListingHook();
@@ -126,12 +128,121 @@ const UseBarcodeFilterList = () => {
           item.map((innerItem: any) => ({
             ...innerItem,
             idx: index + 1,
+            custom_kun_wt: Number(
+              selectedCategory.KunCategory !== '' &&
+                selectedCategory?.KunCategory !== undefined
+                ? (innerItem?.custom_kun_wt *
+                    selectedCategory.KunCategory.type) /
+                    100
+                : innerItem?.custom_kun_wt
+            ),
+            custom_cs_wt: Number(
+              selectedCategory.CsCategory !== '' &&
+                selectedCategory?.CsCategory !== undefined
+                ? (innerItem?.custom_cs_wt * selectedCategory.CsCategory.type) /
+                    100
+                : innerItem?.custom_cs_wt
+            ),
+            custom_bb_wt: Number(
+              selectedCategory.BBCategory !== '' &&
+                selectedCategory?.BBCategory !== undefined
+                ? innerItem?.custom_bb_wt - selectedCategory.BBCategory.type
+                : innerItem.custom_bb_wt
+            ),
+            custom_other_wt: Number(
+              selectedCategory.OtCategory !== '' &&
+                selectedCategory?.OtCategory !== undefined
+                ? (innerItem?.custom_other_wt *
+                    selectedCategory.OtCategory.type) /
+                    100
+                : innerItem?.custom_other_wt
+            ),
+            custom_net_wt:
+              Number(innerItem?.custom_gross_wt) -
+              Number(innerItem?.custom_kun_wt) +
+              Number(innerItem?.custom_cs_wt) +
+              Number(innerItem?.custom_bb_wt) +
+              Number(innerItem?.custom_other_wt),
+            custom_cs: '',
+            custom_cs_amt: 0,
+            custom_kun: '',
+            custom_kun_pc: '',
+            custom_kun_amt: 0,
+            custom_ot_: '',
+            custom_ot_amt: 0,
+            custom_other: '',
+            custom_amount: 0,
           }))
       );
+      console.log(newData, '@barcode data ');
       setSalesTableData(newData);
     }
   };
-
+  const handleBarcodeTableFieldChange: any = (
+    itemIdx: number,
+    fieldName: string,
+    value: any
+  ) => {
+    setSalesTableData((prevData: any) => {
+      return prevData.map((item: any) => {
+        if (item.idx === itemIdx) {
+          return {
+            ...item,
+            [fieldName]: Number(value),
+            custom_net_wt:
+              Number(item?.custom_gross_wt) -
+                (Number(item?.custom_kun_wt) +
+                  Number(item?.custom_cs_wt) +
+                  Number(item?.custom_bb_wt) +
+                  Number(item?.custom_other_wt)) <
+              0
+                ? 0
+                : Number(item?.custom_gross_wt) -
+                  (Number(item?.custom_kun_wt) +
+                    Number(item?.custom_cs_wt) +
+                    Number(item?.custom_bb_wt) +
+                    Number(item?.custom_other_wt)),
+            custom_cs_amt:
+              fieldName === 'custom_cs'
+                ? Number(item.custom_cs_wt) * value
+                : item.custom_cs_amt,
+            custom_kun_amt:
+              fieldName === 'custom_kun'
+                ? Number(item?.custom_kun_pc) * value
+                : fieldName === 'custom_kun_pc'
+                ? Number(item.custom_kun) * value
+                : item.custom_kun_amt,
+            custom_ot_amt:
+              fieldName === 'custom_ot_'
+                ? Number(item.custom_other_wt) * value
+                : item.custom_ot_amt,
+            custom_amount: Number(
+              Number(
+                Number(item?.custom_kun_amt) === undefined
+                  ? 0
+                  : Number(item?.custom_kun_amt)
+              ) +
+                Number(
+                  Number(item?.custom_cs_amt) === undefined
+                    ? 0
+                    : Number(item?.custom_cs_amt)
+                ) +
+                Number(
+                  Number(item?.custom_ot_amt) === undefined
+                    ? 0
+                    : Number(item?.custom_ot_amt)
+                ) +
+                Number(item?.custom_other)
+            ),
+          };
+        } else {
+          return item;
+        }
+      });
+    });
+    console.log(salesTableData, 'saletabledata in field change');
+  };
+  console.log(salesTableData, '@barcode table data');
   const handleCheckboxChange = (id: any, name: any) => {
     console.log('prev items check', id);
 
@@ -164,7 +275,56 @@ const UseBarcodeFilterList = () => {
     }));
     // setStateForDocStatus(true);
   };
+  const HandleCreateBarcode = async () => {
+    console.log(salesTableData, '@barcode post barcode');
+    const updatedData =
+      salesTableData?.length > 0 &&
+      salesTableData !== null &&
+      salesTableData.map((item: any) => {
+        const { custom_warehouse, idx, ...updatedObject } = item;
+        return {
+          ...updatedObject,
+          custom_bb_wt: item?.custom_bb_wt < 0 ? 0 : item?.custom_bb_wt,
+          custom_amount: Number(
+            Number(
+              Number(item?.custom_kun_amt) === undefined
+                ? 0
+                : Number(item?.custom_kun_amt)
+            ) +
+              Number(
+                Number(item?.custom_cs_amt) === undefined
+                  ? 0
+                  : Number(item?.custom_cs_amt)
+              ) +
+              Number(
+                Number(item?.custom_ot_amt) === undefined
+                  ? 0
+                  : Number(item?.custom_ot_amt)
+              ) +
+              Number(item?.custom_other)
+          ),
+        };
+      });
+    const values = {
+      version: 'v1',
+      method: 'create_barcode',
+      entity: 'barcode_api',
+      data: updatedData,
+    };
+    console.log(values, '@barcode values');
+    const postDeliveryNote: any = await PostCreateBarcodeApi(
+      loginAcessToken.token,
+      values
+    );
 
+    if (postDeliveryNote?.data?.message?.status === 'success') {
+      toast.success('Barcode Created Successfully');
+    }
+    if (postDeliveryNote?.data?.message?.status === 'error') {
+      toast.error(`${postDeliveryNote?.data?.message?.message}`);
+    }
+    console.log(updatedData, '@barcode post updated data');
+  };
   console.log('@barcode selected Category', selectedCategory);
   return {
     karigarList,
@@ -188,6 +348,8 @@ const UseBarcodeFilterList = () => {
     salesTableData,
     setSalesTableData,
     BarcodeListData,
+    handleBarcodeTableFieldChange,
+    HandleCreateBarcode,
   };
 };
 export default UseBarcodeFilterList;

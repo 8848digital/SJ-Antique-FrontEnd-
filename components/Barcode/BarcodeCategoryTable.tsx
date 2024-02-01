@@ -16,7 +16,7 @@ const BarcodeCategorySection = ({
     <div>
       <button
         type="button"
-        className="btn btn-primary p-0 px-2 mb-2"
+        className="btn btn-primary p-0 px-2 my-2"
         onClick={handleGenerateBarcodeListBtn}
       >
         Generate Barcode List

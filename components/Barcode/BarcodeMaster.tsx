@@ -29,6 +29,8 @@ const BarcodeMaster = () => {
     BarcodeListData,
     salesTableData,
     setSalesTableData,
+    handleBarcodeTableFieldChange,
+    HandleCreateBarcode,
   }: any = UseBarcodeFilterList();
   return (
     <div className="container-lg">
@@ -76,7 +78,18 @@ const BarcodeMaster = () => {
             />
           )}
           {showBarcodeTableSection && (
-            <CustomerSalesTable salesTableData={salesTableData} />
+            <>
+              <button
+                className="btn btn-primary my-2"
+                onClick={HandleCreateBarcode}
+              >
+                Create Barcode
+              </button>
+              <CustomerSalesTable
+                salesTableData={salesTableData}
+                handleSalesTableFieldChange={handleBarcodeTableFieldChange}
+              />
+            </>
           )}
         </div>
       </div>

@@ -12,116 +12,103 @@ const BarcodeFilterListing: any = ({
 }: any) => {
   return (
     <div>
-      <table className="table table-hover">
-        <thead>
-          <th className="thead" scope="col">
-            Date
-          </th>
-          <th className="thead" scope="col">
-            Karigar
-          </th>
-          <th className="thead" scope="col">
-            Item Group
-          </th>
-          <th className="thead" scope="col">
-            Sr. No. From
-          </th>
-          <th className="thead" scope="col">
-            Sr. No. To
-          </th>
-          <th className="thead" scope="col">
-            Stock
-          </th>
-          <th className="thead" scope="col">
-            Barcode Created?
-          </th>
-          <th className="thead " scope="col"></th>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="table_row" scope="row">
-              <input
-                type="date"
-                className="form-control line-height"
-                onChange={(e: any) =>
-                  handleSearchBarcodeItemCodeDetails(e, 'date')
-                }
-              />
-            </td>
-            <td className="table_row" scope="row">
-              <SearchSelectInputField
-                karigarData={karigarList}
-                placeholder="Karigar"
-                className={
-                  'form-control input-fields custom-input-field line-height text-center'
-                }
-                selectedDropdownValue={searchKarigar}
-                setSelectedDropdownValue={setSearchKarigar}
-                selectDropDownReset={selectDropDownReset}
-                setSelectDropDownReset={setSelectDropDownReset}
-              />
-            </td>
-            <td className="table_row" scope="row">
-              <input
-                type="text"
-                className="form-control line-height"
-                onChange={(e: any) =>
-                  handleSearchBarcodeItemCodeDetails(e, 'item_group')
-                }
-              />
-            </td>
-            <td className="table_row" scope="row">
-              <input
-                type="text"
-                className="form-control line-height"
-                onChange={(e: any) =>
-                  handleSearchBarcodeItemCodeDetails(e, 'sr_no_from')
-                }
-              />
-            </td>
-            <td className="table_row" scope="row">
-              <input
-                type="text"
-                className="form-control line-height"
-                onChange={(e: any) =>
-                  handleSearchBarcodeItemCodeDetails(e, 'sr_no_to')
-                }
-              />
-            </td>
-            <td className="p-0">
-              <select
-                className="form-control"
-                aria-label="Default select example"
-                onChange={(e: any) =>
-                  handleSearchBarcodeItemCodeDetails(e, 'stock')
-                }
-              >
-                <option selected></option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </select>
-            </td>
-            <td className="p-0">
-              <select
-                className="form-control text-center"
-                aria-label="Default select example"
-                onChange={(e: any) =>
-                  handleSearchBarcodeItemCodeDetails(e, 'barcode_created')
-                }
-              >
-                <option selected></option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </select>
-            </td>
-            <td className="p-0 ">
-              <button className="btn p-1 " onClick={handleSearchBtn}>
-                Search
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="d-flex flex-wrap justifay-space-between">
+        <div className="d-flex flex-wrap justify-content-center">
+          <div className="text-center">
+            <label>Date</label>
+
+            <input
+              type="date"
+              className="form-control line-height bg-primary bg-opacity-10"
+              onChange={(e: any) =>
+                handleSearchBarcodeItemCodeDetails(e, 'date')
+              }
+            />
+          </div>
+          <div className="text-center p-0">
+            <label>Karigar</label>
+
+            <SearchSelectInputField
+              karigarData={karigarList}
+              placeholder="Karigar"
+              className={
+                'form-control line-height text-center bg-primary bg-opacity-10'
+              }
+              style="max-width"
+              selectedDropdownValue={searchKarigar}
+              setSelectedDropdownValue={setSearchKarigar}
+              selectDropDownReset={selectDropDownReset}
+              setSelectDropDownReset={setSelectDropDownReset}
+            />
+          </div>
+          <div className="text-center">
+            <label>Item Group</label>
+            <input
+              type="text"
+              className="form-control line-height bg-primary bg-opacity-10 text-center"
+              onChange={(e: any) =>
+                handleSearchBarcodeItemCodeDetails(e, 'item_group')
+              }
+            />
+          </div>
+          <div className="text-center">
+            <label>Sr.No.From</label>
+            <input
+              type="text"
+              className="form-control line-height bg-primary bg-opacity-10 text-center"
+              onChange={(e: any) =>
+                handleSearchBarcodeItemCodeDetails(e, 'sr_no_from')
+              }
+            />
+          </div>
+          <div className="text-center">
+            <label>Sr.No.To</label>
+
+            <input
+              type="text"
+              className="form-control line-height bg-primary bg-opacity-10 text-center"
+              onChange={(e: any) =>
+                handleSearchBarcodeItemCodeDetails(e, 'sr_no_to')
+              }
+            />
+          </div>
+          <div className="p-0">
+            <label>Stock</label>
+
+            <select
+              className="form-control line-height bg-primary bg-opacity-10"
+              aria-label="Default select example"
+              onChange={(e: any) =>
+                handleSearchBarcodeItemCodeDetails(e, 'stock')
+              }
+            >
+              <option selected></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div className="p-0">
+            <label>Barcode Created?</label>
+
+            <select
+              className="form-control line-height text-center bg-primary bg-opacity-10"
+              aria-label="Default select example"
+              onChange={(e: any) =>
+                handleSearchBarcodeItemCodeDetails(e, 'barcode_created')
+              }
+            >
+              <option selected></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </div>
+        <div className="p-0 mt-2 mx-2">
+          <button className="btn btn-primary p-1 " onClick={handleSearchBtn}>
+            Search
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

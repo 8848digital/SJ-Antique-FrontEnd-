@@ -215,7 +215,7 @@ const SearchSelectInputField = ({
 
   console.log(filterDropdownList, 'filter list in search');
   return (
-    <div>
+    <>
       <input
         type="text"
         name={name}
@@ -299,7 +299,7 @@ const SearchSelectInputField = ({
           )}
         </ul>
       )}
-    </div>
+    </>
   );
 };
 
