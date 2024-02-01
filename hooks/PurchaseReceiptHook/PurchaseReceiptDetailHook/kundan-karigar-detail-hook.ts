@@ -69,13 +69,17 @@ const UseKundanKarigarDetailHook = () => {
     }
   }, [SpecificDataFromStore]);
 
-  const handlePrintApi: any = async (id: any) => {
+  const handlePrintApi: any = async (
+    id: any,
+    printApiMethod: any,
+    printApiEntity: any
+  ) => {
     const reqParams = {
       token: loginAcessToken?.token,
       name: id,
       version: 'v1',
-      method: 'get_print_purchase_receipt',
-      entity: 'print_purchase_receipt',
+      method: printApiMethod,
+      entity: printApiEntity,
     };
     let deliveryNotePrintApi: any = await PrintApi(reqParams);
     if (deliveryNotePrintApi?.status === 'success') {

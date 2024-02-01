@@ -17,11 +17,13 @@ const DocStatusButtonChanges = ({
   handlePrintApi,
   HandleUpdateDocStatus,
   HandleDeleteReceipt,
+  printApiMethod,
+  printApiEntity,
 }: any) => {
   const { query } = useRouter();
   const router = useRouter();
 
-  console.log("query", query)
+  console.log('query', query);
   const pathParts = router?.asPath?.split('/');
   const receiptType = pathParts[2];
 
@@ -97,7 +99,13 @@ const DocStatusButtonChanges = ({
               <button
                 type="button"
                 className={`${styles.create_button} px-2 py-0 me-2`}
-                onClick={() => handlePrintApi(query?.receiptId)}
+                onClick={() =>
+                  handlePrintApi(
+                    query?.receiptId,
+                    printApiMethod,
+                    printApiEntity
+                  )
+                }
               >
                 Print
               </button>
@@ -156,7 +164,7 @@ const DocStatusButtonChanges = ({
             </button>
           )}
         </div>
-      </div >
+      </div>
     </>
   );
 };

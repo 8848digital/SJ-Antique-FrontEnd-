@@ -76,6 +76,8 @@ const DetailPageReadyReceipt = () => {
   } = useReadyReceiptKarigar();
 
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
+  const router = useRouter();
+  const receiptType = router.query;
 
   useEffect(() => {
     if (defaultKarigarData?.length > 0 && defaultKarigarData !== null) {
@@ -128,6 +130,16 @@ const DetailPageReadyReceipt = () => {
                         HandleAmendButtonForDuplicateChitti
                       }
                       handlePrintApi={handlePrintApi}
+                      printApiMethod={
+                        receiptType?.receipt === 'kundan'
+                          ? 'get_purchase_receipt_kundan'
+                          : 'get_purchase_receipt_mangalsutra'
+                      }
+                      printApiEntity={
+                        receiptType?.receipt === 'kundan'
+                          ? 'print_purchase_receipt_kundan'
+                          : 'print_purchase_receipt_mangalsutra'
+                      }
                       HandleUpdateDocStatus={HandleUpdateDocStatus}
                       HandleDeleteReceipt={HandleDeleteReceipt}
                     />

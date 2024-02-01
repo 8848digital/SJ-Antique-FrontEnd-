@@ -66,7 +66,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     lastInputRef,
   } = useReadyReceiptKarigar();
 
-  const router = useRouter();
+  console.log(lastPartOfURL, ' @RR type');
 
   return (
     <div className="container-lg">
@@ -94,8 +94,16 @@ const ReadyReceiptKundanKarigarMaster = () => {
               deleteApiMethod={'delete_purchase_receipt_delete'}
               deleteApiEntity={'delete_purchase_receipts'}
               purchasRecieptListParams={purchasRecieptListParams}
-              printApiMethod={'get_print_purchase_receipt'}
-              printApiEntity={'print_purchase_receipt'}
+              printApiMethod={
+                lastPartOfURL === 'kundan'
+                  ? 'get_purchase_receipt_kundan'
+                  : 'get_purchase_receipt_mangalsutra'
+              }
+              printApiEntity={
+                lastPartOfURL === 'kundan'
+                  ? 'print_purchase_receipt_kundan'
+                  : 'print_purchase_receipt_mangalsutra'
+              }
               kunKarigarDropdownReset={kunKarigarDropdownReset}
               setKunKarigarDropdownReset={setKunKarigarDropdownReset}
             />
