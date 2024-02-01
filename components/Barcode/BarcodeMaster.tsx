@@ -4,6 +4,7 @@ import TabSection from '../TabSection';
 import BarcodeCategorySection from './BarcodeCategoryTable';
 import BarcodeFilterListing from './BarcodeFilterListing';
 import BarcodeListingTable from './BarcodeListingTable';
+// import BarcodeListingTable from './BarcodeListingTable';
 
 const BarcodeMaster = () => {
   const {
@@ -26,6 +27,8 @@ const BarcodeMaster = () => {
     setSeletedCategory,
     handleSelectChange,
     BarcodeListData,
+    salesTableData,
+    setSalesTableData,
   }: any = UseBarcodeFilterList();
   return (
     <div className="container-lg">
@@ -72,7 +75,9 @@ const BarcodeMaster = () => {
               handleSelectChange={handleSelectChange}
             />
           )}
-          {showBarcodeTableSection && <CustomerSalesTable />}
+          {showBarcodeTableSection && (
+            <CustomerSalesTable salesTableData={salesTableData} />
+          )}
         </div>
       </div>
     </div>

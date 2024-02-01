@@ -7,6 +7,7 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import useBarcodeListingHook from './barcode-listing-hook';
+import UseBarcodeTableHook from './barcode-table-hook';
 
 const UseBarcodeFilterList = () => {
   const { BarcodeListData }: any = useBarcodeListingHook();
@@ -39,6 +40,8 @@ const UseBarcodeFilterList = () => {
     BBCategory: '',
     OtCategory: '',
   });
+
+  const { salesTableData, setSalesTableData }: any = UseBarcodeTableHook();
 
   useEffect(() => {
     const getStateData: any = async () => {
@@ -100,18 +103,33 @@ const UseBarcodeFilterList = () => {
   );
 
   const handleGenerateBarcodeListBtn: any = async () => {
+    setShowCategorySection(false);
     setShowBarcodeTableSection(true);
+
     const reqParams: any = {
       version: 'v1',
       method: 'get_item_specific_barcode',
       entity: 'barcode_api',
       name: checkedItems.map((items: any) => items.name),
     };
+
     let getBarcodeDetails: any = await getBarcodeDetailsApi(
       loginAcessToken?.token,
       reqParams
     );
-    console.log('getBarcodeDetailsApi res', getBarcodeDetails);
+
+    if (getBarcodeDetails?.data?.message?.message?.status === 'success') {
+      console.log('initial', getBarcodeDetails?.data?.message?.message.data);
+      const data: any = getBarcodeDetails?.data?.message?.message?.data;
+      const newData: any = Object.values(data).flatMap(
+        (item: any, index: any) =>
+          item.map((innerItem: any) => ({
+            ...innerItem,
+            idx: index + 1,
+          }))
+      );
+      setSalesTableData(newData);
+    }
   };
 
   const handleCheckboxChange = (id: any, name: any) => {
@@ -132,7 +150,7 @@ const UseBarcodeFilterList = () => {
     });
   };
 
-  console.log('checked items', checkedItems);
+  console.log('checked items', salesTableData);
 
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
@@ -167,6 +185,8 @@ const UseBarcodeFilterList = () => {
     selectedCategory,
     setSeletedCategory,
     handleSelectChange,
+    salesTableData,
+    setSalesTableData,
     BarcodeListData,
   };
 };
