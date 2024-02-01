@@ -12,7 +12,6 @@ import PostCreateBarcodeApi from '@/services/api/Barcode/post-create-barcode-api
 import { toast } from 'react-toastify';
 
 const UseBarcodeFilterList = () => {
-  const { BarcodeListData }: any = useBarcodeListingHook();
   const loginAcessToken = useSelector(get_access_token);
   const [karigarList, setKarigarList] = useState<any>();
   const [kunCsOtCategoryData, setKunCsOtCategoryData] = useState<any>();
@@ -247,7 +246,6 @@ const UseBarcodeFilterList = () => {
     console.log('prev items check', id);
 
     setCheckedItems((prevItems: any) => {
-      console.log('prev items', prevItems);
       const index = prevItems.findIndex((item: any) => item.id === id);
       if (index !== -1) {
         // If checkbox is already checked, remove it from the list
@@ -347,7 +345,7 @@ const UseBarcodeFilterList = () => {
     handleSelectChange,
     salesTableData,
     setSalesTableData,
-    BarcodeListData,
+
     handleBarcodeTableFieldChange,
     HandleCreateBarcode,
   };

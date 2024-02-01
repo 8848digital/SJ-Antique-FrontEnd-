@@ -4,6 +4,8 @@ import TabSection from '../TabSection';
 import BarcodeCategorySection from './BarcodeCategoryTable';
 import BarcodeFilterListing from './BarcodeFilterListing';
 import BarcodeListingTable from './BarcodeListingTable';
+import useBarcodeListingHook from '@/hooks/Barcode/barcode-listing-hook';
+import { useState } from 'react';
 // import BarcodeListingTable from './BarcodeListingTable';
 
 const BarcodeMaster = () => {
@@ -26,12 +28,32 @@ const BarcodeMaster = () => {
     selectedCategory,
     setSeletedCategory,
     handleSelectChange,
-    BarcodeListData,
     salesTableData,
-    setSalesTableData,
     handleBarcodeTableFieldChange,
     HandleCreateBarcode,
   }: any = UseBarcodeFilterList();
+
+  const {
+    BarcodeListData,
+    handleCheckboxForBarcodePrint,
+    handleMultipleBarcodePrint,
+    multipleRecordsForPrint,
+    handleBarcodePrint,
+  }: any = useBarcodeListingHook();
+  const [searchItemCode, setSearchItemCode] = useState<any>('');
+
+  const filteredList =
+    BarcodeListData?.length > 0 && BarcodeListData !== null && searchItemCode
+      ? BarcodeListData.filter((item: any) => {
+          const itemCodeMatch = searchItemCode
+            ? item?.item_code
+                ?.toLowerCase()
+                ?.includes(searchItemCode?.toLowerCase())
+            : true;
+          return itemCodeMatch;
+        })
+      : BarcodeListData;
+
   return (
     <div className="container-lg">
       <TabSection
@@ -45,7 +67,15 @@ const BarcodeMaster = () => {
           role="tabpanel"
           aria-labelledby="pills-home-tab"
         >
-          <BarcodeListingTable BarcodeListData={BarcodeListData} />
+          <BarcodeListingTable
+            BarcodeListData={filteredList}
+            handleMultipleBarcodePrint={handleMultipleBarcodePrint}
+            handleCheckboxForBarcodePrint={handleCheckboxForBarcodePrint}
+            setSearchItemCode={setSearchItemCode}
+            searchItemCode={searchItemCode}
+            handleBarcodePrint={handleBarcodePrint}
+            multipleRecordsForPrint={multipleRecordsForPrint}
+          />
         </div>
         <div
           className="tab-pane fade"
