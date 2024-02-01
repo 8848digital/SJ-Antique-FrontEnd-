@@ -24,6 +24,8 @@ const BarcodeMaster = () => {
     selectedCategory,
     setSeletedCategory,
     handleSelectChange,
+    salesTableData,
+    setSalesTableData
   }: any = UseBarcodeFilterList();
   return (
     <div className="container-lg">
@@ -50,7 +52,7 @@ const BarcodeMaster = () => {
           handleSelectChange={handleSelectChange}
         />
       )}
-      {showBarcodeTableSection && <BarcodeListingTable />}
+      {showBarcodeTableSection && <BarcodeListingTable salesTableData={salesTableData} />}
     </div>
   );
 };

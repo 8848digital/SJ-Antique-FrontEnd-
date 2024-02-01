@@ -2,10 +2,11 @@ import React from 'react';
 import CustomerSalesTable from '../Sales/CustomerSale/CustomerSalesTable';
 
 
-const BarcodeListingTable = () => {
+const BarcodeListingTable = ({ salesTableData }: any) => {
+
   return (
     <div>
-      <CustomerSalesTable />
+      <CustomerSalesTable salesTableData={salesTableData} />
     </div>
   );
 };
