@@ -1,8 +1,9 @@
-import React from 'react';
+import UseBarcodeFilterList from '@/hooks/Barcode/barcode-filter-hook';
+import CustomerSalesTable from '../Sales/CustomerSale/CustomerSalesTable';
+import TabSection from '../TabSection';
+import BarcodeCategorySection from './BarcodeCategoryTable';
 import BarcodeFilterListing from './BarcodeFilterListing';
 import BarcodeListingTable from './BarcodeListingTable';
-import UseBarcodeFilterList from '@/hooks/Barcode/barcode-filter-hook';
-import BarcodeCategorySection from './BarcodeCategoryTable';
 
 const BarcodeMaster = () => {
   const {
@@ -24,33 +25,56 @@ const BarcodeMaster = () => {
     selectedCategory,
     setSeletedCategory,
     handleSelectChange,
+    BarcodeListData,
   }: any = UseBarcodeFilterList();
   return (
     <div className="container-lg">
-      BarcodeMaster
-      <BarcodeFilterListing
-        karigarList={karigarList}
-        searchKarigar={searchKarigar}
-        setSearchKarigar={setSearchKarigar}
-        selectDropDownReset={selectDropDownReset}
-        setSelectDropDownReset={setSelectDropDownReset}
-        handleSearchBarcodeItemCodeDetails={handleSearchBarcodeItemCodeDetails}
-        handleSearchBtn={handleSearchBtn}
+      <TabSection
+        firstTabHeading="Barcode List"
+        secondTabHeading="Create New Barcode"
       />
-      {showCategorySection && (
-        <BarcodeCategorySection
-          itemCodeDataToShow={itemCodeDataToShow}
-          handleGenerateBarcodeListBtn={handleGenerateBarcodeListBtn}
-          handleCheckboxChange={handleCheckboxChange}
-          checkedItems={checkedItems}
-          kunCsOtCategoryData={kunCsOtCategoryData}
-          BBcategoryData={BBcategoryData}
-          selectedCategory={selectedCategory}
-          setSeletedCategory={setSeletedCategory}
-          handleSelectChange={handleSelectChange}
-        />
-      )}
-      {showBarcodeTableSection && <BarcodeListingTable />}
+      <div className="tab-content" id="pills-tabContent">
+        <div
+          className="tab-pane fade show active"
+          id="pills-home"
+          role="tabpanel"
+          aria-labelledby="pills-home-tab"
+        >
+          <BarcodeListingTable BarcodeListData={BarcodeListData} />
+        </div>
+        <div
+          className="tab-pane fade"
+          id="pills-profile"
+          role="tabpanel"
+          aria-labelledby="pills-profile-tab"
+        >
+          <BarcodeFilterListing
+            karigarList={karigarList}
+            searchKarigar={searchKarigar}
+            setSearchKarigar={setSearchKarigar}
+            selectDropDownReset={selectDropDownReset}
+            setSelectDropDownReset={setSelectDropDownReset}
+            handleSearchBarcodeItemCodeDetails={
+              handleSearchBarcodeItemCodeDetails
+            }
+            handleSearchBtn={handleSearchBtn}
+          />
+          {showCategorySection && (
+            <BarcodeCategorySection
+              itemCodeDataToShow={itemCodeDataToShow}
+              handleGenerateBarcodeListBtn={handleGenerateBarcodeListBtn}
+              handleCheckboxChange={handleCheckboxChange}
+              checkedItems={checkedItems}
+              kunCsOtCategoryData={kunCsOtCategoryData}
+              BBcategoryData={BBcategoryData}
+              selectedCategory={selectedCategory}
+              setSeletedCategory={setSeletedCategory}
+              handleSelectChange={handleSelectChange}
+            />
+          )}
+          {showBarcodeTableSection && <CustomerSalesTable />}
+        </div>
+      </div>
     </div>
   );
 };
