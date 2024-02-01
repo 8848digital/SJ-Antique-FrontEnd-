@@ -5,12 +5,11 @@ const getSearchBarcodeItemCodeDetails: any = async (request: any, karigar_name: 
     console.log("reqqq", request)
     let response: any;
     const getHeaders = headerGenerator(get_access_token);
-    // &sr_no_from=${request.sr_no_from}&sr_no_to=${request.sr_no_to}&stock=${request.stock}&barcode_created=${request.barcode_created}
 
+    // &stock=${request.stock}&barcode_created=${request.barcode_created}
     await axios
         .get(
-            `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_item_wise_barcode_filter&entity=barcode_api&posting_date=${request.date}&custom_karigar=${karigar_name}&name=${request.item_group}
-
+            `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_item_wise_barcode_filter&entity=barcode_api&posting_date=${request.date}&custom_karigar=${karigar_name}&name=${request.item_group}&sr_from=${request.sr_no_from}&sr_to=${request.sr_no_to}
             `,
             getHeaders
         )

@@ -37,6 +37,7 @@ const UseBarcodeFilterList = () => {
     BBCategory: '',
     OtCategory: '',
   });
+
   useEffect(() => {
     const getStateData: any = async () => {
       const karigarData: any = await getKarigarApi(loginAcessToken.token);
