@@ -9,20 +9,23 @@ const BarcodeListingTable: any = ({ BarcodeListData, multipleRecordsForPrint, ha
   return (
     <div>
       <div className='d-flex justify-content-between mb-2'>
-        <SearchSelectInputField
-          karigarData={BarcodeListData?.map((data: any) => ({
-            karigar_name: data.item_code,
-          }))}
-          placeholder={"Item code"}
-          className={
-            'form-control input-fields custom-input-field line-height'
-          }
-          style={'max-width'}
-          selectedDropdownValue={searchItemCode}
-          setSelectedDropdownValue={setSearchItemCode}
-          selectDropDownReset={kunKarigarDropdownReset}
-          setSelectDropDownReset={setKunKarigarDropdownReset}
-        />
+        <div className='w-25'>
+          <SearchSelectInputField
+            karigarData={BarcodeListData?.map((data: any) => ({
+              karigar_name: data.item_code,
+            }))}
+            placeholder={"Item code"}
+            className={
+              'form-control input-fields custom-input-field line-height'
+            }
+            style={'max-width'}
+            selectedDropdownValue={searchItemCode}
+            setSelectedDropdownValue={setSearchItemCode}
+            selectDropDownReset={kunKarigarDropdownReset}
+            setSelectDropDownReset={setKunKarigarDropdownReset}
+          />
+        </div>
+
         <div className="text-end">
           <button type="button" className="btn btn-primary px-3 py-1 mb-1 mx-3"
             onClick={handleMultipleBarcodePrint}

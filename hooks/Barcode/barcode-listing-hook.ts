@@ -1,4 +1,5 @@
 import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
+import PrintApi from '@/services/api/general/print-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -22,11 +23,19 @@ const useBarcodeListingHook = () => {
 
 
 
-  const handleBarcodePrint: any = () => {
+  const handleBarcodePrint: any = async (item_code: any) => {
     console.log("handle multiple print", multipleRecordsForPrint)
     const reqParams: any = {
       version: "v1",
+      method: "print_barcode",
+      entity: "barcode_api",
+      name: item_code
+    }
 
+    let barcodePrintApi: any = await PrintApi(reqParams)
+    console.log("barcodeprint api res", barcodePrintApi)
+    if (barcodePrintApi?.status === "success") {
+      window.open(barcodePrintApi?.data?.data[0]?.print_url)
     }
   }
 
@@ -58,6 +67,7 @@ const useBarcodeListingHook = () => {
     BarcodeListData,
     handleCheckboxForBarcodePrint,
     multipleRecordsForPrint,
+    handleBarcodePrint,
     handleMultipleBarcodePrint
   };
 };
