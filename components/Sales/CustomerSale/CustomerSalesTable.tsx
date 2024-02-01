@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styles from '../../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
+import SalesTableHeader from './SalesTableHeader';
 
 const CustomerSalesTable = ({
   salesTableData,
@@ -85,61 +86,7 @@ const CustomerSalesTable = ({
               </td>
               <td className="table_row border-0"></td>
             </tr>
-            <tr>
-              <th className="thead" scope="col">
-                No.
-              </th>
-              <th className="thead" scope="col">
-                Item Code
-                {/* <span className="text-danger">*</span> */}
-              </th>
-              <th className="thead" scope="col">
-                Gross wt
-              </th>
-              <th className="thead" scope="col">
-                Kun Wt
-              </th>
-              <th className="thead" scope="col">
-                Cs Wt
-              </th>
-              <th className="thead" scope="col">
-                BB Wt
-              </th>
-              <th className="thead" scope="col">
-                Other Wt
-              </th>
-              <th className="thead" scope="col">
-                Net wt
-              </th>
-              <th className="thead" scope="col">
-                Cs@
-              </th>
-              <th className="thead" scope="col">
-                Cs Amt
-              </th>
-              <th className="thead" scope="col">
-                Kun Pc
-              </th>
-              <th className="thead" scope="col">
-                Kun@
-              </th>
-              <th className="thead" scope="col">
-                Kun Amt
-              </th>
-              <th className="thead" scope="col">
-                Ot @
-              </th>
-              <th className="thead" scope="col">
-                Ot Amt
-              </th>
-              <th className="thead" scope="col">
-                Other
-              </th>
-              <th className="thead" scope="col">
-                Amount
-              </th>
-              <th className="thead" scope="col"></th>
-            </tr>
+            <SalesTableHeader />
           </thead>
           <tbody>
             {salesTableData?.length > 0 &&
@@ -271,7 +218,7 @@ const CustomerSalesTable = ({
                             e.target.value
                           )
                         }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                      // onKeyDown={(e) => handleModal(e, item.idx, item)}
                       />
                     </td>
                     <td className="table_row">
@@ -288,10 +235,10 @@ const CustomerSalesTable = ({
                             0
                             ? 0
                             : Number(item.custom_gross_wt) -
-                                (Number(item.custom_kun_wt) +
-                                  Number(item.custom_cs_wt) +
-                                  Number(item.custom_bb_wt) +
-                                  Number(item.custom_other_wt))
+                            (Number(item.custom_kun_wt) +
+                              Number(item.custom_cs_wt) +
+                              Number(item.custom_bb_wt) +
+                              Number(item.custom_other_wt))
                         )?.toFixed(3)}
                         defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
                         readOnly
@@ -461,17 +408,17 @@ const CustomerSalesTable = ({
                           (Number.isNaN(item.custom_cs_amt)
                             ? 0
                             : Number(item?.custom_cs_amt)) +
-                            Number(item?.custom_kun_amt) +
-                            (Number.isNaN(item.custom_ot_amt)
-                              ? 0
-                              : Number(item?.custom_ot_amt)) +
-                            Number(item?.custom_other)
+                          Number(item?.custom_kun_amt) +
+                          (Number.isNaN(item.custom_ot_amt)
+                            ? 0
+                            : Number(item?.custom_ot_amt)) +
+                          Number(item?.custom_other)
                         )?.toFixed(3)}
                         defaultValue={Number(
                           Number(item?.custom_cs_amt) +
-                            Number(item?.custom_kun_amt) +
-                            Number(item?.custom_ot_amt) +
-                            Number(item?.custom_other)
+                          Number(item?.custom_kun_amt) +
+                          Number(item?.custom_ot_amt) +
+                          Number(item?.custom_other)
                         )}
                         readOnly
                         onChange={(e) =>

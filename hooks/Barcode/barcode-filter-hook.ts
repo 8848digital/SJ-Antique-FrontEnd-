@@ -97,6 +97,8 @@ const UseBarcodeFilterList = () => {
   );
 
   const handleGenerateBarcodeListBtn: any = async () => {
+    setShowCategorySection(false);
+
     setShowBarcodeTableSection(true);
     const reqParams: any = {
       version: "v1",
