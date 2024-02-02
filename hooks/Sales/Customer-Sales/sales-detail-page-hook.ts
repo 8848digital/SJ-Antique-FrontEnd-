@@ -105,26 +105,26 @@ const UseCustomerSaleDetailHook = () => {
       const kunCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customKunCategory
-            )
+            (data: any) => data.name1 === customKunCategory
+          )
           : null;
       const csCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customCsCategory
-            )
+            (data: any) => data.name1 === customCsCategory
+          )
           : null;
       const otCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customOtCategory
-            )
+            (data: any) => data.name1 === customOtCategory
+          )
           : null;
       const bbCategoryData =
         BBCategoryListData?.length > 0
           ? BBCategoryListData.find(
-              (data: any) => data.name1 === customBBCategory
-            )
+            (data: any) => data.name1 === customBBCategory
+          )
           : { name1: '', type: 0 };
 
       // Setting selected category state
@@ -224,22 +224,22 @@ const UseCustomerSaleDetailHook = () => {
                 Number(data?.custom_cs_wt) +
                 Number(data?.custom_bb_wt) +
                 Number(data?.custom_other_wt)) <
-            0
+              0
               ? 0
               : Number(data?.custom_gross_wt) -
-                (Number(data?.custom_kun_wt) +
-                  Number(data?.custom_cs_wt) +
-                  Number(data?.custom_bb_wt) +
-                  Number(data?.custom_other_wt)),
+              (Number(data?.custom_kun_wt) +
+                Number(data?.custom_cs_wt) +
+                Number(data?.custom_bb_wt) +
+                Number(data?.custom_other_wt)),
           custom_amount: Number(
             (Number.isNaN(data.custom_cs_amt)
               ? 0
               : Number(data?.custom_cs_amt)) +
-              Number(data?.custom_kun_amt) +
-              (Number.isNaN(data.custom_ot_amt)
-                ? 0
-                : Number(data?.custom_ot_amt)) +
-              Number(data?.custom_other)
+            Number(data?.custom_kun_amt) +
+            (Number.isNaN(data.custom_ot_amt)
+              ? 0
+              : Number(data?.custom_ot_amt)) +
+            Number(data?.custom_other)
           )?.toFixed(2),
           // custom_cs_amt:
           //   Number(data?.custom_cs_amt) === null
@@ -254,7 +254,7 @@ const UseCustomerSaleDetailHook = () => {
     const values = {
       version: 'v1',
       method: 'put_delivery_note',
-      entity: 'delivery_note_api',
+      entity: 'sales',
       name: query?.deliveryNoteId,
       custom_client_name: selectedClient,
       store_location:
@@ -341,8 +341,8 @@ const UseCustomerSaleDetailHook = () => {
       token: loginAcessToken?.token,
       name: id,
       version: 'v1',
-      method: 'print_delivery_note',
-      entity: 'delivery_note_api',
+      method: 'get_delivery_note_sales',
+      entity: 'print_delivery_note_sales',
     };
     let deliveryNotePrintApi: any = await PrintApi(reqParams);
     if (deliveryNotePrintApi?.status === 'success') {

@@ -10,7 +10,7 @@ const UseDeliveryNoteReturnHook = () => {
   const deliveryNoteListParams = {
     version: 'v1',
     method: 'get_listening_delivery_note_sales_return',
-    entity: 'delivery_note_api',
+    entity: 'sales_return',
   };
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {

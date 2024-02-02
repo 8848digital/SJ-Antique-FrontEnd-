@@ -131,14 +131,14 @@ const DetailPageReadyReceipt = () => {
                       }
                       handlePrintApi={handlePrintApi}
                       printApiMethod={
-                        receiptType?.receipt === 'kundan'
-                          ? 'get_purchase_receipt_kundan'
-                          : 'get_purchase_receipt_mangalsutra'
-                      }
-                      printApiEntity={
-                        receiptType?.receipt === 'kundan'
+                        lastPartOfURL === 'kundan'
                           ? 'print_purchase_receipt_kundan'
                           : 'print_purchase_receipt_mangalsutra'
+                      }
+                      printApiEntity={
+                        lastPartOfURL === 'kundan'
+                          ? 'purchase_receipt'
+                          : 'purchase_receipt'
                       }
                       HandleUpdateDocStatus={HandleUpdateDocStatus}
                       HandleDeleteReceipt={HandleDeleteReceipt}

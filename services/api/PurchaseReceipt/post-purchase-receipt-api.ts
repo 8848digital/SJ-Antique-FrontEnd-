@@ -15,7 +15,7 @@ const purchaseReceiptApi = async (get_access_token: any, val: any) => {
 
   await axios
     .post(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.api.purchase_receipt_post.create_purchase_receipt`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`,
       val,
       getHeaders
     )

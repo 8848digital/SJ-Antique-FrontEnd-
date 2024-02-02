@@ -150,9 +150,9 @@ const UseSalesReturnDetailHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-              Number(data?.custom_other)
+            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+            Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -160,7 +160,7 @@ const UseSalesReturnDetailHook = () => {
       ...deliveryNoteData,
       version: 'v1',
       method: 'put_delivery_note_sales_return',
-      entity: 'delivery_note_api',
+      entity: 'sales_return',
       name: query?.deliveryNoteId,
       custom_client_name: selectedClient,
       store_location:

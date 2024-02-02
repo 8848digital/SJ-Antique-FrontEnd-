@@ -44,7 +44,7 @@ const useItemStatusReportHook = () => {
   const itemStatusReportParams = {
     version: 'v1',
     method: 'get_item_status_report',
-    entity: 'report_item_status_api',
+    entity: 'report',
     name: searchItem === undefined ? '' : searchItem,
     voucher_no: searchVoucherNum === undefined ? '' : searchVoucherNum,
     from_date:
@@ -57,7 +57,7 @@ const useItemStatusReportHook = () => {
   const dailyQtyStatusReportParams = {
     version: 'v1',
     method: 'get_daily_qty_status_report',
-    entity: 'daily_qty_status',
+    entity: 'report',
     name: searchName === undefined ? '' : searchName,
     from_date:
       searchInputValues.fromDate === undefined

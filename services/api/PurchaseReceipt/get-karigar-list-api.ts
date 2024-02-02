@@ -7,7 +7,7 @@ const getKarigarApi = async (get_access_token: any) => {
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_karigar&entity=karigar_get_api`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_karigar&entity=karigar`,
       getHeaders
     )
     .then((res: any) => {

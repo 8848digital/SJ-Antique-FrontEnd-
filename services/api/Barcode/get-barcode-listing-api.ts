@@ -7,7 +7,7 @@ const getBarcodeListingApi: any = async (get_access_token: any) => {
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_barcode&entity=barcode_api`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_barcode&entity=barcode`,
       getHeaders
     )
     .then((res: any) => {

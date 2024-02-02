@@ -91,18 +91,18 @@ const ReadyReceiptKundanKarigarMaster = () => {
               colPlaceholder1={'Receipt No.'}
               colPlaceholder2={'Karigar'}
               deleteApiVersion={'v1'}
-              deleteApiMethod={'delete_purchase_receipt_delete'}
-              deleteApiEntity={'delete_purchase_receipts'}
+              deleteApiMethod={'delete_purchase_receipt'}
+              deleteApiEntity={'purchase_receipt'}
               purchasRecieptListParams={purchasRecieptListParams}
               printApiMethod={
                 lastPartOfURL === 'kundan'
-                  ? 'get_purchase_receipt_kundan'
-                  : 'get_purchase_receipt_mangalsutra'
+                  ? 'print_purchase_receipt_kundan'
+                  : 'print_purchase_receipt_mangalsutra'
               }
               printApiEntity={
                 lastPartOfURL === 'kundan'
-                  ? 'print_purchase_receipt_kundan'
-                  : 'print_purchase_receipt_mangalsutra'
+                  ? 'purchase_receipt'
+                  : 'purchase_receipt'
               }
               kunKarigarDropdownReset={kunKarigarDropdownReset}
               setKunKarigarDropdownReset={setKunKarigarDropdownReset}

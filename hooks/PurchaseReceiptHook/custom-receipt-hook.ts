@@ -108,8 +108,8 @@ const UseCustomReceiptHook: any = () => {
   const HandleDeleteReceipt: any = async (name: any) => {
     const params: any = {
       version: 'v1',
-      method: 'delete_purchase_receipt_delete',
-      entity: 'delete_purchase_receipts',
+      method: 'delete_purchase_receipt',
+      entity: 'purchase_receipt',
     };
 
     let deletePurchaseReceiptApi: any = await DeletePurchaseReceiptApi(
@@ -415,8 +415,8 @@ const UseCustomReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-              : formatInput(newValue),
+                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+                : formatInput(newValue),
         };
       }
       return item;

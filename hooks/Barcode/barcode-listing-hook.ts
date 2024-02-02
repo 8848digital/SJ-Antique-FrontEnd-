@@ -29,7 +29,7 @@ const useBarcodeListingHook = () => {
     const reqParams: any = {
       version: "v1",
       method: "print_barcode",
-      entity: "barcode_api",
+      entity: "barcode",
       name: item_code
     }
 

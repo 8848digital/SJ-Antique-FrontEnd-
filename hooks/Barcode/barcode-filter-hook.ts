@@ -126,7 +126,7 @@ const UseBarcodeFilterList = () => {
     const reqParams: any = {
       version: 'v1',
       method: 'get_item_specific_barcode',
-      entity: 'barcode_api',
+      entity: 'barcode',
       name: checkedItems.map((items: any) => items.name),
     };
 
@@ -329,7 +329,7 @@ const UseBarcodeFilterList = () => {
     const values = {
       version: 'v1',
       method: 'create_barcode',
-      entity: 'barcode_api',
+      entity: 'barcode',
       data: updatedData,
     };
     console.log(values, '@barcode values');

@@ -6,8 +6,8 @@ const getPurchasreceiptListApi = async (
   ready_receipt_type: string
 ) => {
   let response: any;
-  let method: any = 'get_specific_purchase_receipt';
-  let entity: any = 'specific_purchase_receipt';
+  let method: any = 'get_specific_kundan_purchase_receipt';
+  let entity: any = 'purchase_receipt';
   let custom_ready_receipt_type: any = ready_receipt_type;
   const getHeaders = headerGenerator(get_access_token?.token);
 

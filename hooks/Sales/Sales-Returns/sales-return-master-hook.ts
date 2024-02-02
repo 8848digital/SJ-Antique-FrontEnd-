@@ -131,7 +131,7 @@ const UseSalesReturnMasterHook = () => {
       const getItemCodeDetailsFun = async () => {
         const getItemDetailsmethod: any =
           'get_delivery_note_specific_return_item';
-        const getItemDetailsEntity: any = 'delivery_note_api';
+        const getItemDetailsEntity: any = 'sales_return';
         try {
           let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
             loginAcessToken?.token,
@@ -181,9 +181,9 @@ const UseSalesReturnMasterHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-              Number(data?.custom_other)
+            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+            Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -199,7 +199,7 @@ const UseSalesReturnMasterHook = () => {
       is_return: '1',
       version: 'v1',
       method: 'create_delivery_note_sales_return',
-      entity: 'delivery_note_api',
+      entity: 'sales_return',
 
       items: updatedData,
     };

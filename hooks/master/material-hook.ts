@@ -49,7 +49,7 @@ const useMaterialHook = () => {
     const values = {
       version: 'v1',
       method: 'create_material',
-      entity: 'material_post_api',
+      entity: 'material',
       data: [{ ...nameValue, material_group: selectedMaterialGroup }],
     };
     console.log(values, 'valuesname');
@@ -92,7 +92,7 @@ const useMaterialHook = () => {
     const values = {
       version: 'v1',
       method: 'create_material_group',
-      entity: 'material_post_api',
+      entity: 'material_group',
       material_group: inputValueM,
     };
     console.log(values, 'valuesname');

@@ -6,7 +6,7 @@ const UpdatePurchaseReceiptApi = async (token: any, val: any, name: any) => {
 
   let response: any;
 
-  const params = `/api/method/sj_antique.api.put_purchase_receipt_api.put_purchase_receipt`;
+  const params = `/api/method/sj_antique.sdk.api`;
 
   const config = {
     headers: {

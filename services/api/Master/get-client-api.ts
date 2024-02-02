@@ -7,7 +7,7 @@ const getClientApi = async (get_access_token: any) => {
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_client&entity=client_api`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_client&entity=client`,
       getHeaders
     )
     .then((res: any) => {

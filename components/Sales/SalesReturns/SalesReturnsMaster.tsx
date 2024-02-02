@@ -78,11 +78,11 @@ const SaleReturnsMaster = () => {
               colPlaceholder2={'Client '}
               HandleDeleteReceipt={handleDeleteSalesReturn}
               HandleUpdateDocStatus={HandleUpdateDocStatus}
-              printApiMethod={'print_delivery_note'}
-              printApiEntity={'delivery_note_api'}
+              printApiMethod={'print_delivery_note_sales'}
+              printApiEntity={'sales'}
               deleteApiVersion={'v1'}
-              deleteApiMethod={'delete_delivery_note_api'}
-              deleteApiEntity={'delivery_note_api'}
+              deleteApiMethod={'delete_delivery_note_sales_return'}
+              deleteApiEntity={'sales_return'}
               kunKarigarDropdownReset={itemCodeDropdownReset}
               setKunKarigarDropdownReset={setItemCodeDropdownReset}
             // purchasRecieptListParams={deliveryNoteListParams}

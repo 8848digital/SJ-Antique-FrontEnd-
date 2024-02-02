@@ -83,8 +83,8 @@ const useClientHook = () => {
   const HandleClientSave = async () => {
     const values = {
       version: 'v1',
-      method: 'client_create',
-      entity: 'client_api',
+      method: 'create_client',
+      entity: 'client',
       client_name: clientName?.material,
       client_group: searchClient,
     };
@@ -131,8 +131,8 @@ const useClientHook = () => {
     console.log(clientName, 'Kun Cat saved');
     const values = {
       version: 'v1',
-      method: 'create_kun_category',
-      entity: 'kun_cs_ot_category_api',
+      method: 'create_kun_cs_ot_category',
+      entity: 'kun_cs_ot_category',
       name1: clientName?.material,
       type: clientName?.material_abbr,
     };
@@ -181,7 +181,7 @@ const useClientHook = () => {
     const values = {
       version: 'v1',
       method: 'create_bb_category',
-      entity: 'bb_category_api',
+      entity: 'bb_category',
       name1: clientName?.material,
       type: clientName?.material_abbr,
     };
@@ -217,7 +217,7 @@ const useClientHook = () => {
     const values = {
       version: 'v1',
       method: 'create_client_group',
-      entity: 'client_group_post_api',
+      entity: 'client_group',
       client_group: inputValue1,
     };
     console.log(values, 'valuesname');

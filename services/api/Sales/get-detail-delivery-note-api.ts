@@ -6,7 +6,7 @@ const GetDetailOfDeliveryNoteAPi = async (request: any) => {
   let response: any;
   const version = 'v1';
   const method = 'get_specific_delivery_note';
-  const entity = 'delivery_note_api';
+  const entity = 'sales';
 
   const params = `/api/method/sj_antique.sdk.api?version=${version}&method=${method}&entity=${entity}&name=${request.name}`;
 

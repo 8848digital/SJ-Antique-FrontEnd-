@@ -34,7 +34,7 @@ const useMasterHooks = () => {
     const values = {
       version: 'v1',
       method: 'create_karigar',
-      entity: 'post_karigar_api',
+      entity: 'karigar',
       karigar_name: inputValue,
     };
     console.log(values, 'values');
@@ -66,7 +66,7 @@ const useMasterHooks = () => {
     const values = {
       version: 'v1',
       method: 'create_kundan_karigar',
-      entity: 'post_kundan_karigar_api',
+      entity: 'kundan_karigar',
       karigar_name: inputValue,
     };
     console.log(values, 'values');

@@ -204,7 +204,7 @@ const IndexPage = () => {
           placeholder1={'Category Name'}
           placeholder2={'Type'}
           tab1={'Category Name'}
-          tab2={'Create New Name'}
+          tab2={'Create New Category'}
         />
       )}
       {key === 'BBCategory' && (
@@ -226,7 +226,7 @@ const IndexPage = () => {
           placeholder1={'Category Name'}
           placeholder2={'Type'}
           tab1={'Category Name'}
-          tab2={'Create New Name'}
+          tab2={'Create New BB Category'}
         />
       )}
     </div>
