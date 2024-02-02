@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 const UseBarcodeTableHook = () => {
+  const [itemCodeDropdownReset, setItemCodeDropdownReset] =
+    useState<any>(false);
   const SalesTableInitialState: any = {
     idx: 1,
     custom_pr_bb_wt: '',
@@ -26,11 +28,23 @@ const UseBarcodeTableHook = () => {
     warehouse: '',
   };
 
-  const [salesTableData, setSalesTableData] = useState<any>();
-
+  const [salesTableData, setSalesTableData] = useState<any>([SalesTableInitialState]);
+  const [itemList, setItemList] = useState<any>([]);
+  const [selectedItemCode, setSelectedItemCode] = useState();
+  const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
+    useState<any>({ id: '', item_code: '' });
   return {
     salesTableData,
     setSalesTableData,
+    SalesTableInitialState,
+    itemCodeDropdownReset,
+    setItemCodeDropdownReset,
+    itemList,
+    setItemList,
+    selectedItemCode,
+    setSelectedItemCode,
+    selectedItemCodeForCustomerSale,
+    setSelectedItemCodeForCustomerSale
   };
 };
 

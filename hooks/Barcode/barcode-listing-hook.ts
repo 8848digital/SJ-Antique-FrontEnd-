@@ -3,9 +3,10 @@ import PrintApi from '@/services/api/general/print-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const useBarcodeListingHook = () => {
-  // access token
+
   const loginAcessToken = useSelector(get_access_token);
   const [BarcodeListData, setBarcodeListData] = useState<any>();
   const [multipleRecordsForPrint, setMultipleRecordsForPrint] = useState<any>([]);
@@ -36,6 +37,8 @@ const useBarcodeListingHook = () => {
     console.log("barcodeprint api res", barcodePrintApi)
     if (barcodePrintApi?.status === "success") {
       window.open(barcodePrintApi?.data?.data[0]?.print_url)
+    } else if (barcodePrintApi?.status === "error") {
+      toast.error(barcodePrintApi?.message)
     }
   }
 
@@ -62,13 +65,14 @@ const useBarcodeListingHook = () => {
     });
   };
 
-  console.log(multipleRecordsForPrint, '@Barcode list data');
+  console.log(BarcodeListData, '@Barcode list data');
   return {
     BarcodeListData,
     handleCheckboxForBarcodePrint,
     multipleRecordsForPrint,
     handleBarcodePrint,
-    handleMultipleBarcodePrint
+    handleMultipleBarcodePrint,
+
   };
 };
 export default useBarcodeListingHook;

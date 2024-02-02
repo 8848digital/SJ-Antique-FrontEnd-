@@ -45,8 +45,8 @@ const SaleReturnsMaster = () => {
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
-          return data.is_return === 1;
-        })
+        return data.is_return === 1;
+      })
       : [];
 
   return (
@@ -85,7 +85,7 @@ const SaleReturnsMaster = () => {
               deleteApiEntity={'delivery_note_api'}
               kunKarigarDropdownReset={itemCodeDropdownReset}
               setKunKarigarDropdownReset={setItemCodeDropdownReset}
-              // purchasRecieptListParams={deliveryNoteListParams}
+            // purchasRecieptListParams={deliveryNoteListParams}
             />
           </div>
           <div
@@ -153,6 +153,7 @@ const SaleReturnsMaster = () => {
                 kunCsOtFixedAmt={kunCsOtFixedAmt}
                 setKunCsOtFixedAmt={setKunCsOtFixedAmt}
                 HandleFixedAmt={HandleFixedAmt}
+                showAddrowBtn={true}
               />
             </div>
           </div>

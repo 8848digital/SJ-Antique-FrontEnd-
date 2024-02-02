@@ -29,8 +29,16 @@ const BarcodeMaster = () => {
     setSeletedCategory,
     handleSelectChange,
     salesTableData,
+    setSalesTableData,
     handleBarcodeTableFieldChange,
     HandleCreateBarcode,
+    itemCodeDropdownReset,
+    setItemCodeDropdownReset,
+    itemList,
+    selectedItemCode,
+    setSelectedItemCode,
+    selectedItemCodeForCustomerSale,
+    setSelectedItemCodeForCustomerSale
   }: any = UseBarcodeFilterList();
 
   const {
@@ -45,13 +53,13 @@ const BarcodeMaster = () => {
   const filteredList =
     BarcodeListData?.length > 0 && BarcodeListData !== null && searchItemCode
       ? BarcodeListData.filter((item: any) => {
-          const itemCodeMatch = searchItemCode
-            ? item?.item_code
-                ?.toLowerCase()
-                ?.includes(searchItemCode?.toLowerCase())
-            : true;
-          return itemCodeMatch;
-        })
+        const itemCodeMatch = searchItemCode
+          ? item?.item_code
+            ?.toLowerCase()
+            ?.includes(searchItemCode?.toLowerCase())
+          : true;
+        return itemCodeMatch;
+      })
       : BarcodeListData;
 
   return (
@@ -110,14 +118,31 @@ const BarcodeMaster = () => {
           {showBarcodeTableSection && (
             <>
               <button
-                className="btn btn-primary my-2"
+                className="btn btn-primary mt-4 mb-2 py-1 px-2"
                 onClick={HandleCreateBarcode}
               >
                 Create Barcode
               </button>
               <CustomerSalesTable
                 salesTableData={salesTableData}
+                setSalesTableData={setSalesTableData}
                 handleSalesTableFieldChange={handleBarcodeTableFieldChange}
+                itemCodeDropdownReset={itemCodeDropdownReset}
+                setItemCodeDropdownReset={setItemCodeDropdownReset}
+                itemList={itemList}
+                selectedItemCode={selectedItemCode}
+                setSelectedItemCode={setSelectedItemCode}
+                showAddrowBtn={false}
+                selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
+                setSelectedItemCodeForCustomerSale={setSelectedItemCodeForCustomerSale}
+              // handleAddRowForSales,
+              // handleDeleteRowOfSalesTable,
+              // readOnlyFields,
+
+              // setStateForDocStatus,
+              // itemCodeDropdownReset,
+              // setItemCodeDropdownReset,
+              // handleTabPressInSales,
               />
             </>
           )}

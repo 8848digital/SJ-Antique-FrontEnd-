@@ -23,26 +23,30 @@ const CustomerSalesTable = ({
   handleTabPressInSales,
   kunCsOtFixedAmt,
   HandleFixedAmt,
+  showAddrowBtn
 }: any) => {
   console.log(salesTableData, 'selected name and value');
   return (
     <>
-      <div className="container d-flex justify-content-end px-1">
-        <button
-          className="btn btn-link p-0"
-          onClick={() => {
-            if (!readOnlyFields) {
-              handleAddRowForSales();
-            }
-          }}
-        >
-          Add Row
-        </button>
-      </div>
+      {showAddrowBtn === true && (
+        <div className="container d-flex justify-content-end px-1">
+          <button
+            className="btn btn-link p-0"
+            onClick={() => {
+              if (!readOnlyFields) {
+                handleAddRowForSales();
+              }
+            }}
+          >
+            Add Row
+          </button>
+        </div>
+      )}
+
       <div className="table responsive">
         <table className="table table-hover table-bordered">
           <thead>
-            <tr className={`${styles.table_row} border-0`}>
+            {/* <tr className={`${styles.table_row} border-0`}>
               <td className="table_row border-0"></td>
               <td className="table_row border-0"></td>
               <td className="table_row border-0"></td>
@@ -85,7 +89,7 @@ const CustomerSalesTable = ({
                 />
               </td>
               <td className="table_row border-0"></td>
-            </tr>
+            </tr> */}
             <SalesTableHeader />
           </thead>
           <tbody>
@@ -109,12 +113,8 @@ const CustomerSalesTable = ({
                         defaultValue={item?.item_code}
                         tableData={salesTableData}
                         setTableData={setSalesTableData}
-                        selectedItemCodeForCustomerSale={
-                          selectedItemCodeForCustomerSale
-                        }
-                        setSelectedItemCodeForCustomerSale={
-                          setSelectedItemCodeForCustomerSale
-                        }
+                        selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
+                        setSelectedItemCodeForCustomerSale={setSelectedItemCodeForCustomerSale}
                         placeholderValue="Item code"
                         fieldName={'item_code'}
                         item={item}
@@ -122,9 +122,7 @@ const CustomerSalesTable = ({
                         setStateForDocStatus={setStateForDocStatus}
                         readOnlyFields={readOnlyFields}
                         selectedKundanKarigarDropdownValue={selectedItemCode}
-                        setSelectedKundanKarigarDropdownValue={
-                          setSelectedItemCodeForCustomerSale
-                        }
+                        setSelectedKundanKarigarDropdownValue={setSelectedItemCodeForCustomerSale}
                       />
                     </td>
                     <td className="table_row">

@@ -53,8 +53,8 @@ const CustomerSaleMaster = () => {
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-          return data.is_return === 0;
-        })
+        return data.is_return === 0;
+      })
       : [];
 
   console.log('kundan listing', kundanListing);
@@ -132,6 +132,7 @@ const CustomerSaleMaster = () => {
               deliveryNoteData={deliveryNoteData}
               itemCodeDropdownReset={itemCodeDropdownReset}
               setItemCodeDropdownReset={setItemCodeDropdownReset}
+
             />
             <CustomerSalesTable2
               kunCsOtCategoryListData={kunCsOtCategoryListData}
@@ -161,6 +162,7 @@ const CustomerSaleMaster = () => {
               kunCsOtFixedAmt={kunCsOtFixedAmt}
               // setKunCsOtFixedAmt={setKunCsOtFixedAmt}
               HandleFixedAmt={HandleFixedAmt}
+              showAddrowBtn={true}
             />
           </div>
         </div>
