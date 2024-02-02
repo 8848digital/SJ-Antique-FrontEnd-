@@ -90,10 +90,11 @@ const UseBarcodeFilterList = () => {
   };
 
   const handleSearchBtn: any = async () => {
+    console.log("searchKarigar", searchKarigar)
     let searchBarcodeItemCodeDetailsApi: any =
       await getSearchBarcodeItemCodeDetails(
         searchBarcodeFilterData,
-        searchKarigar,
+        searchKarigar !== undefined ? searchKarigar : "",
         loginAcessToken?.token
       );
     console.log(
