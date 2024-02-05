@@ -36,7 +36,7 @@ const KundanListing = ({
   const lastPartOfURL = pathParts[pathParts.length - 1];
   const { query } = useRouter();
   const dispatch = useDispatch();
-  const [tableViewData, setTableViewData] = useState<any>(20);
+  const [tableViewData, setTableViewData] = useState<any>(5);
 
   const HandleTableViewRows: any = (data: any) => {
     setTableViewData(data);
@@ -80,56 +80,56 @@ const KundanListing = ({
 
   const filteredList =
     kundanListing?.length > 0 &&
-    kundanListing !== null &&
-    (searchInputValues.transaction_date ||
-      searchKarigar ||
-      searchReceiptNumber ||
-      searchInputValues.status)
+      kundanListing !== null &&
+      (searchInputValues.transaction_date ||
+        searchKarigar ||
+        searchReceiptNumber ||
+        searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-          const submittedDateMatch = searchInputValues.transaction_date
-            ? item?.posting_date?.includes(searchInputValues.transaction_date)
-            : true;
-          const karigarMatch = searchKarigar
-            ? item?.custom_karigar
-              ? item.custom_karigar
-                  ?.toLowerCase()
-                  ?.includes(searchKarigar?.toLowerCase())
-              : item?.custom_client_name
-                  ?.toLowerCase()
-                  ?.includes(searchKarigar?.toLowerCase())
-            : true;
+        const submittedDateMatch = searchInputValues.transaction_date
+          ? item?.posting_date?.includes(searchInputValues.transaction_date)
+          : true;
+        const karigarMatch = searchKarigar
+          ? item?.custom_karigar
+            ? item.custom_karigar
+              ?.toLowerCase()
+              ?.includes(searchKarigar?.toLowerCase())
+            : item?.custom_client_name
+              ?.toLowerCase()
+              ?.includes(searchKarigar?.toLowerCase())
+          : true;
 
-          const receiptNumberMatch = searchReceiptNumber
-            ? item?.name
-                ?.toLowerCase()
-                .includes(searchReceiptNumber.toString().toLowerCase())
-            : true;
+        const receiptNumberMatch = searchReceiptNumber
+          ? item?.name
+            ?.toLowerCase()
+            .includes(searchReceiptNumber.toString().toLowerCase())
+          : true;
 
-          if (searchInputValues.status === 'Draft') {
-            return (
-              item?.docstatus === 0 &&
-              submittedDateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          } else if (searchInputValues.status === 'Submitted') {
-            return (
-              item?.docstatus === 1 &&
-              submittedDateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          } else if (searchInputValues.status === 'Cancel') {
-            return (
-              item?.docstatus === 2 &&
-              submittedDateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          }
+        if (searchInputValues.status === 'Draft') {
+          return (
+            item?.docstatus === 0 &&
+            submittedDateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        } else if (searchInputValues.status === 'Submitted') {
+          return (
+            item?.docstatus === 1 &&
+            submittedDateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        } else if (searchInputValues.status === 'Cancel') {
+          return (
+            item?.docstatus === 2 &&
+            submittedDateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        }
 
-          return submittedDateMatch && karigarMatch && receiptNumberMatch;
-        })
+        return submittedDateMatch && karigarMatch && receiptNumberMatch;
+      })
       : kundanListing;
 
   const HandleCancelReceipt: any = async (name: any) => {
@@ -202,7 +202,7 @@ const KundanListing = ({
       {filteredList?.length > 0 && (
         <div className="text-end pe-3 p-0 text-gray small ">
           {filteredList?.slice(0, tableViewData)?.length} of{' '}
-          {filteredList?.length < 10
+          {filteredList?.length < 4
             ? '0' + filteredList?.length
             : filteredList?.length}
         </div>
@@ -347,15 +347,15 @@ const KundanListing = ({
                         <div className="col">
                           {item?.posting_date ===
                             new Date()?.toISOString()?.split('T')[0] && (
-                            <>
-                              <Link
-                                href={`${url}/${item.name}`}
-                                className="button-section-text text-info "
-                              >
-                                Amend
-                              </Link>
-                            </>
-                          )}
+                              <>
+                                <Link
+                                  href={`${url}/${item.name}`}
+                                  className="button-section-text text-info "
+                                >
+                                  Amend
+                                </Link>
+                              </>
+                            )}
                         </div>
 
                         <div className="col">
@@ -381,7 +381,7 @@ const KundanListing = ({
                 )}
               </tr>
             ))}
-          {filteredList?.length > 20 && filteredList !== null && (
+          {filteredList?.length > 4 && filteredList !== null && (
             <LoadMoreTableDataInMaster
               HandleTableViewRows={HandleTableViewRows}
             />
