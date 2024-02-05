@@ -36,7 +36,7 @@ const KundanListing = ({
   const lastPartOfURL = pathParts[pathParts.length - 1];
   const { query } = useRouter();
   const dispatch = useDispatch();
-  const [tableViewData, setTableViewData] = useState<any>(20);
+  const [tableViewData, setTableViewData] = useState<any>(5);
 
   const HandleTableViewRows: any = (data: any) => {
     setTableViewData(data);
@@ -275,7 +275,7 @@ const KundanListing = ({
       {filteredList?.length > 0 && (
         <div className="text-end pe-3 p-0 text-gray small ">
           {filteredList?.slice(0, tableViewData)?.length} of{' '}
-          {filteredList?.length < 10
+          {filteredList?.length < 4
             ? '0' + filteredList?.length
             : filteredList?.length}
         </div>
@@ -453,7 +453,7 @@ const KundanListing = ({
                 )}
               </tr>
             ))}
-          {filteredList?.length > 20 && filteredList !== null && (
+          {filteredList?.length > 4 && filteredList !== null && (
             <LoadMoreTableDataInMaster
               HandleTableViewRows={HandleTableViewRows}
             />
