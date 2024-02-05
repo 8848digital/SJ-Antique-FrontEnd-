@@ -40,8 +40,7 @@ const FilterKundanReadyReceiptListing = ({
           />
         </div>
 
-        <div className="col-lg-2 col-md-3 ">
-          {/* <label className="text-secondary">Current Date</label> */}
+        {/* <div className="col-lg-2 col-md-3 ">
           <input
             type="date"
             name="transaction_date"
@@ -50,6 +49,28 @@ const FilterKundanReadyReceiptListing = ({
             value={searchInputValues?.transaction_date}
             onChange={HandleSearchInput}
           />
+        </div> */}
+        <div className="col-lg-2 col-md-3 ">
+          {/* <label className="text-grey">From Date</label> */}
+          <div>
+            <input
+              type="date"
+              name="from_date"
+              className="form-control input-fields custom-input-field line-height "
+              onChange={HandleSearchInput}
+            />
+          </div>
+        </div>
+        <div className="col-lg-2 col-md-3 ">
+          {/* <label className="text-grey">To Date</label> */}
+          <div>
+            <input
+              type="date"
+              name="to_date"
+              className="form-control input-fields custom-input-field line-height "
+              onChange={HandleSearchInput}
+            />
+          </div>
         </div>
         <div className="col-md-2">
           <SearchSelectInputField

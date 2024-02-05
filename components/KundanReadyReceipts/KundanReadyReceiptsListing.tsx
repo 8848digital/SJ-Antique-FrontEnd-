@@ -52,7 +52,8 @@ const KundanListing = ({
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
 
   const [searchInputValues, setSearchInputValues] = useState({
-    transaction_date: todayDate,
+    from_date: '',
+    to_date: '',
     status: '',
   });
 
@@ -66,7 +67,8 @@ const KundanListing = ({
 
   useEffect(() => {
     setSearchInputValues({
-      transaction_date: todayDate,
+      from_date: '',
+      to_date: '',
       status: '',
     });
     setSearchReceiptNumber('');
@@ -78,17 +80,82 @@ const KundanListing = ({
     return updatedDate;
   };
 
+  // const filteredList =
+  //   kundanListing?.length > 0 &&
+  //   kundanListing !== null &&
+  //   (searchInputValues.from_date ||
+  //     searchInputValues.to_date ||
+  //     searchKarigar ||
+  //     searchReceiptNumber ||
+  //     searchInputValues.status)
+  //     ? kundanListing.filter((item: any) => {
+  //         const postingDate = new Date(item?.posting_date);
+
+  //         const dateMatch =
+  //           (!searchInputValues.from_date ||
+  //             postingDate >= new Date(searchInputValues.from_date)) &&
+  //           (!searchInputValues.to_date ||
+  //             postingDate <= new Date(searchInputValues.to_date));
+
+  //         const karigarMatch = searchKarigar
+  //           ? item?.custom_karigar
+  //             ? item.custom_karigar
+  //                 ?.toLowerCase()
+  //                 ?.includes(searchKarigar?.toLowerCase())
+  //             : item?.custom_client_name
+  //                 ?.toLowerCase()
+  //                 ?.includes(searchKarigar?.toLowerCase())
+  //           : true;
+  //         console.log(karigarMatch, 'karigar match in filter');
+  //         const receiptNumberMatch = searchReceiptNumber
+  //           ? item?.name
+  //               ?.toLowerCase()
+  //               .includes(searchReceiptNumber.toString().toLowerCase())
+  //           : true;
+
+  //         if (searchInputValues.status === 'Draft') {
+  //           return (
+  //             item?.docstatus === 0 &&
+  //             dateMatch &&
+  //             karigarMatch &&
+  //             receiptNumberMatch
+  //           );
+  //         } else if (searchInputValues.status === 'Submitted') {
+  //           return (
+  //             item?.docstatus === 1 &&
+  //             dateMatch &&
+  //             karigarMatch &&
+  //             receiptNumberMatch
+  //           );
+  //         } else if (searchInputValues.status === 'Cancel') {
+  //           return (
+  //             item?.docstatus === 2 &&
+  //             dateMatch &&
+  //             karigarMatch &&
+  //             receiptNumberMatch
+  //           );
+  //         }
+
+  //         return dateMatch && karigarMatch && receiptNumberMatch;
+  //       })
+  //     : kundanListing;
   const filteredList =
     kundanListing?.length > 0 &&
     kundanListing !== null &&
-    (searchInputValues.transaction_date ||
+    (searchInputValues.from_date ||
+      searchInputValues.to_date ||
       searchKarigar ||
       searchReceiptNumber ||
       searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-          const submittedDateMatch = searchInputValues.transaction_date
-            ? item?.posting_date?.includes(searchInputValues.transaction_date)
-            : true;
+          const postingDate = new Date(item?.posting_date);
+
+          const dateMatch =
+            (!searchInputValues.from_date ||
+              postingDate >= new Date(searchInputValues.from_date)) &&
+            (!searchInputValues.to_date ||
+              postingDate <= new Date(searchInputValues.to_date));
+
           const karigarMatch = searchKarigar
             ? item?.custom_karigar
               ? item.custom_karigar
@@ -105,30 +172,36 @@ const KundanListing = ({
                 .includes(searchReceiptNumber.toString().toLowerCase())
             : true;
 
+          console.log('@filter item:', item);
+          console.log('@filter postingDate:', postingDate);
+          console.log('@filter dateMatch:', dateMatch);
+          console.log('@filter karigarMatch:', karigarMatch);
+          console.log('@filter receiptNumberMatch:', receiptNumberMatch);
+
           if (searchInputValues.status === 'Draft') {
             return (
               item?.docstatus === 0 &&
-              submittedDateMatch &&
+              dateMatch &&
               karigarMatch &&
               receiptNumberMatch
             );
           } else if (searchInputValues.status === 'Submitted') {
             return (
               item?.docstatus === 1 &&
-              submittedDateMatch &&
+              dateMatch &&
               karigarMatch &&
               receiptNumberMatch
             );
           } else if (searchInputValues.status === 'Cancel') {
             return (
               item?.docstatus === 2 &&
-              submittedDateMatch &&
+              dateMatch &&
               karigarMatch &&
               receiptNumberMatch
             );
           }
 
-          return submittedDateMatch && karigarMatch && receiptNumberMatch;
+          return dateMatch && karigarMatch && receiptNumberMatch;
         })
       : kundanListing;
 
@@ -187,7 +260,7 @@ const KundanListing = ({
     <div className=" table">
       <FilterKundanReadyReceiptListing
         HandleSearchInput={HandleSearchInput}
-        receiptNoList={kundanListing}
+        receiptNoList={filteredList}
         setSearchReceiptNumber={setSearchReceiptNumber}
         searchReceiptNumber={searchReceiptNumber}
         searchKarigar={searchKarigar}
@@ -317,7 +390,6 @@ const KundanListing = ({
                         </div>
                         <div className="col">
                           <a
-                            // href="#"
                             onClick={() =>
                               HandleUpdateDocStatus('2', item.name)
                             }

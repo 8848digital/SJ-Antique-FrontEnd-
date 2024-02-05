@@ -38,7 +38,7 @@ const BarcodeMaster = () => {
     selectedItemCode,
     setSelectedItemCode,
     selectedItemCodeForCustomerSale,
-    setSelectedItemCodeForCustomerSale
+    setSelectedItemCodeForCustomerSale,
   }: any = UseBarcodeFilterList();
 
   const {
@@ -47,19 +47,22 @@ const BarcodeMaster = () => {
     handleMultipleBarcodePrint,
     multipleRecordsForPrint,
     handleBarcodePrint,
+    selectAll,
+    setSelectAll,
+    handleSelectAll,
   }: any = useBarcodeListingHook();
   const [searchItemCode, setSearchItemCode] = useState<any>('');
 
   const filteredList =
     BarcodeListData?.length > 0 && BarcodeListData !== null && searchItemCode
       ? BarcodeListData.filter((item: any) => {
-        const itemCodeMatch = searchItemCode
-          ? item?.item_code
-            ?.toLowerCase()
-            ?.includes(searchItemCode?.toLowerCase())
-          : true;
-        return itemCodeMatch;
-      })
+          const itemCodeMatch = searchItemCode
+            ? item?.item_code
+                ?.toLowerCase()
+                ?.includes(searchItemCode?.toLowerCase())
+            : true;
+          return itemCodeMatch;
+        })
       : BarcodeListData;
 
   return (
@@ -83,6 +86,9 @@ const BarcodeMaster = () => {
             searchItemCode={searchItemCode}
             handleBarcodePrint={handleBarcodePrint}
             multipleRecordsForPrint={multipleRecordsForPrint}
+            selectAll={selectAll}
+            setSelectAll={setSelectAll}
+            handleSelectAll={handleSelectAll}
           />
         </div>
         <div
@@ -133,16 +139,20 @@ const BarcodeMaster = () => {
                 selectedItemCode={selectedItemCode}
                 setSelectedItemCode={setSelectedItemCode}
                 showAddrowBtn={false}
-                selectedItemCodeForCustomerSale={selectedItemCodeForCustomerSale}
-                setSelectedItemCodeForCustomerSale={setSelectedItemCodeForCustomerSale}
-              // handleAddRowForSales,
-              // handleDeleteRowOfSalesTable,
-              // readOnlyFields,
+                selectedItemCodeForCustomerSale={
+                  selectedItemCodeForCustomerSale
+                }
+                setSelectedItemCodeForCustomerSale={
+                  setSelectedItemCodeForCustomerSale
+                }
+                // handleAddRowForSales,
+                // handleDeleteRowOfSalesTable,
+                // readOnlyFields,
 
-              // setStateForDocStatus,
-              // itemCodeDropdownReset,
-              // setItemCodeDropdownReset,
-              // handleTabPressInSales,
+                // setStateForDocStatus,
+                // itemCodeDropdownReset,
+                // setItemCodeDropdownReset,
+                // handleTabPressInSales,
               />
             </>
           )}

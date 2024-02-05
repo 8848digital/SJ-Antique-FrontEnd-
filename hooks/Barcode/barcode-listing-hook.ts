@@ -6,10 +6,13 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const useBarcodeListingHook = () => {
-
   const loginAcessToken = useSelector(get_access_token);
   const [BarcodeListData, setBarcodeListData] = useState<any>();
-  const [multipleRecordsForPrint, setMultipleRecordsForPrint] = useState<any>([]);
+  const [multipleRecordsForPrint, setMultipleRecordsForPrint] = useState<any>(
+    []
+  );
+  const [selectAll, setSelectAll] = useState<boolean>(false);
+
   useEffect(() => {
     const getStateData: any = async () => {
       const BarcodeData: any = await getBarcodeListingApi(
@@ -22,46 +25,62 @@ const useBarcodeListingHook = () => {
     getStateData();
   }, []);
 
-
-
   const handleBarcodePrint: any = async (item_code: any) => {
-    console.log("handle multiple print", multipleRecordsForPrint)
+    console.log('handle multiple print', multipleRecordsForPrint);
     const reqParams: any = {
-      version: "v1",
-      method: "print_barcode",
-      entity: "barcode",
-      name: item_code
-    }
+      version: 'v1',
+      method: 'print_barcode',
+      entity: 'barcode',
+      name: item_code,
+    };
 
-    let barcodePrintApi: any = await PrintApi(reqParams)
-    console.log("barcodeprint api res", barcodePrintApi)
-    if (barcodePrintApi?.status === "success") {
-      window.open(barcodePrintApi?.data?.data[0]?.print_url)
-    } else if (barcodePrintApi?.status === "error") {
-      toast.error(barcodePrintApi?.message)
+    let barcodePrintApi: any = await PrintApi(reqParams);
+    console.log('barcodeprint api res', barcodePrintApi);
+    if (barcodePrintApi?.status === 'success') {
+      window.open(barcodePrintApi?.data?.data[0]?.print_url);
+    } else if (barcodePrintApi?.status === 'error') {
+      toast.error(barcodePrintApi?.message);
     }
-  }
+  };
 
   const handleMultipleBarcodePrint: any = () => {
-    console.log("handle multiple print", multipleRecordsForPrint)
-  }
+    console.log('updated multiple record', multipleRecordsForPrint);
+  };
 
-  console.log("updated multiple record", multipleRecordsForPrint)
+  console.log('updated multiple record', multipleRecordsForPrint);
 
   const handleCheckboxForBarcodePrint = (id: any, name: any) => {
     console.log('prev items check', id, name);
 
     setMultipleRecordsForPrint((prevItems: any) => {
       const index = prevItems.findIndex((item: any) => item.id === id);
+
       if (index !== -1) {
-        // If checkbox is already checked, remove it from the list
+        // If checkbox is checked, remove it from the list
         const updatedItems = [...prevItems];
         updatedItems.splice(index, 1);
         return updatedItems;
       } else {
-        // If checkbox is not checked, add it to the list
+        // If checkbox is unchecked, add it to the list
         return [...prevItems, { id, name }];
       }
+    });
+  };
+
+  const handleSelectAll = () => {
+    setSelectAll((prevSelectAll: boolean) => {
+      const allItems = BarcodeListData.map((item: any) => ({
+        id: item.idx,
+        name: item.item_code,
+      }));
+
+      // Toggle the selection of all checkboxes based on the previous state
+      handleMultipleBarcodePrint(!prevSelectAll);
+
+      // Update the state to the opposite value
+      setMultipleRecordsForPrint(prevSelectAll ? [] : allItems);
+
+      return !prevSelectAll;
     });
   };
 
@@ -72,7 +91,9 @@ const useBarcodeListingHook = () => {
     multipleRecordsForPrint,
     handleBarcodePrint,
     handleMultipleBarcodePrint,
-
+    selectAll,
+    setSelectAll,
+    handleSelectAll,
   };
 };
 export default useBarcodeListingHook;

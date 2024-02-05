@@ -39,6 +39,30 @@ const ItemStatusReport: any = ({
     setTableViewData(data);
   };
   console.log('@report daily qty status', itemStatusReportState);
+  const filteredList =
+    itemStatusReportState?.length > 0 &&
+    itemStatusReportState !== null &&
+    (searchInputValues.fromDate || searchInputValues.toDate)
+      ? itemStatusReportState.filter((item: any) => {
+          const postingDate = new Date(item?.posting_date);
+
+          const dateMatch =
+            (!searchInputValues.fromDate ||
+              postingDate >= new Date(searchInputValues.fromDate)) &&
+            (!searchInputValues.toDate ||
+              postingDate <= new Date(searchInputValues.toDate));
+
+          if (searchInputValues.status === 'Draft') {
+            return item?.docstatus === 0 && dateMatch;
+          } else if (searchInputValues.status === 'Submitted') {
+            return item?.docstatus === 1 && dateMatch;
+          } else if (searchInputValues.status === 'Cancel') {
+            return item?.docstatus === 2 && dateMatch;
+          }
+
+          return dateMatch;
+        })
+      : itemStatusReportState;
 
   return (
     <div className="container-lg">
@@ -78,12 +102,12 @@ const ItemStatusReport: any = ({
       )}
       {isLoading === 1 && (
         <>
-          {itemStatusReportState?.length > 0 && (
+          {filteredList?.length > 0 && (
             <div className="text-end pe-3 p-0 text-gray small ">
-              {itemStatusReportState?.slice(0, tableViewData)?.length} of{' '}
-              {itemStatusReportState?.length < 10
-                ? '0' + itemStatusReportState?.length
-                : itemStatusReportState?.length}
+              {filteredList?.slice(0, tableViewData)?.length} of{' '}
+              {filteredList?.length < 10
+                ? '0' + filteredList?.length
+                : filteredList?.length}
             </div>
           )}
           <div className="table-responsive">
@@ -100,31 +124,31 @@ const ItemStatusReport: any = ({
                   <th className="thead" scope="col">
                     Sr.No.
                   </th>
-                  {itemStatusReportState?.length > 0 &&
-                    itemStatusReportState !== null &&
-                    Object.keys(itemStatusReportState[0]).map((key) => (
+                  {filteredList?.length > 0 &&
+                    filteredList !== null &&
+                    Object.keys(filteredList[0]).map((key) => (
                       <th className="thead" scope="col" key={key}>
                         {key.replace(/_/g, ' ')}
                       </th>
                     ))}
                 </thead>
                 <tbody>
-                  {itemStatusReportState?.length > 0 &&
-                    itemStatusReportState !== null &&
-                    itemStatusReportState
+                  {filteredList?.length > 0 &&
+                    filteredList !== null &&
+                    filteredList
                       .slice(0, tableViewData)
                       .map((item: any, index: number) => (
                         <tr
                           key={index}
                           className={`${styles.table_row} ${
-                            index >= itemStatusReportState.length - 2
+                            index >= filteredList.length - 2
                               ? 'last-two-rows'
                               : ''
                           }`}
                         >
                           <td
                             className={`${
-                              index >= itemStatusReportState.length - 2 &&
+                              index >= filteredList.length - 2 &&
                               reportName === 'Daily Quantity Status Report'
                                 ? 'thead'
                                 : 'table_row report-table-row '
@@ -138,7 +162,7 @@ const ItemStatusReport: any = ({
                               <td
                                 key={innerIndex}
                                 className={`${
-                                  index >= itemStatusReportState.length - 2 &&
+                                  index >= filteredList.length - 2 &&
                                   reportName === 'Daily Quantity Status Report'
                                     ? 'thead'
                                     : 'table_row report-table-row '
@@ -151,12 +175,11 @@ const ItemStatusReport: any = ({
                           )}
                         </tr>
                       ))}
-                  {itemStatusReportState?.length > 20 &&
-                    itemStatusReportState !== null && (
-                      <LoadMoreTableDataInMaster
-                        HandleTableViewRows={HandleTableViewRows}
-                      />
-                    )}
+                  {filteredList?.length > 20 && filteredList !== null && (
+                    <LoadMoreTableDataInMaster
+                      HandleTableViewRows={HandleTableViewRows}
+                    />
+                  )}
                 </tbody>
               </table>
             </div>
