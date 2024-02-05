@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
-import styles from '../../styles/barcode.module.css'
+import styles from '../../styles/barcode.module.css';
 
 const BarcodeFilterListing: any = ({
   karigarList,
@@ -13,18 +13,16 @@ const BarcodeFilterListing: any = ({
 }: any) => {
   return (
     <div>
-      <div className='row justify-content-center'>
-        <div className='col-lg-2 col-md-2 '>
+      <div className="row justify-content-center">
+        <div className="col-lg-2 col-md-2 ">
           <label className={` ${styles.label_font_size}`}>Date</label>
           <input
             type="date"
             className="form-control line-height bg-primary bg-opacity-10"
-            onChange={(e: any) =>
-              handleSearchBarcodeItemCodeDetails(e, 'date')
-            }
+            onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, 'date')}
           />
         </div>
-        <div className='col-lg-2 col-md-2'>
+        <div className="col-lg-2 col-md-2">
           <label className={` ${styles.label_font_size}`}>Karigar</label>
 
           <SearchSelectInputField
@@ -40,7 +38,7 @@ const BarcodeFilterListing: any = ({
             setSelectDropDownReset={setSelectDropDownReset}
           />
         </div>
-        <div className='col-lg-1 col-md-2 '>
+        <div className="col-lg-1 col-md-2 ">
           <label className={` ${styles.label_font_size}`}>Item Group</label>
           <input
             type="text"
@@ -50,7 +48,7 @@ const BarcodeFilterListing: any = ({
             }
           />
         </div>
-        <div className='col-lg-1 col-md-1'>
+        <div className="col-lg-1 col-md-1">
           <label className={` ${styles.label_font_size}`}>Sr.No.From</label>
           <input
             type="text"
@@ -60,7 +58,7 @@ const BarcodeFilterListing: any = ({
             }
           />
         </div>
-        <div className='col-lg-1 col-md-1'>
+        <div className="col-lg-1 col-md-1">
           <label className={` ${styles.label_font_size}`}>Sr.No.To</label>
 
           <input
@@ -71,11 +69,11 @@ const BarcodeFilterListing: any = ({
             }
           />
         </div>
-        <div className='col-lg-1 col-md-1'>
+        <div className="col-lg-1 col-md-1">
           <label className={` ${styles.label_font_size}`}>Stock</label>
 
           <select
-            className="form-select line-height bg-primary bg-opacity-10"
+            className="form-control line-height bg-primary bg-opacity-10 px-0 text-center"
             aria-label="Default select example"
             onChange={(e: any) =>
               handleSearchBarcodeItemCodeDetails(e, 'stock')
@@ -86,8 +84,10 @@ const BarcodeFilterListing: any = ({
             <option value="no">G</option>
           </select>
         </div>
-        <div className='col-lg-2 col-md-2'>
-          <label className={` ${styles.label_font_size}`}>Barcode Created?</label>
+        <div className="col-lg-2 col-md-2">
+          <label className={` ${styles.label_font_size}`}>
+            Barcode Created?
+          </label>
 
           <select
             className="form-select line-height text-center bg-primary bg-opacity-10"
@@ -101,15 +101,15 @@ const BarcodeFilterListing: any = ({
             <option value="no">No</option>
           </select>
         </div>
-        <div className='col-lg-2  my-2 my-auto text-center'>
-
-          <button className="btn btn-primary px-5 py-2" onClick={handleSearchBtn}>
+        <div className="col-lg-2  my-2 my-auto text-center">
+          <button
+            className="btn btn-primary px-5 py-2"
+            onClick={handleSearchBtn}
+          >
             Search
           </button>
-
         </div>
       </div>
-
     </div>
   );
 };

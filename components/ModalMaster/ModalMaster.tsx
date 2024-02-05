@@ -86,7 +86,7 @@ const ModalMaster = ({
                         <td className="table_row">{i + 1}</td>
                         <td className="table_row">
                           <input
-                            className={` ${styles.input_field} modal-input`}
+                            className={` ${styles.input_field} modal-input text-center`}
                             type="text"
                             defaultValue={element.material_abbr}
                             value={element.material_abbr}
@@ -114,7 +114,7 @@ const ModalMaster = ({
                         </td>
                         <td className="table_row">
                           <input
-                            className={` ${styles.input_field} modal-input`}
+                            className={` ${styles.input_field} modal-input text-end`}
                             type="number"
                             min={0}
                             value={element.pcs === '' ? 0 : element.pcs}
@@ -131,7 +131,7 @@ const ModalMaster = ({
                         </td>
                         <td className="table_row">
                           <input
-                            className={` ${styles.input_field} modal-input`}
+                            className={` ${styles.input_field} modal-input text-end`}
                             type="number"
                             min={0}
                             value={element.piece_}
@@ -148,7 +148,7 @@ const ModalMaster = ({
                         </td>
                         <td className="table_row">
                           <input
-                            className={` ${styles.input_field} modal-input`}
+                            className={` ${styles.input_field} modal-input text-end`}
                             type="number"
                             min={0}
                             value={element.carat}
@@ -165,7 +165,7 @@ const ModalMaster = ({
                         </td>
                         <td className="table_row">
                           <input
-                            className={` ${styles.input_field} modal-input`}
+                            className={` ${styles.input_field} modal-input text-end`}
                             type="number"
                             min={0}
                             value={element.carat_}
@@ -182,7 +182,7 @@ const ModalMaster = ({
                         </td>
                         <td className="table_row">
                           <input
-                            className={` ${styles.input_field} modal-input`}
+                            className={` ${styles.input_field} modal-input text-end`}
                             type="number"
                             min={0}
                             value={element.weight === '' ? 0 : element.weight}
@@ -199,7 +199,7 @@ const ModalMaster = ({
                         </td>
                         <td className="table_row">
                           <input
-                            className={` ${styles.input_field} modal-input`}
+                            className={` ${styles.input_field} modal-input text-end`}
                             type="number"
                             min={0}
                             value={element.gm_}
@@ -216,7 +216,7 @@ const ModalMaster = ({
                         </td>
                         <td className="table_row">
                           <input
-                            className={`${styles.input_field} modal-input`}
+                            className={`${styles.input_field} modal-input text-end`}
                             type="number"
                             min={0}
                             readOnly

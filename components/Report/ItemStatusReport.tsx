@@ -104,7 +104,7 @@ const ItemStatusReport: any = ({
                     itemStatusReportState !== null &&
                     Object.keys(itemStatusReportState[0]).map((key) => (
                       <th className="thead" scope="col" key={key}>
-                        {key}
+                        {key.replace(/_/g, ' ')}
                       </th>
                     ))}
                 </thead>
