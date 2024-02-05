@@ -7,7 +7,7 @@ const BarcodeListingTable: any = ({ BarcodeListData, multipleRecordsForPrint, ha
   console.log(BarcodeListData, '@Barcode list');
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
-  const [tableViewData, setTableViewData] = useState<any>(20);
+  const [tableViewData, setTableViewData] = useState<any>(5);
   const HandleTableViewRows: any = (data: any) => {
     setTableViewData(data);
   };
@@ -43,7 +43,7 @@ const BarcodeListingTable: any = ({ BarcodeListData, multipleRecordsForPrint, ha
       {BarcodeListData?.length > 0 && (
         <div className="text-end pe-3 p-0 text-gray small ">
           {BarcodeListData?.slice(0, tableViewData)?.length} of{' '}
-          {BarcodeListData?.length < 10
+          {BarcodeListData?.length < 4
             ? '0' + BarcodeListData?.length
             : BarcodeListData?.length}
         </div>
@@ -92,7 +92,7 @@ const BarcodeListingTable: any = ({ BarcodeListData, multipleRecordsForPrint, ha
             )}
         </tbody>
       </table>
-      {BarcodeListData?.length > 20 && BarcodeListData !== null && (
+      {BarcodeListData?.length > 4 && BarcodeListData !== null && (
         <LoadMoreTableDataInMaster
           HandleTableViewRows={HandleTableViewRows}
         />
