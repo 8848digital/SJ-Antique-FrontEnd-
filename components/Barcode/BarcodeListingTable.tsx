@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import styles from '../../styles/readyReceiptTableListing.module.css';
 import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
+import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 
 const BarcodeListingTable: any = ({ BarcodeListData, multipleRecordsForPrint, handleCheckboxForBarcodePrint, handleBarcodePrint, handleMultipleBarcodePrint, setSearchItemCode, searchItemCode }: any) => {
   console.log(BarcodeListData, '@Barcode list');
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
+  const [tableViewData, setTableViewData] = useState<any>(20);
+  const HandleTableViewRows: any = (data: any) => {
+    setTableViewData(data);
+  };
   return (
     <div>
+
       <div className='d-flex justify-content-between mb-2'>
         <div className='w-25'>
           <SearchSelectInputField
@@ -34,6 +40,14 @@ const BarcodeListingTable: any = ({ BarcodeListData, multipleRecordsForPrint, ha
           </button>
         </div>
       </div>
+      {BarcodeListData?.length > 0 && (
+        <div className="text-end pe-3 p-0 text-gray small ">
+          {BarcodeListData?.slice(0, tableViewData)?.length} of{' '}
+          {BarcodeListData?.length < 10
+            ? '0' + BarcodeListData?.length
+            : BarcodeListData?.length}
+        </div>
+      )}
       <table className="table table-hover table-bordered">
         <thead>
           <th className="thead" scope="col">
@@ -49,7 +63,7 @@ const BarcodeListingTable: any = ({ BarcodeListData, multipleRecordsForPrint, ha
         <tbody>
           {BarcodeListData?.length > 0 &&
             BarcodeListData !== null &&
-            BarcodeListData.map((item: any, index: number) =>
+            BarcodeListData.slice(0, tableViewData).map((item: any, index: number) =>
             (
               <tr key={index - 1} className=''>
                 <td className="table_row py-1">{index + 1}</td>
@@ -78,6 +92,11 @@ const BarcodeListingTable: any = ({ BarcodeListData, multipleRecordsForPrint, ha
             )}
         </tbody>
       </table>
+      {BarcodeListData?.length > 20 && BarcodeListData !== null && (
+        <LoadMoreTableDataInMaster
+          HandleTableViewRows={HandleTableViewRows}
+        />
+      )}
     </div>
   );
 };
