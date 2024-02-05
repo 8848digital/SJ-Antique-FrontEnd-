@@ -3,7 +3,7 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-const UseDeliveryNoteReturnHook = () => {
+const UseDeliveryNoteListingHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   const [deliveryNoteListing, setDeliveryNoteListing] = useState();
   console.log('inside dn hook');
@@ -18,6 +18,8 @@ const UseDeliveryNoteReturnHook = () => {
         loginAcessToken.token,
         deliveryNoteListParams
       );
+
+      console.log("deliveryNoteApi api res", deliveryNoteApi)
       if (deliveryNoteApi?.data?.message?.status === 'success') {
         setDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
       }
@@ -31,4 +33,4 @@ const UseDeliveryNoteReturnHook = () => {
     setDeliveryNoteListing,
   };
 };
-export default UseDeliveryNoteReturnHook;
+export default UseDeliveryNoteListingHook;
