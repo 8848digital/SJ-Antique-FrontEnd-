@@ -77,7 +77,7 @@ const BarcodeListingTable: any = ({
           </th>
           <th className="thead" scope="col">
             <a
-              className="btn-link p-0"
+              className="btn-link p-0 thead cursor_pointer"
               onClick={() => handleSelectAll(BarcodeListData)}
               id="select-all"
             >
@@ -107,9 +107,9 @@ const BarcodeListingTable: any = ({
                       className="mt-1 "
                       type="checkbox"
                       checked={// selectAll ||
-                      multipleRecordsForPrint?.some(
-                        (checkedItem: any) => checkedItem.id === item.idx
-                      )}
+                        multipleRecordsForPrint?.some(
+                          (checkedItem: any) => checkedItem.id === item.idx
+                        )}
                       onChange={() =>
                         handleCheckboxForBarcodePrint(item.idx, item.item_code)
                       }
