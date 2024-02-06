@@ -118,11 +118,13 @@ const BarcodeListingTable: any = ({
                 </tr>
               )
             )}
+          {BarcodeListData?.length > 4 && BarcodeListData !== null && (
+            <LoadMoreTableDataInMaster
+              HandleTableViewRows={HandleTableViewRows}
+            />
+          )}
         </tbody>
       </table>
-      {BarcodeListData?.length > 4 && BarcodeListData !== null && (
-        <LoadMoreTableDataInMaster HandleTableViewRows={HandleTableViewRows} />
-      )}
     </div>
   );
 };
