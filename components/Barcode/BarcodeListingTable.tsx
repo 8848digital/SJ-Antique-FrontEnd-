@@ -26,7 +26,7 @@ const BarcodeListingTable: any = ({
   return (
     <div>
       <div className="d-flex justify-content-between mb-2">
-        <div className="w-25">
+        <div className=" col-md-2">
           <label className="text-grey px-2">Item code</label>
           <div>
             <SearchSelectInputField
@@ -83,7 +83,7 @@ const BarcodeListingTable: any = ({
           <th className="thead" scope="col">
             Print
           </th>
-          <th className={`${styled.table_select_all_headin} thead`} scope="col">
+          <th className={` thead`} scope="col">
 
           </th>
         </thead>
@@ -93,7 +93,7 @@ const BarcodeListingTable: any = ({
             BarcodeListData.slice(0, tableViewData).map(
               (item: any, index: number) => (
                 <tr key={index - 1} className="">
-                  <td className="table_row py-1">{index + 1}</td>
+                  <td className="table_row py-1 ">{index + 1}</td>
                   <td className="table_row">{item?.item_code}</td>
                   <td className="table_row w-25"></td>
                   <td className="table_row">

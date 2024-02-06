@@ -18,9 +18,9 @@ const ReportFilterListing: any = ({
 }: any) => {
   console.log('@report item voucher number', itemList);
   return (
-    <div className=" d-flex justify-content-center mb-2">
+    <div className="row justify-content-center">
       {reportName === 'Item Status Report' && (
-        <div className="m-1">
+        <div className="col-md-2">
           <label className="text-grey">Item</label>
           <SearchSelectInputField
             karigarData={
@@ -40,7 +40,7 @@ const ReportFilterListing: any = ({
           />
         </div>
       )}
-      <div className="m-1">
+      <div className="col-lg-2 col-md-3 ">
         <label className="text-grey">From Date</label>
         <div>
           <input
@@ -51,7 +51,7 @@ const ReportFilterListing: any = ({
           />
         </div>
       </div>
-      <div className="m-1">
+      <div className="col-lg-2 col-md-3 ">
         <label className="text-grey">To Date</label>
         <div>
           <input
@@ -63,7 +63,7 @@ const ReportFilterListing: any = ({
         </div>
       </div>
       {reportName === 'Item Status Report' && (
-        <div className="m-1">
+        <div className="col-md-2">
           <label className="text-grey">Voucher Name</label>
           <SearchSelectInputField
             karigarData={voucherNumber}
@@ -78,7 +78,7 @@ const ReportFilterListing: any = ({
         </div>
       )}
       {reportName === 'Daily Quantity Status Report' && (
-        <div className="m-1">
+        <div className="col-md-2">
           <label className="text-grey">Name</label>
           <SearchSelectInputField
             karigarData={name}

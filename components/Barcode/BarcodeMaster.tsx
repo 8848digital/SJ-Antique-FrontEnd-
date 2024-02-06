@@ -40,7 +40,8 @@ const BarcodeMaster = () => {
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
     handleAddRowForSales,
-    handleDeleteRowOfSalesTable
+    handleDeleteRowOfSalesTable,
+    handleTabPress,
   }: any = UseBarcodeFilterList();
 
   const {
@@ -149,12 +150,16 @@ const BarcodeMaster = () => {
                 }
                 handleAddRowForSales={handleAddRowForSales}
                 handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
-              // readOnlyFields,
+                // readOnlyFields,
 
-              // setStateForDocStatus,
-              // itemCodeDropdownReset,
-              // setItemCodeDropdownReset,
-              // handleTabPressInSales,
+                // setStateForDocStatus,
+                // itemCodeDropdownReset,
+                // setItemCodeDropdownReset,
+                // handleTabPressInSales,
+                // setStateForDocStatus,
+                // itemCodeDropdownReset,
+                // setItemCodeDropdownReset,
+                handleTabPressInSales={handleTabPress}
               />
             </>
           )}

@@ -23,7 +23,7 @@ const TabSection = ({ firstTabHeading, secondTabHeading }: any) => {
       </div>
       <div className="nav-tabs tabs-container w-50" role="presentation">
         <button
-          className="nav-link w-100 border p-1"
+          className="nav-link w-100 border p-1 h-100"
           id="pills-profile-tab"
           data-bs-toggle="pill"
           data-bs-target="#pills-profile"

@@ -9,7 +9,7 @@ const SalesIndexPage = () => {
   console.log(pathcontent, 'pathcontent index');
   const key = pathcontent[pathcontent?.length - 1];
   return (
-    <div>
+    <div className="container-lg">
       {key === 'customerSale' && <CustomerSaleMaster />}
       {key === 'saleReturns' && <SaleReturnsMaster />}
     </div>

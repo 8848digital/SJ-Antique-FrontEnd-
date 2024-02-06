@@ -353,6 +353,7 @@ const UseBarcodeFilterList = () => {
     }
     console.log(updatedData, '@barcode post updated data');
   };
+  const handleTabPress = () => { };
   console.log('@barcode selected Category', selectedCategory);
 
   const handleAddRowForSales: any = () => {
@@ -393,7 +394,8 @@ const UseBarcodeFilterList = () => {
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
     handleAddRowForSales,
-    handleDeleteRowOfSalesTable
+    handleDeleteRowOfSalesTable,
+    handleTabPress,
   };
 };
 export default UseBarcodeFilterList;
