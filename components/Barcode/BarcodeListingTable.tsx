@@ -25,7 +25,7 @@ const BarcodeListingTable: any = ({
   return (
     <div>
       <div className="d-flex justify-content-between mb-2">
-        <div className="w-25">
+        <div className=" col-md-2">
           <label className="text-grey px-2">Item code</label>
           <div>
             <SearchSelectInputField

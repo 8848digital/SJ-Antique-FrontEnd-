@@ -39,6 +39,7 @@ const BarcodeMaster = () => {
     setSelectedItemCode,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
+    handleTabPress,
   }: any = UseBarcodeFilterList();
 
   const {
@@ -152,7 +153,7 @@ const BarcodeMaster = () => {
                 // setStateForDocStatus,
                 // itemCodeDropdownReset,
                 // setItemCodeDropdownReset,
-                // handleTabPressInSales,
+                handleTabPressInSales={handleTabPress}
               />
             </>
           )}

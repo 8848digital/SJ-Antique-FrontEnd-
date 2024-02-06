@@ -27,22 +27,27 @@ const Navbar = () => {
   return (
     <div>
       <div className="bg-light">
-        <nav className="container-lg mt-2 d-flex flex-wrap justify-content-between ">
-          <div></div>
-          <ReceiptsHeader
-            showReceipt={showReceipt}
-            setShowReceipts={setShowReceipts}
-            showSales={showSales}
-            setShowSales={setShowSales}
-            showMaster={showMaster}
-            setShowMaster={setShowMaster}
-            showReport={showReport}
-            setShowReport={setShowReport}
-            showBarcode={showBarcode}
-            setShowBarcode={setShowBarcode}
-          />
+        <nav
+          className="d-flex"
+          // className="container-lg mt-2 d-flex flex-wrap justify-content-between "
+        >
+          {/* <div></div> */}
+          <div className="container-lg mt-2 d-flex flex-wrap justify-content-center ">
+            <ReceiptsHeader
+              showReceipt={showReceipt}
+              setShowReceipts={setShowReceipts}
+              showSales={showSales}
+              setShowSales={setShowSales}
+              showMaster={showMaster}
+              setShowMaster={setShowMaster}
+              showReport={showReport}
+              setShowReport={setShowReport}
+              showBarcode={showBarcode}
+              setShowBarcode={setShowBarcode}
+            />
+          </div>
 
-          <div className="text-end">
+          <div className="text-end mt-2">
             <Dropdown>
               <Dropdown.Toggle
                 variant="success-light"

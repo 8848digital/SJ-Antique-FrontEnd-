@@ -5,6 +5,7 @@ import UseCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sale-hook
 import CustomerSalesTable from './CustomerSalesTable';
 import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
+import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
 
 const CustomerSaleMaster = () => {
   const {
@@ -47,14 +48,21 @@ const CustomerSaleMaster = () => {
     setKunCsOtFixedAmt,
     HandleFixedAmt,
   }: any = UseCustomerSaleHook();
+  const {
+    scrollableTableRef,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseLeave,
+    handleMouseMove,
+  }: any = UseScrollbarHook();
 
   console.log(deliveryNoteListing, 'client name in listing');
   console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-        return data.is_return === 0;
-      })
+          return data.is_return === 0;
+        })
       : [];
 
   console.log('kundan listing', kundanListing);
@@ -132,7 +140,6 @@ const CustomerSaleMaster = () => {
               deliveryNoteData={deliveryNoteData}
               itemCodeDropdownReset={itemCodeDropdownReset}
               setItemCodeDropdownReset={setItemCodeDropdownReset}
-
             />
             <CustomerSalesTable2
               kunCsOtCategoryListData={kunCsOtCategoryListData}
@@ -163,6 +170,11 @@ const CustomerSaleMaster = () => {
               // setKunCsOtFixedAmt={setKunCsOtFixedAmt}
               HandleFixedAmt={HandleFixedAmt}
               showAddrowBtn={true}
+              scrollableTableRef={scrollableTableRef}
+              handleMouseDown={handleMouseDown}
+              handleMouseUp={handleMouseUp}
+              handleMouseLeave={handleMouseLeave}
+              handleMouseMove={handleMouseMove}
             />
           </div>
         </div>

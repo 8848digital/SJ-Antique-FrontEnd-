@@ -354,6 +354,7 @@ const UseBarcodeFilterList = () => {
     }
     console.log(updatedData, '@barcode post updated data');
   };
+  const handleTabPress = () => {};
   console.log('@barcode selected Category', selectedCategory);
   return {
     karigarList,
@@ -386,6 +387,7 @@ const UseBarcodeFilterList = () => {
     setSelectedItemCode,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
+    handleTabPress,
   };
 };
 export default UseBarcodeFilterList;

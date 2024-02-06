@@ -22,7 +22,7 @@ const initialState: RepoAccessTokenState = {
   isLoading: 'idle',
 };
 
-export const GetAccessTokenScreen = createSlice({
+export const GetAccessTokenScreen: any = createSlice({
   name: 'accessToken',
   initialState,
   reducers: {

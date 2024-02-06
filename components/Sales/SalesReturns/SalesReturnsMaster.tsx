@@ -7,6 +7,7 @@ import UseCustomSalesReturnHook from '@/hooks/Sales/Sales-Returns/custom-sales-r
 import DetailsPageSalesReturn from './DetailPageSalesReturn/DetailsPageSalesReturn';
 import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
 import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
+import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
 
 const SaleReturnsMaster = () => {
   const {
@@ -40,13 +41,19 @@ const SaleReturnsMaster = () => {
     HandleFixedAmt,
   }: any = UseSalesReturnMasterHook();
 
-  // const {} = UseSalesReturnDetailHook();
+  const {
+    scrollableTableRef,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseLeave,
+    handleMouseMove,
+  }: any = UseScrollbarHook();
 
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
-        return data.is_return === 1;
-      })
+          return data.is_return === 1;
+        })
       : [];
 
   return (
@@ -85,7 +92,7 @@ const SaleReturnsMaster = () => {
               deleteApiEntity={'sales_return'}
               kunKarigarDropdownReset={itemCodeDropdownReset}
               setKunKarigarDropdownReset={setItemCodeDropdownReset}
-            // purchasRecieptListParams={deliveryNoteListParams}
+              // purchasRecieptListParams={deliveryNoteListParams}
             />
           </div>
           <div
@@ -154,6 +161,11 @@ const SaleReturnsMaster = () => {
                 setKunCsOtFixedAmt={setKunCsOtFixedAmt}
                 HandleFixedAmt={HandleFixedAmt}
                 showAddrowBtn={true}
+                scrollableTableRef={scrollableTableRef}
+                handleMouseDown={handleMouseDown}
+                handleMouseUp={handleMouseUp}
+                handleMouseLeave={handleMouseLeave}
+                handleMouseMove={handleMouseMove}
               />
             </div>
           </div>
