@@ -8,8 +8,10 @@
     }
 }
 
-/* @media screen and (max-width:768px) {
-    .label_font_size {
-        font-size: 12px;
-    }
-} */
+.table_heading {
+    width: 10px;
+}
+
+.table_select_all_heading {
+    width: 17px;
+}

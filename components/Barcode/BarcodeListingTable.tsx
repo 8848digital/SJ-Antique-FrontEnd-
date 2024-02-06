@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from '../../styles/readyReceiptTableListing.module.css';
+import styled from '../../styles/barcode.module.css'
 import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 
@@ -48,6 +49,13 @@ const BarcodeListingTable: any = ({
         <div className="text-end">
           <button
             type="button"
+            className="btn btn-primary px-3 py-0 mb-1 mx-3"
+            onClick={() => handleSelectAll(BarcodeListData)}
+          >
+            Select All
+          </button>
+          <button
+            type="button"
             className="btn btn-primary px-3 py-1 mb-1 mx-3"
             onClick={handleMultipleBarcodePrint}
           >
@@ -65,24 +73,18 @@ const BarcodeListingTable: any = ({
       )}
       <table className="table table-hover table-bordered">
         <thead>
-          <th className="thead" scope="col">
+          <th className={`${styled.table_heading} thead`} scope="col">
             Sr. No
           </th>
           <th className="thead" scope="col">
             Item code
           </th>
-          <th className="thead w-25" scope="col"></th>
+          <th className="thead w-50" scope="col"></th>
           <th className="thead" scope="col">
             Print
           </th>
-          <th className="thead" scope="col">
-            <a
-              className="btn-link p-0 thead cursor_pointer"
-              onClick={() => handleSelectAll(BarcodeListData)}
-              id="select-all"
-            >
-              Select All
-            </a>
+          <th className={`${styled.table_select_all_headin} thead`} scope="col">
+
           </th>
         </thead>
         <tbody>

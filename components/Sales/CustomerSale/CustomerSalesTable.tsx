@@ -274,7 +274,7 @@ const CustomerSalesTable = ({
                         min={0}
                         value={Number(
                           Number(item.custom_cs) * Number(item.custom_cs_wt)
-                        )}
+                        )?.toFixed(2)}
                         defaultValue={Number(item.custom_cs_amt)}
                         readOnly
                         onChange={(e) =>
@@ -328,7 +328,7 @@ const CustomerSalesTable = ({
                         min={0}
                         value={(
                           Number(item.custom_kun_pc) * Number(item.custom_kun)
-                        )?.toFixed(3)}
+                        )?.toFixed(2)}
                         defaultValue={item.custom_kun_amt}
                         readOnly
                         onChange={(e) =>
@@ -365,10 +365,10 @@ const CustomerSalesTable = ({
                         min={0}
                         value={Number(
                           Number(item.custom_other_wt) * Number(item.custom_ot_)
-                        )?.toFixed(3)}
+                        )?.toFixed(2)}
                         defaultValue={Number(
                           Number(item.custom_other_wt) * Number(item.custom_ot_)
-                        )?.toFixed(3)}
+                        )?.toFixed(2)}
                         readOnly
                         onChange={(e) =>
                           handleSalesTableFieldChange(
@@ -411,7 +411,7 @@ const CustomerSalesTable = ({
                             ? 0
                             : Number(item?.custom_ot_amt)) +
                           Number(item?.custom_other)
-                        )?.toFixed(3)}
+                        )?.toFixed(2)}
                         defaultValue={Number(
                           Number(item?.custom_cs_amt) +
                           Number(item?.custom_kun_amt) +

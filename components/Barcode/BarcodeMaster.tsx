@@ -39,6 +39,8 @@ const BarcodeMaster = () => {
     setSelectedItemCode,
     selectedItemCodeForCustomerSale,
     setSelectedItemCodeForCustomerSale,
+    handleAddRowForSales,
+    handleDeleteRowOfSalesTable
   }: any = UseBarcodeFilterList();
 
   const {
@@ -56,13 +58,13 @@ const BarcodeMaster = () => {
   const filteredList =
     BarcodeListData?.length > 0 && BarcodeListData !== null && searchItemCode
       ? BarcodeListData.filter((item: any) => {
-          const itemCodeMatch = searchItemCode
-            ? item?.item_code
-                ?.toLowerCase()
-                ?.includes(searchItemCode?.toLowerCase())
-            : true;
-          return itemCodeMatch;
-        })
+        const itemCodeMatch = searchItemCode
+          ? item?.item_code
+            ?.toLowerCase()
+            ?.includes(searchItemCode?.toLowerCase())
+          : true;
+        return itemCodeMatch;
+      })
       : BarcodeListData;
 
   return (
@@ -145,14 +147,14 @@ const BarcodeMaster = () => {
                 setSelectedItemCodeForCustomerSale={
                   setSelectedItemCodeForCustomerSale
                 }
-                // handleAddRowForSales,
-                // handleDeleteRowOfSalesTable,
-                // readOnlyFields,
+                handleAddRowForSales={handleAddRowForSales}
+                handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
+              // readOnlyFields,
 
-                // setStateForDocStatus,
-                // itemCodeDropdownReset,
-                // setItemCodeDropdownReset,
-                // handleTabPressInSales,
+              // setStateForDocStatus,
+              // itemCodeDropdownReset,
+              // setItemCodeDropdownReset,
+              // handleTabPressInSales,
               />
             </>
           )}
