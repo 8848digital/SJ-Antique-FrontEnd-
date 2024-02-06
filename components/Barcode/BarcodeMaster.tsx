@@ -150,6 +150,7 @@ const BarcodeMaster = () => {
                 }
                 handleAddRowForSales={handleAddRowForSales}
                 handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
+                showAdditionalInputForCalculation={false}
                 // readOnlyFields,
 
                 // setStateForDocStatus,

@@ -25,9 +25,9 @@ const BarcodeListingTable: any = ({
   };
   return (
     <div>
-      <div className="d-flex justify-content-between mb-2">
-        <div className=" col-md-2">
-          <label className="text-grey px-2">Item code</label>
+      <div className="d-flex justify-content-between mb-2 ">
+        <div className="col-md-2">
+          {/* <label className="text-grey px-2">Item code</label> */}
           <div>
             <SearchSelectInputField
               karigarData={BarcodeListData?.map((data: any) => ({
@@ -46,20 +46,20 @@ const BarcodeListingTable: any = ({
           </div>
         </div>
 
-        <div className="text-end">
-          <button
-            type="button"
-            className="btn btn-primary px-3 py-0 mb-1 mx-3"
-            onClick={() => handleSelectAll(BarcodeListData)}
-          >
-            Select All
-          </button>
+        <div className="text-end d-flex align-items-end">
           <button
             type="button"
             className="btn btn-primary px-3 py-1 mb-1 mx-3"
             onClick={handleMultipleBarcodePrint}
           >
             Print
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary px-3 py-1 mb-1 mx-3"
+            onClick={() => handleSelectAll(BarcodeListData)}
+          >
+            Select All
           </button>
         </div>
       </div>
@@ -71,7 +71,64 @@ const BarcodeListingTable: any = ({
             : BarcodeListData?.length}
         </div>
       )}
-      <table className="table table-hover table-bordered">
+
+      <div className='row '>
+        <div className={`col-lg-1 ${styled.custom_table_head}  border text-center`}>Sr No.</div>
+        <div className={`col-lg-1 ${styled.custom_table_head}  border text-center`}>Item</div>
+        <div className={`col-lg-8 ${styled.custom_table_head}  border `}></div>
+        <div className={`col-lg-1 ${styled.custom_table_head}  border text-center`}>Print</div>
+        <div className={`col-lg-1 ${styled.custom_table_head}  border `}></div>
+
+      </div>
+
+      {BarcodeListData?.length > 0 &&
+        BarcodeListData !== null &&
+        BarcodeListData.slice(0, tableViewData).map(
+          (item: any, index: number) => (
+            <>
+              <div className='row '>
+
+                <div className="col-lg-1 border text-center">{index + 1}</div>
+                <div className="col-lg-1 border text-center">{item?.item_code}</div>
+                <div className="col-lg-8 border"></div>
+                <div className="col-lg-1 border text-center">
+                  <a
+                    onClick={() => handleBarcodePrint(item.item_code)}
+                    className={`button-section-text mx-auto text-info ${styles.cursor_pointer}`}
+                  >
+                    print
+                  </a>
+                </div>
+                <div className="col-lg-1 border text-center">
+                  <input
+                    className="mt-1 "
+                    type="checkbox"
+                    checked={// selectAll ||
+                      multipleRecordsForPrint?.some(
+                        (checkedItem: any) => checkedItem.id === item.idx
+                      )}
+                    onChange={() =>
+                      handleCheckboxForBarcodePrint(item.idx, item.item_code)
+                    }
+                  />
+                </div>
+              </div >
+            </>
+
+          )
+        )}
+      {BarcodeListData?.length > 4 && BarcodeListData !== null && (
+        <LoadMoreTableDataInMaster
+          HandleTableViewRows={HandleTableViewRows}
+        />
+      )}
+
+
+
+
+
+
+      {/* <table className="table table-hover table-bordered">
         <thead>
           <th className={`${styled.table_heading} thead`} scope="col">
             Sr. No
@@ -126,7 +183,7 @@ const BarcodeListingTable: any = ({
             />
           )}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };

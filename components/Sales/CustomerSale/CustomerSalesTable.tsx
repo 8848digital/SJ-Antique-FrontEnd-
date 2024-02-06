@@ -29,6 +29,7 @@ const CustomerSalesTable = ({
   handleMouseUp,
   handleMouseLeave,
   handleMouseMove,
+  showAdditionalInputForCalculation
 }: any) => {
   console.log(salesTableData, 'selected name and value');
   return (
@@ -59,50 +60,53 @@ const CustomerSalesTable = ({
         >
           <table className="table table-hover table-bordered cursor">
             <thead>
-              {/* <tr className={`${styles.table_row} border-0`}>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0">
-                <input
-                  type="text"
-                  name="csFixedAmt"
-                  className={` ${styles.customer_sale_input_field} text-end `}
-                  min={0}
-                  value={kunCsOtFixedAmt?.csFixedAmt}
-                  onChange={(e) => HandleFixedAmt(e)}
-                />
-              </td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0">
-                <input
-                  type="text"
-                  name="kunFixedAmt"
-                  className={` ${styles.customer_sale_input_field} text-end `}
-                  min={0}
-                  value={kunCsOtFixedAmt?.kunFixedAmt}
-                  onChange={(e) => HandleFixedAmt(e)}
-                />
-              </td>
-              <td className="table_row border-0"></td>
-              <td className="table_row border-0">
-                <input
-                  type="text"
-                  name="otFixedAmt"
-                  className={` ${styles.customer_sale_input_field} text-end `}
-                  min={0}
-                  value={kunCsOtFixedAmt?.otFixedAmt}
-                  onChange={(e) => HandleFixedAmt(e)}
-                />
-              </td>
-              <td className="table_row border-0"></td>
-            </tr> */}
+              {showAdditionalInputForCalculation && (
+                <tr className={`${styles.table_row} border-0`}>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0">
+                    <input
+                      type="text"
+                      name="csFixedAmt"
+                      className={` ${styles.customer_sale_input_field} text-end `}
+                      min={0}
+                      value={kunCsOtFixedAmt?.csFixedAmt}
+                      onChange={(e) => HandleFixedAmt(e)}
+                    />
+                  </td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0">
+                    <input
+                      type="text"
+                      name="kunFixedAmt"
+                      className={` ${styles.customer_sale_input_field} text-end `}
+                      min={0}
+                      value={kunCsOtFixedAmt?.kunFixedAmt}
+                      onChange={(e) => HandleFixedAmt(e)}
+                    />
+                  </td>
+                  <td className="table_row border-0"></td>
+                  <td className="table_row border-0">
+                    <input
+                      type="text"
+                      name="otFixedAmt"
+                      className={` ${styles.customer_sale_input_field} text-end `}
+                      min={0}
+                      value={kunCsOtFixedAmt?.otFixedAmt}
+                      onChange={(e) => HandleFixedAmt(e)}
+                    />
+                  </td>
+                  <td className="table_row border-0"></td>
+                </tr>
+
+              )}
               <SalesTableHeader />
             </thead>
             <tbody>

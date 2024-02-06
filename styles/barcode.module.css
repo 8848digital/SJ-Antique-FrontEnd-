@@ -17,3 +17,8 @@
 /* .table_select_all_heading {
     width: 17px;
 } */
+
+.custom_table_head {
+    background-color: #2f308c !important;
+    color: white;
+}

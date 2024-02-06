@@ -61,8 +61,8 @@ const CustomerSaleMaster = () => {
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-          return data.is_return === 0;
-        })
+        return data.is_return === 0;
+      })
       : [];
 
   console.log('kundan listing', kundanListing);
@@ -175,6 +175,7 @@ const CustomerSaleMaster = () => {
               handleMouseUp={handleMouseUp}
               handleMouseLeave={handleMouseLeave}
               handleMouseMove={handleMouseMove}
+              showAdditionalInputForCalculation={true}
             />
           </div>
         </div>
