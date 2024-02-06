@@ -3,12 +3,13 @@ import GetDetailOfSalesReturnReducer from '../store/slices/Sales/get-detail-sale
 import GetDetailOfDeliveryNoteDataReducer from '../store/slices/Sales/getDetailOfDeliveryNoteApi';
 import GetAccessTokenScreen from '../store/slices/auth/login-slice';
 import GetSpecificReceiptDataReducer from './slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
-// import { GetItemStatusRepo } from './slices/Report/item-status-report-slice';
+import GetItemStatusReportReducer from './slices/Report/item-status-report-slice';
 const appReducer = combineReducers({
   GetAccessTokenScreen: GetAccessTokenScreen,
   GetSpecificReceiptDataScreen: GetSpecificReceiptDataReducer,
   GetDetailOfDeliveryNoteDataScreen: GetDetailOfDeliveryNoteDataReducer,
   GetDetailOfSalesReturnScreen: GetDetailOfSalesReturnReducer,
+  GetItemStatusReportScreen: GetItemStatusReportReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

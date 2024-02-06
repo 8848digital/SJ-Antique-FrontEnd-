@@ -3,8 +3,9 @@ import ReportApi from '@/services/api/report/get-report-data-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import UseScrollbarHook from './report-table-scrollbar-hook';
+import { get_item_status_report_data } from '@/store/slices/Report/item-status-report-slice';
 
 const useItemStatusReportHook = () => {
   const {
@@ -37,7 +38,10 @@ const useItemStatusReportHook = () => {
   const [dailyStatusLoading, setDailyStatusLoading] = useState<number>(0);
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
+  const itemStatusReportData: any = useSelector(get_item_status_report_data);
+  console.log(itemStatusReportData, '@report data');
   const HandleRefresh = () => {
     router.reload();
   };

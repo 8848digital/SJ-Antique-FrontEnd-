@@ -58,7 +58,7 @@ const UseCustomReceiptHook: any = () => {
     product_code: '',
     custom_kun_karigar: '',
     custom_net_wt: 0,
-    custom_few_wt: '',
+    custom_few_wt: 0,
     custom_gross_wt: 0,
     custom_pcs: '',
     custom_mat_wt: 0,
@@ -415,8 +415,8 @@ const UseCustomReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-                : formatInput(newValue),
+              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+              : formatInput(newValue),
         };
       }
       return item;

@@ -212,9 +212,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       disabled
                       name={`sum-${i + 1}`}
                       value={(
-                        parseFloat(tableData[i]?.custom_net_wt) +
-                        parseFloat(tableData[i]?.custom_few_wt) +
-                        parseFloat(tableData[i]?.custom_mat_wt)
+                        Number(tableData[i]?.custom_net_wt) +
+                        Number(tableData[i]?.custom_few_wt) +
+                        Number(tableData[i]?.custom_mat_wt)
                       )?.toFixed(3)}
                     />
                   </td>
