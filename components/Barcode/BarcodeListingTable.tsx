@@ -24,7 +24,7 @@ const BarcodeListingTable: any = ({
     setTableViewData(data);
   };
   return (
-    <div>
+    <div className='container'>
       <div className="d-flex justify-content-between mb-2 ">
         <div className="col-md-2">
           {/* <label className="text-grey px-2">Item code</label> */}
@@ -73,11 +73,11 @@ const BarcodeListingTable: any = ({
       )}
 
       <div className='row '>
-        <div className={`col-lg-1 ${styled.custom_table_head}  border text-center`}>Sr No.</div>
-        <div className={`col-lg-1 ${styled.custom_table_head}  border text-center`}>Item</div>
-        <div className={`col-lg-8 ${styled.custom_table_head}  border `}></div>
-        <div className={`col-lg-1 ${styled.custom_table_head}  border text-center`}>Print</div>
-        <div className={`col-lg-1 ${styled.custom_table_head}  border `}></div>
+        <div className={`col ${styled.custom_table_head}  p-0 border text-center`}>No</div>
+        <div className={`col-lg-2 ${styled.custom_table_head} border text-center`}>Item</div>
+        <div className={`col-lg-7 ${styled.custom_table_head} border `}></div>
+        <div className={`col-lg-1 ${styled.custom_table_head} border text-center`}>Print</div>
+        <div className={`col-lg-1 ${styled.custom_table_head} border `}></div>
 
       </div>
 
@@ -88,9 +88,9 @@ const BarcodeListingTable: any = ({
             <>
               <div className='row '>
 
-                <div className="col-lg-1 border text-center">{index + 1}</div>
-                <div className="col-lg-1 border text-center">{item?.item_code}</div>
-                <div className="col-lg-8 border"></div>
+                <div className="col border text-center p-0" style={{ width: "10px" }}>{index + 1}</div>
+                <div className="col-lg-2 border text-center">{item?.item_code}</div>
+                <div className="col-lg-7 border"></div>
                 <div className="col-lg-1 border text-center">
                   <a
                     onClick={() => handleBarcodePrint(item.item_code)}
@@ -133,7 +133,7 @@ const BarcodeListingTable: any = ({
           <th className={`${styled.table_heading} thead`} scope="col">
             Sr. No
           </th>
-          <th className="thead" scope="col">
+          <th className="thead " scope="col">
             Item code
           </th>
           <th className="thead w-50" scope="col"></th>
@@ -150,10 +150,10 @@ const BarcodeListingTable: any = ({
             BarcodeListData.slice(0, tableViewData).map(
               (item: any, index: number) => (
                 <tr key={index - 1} className="">
-                  <td className="table_row py-1 ">{index + 1}</td>
-                  <td className="table_row">{item?.item_code}</td>
-                  <td className="table_row w-25"></td>
-                  <td className="table_row">
+                  <td className="table_row  ">{index + 1}</td>
+                  <td className="table_row ">{item?.item_code}</td>
+                  <td className="table_row w-75"></td>
+                  <td className="table_row ">
                     <a
                       onClick={() => handleBarcodePrint(item.item_code)}
                       className={`button-section-text mx-auto text-info ${styles.cursor_pointer}`}
