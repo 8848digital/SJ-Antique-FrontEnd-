@@ -80,65 +80,6 @@ const KundanListing = ({
     return updatedDate;
   };
 
-  // const filteredList =
-  //   kundanListing?.length > 0 &&
-  //   kundanListing !== null &&
-  //   (searchInputValues.from_date ||
-  //     searchInputValues.to_date ||
-  //     searchKarigar ||
-  //     searchReceiptNumber ||
-  //     searchInputValues.status)
-  //     ? kundanListing.filter((item: any) => {
-  //         const postingDate = new Date(item?.posting_date);
-
-  //         const dateMatch =
-  //           (!searchInputValues.from_date ||
-  //             postingDate >= new Date(searchInputValues.from_date)) &&
-  //           (!searchInputValues.to_date ||
-  //             postingDate <= new Date(searchInputValues.to_date));
-
-  //         const karigarMatch = searchKarigar
-  //           ? item?.custom_karigar
-  //             ? item.custom_karigar
-  //                 ?.toLowerCase()
-  //                 ?.includes(searchKarigar?.toLowerCase())
-  //             : item?.custom_client_name
-  //                 ?.toLowerCase()
-  //                 ?.includes(searchKarigar?.toLowerCase())
-  //           : true;
-  //         console.log(karigarMatch, 'karigar match in filter');
-  //         const receiptNumberMatch = searchReceiptNumber
-  //           ? item?.name
-  //               ?.toLowerCase()
-  //               .includes(searchReceiptNumber.toString().toLowerCase())
-  //           : true;
-
-  //         if (searchInputValues.status === 'Draft') {
-  //           return (
-  //             item?.docstatus === 0 &&
-  //             dateMatch &&
-  //             karigarMatch &&
-  //             receiptNumberMatch
-  //           );
-  //         } else if (searchInputValues.status === 'Submitted') {
-  //           return (
-  //             item?.docstatus === 1 &&
-  //             dateMatch &&
-  //             karigarMatch &&
-  //             receiptNumberMatch
-  //           );
-  //         } else if (searchInputValues.status === 'Cancel') {
-  //           return (
-  //             item?.docstatus === 2 &&
-  //             dateMatch &&
-  //             karigarMatch &&
-  //             receiptNumberMatch
-  //           );
-  //         }
-
-  //         return dateMatch && karigarMatch && receiptNumberMatch;
-  //       })
-  //     : kundanListing;
   const filteredList =
     kundanListing?.length > 0 &&
     kundanListing !== null &&

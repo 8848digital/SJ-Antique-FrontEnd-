@@ -67,9 +67,9 @@ const useBarcodeListingHook = () => {
     });
   };
 
-  const handleSelectAll = () => {
+  const handleSelectAll = (ListData: any) => {
     setSelectAll((prevSelectAll: boolean) => {
-      const allItems = BarcodeListData.map((item: any) => ({
+      const allItems = ListData.map((item: any) => ({
         id: item.idx,
         name: item.item_code,
       }));

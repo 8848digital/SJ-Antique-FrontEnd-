@@ -103,7 +103,7 @@ const BarcodeFilterListing: any = ({
         </div>
         <div className="col-lg-2  my-2 my-auto text-center">
           <button
-            className="btn btn-primary px-5 py-2"
+            className="btn btn-primary m-1 py-2"
             onClick={handleSearchBtn}
           >
             Search

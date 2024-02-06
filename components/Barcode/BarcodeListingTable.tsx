@@ -26,20 +26,23 @@ const BarcodeListingTable: any = ({
     <div>
       <div className="d-flex justify-content-between mb-2">
         <div className="w-25">
-          <SearchSelectInputField
-            karigarData={BarcodeListData?.map((data: any) => ({
-              karigar_name: data.item_code,
-            }))}
-            placeholder={'Item code'}
-            className={
-              'form-control input-fields custom-input-field line-height'
-            }
-            style={'max-width'}
-            selectedDropdownValue={searchItemCode}
-            setSelectedDropdownValue={setSearchItemCode}
-            selectDropDownReset={kunKarigarDropdownReset}
-            setSelectDropDownReset={setKunKarigarDropdownReset}
-          />
+          <label className="text-grey px-2">Item code</label>
+          <div>
+            <SearchSelectInputField
+              karigarData={BarcodeListData?.map((data: any) => ({
+                karigar_name: data.item_code,
+              }))}
+              placeholder={'Item code'}
+              className={
+                'form-control input-fields custom-input-field line-height'
+              }
+              style={'max-width'}
+              selectedDropdownValue={searchItemCode}
+              setSelectedDropdownValue={setSearchItemCode}
+              selectDropDownReset={kunKarigarDropdownReset}
+              setSelectDropDownReset={setKunKarigarDropdownReset}
+            />
+          </div>
         </div>
 
         <div className="text-end">
@@ -75,7 +78,7 @@ const BarcodeListingTable: any = ({
           <th className="thead" scope="col">
             <a
               className="btn-link p-0"
-              onClick={handleSelectAll}
+              onClick={() => handleSelectAll(BarcodeListData)}
               id="select-all"
             >
               Select All
@@ -117,7 +120,7 @@ const BarcodeListingTable: any = ({
             )}
         </tbody>
       </table>
-      {BarcodeListData?.length > 20 && BarcodeListData !== null && (
+      {BarcodeListData?.length > 4 && BarcodeListData !== null && (
         <LoadMoreTableDataInMaster HandleTableViewRows={HandleTableViewRows} />
       )}
     </div>

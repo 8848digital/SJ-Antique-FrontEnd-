@@ -1,5 +1,4 @@
 const LoadMoreTableDataInMaster = ({ HandleTableViewRows }: any) => {
-  console.log('inside load more');
   return (
     <div
       className="btn-group mr-2 my-2 mb-4 "
