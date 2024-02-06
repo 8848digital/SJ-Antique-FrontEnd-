@@ -26,7 +26,7 @@ const FilterKundanReadyReceiptListing = ({
     <div>
       <div className="row justify-content-center">
         <div className="col-md-2 ">
-          <label className="text-grey">Receipt No.</label>
+          <label className="text-grey">{colPlaceholder1}</label>
           <div>
             <SearchSelectInputField
               karigarData={ReceiptNumber}
