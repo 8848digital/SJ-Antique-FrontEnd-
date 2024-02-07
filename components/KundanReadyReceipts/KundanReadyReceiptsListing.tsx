@@ -82,68 +82,68 @@ const KundanListing = ({
 
   const filteredList =
     kundanListing?.length > 0 &&
-    kundanListing !== null &&
-    (searchInputValues.from_date ||
-      searchInputValues.to_date ||
-      searchKarigar ||
-      searchReceiptNumber ||
-      searchInputValues.status)
+      kundanListing !== null &&
+      (searchInputValues.from_date ||
+        searchInputValues.to_date ||
+        searchKarigar ||
+        searchReceiptNumber ||
+        searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-          const postingDate = new Date(item?.posting_date);
+        const postingDate = new Date(item?.posting_date);
 
-          const dateMatch =
-            (!searchInputValues.from_date ||
-              postingDate >= new Date(searchInputValues.from_date)) &&
-            (!searchInputValues.to_date ||
-              postingDate <= new Date(searchInputValues.to_date));
+        const dateMatch =
+          (!searchInputValues.from_date ||
+            postingDate >= new Date(searchInputValues.from_date)) &&
+          (!searchInputValues.to_date ||
+            postingDate <= new Date(searchInputValues.to_date));
 
-          const karigarMatch = searchKarigar
-            ? item?.custom_karigar
-              ? item.custom_karigar
-                  ?.toLowerCase()
-                  ?.includes(searchKarigar?.toLowerCase())
-              : item?.custom_client_name
-                  ?.toLowerCase()
-                  ?.includes(searchKarigar?.toLowerCase())
-            : true;
+        const karigarMatch = searchKarigar
+          ? item?.custom_karigar
+            ? item.custom_karigar
+              ?.toLowerCase()
+              ?.includes(searchKarigar?.toLowerCase())
+            : item?.custom_client_name
+              ?.toLowerCase()
+              ?.includes(searchKarigar?.toLowerCase())
+          : true;
 
-          const receiptNumberMatch = searchReceiptNumber
-            ? item?.name
-                ?.toLowerCase()
-                .includes(searchReceiptNumber.toString().toLowerCase())
-            : true;
+        const receiptNumberMatch = searchReceiptNumber
+          ? item?.name
+            ?.toLowerCase()
+            .includes(searchReceiptNumber.toString().toLowerCase())
+          : true;
 
-          console.log('@filter item:', item);
-          console.log('@filter postingDate:', postingDate);
-          console.log('@filter dateMatch:', dateMatch);
-          console.log('@filter karigarMatch:', karigarMatch);
-          console.log('@filter receiptNumberMatch:', receiptNumberMatch);
+        console.log('@filter item:', item);
+        console.log('@filter postingDate:', postingDate);
+        console.log('@filter dateMatch:', dateMatch);
+        console.log('@filter karigarMatch:', karigarMatch);
+        console.log('@filter receiptNumberMatch:', receiptNumberMatch);
 
-          if (searchInputValues.status === 'Draft') {
-            return (
-              item?.docstatus === 0 &&
-              dateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          } else if (searchInputValues.status === 'Submitted') {
-            return (
-              item?.docstatus === 1 &&
-              dateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          } else if (searchInputValues.status === 'Cancel') {
-            return (
-              item?.docstatus === 2 &&
-              dateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          }
+        if (searchInputValues.status === 'Draft') {
+          return (
+            item?.docstatus === 0 &&
+            dateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        } else if (searchInputValues.status === 'Submitted') {
+          return (
+            item?.docstatus === 1 &&
+            dateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        } else if (searchInputValues.status === 'Cancel') {
+          return (
+            item?.docstatus === 2 &&
+            dateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        }
 
-          return dateMatch && karigarMatch && receiptNumberMatch;
-        })
+        return dateMatch && karigarMatch && receiptNumberMatch;
+      })
       : kundanListing;
 
   const HandleCancelReceipt: any = async (name: any) => {
@@ -213,194 +213,212 @@ const KundanListing = ({
         kunKarigarDropdownReset={kunKarigarDropdownReset}
         setKunKarigarDropdownReset={setKunKarigarDropdownReset}
       />
-      {filteredList?.length > 0 && (
-        <div className="text-end pe-3 p-0 text-gray small ">
-          {filteredList?.slice(0, tableViewData)?.length} of{' '}
-          {filteredList?.length < 4
-            ? '0' + filteredList?.length
-            : filteredList?.length}
-        </div>
-      )}
-      <table className="table table-striped table-hover table-bordered">
-        <thead>
-          <tr>
-            <th className="thead" scope="col">
-              Transaction Date
-            </th>
-            <th className="thead" scope="col">
-              {colPlaceholder1}
-            </th>
-            <th className="thead" scope="col">
-              {colPlaceholder2}
-            </th>
-            <th className="thead" scope="col">
-              Status
-            </th>
-            <th className="thead w-25" scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredList?.length > 0 &&
-            filteredList !== null &&
-            filteredList.slice(0, tableViewData).map((item: any, i: any) => (
-              <tr key={i} className={`${styles.receipt_listing_table_row} `}>
-                <td
-                  className={`table_row ${styles.receipt_listing_table_data}`}
-                >
-                  {formattedDate(item.posting_date)}
-                </td>
-                <td
-                  className={`table_row ${styles.receipt_listing_table_data}`}
-                >
-                  <Link
-                    href={`${url}/${item.name}`}
-                    className="text-dark text-decoration-none"
-                  >
-                    {item.custom_number}
-                  </Link>
-                </td>
-                <td
-                  className={`table_row ${styles.receipt_listing_table_data}`}
-                >
-                  {item.custom_karigar
-                    ? item.custom_karigar
-                    : item.custom_client_name}
-                </td>
-                <td
-                  className={`table_row ${styles.receipt_listing_table_data}`}
-                >
-                  {item.docstatus === 0 ? (
-                    <span>Draft</span>
-                  ) : item.docstatus === 1 ? (
-                    <span>Submitted</span>
-                  ) : item.docstatus === 2 ? (
-                    <span>Cancelled</span>
-                  ) : (
-                    ''
-                  )}
-                </td>
-                {item.docstatus === 0 && (
-                  <>
-                    <td
-                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
-                    >
-                      <div className="row justify-content-center gx-0 px-3 mx-3 ">
-                        <div className="col">
-                          <Link
-                            href={`${url}/${item.name}`}
-                            className="button-section-text text-info "
-                          >
-                            Edit
-                          </Link>
-                        </div>
-                        <div className="col">
-                          <a
-                            onClick={() =>
-                              HandleUpdateDocStatus('1', item.name)
-                            }
-                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                          >
-                            Submit
-                          </a>
-                        </div>
-                        <div className="col">
-                          <Link
-                            href={`${url}/${item.name}`}
-                            className="button-section-text text-info "
-                          >
-                            View
-                          </Link>
-                        </div>
-                      </div>
-                    </td>
-                  </>
-                )}
-                {item.docstatus === 1 && (
-                  <>
-                    <td
-                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
-                    >
-                      <div className="row justify-content-center gx-0 px-3 mx-3">
-                        <div className="col">
-                          <a
-                            onClick={() => HandlePrintApi(item.name)}
-                            className={`button-section-text text-info ${styles.cursor_pointer}`}
-                          >
-                            print
-                          </a>
-                        </div>
-                        <div className="col">
-                          <a
-                            onClick={() =>
-                              HandleUpdateDocStatus('2', item.name)
-                            }
-                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                          >
-                            Cancel
-                          </a>
-                        </div>
-                        <div className="col">
-                          <Link
-                            href={`${url}/${item.name}`}
-                            className="button-section-text text-info "
-                          >
-                            View
-                          </Link>
-                        </div>
-                      </div>
-                    </td>
-                  </>
-                )}
-                {item.docstatus === 2 && (
-                  <>
-                    <td
-                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
-                    >
-                      <div className="row justify-content-center gx-0 px-3 mx-3">
-                        <div className="col">
-                          {item?.posting_date ===
-                            new Date()?.toISOString()?.split('T')[0] && (
-                            <>
-                              <Link
-                                href={`${url}/${item.name}`}
-                                className="button-section-text text-info "
-                              >
-                                Amend
-                              </Link>
-                            </>
-                          )}
-                        </div>
 
-                        <div className="col">
-                          <a
-                            // href=""
-                            onClick={() => HandleDeleteReceipt(item.name)}
-                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
+      <div className='container-lg '>
+        <div className='row justify-content-center'>
+
+          <div className='col-10 table-responsive'>
+            {filteredList?.length > 0 && (
+              <div className="text-end pe-3 p-0 text-gray small ">
+                {filteredList?.slice(0, tableViewData)?.length} of{' '}
+                {filteredList?.length < 4
+                  ? '0' + filteredList?.length
+                  : filteredList?.length}
+              </div>
+            )}
+            <table className="container table table-striped table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th className={`thead ${styles.table_listing_header} `} scope="col">
+                    Transaction Date
+                  </th>
+                  <th className={`thead ${styles.table_listing_header} `} scope="col">
+                    {colPlaceholder1}
+                  </th>
+                  <th className={`thead ${styles.table_listing_header} `} scope="col">
+                    {colPlaceholder2}
+                  </th>
+                  <th className="thead " scope="col"></th>
+                  <th className={`thead ${styles.table_listing_header} `} scope="col">
+                    Status
+                  </th>
+                  <th className={`thead ${styles.table_listing_btn_section} `} scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredList?.length > 0 &&
+                  filteredList !== null &&
+                  filteredList.slice(0, tableViewData).map((item: any, i: any) => (
+                    <tr key={i} className={`${styles.receipt_listing_table_row} `}>
+                      <td
+                        className={`table_row ${styles.receipt_listing_table_data} `}
+                      >
+                        {formattedDate(item.posting_date)}
+                      </td>
+                      <td
+                        className={`table_row ${styles.receipt_listing_table_data}`}
+                      >
+                        <Link
+                          href={`${url}/${item.name}`}
+                          className="text-dark text-decoration-none"
+                        >
+                          {item.custom_number}
+                        </Link>
+                      </td>
+                      <td
+                        className={`table_row ${styles.receipt_listing_table_data}`}
+                      >
+                        {item.custom_karigar
+                          ? item.custom_karigar
+                          : item.custom_client_name}
+                      </td>
+
+                      <td
+                        className={`table_row ${styles.receipt_listing_table_data}`}
+                      >
+
+                      </td>
+                      <td
+                        className={`table_row ${styles.receipt_listing_table_data}`}
+                      >
+                        {item.docstatus === 0 ? (
+                          <span>Draft</span>
+                        ) : item.docstatus === 1 ? (
+                          <span>Submitted</span>
+                        ) : item.docstatus === 2 ? (
+                          <span>Cancelled</span>
+                        ) : (
+                          ''
+                        )}
+                      </td>
+
+
+                      {item.docstatus === 0 && (
+                        <>
+                          <td
+                            className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                           >
-                            Delete
-                          </a>
-                        </div>
-                        <div className="col">
-                          <Link
-                            href={`${url}/${item.name}`}
-                            className="button-section-text text-info "
+                            <div className="row justify-content-center gx-0 px-3 mx-3 ">
+                              <div className="col">
+                                <Link
+                                  href={`${url}/${item.name}`}
+                                  className="button-section-text text-info "
+                                >
+                                  Edit
+                                </Link>
+                              </div>
+                              <div className="col">
+                                <a
+                                  onClick={() =>
+                                    HandleUpdateDocStatus('1', item.name)
+                                  }
+                                  className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                                >
+                                  Submit
+                                </a>
+                              </div>
+                              <div className="col">
+                                <Link
+                                  href={`${url}/${item.name}`}
+                                  className="button-section-text text-info "
+                                >
+                                  View
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
+                        </>
+                      )}
+                      {item.docstatus === 1 && (
+                        <>
+                          <td
+                            className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                           >
-                            View
-                          </Link>
-                        </div>
-                      </div>
-                    </td>
-                  </>
+                            <div className="row justify-content-center gx-0 px-3 mx-3">
+                              <div className="col">
+                                <a
+                                  onClick={() => HandlePrintApi(item.name)}
+                                  className={`button-section-text text-info ${styles.cursor_pointer}`}
+                                >
+                                  print
+                                </a>
+                              </div>
+                              <div className="col">
+                                <a
+                                  onClick={() =>
+                                    HandleUpdateDocStatus('2', item.name)
+                                  }
+                                  className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                                >
+                                  Cancel
+                                </a>
+                              </div>
+                              <div className="col">
+                                <Link
+                                  href={`${url}/${item.name}`}
+                                  className="button-section-text text-info "
+                                >
+                                  View
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
+                        </>
+                      )}
+                      {item.docstatus === 2 && (
+                        <>
+                          <td
+                            className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
+                          >
+                            <div className="row justify-content-center gx-0 px-3 mx-3">
+                              <div className="col">
+                                {item?.posting_date ===
+                                  new Date()?.toISOString()?.split('T')[0] && (
+                                    <>
+                                      <Link
+                                        href={`${url}/${item.name}`}
+                                        className="button-section-text text-info "
+                                      >
+                                        Amend
+                                      </Link>
+                                    </>
+                                  )}
+                              </div>
+
+                              <div className="col">
+                                <a
+                                  // href=""
+                                  onClick={() => HandleDeleteReceipt(item.name)}
+                                  className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                                >
+                                  Delete
+                                </a>
+                              </div>
+                              <div className="col">
+                                <Link
+                                  href={`${url}/${item.name}`}
+                                  className="button-section-text text-info "
+                                >
+                                  View
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  ))}
+                {filteredList?.length > 4 && filteredList !== null && (
+                  <LoadMoreTableDataInMaster
+                    HandleTableViewRows={HandleTableViewRows}
+                  />
                 )}
-              </tr>
-            ))}
-          {filteredList?.length > 4 && filteredList !== null && (
-            <LoadMoreTableDataInMaster
-              HandleTableViewRows={HandleTableViewRows}
-            />
-          )}
-        </tbody>
-      </table>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

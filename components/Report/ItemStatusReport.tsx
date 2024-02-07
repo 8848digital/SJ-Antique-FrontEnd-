@@ -41,27 +41,27 @@ const ItemStatusReport: any = ({
   console.log('@report daily qty status', itemStatusReportState);
   const filteredList =
     itemStatusReportState?.length > 0 &&
-    itemStatusReportState !== null &&
-    (searchInputValues.fromDate || searchInputValues.toDate)
+      itemStatusReportState !== null &&
+      (searchInputValues.fromDate || searchInputValues.toDate)
       ? itemStatusReportState.filter((item: any) => {
-          const postingDate = new Date(item?.posting_date);
+        const postingDate = new Date(item?.posting_date);
 
-          const dateMatch =
-            (!searchInputValues.fromDate ||
-              postingDate >= new Date(searchInputValues.fromDate)) &&
-            (!searchInputValues.toDate ||
-              postingDate <= new Date(searchInputValues.toDate));
+        const dateMatch =
+          (!searchInputValues.fromDate ||
+            postingDate >= new Date(searchInputValues.fromDate)) &&
+          (!searchInputValues.toDate ||
+            postingDate <= new Date(searchInputValues.toDate));
 
-          if (searchInputValues.status === 'Draft') {
-            return item?.docstatus === 0 && dateMatch;
-          } else if (searchInputValues.status === 'Submitted') {
-            return item?.docstatus === 1 && dateMatch;
-          } else if (searchInputValues.status === 'Cancel') {
-            return item?.docstatus === 2 && dateMatch;
-          }
+        if (searchInputValues.status === 'Draft') {
+          return item?.docstatus === 0 && dateMatch;
+        } else if (searchInputValues.status === 'Submitted') {
+          return item?.docstatus === 1 && dateMatch;
+        } else if (searchInputValues.status === 'Cancel') {
+          return item?.docstatus === 2 && dateMatch;
+        }
 
-          return dateMatch;
-        })
+        return dateMatch;
+      })
       : itemStatusReportState;
 
   return (
@@ -71,7 +71,6 @@ const ItemStatusReport: any = ({
         <h4>{reportName}</h4>
         <button
           type="submit"
-          // onClick={handleEmptyDeliveryNote}
           className=" btn btn-outline-primary px-2 py-0 form-submit-button"
         >
           Print
@@ -140,19 +139,17 @@ const ItemStatusReport: any = ({
                       .map((item: any, index: number) => (
                         <tr
                           key={index}
-                          className={`${styles.table_row} ${
-                            index >= filteredList.length - 2
-                              ? 'last-two-rows'
-                              : ''
-                          }`}
+                          className={`${styles.table_row} ${index >= filteredList.length - 2
+                            ? 'last-two-rows'
+                            : ''
+                            }`}
                         >
                           <td
-                            className={`${
-                              index >= filteredList.length - 2 &&
+                            className={`${index >= filteredList.length - 2 &&
                               reportName === 'Daily Quantity Status Report'
-                                ? 'thead'
-                                : 'table_row report-table-row '
-                            }`}
+                              ? 'thead'
+                              : 'table_row report-table-row '
+                              }`}
                             scope="row"
                           >
                             {index + 1}
@@ -161,12 +158,11 @@ const ItemStatusReport: any = ({
                             (value: any, innerIndex: number) => (
                               <td
                                 key={innerIndex}
-                                className={`${
-                                  index >= filteredList.length - 2 &&
+                                className={`${index >= filteredList.length - 2 &&
                                   reportName === 'Daily Quantity Status Report'
-                                    ? 'thead'
-                                    : 'table_row report-table-row '
-                                }`}
+                                  ? 'thead'
+                                  : 'table_row report-table-row '
+                                  }`}
                                 scope="row"
                               >
                                 {value}

@@ -12,9 +12,9 @@ const BarcodeFilterListing: any = ({
   handleSearchBtn,
 }: any) => {
   return (
-    <div>
+    <div className='container'>
       <div className="row justify-content-center">
-        <div className="col-lg-2 col-md-2 ">
+        <div className="col-lg-2 col-md-2 ps-4">
           <label className={` ${styles.label_font_size}`}>Date</label>
           <input
             type="date"
@@ -73,7 +73,7 @@ const BarcodeFilterListing: any = ({
           <label className={` ${styles.label_font_size}`}>Stock</label>
 
           <select
-            className="form-control line-height bg-primary bg-opacity-10 px-0 text-center"
+            className="form-select line-height bg-primary bg-opacity-10 px-0 text-center"
             aria-label="Default select example"
             onChange={(e: any) =>
               handleSearchBarcodeItemCodeDetails(e, 'stock')
@@ -84,7 +84,7 @@ const BarcodeFilterListing: any = ({
             <option value="no">G</option>
           </select>
         </div>
-        <div className="col-lg-2 col-md-2">
+        <div className="col-lg-2 col-md-2 ">
           <label className={` ${styles.label_font_size}`}>
             Barcode Created?
           </label>
@@ -101,9 +101,9 @@ const BarcodeFilterListing: any = ({
             <option value="no">No</option>
           </select>
         </div>
-        <div className="col-lg-2  my-2 my-auto text-center">
+        <div className="col-lg-2 d-flex align-items-end justify-content-center">
           <button
-            className="btn btn-primary m-1 py-2"
+            className="btn btn-primary px-5 py-1"
             onClick={handleSearchBtn}
           >
             Search

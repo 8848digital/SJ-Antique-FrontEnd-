@@ -81,7 +81,7 @@ const SaleReturnsMaster = () => {
                   karigar_name: data.client_name,
                 }))
               }
-              colPlaceholder1={'Delivery Note No.'}
+              colPlaceholder1={'Sales Return No.'}
               colPlaceholder2={'Client '}
               HandleDeleteReceipt={handleDeleteSalesReturn}
               HandleUpdateDocStatus={HandleUpdateDocStatus}

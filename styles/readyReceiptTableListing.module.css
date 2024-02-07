@@ -10,3 +10,11 @@
 .cursor_pointer {
     cursor: pointer;
 }
+
+.table_listing_header {
+    width: 10%;
+}
+
+.table_listing_btn_section {
+    width: 19%;
+}

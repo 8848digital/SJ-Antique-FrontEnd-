@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import ItemStatusReport from './ItemStatusReport';
 import useItemStatusReportHook from '@/hooks/Report/item-status-report-hook';
+import ReportHeader from '../Header/ReportHeader';
 
 const ReportIndexPage = () => {
   const router = useRouter();
@@ -36,27 +37,31 @@ const ReportIndexPage = () => {
   return (
     <div>
       {key === 'itemStatusReport' && (
-        <ItemStatusReport
-          itemStatusReportState={itemStatusReportState}
-          reportName={'Item Status Report'}
-          voucherNumber={itemVoucherNumber}
-          selectDropDownReset={selectDropDownReset}
-          setSelectDropDownReset={setSelectDropDownReset}
-          searchVoucherNum={searchVoucherNum}
-          setSearchVoucherNum={setSearchVoucherNum}
-          itemList={itemList}
-          setSearchItem={setSearchItem}
-          searchItem={searchItem}
-          HandleSearchInput={HandleSearchInput}
-          searchInputValues={searchInputValues}
-          isLoading={isLoading}
-          HandleRefresh={HandleRefresh}
-          scrollableTableRef={scrollableTableRef}
-          handleMouseDown={handleMouseDown}
-          handleMouseUp={handleMouseUp}
-          handleMouseLeave={handleMouseLeave}
-          handleMouseMove={handleMouseMove}
-        />
+        <>
+          <ReportHeader />
+
+        </>
+        // <ItemStatusReport
+        //   itemStatusReportState={itemStatusReportState}
+        //   reportName={'Item Status Report'}
+        //   voucherNumber={itemVoucherNumber}
+        //   selectDropDownReset={selectDropDownReset}
+        //   setSelectDropDownReset={setSelectDropDownReset}
+        //   searchVoucherNum={searchVoucherNum}
+        //   setSearchVoucherNum={setSearchVoucherNum}
+        //   itemList={itemList}
+        //   setSearchItem={setSearchItem}
+        //   searchItem={searchItem}
+        //   HandleSearchInput={HandleSearchInput}
+        //   searchInputValues={searchInputValues}
+        //   isLoading={isLoading}
+        //   HandleRefresh={HandleRefresh}
+        //   scrollableTableRef={scrollableTableRef}
+        //   handleMouseDown={handleMouseDown}
+        //   handleMouseUp={handleMouseUp}
+        //   handleMouseLeave={handleMouseLeave}
+        //   handleMouseMove={handleMouseMove}
+        // />
       )}
       {key === 'dailyQtyStatus' && (
         <ItemStatusReport
