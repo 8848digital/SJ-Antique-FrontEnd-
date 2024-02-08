@@ -36,7 +36,10 @@ const KundanKarigarReadyReceiptMasterTable = ({
   console.log('table data receipt', tableData);
   const { query } = useRouter();
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
-  const [calculationRow, setCalculationRow] = useState({});
+  const [calculationRow, setCalculationRow] = useState({
+    gross_wt: 0,
+    net_wt: 0,
+  });
   useEffect(() => {
     if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
