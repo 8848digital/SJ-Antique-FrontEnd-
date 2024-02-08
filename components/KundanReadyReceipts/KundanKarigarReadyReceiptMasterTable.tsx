@@ -4,7 +4,7 @@ import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 import PurchaseReceiptFileUploadMaster from '../PurchaseReceiptFileUpload/PurchaseReceiptFileUploadMaster';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 
@@ -35,9 +35,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
 }: any) => {
   console.log('table data receipt', tableData);
   const { query } = useRouter();
-  console.log('query pa', query);
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
-
+  const [calculationRow, setCalculationRow] = useState({});
   useEffect(() => {
     if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
@@ -72,7 +71,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Gross Wt
             </th>
             {query?.receipt === 'mangalsutra' ||
-              query?.receipt === 'Mangalsutra' ? (
+            query?.receipt === 'Mangalsutra' ? (
               <th className="thead" scope="col">
                 BB Pcs
               </th>
@@ -219,7 +218,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||
-                    query?.receipt === 'Mangalsutra' ? (
+                  query?.receipt === 'Mangalsutra' ? (
                     <td className="table_row">
                       <input
                         className={` ${styles.input_field} text-end`}
@@ -287,11 +286,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={parseFloat(
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                          Number(tableData[i]?.totalAmount)
+                              Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                            ? tableData[i]?.custom_total
-                            : tableData[i]?.custom_other
+                          ? tableData[i]?.custom_total
+                          : tableData[i]?.custom_other
                       )?.toFixed(2)}
                     />
                   </td>

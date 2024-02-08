@@ -23,7 +23,7 @@ const FilterKundanReadyReceiptListing = ({
     }));
   console.log('receiptt', searchReceiptNumber);
   return (
-    <div className="container-lg w-75 ">
+    <div className="container-lg ">
       <div className="row justify-content-center">
         <div className="col-lg-2 col-md-3 ">
           <label className="text-grey">From Date</label>
