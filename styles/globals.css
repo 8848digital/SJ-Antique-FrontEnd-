@@ -114,7 +114,7 @@ a {
   font-size: 100%;
   padding: 4px !important;
   text-align: center;
-  max-width: max-content !important;
+  /* max-width: max-content !important; */
 }
 
 .table_row {
@@ -387,4 +387,7 @@ hr {
   /* For IE/Edge */
   -ms-overflow-style: -ms-autohiding-scrollbar;
   
+}
+.sr-no-width{
+  width: 80px !important;
 }

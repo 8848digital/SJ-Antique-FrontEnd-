@@ -49,14 +49,14 @@ const BarcodeListingTable: any = ({
         <div className="text-end d-flex align-items-end">
           <button
             type="button"
-            className="btn btn-primary px-3 py-1 mb-1 mx-3"
+            className="btn btn-outline-primary px-2 py-0 form-submit-button mx-1"
             onClick={handleMultipleBarcodePrint}
           >
             Print
           </button>
           <button
             type="button"
-            className="btn btn-primary px-3 py-1 mb-1 mx-3"
+            className="btn btn-outline-primary px-2 py-0 form-submit-button mx-1"
             onClick={() => handleSelectAll(BarcodeListData)}
           >
             Select All

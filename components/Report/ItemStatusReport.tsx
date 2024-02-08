@@ -6,6 +6,7 @@ import ReportFilterListing from './ReportFilterListing';
 import Loader from '../NoRecord/Loader';
 import NoRecord from '../NoRecord/NoRecord';
 import { useRouter } from 'next/router';
+import DailyStatusReportHeading from './DailyStatusReportHeading';
 
 const ItemStatusReport: any = ({
   itemStatusReportState,
@@ -65,7 +66,7 @@ const ItemStatusReport: any = ({
       : itemStatusReportState;
 
   return (
-    <div className="container-lg">
+    <div className="container-lg w-75">
       <ReportHeader />
       <div className="d-flex justify-content-between">
         <h5>{reportName}</h5>
@@ -122,7 +123,7 @@ const ItemStatusReport: any = ({
               onMouseMove={handleMouseMove}
             >
               <table className="table table-hover table-bordered table-striped cursor">
-                <thead>
+                {/* <thead>
                   <th className="thead" scope="col">
                     Sr.No.
                   </th>
@@ -133,7 +134,8 @@ const ItemStatusReport: any = ({
                         {key.replace(/_/g, ' ')}
                       </th>
                     ))}
-                </thead>
+                </thead> */}
+                <DailyStatusReportHeading />
                 <tbody>
                   {filteredList?.length > 0 &&
                     filteredList !== null &&

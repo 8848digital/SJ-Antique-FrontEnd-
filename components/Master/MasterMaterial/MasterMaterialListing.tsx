@@ -96,7 +96,12 @@ const MasterMaterialListing = ({
               materialList !== null &&
               materialList.slice(0, tableViewData).map((item: any, i: any) => (
                 <tr key={i}>
-                  <td className="table-body-row cursor">{i + 1}</td>
+                  <td
+                    className="table-body-row cursor"
+                    style={{ width: '80px' }}
+                  >
+                    {i + 1}
+                  </td>
                   <td
                     className={`table-body-row cursor ${
                       value === 'material' ? 'w-auto' : ' w-50 '

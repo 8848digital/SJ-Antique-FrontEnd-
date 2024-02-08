@@ -109,7 +109,7 @@ const CustomerSaleMaster = () => {
           />
         </div>
         <div
-          className="tab-pane fade w-75"
+          className="tab-pane fade w-auto"
           id="pills-profile"
           role="tabpanel"
           aria-labelledby="pills-profile-tab"

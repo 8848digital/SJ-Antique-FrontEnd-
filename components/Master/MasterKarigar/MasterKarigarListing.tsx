@@ -49,7 +49,11 @@ const MasterKarigarListing = ({
         <table className="table table-hover table-striped w-100 table-bordered ">
           <thead>
             <tr className="table_row">
-              <th scope="col" className="thead text-start">
+              <th
+                scope="col"
+                className="thead text-start"
+                style={{ width: '80px' }}
+              >
                 Sr.No
               </th>
               <th scope="col" className="thead text-start">
