@@ -54,7 +54,7 @@ const MasterMaterialListing = ({
           placeholder={placeholder2}
           onChange={handleInputChange2}
         />
-        {value === 'material' && (
+        {value === 'material' ? (
           <input
             type="text"
             name="input3"
@@ -64,20 +64,26 @@ const MasterMaterialListing = ({
             placeholder={placeholder3}
             onChange={handleInputChange3}
           />
+        ) : (
+          <div></div>
         )}
-      </div>
-      {materialList?.length > 0 && (
-        <div className="text-end pe-3 text-gray small m-0">
-          {materialList?.slice(0, tableViewData)?.length} of{' '}
-          {materialList?.length < 10
-            ? '0' + materialList?.length
-            : materialList?.length}
+        <div className="text-end w-25">
+          {materialList?.length > 0 && (
+            <div className="text-end pe-3 text-gray small m-0">
+              {materialList?.slice(0, tableViewData)?.length} of{' '}
+              {materialList?.length < 10
+                ? '0' + materialList?.length
+                : materialList?.length}
+            </div>
+          )}
         </div>
-      )}
+      </div>
+
       <div className="table-responsive mt-2 ">
         <table className="table table-hover table-striped table-bordered w-100 ">
           <thead>
             <tr className="table_row">
+              <th className="thead text-start">Sr.No</th>
               <th className="thead text-start ">{placeholder1}</th>
               <th className="thead text-start ">{placeholder2}</th>
               {value === 'material' && (
@@ -90,6 +96,7 @@ const MasterMaterialListing = ({
               materialList !== null &&
               materialList.slice(0, tableViewData).map((item: any, i: any) => (
                 <tr key={i}>
+                  <td className="table-body-row cursor">{i + 1}</td>
                   <td
                     className={`table-body-row cursor ${
                       value === 'material' ? 'w-auto' : ' w-50 '

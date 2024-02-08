@@ -25,8 +25,8 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <div className="bg-light">
+    <div className="container">
+      <div className=" bg-light">
         <nav
           className="d-flex"
           // className="container-lg mt-2 d-flex flex-wrap justify-content-between "

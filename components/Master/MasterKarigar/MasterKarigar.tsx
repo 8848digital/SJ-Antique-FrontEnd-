@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MasterKarigarListing from './MasterKarigarListing';
 import AddKarigar from './AddKarigar';
 import MasterListing from '../MasterListing';
+import TabSection from '@/components/TabSection';
 
 const MasterKarigar: any = ({
   karigarData,
@@ -31,43 +32,16 @@ const MasterKarigar: any = ({
     <div className="container-lg">
       <MasterListing value={value} />
       <div>
-        <div
-          className="nav nav-pills mb-2 justify-content-center "
-          id="pills-tab"
-          role="tablist"
-        >
-          <div className="nav-tabs tabs-container w-50 " role="presentation">
-            <button
-              className="nav-link active w-100 p-1 border h-100"
-              id="pills-home-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-home"
-              type="button"
-              role="tab"
-              aria-controls="pills-home"
-              aria-selected="true"
-            >
-              {tab1}
-            </button>
-          </div>
-          <div className="nav-tabs tabs-container w-50" role="presentation">
-            <button
-              className="nav-link  w-100 p-1 border h-100"
-              id="pills-profile-tab"
-              data-bs-toggle="pill"
-              data-bs-target="#pills-profile"
-              type="button"
-              role="tab"
-              aria-controls="pills-profile"
-              aria-selected="false"
-            >
-              {tab2}
-            </button>
-          </div>
+        <div className="d-flex justify-content-center">
+          <TabSection firstTabHeading={tab1} secondTabHeading={tab2} />
         </div>
-        <div className="tab-content" id="pills-tabContent">
+
+        <div
+          className="tab-content d-flex justify-content-center"
+          id="pills-tabContent"
+        >
           <div
-            className="tab-pane fade show active"
+            className="tab-pane fade show active w-75  "
             id="pills-home"
             role="tabpanel"
             aria-labelledby="pills-home-tab"

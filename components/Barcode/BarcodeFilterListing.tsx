@@ -18,7 +18,7 @@ const BarcodeFilterListing: any = ({
           <label className={` ${styles.label_font_size}`}>Date</label>
           <input
             type="date"
-            className="form-control line-height bg-primary bg-opacity-10"
+            className="form-control line-height "
             onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, 'date')}
           />
         </div>
@@ -28,9 +28,7 @@ const BarcodeFilterListing: any = ({
           <SearchSelectInputField
             karigarData={karigarList}
             placeholder="Karigar"
-            className={
-              'form-control line-height text-center bg-primary bg-opacity-10'
-            }
+            className={'form-control line-height text-center   '}
             style="max-width"
             selectedDropdownValue={searchKarigar}
             setSelectedDropdownValue={setSearchKarigar}
@@ -39,10 +37,10 @@ const BarcodeFilterListing: any = ({
           />
         </div>
         <div className="col-lg-1 col-md-2 ">
-          <label className={` ${styles.label_font_size}`}>Item Group</label>
+          <label className={` ${styles.label_font_size}`}>ItemGroup</label>
           <input
             type="text"
-            className="form-control line-height bg-primary bg-opacity-10 text-center"
+            className="form-control line-height  text-center"
             onChange={(e: any) =>
               handleSearchBarcodeItemCodeDetails(e, 'item_group')
             }
@@ -52,7 +50,7 @@ const BarcodeFilterListing: any = ({
           <label className={` ${styles.label_font_size}`}>Sr.No.From</label>
           <input
             type="text"
-            className="form-control line-height bg-primary bg-opacity-10 text-center"
+            className="form-control line-height  text-center"
             onChange={(e: any) =>
               handleSearchBarcodeItemCodeDetails(e, 'sr_no_from')
             }
@@ -63,7 +61,7 @@ const BarcodeFilterListing: any = ({
 
           <input
             type="text"
-            className="form-control line-height bg-primary bg-opacity-10 text-center"
+            className="form-control line-height  text-center"
             onChange={(e: any) =>
               handleSearchBarcodeItemCodeDetails(e, 'sr_no_to')
             }
@@ -73,7 +71,7 @@ const BarcodeFilterListing: any = ({
           <label className={` ${styles.label_font_size}`}>Stock</label>
 
           <select
-            className="form-select line-height bg-primary bg-opacity-10 px-0 text-center"
+            className="form-control line-height  px-0 text-center"
             aria-label="Default select example"
             onChange={(e: any) =>
               handleSearchBarcodeItemCodeDetails(e, 'stock')
@@ -90,7 +88,7 @@ const BarcodeFilterListing: any = ({
           </label>
 
           <select
-            className="form-select line-height text-center bg-primary bg-opacity-10"
+            className="form-select line-height text-center "
             aria-label="Default select example"
             onChange={(e: any) =>
               handleSearchBarcodeItemCodeDetails(e, 'barcode_created')
@@ -106,6 +104,7 @@ const BarcodeFilterListing: any = ({
             className="btn btn-primary px-5 py-1"
             onClick={handleSearchBtn}
           >
+            <i className="fa-solid fa-magnifying-glass pr-1"></i>
             Search
           </button>
         </div>

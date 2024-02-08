@@ -213,212 +213,202 @@ const KundanListing = ({
         kunKarigarDropdownReset={kunKarigarDropdownReset}
         setKunKarigarDropdownReset={setKunKarigarDropdownReset}
       />
-
-      <div className='container-lg '>
-        <div className='row justify-content-center'>
-
-          <div className='col-10 table-responsive'>
-            {filteredList?.length > 0 && (
-              <div className="text-end pe-3 p-0 text-gray small ">
-                {filteredList?.slice(0, tableViewData)?.length} of{' '}
-                {filteredList?.length < 4
-                  ? '0' + filteredList?.length
-                  : filteredList?.length}
-              </div>
-            )}
-            <table className="container table table-striped table-hover table-bordered">
-              <thead>
-                <tr>
-                  <th className={`thead ${styles.table_listing_header} `} scope="col">
-                    Transaction Date
-                  </th>
-                  <th className={`thead ${styles.table_listing_header} `} scope="col">
-                    {colPlaceholder1}
-                  </th>
-                  <th className={`thead ${styles.table_listing_header} `} scope="col">
-                    {colPlaceholder2}
-                  </th>
-                  <th className="thead " scope="col"></th>
-                  <th className={`thead ${styles.table_listing_header} `} scope="col">
-                    Status
-                  </th>
-                  <th className={`thead ${styles.table_listing_btn_section} `} scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredList?.length > 0 &&
-                  filteredList !== null &&
-                  filteredList.slice(0, tableViewData).map((item: any, i: any) => (
-                    <tr key={i} className={`${styles.receipt_listing_table_row} `}>
-                      <td
-                        className={`table_row ${styles.receipt_listing_table_data} `}
-                      >
-                        {formattedDate(item.posting_date)}
-                      </td>
-                      <td
-                        className={`table_row ${styles.receipt_listing_table_data}`}
-                      >
-                        <Link
-                          href={`${url}/${item.name}`}
-                          className="text-dark text-decoration-none"
-                        >
-                          {item.custom_number}
-                        </Link>
-                      </td>
-                      <td
-                        className={`table_row ${styles.receipt_listing_table_data}`}
-                      >
-                        {item.custom_karigar
-                          ? item.custom_karigar
-                          : item.custom_client_name}
-                      </td>
-
-                      <td
-                        className={`table_row ${styles.receipt_listing_table_data}`}
-                      >
-
-                      </td>
-                      <td
-                        className={`table_row ${styles.receipt_listing_table_data}`}
-                      >
-                        {item.docstatus === 0 ? (
-                          <span>Draft</span>
-                        ) : item.docstatus === 1 ? (
-                          <span>Submitted</span>
-                        ) : item.docstatus === 2 ? (
-                          <span>Cancelled</span>
-                        ) : (
-                          ''
-                        )}
-                      </td>
-
-
-                      {item.docstatus === 0 && (
-                        <>
-                          <td
-                            className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
-                          >
-                            <div className="row justify-content-center gx-0 px-3 mx-3 ">
-                              <div className="col">
-                                <Link
-                                  href={`${url}/${item.name}`}
-                                  className="button-section-text text-info "
-                                >
-                                  Edit
-                                </Link>
-                              </div>
-                              <div className="col">
-                                <a
-                                  onClick={() =>
-                                    HandleUpdateDocStatus('1', item.name)
-                                  }
-                                  className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                                >
-                                  Submit
-                                </a>
-                              </div>
-                              <div className="col">
-                                <Link
-                                  href={`${url}/${item.name}`}
-                                  className="button-section-text text-info "
-                                >
-                                  View
-                                </Link>
-                              </div>
-                            </div>
-                          </td>
-                        </>
-                      )}
-                      {item.docstatus === 1 && (
-                        <>
-                          <td
-                            className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
-                          >
-                            <div className="row justify-content-center gx-0 px-3 mx-3">
-                              <div className="col">
-                                <a
-                                  onClick={() => HandlePrintApi(item.name)}
-                                  className={`button-section-text text-info ${styles.cursor_pointer}`}
-                                >
-                                  print
-                                </a>
-                              </div>
-                              <div className="col">
-                                <a
-                                  onClick={() =>
-                                    HandleUpdateDocStatus('2', item.name)
-                                  }
-                                  className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                                >
-                                  Cancel
-                                </a>
-                              </div>
-                              <div className="col">
-                                <Link
-                                  href={`${url}/${item.name}`}
-                                  className="button-section-text text-info "
-                                >
-                                  View
-                                </Link>
-                              </div>
-                            </div>
-                          </td>
-                        </>
-                      )}
-                      {item.docstatus === 2 && (
-                        <>
-                          <td
-                            className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
-                          >
-                            <div className="row justify-content-center gx-0 px-3 mx-3">
-                              <div className="col">
-                                {item?.posting_date ===
-                                  new Date()?.toISOString()?.split('T')[0] && (
-                                    <>
-                                      <Link
-                                        href={`${url}/${item.name}`}
-                                        className="button-section-text text-info "
-                                      >
-                                        Amend
-                                      </Link>
-                                    </>
-                                  )}
-                              </div>
-
-                              <div className="col">
-                                <a
-                                  // href=""
-                                  onClick={() => HandleDeleteReceipt(item.name)}
-                                  className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                                >
-                                  Delete
-                                </a>
-                              </div>
-                              <div className="col">
-                                <Link
-                                  href={`${url}/${item.name}`}
-                                  className="button-section-text text-info "
-                                >
-                                  View
-                                </Link>
-                              </div>
-                            </div>
-                          </td>
-                        </>
-                      )}
-                    </tr>
-                  ))}
-                {filteredList?.length > 4 && filteredList !== null && (
-                  <LoadMoreTableDataInMaster
-                    HandleTableViewRows={HandleTableViewRows}
-                  />
-                )}
-              </tbody>
-            </table>
-
-          </div>
+      {filteredList?.length > 0 && (
+        <div className="text-end pe-3 p-0 text-gray small ">
+          {filteredList?.slice(0, tableViewData)?.length} of{' '}
+          {filteredList?.length < 4
+            ? '0' + filteredList?.length
+            : filteredList?.length}
         </div>
-      </div>
+      )}
+      <table className="table table-striped table-hover table-bordered my-0">
+        <thead>
+          <tr>
+            <th className="thead" scope="col">
+              Sr No.
+            </th>
+            <th className="thead" scope="col">
+              Transaction Date
+            </th>
+            <th className="thead" scope="col">
+              {colPlaceholder1}
+            </th>
+            <th className="thead" scope="col">
+              {colPlaceholder2}
+            </th>
+            <th className="thead" scope="col">
+              Status
+            </th>
+            <th className="thead w-25" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredList?.length > 0 &&
+            filteredList !== null &&
+            filteredList.slice(0, tableViewData).map((item: any, i: any) => (
+              <tr key={i} className={`${styles.receipt_listing_table_row} `}>
+                <td
+                  className={`table_row ${styles.receipt_listing_table_data}`}
+                >
+                  {i + 1}
+                </td>
+                <td
+                  className={`table_row ${styles.receipt_listing_table_data}`}
+                >
+                  {formattedDate(item.posting_date)}
+                </td>
+                <td
+                  className={`table_row ${styles.receipt_listing_table_data}`}
+                >
+                  <Link
+                    href={`${url}/${item.name}`}
+                    className="text-dark text-decoration-none"
+                  >
+                    {item.custom_number}
+                  </Link>
+                </td>
+                <td
+                  className={`table_row ${styles.receipt_listing_table_data}`}
+                >
+                  {item.custom_karigar
+                    ? item.custom_karigar
+                    : item.custom_client_name}
+                </td>
+                <td
+                  className={`table_row ${styles.receipt_listing_table_data}`}
+                >
+                  {item.docstatus === 0 ? (
+                    <span>Draft</span>
+                  ) : item.docstatus === 1 ? (
+                    <span>Submitted</span>
+                  ) : item.docstatus === 2 ? (
+                    <span>Cancelled</span>
+                  ) : (
+                    ''
+                  )}
+                </td>
+                {item.docstatus === 0 && (
+                  <>
+                    <td
+                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
+                    >
+                      <div className="row justify-content-center gx-0 px-3 mx-3 ">
+                        <div className="col">
+                          <Link
+                            href={`${url}/${item.name}`}
+                            className="button-section-text text-info "
+                          >
+                            Edit
+                          </Link>
+                        </div>
+                        <div className="col">
+                          <a
+                            onClick={() =>
+                              HandleUpdateDocStatus('1', item.name)
+                            }
+                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                          >
+                            Submit
+                          </a>
+                        </div>
+                        <div className="col">
+                          <Link
+                            href={`${url}/${item.name}`}
+                            className="button-section-text text-info "
+                          >
+                            View
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+                  </>
+                )}
+                {item.docstatus === 1 && (
+                  <>
+                    <td
+                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
+                    >
+                      <div className="row justify-content-center gx-0 px-3 mx-3">
+                        <div className="col">
+                          <a
+                            onClick={() => HandlePrintApi(item.name)}
+                            className={`button-section-text text-info ${styles.cursor_pointer}`}
+                          >
+                            print
+                          </a>
+                        </div>
+                        <div className="col">
+                          <a
+                            onClick={() =>
+                              HandleUpdateDocStatus('2', item.name)
+                            }
+                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                          >
+                            Cancel
+                          </a>
+                        </div>
+                        <div className="col">
+                          <Link
+                            href={`${url}/${item.name}`}
+                            className="button-section-text text-info "
+                          >
+                            View
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+                  </>
+                )}
+                {item.docstatus === 2 && (
+                  <>
+                    <td
+                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
+                    >
+                      <div className="row justify-content-center gx-0 px-3 mx-3">
+                        <div className="col">
+                          {item?.posting_date ===
+                            new Date()?.toISOString()?.split('T')[0] && (
+                              <>
+                                <Link
+                                  href={`${url}/${item.name}`}
+                                  className="button-section-text text-info "
+                                >
+                                  Amend
+                                </Link>
+                              </>
+                            )}
+                        </div>
+
+                        <div className="col">
+                          <a
+                            // href=""
+                            onClick={() => HandleDeleteReceipt(item.name)}
+                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                          >
+                            Delete
+                          </a>
+                        </div>
+                        <div className="col">
+                          <Link
+                            href={`${url}/${item.name}`}
+                            className="button-section-text text-info "
+                          >
+                            View
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
+          {filteredList?.length > 4 && filteredList !== null && (
+            <LoadMoreTableDataInMaster
+              HandleTableViewRows={HandleTableViewRows}
+            />
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

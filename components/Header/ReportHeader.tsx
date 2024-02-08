@@ -20,7 +20,7 @@ const ReportHeader = () => {
   const [active, setActive] = useState(0);
   return (
     <div className="d-flex justify-content-center">
-      <Link
+      {/* <Link
         href="/report/itemStatusReport"
         className="text-decoration-none btn-margin"
         onClick={() => setActive(1)}
@@ -33,7 +33,7 @@ const ReportHeader = () => {
           Item Status Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
-      </Link>
+      </Link> */}
       <Link
         href="/report/dailyQtyStatus"
         className="text-decoration-none btn-margin"

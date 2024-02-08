@@ -35,34 +35,30 @@ const ReportIndexPage = () => {
     setSearchName,
   }: any = useItemStatusReportHook();
   return (
-    <div>
-      {key === 'itemStatusReport' && (
-        <>
-          <ReportHeader />
-
-        </>
-        // <ItemStatusReport
-        //   itemStatusReportState={itemStatusReportState}
-        //   reportName={'Item Status Report'}
-        //   voucherNumber={itemVoucherNumber}
-        //   selectDropDownReset={selectDropDownReset}
-        //   setSelectDropDownReset={setSelectDropDownReset}
-        //   searchVoucherNum={searchVoucherNum}
-        //   setSearchVoucherNum={setSearchVoucherNum}
-        //   itemList={itemList}
-        //   setSearchItem={setSearchItem}
-        //   searchItem={searchItem}
-        //   HandleSearchInput={HandleSearchInput}
-        //   searchInputValues={searchInputValues}
-        //   isLoading={isLoading}
-        //   HandleRefresh={HandleRefresh}
-        //   scrollableTableRef={scrollableTableRef}
-        //   handleMouseDown={handleMouseDown}
-        //   handleMouseUp={handleMouseUp}
-        //   handleMouseLeave={handleMouseLeave}
-        //   handleMouseMove={handleMouseMove}
-        // />
-      )}
+    <div className="">
+      {/* {key === 'itemStatusReport' && (
+        <ItemStatusReport
+          itemStatusReportState={itemStatusReportState}
+          reportName={'Item Status Report'}
+          voucherNumber={itemVoucherNumber}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+          searchVoucherNum={searchVoucherNum}
+          setSearchVoucherNum={setSearchVoucherNum}
+          itemList={itemList}
+          setSearchItem={setSearchItem}
+          searchItem={searchItem}
+          HandleSearchInput={HandleSearchInput}
+          searchInputValues={searchInputValues}
+          isLoading={isLoading}
+          HandleRefresh={HandleRefresh}
+          scrollableTableRef={scrollableTableRef}
+          handleMouseDown={handleMouseDown}
+          handleMouseUp={handleMouseUp}
+          handleMouseLeave={handleMouseLeave}
+          handleMouseMove={handleMouseMove}
+        />
+      )} */}
       {key === 'dailyQtyStatus' && (
         <ItemStatusReport
           itemStatusReportState={dailyQtyStatusReport}

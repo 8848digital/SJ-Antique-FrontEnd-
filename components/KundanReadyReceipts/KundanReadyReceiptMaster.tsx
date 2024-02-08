@@ -71,13 +71,18 @@ const ReadyReceiptKundanKarigarMaster = () => {
   return (
     <div className="container-lg">
       <div>
-        <TabSection
-          firstTabHeading={`Ready receipts ${lastPartOfURL} karigar`}
-          secondTabHeading="Create new ready receipt"
-        />
-        <div className="tab-content" id="pills-tabContent">
+        <div className="d-flex justify-content-center">
+          <TabSection
+            firstTabHeading={`Ready receipts ${lastPartOfURL} karigar`}
+            secondTabHeading="Create new ready receipt"
+          />
+        </div>
+        <div
+          className="tab-content d-flex justify-content-center"
+          id="pills-tabContent"
+        >
           <div
-            className="tab-pane fade show active"
+            className="tab-pane fade show active w-75"
             id="pills-home"
             role="tabpanel"
             aria-labelledby="pills-home-tab"
@@ -109,7 +114,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
             />
           </div>
           <div
-            className="tab-pane fade"
+            className="tab-pane fade w-75"
             id="pills-profile"
             role="tabpanel"
             aria-labelledby="pills-profile-tab"

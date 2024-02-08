@@ -54,7 +54,7 @@ const PurchaseReceiptFileUploadMaster = ({
         </div>
         <div className="px-2">
           <i
-            className={`fa fa-xmark ${styled.cursor_pointer}`}
+            className={`fa fa-xmark mt-1 cursor`}
             onClick={() => {
               if (!readOnlyFields) {
                 handleClearFileUploadInput(item.idx);
