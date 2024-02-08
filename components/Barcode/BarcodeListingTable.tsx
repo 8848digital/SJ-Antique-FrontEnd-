@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from '../../styles/readyReceiptTableListing.module.css';
-import styled from '../../styles/barcode.module.css'
+import styled from '../../styles/barcode.module.css';
 import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 
@@ -24,7 +24,7 @@ const BarcodeListingTable: any = ({
     setTableViewData(data);
   };
   return (
-    <div className='container'>
+    <div className="container">
       <div className="d-flex justify-content-between mb-2 ">
         <div className="col-md-2">
           {/* <label className="text-grey px-2">Item code</label> */}
@@ -72,13 +72,24 @@ const BarcodeListingTable: any = ({
         </div>
       )}
 
-      <div className='row '>
-        <div className={`col ${styled.custom_table_head}  p-0 border text-center`}>No</div>
-        <div className={`col-lg-2 ${styled.custom_table_head} border text-center`}>Item</div>
+      <div className="row ">
+        <div
+          className={`col ${styled.custom_table_head}  p-0 border text-center`}
+        >
+          Sr.No.
+        </div>
+        <div
+          className={`col-lg-2 ${styled.custom_table_head} border text-center`}
+        >
+          Item
+        </div>
         <div className={`col-lg-7 ${styled.custom_table_head} border `}></div>
-        <div className={`col-lg-1 ${styled.custom_table_head} border text-center`}>Print</div>
+        <div
+          className={`col-lg-1 ${styled.custom_table_head} border text-center`}
+        >
+          Print
+        </div>
         <div className={`col-lg-1 ${styled.custom_table_head} border `}></div>
-
       </div>
 
       {BarcodeListData?.length > 0 &&
@@ -86,17 +97,23 @@ const BarcodeListingTable: any = ({
         BarcodeListData.slice(0, tableViewData).map(
           (item: any, index: number) => (
             <>
-              <div className='row '>
-
-                <div className="col border text-center p-0" style={{ width: "10px" }}>{index + 1}</div>
-                <div className="col-lg-2 border text-center">{item?.item_code}</div>
+              <div className="row ">
+                <div
+                  className="col border text-center p-0"
+                  style={{ width: '10px' }}
+                >
+                  {index + 1}
+                </div>
+                <div className="col-lg-2 border text-center">
+                  {item?.item_code}
+                </div>
                 <div className="col-lg-7 border"></div>
                 <div className="col-lg-1 border text-center">
                   <a
                     onClick={() => handleBarcodePrint(item.item_code)}
                     className={`button-section-text mx-auto text-info ${styles.cursor_pointer}`}
                   >
-                    print
+                    Print
                   </a>
                 </div>
                 <div className="col-lg-1 border text-center">
@@ -104,29 +121,21 @@ const BarcodeListingTable: any = ({
                     className="mt-1 "
                     type="checkbox"
                     checked={// selectAll ||
-                      multipleRecordsForPrint?.some(
-                        (checkedItem: any) => checkedItem.id === item.idx
-                      )}
+                    multipleRecordsForPrint?.some(
+                      (checkedItem: any) => checkedItem.id === item.idx
+                    )}
                     onChange={() =>
                       handleCheckboxForBarcodePrint(item.idx, item.item_code)
                     }
                   />
                 </div>
-              </div >
+              </div>
             </>
-
           )
         )}
       {BarcodeListData?.length > 4 && BarcodeListData !== null && (
-        <LoadMoreTableDataInMaster
-          HandleTableViewRows={HandleTableViewRows}
-        />
+        <LoadMoreTableDataInMaster HandleTableViewRows={HandleTableViewRows} />
       )}
-
-
-
-
-
 
       {/* <table className="table table-hover table-bordered">
         <thead>

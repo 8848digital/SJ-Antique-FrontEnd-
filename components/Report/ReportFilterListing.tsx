@@ -18,7 +18,7 @@ const ReportFilterListing: any = ({
 }: any) => {
   console.log('@report item voucher number', itemList);
   return (
-    <div className="row justify-content-center">
+    <div className="row justify-content-center w-75">
       {reportName === 'Item Status Report' && (
         <div className="col-md-2">
           <label className="text-grey">Item</label>
@@ -82,7 +82,7 @@ const ReportFilterListing: any = ({
           <label className="text-grey">Name</label>
           <SearchSelectInputField
             karigarData={name}
-            placeholder="name"
+            placeholder="Name"
             className="form-control input-fields custom-input-field line-height"
             style="max-width"
             selectedDropdownValue={searchName}

@@ -36,7 +36,7 @@ const KundanTable = ({
 
   return (
     <>
-      <table className="table table-hover table-bordered">
+      <table className="table table-hover table-bordered my-0">
         <thead>
           <tr>
             <th className="thead" scope="col">

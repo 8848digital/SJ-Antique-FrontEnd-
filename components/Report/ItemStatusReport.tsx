@@ -68,7 +68,7 @@ const ItemStatusReport: any = ({
     <div className="container-lg">
       <ReportHeader />
       <div className="d-flex justify-content-between">
-        <h4>{reportName}</h4>
+        <h5>{reportName}</h5>
         <button
           type="submit"
           // onClick={handleEmptyDeliveryNote}
@@ -77,21 +77,23 @@ const ItemStatusReport: any = ({
           Print
         </button>
       </div>
-      <ReportFilterListing
-        reportName={reportName}
-        voucherNumber={voucherNumber}
-        setSearchItem={setSearchItem}
-        searchItem={searchItem}
-        selectDropDownReset={selectDropDownReset}
-        setSelectDropDownReset={setSelectDropDownReset}
-        searchVoucherNum={searchVoucherNum}
-        setSearchVoucherNum={setSearchVoucherNum}
-        itemList={itemList}
-        HandleSearchInput={HandleSearchInput}
-        searchName={searchName}
-        setSearchName={setSearchName}
-        name={name}
-      />
+      <div className="d-flex justify-content-center">
+        <ReportFilterListing
+          reportName={reportName}
+          voucherNumber={voucherNumber}
+          setSearchItem={setSearchItem}
+          searchItem={searchItem}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+          searchVoucherNum={searchVoucherNum}
+          setSearchVoucherNum={setSearchVoucherNum}
+          itemList={itemList}
+          HandleSearchInput={HandleSearchInput}
+          searchName={searchName}
+          setSearchName={setSearchName}
+          name={name}
+        />
+      </div>
       {isLoading === 0 && <Loader />}
       {isLoading === 2 && (
         <NoRecord

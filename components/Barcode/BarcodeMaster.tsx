@@ -6,6 +6,7 @@ import BarcodeFilterListing from './BarcodeFilterListing';
 import BarcodeListingTable from './BarcodeListingTable';
 import useBarcodeListingHook from '@/hooks/Barcode/barcode-listing-hook';
 import { useState } from 'react';
+import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
 // import BarcodeListingTable from './BarcodeListingTable';
 
 const BarcodeMaster = () => {
@@ -54,29 +55,41 @@ const BarcodeMaster = () => {
     setSelectAll,
     handleSelectAll,
   }: any = useBarcodeListingHook();
+  const {
+    scrollableTableRef,
+    handleMouseDown,
+    handleMouseUp,
+    handleMouseLeave,
+    handleMouseMove,
+  }: any = UseScrollbarHook();
   const [searchItemCode, setSearchItemCode] = useState<any>('');
 
   const filteredList =
     BarcodeListData?.length > 0 && BarcodeListData !== null && searchItemCode
       ? BarcodeListData.filter((item: any) => {
-        const itemCodeMatch = searchItemCode
-          ? item?.item_code
-            ?.toLowerCase()
-            ?.includes(searchItemCode?.toLowerCase())
-          : true;
-        return itemCodeMatch;
-      })
+          const itemCodeMatch = searchItemCode
+            ? item?.item_code
+                ?.toLowerCase()
+                ?.includes(searchItemCode?.toLowerCase())
+            : true;
+          return itemCodeMatch;
+        })
       : BarcodeListData;
 
   return (
     <div className="container-lg">
-      <TabSection
-        firstTabHeading="Barcode List"
-        secondTabHeading="Create New Barcode"
-      />
-      <div className="tab-content" id="pills-tabContent">
+      <div className="d-flex justify-content-center">
+        <TabSection
+          firstTabHeading="Barcode List"
+          secondTabHeading="Create New Barcode"
+        />
+      </div>
+      <div
+        className="tab-content d-flex justify-content-center"
+        id="pills-tabContent"
+      >
         <div
-          className="tab-pane fade show active"
+          className="tab-pane fade show active w-75"
           id="pills-home"
           role="tabpanel"
           aria-labelledby="pills-home-tab"
@@ -95,7 +108,7 @@ const BarcodeMaster = () => {
           />
         </div>
         <div
-          className="tab-pane fade"
+          className="tab-pane fade w-75"
           id="pills-profile"
           role="tabpanel"
           aria-labelledby="pills-profile-tab"
@@ -127,7 +140,7 @@ const BarcodeMaster = () => {
           {showBarcodeTableSection && (
             <>
               <button
-                className="btn btn-primary mt-4 mb-2 py-1 px-2"
+                className="btn btn-primary mt-2 mb-2 py-1 px-2"
                 onClick={HandleCreateBarcode}
               >
                 Create Barcode
@@ -151,6 +164,11 @@ const BarcodeMaster = () => {
                 handleAddRowForSales={handleAddRowForSales}
                 handleDeleteRowOfSalesTable={handleDeleteRowOfSalesTable}
                 showAdditionalInputForCalculation={false}
+                scrollableTableRef={scrollableTableRef}
+                handleMouseDown={handleMouseDown}
+                handleMouseUp={handleMouseUp}
+                handleMouseLeave={handleMouseLeave}
+                handleMouseMove={handleMouseMove}
                 // readOnlyFields,
 
                 // setStateForDocStatus,

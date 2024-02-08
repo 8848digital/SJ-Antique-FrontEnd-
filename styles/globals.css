@@ -374,6 +374,7 @@ hr {
 
 .scrollable-table-container {
   width: 100%;
+  min-height: 100vh;
   /* Set a fixed width or max-width if needed */
   overflow-x: auto;
   white-space: nowrap;
@@ -385,4 +386,5 @@ hr {
 
   /* For IE/Edge */
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  
 }

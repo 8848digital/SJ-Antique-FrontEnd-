@@ -61,21 +61,26 @@ const CustomerSaleMaster = () => {
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-        return data.is_return === 0;
-      })
+          return data.is_return === 0;
+        })
       : [];
 
   console.log('kundan listing', kundanListing);
   return (
     <div className="container-lg px-0">
       <SalesHeader />
-      <TabSection
-        firstTabHeading="Sales list"
-        secondTabHeading="Create new Sales "
-      />
-      <div className="tab-content" id="pills-tabContent">
+      <div className="d-flex justify-content-center">
+        <TabSection
+          firstTabHeading="Sales list"
+          secondTabHeading="Create new Sales "
+        />
+      </div>
+      <div
+        className="tab-content d-flex justify-content-center"
+        id="pills-tabContent"
+      >
         <div
-          className="tab-pane fade show active"
+          className="tab-pane fade show active w-75"
           id="pills-home"
           role="tabpanel"
           aria-labelledby="pills-home-tab"
@@ -104,13 +109,13 @@ const CustomerSaleMaster = () => {
           />
         </div>
         <div
-          className="tab-pane fade"
+          className="tab-pane fade w-75"
           id="pills-profile"
           role="tabpanel"
           aria-labelledby="pills-profile-tab"
         >
           <div>
-            <div className={`text-end mb-1`}>
+            <div className={`text-end mb-1  `}>
               <button
                 type="submit"
                 onClick={handleEmptyDeliveryNote}
@@ -126,6 +131,7 @@ const CustomerSaleMaster = () => {
                 Create
               </button>
             </div>
+
             <CustomerSaleTable1
               clientNameListData={clientNameListData}
               selectedClient={selectedClient}

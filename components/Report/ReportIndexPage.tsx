@@ -34,8 +34,8 @@ const ReportIndexPage = () => {
     setSearchName,
   }: any = useItemStatusReportHook();
   return (
-    <div>
-      {key === 'itemStatusReport' && (
+    <div className="">
+      {/* {key === 'itemStatusReport' && (
         <ItemStatusReport
           itemStatusReportState={itemStatusReportState}
           reportName={'Item Status Report'}
@@ -57,7 +57,7 @@ const ReportIndexPage = () => {
           handleMouseLeave={handleMouseLeave}
           handleMouseMove={handleMouseMove}
         />
-      )}
+      )} */}
       {key === 'dailyQtyStatus' && (
         <ItemStatusReport
           itemStatusReportState={dailyQtyStatusReport}

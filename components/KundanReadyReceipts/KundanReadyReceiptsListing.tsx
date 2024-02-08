@@ -221,9 +221,12 @@ const KundanListing = ({
             : filteredList?.length}
         </div>
       )}
-      <table className="table table-striped table-hover table-bordered">
+      <table className="table table-striped table-hover table-bordered my-0">
         <thead>
           <tr>
+            <th className="thead" scope="col">
+              Sr No.
+            </th>
             <th className="thead" scope="col">
               Transaction Date
             </th>
@@ -244,6 +247,11 @@ const KundanListing = ({
             filteredList !== null &&
             filteredList.slice(0, tableViewData).map((item: any, i: any) => (
               <tr key={i} className={`${styles.receipt_listing_table_row} `}>
+                <td
+                  className={`table_row ${styles.receipt_listing_table_data}`}
+                >
+                  {i + 1}
+                </td>
                 <td
                   className={`table_row ${styles.receipt_listing_table_data}`}
                 >

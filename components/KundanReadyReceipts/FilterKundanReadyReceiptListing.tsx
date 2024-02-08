@@ -23,26 +23,8 @@ const FilterKundanReadyReceiptListing = ({
     }));
   console.log('receiptt', searchReceiptNumber);
   return (
-    <div className="container-lg">
+    <div className="container-lg w-75 ">
       <div className="row justify-content-center">
-        <div className="col-md-2 ">
-          <label className="text-grey">{colPlaceholder1}</label>
-          <div>
-            <SearchSelectInputField
-              karigarData={ReceiptNumber}
-              placeholder={colPlaceholder1}
-              className={
-                'form-control input-fields custom-input-field line-height'
-              }
-              style={'max-width'}
-              selectedDropdownValue={searchReceiptNumber}
-              setSelectedDropdownValue={setSearchReceiptNumber}
-              selectDropDownReset={kunKarigarDropdownReset}
-              setSelectDropDownReset={setKunKarigarDropdownReset}
-            />
-          </div>
-        </div>
-
         <div className="col-lg-2 col-md-3 ">
           <label className="text-grey">From Date</label>
           <div>
@@ -65,8 +47,25 @@ const FilterKundanReadyReceiptListing = ({
             />
           </div>
         </div>
+        <div className="col-md-2 ">
+          <label className="text-grey">{colPlaceholder1}</label>
+          <div>
+            <SearchSelectInputField
+              karigarData={ReceiptNumber}
+              placeholder={colPlaceholder1}
+              className={
+                'form-control input-fields custom-input-field line-height'
+              }
+              style={'max-width'}
+              selectedDropdownValue={searchReceiptNumber}
+              setSelectedDropdownValue={setSearchReceiptNumber}
+              selectDropDownReset={kunKarigarDropdownReset}
+              setSelectDropDownReset={setKunKarigarDropdownReset}
+            />
+          </div>
+        </div>
         <div className="col-md-2">
-          <label className="text-grey">Karigar</label>
+          <label className="text-grey">{colPlaceholder2}</label>
           <div>
             <SearchSelectInputField
               className={

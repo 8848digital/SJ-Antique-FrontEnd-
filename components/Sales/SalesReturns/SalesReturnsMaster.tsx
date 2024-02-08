@@ -52,22 +52,27 @@ const SaleReturnsMaster = () => {
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
-        return data.is_return === 1;
-      })
+          return data.is_return === 1;
+        })
       : [];
 
   return (
     <div className="container-lg px-0">
       <SalesHeader />
       <div>
-        <TabSection
-          firstTabHeading="Sale Returns"
-          secondTabHeading="Create new sales Return"
-        />
+        <div className="d-flex d-flex justify-content-center">
+          <TabSection
+            firstTabHeading="Sale Returns"
+            secondTabHeading="Create new sales Return"
+          />
+        </div>
 
-        <div className="tab-content" id="pills-tabContent">
+        <div
+          className="tab-content d-flex justify-content-center"
+          id="pills-tabContent"
+        >
           <div
-            className="tab-pane fade show active"
+            className="tab-pane fade show active w-75"
             id="pills-home"
             role="tabpanel"
             aria-labelledby="pills-home-tab"
@@ -81,7 +86,7 @@ const SaleReturnsMaster = () => {
                   karigar_name: data.client_name,
                 }))
               }
-              colPlaceholder1={'Delivery Note No.'}
+              colPlaceholder1={'Sales no.'}
               colPlaceholder2={'Client '}
               HandleDeleteReceipt={handleDeleteSalesReturn}
               HandleUpdateDocStatus={HandleUpdateDocStatus}
@@ -92,11 +97,11 @@ const SaleReturnsMaster = () => {
               deleteApiEntity={'sales_return'}
               kunKarigarDropdownReset={itemCodeDropdownReset}
               setKunKarigarDropdownReset={setItemCodeDropdownReset}
-            // purchasRecieptListParams={deliveryNoteListParams}
+              // purchasRecieptListParams={deliveryNoteListParams}
             />
           </div>
           <div
-            className="tab-pane fade"
+            className="tab-pane fade w-75"
             id="pills-profile"
             role="tabpanel"
             aria-labelledby="pills-profile-tab"
