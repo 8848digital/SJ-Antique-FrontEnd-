@@ -20,7 +20,7 @@ const AddMaterial = ({
 }: any) => {
   return (
     <div
-      className="tab-pane fade"
+      className="tab-pane fade w-75"
       id="pills-profile"
       role="tabpanel"
       aria-labelledby="pills-home-tab"
