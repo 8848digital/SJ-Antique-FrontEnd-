@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import TotalReadOnlyRow from './TotalReadOnlyRow';
 
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
@@ -37,9 +38,50 @@ const KundanKarigarReadyReceiptMasterTable = ({
   const { query } = useRouter();
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
   const [calculationRow, setCalculationRow] = useState({
-    gross_wt: 0,
-    net_wt: 0,
+    custom_net_wt: 0,
+    custom_few_wt: 0,
+    custom_mat_wt: 0,
+    custom_gross_wt: 0,
+    custom_pcs: 0,
+    custom_other: 0,
+    custom_total: 0
   });
+
+  useEffect(() => {
+    // Recalculate live calculations whenever tableData changes
+    calculateLiveCalculations();
+  }, [tableData, setTableData]);
+
+  const calculateLiveCalculations = async () => {
+    // Calculate live values based on tableData
+    const liveCalculations = tableData.reduce(
+      (accumulator: any, row: any) => {
+        accumulator.custom_net_wt += parseFloat(row.custom_net_wt) || 0;
+        accumulator.custom_few_wt += parseFloat(row.custom_few_wt) || 0;
+        accumulator.custom_mat_wt += parseFloat(row.custom_mat_wt) || 0;
+        accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
+        accumulator.custom_pcs += parseFloat(row.custom_pcs) || 0;
+        accumulator.custom_other += parseFloat(row.custom_other) || 0;
+        accumulator.custom_total += parseFloat(row.custom_total) || 0;
+        return accumulator;
+      },
+      {
+        custom_net_wt: 0,
+        custom_few_wt: 0,
+        custom_mat_wt: 0,
+        custom_gross_wt: 0,
+        custom_pcs: 0,
+        custom_other: 0,
+        custom_total: 0,
+      }
+    );
+
+    // Update the calculation row state
+    setCalculationRow(liveCalculations);
+  };
+
+  console.log(calculationRow, 'calculation tableData ');
+
   useEffect(() => {
     if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
@@ -47,6 +89,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
       firstInputRef?.current?.focus();
     }
   }, [tableData.le]);
+
+
+
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -74,7 +119,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Gross Wt
             </th>
             {query?.receipt === 'mangalsutra' ||
-            query?.receipt === 'Mangalsutra' ? (
+              query?.receipt === 'Mangalsutra' ? (
               <th className="thead" scope="col">
                 BB Pcs
               </th>
@@ -221,7 +266,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||
-                  query?.receipt === 'Mangalsutra' ? (
+                    query?.receipt === 'Mangalsutra' ? (
                     <td className="table_row">
                       <input
                         className={` ${styles.input_field} text-end`}
@@ -289,11 +334,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={parseFloat(
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                              Number(tableData[i]?.totalAmount)
+                          Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                          ? tableData[i]?.custom_total
-                          : tableData[i]?.custom_other
+                            ? tableData[i]?.custom_total
+                            : tableData[i]?.custom_other
                       )?.toFixed(2)}
                     />
                   </td>
@@ -334,6 +379,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 </tr>
               </>
             ))}
+          <TotalReadOnlyRow calculationRow={calculationRow} />
         </tbody>
       </table>
     </div>
