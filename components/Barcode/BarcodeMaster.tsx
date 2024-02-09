@@ -84,12 +84,9 @@ const BarcodeMaster = () => {
           secondTabHeading="Create New Barcode"
         />
       </div>
-      <div
-        className="tab-content d-flex justify-content-center"
-        id="pills-tabContent"
-      >
+      <div className="tab-content " id="pills-tabContent">
         <div
-          className="tab-pane fade show active w-75"
+          className="tab-pane fade show active"
           id="pills-home"
           role="tabpanel"
           aria-labelledby="pills-home-tab"
@@ -113,17 +110,19 @@ const BarcodeMaster = () => {
           role="tabpanel"
           aria-labelledby="pills-profile-tab"
         >
-          <BarcodeFilterListing
-            karigarList={karigarList}
-            searchKarigar={searchKarigar}
-            setSearchKarigar={setSearchKarigar}
-            selectDropDownReset={selectDropDownReset}
-            setSelectDropDownReset={setSelectDropDownReset}
-            handleSearchBarcodeItemCodeDetails={
-              handleSearchBarcodeItemCodeDetails
-            }
-            handleSearchBtn={handleSearchBtn}
-          />
+          <div className="d-flex justify-content-center">
+            <BarcodeFilterListing
+              karigarList={karigarList}
+              searchKarigar={searchKarigar}
+              setSearchKarigar={setSearchKarigar}
+              selectDropDownReset={selectDropDownReset}
+              setSelectDropDownReset={setSelectDropDownReset}
+              handleSearchBarcodeItemCodeDetails={
+                handleSearchBarcodeItemCodeDetails
+              }
+              handleSearchBtn={handleSearchBtn}
+            />
+          </div>
           {showCategorySection && (
             <BarcodeCategorySection
               itemCodeDataToShow={itemCodeDataToShow}

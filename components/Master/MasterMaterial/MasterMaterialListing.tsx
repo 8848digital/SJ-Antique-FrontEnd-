@@ -34,7 +34,7 @@ const MasterMaterialListing = ({
   };
   return (
     <div>
-      <div className={` mx-4 d-flex flex-wrap justify-content-start `}>
+      <div className={` d-flex  justify-content-start `}>
         <input
           type="text"
           name="input1"
@@ -54,7 +54,7 @@ const MasterMaterialListing = ({
           placeholder={placeholder2}
           onChange={handleInputChange2}
         />
-        {value === 'material' ? (
+        {value === 'material' && (
           <input
             type="text"
             name="input3"
@@ -64,10 +64,11 @@ const MasterMaterialListing = ({
             placeholder={placeholder3}
             onChange={handleInputChange3}
           />
-        ) : (
-          <div></div>
         )}
-        <div className="text-end w-25">
+      </div>
+
+      <div className="table-responsive mt-2 ">
+        <div className="text-end ">
           {materialList?.length > 0 && (
             <div className="text-end pe-3 text-gray small m-0">
               {materialList?.slice(0, tableViewData)?.length} of{' '}
@@ -77,9 +78,6 @@ const MasterMaterialListing = ({
             </div>
           )}
         </div>
-      </div>
-
-      <div className="table-responsive mt-2 ">
         <table className="table table-hover table-striped table-bordered w-100 ">
           <thead>
             <tr className="table_row">

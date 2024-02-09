@@ -10,3 +10,6 @@
 .cursor_pointer {
     cursor: pointer;
 }
+.sr_no_width{
+    max-width:80px !important;
+}

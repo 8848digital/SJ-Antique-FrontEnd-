@@ -3,7 +3,7 @@ import React from 'react';
 const TabSection = ({ firstTabHeading, secondTabHeading }: any) => {
   return (
     <div
-      className="nav nav-pills mb-3 justify-content-center w-75"
+      className="nav nav-pills my-1 justify-content-center tab-width"
       id="pills-tab"
       role="tablist"
     >

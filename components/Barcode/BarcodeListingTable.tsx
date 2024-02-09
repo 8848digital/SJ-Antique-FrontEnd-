@@ -35,7 +35,7 @@ const BarcodeListingTable: any = ({
               }))}
               placeholder={'Item code'}
               className={
-                'form-control input-fields custom-input-field line-height'
+                'form-control input-fields custom-input-field line-height p-1'
               }
               style={'max-width'}
               selectedDropdownValue={searchItemCode}
@@ -72,24 +72,24 @@ const BarcodeListingTable: any = ({
         </div>
       )}
 
-      <div className="row ">
+      <div className="row d-flex ">
         <div
-          className={`col ${styled.custom_table_head}  p-0 border text-center`}
+          className={`col-sm ${styled.custom_table_head}  p-0 border text-center`}
         >
           Sr.No.
         </div>
         <div
-          className={`col-lg-2 ${styled.custom_table_head} border text-center`}
+          className={`col-sm-2 ${styled.custom_table_head} border text-center`}
         >
           Item
         </div>
-        <div className={`col-lg-7 ${styled.custom_table_head} border `}></div>
+        <div className={`col-sm-7 ${styled.custom_table_head} border `}></div>
         <div
-          className={`col-lg-1 ${styled.custom_table_head} border text-center`}
+          className={`col-sm-1 ${styled.custom_table_head} border text-center`}
         >
           Print
         </div>
-        <div className={`col-lg-1 ${styled.custom_table_head} border `}></div>
+        <div className={`col-sm-1 ${styled.custom_table_head} border `}></div>
       </div>
 
       {BarcodeListData?.length > 0 &&
@@ -104,11 +104,11 @@ const BarcodeListingTable: any = ({
                 >
                   {index + 1}
                 </div>
-                <div className="col-lg-2 border text-center">
+                <div className="col-sm-2 border text-center">
                   {item?.item_code}
                 </div>
-                <div className="col-lg-7 border"></div>
-                <div className="col-lg-1 border text-center">
+                <div className="col-sm-7 border"></div>
+                <div className="col-sm-1 border text-center">
                   <a
                     onClick={() => handleBarcodePrint(item.item_code)}
                     className={`button-section-text mx-auto text-info ${styles.cursor_pointer}`}
@@ -116,7 +116,7 @@ const BarcodeListingTable: any = ({
                     Print
                   </a>
                 </div>
-                <div className="col-lg-1 border text-center">
+                <div className="col-sm-1 border text-center">
                   <input
                     className="mt-1 "
                     type="checkbox"

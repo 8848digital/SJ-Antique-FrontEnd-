@@ -25,7 +25,7 @@ const FilterKundanReadyReceiptListing = ({
   return (
     <div className="container-lg ">
       <div className="row justify-content-between">
-        <div className="col-lg-2 col-md-3 ">
+        <div className="col-md-3 ">
           <label className="text-grey">From Date</label>
           <div>
             <input
@@ -36,7 +36,7 @@ const FilterKundanReadyReceiptListing = ({
             />
           </div>
         </div>
-        <div className="col-lg-2 col-md-3 ">
+        <div className=" col-md-3 ">
           <label className="text-grey">To Date</label>
           <div>
             <input
