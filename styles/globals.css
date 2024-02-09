@@ -216,7 +216,7 @@ button.btn.btn-primary.mx-5.px-5 {
 }
 
 .max-width {
-  max-width: 9%
+  max-width: 10%
 
 }
 
@@ -388,6 +388,6 @@ hr {
   -ms-overflow-style: -ms-autohiding-scrollbar;
   
 }
-.sr-no-width{
-  width: 80px !important;
+.tab-width{
+  width: 80%;
 }

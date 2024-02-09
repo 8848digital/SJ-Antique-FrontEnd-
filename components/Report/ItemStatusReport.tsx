@@ -112,7 +112,7 @@ const ItemStatusReport: any = ({
                 : filteredList?.length}
             </div>
           )}
-          <div className="table-responsive">
+          <div className="table-responsive ">
             <div
               ref={scrollableTableRef}
               className="scrollable-table-container"
@@ -143,9 +143,9 @@ const ItemStatusReport: any = ({
                       .map((item: any, index: number) => (
                         <tr
                           key={index}
-                          className={`${styles.table_row} ${index >= filteredList.length - 2
-                            ? 'last-two-rows'
-                            : ''
+                          className={` ${styles.table_row} ${index >= filteredList.length - 2
+                              ? 'last-two-rows'
+                              : ''
                             }`}
                         >
                           <td

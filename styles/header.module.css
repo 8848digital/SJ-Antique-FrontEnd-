@@ -38,14 +38,14 @@
     margin-left: 20%;
     margin-right: 20%;
 }
-@media screen and (max-width:856px) {
-/* .button{
+@media screen and (max-width:1024px) {
+.button{
     padding: 2px 3px !important;
-    margin: 3px;
+    margin: 1px;
     border-radius: 5px;
     font-size: small;
 
-} */
+}
 .button_container{
     margin-left: 0;
     margin-right: 0;

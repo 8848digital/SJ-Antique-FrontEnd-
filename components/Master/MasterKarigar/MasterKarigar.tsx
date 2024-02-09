@@ -41,7 +41,7 @@ const MasterKarigar: any = ({
           id="pills-tabContent"
         >
           <div
-            className="tab-pane fade show active w-75  "
+            className="tab-pane fade show active tab-width  "
             id="pills-home"
             role="tabpanel"
             aria-labelledby="pills-home-tab"

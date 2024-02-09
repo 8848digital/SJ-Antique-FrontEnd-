@@ -11,10 +11,6 @@
     cursor: pointer;
 }
 
-.table_listing_header {
-    width: 10%;
-}
-
-.table_listing_btn_section {
-    width: 19%;
+.sr_no_width {
+    max-width: 80px !important;
 }

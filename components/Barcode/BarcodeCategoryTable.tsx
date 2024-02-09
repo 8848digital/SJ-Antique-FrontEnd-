@@ -21,13 +21,15 @@ const BarcodeCategorySection = ({
       >
         Generate Barcode List
       </button>
-      <CustomerSalesTable2
-        kunCsOtCategoryListData={kunCsOtCategoryData}
-        BBCategoryListData={BBcategoryData}
-        selectedCategory={selectedCategory}
-        setSeletedCategory={setSeletedCategory}
-        handleSelectChange={handleSelectChange}
-      />
+      <div className="w-50">
+        <CustomerSalesTable2
+          kunCsOtCategoryListData={kunCsOtCategoryData}
+          BBCategoryListData={BBcategoryData}
+          selectedCategory={selectedCategory}
+          setSeletedCategory={setSeletedCategory}
+          handleSelectChange={handleSelectChange}
+        />
+      </div>
       <div className="row">
         {itemCodeDataToShow?.length > 0 &&
           itemCodeDataToShow !== null &&
@@ -37,7 +39,6 @@ const BarcodeCategorySection = ({
                 <input
                   className="form-check-input"
                   type="checkbox"
-
                   checked={checkedItems?.some(
                     (checkedItem: any) => checkedItem.id === data.idx
                   )}

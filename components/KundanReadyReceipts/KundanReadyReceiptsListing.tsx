@@ -224,7 +224,7 @@ const KundanListing = ({
       <table className="table table-striped table-hover table-bordered my-0">
         <thead>
           <tr>
-            <th scope="col" className="thead ">
+            <th scope="col" className={`thead ${styles.sr_no_width}`}>
               Sr No.
             </th>
             <th className="thead" scope="col">
@@ -247,9 +247,9 @@ const KundanListing = ({
             filteredList !== null &&
             filteredList.slice(0, tableViewData).map((item: any, i: any) => (
               <tr key={i} className={`${styles.receipt_listing_table_row} `}>
-                <td className="table_row sr-no-width">{i + 1}</td>
+                <td className={`table_row ${styles.sr_no_width}`}>{i + 1}</td>
                 <td
-                  className={`table_row ${styles.receipt_listing_table_data}w-25`}
+                  className={`table_row ${styles.receipt_listing_table_data}`}
                 >
                   {formattedDate(item.posting_date)}
                 </td>
@@ -288,7 +288,7 @@ const KundanListing = ({
                     <td
                       className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="row justify-content-between gx-0 px-1 mx-1 ">
+                      <div className="row justify-content-between gx-0 px-1  ">
                         <div className="col">
                           <Link
                             href={`${url}/${item.name}`}
@@ -324,7 +324,7 @@ const KundanListing = ({
                     <td
                       className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="row justify-content-between gx-0 px-1 mx-1">
+                      <div className="row justify-content-between gx-0 px-1">
                         <div className="col">
                           <a
                             onClick={() => HandlePrintApi(item.name)}
@@ -360,7 +360,7 @@ const KundanListing = ({
                     <td
                       className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="row justify-content-between gx-0 px-1 mx-1">
+                      <div className="row justify-content-between gx-0 px-1">
                         <div className="col">
                           {item?.posting_date ===
                             new Date()?.toISOString()?.split('T')[0] && (
