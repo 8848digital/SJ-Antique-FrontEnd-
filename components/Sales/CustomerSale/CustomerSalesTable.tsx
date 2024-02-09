@@ -1,9 +1,10 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
 import SalesTableHeader from './SalesTableHeader';
+import TotalReadOnlyRowForSales from '../TotalReadOnlyRowForSales';
 
 const CustomerSalesTable = ({
   salesTableData,
@@ -32,6 +33,61 @@ const CustomerSalesTable = ({
   showAdditionalInputForCalculation
 }: any) => {
   console.log(salesTableData, 'selected name and value');
+  const initialStateOfCalculationRow: any = {
+    custom_gross_wt: 0,
+    custom_kun_wt: 0,
+    custom_cs_wt: 0,
+    custom_bb_wt: 0,
+    custom_other_wt: 0,
+    custom_net_wt: 0,
+    custom_cs: 0,
+    custom_cs_amt: 0,
+    custom_kun_pc: 0,
+    custom_kun: 0,
+    custom_kun_amt: 0,
+    custom_ot_: 0,
+    custom_ot_amt: 0,
+    custom_other: 0,
+    custom_amount: 0,
+  }
+  const [calculationRow, setCalculationRow] = useState(initialStateOfCalculationRow);
+
+  useEffect(() => {
+    // Recalculate live calculations whenever tableData changes
+    calculateLiveCalculations();
+  }, [salesTableData, setSalesTableData]);
+
+
+  const calculateLiveCalculations = async () => {
+    // Calculate live values based on tableData
+    const liveCalculations = salesTableData.reduce(
+      (accumulator: any, row: any) => {
+        console.log(row, 'bbbbbbbb');
+        accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
+        accumulator.custom_kun_wt += parseFloat(row.custom_kun_wt) || 0;
+        accumulator.custom_cs_wt += parseFloat(row.custom_cs_wt) || 0;
+        accumulator.custom_bb_wt += parseFloat(row.custom_bb_wt) || 0;
+        accumulator.custom_other_wt += parseFloat(row.custom_other_wt) || 0;
+        accumulator.custom_net_wt += parseFloat(row.custom_net_wt) || 0;
+        accumulator.custom_cs += parseFloat(row.custom_cs) || 0;
+        accumulator.custom_cs_amt += parseFloat(row.custom_cs_amt) || 0;
+        accumulator.custom_kun_pc += parseFloat(row.custom_kun_pc) || 0;
+        accumulator.custom_kun += parseFloat(row.custom_kun) || 0;
+        accumulator.custom_kun_amt += parseFloat(row.custom_kun_amt) || 0;
+        accumulator.custom_ot_ += parseFloat(row.custom_ot_) || 0;
+        accumulator.custom_ot_amt += parseFloat(row.custom_ot_amt) || 0;
+        accumulator.custom_other += parseFloat(row.custom_other) || 0;
+        accumulator.custom_amount += parseFloat(row.custom_amount) || 0;
+        return accumulator;
+      },
+      initialStateOfCalculationRow
+    );
+
+    // Update the calculation row state
+    setCalculationRow(liveCalculations);
+  };
+
+  console.log(calculationRow, 'calculation tableData ');
   return (
     <>
       {showAddrowBtn === true && (
@@ -473,6 +529,7 @@ const CustomerSalesTable = ({
                     <tr></tr>
                   </>
                 ))}
+              <TotalReadOnlyRowForSales calculationRow={calculationRow} />
             </tbody>
           </table>
         </div>
