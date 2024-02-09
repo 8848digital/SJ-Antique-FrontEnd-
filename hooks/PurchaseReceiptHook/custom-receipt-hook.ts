@@ -60,7 +60,7 @@ const UseCustomReceiptHook: any = () => {
     custom_net_wt: 0,
     custom_few_wt: 0,
     custom_gross_wt: 0,
-    custom_pcs: '',
+    custom_pcs: 0,
     custom_mat_wt: 0,
     custom_other: 0,
     custom_total: '',

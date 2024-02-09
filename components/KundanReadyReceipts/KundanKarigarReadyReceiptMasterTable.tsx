@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import TotalReadOnlyRow from './TotalReadOnlyRow';
 
 const KundanKarigarReadyReceiptMasterTable = ({
   handleFieldChange,
@@ -37,11 +38,59 @@ const KundanKarigarReadyReceiptMasterTable = ({
   const { query } = useRouter();
   const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
   const [calculationRow, setCalculationRow] = useState({
-    gross_wt: 0,
-    net_wt: 0,
-    few_wt: 0,
-    total: 0,
+    custom_net_wt: 0,
+    custom_few_wt: 0,
+    custom_mat_wt: 0,
+    custom_gross_wt: 0,
+    custom_pcs: 0,
+    custom_other: 0,
+    custom_total: 0,
   });
+
+  useEffect(() => {
+    // Recalculate live calculations whenever tableData changes
+    calculateLiveCalculations();
+  }, [tableData, setTableData]);
+  const calculateGrossWt = (i: any) => {
+    console.log(i, 'i');
+    return (
+      tableData[i]?.custom_net_wt +
+      tableData[i]?.custom_few_wt +
+      tableData[i]?.custom_mat_wt
+    );
+  };
+
+  const calculateLiveCalculations = async () => {
+    // Calculate live values based on tableData
+    const liveCalculations = tableData.reduce(
+      (accumulator: any, row: any) => {
+        console.log(row, 'bbbbbbbb');
+        accumulator.custom_net_wt += parseFloat(row.custom_net_wt) || 0;
+        accumulator.custom_few_wt += parseFloat(row.custom_few_wt) || 0;
+        accumulator.custom_mat_wt += parseFloat(row.custom_mat_wt) || 0;
+        accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
+        accumulator.custom_pcs += parseFloat(row.custom_pcs) || 0;
+        accumulator.custom_other += parseFloat(row.custom_other) || 0;
+        accumulator.custom_total += parseFloat(row.custom_total) || 0;
+        return accumulator;
+      },
+      {
+        custom_net_wt: 0,
+        custom_few_wt: 0,
+        custom_mat_wt: 0,
+        custom_gross_wt: 0,
+        custom_pcs: 0,
+        custom_other: 0,
+        custom_total: 0,
+      }
+    );
+
+    // Update the calculation row state
+    setCalculationRow(liveCalculations);
+  };
+
+  console.log(calculationRow, 'calculation tableData ');
+
   useEffect(() => {
     if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
@@ -49,6 +98,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
       firstInputRef?.current?.focus();
     }
   }, [tableData.le]);
+
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -215,11 +265,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      value={(
-                        Number(tableData[i]?.custom_net_wt) +
-                        Number(tableData[i]?.custom_few_wt) +
-                        Number(tableData[i]?.custom_mat_wt)
-                      )?.toFixed(3)}
+                      value={calculateGrossWt(i)?.toFixed(3)}
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||
@@ -336,6 +382,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                 </tr>
               </>
             ))}
+          <TotalReadOnlyRow calculationRow={calculationRow} />
         </tbody>
       </table>
     </div>

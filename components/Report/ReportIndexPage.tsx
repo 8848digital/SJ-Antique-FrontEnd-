@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import ItemStatusReport from './ItemStatusReport';
 import useItemStatusReportHook from '@/hooks/Report/item-status-report-hook';
+import ReportHeader from '../Header/ReportHeader';
 
 const ReportIndexPage = () => {
   const router = useRouter();

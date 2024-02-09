@@ -52,8 +52,8 @@ const SaleReturnsMaster = () => {
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
-          return data.is_return === 1;
-        })
+        return data.is_return === 1;
+      })
       : [];
 
   return (
@@ -97,7 +97,7 @@ const SaleReturnsMaster = () => {
               deleteApiEntity={'sales_return'}
               kunKarigarDropdownReset={itemCodeDropdownReset}
               setKunKarigarDropdownReset={setItemCodeDropdownReset}
-              // purchasRecieptListParams={deliveryNoteListParams}
+            // purchasRecieptListParams={deliveryNoteListParams}
             />
           </div>
           <div
