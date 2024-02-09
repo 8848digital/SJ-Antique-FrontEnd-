@@ -3,15 +3,13 @@ import React from 'react';
 
 const MaterialDetailsMaster = () => {
   const router = useRouter();
-  // const pathContent = router.query;
-  // console.log(pathContent, 'details pathcon');
-  // const value1 = pathContent.name;
-  // const value2 = pathContent.abbr;
-  const { name1, name2, placeholder1, placeholder2 } = router.query;
 
+  const { name1, name2, name3, placeholder1, placeholder2, placeholder3 } =
+    router.query;
+  console.log(name3, 'name3');
   return (
-    <div className="container mt-5">
-      <div className="card mt-2">
+    <div className="container mt-5 d-flex justify-content-center">
+      <div className="card mt-2 w-50 ">
         <div className="card-header">
           <div className="d-flex justify-content-between ">
             <button
@@ -55,6 +53,23 @@ const MaterialDetailsMaster = () => {
                 />
               </div>
             </div>
+            {name3 !== undefined && name3 !== '' && (
+              <div className="col-lg-6">
+                <label htmlFor="basic-url " className="fs-6 mt-3 text-center">
+                  {placeholder3}
+                  <span className="text-danger">*</span>
+                </label>
+                <div className="input-group w-50 master-input-field my-3 mt-2">
+                  <input
+                    type="text"
+                    className="form-control py-1 ps-1"
+                    defaultValue={name3}
+                    required
+                    readOnly
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

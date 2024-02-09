@@ -87,31 +87,33 @@ const ReadyReceiptKundanKarigarMaster = () => {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <KundanListing
-              kundanListing={kundanListing}
-              setKundanListing={setKundanListing}
-              HandleDeleteReceipt={HandleDeleteReceipt}
-              HandleUpdateDocStatus={HandleUpdateDocStatus}
-              karigarData={karigarData}
-              colPlaceholder1={'Receipt No.'}
-              colPlaceholder2={'Karigar'}
-              deleteApiVersion={'v1'}
-              deleteApiMethod={'delete_purchase_receipt'}
-              deleteApiEntity={'purchase_receipt'}
-              purchasRecieptListParams={purchasRecieptListParams}
-              printApiMethod={
-                lastPartOfURL === 'kundan'
-                  ? 'print_purchase_receipt_kundan'
-                  : 'print_purchase_receipt_mangalsutra'
-              }
-              printApiEntity={
-                lastPartOfURL === 'kundan'
-                  ? 'purchase_receipt'
-                  : 'purchase_receipt'
-              }
-              kunKarigarDropdownReset={kunKarigarDropdownReset}
-              setKunKarigarDropdownReset={setKunKarigarDropdownReset}
-            />
+            <div>
+              <KundanListing
+                kundanListing={kundanListing}
+                setKundanListing={setKundanListing}
+                HandleDeleteReceipt={HandleDeleteReceipt}
+                HandleUpdateDocStatus={HandleUpdateDocStatus}
+                karigarData={karigarData}
+                colPlaceholder1={'Receipt No.'}
+                colPlaceholder2={'Karigar'}
+                deleteApiVersion={'v1'}
+                deleteApiMethod={'delete_purchase_receipt'}
+                deleteApiEntity={'purchase_receipt'}
+                purchasRecieptListParams={purchasRecieptListParams}
+                printApiMethod={
+                  lastPartOfURL === 'kundan'
+                    ? 'print_purchase_receipt_kundan'
+                    : 'print_purchase_receipt_mangalsutra'
+                }
+                printApiEntity={
+                  lastPartOfURL === 'kundan'
+                    ? 'purchase_receipt'
+                    : 'purchase_receipt'
+                }
+                kunKarigarDropdownReset={kunKarigarDropdownReset}
+                setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+              />
+            </div>
           </div>
           <div
             className="tab-pane fade"

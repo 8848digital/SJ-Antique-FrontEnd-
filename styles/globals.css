@@ -122,6 +122,8 @@ a {
   padding: 1px !important;
   text-align: center;
   position: relative;
+  align-items: center;
+  font-size: medium;
 
 }
 
@@ -390,4 +392,7 @@ hr {
 }
 .tab-width{
   width: 80%;
+}
+.w-18{
+  width: 17%
 }

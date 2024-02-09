@@ -18,9 +18,9 @@ const ReportFilterListing: any = ({
 }: any) => {
   console.log('@report item voucher number', itemList);
   return (
-    <div className="row justify-content-center ">
+    <div className="d-flex justify-content-between ">
       {reportName === 'Item Status Report' && (
-        <div className="col-md-3">
+        <div className="col-md-3 mx-1">
           <label className="text-grey">Item</label>
           <SearchSelectInputField
             karigarData={
@@ -40,30 +40,30 @@ const ReportFilterListing: any = ({
           />
         </div>
       )}
-      <div className="col-md-3 ">
+      <div className="mx-1">
         <label className="text-grey">From Date</label>
         <div>
           <input
             type="date"
-            name="fromDate"
-            className="form-control line-height p-1"
+            name="from_date"
+            className="form-control input-fields custom-input-field line-height p-1 "
             onChange={HandleSearchInput}
           />
         </div>
       </div>
-      <div className=" col-md-3 ">
+      <div className="mx-1 ">
         <label className="text-grey">To Date</label>
         <div>
           <input
             type="date"
-            name="toDate"
-            className="form-control line-height p-1"
+            name="to_date"
+            className="form-control input-fields custom-input-field line-height p-1 "
             onChange={HandleSearchInput}
           />
         </div>
       </div>
       {reportName === 'Item Status Report' && (
-        <div className="col-md-2">
+        <div className="col-md-2 mx-1">
           <label className="text-grey">Voucher Name</label>
           <SearchSelectInputField
             karigarData={voucherNumber}
@@ -78,13 +78,13 @@ const ReportFilterListing: any = ({
         </div>
       )}
       {reportName === 'Daily Quantity Status Report' && (
-        <div className="col-md-3">
+        <div className="col-md-3 mx-1">
           <label className="text-grey">Name</label>
           <SearchSelectInputField
             karigarData={name}
             placeholder="Name"
             className="form-control input-fields custom-input-field line-height p-1"
-            style="max-width"
+            style="w-18"
             selectedDropdownValue={searchName}
             setSelectedDropdownValue={setSearchName}
             selectDropDownReset={selectDropDownReset}

@@ -39,6 +39,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
   const [calculationRow, setCalculationRow] = useState({
     gross_wt: 0,
     net_wt: 0,
+    few_wt: 0,
+    total: 0,
   });
   useEffect(() => {
     if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
@@ -56,7 +58,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Sr.no
             </th>
             <th className="thead" scope="col">
-              Product Code (Item) <span className="text-danger">*</span>
+              Product Code<span className="text-danger">*</span>
             </th>
             <th className="thead" scope="col">
               Kun Karigar

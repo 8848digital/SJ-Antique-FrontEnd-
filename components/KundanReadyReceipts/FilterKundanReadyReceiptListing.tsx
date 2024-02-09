@@ -23,20 +23,20 @@ const FilterKundanReadyReceiptListing = ({
     }));
   console.log('receiptt', searchReceiptNumber);
   return (
-    <div className="container-lg ">
-      <div className="row justify-content-between">
-        <div className="col-md-3 ">
+    <div className="p-0">
+      <div className="d-flex justify-content-between">
+        <div className="">
           <label className="text-grey">From Date</label>
           <div>
             <input
               type="date"
               name="from_date"
-              className="form-control input-fields custom-input-field line-height "
+              className="form-control input-fields custom-input-field line-height p-1 "
               onChange={HandleSearchInput}
             />
           </div>
         </div>
-        <div className=" col-md-3 ">
+        <div className=" ">
           <label className="text-grey">To Date</label>
           <div>
             <input
@@ -47,7 +47,7 @@ const FilterKundanReadyReceiptListing = ({
             />
           </div>
         </div>
-        <div className="col-md-2 ">
+        <div className="col-sm-2">
           <label className="text-grey">{colPlaceholder1}</label>
           <div>
             <SearchSelectInputField
@@ -64,14 +64,14 @@ const FilterKundanReadyReceiptListing = ({
             />
           </div>
         </div>
-        <div className="col-md-2">
+        <div className="col-sm-3">
           <label className="text-grey">{colPlaceholder2}</label>
           <div>
             <SearchSelectInputField
               className={
                 'form-control input-fields custom-input-field line-height'
               }
-              style={'max-width'}
+              style={'w-18'}
               placeholder={colPlaceholder2}
               karigarData={karigarData}
               selectedDropdownValue={searchKarigar}
@@ -82,7 +82,7 @@ const FilterKundanReadyReceiptListing = ({
           </div>
         </div>
 
-        <div className="col-md-2 ">
+        <div className=" col-sm-2 ">
           <label className="text-grey">Status</label>
           <div>
             <select

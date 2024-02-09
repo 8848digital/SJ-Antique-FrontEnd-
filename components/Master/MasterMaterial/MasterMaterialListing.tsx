@@ -20,15 +20,16 @@ const MasterMaterialListing = ({
     setTableViewData(data);
   };
   const router = useRouter();
-  const HandleDetails = (name: any, abbr: any) => {
-    console.log(name, abbr, 'name abbr1');
+  const HandleDetails = (name: any, abbr: any, group?: any) => {
     router.push({
       pathname: '/masterMaterialDetails',
       query: {
         name1: name,
         name2: abbr,
+        name3: group,
         placeholder1: placeholder1,
         placeholder2: placeholder2,
+        placeholder3: placeholder3,
       },
     });
   };
@@ -68,16 +69,15 @@ const MasterMaterialListing = ({
       </div>
 
       <div className="table-responsive mt-2 ">
-        <div className="text-end ">
-          {materialList?.length > 0 && (
-            <div className="text-end pe-3 text-gray small m-0">
-              {materialList?.slice(0, tableViewData)?.length} of{' '}
-              {materialList?.length < 10
-                ? '0' + materialList?.length
-                : materialList?.length}
-            </div>
-          )}
-        </div>
+        {materialList?.length > 0 && (
+          <div className="text-end pe-3 text-gray small m-0">
+            {materialList?.slice(0, tableViewData)?.length} of{' '}
+            {materialList?.length < 10
+              ? '0' + materialList?.length
+              : materialList?.length}
+          </div>
+        )}
+
         <table className="table table-hover table-striped table-bordered w-100 ">
           <thead>
             <tr className="table_row">
@@ -107,7 +107,8 @@ const MasterMaterialListing = ({
                     onClick={() =>
                       HandleDetails(
                         item.material,
-                        item.material_abbr ? item.material_abbr : item.type
+                        item.material_abbr ? item.material_abbr : item.type,
+                        item.material_group
                       )
                     }
                   >
@@ -118,7 +119,8 @@ const MasterMaterialListing = ({
                     onClick={() =>
                       HandleDetails(
                         item.material,
-                        item.material_abbr ? item.material_abbr : item.type
+                        item.material_abbr ? item.material_abbr : item.type,
+                        item.material_group
                       )
                     }
                   >
@@ -130,7 +132,8 @@ const MasterMaterialListing = ({
                       onClick={() =>
                         HandleDetails(
                           item.material,
-                          item.material_abbr ? item.material_abbr : item.type
+                          item.material_abbr ? item.material_abbr : item.type,
+                          item.material_group
                         )
                       }
                     >

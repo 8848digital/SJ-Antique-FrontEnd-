@@ -3,14 +3,10 @@ import React from 'react';
 
 const KarigarDetailsMaster = () => {
   const router = useRouter();
-  // console.log(Object.keys(router.query), 'query11');
-  // const pathContent = Object.keys(router.query);
-  // const value = pathContent[0];
   const { name, placeholder } = router.query;
-
   return (
-    <div className="container mt-5">
-      <div className="card mt-2">
+    <div className="container mt-5 d-flex justify-content-center">
+      <div className="card mt-2 w-50">
         <div className="card-header">
           <div className="d-flex justify-content-between ">
             <button

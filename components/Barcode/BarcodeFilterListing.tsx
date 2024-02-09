@@ -12,12 +12,12 @@ const BarcodeFilterListing: any = ({
   handleSearchBtn,
 }: any) => {
   return (
-    <div className="tab-width row justify-content-center ">
-      <div className="col-md-2 p-1 ">
+    <div className="tab-width d-flex justify-content-center ">
+      <div className="p-1">
         <label className={` ${styles.label_font_size}`}>Date</label>
         <input
           type="date"
-          className="form-control line-height p-1 "
+          className="form-control input-fields custom-input-field line-height p-1 "
           onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, 'date')}
         />
       </div>
@@ -79,7 +79,7 @@ const BarcodeFilterListing: any = ({
           <option value="no">G</option>
         </select>
       </div>
-      <div className="col-lg-2 col-md-2 p-1">
+      <div className="col-sm-2 p-0 py-1">
         <label className={` ${styles.label_font_size}`}>Barcode Created?</label>
 
         <select
@@ -94,9 +94,9 @@ const BarcodeFilterListing: any = ({
           <option value="no">No</option>
         </select>
       </div>
-      <div className="col-lg-2  my-2 my-auto text-center">
-        <button className="btn btn-primary m-1 py-2" onClick={handleSearchBtn}>
-          <i className="fa-solid fa-magnifying-glass pr-1"></i>
+      <div className=" my-2 mx-auto mx-2 text-center">
+        <button className="btn btn-primary m-0 p-2" onClick={handleSearchBtn}>
+          <i className="fa-solid fa-magnifying-glass px-2"></i>
           Search
         </button>
       </div>

@@ -43,8 +43,27 @@ const useBarcodeListingHook = () => {
     }
   };
 
-  const handleMultipleBarcodePrint: any = () => {
-    console.log('updated multiple record', multipleRecordsForPrint);
+  const handleMultipleBarcodePrint: any = async (multipleRecord: any) => {
+    console.log(multipleRecord, 'aaaaaaaaaaa');
+    const namesArray =
+      multipleRecord?.length > 0 &&
+      multipleRecord !== null &&
+      multipleRecord.map((record: any) => record.name);
+    console.log(namesArray, 'aaaaaaa');
+    const reqParams: any = {
+      version: 'v1',
+      method: 'get_multiple_specific_print_barcode',
+      entity: 'barcode',
+      name: namesArray,
+    };
+
+    let barcodePrintApi: any = await PrintApi(reqParams);
+    console.log('barcodeprint api res', barcodePrintApi);
+    if (barcodePrintApi?.status === 'success') {
+      window.open(barcodePrintApi?.data?.data[0]?.print_url);
+    } else if (barcodePrintApi?.status === 'error') {
+      toast.error(barcodePrintApi?.message);
+    }
   };
 
   console.log('updated multiple record', multipleRecordsForPrint);
@@ -73,9 +92,6 @@ const useBarcodeListingHook = () => {
         id: item.idx,
         name: item.item_code,
       }));
-
-      // Toggle the selection of all checkboxes based on the previous state
-      handleMultipleBarcodePrint(!prevSelectAll);
 
       // Update the state to the opposite value
       setMultipleRecordsForPrint(prevSelectAll ? [] : allItems);

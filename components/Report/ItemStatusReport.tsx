@@ -78,23 +78,23 @@ const ItemStatusReport: any = ({
           Print
         </button>
       </div>
-      <div className="d-flex justify-content-center">
-        <ReportFilterListing
-          reportName={reportName}
-          voucherNumber={voucherNumber}
-          setSearchItem={setSearchItem}
-          searchItem={searchItem}
-          selectDropDownReset={selectDropDownReset}
-          setSelectDropDownReset={setSelectDropDownReset}
-          searchVoucherNum={searchVoucherNum}
-          setSearchVoucherNum={setSearchVoucherNum}
-          itemList={itemList}
-          HandleSearchInput={HandleSearchInput}
-          searchName={searchName}
-          setSearchName={setSearchName}
-          name={name}
-        />
-      </div>
+
+      <ReportFilterListing
+        reportName={reportName}
+        voucherNumber={voucherNumber}
+        setSearchItem={setSearchItem}
+        searchItem={searchItem}
+        selectDropDownReset={selectDropDownReset}
+        setSelectDropDownReset={setSelectDropDownReset}
+        searchVoucherNum={searchVoucherNum}
+        setSearchVoucherNum={setSearchVoucherNum}
+        itemList={itemList}
+        HandleSearchInput={HandleSearchInput}
+        searchName={searchName}
+        setSearchName={setSearchName}
+        name={name}
+      />
+
       {isLoading === 0 && <Loader />}
       {isLoading === 2 && (
         <NoRecord
@@ -159,7 +159,10 @@ const ItemStatusReport: any = ({
                             }`}
                             scope="row"
                           >
-                            {index + 1}
+                            {index >= filteredList.length - 2 &&
+                            reportName === 'Daily Quantity Status Report'
+                              ? ''
+                              : index + 1}
                           </td>
                           {Object.values(item).map(
                             (value: any, innerIndex: number) => (
@@ -173,7 +176,9 @@ const ItemStatusReport: any = ({
                                 }`}
                                 scope="row"
                               >
-                                {value}
+                                {typeof value === 'number'
+                                  ? value.toFixed(3)
+                                  : value}
                               </td>
                             )
                           )}

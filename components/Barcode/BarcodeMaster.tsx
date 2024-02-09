@@ -124,17 +124,19 @@ const BarcodeMaster = () => {
             />
           </div>
           {showCategorySection && (
-            <BarcodeCategorySection
-              itemCodeDataToShow={itemCodeDataToShow}
-              handleGenerateBarcodeListBtn={handleGenerateBarcodeListBtn}
-              handleCheckboxChange={handleCheckboxChange}
-              checkedItems={checkedItems}
-              kunCsOtCategoryData={kunCsOtCategoryData}
-              BBcategoryData={BBcategoryData}
-              selectedCategory={selectedCategory}
-              setSeletedCategory={setSeletedCategory}
-              handleSelectChange={handleSelectChange}
-            />
+            <div className="d-flex justify-content-center ">
+              <BarcodeCategorySection
+                itemCodeDataToShow={itemCodeDataToShow}
+                handleGenerateBarcodeListBtn={handleGenerateBarcodeListBtn}
+                handleCheckboxChange={handleCheckboxChange}
+                checkedItems={checkedItems}
+                kunCsOtCategoryData={kunCsOtCategoryData}
+                BBcategoryData={BBcategoryData}
+                selectedCategory={selectedCategory}
+                setSeletedCategory={setSeletedCategory}
+                handleSelectChange={handleSelectChange}
+              />
+            </div>
           )}
           {showBarcodeTableSection && (
             <>

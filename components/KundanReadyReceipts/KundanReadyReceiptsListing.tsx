@@ -221,41 +221,33 @@ const KundanListing = ({
             : filteredList?.length}
         </div>
       )}
-      <table className="table table-striped table-hover table-bordered my-0">
+      <table className="table table-striped table-hover table-bordered my-0 ">
         <thead>
-          <tr>
-            <th scope="col" className={`thead ${styles.sr_no_width}`}>
-              Sr No.
-            </th>
-            <th className="thead" scope="col">
-              Transaction Date
-            </th>
-            <th className="thead" scope="col">
-              {colPlaceholder1}
-            </th>
-            <th className="thead" scope="col">
-              {colPlaceholder2}
-            </th>
-            <th className="thead" scope="col">
-              Status
-            </th>
-            <th className="thead w-25" scope="col"></th>
+          <tr className="row d-flex p-0">
+            <th className={`thead  col-sm-1`}>Sr No.</th>
+            <th className="thead col-sm-2">Transaction Date</th>
+            <th className="thead col-sm-1">{colPlaceholder1}</th>
+            <th className="thead col-sm-2">{colPlaceholder2}</th>
+            <th className="thead col-sm-2"></th>
+            <th className="thead col-sm-1">Status</th>
+            <th className="thead col-sm-3"></th>
           </tr>
         </thead>
         <tbody>
           {filteredList?.length > 0 &&
             filteredList !== null &&
             filteredList.slice(0, tableViewData).map((item: any, i: any) => (
-              <tr key={i} className={`${styles.receipt_listing_table_row} `}>
-                <td className={`table_row ${styles.sr_no_width}`}>{i + 1}</td>
+              <tr key={i} className={` row d-flex p-0 h-25 `}>
                 <td
-                  className={`table_row ${styles.receipt_listing_table_data}`}
+                  className={`table_row p-0  col-sm-1`}
+                  // style={{ width: '50px' }}
                 >
+                  {i + 1}
+                </td>
+                <td className={`table_row  col-sm-2 p-0`}>
                   {formattedDate(item.posting_date)}
                 </td>
-                <td
-                  className={`table_row ${styles.receipt_listing_table_data}`}
-                >
+                <td className={`table_row col-sm-1 p-0 `}>
                   <Link
                     href={`${url}/${item.name}`}
                     className="text-dark text-decoration-none"
@@ -263,20 +255,17 @@ const KundanListing = ({
                     {item.custom_number}
                   </Link>
                 </td>
-                <td
-                  className={`table_row ${styles.receipt_listing_table_data}`}
-                >
+                <td className={` table_row col-sm-2 p-0`}>
                   {item.custom_karigar
                     ? item.custom_karigar
                     : item.custom_client_name}
                 </td>
-                <td
-                  className={`table_row ${styles.receipt_listing_table_data}`}
-                >
+                <td className={` table_row col-sm-2 p-0`}></td>
+                <td className={`table_row col-sm-1 p-0 text-center`}>
                   {item.docstatus === 0 ? (
-                    <span>Draft</span>
+                    <span className="align-middle">Draft</span>
                   ) : item.docstatus === 1 ? (
-                    <span>Submitted</span>
+                    <span className="align-middle">Submitted</span>
                   ) : item.docstatus === 2 ? (
                     <span>Cancelled</span>
                   ) : (
@@ -286,18 +275,18 @@ const KundanListing = ({
                 {item.docstatus === 0 && (
                   <>
                     <td
-                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td border-0 text-center col-sm-3 p-0 ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="row justify-content-between gx-0 px-1  ">
-                        <div className="col">
+                      <div className="d-flex flex-wrap justify-content-between gx-0 px-1 mx-1 ">
+                        <div className="">
                           <Link
                             href={`${url}/${item.name}`}
-                            className="button-section-text text-info "
+                            className="button-section-text text-info align-top "
                           >
                             Edit
                           </Link>
                         </div>
-                        <div className="col">
+                        <div className="">
                           <a
                             onClick={() =>
                               HandleUpdateDocStatus('1', item.name)
@@ -307,7 +296,7 @@ const KundanListing = ({
                             Submit
                           </a>
                         </div>
-                        <div className="col">
+                        <div className="">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "
@@ -322,10 +311,10 @@ const KundanListing = ({
                 {item.docstatus === 1 && (
                   <>
                     <td
-                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td border-0 text-center col-sm-3 p-0 ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="row justify-content-between gx-0 px-1">
-                        <div className="col">
+                      <div className="d-flex flex-wrap justify-content-between gx-0 px-1 mx-1">
+                        <div className="">
                           <a
                             onClick={() => HandlePrintApi(item.name)}
                             className={`button-section-text text-info ${styles.cursor_pointer}`}
@@ -333,7 +322,7 @@ const KundanListing = ({
                             print
                           </a>
                         </div>
-                        <div className="col">
+                        <div className="">
                           <a
                             onClick={() =>
                               HandleUpdateDocStatus('2', item.name)
@@ -343,7 +332,7 @@ const KundanListing = ({
                             Cancel
                           </a>
                         </div>
-                        <div className="col">
+                        <div className="">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "
@@ -358,10 +347,10 @@ const KundanListing = ({
                 {item.docstatus === 2 && (
                   <>
                     <td
-                      className={` button-section-td border-0 text-center ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td border-0 text-center col-sm-3 p-0 ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="row justify-content-between gx-0 px-1">
-                        <div className="col">
+                      <div className="d-flex flex-wrap justify-content-between gx-0 px-1 mx-1">
+                        <div className="">
                           {item?.posting_date ===
                             new Date()?.toISOString()?.split('T')[0] && (
                             <>
@@ -375,7 +364,7 @@ const KundanListing = ({
                           )}
                         </div>
 
-                        <div className="col">
+                        <div className="">
                           <a
                             // href=""
                             onClick={() => HandleDeleteReceipt(item.name)}
@@ -384,7 +373,7 @@ const KundanListing = ({
                             Delete
                           </a>
                         </div>
-                        <div className="col">
+                        <div className="">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "

@@ -35,6 +35,9 @@ const MasterKarigarListing = ({
           placeholder={placeholder}
           onChange={HandleSearchInput}
         />
+      </div>
+
+      <div className="table-responsive  mt-2">
         {karigarData?.length > 0 && (
           <div className="text-end pe-3 p-0 text-gray small ">
             {karigarData?.slice(0, tableViewData)?.length} of{' '}
@@ -43,9 +46,6 @@ const MasterKarigarListing = ({
               : karigarData?.length}
           </div>
         )}
-      </div>
-
-      <div className="table-responsive  mt-2">
         <table className="table table-hover table-striped w-100 table-bordered ">
           <thead>
             <tr className="table_row">
