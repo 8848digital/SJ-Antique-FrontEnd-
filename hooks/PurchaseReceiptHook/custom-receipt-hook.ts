@@ -326,6 +326,10 @@ const UseCustomReceiptHook: any = () => {
           return {
             ...item,
             custom_mat_wt: weightAmt,
+            custom_gross_wt:
+              Number(item?.custom_net_wt) +
+              Number(item?.custom_few_wt) +
+              Number(weightAmt),
             table: item.table?.map((materialData: any) => ({
               ...materialData,
               weight: weightAmt,
@@ -383,6 +387,31 @@ const UseCustomReceiptHook: any = () => {
 
     setMaterialWeight(updatedMaterialWeight);
   };
+  const calculateGrossWt = (item: any, field: string, value: any) => {
+    if (field === 'custom_few_wt') {
+      console.log(value, '@PR value');
+      item.custom_gross_wt =
+        Number(item?.custom_net_wt) +
+        Number(item.custom_mat_wt) +
+        Number(value);
+      console.log(item, '@PR item');
+      return Number(value);
+    }
+    if (field === 'custom_mat_wt') {
+      item.custom_gross_wt =
+        Number(item?.custom_net_wt) +
+        Number(item.custom_few_wt) +
+        Number(value);
+      return Number(value);
+    }
+    if (field === 'custom_net_wt') {
+      item.custom_gross_wt =
+        Number(item?.custom_few_wt) +
+        Number(item.custom_mat_wt) +
+        Number(value);
+      return Number(value);
+    }
+  };
 
   const handleFieldChange = (
     id: number,
@@ -409,19 +438,40 @@ const UseCustomReceiptHook: any = () => {
         } else {
           filePath = '/files/capture.jpg';
         }
+        let custom_gross_wt = 0;
+        if (field === 'custom_few_wt') {
+          custom_gross_wt =
+            Number(item?.custom_net_wt) +
+            Number(item.custom_mat_wt) +
+            Number(newValue);
+        }
+
+        if (field === 'custom_net_wt') {
+          custom_gross_wt =
+            Number(item?.custom_few_wt) +
+            Number(item.custom_mat_wt) +
+            Number(newValue);
+        }
         return {
           ...item,
           [field]:
             field === 'custom_add_photo'
               ? filePath
-              : field === 'product_code'
+              : // : field === 'custom_few_wt'
+              // ? calculateGrossWt(item, field, newValue)
+              // : field === 'custom_net_wt'
+              // ? calculateGrossWt(item, field, newValue)
+              // : field === 'custom_mat_wt'
+              // ? calculateGrossWt(item, field, newValue)
+              field === 'product_code'
               ? newValue.toUpperCase() // Convert to uppercase for 'product code'
               : formatInput(newValue),
+          custom_gross_wt,
         };
       }
       return item;
     });
-
+    console.log(updatedData, '@PR item in field change');
     setTableData(updatedData);
     if (field === 'custom_add_photo') {
       console.log(fileVal, 'fileVal');
@@ -442,6 +492,7 @@ const UseCustomReceiptHook: any = () => {
         UpdatePcsWeight(id, formatInput(newValue));
       }
     }
+
     setStateForDocStatus(true);
   };
 

@@ -62,16 +62,16 @@ const KundanKarigarReadyReceiptMasterTable = ({
 
   const calculateLiveCalculations = async () => {
     // Calculate live values based on tableData
-    const liveCalculations = tableData.reduce(
+    const liveCalculations = tableData?.reduce(
       (accumulator: any, row: any) => {
         console.log(row, 'bbbbbbbb');
-        accumulator.custom_net_wt += parseFloat(row.custom_net_wt) || 0;
-        accumulator.custom_few_wt += parseFloat(row.custom_few_wt) || 0;
-        accumulator.custom_mat_wt += parseFloat(row.custom_mat_wt) || 0;
-        accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
-        accumulator.custom_pcs += parseFloat(row.custom_pcs) || 0;
-        accumulator.custom_other += parseFloat(row.custom_other) || 0;
-        accumulator.custom_total += parseFloat(row.custom_total) || 0;
+        accumulator.custom_net_wt += Number(row.custom_net_wt) || 0;
+        accumulator.custom_few_wt += Number(row.custom_few_wt) || 0;
+        accumulator.custom_mat_wt += Number(row.custom_mat_wt) || 0;
+        accumulator.custom_gross_wt += Number(row.custom_gross_wt) || 0;
+        accumulator.custom_pcs += Number(row.table[0].pcs) || 0;
+        accumulator.custom_other += Number(row.custom_other) || 0;
+        accumulator.custom_total += Number(row.custom_total) || 0;
         return accumulator;
       },
       {
@@ -97,7 +97,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
     } else {
       firstInputRef?.current?.focus();
     }
-  }, [tableData.le]);
+  }, [tableData?.length]);
 
   return (
     <div className="table responsive">
@@ -265,7 +265,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       readOnly
                       disabled
                       name={`sum-${i + 1}`}
-                      value={calculateGrossWt(i)?.toFixed(3)}
+                      // value={calculateGrossWt(i)?.toFixed(3)}
+                      value={item.custom_gross_wt}
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||
