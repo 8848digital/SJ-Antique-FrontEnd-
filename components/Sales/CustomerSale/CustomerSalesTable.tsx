@@ -62,7 +62,7 @@ const CustomerSalesTable = ({
     // Calculate live values based on tableData
     const liveCalculations = salesTableData.reduce(
       (accumulator: any, row: any) => {
-        console.log(row, 'bbbbbbbb');
+
         accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
         accumulator.custom_kun_wt += parseFloat(row.custom_kun_wt) || 0;
         accumulator.custom_cs_wt += parseFloat(row.custom_cs_wt) || 0;
@@ -83,10 +83,10 @@ const CustomerSalesTable = ({
     const totalCustomAmount = salesTableData.reduce((total: any, item: any) => {
       return (
         total +
-        (parseFloat(item.custom_cs_amt) || 0 +
-          parseFloat(item.custom_kun_amt) || 0 +
-          parseFloat(item.custom_ot_amt) || 0 +
-          parseFloat(item.custom_other) || 0)
+        (parseFloat(item.custom_cs) * parseFloat(item.custom_cs_amt) || 0) +  // Corrected parentheses placement
+        (parseFloat(item.custom_kun_pc) * parseFloat(item.custom_kun) || 0) + // Corrected parentheses placement
+        (parseFloat(item.custom_other_wt) * parseFloat(item.custom_ot_) || 0) + // Corrected parentheses placement
+        (parseFloat(item.custom_other) || 0)
       );
     }, 0);
 
