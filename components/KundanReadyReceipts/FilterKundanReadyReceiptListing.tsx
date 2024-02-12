@@ -23,20 +23,20 @@ const FilterKundanReadyReceiptListing = ({
     }));
   console.log('receiptt', searchReceiptNumber);
   return (
-    <div className="p-0">
+    <div className="p-0 px-1">
       <div className="d-flex justify-content-between">
-        <div className="">
+        <div className="col-sm-2 p-0">
           <label className="text-grey">From Date</label>
           <div>
             <input
               type="date"
               name="from_date"
-              className="form-control input-fields custom-input-field line-height p-1 "
+              className="form-control input-fields custom-input-field line-height  "
               onChange={HandleSearchInput}
             />
           </div>
         </div>
-        <div className=" ">
+        <div className="col-sm-2 p-0 ">
           <label className="text-grey">To Date</label>
           <div>
             <input
@@ -47,7 +47,7 @@ const FilterKundanReadyReceiptListing = ({
             />
           </div>
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm-2 p-0">
           <label className="text-grey">{colPlaceholder1}</label>
           <div>
             <SearchSelectInputField
@@ -64,14 +64,14 @@ const FilterKundanReadyReceiptListing = ({
             />
           </div>
         </div>
-        <div className="col-sm-3">
+        <div className="col-sm-3 p-0">
           <label className="text-grey">{colPlaceholder2}</label>
           <div>
             <SearchSelectInputField
               className={
                 'form-control input-fields custom-input-field line-height'
               }
-              style={'w-18'}
+              style={'client-dropdown-width'}
               placeholder={colPlaceholder2}
               karigarData={karigarData}
               selectedDropdownValue={searchKarigar}
@@ -82,7 +82,7 @@ const FilterKundanReadyReceiptListing = ({
           </div>
         </div>
 
-        <div className=" col-sm-2 ">
+        <div className=" col-sm-2 p-0">
           <label className="text-grey">Status</label>
           <div>
             <select

@@ -18,9 +18,9 @@ const ReportFilterListing: any = ({
 }: any) => {
   console.log('@report item voucher number', itemList);
   return (
-    <div className="d-flex justify-content-between ">
+    <div className="d-flex justify-content-start ">
       {reportName === 'Item Status Report' && (
-        <div className="col-md-3 mx-1">
+        <div className="col-sm-2 mx-1">
           <label className="text-grey">Item</label>
           <SearchSelectInputField
             karigarData={
@@ -40,7 +40,7 @@ const ReportFilterListing: any = ({
           />
         </div>
       )}
-      <div className="mx-1">
+      <div className="mx-1 col-sm-2">
         <label className="text-grey">From Date</label>
         <div>
           <input
@@ -51,7 +51,7 @@ const ReportFilterListing: any = ({
           />
         </div>
       </div>
-      <div className="mx-1 ">
+      <div className="mx-1 col-sm-2">
         <label className="text-grey">To Date</label>
         <div>
           <input
@@ -63,13 +63,13 @@ const ReportFilterListing: any = ({
         </div>
       </div>
       {reportName === 'Item Status Report' && (
-        <div className="col-md-2 mx-1">
+        <div className="col-sm-2 mx-1">
           <label className="text-grey">Voucher Name</label>
           <SearchSelectInputField
             karigarData={voucherNumber}
             placeholder="Voucher Number"
             className="form-control input-fields custom-input-field line-height"
-            style="max-width"
+            style={'max-width'}
             selectedDropdownValue={searchVoucherNum}
             setSelectedDropdownValue={setSearchVoucherNum}
             selectDropDownReset={selectDropDownReset}

@@ -36,8 +36,8 @@ const useBarcodeListingHook = () => {
 
     let barcodePrintApi: any = await PrintApi(reqParams);
     console.log('barcodeprint api res', barcodePrintApi);
-    if (barcodePrintApi?.status === 'success') {
-      window.open(barcodePrintApi?.data?.data[0]?.print_url);
+    if (barcodePrintApi?.data?.message?.status === 'success') {
+      window.open(barcodePrintApi?.data?.message?.print_url);
     } else if (barcodePrintApi?.status === 'error') {
       toast.error(barcodePrintApi?.message);
     }
@@ -59,8 +59,8 @@ const useBarcodeListingHook = () => {
 
     let barcodePrintApi: any = await PrintApi(reqParams);
     console.log('barcodeprint api res', barcodePrintApi);
-    if (barcodePrintApi?.status === 'success') {
-      window.open(barcodePrintApi?.data?.data[0]?.print_url);
+    if (barcodePrintApi?.data?.message?.status === 'success') {
+      window.open(barcodePrintApi?.data?.message?.print_url);
     } else if (barcodePrintApi?.status === 'error') {
       toast.error(barcodePrintApi?.message);
     }

@@ -79,8 +79,8 @@ const BarcodeFilterListing: any = ({
           <option value="no">G</option>
         </select>
       </div>
-      <div className="col-sm-2 p-0 py-1">
-        <label className={` ${styles.label_font_size}`}>Barcode Created?</label>
+      <div className="col-sm-1 p-0 p-1">
+        <label className={` ${styles.label_font_size}`}>BarcodeCreated?</label>
 
         <select
           className="form-select line-height text-center p-1 "
@@ -94,11 +94,13 @@ const BarcodeFilterListing: any = ({
           <option value="no">No</option>
         </select>
       </div>
-      <div className=" my-2 mx-auto mx-2 text-center">
-        <button className="btn btn-primary m-0 p-2" onClick={handleSearchBtn}>
-          <i className="fa-solid fa-magnifying-glass px-2"></i>
-          Search
-        </button>
+      <div className="col-sm-2 p-0 mt-2 align-items-end">
+        <div className="mt-3 mx-auto mx-2 text-center">
+          <button className="btn btn-primary m-0 p-1" onClick={handleSearchBtn}>
+            <i className="fa-solid fa-magnifying-glass pe-2"></i>
+            Search
+          </button>
+        </div>
       </div>
     </div>
   );

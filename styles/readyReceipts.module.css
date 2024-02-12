@@ -55,3 +55,7 @@
 .cursor_pointer {
     cursor: pointer;
 }
+.total_row_input_field{
+    width: 20% !important;
+    border: 0;
+}

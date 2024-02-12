@@ -7,6 +7,7 @@ import BarcodeListingTable from './BarcodeListingTable';
 import useBarcodeListingHook from '@/hooks/Barcode/barcode-listing-hook';
 import { useState } from 'react';
 import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
+import BarcodeTabSection from './BarcodetabSection';
 // import BarcodeListingTable from './BarcodeListingTable';
 
 const BarcodeMaster = () => {
@@ -79,15 +80,15 @@ const BarcodeMaster = () => {
   return (
     <div className="container-lg">
       <div className="d-flex justify-content-center">
-        <TabSection
+        <BarcodeTabSection
           firstTabHeading="Barcode List"
           secondTabHeading="Create New Barcode"
         />
       </div>
       <div className="tab-content " id="pills-tabContent">
         <div
-          className="tab-pane fade show active"
-          id="pills-home"
+          className="tab-pane fade "
+          id="pills-list"
           role="tabpanel"
           aria-labelledby="pills-home-tab"
         >
@@ -105,10 +106,10 @@ const BarcodeMaster = () => {
           />
         </div>
         <div
-          className="tab-pane fade"
-          id="pills-profile"
+          className="tab-pane active fade show"
+          id="pills-create"
           role="tabpanel"
-          aria-labelledby="pills-profile-tab"
+          aria-labelledby="pills-create-tab"
         >
           <div className="d-flex justify-content-center">
             <BarcodeFilterListing

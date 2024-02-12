@@ -9,27 +9,37 @@ const TotalReadOnlyRow = ({ calculationRow }: any) => {
           Total
         </td>
         <td className="table_row py-1">
-          <ReadOnlyInputFieldComponent value={calculationRow?.custom_net_wt} />
-        </td>
-        <td className="table_row py-1">
-          <ReadOnlyInputFieldComponent value={calculationRow?.custom_few_wt} />
-        </td>
-        <td className="table_row py-1">
-          <ReadOnlyInputFieldComponent value={calculationRow?.custom_mat_wt} />
+          <ReadOnlyInputFieldComponent
+            value={Number(calculationRow?.custom_net_wt).toFixed(3)}
+          />
         </td>
         <td className="table_row py-1">
           <ReadOnlyInputFieldComponent
-            value={calculationRow?.custom_gross_wt}
+            value={Number(calculationRow?.custom_few_wt).toFixed(3)}
+          />
+        </td>
+        <td className="table_row py-1">
+          <ReadOnlyInputFieldComponent
+            value={Number(calculationRow?.custom_mat_wt).toFixed(3)}
+          />
+        </td>
+        <td className="table_row py-1">
+          <ReadOnlyInputFieldComponent
+            value={Number(calculationRow?.custom_gross_wt).toFixed(3)}
           />
         </td>
         <td className="table_row py-1">
           <ReadOnlyInputFieldComponent value={calculationRow?.custom_pcs} />
         </td>
         <td className="table_row py-1">
-          <ReadOnlyInputFieldComponent value={calculationRow?.custom_other} />
+          <ReadOnlyInputFieldComponent
+            value={Number(calculationRow?.custom_other).toFixed(2)}
+          />
         </td>
         <td className="table_row py-1">
-          <ReadOnlyInputFieldComponent value={calculationRow?.custom_total} />
+          <ReadOnlyInputFieldComponent
+            value={Number(calculationRow?.custom_total).toFixed(2)}
+          />
         </td>
 
         {/* <td className="table_row px-0">
