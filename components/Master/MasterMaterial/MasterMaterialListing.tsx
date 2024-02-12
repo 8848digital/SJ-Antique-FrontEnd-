@@ -35,50 +35,59 @@ const MasterMaterialListing = ({
   };
   return (
     <div>
-      <div className={` d-flex  justify-content-start `}>
-        <input
-          type="text"
-          name="input1"
-          id="input1"
-          aria-describedby="emailHelp"
-          className="form-control h-50 mx-2 p-1 w-auto"
-          placeholder={placeholder1}
-          onChange={handleInputChange1}
-        />
-
-        <input
-          type="text"
-          name="input2"
-          id="input2"
-          aria-describedby="emailHelp"
-          className="form-control h-50 mx-2 p-1 w-auto"
-          placeholder={placeholder2}
-          onChange={handleInputChange2}
-        />
-        {value === 'material' && (
+      <div className="d-flex justify-content-between px-3 ">
+        <div
+          className={` d-flex justify-content-start align-items-center `}
+        ></div>
+        <div className="">
           <input
             type="text"
-            name="input3"
-            id="input3"
+            name="input1"
+            id="input1"
             aria-describedby="emailHelp"
-            className="form-control h-50 mx-2 p-1 w-auto"
-            placeholder={placeholder3}
-            onChange={handleInputChange3}
+            className="form-control input-fields custom-input-field ps-2 p-1"
+            placeholder={placeholder1}
+            onChange={handleInputChange1}
           />
-        )}
+        </div>
+        <div className="mx-1">
+          <input
+            type="text"
+            name="input2"
+            id="input2"
+            aria-describedby="emailHelp"
+            className="form-control input-fields custom-input-field ps-2 p-1"
+            placeholder={placeholder2}
+            onChange={handleInputChange2}
+          />
+        </div>
+        <div className="">
+          {value === 'material' && (
+            <input
+              type="text"
+              name="input3"
+              id="input3"
+              aria-describedby="emailHelp"
+              className="form-control input-fields custom-input-field ps-2 p-1"
+              placeholder={placeholder3}
+              onChange={handleInputChange3}
+            />
+          )}
+        </div>
+        <div className="w-50 d-flex align-items-end justify-content-end">
+          {materialList?.length > 0 && (
+            <div className="text-end pe-3 text-gray small m-0">
+              {materialList?.slice(0, tableViewData)?.length} of{' '}
+              {materialList?.length < 10
+                ? '0' + materialList?.length
+                : materialList?.length}
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="table-responsive mt-2 ">
-        {materialList?.length > 0 && (
-          <div className="text-end pe-3 text-gray small m-0">
-            {materialList?.slice(0, tableViewData)?.length} of{' '}
-            {materialList?.length < 10
-              ? '0' + materialList?.length
-              : materialList?.length}
-          </div>
-        )}
-
-        <table className="table table-hover table-striped table-bordered w-100 ">
+      <div className="table-responsive mt-2 px-3">
+        <table className="table table-hover table-striped  w-100 ">
           <thead>
             <tr className="table_row">
               <th className="thead text-start">Sr.No</th>

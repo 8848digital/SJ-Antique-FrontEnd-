@@ -25,28 +25,32 @@ const MasterKarigarListing = ({
 
   return (
     <div>
-      <div className="mx-4 d-flex justify-content-between">
-        <input
-          type="text"
-          name="name"
-          id="name"
-          aria-describedby="emailHelp"
-          className="form-control form-control-color w-auto h-50 p-1"
-          placeholder={placeholder}
-          onChange={HandleSearchInput}
-        />
+      <div className="container d-flex justify-content-between p-0 px-3">
+        <div>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            aria-describedby="emailHelp"
+            className="form-control input-fields custom-input-field ps-2 p-1"
+            placeholder={placeholder}
+            onChange={HandleSearchInput}
+          />
+        </div>
+        <div className="d-flex align-items-end">
+          {karigarData?.length > 0 && (
+            <div className="text-end pe-3 p-0 text-gray small ">
+              {karigarData?.slice(0, tableViewData)?.length} of{' '}
+              {karigarData?.length < 10
+                ? '0' + karigarData?.length
+                : karigarData?.length}
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="table-responsive  mt-2">
-        {karigarData?.length > 0 && (
-          <div className="text-end pe-3 p-0 text-gray small ">
-            {karigarData?.slice(0, tableViewData)?.length} of{' '}
-            {karigarData?.length < 10
-              ? '0' + karigarData?.length
-              : karigarData?.length}
-          </div>
-        )}
-        <table className="table table-hover table-striped w-100 table-bordered ">
+      <div className="table-responsive  mt-2 px-3">
+        <table className="table table-hover table-striped w-100 ">
           <thead>
             <tr className="table_row">
               <th
