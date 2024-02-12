@@ -73,7 +73,7 @@ const DetailPageCustomerSale = () => {
       ) : (
         <>
           {DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
-          isLoading === false ? (
+            isLoading === false ? (
             <NoRecord
               title={`No Record Found 😥`}
               heading=""
@@ -138,6 +138,7 @@ const DetailPageCustomerSale = () => {
                 selectedCategory={selectedCategory}
                 itemList={itemList}
                 readOnlyFields={readOnlyFields}
+                showAddrowBtn={true}
                 setStateForDocStatus={setStateForDocStatus}
                 setItemCodeDropdownReset={setItemCodeDropdownReset}
                 handleTabPressInSales={handleTabPressInSales}

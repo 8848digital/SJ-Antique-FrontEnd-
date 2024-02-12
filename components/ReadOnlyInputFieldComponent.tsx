@@ -9,8 +9,6 @@ const ReadOnlyInputFieldComponent = ({ value }: any) => {
     <input
       type="number"
       className={`table_row ${query?.hasOwnProperty("saleId") ? styles.customer_sale_input_field : styles.input_field} text-end`}
-
-      // className={`table_row ${styles.input_field} text-end`}
       aria-label="Sizing example input"
       aria-describedby="inputGroup-sizing-sm"
       // id={id}

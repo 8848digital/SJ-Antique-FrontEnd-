@@ -62,30 +62,70 @@ const CustomerSalesTable = ({
     // Calculate live values based on tableData
     const liveCalculations = salesTableData.reduce(
       (accumulator: any, row: any) => {
-        console.log(row, 'bbbbbbbb');
+
         accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
         accumulator.custom_kun_wt += parseFloat(row.custom_kun_wt) || 0;
         accumulator.custom_cs_wt += parseFloat(row.custom_cs_wt) || 0;
         accumulator.custom_bb_wt += parseFloat(row.custom_bb_wt) || 0;
         accumulator.custom_other_wt += parseFloat(row.custom_other_wt) || 0;
-        accumulator.custom_net_wt += parseFloat(row.custom_net_wt) || 0;
         accumulator.custom_cs += parseFloat(row.custom_cs) || 0;
-        accumulator.custom_cs_amt += parseFloat(row.custom_cs_amt) || 0;
         accumulator.custom_kun_pc += parseFloat(row.custom_kun_pc) || 0;
         accumulator.custom_kun += parseFloat(row.custom_kun) || 0;
         accumulator.custom_kun_amt += parseFloat(row.custom_kun_amt) || 0;
         accumulator.custom_ot_ += parseFloat(row.custom_ot_) || 0;
-        accumulator.custom_ot_amt += parseFloat(row.custom_ot_amt) || 0;
         accumulator.custom_other += parseFloat(row.custom_other) || 0;
-        accumulator.custom_amount += parseFloat(row.custom_amount) || 0;
         return accumulator;
       },
       initialStateOfCalculationRow
     );
 
-    // Update the calculation row state
+    // Calculate total custom amount
+    const totalCustomAmount = salesTableData.reduce((total: any, item: any) => {
+      return (
+        total +
+        (parseFloat(item.custom_cs) * parseFloat(item.custom_cs_amt) || 0) +  // Corrected parentheses placement
+        (parseFloat(item.custom_kun_pc) * parseFloat(item.custom_kun) || 0) + // Corrected parentheses placement
+        (parseFloat(item.custom_other_wt) * parseFloat(item.custom_ot_) || 0) + // Corrected parentheses placement
+        (parseFloat(item.custom_other) || 0)
+      );
+    }, 0);
+
+    liveCalculations.custom_amount = totalCustomAmount;
+
+    // Calculate total custom amount for custom_ot_amt
+    const totalCustomOtAmount = salesTableData.reduce((total: any, item: any) => {
+      return (
+        total +
+        (parseFloat(item.custom_other_wt) || 0) *
+        (parseFloat(item.custom_ot_) || 0)
+      );
+    }, 0);
+    liveCalculations.custom_ot_amt = totalCustomOtAmount;
+
+    // Calculate total custom amount for custom_cs_amt
+    const totalCustomCsAmount = salesTableData.reduce((total: any, item: any) => {
+      return (
+        total +
+        (parseFloat(item.custom_cs) || 0) *
+        (parseFloat(item.custom_cs_wt) || 0)
+      );
+    }, 0);
+    liveCalculations.custom_cs_amt = totalCustomCsAmount;
+
+    // Calculate total custom net weight for custom_net_wt
+    const totalCustomNetWeight = salesTableData.reduce((total: any, item: any) => {
+      const customNetWt = parseFloat(item.custom_gross_wt) -
+        (parseFloat(item.custom_kun_wt) +
+          parseFloat(item.custom_cs_wt) +
+          parseFloat(item.custom_bb_wt) +
+          parseFloat(item.custom_other_wt));
+      return total + Math.max(customNetWt, 0);
+    }, 0);
+    liveCalculations.custom_net_wt = totalCustomNetWeight;
+
     setCalculationRow(liveCalculations);
   };
+
 
   console.log(calculationRow, 'calculation tableData ');
   return (
