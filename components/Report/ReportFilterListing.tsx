@@ -40,7 +40,7 @@ const ReportFilterListing: any = ({
           />
         </div>
       )}
-      <div className="col-sm-3 p-0">
+      <div className="col-sm-3 p-0 mx-1">
         <label className="text-grey">FromDate</label>
         <div>
           <input
@@ -51,7 +51,7 @@ const ReportFilterListing: any = ({
           />
         </div>
       </div>
-      <div className="col-sm-3 p-0 ">
+      <div className="col-sm-3 p-0 mx-1">
         <label className="text-grey">To Date</label>
         <div>
           <input
@@ -63,7 +63,7 @@ const ReportFilterListing: any = ({
         </div>
       </div>
       {reportName === 'Item Status Report' && (
-        <div className="col-sm-2 p-0">
+        <div className="col-sm-2 p-0 mx-1">
           <label className="text-grey">Voucher Name</label>
           <SearchSelectInputField
             karigarData={voucherNumber}
@@ -78,7 +78,7 @@ const ReportFilterListing: any = ({
         </div>
       )}
       {reportName === 'Daily Quantity Status Report' && (
-        <div className="col-md-3 p-0">
+        <div className="col-md-3 p-0 mx-1">
           <label className="text-grey">Name</label>
           <SearchSelectInputField
             karigarData={name}
