@@ -31,6 +31,7 @@ const ItemStatusReport: any = ({
   searchName,
   setSearchName,
   name,
+  HandleReportPrint,
 }: any) => {
   const router = useRouter();
   const [tableViewData, setTableViewData] = useState<any>(20);
@@ -73,6 +74,7 @@ const ItemStatusReport: any = ({
         <button
           type="submit"
           className=" btn btn-outline-primary px-2 py-0 form-submit-button"
+          onClick={() => HandleReportPrint(searchName)}
         >
           Print
         </button>

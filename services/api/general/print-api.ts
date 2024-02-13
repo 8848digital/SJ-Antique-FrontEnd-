@@ -5,11 +5,7 @@ const PrintApi = async (request: any) => {
   console.log('tokennnn', request);
   let response: any;
 
-  const params = `/api/method/sj_antique.sdk.api?version=${
-    request.version
-  }&method=${request.method}&entity=${request.entity}&name=${JSON.stringify(
-    request.name
-  )}`;
+  const params = `/api/method/sj_antique.sdk.api?version=${request.version}&method=${request.method}&entity=${request.entity}&name=${request.name}`;
 
   const config = {
     headers: {

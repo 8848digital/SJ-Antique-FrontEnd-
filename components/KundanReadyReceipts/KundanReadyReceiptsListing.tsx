@@ -185,9 +185,10 @@ const KundanListing = ({
       entity: printApiEntity,
     };
     let printApiRes: any = await PrintApi(reqParams);
-    if (printApiRes?.status === 'success') {
-      if (printApiRes?.data?.data?.length > 0) {
-        window.open(printApiRes?.data?.data[0]?.print_url);
+    console.log(printApiRes, 'print api res');
+    if (printApiRes?.data?.message?.status === 'success') {
+      if (printApiRes?.data?.message?.data?.data?.length > 0) {
+        window.open(printApiRes?.data?.message?.data?.data[0]?.print_url);
       }
     }
   };

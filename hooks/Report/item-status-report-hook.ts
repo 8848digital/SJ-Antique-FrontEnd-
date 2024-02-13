@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UseScrollbarHook from './report-table-scrollbar-hook';
 import { get_item_status_report_data } from '@/store/slices/Report/item-status-report-slice';
+import { toast } from 'react-toastify';
+import PrintApi from '@/services/api/general/print-api';
 
 const useItemStatusReportHook = () => {
   const {
@@ -254,7 +256,26 @@ const useItemStatusReportHook = () => {
   }, [searchInputValues.toDate, searchName, searchInputValues.fromDate]);
 
   console.log(searchItem, '@report selected item');
+  const HandleReportPrint: any = async (karigar: string) => {
+    console.log('print api res');
+    const reqParams: any = {
+      version: 'v1',
+      method: 'print_report_daily_qty_status',
+      entity: 'report',
+      custom_karigar: karigar || '',
+    };
 
+    let reportPrintApi: any = await PrintApi(reqParams);
+    console.log(
+      'print api res',
+      reportPrintApi?.data?.message?.data[0]?.print_url
+    );
+    if (reportPrintApi?.data?.message?.status === 'success') {
+      window.open(reportPrintApi?.data?.message?.data?.print_url);
+    } else if (reportPrintApi?.status === 'error') {
+      toast.error(reportPrintApi?.message);
+    }
+  };
   const HandleSearchInput: any = (e: any) => {
     const { name, value } = e.target;
     setSearchInputValues({
@@ -287,6 +308,7 @@ const useItemStatusReportHook = () => {
     handleMouseMove,
     searchName,
     setSearchName,
+    HandleReportPrint,
   };
 };
 export default useItemStatusReportHook;

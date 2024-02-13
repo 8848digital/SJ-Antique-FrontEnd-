@@ -37,7 +37,7 @@ const useBarcodeListingHook = () => {
     let barcodePrintApi: any = await PrintApi(reqParams);
     console.log('barcodeprint api res', barcodePrintApi);
     if (barcodePrintApi?.data?.message?.status === 'success') {
-      window.open(barcodePrintApi?.data?.message?.print_url);
+      window.open(barcodePrintApi?.data?.message?.data?.data[0]?.print_url);
     } else if (barcodePrintApi?.status === 'error') {
       toast.error(barcodePrintApi?.message);
     }
@@ -54,7 +54,7 @@ const useBarcodeListingHook = () => {
       version: 'v1',
       method: 'get_multiple_specific_print_barcode',
       entity: 'barcode',
-      name: namesArray,
+      name: JSON.stringify(namesArray),
     };
 
     let barcodePrintApi: any = await PrintApi(reqParams);

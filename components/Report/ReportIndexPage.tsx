@@ -33,6 +33,7 @@ const ReportIndexPage = () => {
     handleMouseMove,
     searchName,
     setSearchName,
+    HandleReportPrint,
   }: any = useItemStatusReportHook();
   return (
     <div className="">
@@ -77,6 +78,7 @@ const ReportIndexPage = () => {
           searchName={searchName}
           setSearchName={setSearchName}
           name={dailyStatusSearchName}
+          HandleReportPrint={HandleReportPrint}
         />
       )}
     </div>
