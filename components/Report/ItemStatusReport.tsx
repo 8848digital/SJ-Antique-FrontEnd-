@@ -66,7 +66,7 @@ const ItemStatusReport: any = ({
       : itemStatusReportState;
 
   return (
-    <div className="container-lg w-50">
+    <div className="container-lg report-width">
       <ReportHeader />
       <div className="d-flex justify-content-between">
         <h5>{reportName}</h5>

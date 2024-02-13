@@ -217,10 +217,10 @@ button.btn.btn-primary.mx-5.px-5 {
   display: none;
 }
 
-.max-width {
+/* .max-width {
   max-width: 10%
 
-}
+} */
 
 .dropdown-ul-list li {
   padding: 2px 4px;
@@ -301,9 +301,7 @@ hr {
 }
 
 @media screen and (max-width:767px) {
-  .max-width {
-    max-width: 95%
-  }
+  
   .tab-width{
     width: 100% !important;
   }
@@ -399,9 +397,65 @@ hr {
 .report-width{
   width: 60%;
 }
-.client-dropdown-width{
-  width: 16%;
-}
+
 .text-small{
   font-size: small;
+}
+/* responsive tabs */
+@media screen and (min-width:320px) {
+  .tab-width{
+    width: 100%;
+  }
+  .tab-responsive{
+    width: 100% !important;
+    margin-left: 0px !important;
+  }
+}
+@media screen and (min-width:768px) {
+  .tab-width{
+    width: 100%;
+  }
+  .tab-responsive{
+    width: 100% !important;
+    margin-left: 0px !important;
+  }
+  .max-width{
+    width:118px !important;
+  }
+  .report-width{
+    width:600px !important;
+  }
+  .client-dropdown-width{
+    width: 185px !important;
+  }
+}
+@media screen and (min-width:1024px) {
+  .tab-width{
+    width: 80%;
+  }
+  .tab-responsive{
+    width: 100% !important;
+    margin-left: 95px !important;
+  }
+  .report-width{
+    width:500px;
+  }
+  .max-width{
+    width:122px !important;
+  }
+}
+@media screen and (min-width:1440px) {
+  .tab-width{
+    width: 80%;
+  }
+  .tab-responsive{
+    width: 100% !important;
+    margin-left: 132px !important;
+  }
+  .max-width{
+    width:170px !important;
+  }
+  .client-dropdown-width{
+    width: 255px !important;
+  }
 }

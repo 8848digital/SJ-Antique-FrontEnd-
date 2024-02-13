@@ -87,23 +87,25 @@ const BarcodeMaster = () => {
       </div>
       <div className="tab-content " id="pills-tabContent">
         <div
-          className="tab-pane fade "
+          className="tab-pane fade tab-width"
           id="pills-list"
           role="tabpanel"
           aria-labelledby="pills-home-tab"
         >
-          <BarcodeListingTable
-            BarcodeListData={filteredList}
-            handleMultipleBarcodePrint={handleMultipleBarcodePrint}
-            handleCheckboxForBarcodePrint={handleCheckboxForBarcodePrint}
-            setSearchItemCode={setSearchItemCode}
-            searchItemCode={searchItemCode}
-            handleBarcodePrint={handleBarcodePrint}
-            multipleRecordsForPrint={multipleRecordsForPrint}
-            selectAll={selectAll}
-            setSelectAll={setSelectAll}
-            handleSelectAll={handleSelectAll}
-          />
+          <div className="tab-responsive">
+            <BarcodeListingTable
+              BarcodeListData={filteredList}
+              handleMultipleBarcodePrint={handleMultipleBarcodePrint}
+              handleCheckboxForBarcodePrint={handleCheckboxForBarcodePrint}
+              setSearchItemCode={setSearchItemCode}
+              searchItemCode={searchItemCode}
+              handleBarcodePrint={handleBarcodePrint}
+              multipleRecordsForPrint={multipleRecordsForPrint}
+              selectAll={selectAll}
+              setSelectAll={setSelectAll}
+              handleSelectAll={handleSelectAll}
+            />
+          </div>
         </div>
         <div
           className="tab-pane active fade show"

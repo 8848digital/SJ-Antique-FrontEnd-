@@ -52,8 +52,8 @@ const SaleReturnsMaster = () => {
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
-        return data.is_return === 1;
-      })
+          return data.is_return === 1;
+        })
       : [];
 
   return (
@@ -67,38 +67,37 @@ const SaleReturnsMaster = () => {
           />
         </div>
 
-        <div
-          className="tab-content d-flex justify-content-center"
-          id="pills-tabContent"
-        >
+        <div className="tab-content " id="pills-tabContent">
           <div
             className="tab-pane fade show active tab-width"
             id="pills-home"
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <KundanListing
-              kundanListing={salesReturnListing}
-              karigarData={
-                clientNameListData?.length > 0 &&
-                clientNameListData !== null &&
-                clientNameListData.map((data: any) => ({
-                  karigar_name: data.client_name,
-                }))
-              }
-              colPlaceholder1={'Sales no.'}
-              colPlaceholder2={'Client '}
-              HandleDeleteReceipt={handleDeleteSalesReturn}
-              HandleUpdateDocStatus={HandleUpdateDocStatus}
-              printApiMethod={'print_delivery_note_sales'}
-              printApiEntity={'sales'}
-              deleteApiVersion={'v1'}
-              deleteApiMethod={'delete_delivery_note_sales_return'}
-              deleteApiEntity={'sales_return'}
-              kunKarigarDropdownReset={itemCodeDropdownReset}
-              setKunKarigarDropdownReset={setItemCodeDropdownReset}
-            // purchasRecieptListParams={deliveryNoteListParams}
-            />
+            <div className="tab-responsive">
+              <KundanListing
+                kundanListing={salesReturnListing}
+                karigarData={
+                  clientNameListData?.length > 0 &&
+                  clientNameListData !== null &&
+                  clientNameListData.map((data: any) => ({
+                    karigar_name: data.client_name,
+                  }))
+                }
+                colPlaceholder1={'Sales no.'}
+                colPlaceholder2={'Client '}
+                HandleDeleteReceipt={handleDeleteSalesReturn}
+                HandleUpdateDocStatus={HandleUpdateDocStatus}
+                printApiMethod={'print_delivery_note_sales'}
+                printApiEntity={'sales'}
+                deleteApiVersion={'v1'}
+                deleteApiMethod={'delete_delivery_note_sales_return'}
+                deleteApiEntity={'sales_return'}
+                kunKarigarDropdownReset={itemCodeDropdownReset}
+                setKunKarigarDropdownReset={setItemCodeDropdownReset}
+                // purchasRecieptListParams={deliveryNoteListParams}
+              />
+            </div>
           </div>
           <div
             className="tab-pane fade"

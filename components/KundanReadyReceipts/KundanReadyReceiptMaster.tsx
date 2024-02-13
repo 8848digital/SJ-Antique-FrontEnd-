@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
 import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
 import TabSection from '../TabSection';
+import { Tab, Tabs } from 'react-bootstrap';
 
 const ReadyReceiptKundanKarigarMaster = () => {
   const {
@@ -69,7 +70,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
   console.log(lastPartOfURL, ' @RR type');
 
   return (
-    <div className="container-lg">
+    <div className="container-lg ">
       <div>
         <div className="d-flex justify-content-center">
           <TabSection
@@ -77,17 +78,14 @@ const ReadyReceiptKundanKarigarMaster = () => {
             secondTabHeading="Create new ready receipt"
           />
         </div>
-        <div
-          className="tab-content d-flex justify-content-center"
-          id="pills-tabContent"
-        >
+        <div className="tab-content " id="pills-tabContent">
           <div
             className="tab-pane fade show active tab-width"
             id="pills-home"
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <div>
+            <div className="tab-responsive ">
               <KundanListing
                 kundanListing={kundanListing}
                 setKundanListing={setKundanListing}
@@ -138,7 +136,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   Create
                 </button>
               </div>
-              <div className=" table">
+              <div className=" table-responsive">
                 <KundanTable
                   handleRecipietChange={handleRecipietChange}
                   recieptData={recipitData}
@@ -231,6 +229,38 @@ const ReadyReceiptKundanKarigarMaster = () => {
         />
       </div>
     </div>
+    // <div className="container-lg">
+    //   <Tabs
+    //     defaultActiveKey="list"
+    //     id="uncontrolled-tab-example"
+    //     className="mb-3 w-100 d-flex justify-content-center"
+    //   >
+    //     <Tab eventKey="list" title="Ready receipt (kundan karigar)">
+    //       Tab content for Home
+    //     </Tab>
+    //     <Tab eventKey="create" title="Create new ready receipt">
+    //       <KundanTable
+    //         handleRecipietChange={handleRecipietChange}
+    //         recieptData={recipitData}
+    //         karigarData={karigarData}
+    //         setRecipitData={setRecipitData}
+    //         selectedDropdownValue={selectedDropdownValue}
+    //         setSelectedDropdownValue={setSelectedDropdownValue}
+    //         readyReceiptType={readyReceiptType}
+    //         setReadyReceiptType={setReadyReceiptType}
+    //         stateForDocStatus={stateForDocStatus}
+    //         setStateForDocStatus={setStateForDocStatus}
+    //         readOnlyFields={readOnlyFields}
+    //         setReadOnlyFields={setReadOnlyFields}
+    //         warehouseListData={warehouseListData}
+    //         selectedLocation={selectedLocation}
+    //         setSelectedLocation={setSelectedLocation}
+    //         kunKarigarDropdownReset={kunKarigarDropdownReset}
+    //         setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+    //       />
+    //     </Tab>
+    //   </Tabs>
+    // </div>
   );
 };
 

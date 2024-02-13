@@ -35,7 +35,7 @@ const KundanTable = ({
   }, [router, setReadyReceiptType, defaultKarigarData, lastPartOfURL]);
 
   return (
-    <>
+    <div className="table-responsive">
       <table className="table table-hover table-bordered my-0">
         <thead>
           <tr>
@@ -142,7 +142,7 @@ const KundanTable = ({
           </tr>
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

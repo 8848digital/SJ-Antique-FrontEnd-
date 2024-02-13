@@ -24,7 +24,7 @@ const FilterKundanReadyReceiptListing = ({
   console.log('receiptt', searchReceiptNumber);
   return (
     <div className="p-0 px-1">
-      <div className="d-flex justify-content-between">
+      <div className="d-flex flex-wrap justify-content-between">
         <div className="col-sm-2 p-0">
           <label className="text-grey">From Date</label>
           <div>

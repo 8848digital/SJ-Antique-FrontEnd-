@@ -40,30 +40,30 @@ const ReportFilterListing: any = ({
           />
         </div>
       )}
-      <div className="mx-1 col-sm-2">
-        <label className="text-grey">From Date</label>
+      <div className="col-sm-3 p-0">
+        <label className="text-grey">FromDate</label>
         <div>
           <input
             type="date"
             name="from_date"
-            className="form-control input-fields custom-input-field line-height p-1 "
+            className="form-control input-fields custom-input-field line-height  "
             onChange={HandleSearchInput}
           />
         </div>
       </div>
-      <div className="mx-1 col-sm-2">
+      <div className="col-sm-3 p-0 ">
         <label className="text-grey">To Date</label>
         <div>
           <input
             type="date"
             name="to_date"
-            className="form-control input-fields custom-input-field line-height p-1 "
+            className="form-control input-fields custom-input-field line-height "
             onChange={HandleSearchInput}
           />
         </div>
       </div>
       {reportName === 'Item Status Report' && (
-        <div className="col-sm-2 mx-1">
+        <div className="col-sm-2 p-0">
           <label className="text-grey">Voucher Name</label>
           <SearchSelectInputField
             karigarData={voucherNumber}
@@ -78,13 +78,13 @@ const ReportFilterListing: any = ({
         </div>
       )}
       {reportName === 'Daily Quantity Status Report' && (
-        <div className="col-md-3 mx-1">
+        <div className="col-md-3 p-0">
           <label className="text-grey">Name</label>
           <SearchSelectInputField
             karigarData={name}
             placeholder="Name"
-            className="form-control input-fields custom-input-field line-height p-1"
-            style="w-18"
+            className="form-control input-fields custom-input-field line-height "
+            style="max-width"
             selectedDropdownValue={searchName}
             setSelectedDropdownValue={setSearchName}
             selectDropDownReset={selectDropDownReset}

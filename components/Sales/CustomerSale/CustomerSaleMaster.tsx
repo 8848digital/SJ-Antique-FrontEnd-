@@ -75,38 +75,37 @@ const CustomerSaleMaster = () => {
           secondTabHeading="Create new Sales "
         />
       </div>
-      <div
-        className="tab-content d-flex justify-content-center"
-        id="pills-tabContent"
-      >
+      <div className="tab-content " id="pills-tabContent">
         <div
           className="tab-pane fade show active tab-width"
           id="pills-home"
           role="tabpanel"
           aria-labelledby="pills-home-tab"
         >
-          <KundanListing
-            kundanListing={kundanListing}
-            karigarData={
-              clientNameListData?.length > 0 &&
-              clientNameListData !== null &&
-              clientNameListData.map((data: any) => ({
-                karigar_name: data.client_name,
-              }))
-            }
-            colPlaceholder1={'Sales No.'}
-            colPlaceholder2={'Client '}
-            HandleDeleteReceipt={HandleDeleteDeliveryNote}
-            HandleUpdateDocStatus={HandleUpdateDocStatus}
-            printApiMethod={'print_delivery_note_sales'}
-            printApiEntity={'sales'}
-            deleteApiVersion={'v1'}
-            deleteApiMethod={'delete_delivery_note_api'}
-            deleteApiEntity={'sales'}
-            purchasRecieptListParams={deliveryNoteListParams}
-            kunKarigarDropdownReset={itemCodeDropdownReset}
-            setKunKarigarDropdownReset={setItemCodeDropdownReset}
-          />
+          <div className="tab-responsive">
+            <KundanListing
+              kundanListing={kundanListing}
+              karigarData={
+                clientNameListData?.length > 0 &&
+                clientNameListData !== null &&
+                clientNameListData.map((data: any) => ({
+                  karigar_name: data.client_name,
+                }))
+              }
+              colPlaceholder1={'Sales No.'}
+              colPlaceholder2={'Client '}
+              HandleDeleteReceipt={HandleDeleteDeliveryNote}
+              HandleUpdateDocStatus={HandleUpdateDocStatus}
+              printApiMethod={'print_delivery_note_sales'}
+              printApiEntity={'sales'}
+              deleteApiVersion={'v1'}
+              deleteApiMethod={'delete_delivery_note_api'}
+              deleteApiEntity={'sales'}
+              purchasRecieptListParams={deliveryNoteListParams}
+              kunKarigarDropdownReset={itemCodeDropdownReset}
+              setKunKarigarDropdownReset={setItemCodeDropdownReset}
+            />
+          </div>
         </div>
         <div
           className="tab-pane fade w-auto"

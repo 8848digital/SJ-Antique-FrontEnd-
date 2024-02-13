@@ -26,7 +26,7 @@ const BarcodeListingTable: any = ({
   return (
     <div className="container">
       <div className="d-flex justify-content-between mb-2 ">
-        <div className="col-md-2">
+        <div className="col-sm-2">
           {/* <label className="text-grey px-2">Item code</label> */}
           <div>
             <SearchSelectInputField
@@ -76,7 +76,7 @@ const BarcodeListingTable: any = ({
         </div>
       )}
 
-      <div className="row d-flex ">
+      <div className="row d-flex  ">
         <div
           className={`col-sm ${styled.custom_table_head}  p-0 border text-center`}
         >

@@ -25,7 +25,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container-lg">
       <div className=" bg-light">
         <nav
           className="d-flex"
