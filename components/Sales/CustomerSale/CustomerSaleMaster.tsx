@@ -47,6 +47,9 @@ const CustomerSaleMaster = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
+    barcodedata,
+    setBarcodeData,
+    handleBarcodeData,
   }: any = UseCustomerSaleHook();
   const {
     scrollableTableRef,
@@ -145,6 +148,9 @@ const CustomerSaleMaster = () => {
               deliveryNoteData={deliveryNoteData}
               itemCodeDropdownReset={itemCodeDropdownReset}
               setItemCodeDropdownReset={setItemCodeDropdownReset}
+              barcodedata={barcodedata}
+              setBarcodeData={setBarcodeData}
+              handleBarcodeData={handleBarcodeData}
             />
             <CustomerSalesTable2
               kunCsOtCategoryListData={kunCsOtCategoryListData}

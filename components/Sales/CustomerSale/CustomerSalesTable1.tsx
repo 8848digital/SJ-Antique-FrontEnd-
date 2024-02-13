@@ -21,6 +21,9 @@ const CustomerSalesTable1 = ({
   deliveryNoteData,
   itemCodeDropdownReset,
   setItemCodeDropdownReset,
+  barcodedata,
+  setBarcodeData,
+  handleBarcodeData,
 }: any) => {
   const { query } = useRouter();
 
@@ -47,6 +50,11 @@ const CustomerSalesTable1 = ({
             <th className="thead" scope="col">
               Location
             </th>
+            {query?.saleId === 'customerSale' && (
+              <th className="thead " scope="col">
+                Barcode
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -122,6 +130,16 @@ const CustomerSalesTable1 = ({
                 setSelectDropDownReset={setItemCodeDropdownReset}
               />
             </td>
+            {query?.saleId === 'customerSale' && (
+              <td className="table_row">
+                <input
+                  type="checkbox"
+                  className="m-0 mt-1"
+                  onChange={handleBarcodeData}
+                />
+                <label className="ps-1">Yes</label>
+              </td>
+            )}
           </tr>
         </tbody>
       </table>

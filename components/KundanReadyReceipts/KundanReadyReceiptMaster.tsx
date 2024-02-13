@@ -136,7 +136,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   Create
                 </button>
               </div>
-              <div className=" table-responsive">
+              <div className=" ">
                 <KundanTable
                   handleRecipietChange={handleRecipietChange}
                   recieptData={recipitData}

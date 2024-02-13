@@ -12,7 +12,7 @@ const BarcodeFilterListing: any = ({
   handleSearchBtn,
 }: any) => {
   return (
-    <div className="tab-width d-flex justify-content-center ">
+    <div className="tab-width d-flex flex-wrap justify-content-start ">
       <div className="p-1">
         <label className={` ${styles.label_font_size}`}>Date</label>
         <input
@@ -35,7 +35,7 @@ const BarcodeFilterListing: any = ({
           setSelectDropDownReset={setSelectDropDownReset}
         />
       </div>
-      <div className="col-lg-1 col-md-2 p-1 ">
+      <div className="col-sm-1  p-1 ">
         <label className={` ${styles.label_font_size}`}>ItemGroup</label>
         <input
           type="text"
@@ -79,8 +79,8 @@ const BarcodeFilterListing: any = ({
           <option value="no">G</option>
         </select>
       </div>
-      <div className="col-sm-1 p-0 p-1">
-        <label className={` ${styles.label_font_size}`}>BarcodeCreated?</label>
+      <div className=" p-0 p-1">
+        <label className={` ${styles.label_font_size}`}>Barcode Created?</label>
 
         <select
           className="form-select line-height text-center p-1 "
@@ -94,14 +94,14 @@ const BarcodeFilterListing: any = ({
           <option value="no">No</option>
         </select>
       </div>
-      <div className="col-sm-2 p-0 mt-2 align-items-end">
-        <div className="mt-3 mx-auto mx-2 text-center">
-          <button className="btn btn-primary m-0 p-1" onClick={handleSearchBtn}>
-            <i className="fa-solid fa-magnifying-glass pe-2"></i>
-            Search
-          </button>
-        </div>
+      {/* <div className="col-sm-2 p-0 mt-2 align-items-end"> */}
+      <div className="mt-4 mb-1 ms-2 d-flex justify-content-start">
+        <button className="btn btn-primary m-0 p-1" onClick={handleSearchBtn}>
+          <i className="fa-solid fa-magnifying-glass pe-2"></i>
+          Search
+        </button>
       </div>
+      {/* </div> */}
     </div>
   );
 };

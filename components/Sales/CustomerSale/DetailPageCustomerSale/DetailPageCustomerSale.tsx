@@ -57,6 +57,9 @@ const DetailPageCustomerSale = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
+    barcodedata,
+    setBarcodeData,
+    handleBarcodeData,
   }: any = UseCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -73,7 +76,7 @@ const DetailPageCustomerSale = () => {
       ) : (
         <>
           {DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
-            isLoading === false ? (
+          isLoading === false ? (
             <NoRecord
               title={`No Record Found 😥`}
               heading=""
@@ -112,6 +115,7 @@ const DetailPageCustomerSale = () => {
                 deliveryNoteData={deliveryNoteData}
                 // itemCodeDropdownReset={itemCodeDropdownReset}
                 setItemCodeDropdownReset={setItemCodeDropdownReset}
+                handleBarcodeData={handleBarcodeData}
               />
               <CustomerSalesTable2
                 kunCsOtCategoryListData={kunCsOtCategoryListData}
