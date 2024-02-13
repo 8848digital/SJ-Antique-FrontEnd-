@@ -106,19 +106,31 @@ const UseBarcodeFilterList = () => {
         searchKarigar !== undefined ? searchKarigar : '',
         loginAcessToken?.token
       );
-    console.log(
-      'searchBarcodeItemCodeDetailsApi res',
-      searchBarcodeItemCodeDetailsApi
-    );
+
     if (searchBarcodeItemCodeDetailsApi?.data?.message?.status === 'success') {
-      setItemCodeDataToShow(
-        searchBarcodeItemCodeDetailsApi?.data?.message?.data
+      console.log("get item code by search", searchBarcodeItemCodeDetailsApi.data.message.data)
+      const getBarcodeListingData: any = await getBarcodeListingApi(
+        loginAcessToken.token
       );
-      const ids = searchBarcodeItemCodeDetailsApi?.data?.message?.data.map(
-        (item: any) => ({ id: item.idx, name: item.name })
-      );
-      // Update state once with all IDs
-      setCheckedItems(ids);
+      let barcodeListingDataResult: any = getBarcodeListingData?.data?.message?.data
+      let searchBarcodeItemDetailsResult: any = searchBarcodeItemCodeDetailsApi?.data?.message?.data
+      const checkItemCodesToShow: any = searchBarcodeItemDetailsResult?.length > 0 && searchBarcodeItemDetailsResult.filter((data: any) => {
+        return barcodeListingDataResult?.length > 0 && barcodeListingDataResult.some((barcodeItem: any) => barcodeItem.item_code === data.name);
+      });
+
+      if (searchBarcodeFilterData.barcode_created === "yes") {
+        setItemCodeDataToShow(checkItemCodesToShow);
+        const ids = checkItemCodesToShow?.length > 0 && checkItemCodesToShow.map(
+          (item: any) => ({ id: item.idx, name: item.name })
+        );
+        setCheckedItems(ids);
+      } else {
+        setItemCodeDataToShow(searchBarcodeItemDetailsResult)
+        const ids = searchBarcodeItemDetailsResult?.length > 0 && searchBarcodeItemDetailsResult.map(
+          (item: any) => ({ id: item.idx, name: item.name })
+        );
+        setCheckedItems(ids);
+      }
     }
     setShowCategorySection(true);
     setShowBarcodeTableSection(false);
