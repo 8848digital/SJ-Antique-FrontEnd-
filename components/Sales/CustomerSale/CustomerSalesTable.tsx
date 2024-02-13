@@ -81,11 +81,12 @@ const CustomerSalesTable = ({
 
     // Calculate total custom amount
     const totalCustomAmount = salesTableData.reduce((total: any, item: any) => {
+      console.log("calculation tableData values", item.custom_cs, item.custom_cs_amt)
       return (
         total +
-        (parseFloat(item.custom_cs) * parseFloat(item.custom_cs_amt) || 0) +  // Corrected parentheses placement
-        (parseFloat(item.custom_kun_pc) * parseFloat(item.custom_kun) || 0) + // Corrected parentheses placement
-        (parseFloat(item.custom_other_wt) * parseFloat(item.custom_ot_) || 0) + // Corrected parentheses placement
+        (parseFloat(item.custom_cs_amt) || 0) +  // custom_cs_amt
+        (parseFloat(item.custom_kun_amt) || 0) + // custom_kun_amt
+        (parseFloat(item.custom_ot_amt) || 0) + // custom_ot_amt
         (parseFloat(item.custom_other) || 0)
       );
     }, 0);
