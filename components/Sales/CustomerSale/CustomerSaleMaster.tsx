@@ -50,6 +50,7 @@ const CustomerSaleMaster = () => {
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
+    barcodeListData,
   }: any = UseCustomerSaleHook();
   const {
     scrollableTableRef,
@@ -187,6 +188,8 @@ const CustomerSaleMaster = () => {
               handleMouseLeave={handleMouseLeave}
               handleMouseMove={handleMouseMove}
               showAdditionalInputForCalculation={true}
+              barcodeListData={barcodeListData}
+              barcodedata={barcodedata}
             />
           </div>
         </div>

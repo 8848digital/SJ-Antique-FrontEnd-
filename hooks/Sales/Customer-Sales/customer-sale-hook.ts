@@ -18,6 +18,7 @@ import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import { GetDetailOfDeliveryNote } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
+import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
 
 const UseCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -49,6 +50,7 @@ const UseCustomerSaleHook = () => {
     store_location: '',
   });
   const [warehouseListData, setWarehouseListData] = useState<any>();
+  const [barcodeListData, setBarcodeListData] = useState<any>();
   const [selectedClient, setSelectedClient] = useState<string>('');
   const [selectedLocation, setSelectedLocation] = useState<string>('Mumbai');
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
@@ -98,6 +100,12 @@ const UseCustomerSaleHook = () => {
       }
       if (warehouseData?.data?.message?.status === 'success') {
         setWarehouseListData(warehouseData?.data?.message?.data);
+      }
+      const BarcodeData: any = await getBarcodeListingApi(
+        loginAcessToken.token
+      );
+      if (BarcodeData?.data?.message?.status === 'success') {
+        setBarcodeListData(BarcodeData?.data?.message?.data);
       }
     };
 
@@ -683,6 +691,7 @@ const UseCustomerSaleHook = () => {
   };
   const handleBarcodeData = () => {
     setBarcodeData(!barcodedata);
+    setStateForDocStatus(true);
   };
 
   return {
@@ -730,6 +739,7 @@ const UseCustomerSaleHook = () => {
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
+    barcodeListData,
   };
 };
 

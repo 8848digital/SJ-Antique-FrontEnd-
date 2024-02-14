@@ -60,6 +60,7 @@ const DetailPageCustomerSale = () => {
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
+    barcodeListData,
   }: any = UseCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -149,6 +150,10 @@ const DetailPageCustomerSale = () => {
                 kunCsOtFixedAmt={kunCsOtFixedAmt}
                 setKunCsOtFixedAmt={setKunCsOtFixedAmt}
                 HandleFixedAmt={HandleFixedAmt}
+                showAdditionalInputForCalculation={true}
+                handleBarcodeData={handleBarcodeData}
+                barcodeListData={barcodeListData}
+                barcodedata={barcodedata}
               />
             </div>
           )}

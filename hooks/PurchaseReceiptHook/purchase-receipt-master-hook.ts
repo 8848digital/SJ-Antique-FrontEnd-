@@ -320,6 +320,7 @@ const useReadyReceiptKarigar = () => {
       handleAddRow('tableRow');
     }
     setStateForDocStatus(true);
+    firstInputRef?.current?.focus();
   };
 
   const handleCreate = async () => {
@@ -379,9 +380,9 @@ const useReadyReceiptKarigar = () => {
     );
 
     const values = {
-      version: "v1",
-      method: "create_purchase_receipt",
-      entity: "purchase_receipt",
+      version: 'v1',
+      method: 'create_purchase_receipt',
+      entity: 'purchase_receipt',
       ...recipitData,
       items: modalValue,
     };
@@ -508,9 +509,9 @@ const useReadyReceiptKarigar = () => {
     }));
 
     const values = {
-      version: "v1",
-      method: "put_purchase_receipt",
-      entity: "purchase_receipt",
+      version: 'v1',
+      method: 'put_purchase_receipt',
+      entity: 'purchase_receipt',
       ...recipitData,
       items: updatedMergedList,
     };

@@ -92,6 +92,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
   console.log(calculationRow, 'calculation tableData ');
 
   useEffect(() => {
+    console.log(
+      tableData?.length,
+      SpecificDataFromStore,
+      'master table data focus'
+    );
     if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
     } else {
@@ -157,7 +162,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
                   <td className="table_row">{item.idx}</td>
                   <td className="table_row">
                     <input
-                      ref={firstInputRef}
                       className={` ${styles.input_field} text-center`}
                       type="text"
                       defaultValue={item?.product_code}
@@ -171,6 +175,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         )
                       }
                       readOnly={readOnlyFields}
+                      // ref={firstInputRef}
                     />
                   </td>
                   <td className="table_row">
@@ -266,7 +271,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       disabled
                       name={`sum-${i + 1}`}
                       // value={calculateGrossWt(i)?.toFixed(3)}
-                      value={item.custom_gross_wt}
+                      value={item.custom_gross_wt.toFixed(3)}
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||

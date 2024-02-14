@@ -52,6 +52,7 @@ const UseCustomerSaleDetailHook = () => {
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
+    barcodeListData,
   }: any = UseCustomerSaleHook();
 
   console.log('selected category default', selectedCategory);
@@ -402,6 +403,7 @@ const UseCustomerSaleDetailHook = () => {
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
+    barcodeListData,
   };
 };
 
