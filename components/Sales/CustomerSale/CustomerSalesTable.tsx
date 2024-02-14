@@ -5,6 +5,8 @@ import styles from '../../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
 import SalesTableHeader from './SalesTableHeader';
 import TotalReadOnlyRowForSales from '../TotalReadOnlyRowForSales';
+import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
+import { useSelector } from 'react-redux';
 
 const CustomerSalesTable = ({
   salesTableData,
@@ -35,6 +37,7 @@ const CustomerSalesTable = ({
   barcodeListData,
 }: any) => {
   console.log(salesTableData, 'sales table data ');
+  const DetailOfDeliveryNoteFromStore: any = useSelector(get_detail_delivery_note_data);
   const initialStateOfCalculationRow: any = {
     custom_gross_wt: 0,
     custom_kun_wt: 0,
@@ -105,7 +108,7 @@ const CustomerSalesTable = ({
         return (
           total +
           (parseFloat(item.custom_other_wt) || 0) *
-            (parseFloat(item.custom_ot_) || 0)
+          (parseFloat(item.custom_ot_) || 0)
         );
       },
       0
@@ -118,7 +121,7 @@ const CustomerSalesTable = ({
         return (
           total +
           (parseFloat(item.custom_cs) || 0) *
-            (parseFloat(item.custom_cs_wt) || 0)
+          (parseFloat(item.custom_cs_wt) || 0)
         );
       },
       0
@@ -189,7 +192,7 @@ const CustomerSalesTable = ({
         >
           <table className="table table-hover table-bordered cursor">
             <thead>
-              {showAdditionalInputForCalculation && (
+              {showAdditionalInputForCalculation && DetailOfDeliveryNoteFromStore?.docStatus < 1 && (
                 <tr className={`${styles.table_row} border-0`}>
                   <td className="table_row border-0"></td>
                   <td className="table_row border-0"></td>
@@ -277,11 +280,11 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             item?.custom_gross_wt !== '' &&
-                              item?.custom_gross_wt
+                            item?.custom_gross_wt
                           )?.toFixed(3)}
                           defaultValue={Number(
                             item?.custom_gross_wt !== '' &&
-                              item?.custom_gross_wt
+                            item?.custom_gross_wt
                           )?.toFixed(3)}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -363,7 +366,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -380,10 +383,10 @@ const CustomerSalesTable = ({
                               0
                               ? 0
                               : Number(item.custom_gross_wt) -
-                                  (Number(item.custom_kun_wt) +
-                                    Number(item.custom_cs_wt) +
-                                    Number(item.custom_bb_wt) +
-                                    Number(item.custom_other_wt))
+                              (Number(item.custom_kun_wt) +
+                                Number(item.custom_cs_wt) +
+                                Number(item.custom_bb_wt) +
+                                Number(item.custom_other_wt))
                           )?.toFixed(3)}
                           defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
                           readOnly
@@ -512,11 +515,11 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             Number(item.custom_other_wt) *
-                              Number(item.custom_ot_)
+                            Number(item.custom_ot_)
                           )?.toFixed(2)}
                           defaultValue={Number(
                             Number(item.custom_other_wt) *
-                              Number(item.custom_ot_)
+                            Number(item.custom_ot_)
                           )?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
@@ -555,17 +558,17 @@ const CustomerSalesTable = ({
                             (Number.isNaN(item.custom_cs_amt)
                               ? 0
                               : Number(item?.custom_cs_amt)) +
-                              Number(item?.custom_kun_amt) +
-                              (Number.isNaN(item.custom_ot_amt)
-                                ? 0
-                                : Number(item?.custom_ot_amt)) +
-                              Number(item?.custom_other)
+                            Number(item?.custom_kun_amt) +
+                            (Number.isNaN(item.custom_ot_amt)
+                              ? 0
+                              : Number(item?.custom_ot_amt)) +
+                            Number(item?.custom_other)
                           )?.toFixed(2)}
                           defaultValue={Number(
                             Number(item?.custom_cs_amt) +
-                              Number(item?.custom_kun_amt) +
-                              Number(item?.custom_ot_amt) +
-                              Number(item?.custom_other)
+                            Number(item?.custom_kun_amt) +
+                            Number(item?.custom_ot_amt) +
+                            Number(item?.custom_other)
                           )}
                           readOnly
                           onChange={(e) =>
