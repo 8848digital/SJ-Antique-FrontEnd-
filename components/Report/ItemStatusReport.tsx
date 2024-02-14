@@ -163,7 +163,9 @@ const ItemStatusReport: any = ({
                             {index >= filteredList.length - 2 &&
                             reportName === 'Daily Quantity Status Report'
                               ? ''
-                              : index + 1}
+                              : index > 0
+                              ? index
+                              : ''}
                           </td>
                           {Object.values(item).map(
                             (value: any, innerIndex: number) => (
