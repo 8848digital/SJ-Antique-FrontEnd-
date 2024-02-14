@@ -86,8 +86,6 @@ const UseCustomerSaleHook = () => {
       }
       let itemListApi: any = await getItemListInSalesApi(loginAcessToken.token);
 
-      // if (itemListApi?.data?.message?.status === 'success') {
-      // }
       if (itemListApi?.data?.data?.length > 0) {
         setItemList(itemListApi?.data?.data);
       }

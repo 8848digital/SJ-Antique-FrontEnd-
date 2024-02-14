@@ -58,7 +58,7 @@ const BarcodeCategorySection = ({
                 ))}
 
             </>
-          ) : "no data"}
+          ) : ""}
         </div>
       </div>
     </div>
