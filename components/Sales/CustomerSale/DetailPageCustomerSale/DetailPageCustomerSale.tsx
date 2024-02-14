@@ -61,6 +61,7 @@ const DetailPageCustomerSale = () => {
     setBarcodeData,
     handleBarcodeData,
     barcodeListData,
+    isBarcodeChecked,
   }: any = UseCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -117,6 +118,7 @@ const DetailPageCustomerSale = () => {
                 // itemCodeDropdownReset={itemCodeDropdownReset}
                 setItemCodeDropdownReset={setItemCodeDropdownReset}
                 handleBarcodeData={handleBarcodeData}
+                isBarcodeChecked={isBarcodeChecked}
               />
               <CustomerSalesTable2
                 kunCsOtCategoryListData={kunCsOtCategoryListData}

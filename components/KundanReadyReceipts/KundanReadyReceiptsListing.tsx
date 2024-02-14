@@ -222,7 +222,7 @@ const KundanListing = ({
             : filteredList?.length}
         </div>
       )}
-      <table className="table table-striped table-hover my-0">
+      <table className="table table-striped table-hover my-0 mt-">
         <thead>
           <tr className="row d-flex p-0 px-3">
             <th className={`thead  col-sm-1`}>Sr No.</th>

@@ -34,7 +34,7 @@ const CustomerSalesTable = ({
   barcodedata,
   barcodeListData,
 }: any) => {
-  console.log(salesTableData, 'selected name and value');
+  console.log(salesTableData, 'sales table data ');
   const initialStateOfCalculationRow: any = {
     custom_gross_wt: 0,
     custom_kun_wt: 0,
@@ -143,7 +143,7 @@ const CustomerSalesTable = ({
     setCalculationRow(liveCalculations);
   };
   const itemCodeList = () => {
-    if (barcodedata === true) {
+    if (barcodedata === 1) {
       const namesArray =
         barcodeListData?.length > 0 &&
         barcodeListData !== null &&

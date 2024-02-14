@@ -53,6 +53,8 @@ const UseCustomerSaleDetailHook = () => {
     setBarcodeData,
     handleBarcodeData,
     barcodeListData,
+    setIsBarcodeChecked,
+    isBarcodeChecked,
   }: any = UseCustomerSaleHook();
 
   console.log('selected category default', selectedCategory);
@@ -157,21 +159,13 @@ const UseCustomerSaleDetailHook = () => {
       DetailOfDeliveryNoteFromStore?.isLoading === 'succeeded'
     ) {
       setIsLoading(false);
-      const parseNumericValue = (value: any) => {
-        const parsedValue = parseFloat(value);
-        return isNaN(parsedValue) ? 0 : parsedValue;
-      };
-      // const processedItems = DetailOfDeliveryNoteFromStore?.data?.items.map(
-      //   (item: any) => {
-      //     return {
-      //       ...item,
-      //       custom_amount: parseNumericValue(item.custom_amount) || 0,
-      //       custom_cs_amt: parseNumericValue(item.custom_cs_amt) || 0,
-      //     };
-      //   }
-      // );
       setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
-
+      setBarcodeData(DetailOfDeliveryNoteFromStore?.data?.custom_is_barcode);
+      setIsBarcodeChecked(
+        DetailOfDeliveryNoteFromStore?.data?.custom_is_barcode === 1
+          ? true
+          : false
+      );
       setSelectedClient(
         DetailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
@@ -222,29 +216,29 @@ const UseCustomerSaleDetailHook = () => {
 
         return {
           ...updatedObject,
-          custom_net_wt:
-            Number(data?.custom_gross_wt) -
-              (Number(data?.custom_kun_wt) +
-                Number(data?.custom_cs_wt) +
-                Number(data?.custom_bb_wt) +
-                Number(data?.custom_other_wt)) <
-            0
-              ? 0
-              : Number(data?.custom_gross_wt) -
-                (Number(data?.custom_kun_wt) +
-                  Number(data?.custom_cs_wt) +
-                  Number(data?.custom_bb_wt) +
-                  Number(data?.custom_other_wt)),
-          custom_amount: Number(
-            (Number.isNaN(data.custom_cs_amt)
-              ? 0
-              : Number(data?.custom_cs_amt)) +
-              Number(data?.custom_kun_amt) +
-              (Number.isNaN(data.custom_ot_amt)
-                ? 0
-                : Number(data?.custom_ot_amt)) +
-              Number(data?.custom_other)
-          )?.toFixed(2),
+          // custom_net_wt:
+          //   Number(data?.custom_gross_wt) -
+          //     (Number(data?.custom_kun_wt) +
+          //       Number(data?.custom_cs_wt) +
+          //       Number(data?.custom_bb_wt) +
+          //       Number(data?.custom_other_wt)) <
+          //   0
+          //     ? 0
+          //     : Number(data?.custom_gross_wt) -
+          //       (Number(data?.custom_kun_wt) +
+          //         Number(data?.custom_cs_wt) +
+          //         Number(data?.custom_bb_wt) +
+          //         Number(data?.custom_other_wt)),
+          // custom_amount: Number(
+          //   (Number.isNaN(data.custom_cs_amt)
+          //     ? 0
+          //     : Number(data?.custom_cs_amt)) +
+          //     Number(data?.custom_kun_amt) +
+          //     (Number.isNaN(data.custom_ot_amt)
+          //       ? 0
+          //       : Number(data?.custom_ot_amt)) +
+          //     Number(data?.custom_other)
+          // )?.toFixed(2),
           // custom_cs_amt:
           //   Number(data?.custom_cs_amt) === null
           //     ? 0
@@ -265,6 +259,7 @@ const UseCustomerSaleDetailHook = () => {
         selectedLocation !== '' && selectedLocation !== undefined
           ? selectedLocation
           : 'Mumbai',
+      custom_is_barcode: barcodedata,
       custom_kun_category: selectedCategory?.KunCategory?.name1,
       custom_cs_category: selectedCategory?.CsCategory?.name1,
       custom_bb_category: selectedCategory?.BBCategory?.name1,
@@ -404,6 +399,7 @@ const UseCustomerSaleDetailHook = () => {
     setBarcodeData,
     handleBarcodeData,
     barcodeListData,
+    isBarcodeChecked,
   };
 };
 

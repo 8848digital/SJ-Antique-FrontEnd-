@@ -24,10 +24,10 @@ const CustomerSalesTable1 = ({
   barcodedata,
   setBarcodeData,
   handleBarcodeData,
+  isBarcodeChecked,
 }: any) => {
   const { query } = useRouter();
-
-  console.log('defaultSalesDate in sales', defaultSalesDate);
+  console.log(isBarcodeChecked, 'is barcode checked');
   return (
     <div className=" mt-2">
       <table className="table table-hover table-bordered">
@@ -136,6 +136,7 @@ const CustomerSalesTable1 = ({
                   type="checkbox"
                   className="m-0 mt-1"
                   onChange={handleBarcodeData}
+                  checked={isBarcodeChecked}
                 />
                 <label className="ps-1">Yes</label>
               </td>

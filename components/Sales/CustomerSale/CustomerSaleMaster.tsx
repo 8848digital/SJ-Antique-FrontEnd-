@@ -51,6 +51,7 @@ const CustomerSaleMaster = () => {
     setBarcodeData,
     handleBarcodeData,
     barcodeListData,
+    isBarcodeChecked,
   }: any = UseCustomerSaleHook();
   const {
     scrollableTableRef,
@@ -152,6 +153,7 @@ const CustomerSaleMaster = () => {
               barcodedata={barcodedata}
               setBarcodeData={setBarcodeData}
               handleBarcodeData={handleBarcodeData}
+              isBarcodeChecked={isBarcodeChecked}
             />
             <CustomerSalesTable2
               kunCsOtCategoryListData={kunCsOtCategoryListData}
