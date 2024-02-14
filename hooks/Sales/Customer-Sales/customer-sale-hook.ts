@@ -84,8 +84,7 @@ const UseCustomerSaleHook = () => {
       }
       let itemListApi: any = await getItemListInSalesApi(loginAcessToken.token);
 
-      // if (itemListApi?.data?.message?.status === 'success') {
-      // }
+
       if (itemListApi?.data?.data?.length > 0) {
         setItemList(itemListApi?.data?.data);
       }
@@ -154,13 +153,13 @@ const UseCustomerSaleHook = () => {
                   Number(item?.custom_cs_wt) +
                   Number(item?.custom_bb_wt) +
                   Number(item?.custom_other_wt)) <
-              0
+                0
                 ? 0
                 : Number(item?.custom_gross_wt) -
-                  (Number(item?.custom_kun_wt) +
-                    Number(item?.custom_cs_wt) +
-                    Number(item?.custom_bb_wt) +
-                    Number(item?.custom_other_wt)),
+                (Number(item?.custom_kun_wt) +
+                  Number(item?.custom_cs_wt) +
+                  Number(item?.custom_bb_wt) +
+                  Number(item?.custom_other_wt)),
             custom_cs_amt:
               fieldName === 'custom_cs'
                 ? Number(item.custom_cs_wt) * value
@@ -169,8 +168,8 @@ const UseCustomerSaleHook = () => {
               fieldName === 'custom_kun'
                 ? Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                ? Number(item.custom_kun) * value
-                : item.custom_kun_amt,
+                  ? Number(item.custom_kun) * value
+                  : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
@@ -235,14 +234,14 @@ const UseCustomerSaleHook = () => {
               selectedCategory.KunCategory !== '' &&
                 selectedCategory?.KunCategory !== undefined
                 ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
-                    100
+                100
                 : data[0]?.custom_kun_wt
             ),
             custom_cs_wt: Number(
               selectedCategory.CsCategory !== '' &&
                 selectedCategory?.CsCategory !== undefined
                 ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
-                    100
+                100
                 : data[0]?.custom_cs_wt
             ),
             custom_bb_wt: Number(
@@ -255,8 +254,8 @@ const UseCustomerSaleHook = () => {
               selectedCategory.OtCategory !== '' &&
                 selectedCategory?.OtCategory !== undefined
                 ? (data[0]?.custom_other_wt *
-                    selectedCategory.OtCategory.type) /
-                    100
+                  selectedCategory.OtCategory.type) /
+                100
                 : data[0]?.custom_other_wt
             ),
             custom_kun_pc: Number(data[0]?.custom_kun_pcs),
@@ -458,11 +457,11 @@ const UseCustomerSaleHook = () => {
             (Number.isNaN(data.custom_cs_amt)
               ? 0
               : Number(data?.custom_cs_amt)) +
-              Number(data?.custom_kun_amt) +
-              (Number.isNaN(data.custom_ot_amt)
-                ? 0
-                : Number(data?.custom_ot_amt)) +
-              Number(data?.custom_other)
+            Number(data?.custom_kun_amt) +
+            (Number.isNaN(data.custom_ot_amt)
+              ? 0
+              : Number(data?.custom_ot_amt)) +
+            Number(data?.custom_other)
           )?.toFixed(3),
         };
       });
@@ -525,22 +524,22 @@ const UseCustomerSaleHook = () => {
                 Number(data?.custom_cs_wt) +
                 Number(data?.custom_bb_wt) +
                 Number(data?.custom_other_wt)) <
-            0
+              0
               ? 0
               : Number(data?.custom_gross_wt) -
-                (Number(data?.custom_kun_wt) +
-                  Number(data?.custom_cs_wt) +
-                  Number(data?.custom_bb_wt) +
-                  Number(data?.custom_other_wt)),
+              (Number(data?.custom_kun_wt) +
+                Number(data?.custom_cs_wt) +
+                Number(data?.custom_bb_wt) +
+                Number(data?.custom_other_wt)),
           custom_amount: Number(
             (Number.isNaN(data.custom_cs_amt)
               ? 0
               : Number(data?.custom_cs_amt)) +
-              Number(data?.custom_kun_amt) +
-              (Number.isNaN(data.custom_ot_amt)
-                ? 0
-                : Number(data?.custom_ot_amt)) +
-              Number(data?.custom_other)
+            Number(data?.custom_kun_amt) +
+            (Number.isNaN(data.custom_ot_amt)
+              ? 0
+              : Number(data?.custom_ot_amt)) +
+            Number(data?.custom_other)
           )?.toFixed(2),
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
         };
@@ -672,9 +671,9 @@ const UseCustomerSaleHook = () => {
           custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-              Number(item[i]?.custom_kun_amt) +
-              Number(item[i]?.custom_ot_amt) +
-              Number(item[i]?.custom_other)
+            Number(item[i]?.custom_kun_amt) +
+            Number(item[i]?.custom_ot_amt) +
+            Number(item[i]?.custom_other)
           ),
         };
       });
@@ -683,6 +682,7 @@ const UseCustomerSaleHook = () => {
   };
   const handleBarcodeData = () => {
     setBarcodeData(!barcodedata);
+    setStateForDocStatus(true)
   };
 
   return {
