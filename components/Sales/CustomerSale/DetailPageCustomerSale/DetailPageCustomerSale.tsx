@@ -62,6 +62,8 @@ const DetailPageCustomerSale = () => {
     handleBarcodeData,
     barcodeListData,
     isBarcodeChecked,
+    itemCodeList,
+    handleTabPressItemDetails,
   }: any = UseCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -156,6 +158,8 @@ const DetailPageCustomerSale = () => {
                 handleBarcodeData={handleBarcodeData}
                 barcodeListData={barcodeListData}
                 barcodedata={barcodedata}
+                itemCodeList={itemCodeList}
+                handleTabPressItemDetails={handleTabPressItemDetails}
               />
             </div>
           )}

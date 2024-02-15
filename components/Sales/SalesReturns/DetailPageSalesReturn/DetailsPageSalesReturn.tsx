@@ -57,7 +57,7 @@ const DetailsPageSalesReturn = () => {
     get_detail_sales_return_data
   );
   return (
-    <div className="container-lg px-0 d-flex justify-content-center">
+    <div className="container-lg px-0 ">
       <SalesHeader />
       {isLoading ? (
         <Loader />

@@ -32,6 +32,7 @@ const ItemStatusReport: any = ({
   setSearchName,
   name,
   HandleReportPrint,
+  HandleSerachReport,
 }: any) => {
   const router = useRouter();
   const [tableViewData, setTableViewData] = useState<any>(20);
@@ -67,7 +68,7 @@ const ItemStatusReport: any = ({
       : itemStatusReportState;
 
   return (
-    <div className="container-lg report-width">
+    <div className="container-lg ">
       <ReportHeader />
       <div className="d-flex justify-content-between">
         <h5>{reportName}</h5>
@@ -94,6 +95,7 @@ const ItemStatusReport: any = ({
         searchName={searchName}
         setSearchName={setSearchName}
         name={name}
+        HandleSerachReport={HandleSerachReport}
       />
 
       {isLoading === 0 && <Loader />}
@@ -123,7 +125,7 @@ const ItemStatusReport: any = ({
               onMouseUp={handleMouseUp}
               onMouseMove={handleMouseMove}
             >
-              <table className="table table-hover table-striped cursor">
+              <table className="table table-hover table-striped cursor report-width">
                 {/* <thead>
                   <th className="thead" scope="col">
                     Sr.No.
@@ -145,14 +147,14 @@ const ItemStatusReport: any = ({
                       .map((item: any, index: number) => (
                         <tr
                           key={index}
-                          className={` ${styles.table_row} ${
+                          className={`row ${styles.table_row} ${
                             index >= filteredList.length - 2
                               ? 'last-two-rows'
                               : ''
                           }`}
                         >
                           <td
-                            className={`${
+                            className={`col-sm-1 ${
                               index >= filteredList.length - 2 &&
                               reportName === 'Daily Quantity Status Report'
                                 ? 'thead'
@@ -171,7 +173,7 @@ const ItemStatusReport: any = ({
                             (value: any, innerIndex: number) => (
                               <td
                                 key={innerIndex}
-                                className={`${
+                                className={`col-sm-1 ${
                                   index >= filteredList.length - 2 &&
                                   reportName === 'Daily Quantity Status Report'
                                     ? 'thead'

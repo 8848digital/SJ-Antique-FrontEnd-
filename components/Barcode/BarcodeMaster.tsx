@@ -44,9 +44,6 @@ const BarcodeMaster = () => {
     handleAddRowForSales,
     handleDeleteRowOfSalesTable,
     handleTabPress,
-  }: any = UseBarcodeFilterList();
-
-  const {
     BarcodeListData,
     handleCheckboxForBarcodePrint,
     handleMultipleBarcodePrint,
@@ -55,7 +52,8 @@ const BarcodeMaster = () => {
     selectAll,
     setSelectAll,
     handleSelectAll,
-  }: any = useBarcodeListingHook();
+  }: any = UseBarcodeFilterList();
+
   const {
     scrollableTableRef,
     handleMouseDown,

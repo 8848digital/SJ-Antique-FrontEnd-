@@ -55,9 +55,9 @@ const UseCustomerSaleDetailHook = () => {
     barcodeListData,
     setIsBarcodeChecked,
     isBarcodeChecked,
+    itemCodeList,
+    handleTabPressItemDetails,
   }: any = UseCustomerSaleHook();
-
-  console.log('selected category default', selectedCategory);
 
   const loginAcessToken = useSelector(get_access_token);
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -340,12 +340,14 @@ const UseCustomerSaleDetailHook = () => {
       token: loginAcessToken?.token,
       name: id,
       version: 'v1',
-      method: 'get_delivery_note_sales',
-      entity: 'print_delivery_note_sales',
+      method: 'print_delivery_note_sales',
+      entity: 'sales',
     };
     let deliveryNotePrintApi: any = await PrintApi(reqParams);
-    if (deliveryNotePrintApi?.status === 'success') {
-      window.open(deliveryNotePrintApi?.data?.data[0]?.print_url);
+    if (deliveryNotePrintApi?.data?.message?.status === 'success') {
+      window.open(
+        deliveryNotePrintApi?.data?.message?.data?.data[0]?.print_url
+      );
     }
   };
 
@@ -400,6 +402,8 @@ const UseCustomerSaleDetailHook = () => {
     handleBarcodeData,
     barcodeListData,
     isBarcodeChecked,
+    itemCodeList,
+    handleTabPressItemDetails,
   };
 };
 

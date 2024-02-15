@@ -15,10 +15,10 @@ const ReportFilterListing: any = ({
   searchName,
   setSearchName,
   name,
+  HandleSerachReport,
 }: any) => {
-  console.log('@report item voucher number', itemList);
   return (
-    <div className="d-flex justify-content-start ">
+    <div className="d-flex justify-content-center ">
       {reportName === 'Item Status Report' && (
         <div className="col-sm-2 mx-1">
           <label className="text-grey">Item</label>
@@ -40,7 +40,7 @@ const ReportFilterListing: any = ({
           />
         </div>
       )}
-      <div className="col-sm-3 p-0 mx-1">
+      <div className="col-sm-2 p-0 mx-1">
         <label className="text-grey">FromDate</label>
         <div>
           <input
@@ -51,7 +51,7 @@ const ReportFilterListing: any = ({
           />
         </div>
       </div>
-      <div className="col-sm-3 p-0 mx-1">
+      <div className="col-sm-2 p-0 mx-1">
         <label className="text-grey">To Date</label>
         <div>
           <input
@@ -77,8 +77,17 @@ const ReportFilterListing: any = ({
           />
         </div>
       )}
-      {reportName === 'Daily Quantity Status Report' && (
-        <div className="col-md-3 p-0 mx-1">
+      <div className="mt-4 mb-1 ms-2 d-flex justify-content-start">
+        <button
+          className="btn btn-primary m-0 p-1"
+          onClick={HandleSerachReport}
+        >
+          <i className="fa-solid fa-magnifying-glass pe-2"></i>
+          Search
+        </button>
+      </div>
+      {/* {reportName === 'Daily Quantity Status Report' && (
+        <div className="col-sm-2 p-0 mx-1">
           <label className="text-grey">Name</label>
           <SearchSelectInputField
             karigarData={name}
@@ -91,7 +100,7 @@ const ReportFilterListing: any = ({
             setSelectDropDownReset={setSelectDropDownReset}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

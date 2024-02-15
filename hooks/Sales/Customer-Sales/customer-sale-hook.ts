@@ -154,7 +154,6 @@ const UseCustomerSaleHook = () => {
           return {
             ...item,
             [fieldName]: Number(value),
-
             custom_net_wt:
               Number(item?.custom_gross_wt) -
                 (Number(item?.custom_kun_wt) +
@@ -191,6 +190,24 @@ const UseCustomerSaleHook = () => {
     console.log(salesTableData, 'saletabledata in field change');
     setStateForDocStatus(true);
   };
+  const itemCodeListFunc = () => {
+    if (barcodedata === 1) {
+      const namesArray =
+        barcodeListData?.length > 0 &&
+        barcodeListData !== null &&
+        barcodeListData.map((item: any) => ({ karigar_name: item.item_code }));
+      return namesArray;
+    } else {
+      return (
+        itemList?.length > 0 &&
+        itemList !== null &&
+        itemList.map((data: any) => ({
+          karigar_name: data.name,
+        }))
+      );
+    }
+  };
+  const itemCodeList = itemCodeListFunc();
   const updateBarcodeSalesTableData = (data: any) => {
     console.log(data, 'barcode data');
     if (selectedItemCodeForCustomerSale?.id) {
@@ -282,10 +299,20 @@ const UseCustomerSaleHook = () => {
       setSalesTableData(updatedTable);
     }
   };
-  console.log(barcodedata, 'barcode created');
+  const items =
+    itemCodeList?.length > 0 &&
+    itemCodeList?.some(
+      (obj: any) => obj.name == selectedItemCodeForCustomerSale.item_code
+    );
+  console.log(items, selectedItemCodeForCustomerSale, 'items for useEffect');
   useEffect(() => {
     if (barcodedata === 1) {
-      if (selectedItemCodeForCustomerSale.item_code?.length > 0) {
+      if (
+        selectedItemCodeForCustomerSale.item_code?.length > 0 &&
+        itemCodeList?.some(
+          (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
+        )
+      ) {
         const itemDetailsMethod = 'get_specific_barcode_detail';
         const itemDetailsEntity = 'barcode';
         const getItemCodeDetailsFun = async () => {
@@ -316,7 +343,12 @@ const UseCustomerSaleHook = () => {
         getItemCodeDetailsFun();
       }
     } else {
-      if (selectedItemCodeForCustomerSale.item_code?.length > 0) {
+      if (
+        selectedItemCodeForCustomerSale.item_code?.length > 0 &&
+        itemCodeList?.some(
+          (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
+        )
+      ) {
         const itemDetailsMethod = 'get_item_specific_sales';
         const itemDetailsEntity = 'sales';
         const getItemCodeDetailsFun = async () => {
@@ -699,6 +731,77 @@ const UseCustomerSaleHook = () => {
     setIsBarcodeChecked(!isBarcodeChecked);
   };
 
+  const handleTabPressItemDetails = () => {
+    console.log('tab pressed');
+    if (barcodedata === 1) {
+      if (selectedItemCodeForCustomerSale.item_code?.length > 4) {
+        const itemDetailsMethod = 'get_specific_barcode_detail';
+        const itemDetailsEntity = 'barcode';
+        const getItemCodeDetailsFun = async () => {
+          try {
+            let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
+              loginAcessToken?.token,
+              selectedItemCodeForCustomerSale.item_code,
+              itemDetailsMethod,
+              itemDetailsEntity
+            );
+
+            console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
+            if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
+              console.log(
+                getItemCodeDetailsApi?.data.message.data,
+                'selected sale client table'
+              );
+              // Call the function to update salesTableData
+              updateBarcodeSalesTableData(
+                getItemCodeDetailsApi?.data?.message?.data
+              );
+            }
+          } catch (error) {
+            console.error('Error fetching item details:', error);
+          }
+        };
+
+        getItemCodeDetailsFun();
+      }
+    } else {
+      if (selectedItemCodeForCustomerSale.item_code?.length > 4) {
+        console.log('getItemCodeDetails api res');
+        const itemDetailsMethod = 'get_item_specific_sales';
+        const itemDetailsEntity = 'sales';
+        const getItemCodeDetailsFun = async () => {
+          try {
+            let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
+              loginAcessToken?.token,
+              selectedItemCodeForCustomerSale.item_code,
+              itemDetailsMethod,
+              itemDetailsEntity
+            );
+
+            console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
+            if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
+              console.log(
+                getItemCodeDetailsApi?.data.message.data,
+                'selected sale client table'
+              );
+              // Call the function to update salesTableData
+              updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+            }
+          } catch (error) {
+            console.error('Error fetching item details:', error);
+          }
+        };
+
+        getItemCodeDetailsFun();
+      }
+    }
+  };
+
+  console.log(
+    selectedItemCodeForCustomerSale,
+    itemList,
+    'selected item code and id'
+  );
   return {
     salesTableData,
     setSalesTableData,
@@ -747,6 +850,8 @@ const UseCustomerSaleHook = () => {
     barcodeListData,
     isBarcodeChecked,
     setIsBarcodeChecked,
+    handleTabPressItemDetails,
+    itemCodeList,
   };
 };
 

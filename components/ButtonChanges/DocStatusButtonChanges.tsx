@@ -94,22 +94,17 @@ const DocStatusButtonChanges = ({
               Save
             </button>
           )}
-          {(data?.docstatus === 0 || data?.docstatus === 1) &&
-            stateForDocStatus === false && (
-              <button
-                type="button"
-                className={`${styles.create_button} px-2 py-0 me-2`}
-                onClick={() =>
-                  handlePrintApi(
-                    query?.receiptId,
-                    printApiMethod,
-                    printApiEntity
-                  )
-                }
-              >
-                Print
-              </button>
-            )}
+          {data?.docstatus === 1 && stateForDocStatus === false && (
+            <button
+              type="button"
+              className={`${styles.create_button} px-2 py-0 me-2`}
+              onClick={() =>
+                handlePrintApi(query?.receiptId, printApiMethod, printApiEntity)
+              }
+            >
+              Print
+            </button>
+          )}
           {data?.docstatus === 0 && stateForDocStatus === false && (
             <button
               type="button"

@@ -48,7 +48,7 @@ const useBarcodeListingHook = () => {
     const namesArray =
       multipleRecord?.length > 0 &&
       multipleRecord !== null &&
-      multipleRecord.map((record: any) => record.name);
+      multipleRecord.map((record: any) => record.name || record.item_code);
     console.log(namesArray, 'aaaaaaa');
     const reqParams: any = {
       version: 'v1',
@@ -103,6 +103,7 @@ const useBarcodeListingHook = () => {
   console.log(BarcodeListData, '@Barcode list data');
   return {
     BarcodeListData,
+    setBarcodeListData,
     handleCheckboxForBarcodePrint,
     multipleRecordsForPrint,
     handleBarcodePrint,

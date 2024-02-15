@@ -150,9 +150,9 @@ const UseSalesReturnDetailHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-            Number(data?.custom_other)
+              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+              Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -192,12 +192,14 @@ const UseSalesReturnDetailHook = () => {
       token: loginAcessToken?.token,
       name: id,
       version: 'v1',
-      method: 'print_delivery_note',
-      entity: 'delivery_note_api',
+      method: 'print_delivery_note_sales',
+      entity: 'sales',
     };
     let deliveryNotePrintApi: any = await PrintApi(reqParams);
-    if (deliveryNotePrintApi?.status === 'success') {
-      window.open(deliveryNotePrintApi?.data?.data[0]?.print_url);
+    if (deliveryNotePrintApi?.data?.message?.status === 'success') {
+      window.open(
+        deliveryNotePrintApi?.data?.message?.data?.data[0]?.print_url
+      );
     }
   };
 

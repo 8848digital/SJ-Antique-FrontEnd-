@@ -108,8 +108,7 @@ const CustomerSalesButtonsSection = ({
                 Save
               </button>
             )}
-          {(DetailOfDeliveryNoteFromStore?.docStatus === 0 ||
-            DetailOfDeliveryNoteFromStore?.docStatus === 1) &&
+          {DetailOfDeliveryNoteFromStore?.docStatus === 1 &&
             stateForDocStatus === false && (
               <button
                 type="button"
@@ -143,19 +142,19 @@ const CustomerSalesButtonsSection = ({
             )}
           {DetailOfDeliveryNoteFromStore?.data?.posting_date ===
             new Date()?.toISOString()?.split('T')[0] && (
-              <>
-                {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
-                  stateForDocStatus === false && (
-                    <button
-                      type="button"
-                      className={`${styles.create_button} px-2 py-0 me-2`}
-                      onClick={HandleAmendButtonChanges}
-                    >
-                      Amend
-                    </button>
-                  )}
-              </>
-            )}
+            <>
+              {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
+                stateForDocStatus === false && (
+                  <button
+                    type="button"
+                    className={`${styles.create_button} px-2 py-0 me-2`}
+                    onClick={HandleAmendButtonChanges}
+                  >
+                    Amend
+                  </button>
+                )}
+            </>
+          )}
 
           {showSaveButtonForAmendFlow &&
             stateForDocStatus &&

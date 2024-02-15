@@ -36,11 +36,22 @@ const KundanListing = ({
   const lastPartOfURL = pathParts[pathParts.length - 1];
   const { query } = useRouter();
   const dispatch = useDispatch();
-  const [tableViewData, setTableViewData] = useState<any>(5);
+  console.log(query, 'query in listing');
+  const storedNumberOfRows = sessionStorage.getItem('numberOfRows');
+  let pathName: any = window?.location?.pathname;
 
-  const HandleTableViewRows: any = (data: any) => {
-    setTableViewData(data);
+  const [tableViewData, setTableViewData] = useState<number>(
+    storedNumberOfRows ? parseInt(storedNumberOfRows) : 5
+  );
+
+  const HandleTableViewRows: any = (rows: any) => {
+    sessionStorage.setItem('numberOfRows', rows);
+    setTableViewData(rows);
   };
+
+  useEffect(() => {
+    sessionStorage.removeItem('numberOfRows');
+  }, [pathName]);
 
   let url: any = router?.query?.receipt || router?.query?.saleId;
 
@@ -82,68 +93,62 @@ const KundanListing = ({
 
   const filteredList =
     kundanListing?.length > 0 &&
-      kundanListing !== null &&
-      (searchInputValues.from_date ||
-        searchInputValues.to_date ||
-        searchKarigar ||
-        searchReceiptNumber ||
-        searchInputValues.status)
+    kundanListing !== null &&
+    (searchInputValues.from_date ||
+      searchInputValues.to_date ||
+      searchKarigar ||
+      searchReceiptNumber ||
+      searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-        const postingDate = new Date(item?.posting_date);
+          const postingDate = new Date(item?.posting_date);
 
-        const dateMatch =
-          (!searchInputValues.from_date ||
-            postingDate >= new Date(searchInputValues.from_date)) &&
-          (!searchInputValues.to_date ||
-            postingDate <= new Date(searchInputValues.to_date));
+          const dateMatch =
+            (!searchInputValues.from_date ||
+              postingDate >= new Date(searchInputValues.from_date)) &&
+            (!searchInputValues.to_date ||
+              postingDate <= new Date(searchInputValues.to_date));
 
-        const karigarMatch = searchKarigar
-          ? item?.custom_karigar
-            ? item.custom_karigar
-              ?.toLowerCase()
-              ?.includes(searchKarigar?.toLowerCase())
-            : item?.custom_client_name
-              ?.toLowerCase()
-              ?.includes(searchKarigar?.toLowerCase())
-          : true;
+          const karigarMatch = searchKarigar
+            ? item?.custom_karigar
+              ? item.custom_karigar
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
+              : item?.custom_client_name
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
+            : true;
 
-        const receiptNumberMatch = searchReceiptNumber
-          ? item?.name
-            ?.toLowerCase()
-            .includes(searchReceiptNumber.toString().toLowerCase())
-          : true;
+          const receiptNumberMatch = searchReceiptNumber
+            ? item?.name
+                ?.toLowerCase()
+                .includes(searchReceiptNumber.toString().toLowerCase())
+            : true;
 
-        console.log('@filter item:', item);
-        console.log('@filter postingDate:', postingDate);
-        console.log('@filter dateMatch:', dateMatch);
-        console.log('@filter karigarMatch:', karigarMatch);
-        console.log('@filter receiptNumberMatch:', receiptNumberMatch);
+          if (searchInputValues.status === 'Draft') {
+            return (
+              item?.docstatus === 0 &&
+              dateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Submitted') {
+            return (
+              item?.docstatus === 1 &&
+              dateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Cancel') {
+            return (
+              item?.docstatus === 2 &&
+              dateMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          }
 
-        if (searchInputValues.status === 'Draft') {
-          return (
-            item?.docstatus === 0 &&
-            dateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Submitted') {
-          return (
-            item?.docstatus === 1 &&
-            dateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Cancel') {
-          return (
-            item?.docstatus === 2 &&
-            dateMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        }
-
-        return dateMatch && karigarMatch && receiptNumberMatch;
-      })
+          return dateMatch && karigarMatch && receiptNumberMatch;
+        })
       : kundanListing;
 
   const HandleCancelReceipt: any = async (name: any) => {
@@ -239,7 +244,7 @@ const KundanListing = ({
               <tr key={i} className={` row d-flex h-25 px-3 text-small`}>
                 <td
                   className={`table_row p-0  col-sm-1 text-small`}
-                // style={{ width: '50px' }}
+                  // style={{ width: '50px' }}
                 >
                   {i + 1}
                 </td>
@@ -352,15 +357,15 @@ const KundanListing = ({
                         <div className="">
                           {item?.posting_date ===
                             new Date()?.toISOString()?.split('T')[0] && (
-                              <>
-                                <Link
-                                  href={`${url}/${item.name}`}
-                                  className="button-section-text text-info "
-                                >
-                                  Amend
-                                </Link>
-                              </>
-                            )}
+                            <>
+                              <Link
+                                href={`${url}/${item.name}`}
+                                className="button-section-text text-info "
+                              >
+                                Amend
+                              </Link>
+                            </>
+                          )}
                         </div>
 
                         <div className="">

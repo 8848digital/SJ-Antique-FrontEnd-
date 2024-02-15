@@ -410,6 +410,10 @@ hr {
     width: 100% !important;
     margin-left: 0px !important;
   }
+  .report-width{
+    width:100%;
+    margin-left: 0px;
+  }
 }
 @media screen and (min-width:768px) {
   .tab-width{
@@ -423,7 +427,8 @@ hr {
     width:118px !important;
   }
   .report-width{
-    width:600px !important;
+    width:100%;
+    margin-left: 130px;
   }
   .client-dropdown-width{
     width: 185px !important;
@@ -438,7 +443,8 @@ hr {
     margin-left: 95px !important;
   }
   .report-width{
-    width:500px;
+    width:100%;
+    margin-left: 165px;
   }
   .max-width{
     width:122px !important;
@@ -457,5 +463,9 @@ hr {
   }
   .client-dropdown-width{
     width: 255px !important;
+  }
+  .report-width{
+    width:100%;
+    margin-left: 220px;
   }
 }

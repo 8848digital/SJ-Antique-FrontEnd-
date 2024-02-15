@@ -16,6 +16,7 @@ const SelectInputKunKarigar = ({
   fieldName,
   selectedKundanKarigarDropdownValue,
   setSelectedKundanKarigarDropdownValue,
+  handleTabPressItemDetails,
 }: any) => {
   console.log(id, 'id in dropdown');
   const inputRef = useRef<any>(null);
@@ -78,15 +79,6 @@ const SelectInputKunKarigar = ({
     }
   };
 
-  const handleDocumentClick = (e: any) => {
-    if (
-      e?.target !== inputRef?.current &&
-      !inputRef?.current?.contains(e.target)
-    ) {
-      setShowDropdown(false);
-    }
-  };
-
   const handleKeyDown = (e: any) => {
     if (!readOnlyFields) {
       if (e.key === 'ArrowDown' && !showDropdown) {
@@ -123,10 +115,16 @@ const SelectInputKunKarigar = ({
       ) {
         e.preventDefault();
         handleSelectedOption(filterDropdownList[selectedIndex], selectedIndex);
+      } else if (
+        typeof handleTabPressItemDetails === 'function' &&
+        (e.key === 'Tab' || e.keyCode === 9)
+      ) {
+        console.log('tab pressed');
+        handleTabPressItemDetails();
       }
     }
   };
-
+  console.log(typeof handleTabPressItemDetails, 'type of tab pressed');
   useEffect(() => {
     const handleDocumentClick = (e: any) => {
       // Check if the input element itself was clicked
@@ -167,6 +165,12 @@ const SelectInputKunKarigar = ({
       setShowDropdown(true);
     }
     setSelectedKundanKarigarDropdownValue(e.target.value);
+    if (setSelectedItemCodeForCustomerSale !== undefined) {
+      setSelectedItemCodeForCustomerSale({
+        id: id,
+        item_code: e.target.value,
+      });
+    }
     const query = e.target.value;
     const updatedFilterList: any =
       kundanKarigarData?.length > 0 &&

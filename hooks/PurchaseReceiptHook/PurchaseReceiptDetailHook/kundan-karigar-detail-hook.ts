@@ -82,8 +82,11 @@ const UseKundanKarigarDetailHook = () => {
       entity: printApiEntity,
     };
     let deliveryNotePrintApi: any = await PrintApi(reqParams);
-    if (deliveryNotePrintApi?.status === 'success') {
-      window.open(deliveryNotePrintApi?.data?.data[0]?.print_url);
+    console.log(deliveryNotePrintApi.data.message, 'print api res');
+    if (deliveryNotePrintApi?.data?.message?.status === 'success') {
+      window.open(
+        deliveryNotePrintApi?.data?.message?.data?.data[0]?.print_url
+      );
     }
   };
 

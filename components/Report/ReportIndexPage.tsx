@@ -34,6 +34,7 @@ const ReportIndexPage = () => {
     searchName,
     setSearchName,
     HandleReportPrint,
+    HandleSerachReport,
   }: any = useItemStatusReportHook();
   return (
     <div className="">
@@ -79,6 +80,7 @@ const ReportIndexPage = () => {
           setSearchName={setSearchName}
           name={dailyStatusSearchName}
           HandleReportPrint={HandleReportPrint}
+          HandleSerachReport={HandleSerachReport}
         />
       )}
     </div>

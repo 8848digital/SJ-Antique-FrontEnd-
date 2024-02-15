@@ -103,7 +103,18 @@ const KundanKarigarReadyReceiptMasterTable = ({
       firstInputRef?.current?.focus();
     }
   }, [tableData?.length]);
-
+  useEffect(() => {
+    console.log(
+      tableData?.length,
+      SpecificDataFromStore,
+      'master table data focus'
+    );
+    if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
+      lastInputRef?.current?.focus();
+    } else {
+      firstInputRef?.current?.focus();
+    }
+  }, []);
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -159,7 +170,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
             tableData.map((item: any, i: any) => (
               <>
                 <tr key={item.idx} className={`${styles.table_row}`}>
-                  <td className="table_row">{item.idx}</td>
+                  <td className="table_row" ref={firstInputRef}>
+                    {item.idx}
+                  </td>
                   <td className="table_row">
                     <input
                       className={` ${styles.input_field} text-center`}
@@ -175,7 +188,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
                         )
                       }
                       readOnly={readOnlyFields}
-                      // ref={firstInputRef}
                     />
                   </td>
                   <td className="table_row">
@@ -376,8 +388,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       className="d-flex align-items-center delete-link p-1 border-0"
                       onClick={() => handleDeleteRow(item.idx)}
                       onKeyDown={(e) => handleTabPress(e, item.idx)}
-                      disabled={readOnlyFields}
                       ref={lastInputRef}
+                      disabled={readOnlyFields}
                     >
                       <FontAwesomeIcon
                         icon={faTrash}

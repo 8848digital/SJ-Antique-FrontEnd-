@@ -35,9 +35,13 @@ const CustomerSalesTable = ({
   showAdditionalInputForCalculation,
   barcodedata,
   barcodeListData,
+  handleTabPressItemDetails,
+  itemCodeList,
 }: any) => {
   console.log(salesTableData, 'sales table data ');
-  const DetailOfDeliveryNoteFromStore: any = useSelector(get_detail_delivery_note_data);
+  const DetailOfDeliveryNoteFromStore: any = useSelector(
+    get_detail_delivery_note_data
+  );
   const initialStateOfCalculationRow: any = {
     custom_gross_wt: 0,
     custom_kun_wt: 0,
@@ -108,7 +112,7 @@ const CustomerSalesTable = ({
         return (
           total +
           (parseFloat(item.custom_other_wt) || 0) *
-          (parseFloat(item.custom_ot_) || 0)
+            (parseFloat(item.custom_ot_) || 0)
         );
       },
       0
@@ -121,7 +125,7 @@ const CustomerSalesTable = ({
         return (
           total +
           (parseFloat(item.custom_cs) || 0) *
-          (parseFloat(item.custom_cs_wt) || 0)
+            (parseFloat(item.custom_cs_wt) || 0)
         );
       },
       0
@@ -145,25 +149,8 @@ const CustomerSalesTable = ({
 
     setCalculationRow(liveCalculations);
   };
-  const itemCodeList = () => {
-    if (barcodedata === 1) {
-      const namesArray =
-        barcodeListData?.length > 0 &&
-        barcodeListData !== null &&
-        barcodeListData.map((item: any) => ({ karigar_name: item.item_code }));
-      return namesArray;
-    } else {
-      return (
-        itemList?.length > 0 &&
-        itemList !== null &&
-        itemList.map((data: any) => ({
-          karigar_name: data.name,
-        }))
-      );
-    }
-  };
 
-  console.log(calculationRow, 'calculation tableData ');
+  // console.log(itemCodeList, 'item code list in table ');
   return (
     <>
       {showAddrowBtn === true && (
@@ -192,7 +179,8 @@ const CustomerSalesTable = ({
         >
           <table className="table table-hover table-bordered cursor">
             <thead>
-              {showAdditionalInputForCalculation && DetailOfDeliveryNoteFromStore?.docStatus < 1 && (
+              {showAdditionalInputForCalculation && (
+                // DetailOfDeliveryNoteFromStore?.docStatus < 1 &&
                 <tr className={`${styles.table_row} border-0`}>
                   <td className="table_row border-0"></td>
                   <td className="table_row border-0"></td>
@@ -249,7 +237,7 @@ const CustomerSalesTable = ({
                       <td className="table_row">{item?.idx}</td>
                       <td className="table_row">
                         <SelectInputKunKarigar
-                          kundanKarigarData={itemCodeList()}
+                          kundanKarigarData={itemCodeList}
                           kunKarigarDropdownReset={itemCodeDropdownReset}
                           setKunKarigarDropdownReset={setItemCodeDropdownReset}
                           defaultValue={item?.item_code}
@@ -271,6 +259,7 @@ const CustomerSalesTable = ({
                           setSelectedKundanKarigarDropdownValue={
                             setSelectedItemCodeForCustomerSale
                           }
+                          handleTabPressItemDetails={handleTabPressItemDetails}
                         />
                       </td>
                       <td className="table_row">
@@ -280,11 +269,11 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             item?.custom_gross_wt !== '' &&
-                            item?.custom_gross_wt
+                              item?.custom_gross_wt
                           )?.toFixed(3)}
                           defaultValue={Number(
                             item?.custom_gross_wt !== '' &&
-                            item?.custom_gross_wt
+                              item?.custom_gross_wt
                           )?.toFixed(3)}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -303,7 +292,7 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item?.custom_kun_wt)}
+                          value={Number(item?.custom_kun_wt)?.toFixed(3)}
                           defaultValue={Number(item?.custom_kun_wt)}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -320,7 +309,7 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_cs_wt)}
+                          value={Number(item.custom_cs_wt)?.toFixed(3)}
                           defaultValue={Number(item.custom_cs_wt)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -339,7 +328,7 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             item.custom_bb_wt < 0 ? 0 : item.custom_bb_wt
-                          )}
+                          )?.toFixed(3)}
                           defaultValue={Number(item.custom_bb_wt)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -356,7 +345,7 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_other_wt)}
+                          value={Number(item.custom_other_wt)?.toFixed(3)}
                           defaultValue={item.custom_other_wt}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -366,7 +355,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -383,10 +372,10 @@ const CustomerSalesTable = ({
                               0
                               ? 0
                               : Number(item.custom_gross_wt) -
-                              (Number(item.custom_kun_wt) +
-                                Number(item.custom_cs_wt) +
-                                Number(item.custom_bb_wt) +
-                                Number(item.custom_other_wt))
+                                  (Number(item.custom_kun_wt) +
+                                    Number(item.custom_cs_wt) +
+                                    Number(item.custom_bb_wt) +
+                                    Number(item.custom_other_wt))
                           )?.toFixed(3)}
                           defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
                           readOnly
@@ -515,11 +504,11 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             Number(item.custom_other_wt) *
-                            Number(item.custom_ot_)
+                              Number(item.custom_ot_)
                           )?.toFixed(2)}
                           defaultValue={Number(
                             Number(item.custom_other_wt) *
-                            Number(item.custom_ot_)
+                              Number(item.custom_ot_)
                           )?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
@@ -558,17 +547,17 @@ const CustomerSalesTable = ({
                             (Number.isNaN(item.custom_cs_amt)
                               ? 0
                               : Number(item?.custom_cs_amt)) +
-                            Number(item?.custom_kun_amt) +
-                            (Number.isNaN(item.custom_ot_amt)
-                              ? 0
-                              : Number(item?.custom_ot_amt)) +
-                            Number(item?.custom_other)
+                              Number(item?.custom_kun_amt) +
+                              (Number.isNaN(item.custom_ot_amt)
+                                ? 0
+                                : Number(item?.custom_ot_amt)) +
+                              Number(item?.custom_other)
                           )?.toFixed(2)}
                           defaultValue={Number(
                             Number(item?.custom_cs_amt) +
-                            Number(item?.custom_kun_amt) +
-                            Number(item?.custom_ot_amt) +
-                            Number(item?.custom_other)
+                              Number(item?.custom_kun_amt) +
+                              Number(item?.custom_ot_amt) +
+                              Number(item?.custom_other)
                           )}
                           readOnly
                           onChange={(e) =>

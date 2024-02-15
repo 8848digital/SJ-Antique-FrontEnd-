@@ -3,39 +3,39 @@ import React from 'react';
 const DailyStatusReportHeading = () => {
   return (
     <thead>
-      <tr>
-        <th colSpan={2} scope="colgroup" className="thead"></th>
-        <th colSpan={3} scope="colgroup" className="thead">
+      <tr className="row">
+        <th colSpan={2} scope="colgroup" className="thead col-sm-2"></th>
+        <th colSpan={3} scope="colgroup" className="thead col-sm-3">
           Jama
         </th>
-        <th colSpan={3} scope="colgroup" className="thead">
+        <th colSpan={3} scope="colgroup" className="thead col-sm-3">
           Nama
         </th>
       </tr>
-      <tr>
+      <tr className="row">
         {/* thead bg-primary bg-opacity-50 text-dark */}
-        <th scope="col" className="thead ">
+        <th scope="col" className="thead col-sm-1 ">
           Sr.No.
         </th>
-        <th scope="col" className="thead ">
+        <th scope="col" className="thead col-sm-1 ">
           Name
         </th>
-        <th scope="col" className="thead ">
+        <th scope="col" className="thead col-sm-1 ">
           Net Wt
         </th>
-        <th scope="col" className="thead ">
+        <th scope="col" className="thead col-sm-1 ">
           Gross Wt
         </th>
-        <th scope="col" className="thead ">
+        <th scope="col" className="thead col-sm-1 ">
           Pcs
         </th>
-        <th scope="col" className="thead ">
+        <th scope="col" className="thead col-sm-1 ">
           Net Wt
         </th>
-        <th scope="col" className="thead ">
+        <th scope="col" className="thead col-sm-1 ">
           Gross Wt
         </th>
-        <th scope="col" className="thead ">
+        <th scope="col" className="thead col-sm-1 ">
           Pcs
         </th>
       </tr>
