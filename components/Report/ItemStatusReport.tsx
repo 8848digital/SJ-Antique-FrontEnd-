@@ -70,7 +70,7 @@ const ItemStatusReport: any = ({
   return (
     <div className="container-lg ">
       <ReportHeader />
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between report-heading">
         <h5>{reportName}</h5>
         <button
           type="submit"
@@ -109,11 +109,11 @@ const ItemStatusReport: any = ({
       {isLoading === 1 && (
         <>
           {filteredList?.length > 0 && (
-            <div className="text-end pe-3 p-0 text-gray small ">
-              {filteredList?.slice(0, tableViewData)?.length} of{' '}
+            <div className="text-end pe-3 p-0 text-gray small report-heading ">
+              {filteredList?.slice(0, tableViewData)?.length - 3} of{' '}
               {filteredList?.length < 10
-                ? '0' + filteredList?.length
-                : filteredList?.length}
+                ? '0' + (filteredList?.length - 3)
+                : filteredList?.length - 3}
             </div>
           )}
           <div className="table-responsive ">
@@ -173,7 +173,11 @@ const ItemStatusReport: any = ({
                             (value: any, innerIndex: number) => (
                               <td
                                 key={innerIndex}
-                                className={`col-sm-1 ${
+                                className={`${
+                                  typeof value === 'string'
+                                    ? 'col-sm-2'
+                                    : 'col-sm-1'
+                                } ${
                                   index >= filteredList.length - 2 &&
                                   reportName === 'Daily Quantity Status Report'
                                     ? 'thead'

@@ -41,7 +41,7 @@ const ReportFilterListing: any = ({
         </div>
       )}
       <div className="col-sm-2 p-0 mx-1">
-        <label className="text-grey">FromDate</label>
+        <label className="text-grey">From Date</label>
         <div>
           <input
             type="date"
@@ -79,7 +79,7 @@ const ReportFilterListing: any = ({
       )}
       <div className="mt-4 mb-1 ms-2 d-flex justify-content-start">
         <button
-          className="btn btn-primary m-0 p-1"
+          className="btn btn-primary m-0 p-1 px-2"
           onClick={HandleSerachReport}
         >
           <i className="fa-solid fa-magnifying-glass pe-2"></i>

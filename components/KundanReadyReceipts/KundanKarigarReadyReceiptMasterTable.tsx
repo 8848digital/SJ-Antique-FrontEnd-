@@ -103,18 +103,18 @@ const KundanKarigarReadyReceiptMasterTable = ({
       firstInputRef?.current?.focus();
     }
   }, [tableData?.length]);
-  useEffect(() => {
-    console.log(
-      tableData?.length,
-      SpecificDataFromStore,
-      'master table data focus'
-    );
-    if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
-      lastInputRef?.current?.focus();
-    } else {
-      firstInputRef?.current?.focus();
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log(
+  //     tableData?.length,
+  //     SpecificDataFromStore,
+  //     'master table data focus'
+  //   );
+  //   if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
+  //     lastInputRef?.current?.focus();
+  //   } else {
+  //     firstInputRef?.current?.focus();
+  //   }
+  // }, []);
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered ">
@@ -216,7 +216,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
-                      value={parseFloat(item.custom_net_wt)}
+                      value={parseFloat(item.custom_net_wt).toFixed(3)}
                       defaultValue={item?.custom_net_wt}
                       onChange={(e) =>
                         handleFieldChange(
@@ -234,7 +234,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
-                      value={item.custom_few_wt}
+                      value={item.custom_few_wt.toFixed(3)}
                       defaultValue={item.custom_few_wt}
                       onChange={(e) =>
                         handleFieldChange(
@@ -256,7 +256,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       //   // Number(tableData[i]?.totalModalWeight) ||
                       //   item.custom_mat_wt
                       // }
-                      value={item?.custom_mat_wt}
+                      value={item?.custom_mat_wt.toFixed(3)}
                       defaultValue={item.custom_mat_wt}
                       readOnly={readOnlyFields}
                       onChange={(e) => {
@@ -388,8 +388,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       className="d-flex align-items-center delete-link p-1 border-0"
                       onClick={() => handleDeleteRow(item.idx)}
                       onKeyDown={(e) => handleTabPress(e, item.idx)}
-                      ref={lastInputRef}
                       disabled={readOnlyFields}
+                      ref={lastInputRef}
                     >
                       <FontAwesomeIcon
                         icon={faTrash}

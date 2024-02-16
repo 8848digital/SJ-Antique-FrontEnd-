@@ -356,7 +356,7 @@ const KundanListing = ({
                       <div className="d-flex flex-wrap justify-content-between gx-0 px-1 mx-3">
                         <div className="">
                           {item?.posting_date ===
-                            new Date()?.toISOString()?.split('T')[0] && (
+                          new Date()?.toISOString()?.split('T')[0] ? (
                             <>
                               <Link
                                 href={`${url}/${item.name}`}
@@ -365,6 +365,8 @@ const KundanListing = ({
                                 Amend
                               </Link>
                             </>
+                          ) : (
+                            <div className="px-2 mx-1"></div>
                           )}
                         </div>
 

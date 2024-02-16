@@ -105,8 +105,7 @@ const SaleReturnsButtonSection = ({
                 Save
               </button>
             )}
-          {(DetailOfDeliveryNoteFromStore?.docStatus === 0 ||
-            DetailOfDeliveryNoteFromStore?.docStatus === 1) &&
+          {DetailOfDeliveryNoteFromStore?.docStatus === 1 &&
             stateForDocStatus === false && (
               <button
                 type="button"

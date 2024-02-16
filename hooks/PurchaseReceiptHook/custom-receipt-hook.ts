@@ -457,13 +457,7 @@ const UseCustomReceiptHook: any = () => {
           [field]:
             field === 'custom_add_photo'
               ? filePath
-              : // : field === 'custom_few_wt'
-              // ? calculateGrossWt(item, field, newValue)
-              // : field === 'custom_net_wt'
-              // ? calculateGrossWt(item, field, newValue)
-              // : field === 'custom_mat_wt'
-              // ? calculateGrossWt(item, field, newValue)
-              field === 'product_code'
+              : field === 'product_code'
               ? newValue.toUpperCase() // Convert to uppercase for 'product code'
               : formatInput(newValue),
           custom_gross_wt,

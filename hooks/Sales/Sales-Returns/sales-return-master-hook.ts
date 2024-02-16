@@ -51,6 +51,7 @@ const UseSalesReturnMasterHook = () => {
   });
   const [itemList, setItemList] = useState<any>([]);
   const [warehouseListData, setWarehouseListData] = useState<any>();
+  const [selectedItemCode, setSelectedItemCode] = useState<any>();
 
   const deliveryNoteListParams = {
     version: 'v1',
@@ -127,7 +128,13 @@ const UseSalesReturnMasterHook = () => {
     return itemWithoutIdx;
   };
   useEffect(() => {
-    if (selectedItemCodeForCustomerSale?.item_code?.length > 0) {
+    if (
+      selectedItemCodeForCustomerSale?.item_code?.length > 0 &&
+      itemList?.length > 0 &&
+      itemList?.some(
+        (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
+      )
+    ) {
       const getItemCodeDetailsFun = async () => {
         const getItemDetailsmethod: any =
           'get_delivery_note_specific_return_item';
@@ -181,9 +188,9 @@ const UseSalesReturnMasterHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-            Number(data?.custom_other)
+              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+              Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -225,6 +232,32 @@ const UseSalesReturnMasterHook = () => {
       toast.error('Client name is mandatory');
     }
   };
+  // const handleTabPressItemDetails = () => {
+  //   if (selectedItemCodeForCustomerSale?.item_code?.length > 0) {
+  //     const getItemCodeDetailsFun = async () => {
+  //       const getItemDetailsmethod: any =
+  //         'get_delivery_note_specific_return_item';
+  //       const getItemDetailsEntity: any = 'sales_return';
+  //       try {
+  //         let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
+  //           loginAcessToken?.token,
+  //           selectedItemCodeForCustomerSale.item_code,
+  //           getItemDetailsmethod,
+  //           getItemDetailsEntity
+  //         );
+
+  //         console.log('get details of sales return', getItemCodeDetailsApi);
+  //         if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
+  //           updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+  //         }
+  //       } catch (error) {
+  //         console.error('Error fetching item details:', error);
+  //       }
+  //     };
+
+  //     getItemCodeDetailsFun();
+  //   }
+  // };
 
   return {
     itemList,
@@ -261,6 +294,9 @@ const UseSalesReturnMasterHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
+    // handleTabPressItemDetails,
+    selectedItemCode,
+    setSelectedItemCode,
   };
 };
 

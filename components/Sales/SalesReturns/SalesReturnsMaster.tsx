@@ -39,6 +39,9 @@ const SaleReturnsMaster = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
+    handleTabPressItemDetails,
+    selectedItemCode,
+    setSelectedItemCode,
   }: any = UseSalesReturnMasterHook();
 
   const {
@@ -157,7 +160,13 @@ const SaleReturnsMaster = () => {
                 }
                 handleAddRowForSales={handleAddRowForSalesReturn}
                 handleDeleteRowOfSalesTable={handleDeleteRowOfSalesReturnTable}
-                itemList={itemList}
+                itemCodeList={
+                  itemList?.length > 0 &&
+                  itemList !== null &&
+                  itemList.map((data: any) => ({
+                    karigar_name: data?.name,
+                  }))
+                }
                 itemCodeDropdownReset={itemCodeDropdownReset}
                 setItemCodeDropdownReset={setItemCodeDropdownReset}
                 handleTabPressInSales={handleTabPressInSales}
@@ -170,7 +179,9 @@ const SaleReturnsMaster = () => {
                 handleMouseUp={handleMouseUp}
                 handleMouseLeave={handleMouseLeave}
                 handleMouseMove={handleMouseMove}
-                showAdditionalInputForCalculation={true}
+                handleTabPressItemDetails={handleTabPressItemDetails}
+                selectedItemCode={selectedItemCode}
+                setSelectedItemCode={setSelectedItemCode}
               />
             </div>
           </div>
