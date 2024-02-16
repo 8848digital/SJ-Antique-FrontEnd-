@@ -305,13 +305,13 @@ const UseCustomerSaleHook = () => {
       (obj: any) => obj.name == selectedItemCodeForCustomerSale.item_code
     );
   console.log(items, selectedItemCodeForCustomerSale, 'items for useEffect');
-  useEffect(() => {
+  const itemDetailApiFun = () => {
     if (barcodedata === 1) {
       if (
-        selectedItemCodeForCustomerSale.item_code?.length > 0 &&
-        itemCodeList?.some(
-          (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
-        )
+        selectedItemCodeForCustomerSale.item_code?.length > 0
+        // itemCodeList?.some(
+        //   (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
+        // )
       ) {
         const itemDetailsMethod = 'get_specific_barcode_detail';
         const itemDetailsEntity = 'barcode';
@@ -344,10 +344,10 @@ const UseCustomerSaleHook = () => {
       }
     } else {
       if (
-        selectedItemCodeForCustomerSale.item_code?.length > 0 &&
-        itemCodeList?.some(
-          (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
-        )
+        selectedItemCodeForCustomerSale.item_code?.length > 0
+        // itemCodeList?.some(
+        //   (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
+        // )
       ) {
         const itemDetailsMethod = 'get_item_specific_sales';
         const itemDetailsEntity = 'sales';
@@ -377,6 +377,9 @@ const UseCustomerSaleHook = () => {
         getItemCodeDetailsFun();
       }
     }
+  };
+  useEffect(() => {
+    itemDetailApiFun();
   }, [selectedItemCodeForCustomerSale]);
 
   console.log('updated sales table', salesTableData);

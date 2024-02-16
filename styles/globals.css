@@ -428,10 +428,14 @@ hr {
   }
   .report-width{
     width:100%;
-    margin-left: 130px;
+    margin-left: 100px;
   }
   .client-dropdown-width{
     width: 185px !important;
+  }
+  .report-heading{
+    margin-left: 12%;
+    margin-right: 11%;
   }
 }
 @media screen and (min-width:1024px) {
@@ -444,10 +448,14 @@ hr {
   }
   .report-width{
     width:100%;
-    margin-left: 165px;
+    margin-left: 125px;
   }
   .max-width{
     width:122px !important;
+  }
+  .report-heading{
+    margin-left: 12%;
+    margin-right: 11%;
   }
 }
 @media screen and (min-width:1440px) {
@@ -466,10 +474,11 @@ hr {
   }
   .report-width{
     width:100%;
-    margin-left: 230px;
+    margin-left: 180px;
+  }
+  .report-heading{
+    margin-left: 13%;
+    margin-right: 11%;
   }
 }
-.report-heading{
-  margin-left: 17%;
-  margin-right: 15%;
-}
+

@@ -46,7 +46,7 @@ const ReportFilterListing: any = ({
           <input
             type="date"
             name="from_date"
-            className="form-control input-fields custom-input-field line-height  "
+            className="form-control input-fields custom-input-field line-height bg-primary bg-opacity-10 "
             onChange={HandleSearchInput}
           />
         </div>
@@ -57,7 +57,7 @@ const ReportFilterListing: any = ({
           <input
             type="date"
             name="to_date"
-            className="form-control input-fields custom-input-field line-height "
+            className="form-control input-fields custom-input-field line-height bg-primary bg-opacity-10"
             onChange={HandleSearchInput}
           />
         </div>

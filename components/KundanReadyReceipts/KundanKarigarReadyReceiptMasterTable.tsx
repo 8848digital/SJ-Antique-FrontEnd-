@@ -216,8 +216,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
-                      value={parseFloat(item.custom_net_wt).toFixed(3)}
-                      defaultValue={item?.custom_net_wt}
+                      value={parseFloat(item.custom_net_wt)}
+                      defaultValue={item?.custom_net_wt.toFixed(3)}
                       onChange={(e) =>
                         handleFieldChange(
                           item.idx,
@@ -234,8 +234,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       className={` ${styles.input_field} text-end`}
                       type="number"
                       min={0}
-                      value={item.custom_few_wt.toFixed(3)}
-                      defaultValue={item.custom_few_wt}
+                      value={item.custom_few_wt}
+                      defaultValue={item.custom_few_wt.toFixed(3)}
                       onChange={(e) =>
                         handleFieldChange(
                           item.idx,
@@ -256,8 +256,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       //   // Number(tableData[i]?.totalModalWeight) ||
                       //   item.custom_mat_wt
                       // }
-                      value={item?.custom_mat_wt.toFixed(3)}
-                      defaultValue={item.custom_mat_wt}
+                      value={item?.custom_mat_wt}
+                      defaultValue={item.custom_mat_wt.toFixed(3)}
                       readOnly={readOnlyFields}
                       onChange={(e) => {
                         handleFieldChange(
@@ -379,6 +379,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <button
                       className="d-flex align-items-center delete-link p-1 border-0"
                       disabled={readOnlyFields}
+                      ref={lastInputRef}
                     >
                       <i className="fa-solid fa-plus"></i>
                     </button>
@@ -389,7 +390,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       onClick={() => handleDeleteRow(item.idx)}
                       onKeyDown={(e) => handleTabPress(e, item.idx)}
                       disabled={readOnlyFields}
-                      ref={lastInputRef}
                     >
                       <FontAwesomeIcon
                         icon={faTrash}

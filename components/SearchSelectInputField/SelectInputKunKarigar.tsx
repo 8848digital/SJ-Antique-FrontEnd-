@@ -12,6 +12,7 @@ const SelectInputKunKarigar = ({
   readOnlyFields,
   kunKarigarDropdownReset,
   setKunKarigarDropdownReset,
+  selectedItemCodeForCustomerSale,
   setSelectedItemCodeForCustomerSale,
   fieldName,
   selectedKundanKarigarDropdownValue,
@@ -39,8 +40,6 @@ const SelectInputKunKarigar = ({
     }
   };
 
-  console.log('iddd', id);
-
   useEffect(() => {
     if (
       kunKarigarDropdownReset !== undefined &&
@@ -59,18 +58,23 @@ const SelectInputKunKarigar = ({
         item_code: data?.karigar_name,
       });
     }
-
+    console.log(
+      selectedItemCodeForCustomerSale,
+      'selected item code for selection'
+    );
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
     const updatedData = tableData.map((item: any) => {
+      console.log(item, fieldName, 'iten when kun karigar selected');
+
       if (item.idx === id && fieldName === 'custom_kun_karigar') {
         return { ...item, custom_kun_karigar: 0 || data?.karigar_name };
       }
       console.log('selected item code', item.idx, id);
       if (item.idx === id && fieldName === 'item_code') {
+        console.log(item, 'iten when kun karigar selected');
         return { ...item, item_code: data?.karigar_name };
       }
-      console.log(item, 'iten when kun karigar selected');
       return item;
     });
     setTableData(updatedData);
@@ -78,7 +82,7 @@ const SelectInputKunKarigar = ({
       setStateForDocStatus(true);
     }
   };
-
+  console.log(tableData, 'iten when kun karigar selected');
   const handleKeyDown = (e: any) => {
     if (!readOnlyFields) {
       if (e.key === 'ArrowDown' && !showDropdown) {
@@ -165,12 +169,12 @@ const SelectInputKunKarigar = ({
       setShowDropdown(true);
     }
     setSelectedKundanKarigarDropdownValue(e.target.value);
-    if (setSelectedItemCodeForCustomerSale !== undefined) {
-      setSelectedItemCodeForCustomerSale({
-        id: id,
-        item_code: e.target.value,
-      });
-    }
+    // if (setSelectedItemCodeForCustomerSale !== undefined) {
+    //   setSelectedItemCodeForCustomerSale({
+    //     id: id,
+    //     item_code: e.target.value,
+    //   });
+    // }
     const query = e.target.value;
     const updatedFilterList: any =
       kundanKarigarData?.length > 0 &&
