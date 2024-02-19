@@ -28,6 +28,7 @@ const MasterMaterialMaster: any = ({
   const [inputMatGroup, setInputMatGrp] = useState('');
   const [inputGroup, setInputGroup] = useState('');
   const handleInputChange1 = (event: any) => {
+    console.log('inside 1', event.target.value);
     setInputName(event.target.value);
   };
   const handleInputChange2 = (event: any) => {
@@ -42,22 +43,22 @@ const MasterMaterialMaster: any = ({
     materialList !== null &&
     materialList?.filter((client: any) => {
       const materialMatch =
-        (client?.material &&
-          client?.material.toLowerCase().includes(inputName?.toLowerCase()) &&
-          client?.material_abbr &&
-          client?.material_abbr
-            .toLowerCase()
-            .includes(inputGroup?.toLowerCase())) ||
+        !inputName ||
+        client?.material?.toLowerCase().includes(inputName?.toLowerCase());
+      const materialAbbrMatch =
+        !inputGroup ||
+        client?.material_abbr
+          ?.toLowerCase()
+          .includes(inputGroup?.toLowerCase()) ||
         (client?.type && client?.type.toString().includes(inputGroup)) ||
         false;
-
       const materialGroupMatch =
         !inputMatGroup ||
         client?.material_group
           ?.toLowerCase()
           .includes(inputMatGroup?.toLowerCase());
 
-      return materialMatch && materialGroupMatch;
+      return materialMatch && materialGroupMatch && materialAbbrMatch;
     });
 
   console.log(filteredList, 'kuncsotdata');

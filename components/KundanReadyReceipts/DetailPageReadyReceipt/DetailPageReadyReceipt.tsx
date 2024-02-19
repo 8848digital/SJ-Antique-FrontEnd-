@@ -73,9 +73,10 @@ const DetailPageReadyReceipt = () => {
     warehouseListData,
     selectedLocation,
     setSelectedLocation,
+    specificDataFromStore,
   } = useReadyReceiptKarigar();
 
-  const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
+  // const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
   const router = useRouter();
   const receiptType = router.query;
 
@@ -103,7 +104,7 @@ const DetailPageReadyReceipt = () => {
         <Loader />
       ) : (
         <>
-          {SpecificDataFromStore?.data?.length === 0 && isLoading === false ? (
+          {specificDataFromStore?.data?.length === 0 && isLoading === false ? (
             <NoRecord
               title="Record not found 😥"
               heading=""
@@ -204,6 +205,7 @@ const DetailPageReadyReceipt = () => {
                   firstInputRef={firstInputRef}
                   setMatWt={setMatWt}
                   setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+                  specificDataFromStore={specificDataFromStore}
                 />
               </div>
               <PurchaseReceiptModal

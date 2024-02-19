@@ -21,7 +21,7 @@ const UseCustomReceiptHook: any = () => {
   const lastPartOfURL = pathParts[pathParts.length - 1];
 
   const loginAcessToken = useSelector(get_access_token);
-  const specificDataFromStore: any = useSelector(get_specific_receipt_data);
+  let specificDataFromStore: any = useSelector(get_specific_receipt_data);
 
   const [kundanListing, setKundanListing] = useState<any>([]);
   const [defaultKarigarData, setDefaultKarigarData] = useState<any>([]);
@@ -577,6 +577,7 @@ const UseCustomReceiptHook: any = () => {
     setMatWt,
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
+    specificDataFromStore,
   };
 };
 

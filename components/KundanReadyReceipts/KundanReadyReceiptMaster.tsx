@@ -65,6 +65,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     setSelectedLocation,
     firstInputRef,
     lastInputRef,
+    specificDataFromStore,
   } = useReadyReceiptKarigar();
 
   console.log(lastPartOfURL, ' @RR type');
@@ -199,6 +200,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                   setMatWt={setMatWt}
                   firstInputRef={firstInputRef}
                   lastInputRef={lastInputRef}
+                  specificDataFromStore={specificDataFromStore}
                 />
               </div>
             </div>
