@@ -75,8 +75,8 @@ const BarcodeFilterListing: any = ({
           onChange={(e: any) => handleSearchBarcodeItemCodeDetails(e, 'stock')}
         >
           <option selected></option>
-          <option value="yes">A</option>
-          <option value="no">G</option>
+          <option value="A">A</option>
+          <option value="G">G</option>
         </select>
       </div>
       <div className=" p-0 p-1">

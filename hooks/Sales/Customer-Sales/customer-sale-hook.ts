@@ -160,13 +160,13 @@ const UseCustomerSaleHook = () => {
                   Number(item?.custom_cs_wt) +
                   Number(item?.custom_bb_wt) +
                   Number(item?.custom_other_wt)) <
-              0
+                0
                 ? 0
                 : Number(item?.custom_gross_wt) -
-                  (Number(item?.custom_kun_wt) +
-                    Number(item?.custom_cs_wt) +
-                    Number(item?.custom_bb_wt) +
-                    Number(item?.custom_other_wt)),
+                (Number(item?.custom_kun_wt) +
+                  Number(item?.custom_cs_wt) +
+                  Number(item?.custom_bb_wt) +
+                  Number(item?.custom_other_wt)),
             custom_cs_amt:
               fieldName === 'custom_cs'
                 ? Number(item.custom_cs_wt) * value
@@ -175,8 +175,8 @@ const UseCustomerSaleHook = () => {
               fieldName === 'custom_kun'
                 ? Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                ? Number(item.custom_kun) * value
-                : item.custom_kun_amt,
+                  ? Number(item.custom_kun) * value
+                  : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
@@ -243,6 +243,8 @@ const UseCustomerSaleHook = () => {
       setSalesTableData(updatedData);
     }
   };
+
+  console.log("selectedItemCodeForCustomerSale input value", selectedItemCodeForCustomerSale)
   const updateSalesTableData = (data: any) => {
     console.log('selected sale client table', data);
 
@@ -259,14 +261,14 @@ const UseCustomerSaleHook = () => {
               selectedCategory.KunCategory !== '' &&
                 selectedCategory?.KunCategory !== undefined
                 ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
-                    100
+                100
                 : data[0]?.custom_kun_wt
             ),
             custom_cs_wt: Number(
               selectedCategory.CsCategory !== '' &&
                 selectedCategory?.CsCategory !== undefined
                 ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
-                    100
+                100
                 : data[0]?.custom_cs_wt
             ),
             custom_bb_wt: Number(
@@ -279,8 +281,8 @@ const UseCustomerSaleHook = () => {
               selectedCategory.OtCategory !== '' &&
                 selectedCategory?.OtCategory !== undefined
                 ? (data[0]?.custom_other_wt *
-                    selectedCategory.OtCategory.type) /
-                    100
+                  selectedCategory.OtCategory.type) /
+                100
                 : data[0]?.custom_other_wt
             ),
             custom_kun_pc: Number(data[0]?.custom_kun_pcs),
@@ -299,19 +301,14 @@ const UseCustomerSaleHook = () => {
       setSalesTableData(updatedTable);
     }
   };
-  const items =
-    itemCodeList?.length > 0 &&
-    itemCodeList?.some(
-      (obj: any) => obj.name == selectedItemCodeForCustomerSale.item_code
-    );
-  console.log(items, selectedItemCodeForCustomerSale, 'items for useEffect');
+
   const itemDetailApiFun = () => {
     if (barcodedata === 1) {
       if (
-        selectedItemCodeForCustomerSale.item_code?.length > 0
-        // itemCodeList?.some(
-        //   (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
-        // )
+        // selectedItemCodeForCustomerSale.item_code?.length > 0
+        itemCodeList?.length > 0 !== null && itemCodeList?.length > 0 && itemCodeList?.some(
+          (obj: any) => obj.karigar_name === `${selectedItemCodeForCustomerSale.item_code}`?.toUpperCase()
+        )
       ) {
         const itemDetailsMethod = 'get_specific_barcode_detail';
         const itemDetailsEntity = 'barcode';
@@ -326,10 +323,6 @@ const UseCustomerSaleHook = () => {
 
             console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-              console.log(
-                getItemCodeDetailsApi?.data.message.data,
-                'selected sale client table'
-              );
               // Call the function to update salesTableData
               updateBarcodeSalesTableData(
                 getItemCodeDetailsApi?.data?.message?.data
@@ -344,10 +337,10 @@ const UseCustomerSaleHook = () => {
       }
     } else {
       if (
-        selectedItemCodeForCustomerSale.item_code?.length > 0
-        // itemCodeList?.some(
-        //   (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
-        // )
+        // selectedItemCodeForCustomerSale.item_code?.length > 0
+        itemCodeList !== null && itemCodeList?.length > 0 && itemCodeList?.some(
+          (obj: any) => obj.karigar_name === selectedItemCodeForCustomerSale.item_code
+        )
       ) {
         const itemDetailsMethod = 'get_item_specific_sales';
         const itemDetailsEntity = 'sales';
@@ -362,10 +355,6 @@ const UseCustomerSaleHook = () => {
 
             console.log('getItemCodeDetails api res', getItemCodeDetailsApi);
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-              console.log(
-                getItemCodeDetailsApi?.data.message.data,
-                'selected sale client table'
-              );
               // Call the function to update salesTableData
               updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
             }
@@ -373,7 +362,6 @@ const UseCustomerSaleHook = () => {
             console.error('Error fetching item details:', error);
           }
         };
-
         getItemCodeDetailsFun();
       }
     }
@@ -501,11 +489,11 @@ const UseCustomerSaleHook = () => {
               (Number.isNaN(data.custom_cs_amt)
                 ? 0
                 : Number(data?.custom_cs_amt)) +
-                Number(data?.custom_kun_amt) +
-                (Number.isNaN(data.custom_ot_amt)
-                  ? 0
-                  : Number(data?.custom_ot_amt)) +
-                Number(data?.custom_other)
+              Number(data?.custom_kun_amt) +
+              (Number.isNaN(data.custom_ot_amt)
+                ? 0
+                : Number(data?.custom_ot_amt)) +
+              Number(data?.custom_other)
             )?.toFixed(3),
           };
         });
@@ -717,9 +705,9 @@ const UseCustomerSaleHook = () => {
           custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-              Number(item[i]?.custom_kun_amt) +
-              Number(item[i]?.custom_ot_amt) +
-              Number(item[i]?.custom_other)
+            Number(item[i]?.custom_kun_amt) +
+            Number(item[i]?.custom_ot_amt) +
+            Number(item[i]?.custom_other)
           ),
         };
       });
