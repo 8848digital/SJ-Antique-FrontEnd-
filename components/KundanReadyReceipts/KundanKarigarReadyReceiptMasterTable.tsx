@@ -85,6 +85,24 @@ const KundanKarigarReadyReceiptMasterTable = ({
       }
     );
 
+    // Calculate total custom amount for custom_ot_amt
+
+    const totalCustomOtAmount = tableData.reduce(
+      (total: any, item: any) => {
+        const customTotal = parseFloat(item.custom_total) || 0;
+        const customOther = parseFloat(item.custom_other) || 0;
+
+        if (customTotal !== item.totalAmount) {
+          return total + customTotal;
+        } else {
+          return total + customTotal + customOther;
+        }
+      },
+      0
+    );
+    liveCalculations.custom_total = totalCustomOtAmount;
+
+
     // Update the calculation row state
     setCalculationRow(liveCalculations);
   };
@@ -142,7 +160,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Gross Wt
             </th>
             {query?.receipt === 'mangalsutra' ||
-            query?.receipt === 'Mangalsutra' ? (
+              query?.receipt === 'Mangalsutra' ? (
               <th className="thead" scope="col">
                 BB Pcs
               </th>
@@ -287,7 +305,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||
-                  query?.receipt === 'Mangalsutra' ? (
+                    query?.receipt === 'Mangalsutra' ? (
                     <td className="table_row">
                       <input
                         className={` ${styles.input_field} text-end`}
@@ -355,11 +373,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={parseFloat(
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                              Number(tableData[i]?.totalAmount)
+                          Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                          ? tableData[i]?.custom_total
-                          : tableData[i]?.custom_other
+                            ? tableData[i]?.custom_total
+                            : tableData[i]?.custom_other
                       )?.toFixed(2)}
                     />
                   </td>
