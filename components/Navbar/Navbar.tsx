@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className=" bg-light">
         <nav
           className="d-flex"
-          // className="container-lg mt-2 d-flex flex-wrap justify-content-between "
+        // className="container-lg mt-2 d-flex flex-wrap justify-content-between "
         >
           {/* <div></div> */}
           <div className="container-lg mt-2 d-flex flex-wrap justify-content-center ">
@@ -73,7 +73,7 @@ const Navbar = () => {
             </Dropdown>
           </div>
         </nav>
-        <hr className="mx-3 my-1" />
+        <hr className=" my-1" />
         <ReadyReceiptsTabs showReceipt={showReceipt} />
       </div>
     </div>

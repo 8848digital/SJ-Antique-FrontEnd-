@@ -144,13 +144,14 @@ const UseBarcodeFilterList = () => {
           );
         });
 
+      console.log("checkItemCodesToShow", checkItemCodesToShow)
       if (searchBarcodeFilterData.barcode_created === 'yes') {
         setItemCodeDataToShow(checkItemCodesToShow);
         const ids =
           checkItemCodesToShow?.length > 0 &&
           checkItemCodesToShow.map((item: any) => ({
             id: item.idx,
-            name: item.name,
+            name: item.item_code,
           }));
         setCheckedItems(ids);
       } else {
@@ -159,7 +160,7 @@ const UseBarcodeFilterList = () => {
           searchBarcodeItemDetailsResult?.length > 0 &&
           searchBarcodeItemDetailsResult.map((item: any) => ({
             id: item.idx,
-            name: item.name,
+            name: item.item_code,
           }));
         setCheckedItems(ids);
       }

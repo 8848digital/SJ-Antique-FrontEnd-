@@ -93,62 +93,62 @@ const KundanListing = ({
 
   const filteredList =
     kundanListing?.length > 0 &&
-    kundanListing !== null &&
-    (searchInputValues.from_date ||
-      searchInputValues.to_date ||
-      searchKarigar ||
-      searchReceiptNumber ||
-      searchInputValues.status)
+      kundanListing !== null &&
+      (searchInputValues.from_date ||
+        searchInputValues.to_date ||
+        searchKarigar ||
+        searchReceiptNumber ||
+        searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-          const postingDate = new Date(item?.posting_date);
+        const postingDate = new Date(item?.posting_date);
 
-          const dateMatch =
-            (!searchInputValues.from_date ||
-              postingDate >= new Date(searchInputValues.from_date)) &&
-            (!searchInputValues.to_date ||
-              postingDate <= new Date(searchInputValues.to_date));
+        const dateMatch =
+          (!searchInputValues.from_date ||
+            postingDate >= new Date(searchInputValues.from_date)) &&
+          (!searchInputValues.to_date ||
+            postingDate <= new Date(searchInputValues.to_date));
 
-          const karigarMatch = searchKarigar
-            ? item?.custom_karigar
-              ? item.custom_karigar
-                  ?.toLowerCase()
-                  ?.includes(searchKarigar?.toLowerCase())
-              : item?.custom_client_name
-                  ?.toLowerCase()
-                  ?.includes(searchKarigar?.toLowerCase())
-            : true;
+        const karigarMatch = searchKarigar
+          ? item?.custom_karigar
+            ? item.custom_karigar
+              ?.toLowerCase()
+              ?.includes(searchKarigar?.toLowerCase())
+            : item?.custom_client_name
+              ?.toLowerCase()
+              ?.includes(searchKarigar?.toLowerCase())
+          : true;
 
-          const receiptNumberMatch = searchReceiptNumber
-            ? item?.name
-                ?.toLowerCase()
-                .includes(searchReceiptNumber.toString().toLowerCase())
-            : true;
+        const receiptNumberMatch = searchReceiptNumber
+          ? item?.name
+            ?.toLowerCase()
+            .includes(searchReceiptNumber.toString().toLowerCase())
+          : true;
 
-          if (searchInputValues.status === 'Draft') {
-            return (
-              item?.docstatus === 0 &&
-              dateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          } else if (searchInputValues.status === 'Submitted') {
-            return (
-              item?.docstatus === 1 &&
-              dateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          } else if (searchInputValues.status === 'Cancel') {
-            return (
-              item?.docstatus === 2 &&
-              dateMatch &&
-              karigarMatch &&
-              receiptNumberMatch
-            );
-          }
+        if (searchInputValues.status === 'Draft') {
+          return (
+            item?.docstatus === 0 &&
+            dateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        } else if (searchInputValues.status === 'Submitted') {
+          return (
+            item?.docstatus === 1 &&
+            dateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        } else if (searchInputValues.status === 'Cancel') {
+          return (
+            item?.docstatus === 2 &&
+            dateMatch &&
+            karigarMatch &&
+            receiptNumberMatch
+          );
+        }
 
-          return dateMatch && karigarMatch && receiptNumberMatch;
-        })
+        return dateMatch && karigarMatch && receiptNumberMatch;
+      })
       : kundanListing;
 
   const HandleCancelReceipt: any = async (name: any) => {
@@ -225,33 +225,33 @@ const KundanListing = ({
           ? '0' + filteredList?.length
           : filteredList?.length}
       </div>
-      <table className="table table-striped table-hover my-0 mt-">
+      <table className="table table-striped table-hover my-0 ">
         <thead>
-          <tr className="row d-flex p-0 px-3">
-            <th className={`thead col-sm-1`}>Sr No.</th>
-            <th className="thead col-sm-2">Transaction Date</th>
-            <th className="thead col-sm-1">{colPlaceholder1}</th>
-            <th className="thead col-sm-2">{colPlaceholder2}</th>
-            <th className="thead col-sm-2"></th>
-            <th className="thead col-sm-1">Status</th>
-            <th className="thead col-sm-3"></th>
+          <tr className="row d-flex px-lg-3 px-0">
+            <th className={`thead col-lg-1 col-1`}>Sr No.</th>
+            <th className="thead col-lg-2 col-2">Transaction Date</th>
+            <th className="thead col-lg-1 col-2">{colPlaceholder1}</th>
+            <th className="thead col-lg-2 col-2">{colPlaceholder2}</th>
+            <th className="thead col-lg-2 col"></th>
+            <th className="thead col-lg-1 col-2">Status</th>
+            <th className="thead col-lg-3 col-2"></th>
           </tr>
         </thead>
-        <tbody className="w-100  ">
+        <tbody className="w-100">
           {filteredList?.length > 0 &&
             filteredList !== null &&
             filteredList.slice(0, tableViewData).map((item: any, i: any) => (
-              <tr key={i} className={` row d-flex h-25 px-3 text-small`}>
+              <tr key={i} className={` row d-flex h-25 px-lg-3 px-0 text-small`}>
                 <td
-                  className={`table_row p-0  col-sm-1 text-small`}
-                  // style={{ width: '50px' }}
+                  className={`table_row p-0  col-lg-1 col-1 text-small`}
+                // style={{ width: '50px' }}
                 >
                   {i + 1}
                 </td>
-                <td className={`table_row  col-sm-2 p-0 text-small`}>
+                <td className={`table_row  col-lg-2 col-2 p-0 text-small`}>
                   {formattedDate(item.posting_date)}
                 </td>
-                <td className={`table_row col-sm-1 p-0 text-small`}>
+                <td className={`table_row col-lg-1 col-2 p-0 text-small`}>
                   <Link
                     href={`${url}/${item.name}`}
                     className="text-dark text-decoration-none"
@@ -259,13 +259,13 @@ const KundanListing = ({
                     {item.custom_number}
                   </Link>
                 </td>
-                <td className={` table_row col-sm-2 p-0 text-small`}>
+                <td className={` table_row col-lg-2 col-2 p-0 text-small`}>
                   {item.custom_karigar
                     ? item.custom_karigar
                     : item.custom_client_name}
                 </td>
-                <td className={` table_row col-sm-2 p-0 text-small`}></td>
-                <td className={`table_row col-sm-1 p-0 text-center text-small`}>
+                <td className={` table_row col-lg-2 col p-0 text-small`}></td>
+                <td className={`table_row col-lg-1 col-2 p-0 text-center text-small`}>
                   {item.docstatus === 0 ? (
                     <span className="align-middle">Draft</span>
                   ) : item.docstatus === 1 ? (
@@ -279,10 +279,10 @@ const KundanListing = ({
                 {item.docstatus === 0 && (
                   <>
                     <td
-                      className={` button-section-td  text-center col-sm-3 p-0 ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td text-center col-lg-3 col-2 p-0 ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="d-flex flex-wrap justify-content-between gx-0 px-1 mx-3 ">
-                        <div className="">
+                      <div className="row justify-content-center">
+                        <div className="col-lg-3 col-12">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info align-top "
@@ -290,7 +290,7 @@ const KundanListing = ({
                             Edit
                           </Link>
                         </div>
-                        <div className="">
+                        <div className="col-lg-3 col-12">
                           <a
                             onClick={() =>
                               HandleUpdateDocStatus('1', item.name)
@@ -300,7 +300,7 @@ const KundanListing = ({
                             Submit
                           </a>
                         </div>
-                        <div className="">
+                        <div className="col-lg-3 col-12">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "
@@ -315,10 +315,10 @@ const KundanListing = ({
                 {item.docstatus === 1 && (
                   <>
                     <td
-                      className={` button-section-td  text-center col-sm-3 p-0 ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td  text-center col-lg-3 col-2 p-0 ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="d-flex flex-wrap justify-content-between gx-0 px-1 mx-3">
-                        <div className="">
+                      <div className="row justify-content-center ">
+                        <div className="col-lg-3 col-12">
                           <a
                             onClick={() => HandlePrintApi(item.name)}
                             className={`button-section-text text-info ${styles.cursor_pointer}`}
@@ -326,7 +326,7 @@ const KundanListing = ({
                             Print
                           </a>
                         </div>
-                        <div className="">
+                        <div className="col-lg-3 col-12">
                           <a
                             onClick={() =>
                               HandleUpdateDocStatus('2', item.name)
@@ -336,7 +336,7 @@ const KundanListing = ({
                             Cancel
                           </a>
                         </div>
-                        <div className="">
+                        <div className="col-lg-3 col-12">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "
@@ -351,12 +351,12 @@ const KundanListing = ({
                 {item.docstatus === 2 && (
                   <>
                     <td
-                      className={` button-section-td  text-center col-sm-3 p-0 ${styles.receipt_listing_table_data}`}
+                      className={` button-section-td  text-center col-lg-3 col-2 p-0 ${styles.receipt_listing_table_data}`}
                     >
-                      <div className="d-flex flex-wrap justify-content-between gx-0 px-1 mx-3">
-                        <div className="">
+                      <div className="row justify-content-center  ">
+                        <div className="col-lg-3 col-12">
                           {item?.posting_date ===
-                          new Date()?.toISOString()?.split('T')[0] ? (
+                            new Date()?.toISOString()?.split('T')[0] ? (
                             <>
                               <Link
                                 href={`${url}/${item.name}`}
@@ -366,11 +366,11 @@ const KundanListing = ({
                               </Link>
                             </>
                           ) : (
-                            <div className="px-2 mx-1"></div>
+                            <div className=""></div>
                           )}
                         </div>
 
-                        <div className="">
+                        <div className="col-lg-3 col-12">
                           <a
                             // href=""
                             onClick={() => HandleDeleteReceipt(item.name)}
@@ -379,7 +379,7 @@ const KundanListing = ({
                             Delete
                           </a>
                         </div>
-                        <div className="">
+                        <div className="col-lg-3 col-12">
                           <Link
                             href={`${url}/${item.name}`}
                             className="button-section-text text-info "
