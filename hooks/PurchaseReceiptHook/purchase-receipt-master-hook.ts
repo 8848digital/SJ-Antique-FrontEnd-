@@ -26,7 +26,6 @@ const useReadyReceiptKarigar = () => {
   const lastInputRef = useRef<any>(null);
   const firstInputRef = useRef<any>(null);
   const [readyReceiptType, setReadyReceiptType] = useState<any>('');
-  const [tabDisabled, setTabDisabled] = useState<boolean>(false);
   const [recipitData, setRecipitData] = useState({
     custom_karigar: ' ',
     remarks: '',
@@ -324,19 +323,7 @@ const useReadyReceiptKarigar = () => {
     setStateForDocStatus(true);
     firstInputRef?.current?.focus();
   };
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (tabDisabled && event.key === 'Tab') {
-        event.preventDefault(); // Prevent default Tab behavior
-      }
-    };
 
-    window.addEventListener('keydown', handleKeyDown); // Add event listener
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown); // Cleanup on component unmount
-    };
-  }, [tabDisabled]);
   const handleCreate = async () => {
     console.log(tableData, 'table56', recipitData);
 
@@ -428,10 +415,6 @@ const useReadyReceiptKarigar = () => {
         purchaseReceipt.status === 200 &&
         purchaseReceipt?.data?.hasOwnProperty('message')
       ) {
-        setTabDisabled(true); // Disable Tab key
-        setTimeout(() => {
-          setTabDisabled(false); // Enable Tab key after 2 seconds
-        }, 2000);
         router.push(
           `${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`
         );
