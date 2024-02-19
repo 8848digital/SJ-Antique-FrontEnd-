@@ -127,12 +127,12 @@ const UseSalesReturnMasterHook = () => {
     const { idx, ...itemWithoutIdx } = item;
     return itemWithoutIdx;
   };
+
+  console.log("itemList", itemList, selectedItemCodeForCustomerSale)
   useEffect(() => {
     if (
-      selectedItemCodeForCustomerSale?.item_code?.length > 0 &&
-      itemList?.length > 0 &&
-      itemList?.some(
-        (obj: any) => obj.name === selectedItemCodeForCustomerSale.item_code
+      itemList?.length > 0 !== null && itemList?.length > 0 && itemList?.some(
+        (obj: any) => obj.name === `${selectedItemCodeForCustomerSale.item_code}`?.toUpperCase()
       )
     ) {
       const getItemCodeDetailsFun = async () => {
@@ -188,9 +188,9 @@ const UseSalesReturnMasterHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-              Number(data?.custom_other)
+            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+            Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
