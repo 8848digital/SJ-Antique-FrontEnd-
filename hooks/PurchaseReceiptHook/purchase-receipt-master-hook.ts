@@ -95,6 +95,7 @@ const useReadyReceiptKarigar = () => {
     setMatWt,
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
+    specificDataFromStore,
   }: any = UseCustomReceiptHook();
 
   useEffect(() => {
@@ -674,6 +675,7 @@ const useReadyReceiptKarigar = () => {
     warehouseListData,
     selectedLocation,
     setSelectedLocation,
+    specificDataFromStore,
   };
 };
 

@@ -4,7 +4,7 @@ import styles from '../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
 import PurchaseReceiptFileUploadMaster from '../PurchaseReceiptFileUpload/PurchaseReceiptFileUploadMaster';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import TotalReadOnlyRow from './TotalReadOnlyRow';
@@ -33,10 +33,13 @@ const KundanKarigarReadyReceiptMasterTable = ({
   lastInputRef,
   firstInputRef,
   setMatWt,
+  specificDataFromStore,
 }: any) => {
+  // const firstInputRef = useRef<any>(null);
+  // const lastInputRef = useRef<any>(null);
   console.log('table data receipt', tableData);
   const { query } = useRouter();
-  const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
+  // const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
   const [calculationRow, setCalculationRow] = useState({
     custom_net_wt: 0,
     custom_few_wt: 0,
@@ -90,34 +93,22 @@ const KundanKarigarReadyReceiptMasterTable = ({
   };
 
   console.log(calculationRow, 'calculation tableData ');
-
+  console.log(specificDataFromStore, 'specific data master table');
   useEffect(() => {
-    console.log(
-      tableData?.length,
-      SpecificDataFromStore,
-      'master table data focus'
-    );
-    if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
+    if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
     } else {
       firstInputRef?.current?.focus();
     }
-  }, [tableData?.length]);
-  // useEffect(() => {
-  //   console.log(
-  //     tableData?.length,
-  //     SpecificDataFromStore,
-  //     'master table data focus'
-  //   );
-  //   if (SpecificDataFromStore?.data[0]?.items?.length === tableData?.length) {
+  }, []);
+  // setTimeout(() => {
+  //   if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
   //     lastInputRef?.current?.focus();
-  //   } else {
-  //     firstInputRef?.current?.focus();
   //   }
-  // }, []);
+  // }, 0);
   return (
     <div className="table responsive">
-      <table className="table table-hover table-bordered ">
+      <table className="table table-hover table-bordered">
         <thead>
           <tr>
             <th className="thead" scope="col">
@@ -170,7 +161,10 @@ const KundanKarigarReadyReceiptMasterTable = ({
             tableData.map((item: any, i: any) => (
               <>
                 <tr key={item.idx} className={`${styles.table_row}`}>
-                  <td className="table_row" ref={firstInputRef}>
+                  <td
+                    className="table_row"
+                    // ref={firstInputRef}
+                  >
                     {item.idx}
                   </td>
                   <td className="table_row">

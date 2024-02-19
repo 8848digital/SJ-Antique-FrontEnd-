@@ -41,7 +41,9 @@ const DocStatusButtonChanges = ({
           <button
             type="button"
             className={`${styles.create_button} px-2 py-0 me-2`}
-            onClick={() => router.push(`/readyReceipt/${receiptType}`)}
+            onClick={() => {
+              router.push(`/readyReceipt/${receiptType}`);
+            }}
           >
             Back
           </button>
