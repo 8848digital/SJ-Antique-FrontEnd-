@@ -19,6 +19,7 @@ const DocStatusButtonChanges = ({
   HandleDeleteReceipt,
   printApiMethod,
   printApiEntity,
+  specificDataFromStore,
 }: any) => {
   const { query } = useRouter();
   const router = useRouter();
@@ -43,6 +44,7 @@ const DocStatusButtonChanges = ({
             className={`${styles.create_button} px-2 py-0 me-2`}
             onClick={() => {
               router.push(`/readyReceipt/${receiptType}`);
+              specificDataFromStore = null;
             }}
           >
             Back

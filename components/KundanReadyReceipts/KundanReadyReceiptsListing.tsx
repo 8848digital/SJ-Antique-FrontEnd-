@@ -323,7 +323,7 @@ const KundanListing = ({
                             onClick={() => HandlePrintApi(item.name)}
                             className={`button-section-text text-info ${styles.cursor_pointer}`}
                           >
-                            print
+                            Print
                           </a>
                         </div>
                         <div className="">

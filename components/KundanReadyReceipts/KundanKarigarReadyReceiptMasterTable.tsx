@@ -35,11 +35,8 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setMatWt,
   specificDataFromStore,
 }: any) => {
-  // const firstInputRef = useRef<any>(null);
-  // const lastInputRef = useRef<any>(null);
   console.log('table data receipt', tableData);
   const { query } = useRouter();
-  // const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
   const [calculationRow, setCalculationRow] = useState({
     custom_net_wt: 0,
     custom_few_wt: 0,
@@ -94,13 +91,16 @@ const KundanKarigarReadyReceiptMasterTable = ({
 
   console.log(calculationRow, 'calculation tableData ');
   console.log(specificDataFromStore, 'specific data master table');
+  // useEffect(() => {
+  //   lastInputRef.current.focus();
+  // }, []);
   useEffect(() => {
     if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
     } else {
       firstInputRef?.current?.focus();
     }
-  }, []);
+  }, [specificDataFromStore]);
   // setTimeout(() => {
   //   if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
   //     lastInputRef?.current?.focus();
@@ -373,17 +373,17 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     <button
                       className="d-flex align-items-center delete-link p-1 border-0"
                       disabled={readOnlyFields}
-                      ref={lastInputRef}
                     >
                       <i className="fa-solid fa-plus"></i>
                     </button>
                   </td>
                   <td className="table_row">
                     <button
-                      className="d-flex align-items-center delete-link p-1 border-0"
+                      className="form-control d-flex align-items-center delete-link p-1 border-0"
                       onClick={() => handleDeleteRow(item.idx)}
                       onKeyDown={(e) => handleTabPress(e, item.idx)}
                       disabled={readOnlyFields}
+                      ref={lastInputRef}
                     >
                       <FontAwesomeIcon
                         icon={faTrash}
