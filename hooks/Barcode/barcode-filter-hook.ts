@@ -12,6 +12,7 @@ import PostCreateBarcodeApi from '@/services/api/Barcode/post-create-barcode-api
 import { toast } from 'react-toastify';
 import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
+import getKarigarClientApi from '@/services/api/Barcode/get-karigar-client-name-api';
 
 const UseBarcodeFilterList = () => {
   const loginAcessToken = useSelector(get_access_token);
@@ -71,12 +72,16 @@ const UseBarcodeFilterList = () => {
 
   useEffect(() => {
     const getStateData: any = async () => {
-      const karigarData: any = await getKarigarApi(loginAcessToken.token);
+      const karigarData: any = await getKarigarClientApi(loginAcessToken.token);
       const kunCsOtData: any = await getKunCsOtCategoryApi(
         loginAcessToken.token
       );
       const BBData: any = await getBBCategoryApi(loginAcessToken.token);
-      setKarigarList(karigarData);
+      console.log(karigarData?.data?.message?.data, 'karigar client data');
+
+      if (karigarData?.data?.message?.status === 'success') {
+        setKarigarList(karigarData?.data?.message?.data);
+      }
       if (kunCsOtData?.data?.message?.status === 'success') {
         setKunCsOtCategoryData(kunCsOtData?.data?.message?.data);
       }

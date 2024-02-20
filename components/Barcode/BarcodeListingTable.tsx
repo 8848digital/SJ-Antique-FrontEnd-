@@ -61,7 +61,7 @@ const BarcodeListingTable: any = ({
           <button
             type="button"
             className="btn btn-outline-primary px-2 py-0 form-submit-button mx-3"
-            onClick={() => handleSelectAll(BarcodeListData)}
+            onClick={() => handleSelectAll(BarcodeListData, tableViewData)}
           >
             Select All
           </button>
