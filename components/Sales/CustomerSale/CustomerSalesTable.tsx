@@ -112,7 +112,7 @@ const CustomerSalesTable = ({
         return (
           total +
           (parseFloat(item.custom_other_wt) || 0) *
-          (parseFloat(item.custom_ot_) || 0)
+            (parseFloat(item.custom_ot_) || 0)
         );
       },
       0
@@ -125,7 +125,7 @@ const CustomerSalesTable = ({
         return (
           total +
           (parseFloat(item.custom_cs) || 0) *
-          (parseFloat(item.custom_cs_wt) || 0)
+            (parseFloat(item.custom_cs_wt) || 0)
         );
       },
       0
@@ -270,11 +270,11 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             item?.custom_gross_wt !== '' &&
-                            item?.custom_gross_wt
+                              item?.custom_gross_wt
                           )?.toFixed(3)}
                           defaultValue={Number(
                             item?.custom_gross_wt !== '' &&
-                            item?.custom_gross_wt
+                              item?.custom_gross_wt
                           )?.toFixed(3)}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -284,7 +284,7 @@ const CustomerSalesTable = ({
                             )
                           }
                           readOnly
-                          disabled
+                          // disabled
                         />
                       </td>
 
@@ -356,7 +356,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -373,10 +373,10 @@ const CustomerSalesTable = ({
                               0
                               ? 0
                               : Number(item.custom_gross_wt) -
-                              (Number(item.custom_kun_wt) +
-                                Number(item.custom_cs_wt) +
-                                Number(item.custom_bb_wt) +
-                                Number(item.custom_other_wt))
+                                  (Number(item.custom_kun_wt) +
+                                    Number(item.custom_cs_wt) +
+                                    Number(item.custom_bb_wt) +
+                                    Number(item.custom_other_wt))
                           )?.toFixed(3)}
                           defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
                           readOnly
@@ -387,7 +387,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -424,7 +424,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -478,7 +478,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -505,11 +505,11 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             Number(item.custom_other_wt) *
-                            Number(item.custom_ot_)
+                              Number(item.custom_ot_)
                           )?.toFixed(2)}
                           defaultValue={Number(
                             Number(item.custom_other_wt) *
-                            Number(item.custom_ot_)
+                              Number(item.custom_ot_)
                           )?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
@@ -519,7 +519,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -548,17 +548,17 @@ const CustomerSalesTable = ({
                             (Number.isNaN(item.custom_cs_amt)
                               ? 0
                               : Number(item?.custom_cs_amt)) +
-                            Number(item?.custom_kun_amt) +
-                            (Number.isNaN(item.custom_ot_amt)
-                              ? 0
-                              : Number(item?.custom_ot_amt)) +
-                            Number(item?.custom_other)
+                              Number(item?.custom_kun_amt) +
+                              (Number.isNaN(item.custom_ot_amt)
+                                ? 0
+                                : Number(item?.custom_ot_amt)) +
+                              Number(item?.custom_other)
                           )?.toFixed(2)}
                           defaultValue={Number(
                             Number(item?.custom_cs_amt) +
-                            Number(item?.custom_kun_amt) +
-                            Number(item?.custom_ot_amt) +
-                            Number(item?.custom_other)
+                              Number(item?.custom_kun_amt) +
+                              Number(item?.custom_ot_amt) +
+                              Number(item?.custom_other)
                           )}
                           readOnly
                           onChange={(e) =>
@@ -568,7 +568,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -576,12 +576,12 @@ const CustomerSalesTable = ({
                           className="d-flex align-items-center delete-link p-1 border-0"
                           onClick={() => {
                             if (!readOnlyFields) {
-                              handleDeleteRowOfSalesTable(item.idx)
+                              handleDeleteRowOfSalesTable(item.idx);
                             }
                           }}
                           onKeyDown={(e) => {
                             if (!readOnlyFields) {
-                              handleTabPressInSales(e, item.idx)
+                              handleTabPressInSales(e, item.idx);
                             }
                           }}
                         >
