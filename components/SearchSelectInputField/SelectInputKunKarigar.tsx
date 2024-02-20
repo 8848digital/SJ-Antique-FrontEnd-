@@ -46,7 +46,7 @@ const SelectInputKunKarigar = ({
       kunKarigarDropdownReset === true
     )
       setSelectedKundanKarigarDropdownValue('');
-  }, [kunKarigarDropdownReset, selectedKundanKarigarDropdownValue]);
+  }, [kunKarigarDropdownReset, setSelectedKundanKarigarDropdownValue]);
 
   const handleSelectedOption = (data: any, i: any) => {
     console.log('selected item code for selection', data);

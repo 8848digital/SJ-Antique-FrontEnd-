@@ -97,6 +97,7 @@ const DetailPageReadyReceipt = () => {
     setSelectedDropdownValue,
     setRecipitData,
     setTableData,
+    setSelectedLocation,
   ]);
   useEffect(() => {
     setTabDisabled(true); // Disable Tab key

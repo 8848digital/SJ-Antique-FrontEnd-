@@ -47,10 +47,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
     custom_total: 0,
   });
 
-  useEffect(() => {
-    // Recalculate live calculations whenever tableData changes
-    calculateLiveCalculations();
-  }, [tableData, setTableData]);
   const calculateGrossWt = (i: any) => {
     console.log(i, 'i');
     return (
@@ -60,49 +56,52 @@ const KundanKarigarReadyReceiptMasterTable = ({
     );
   };
 
-  const calculateLiveCalculations = async () => {
-    // Calculate live values based on tableData
-    const liveCalculations = tableData?.reduce(
-      (accumulator: any, row: any) => {
-        console.log(row, 'bbbbbbbb');
-        accumulator.custom_net_wt += Number(row.custom_net_wt) || 0;
-        accumulator.custom_few_wt += Number(row.custom_few_wt) || 0;
-        accumulator.custom_mat_wt += Number(row.custom_mat_wt) || 0;
-        accumulator.custom_gross_wt += Number(row.custom_gross_wt) || 0;
-        accumulator.custom_pcs += Number(row.table[0].pcs) || 0;
-        accumulator.custom_other += Number(row.custom_other) || 0;
-        accumulator.custom_total += Number(row.custom_total) || 0;
-        return accumulator;
-      },
-      {
-        custom_net_wt: 0,
-        custom_few_wt: 0,
-        custom_mat_wt: 0,
-        custom_gross_wt: 0,
-        custom_pcs: 0,
-        custom_other: 0,
-        custom_total: 0,
-      }
-    );
+  useEffect(() => {
+    const calculateLiveCalculations = async () => {
+      // Calculate live values based on tableData
+      const liveCalculations = tableData?.reduce(
+        (accumulator: any, row: any) => {
+          console.log(row, 'bbbbbbbb');
+          accumulator.custom_net_wt += Number(row.custom_net_wt) || 0;
+          accumulator.custom_few_wt += Number(row.custom_few_wt) || 0;
+          accumulator.custom_mat_wt += Number(row.custom_mat_wt) || 0;
+          accumulator.custom_gross_wt += Number(row.custom_gross_wt) || 0;
+          accumulator.custom_pcs += Number(row.table[0].pcs) || 0;
+          accumulator.custom_other += Number(row.custom_other) || 0;
+          accumulator.custom_total += Number(row.custom_total) || 0;
+          return accumulator;
+        },
+        {
+          custom_net_wt: 0,
+          custom_few_wt: 0,
+          custom_mat_wt: 0,
+          custom_gross_wt: 0,
+          custom_pcs: 0,
+          custom_other: 0,
+          custom_total: 0,
+        }
+      );
 
-    // Calculate total custom amount for custom_ot_amt
+      // Calculate total custom amount for custom_ot_amt
 
-    const totalCustomOtAmount = tableData.reduce((total: any, item: any) => {
-      const customTotal = parseFloat(item.custom_total) || 0;
-      const customOther = parseFloat(item.custom_other) || 0;
+      const totalCustomOtAmount = tableData.reduce((total: any, item: any) => {
+        const customTotal = parseFloat(item.custom_total) || 0;
+        const customOther = parseFloat(item.custom_other) || 0;
 
-      if (customTotal !== item.totalAmount) {
-        return total + customTotal;
-      } else {
-        return total + customTotal + customOther;
-      }
-    }, 0);
-    liveCalculations.custom_total = totalCustomOtAmount;
+        if (customTotal !== item.totalAmount) {
+          return total + customTotal;
+        } else {
+          return total + customTotal + customOther;
+        }
+      }, 0);
+      liveCalculations.custom_total = totalCustomOtAmount;
 
-    // Update the calculation row state
-    setCalculationRow(liveCalculations);
-  };
-
+      // Update the calculation row state
+      setCalculationRow(liveCalculations);
+    };
+    // Recalculate live calculations whenever tableData changes
+    calculateLiveCalculations();
+  }, [tableData, setTableData]);
   console.log(calculationRow, 'calculation tableData ');
   console.log(specificDataFromStore, 'specific data master table');
   // useEffect(() => {
@@ -114,7 +113,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
     } else {
       firstInputRef?.current?.focus();
     }
-  }, [specificDataFromStore]);
+  }, [specificDataFromStore, firstInputRef, lastInputRef, tableData?.length]);
   // setTimeout(() => {
   //   if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
   //     lastInputRef?.current?.focus();
