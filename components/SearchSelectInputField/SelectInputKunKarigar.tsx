@@ -93,8 +93,8 @@ const SelectInputKunKarigar = ({
       } else if (e.key === 'ArrowDown' && showDropdown) {
         setSelectedIndex((prevIndex: any) =>
           prevIndex <
-            (filterDropdownList ? filterDropdownList : kundanKarigarData)
-              ?.length -
+          (filterDropdownList ? filterDropdownList : kundanKarigarData)
+            ?.length -
             1
             ? prevIndex + 1
             : prevIndex
@@ -164,18 +164,25 @@ const SelectInputKunKarigar = ({
       }
     }
   }, [selectedIndex, showDropdown]);
+
   const handleFieldChange = (e: any) => {
     if (!readOnlyFields) {
       setShowDropdown(true);
     }
-    setSelectedKundanKarigarDropdownValue({ id: id, item_code: e.target.value });
+    const uppercaseValue = e.target.value.toUpperCase();
+    console.log('uppercase item code', uppercaseValue);
+    setSelectedKundanKarigarDropdownValue({
+      id: id,
+      item_code: uppercaseValue,
+    });
+
     // if (setSelectedItemCodeForCustomerSale !== undefined) {
     //   setSelectedItemCodeForCustomerSale({
     //     id: id,
     //     item_code: e.target.value,
     //   });
     // }
-    const query = e.target.value;
+    const query = uppercaseValue;
     const updatedFilterList: any =
       kundanKarigarData?.length > 0 &&
       kundanKarigarData.filter((item: any) => {
@@ -199,7 +206,7 @@ const SelectInputKunKarigar = ({
         if (item.idx === id && fieldName === 'item_code') {
           return {
             ...item,
-            item_code: 0 || selectedKundanKarigarDropdownValue,
+            item_code: 0 || uppercaseValue,
           };
         }
 
@@ -217,8 +224,9 @@ const SelectInputKunKarigar = ({
         type="text"
         name={fieldName}
         className={` ${styles.table_select}`}
-        placeholder={`${placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
-          }`}
+        placeholder={`${
+          placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
+        }`}
         onChange={(e) => {
           handleFieldChange(e);
         }}
@@ -240,8 +248,9 @@ const SelectInputKunKarigar = ({
                   <li
                     key={i}
                     onClick={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
-                      }`}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
                   >
                     {name.karigar_name}
                   </li>
@@ -255,8 +264,9 @@ const SelectInputKunKarigar = ({
                   <li
                     key={i}
                     onClick={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
-                      }`}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
                   >
                     {name.karigar_name}
                   </li>
