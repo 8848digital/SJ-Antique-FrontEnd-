@@ -98,11 +98,13 @@ const UseBarcodeFilterList = () => {
   const handleSearchBarcodeItemCodeDetails = (e: any, fieldName: any) => {
     let value = e.target.value;
     if (fieldName === 'date') {
-      const dateObj = new Date(value);
-      const formattedDate = `${dateObj.getDate()}/${
-        dateObj.getMonth() + 1
-      }/${dateObj.getFullYear()}`;
-      value = formattedDate;
+      if (Object?.keys(value)?.length > 0) {
+        const dateObj = new Date(value);
+        const formattedDate = `${dateObj.getDate()}/${
+          dateObj.getMonth() + 1
+        }/${dateObj.getFullYear()}`;
+        value = formattedDate;
+      }
     }
     setSearchBarcodeFilterData((prevState: any) => ({
       ...prevState,
@@ -111,7 +113,6 @@ const UseBarcodeFilterList = () => {
   };
 
   const handleSearchBtn: any = async () => {
-    console.log('searchKarigar', searchKarigar);
     let searchBarcodeItemCodeDetailsApi: any =
       await getSearchBarcodeItemCodeDetails(
         searchBarcodeFilterData,
@@ -144,7 +145,7 @@ const UseBarcodeFilterList = () => {
           );
         });
 
-      console.log("checkItemCodesToShow", checkItemCodesToShow)
+      console.log('checkItemCodesToShow', checkItemCodesToShow);
       if (searchBarcodeFilterData.barcode_created === 'yes') {
         setItemCodeDataToShow(checkItemCodesToShow);
         const ids =
