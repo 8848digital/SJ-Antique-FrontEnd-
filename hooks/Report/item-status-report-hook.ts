@@ -8,6 +8,7 @@ import UseScrollbarHook from './report-table-scrollbar-hook';
 import { get_item_status_report_data } from '@/store/slices/Report/item-status-report-slice';
 import { toast } from 'react-toastify';
 import PrintApi from '@/services/api/general/print-api';
+import ReportPrintApi from '@/services/api/report/report-print-api';
 
 const useItemStatusReportHook = () => {
   const {
@@ -253,15 +254,17 @@ const useItemStatusReportHook = () => {
   //   getDailyStatusData();
   // }, [searchInputValues.toDate, searchName, searchInputValues.fromDate]);
 
-  const HandleReportPrint: any = async (karigar: string) => {
+  const HandleReportPrint: any = async () => {
+    console.log('print api');
     const reqParams: any = {
       version: 'v1',
       method: 'print_report_daily_qty_status',
       entity: 'report',
-      custom_karigar: karigar || '',
+      from_date: searchInputValues.from_date,
+      to_date: searchInputValues.to_date,
     };
 
-    let reportPrintApi: any = await PrintApi(reqParams);
+    let reportPrintApi: any = await ReportPrintApi(reqParams);
 
     if (reportPrintApi?.data?.message?.status === 'success') {
       window.open(reportPrintApi?.data?.message?.data?.print_url);
