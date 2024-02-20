@@ -306,7 +306,7 @@ const CustomerSalesTable = ({
                             )
                           }
                           readOnly
-                          disabled
+                          // disabled
                         />
                       </td>
 
@@ -409,7 +409,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -446,7 +446,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -500,7 +500,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -541,7 +541,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -590,7 +590,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
