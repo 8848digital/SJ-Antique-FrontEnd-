@@ -25,7 +25,13 @@ const BarcodeFilterListing: any = ({
         <label className={` ${styles.label_font_size}`}>Karigar</label>
 
         <SearchSelectInputField
-          karigarData={karigarList}
+          karigarData={
+            karigarList?.length > 0 &&
+            karigarList !== null &&
+            karigarList.map((value: string) => ({
+              karigar_name: value,
+            }))
+          }
           placeholder="Karigar"
           className={'form-control line-height text-center  p-1  '}
           style="max-width"

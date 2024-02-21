@@ -47,10 +47,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
     custom_total: 0,
   });
 
-  useEffect(() => {
-    // Recalculate live calculations whenever tableData changes
-    calculateLiveCalculations();
-  }, [tableData, setTableData]);
   const calculateGrossWt = (i: any) => {
     console.log(i, 'i');
     return (
@@ -60,35 +56,35 @@ const KundanKarigarReadyReceiptMasterTable = ({
     );
   };
 
-  const calculateLiveCalculations = async () => {
-    // Calculate live values based on tableData
-    const liveCalculations = tableData?.reduce(
-      (accumulator: any, row: any) => {
-        console.log(row, 'bbbbbbbb');
-        accumulator.custom_net_wt += Number(row.custom_net_wt) || 0;
-        accumulator.custom_few_wt += Number(row.custom_few_wt) || 0;
-        accumulator.custom_mat_wt += Number(row.custom_mat_wt) || 0;
-        accumulator.custom_gross_wt += Number(row.custom_gross_wt) || 0;
-        accumulator.custom_pcs += Number(row.table[0].pcs) || 0;
-        accumulator.custom_other += Number(row.custom_other) || 0;
-        accumulator.custom_total += Number(row.custom_total) || 0;
-        return accumulator;
-      },
-      {
-        custom_net_wt: 0,
-        custom_few_wt: 0,
-        custom_mat_wt: 0,
-        custom_gross_wt: 0,
-        custom_pcs: 0,
-        custom_other: 0,
-        custom_total: 0,
-      }
-    );
+  useEffect(() => {
+    const calculateLiveCalculations = async () => {
+      // Calculate live values based on tableData
+      const liveCalculations = tableData?.reduce(
+        (accumulator: any, row: any) => {
+          console.log(row, 'bbbbbbbb');
+          accumulator.custom_net_wt += Number(row.custom_net_wt) || 0;
+          accumulator.custom_few_wt += Number(row.custom_few_wt) || 0;
+          accumulator.custom_mat_wt += Number(row.custom_mat_wt) || 0;
+          accumulator.custom_gross_wt += Number(row.custom_gross_wt) || 0;
+          accumulator.custom_pcs += Number(row.table[0].pcs) || 0;
+          accumulator.custom_other += Number(row.custom_other) || 0;
+          accumulator.custom_total += Number(row.custom_total) || 0;
+          return accumulator;
+        },
+        {
+          custom_net_wt: 0,
+          custom_few_wt: 0,
+          custom_mat_wt: 0,
+          custom_gross_wt: 0,
+          custom_pcs: 0,
+          custom_other: 0,
+          custom_total: 0,
+        }
+      );
 
-    // Calculate total custom amount for custom_ot_amt
+      // Calculate total custom amount for custom_ot_amt
 
-    const totalCustomOtAmount = tableData.reduce(
-      (total: any, item: any) => {
+      const totalCustomOtAmount = tableData.reduce((total: any, item: any) => {
         const customTotal = parseFloat(item.custom_total) || 0;
         const customOther = parseFloat(item.custom_other) || 0;
 
@@ -97,16 +93,15 @@ const KundanKarigarReadyReceiptMasterTable = ({
         } else {
           return total + customTotal + customOther;
         }
-      },
-      0
-    );
-    liveCalculations.custom_total = totalCustomOtAmount;
+      }, 0);
+      liveCalculations.custom_total = totalCustomOtAmount;
 
-
-    // Update the calculation row state
-    setCalculationRow(liveCalculations);
-  };
-
+      // Update the calculation row state
+      setCalculationRow(liveCalculations);
+    };
+    // Recalculate live calculations whenever tableData changes
+    calculateLiveCalculations();
+  }, [tableData, setTableData]);
   console.log(calculationRow, 'calculation tableData ');
   console.log(specificDataFromStore, 'specific data master table');
   // useEffect(() => {
@@ -118,7 +113,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
     } else {
       firstInputRef?.current?.focus();
     }
-  }, [specificDataFromStore]);
+  }, [specificDataFromStore, firstInputRef, lastInputRef, tableData?.length]);
   // setTimeout(() => {
   //   if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
   //     lastInputRef?.current?.focus();
@@ -151,7 +146,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
               Gross Wt
             </th>
             {query?.receipt === 'mangalsutra' ||
-              query?.receipt === 'Mangalsutra' ? (
+            query?.receipt === 'Mangalsutra' ? (
               <th className="thead" scope="col">
                 BB Pcs
               </th>
@@ -299,7 +294,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||
-                    query?.receipt === 'Mangalsutra' ? (
+                  query?.receipt === 'Mangalsutra' ? (
                     <td className="table_row">
                       <input
                         className={` ${styles.input_field} text-end`}
@@ -367,11 +362,11 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       value={parseFloat(
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                          Number(tableData[i]?.totalAmount)
+                              Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                            ? tableData[i]?.custom_total
-                            : tableData[i]?.custom_other
+                          ? tableData[i]?.custom_total
+                          : tableData[i]?.custom_other
                       )?.toFixed(2)}
                     />
                   </td>

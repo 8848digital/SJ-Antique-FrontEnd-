@@ -1,5 +1,5 @@
 import UseKundanKarigarDetailHook from '@/hooks/PurchaseReceiptHook/PurchaseReceiptDetailHook/kundan-karigar-detail-hook';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import KundanTable from '../KundanTable';
 import KundanKarigarReadyReceiptMasterTable from '../KundanKarigarReadyReceiptMasterTable';
 import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
@@ -79,6 +79,7 @@ const DetailPageReadyReceipt = () => {
   // const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
   const router = useRouter();
   const receiptType = router.query;
+  const [tabDisabled, setTabDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     if (defaultKarigarData?.length > 0 && defaultKarigarData !== null) {
@@ -96,8 +97,27 @@ const DetailPageReadyReceipt = () => {
     setSelectedDropdownValue,
     setRecipitData,
     setTableData,
+    setSelectedLocation,
   ]);
+  useEffect(() => {
+    setTabDisabled(true); // Disable Tab key
+    setTimeout(() => {
+      setTabDisabled(false); // Enable Tab key after 2 seconds
+    }, 2000);
+  }, []);
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (tabDisabled && event.key === 'Tab') {
+        event.preventDefault(); // Prevent default Tab behavior
+      }
+    };
 
+    window.addEventListener('keydown', handleKeyDown); // Add event listener
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown); // Cleanup on component unmount
+    };
+  }, [tabDisabled]);
   return (
     <div className="container">
       {isLoading ? (

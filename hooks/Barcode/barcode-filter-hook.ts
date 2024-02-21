@@ -12,6 +12,7 @@ import PostCreateBarcodeApi from '@/services/api/Barcode/post-create-barcode-api
 import { toast } from 'react-toastify';
 import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
+import getKarigarClientApi from '@/services/api/Barcode/get-karigar-client-name-api';
 
 const UseBarcodeFilterList = () => {
   const loginAcessToken = useSelector(get_access_token);
@@ -71,12 +72,16 @@ const UseBarcodeFilterList = () => {
 
   useEffect(() => {
     const getStateData: any = async () => {
-      const karigarData: any = await getKarigarApi(loginAcessToken.token);
+      const karigarData: any = await getKarigarClientApi(loginAcessToken.token);
       const kunCsOtData: any = await getKunCsOtCategoryApi(
         loginAcessToken.token
       );
       const BBData: any = await getBBCategoryApi(loginAcessToken.token);
-      setKarigarList(karigarData);
+      console.log(karigarData?.data?.message?.data, 'karigar client data');
+
+      if (karigarData?.data?.message?.status === 'success') {
+        setKarigarList(karigarData?.data?.message?.data);
+      }
       if (kunCsOtData?.data?.message?.status === 'success') {
         setKunCsOtCategoryData(kunCsOtData?.data?.message?.data);
       }
@@ -98,11 +103,13 @@ const UseBarcodeFilterList = () => {
   const handleSearchBarcodeItemCodeDetails = (e: any, fieldName: any) => {
     let value = e.target.value;
     if (fieldName === 'date') {
-      const dateObj = new Date(value);
-      const formattedDate = `${dateObj.getDate()}/${
-        dateObj.getMonth() + 1
-      }/${dateObj.getFullYear()}`;
-      value = formattedDate;
+      if (Object?.keys(value)?.length > 0) {
+        const dateObj = new Date(value);
+        const formattedDate = `${dateObj.getDate()}/${
+          dateObj.getMonth() + 1
+        }/${dateObj.getFullYear()}`;
+        value = formattedDate;
+      }
     }
     setSearchBarcodeFilterData((prevState: any) => ({
       ...prevState,
@@ -111,7 +118,6 @@ const UseBarcodeFilterList = () => {
   };
 
   const handleSearchBtn: any = async () => {
-    console.log('searchKarigar', searchKarigar);
     let searchBarcodeItemCodeDetailsApi: any =
       await getSearchBarcodeItemCodeDetails(
         searchBarcodeFilterData,
@@ -144,7 +150,7 @@ const UseBarcodeFilterList = () => {
           );
         });
 
-      console.log("checkItemCodesToShow", checkItemCodesToShow)
+      console.log('checkItemCodesToShow', checkItemCodesToShow);
       if (searchBarcodeFilterData.barcode_created === 'yes') {
         setItemCodeDataToShow(checkItemCodesToShow);
         const ids =

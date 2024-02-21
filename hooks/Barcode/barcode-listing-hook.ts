@@ -86,9 +86,9 @@ const useBarcodeListingHook = () => {
     });
   };
 
-  const handleSelectAll = (ListData: any) => {
+  const handleSelectAll = (ListData: any, tableViewData: number) => {
     setSelectAll((prevSelectAll: boolean) => {
-      const allItems = ListData.map((item: any) => ({
+      const allItems = ListData.slice(0, tableViewData).map((item: any) => ({
         id: item.idx,
         name: item.item_code,
       }));

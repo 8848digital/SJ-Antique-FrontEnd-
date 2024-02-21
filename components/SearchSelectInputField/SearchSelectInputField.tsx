@@ -34,7 +34,7 @@ const SearchSelectInputField = ({
   useEffect(() => {
     if (selectDropDownReset !== undefined && selectDropDownReset === true)
       setSelectedDropdownValue('');
-  }, [selectDropDownReset]);
+  }, [selectDropDownReset, setSelectedDropdownValue]);
 
   useEffect(() => {
     const handleDocumentClick = (e: any) => {

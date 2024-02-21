@@ -61,7 +61,7 @@ const BarcodeListingTable: any = ({
           <button
             type="button"
             className="btn btn-outline-primary px-2 py-0 form-submit-button mx-3"
-            onClick={() => handleSelectAll(BarcodeListData)}
+            onClick={() => handleSelectAll(BarcodeListData, tableViewData)}
           >
             Select All
           </button>
@@ -114,7 +114,11 @@ const BarcodeListingTable: any = ({
                 <div className="col-sm-7 border"></div>
                 <div className="col-sm-1 border text-center">
                   <a
-                    onClick={() => handleBarcodePrint(item.item_code)}
+                    onClick={() =>
+                      handleMultipleBarcodePrint([
+                        { id: index, name: item.item_code },
+                      ])
+                    }
                     className={`button-section-text mx-auto text-info ${styles.cursor_pointer}`}
                   >
                     Print
@@ -124,8 +128,7 @@ const BarcodeListingTable: any = ({
                   <input
                     className="mt-1 "
                     type="checkbox"
-                    checked={// selectAll ||
-                    multipleRecordsForPrint?.some(
+                    checked={multipleRecordsForPrint?.some(
                       (checkedItem: any) => checkedItem.id === item.idx
                     )}
                     onChange={() =>

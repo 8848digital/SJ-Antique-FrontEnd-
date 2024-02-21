@@ -1,6 +1,6 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from '../../../styles/readyReceipts.module.css';
 import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
 import SalesTableHeader from './SalesTableHeader';
@@ -42,114 +42,136 @@ const CustomerSalesTable = ({
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
-  const initialStateOfCalculationRow: any = {
-    custom_gross_wt: 0,
-    custom_kun_wt: 0,
-    custom_cs_wt: 0,
-    custom_bb_wt: 0,
-    custom_other_wt: 0,
-    custom_net_wt: 0,
-    custom_cs: 0,
-    custom_cs_amt: 0,
-    custom_kun_pc: 0,
-    custom_kun: 0,
-    custom_kun_amt: 0,
-    custom_ot_: 0,
-    custom_ot_amt: 0,
-    custom_other: 0,
-    custom_amount: 0,
-  };
+  // const initialStateOfCalculationRow: any = {
+  //   custom_gross_wt: 0,
+  //   custom_kun_wt: 0,
+  //   custom_cs_wt: 0,
+  //   custom_bb_wt: 0,
+  //   custom_other_wt: 0,
+  //   custom_net_wt: 0,
+  //   custom_cs: 0,
+  //   custom_cs_amt: 0,
+  //   custom_kun_pc: 0,
+  //   custom_kun: 0,
+  //   custom_kun_amt: 0,
+  //   custom_ot_: 0,
+  //   custom_ot_amt: 0,
+  //   custom_other: 0,
+  //   custom_amount: 0,
+  // };
+  const initialStateOfCalculationRow = useMemo(
+    () => ({
+      custom_gross_wt: 0,
+      custom_kun_wt: 0,
+      custom_cs_wt: 0,
+      custom_bb_wt: 0,
+      custom_other_wt: 0,
+      custom_cs: 0,
+      custom_kun_pc: 0,
+      custom_kun: 0,
+      custom_kun_amt: 0,
+      custom_ot_: 0,
+      custom_other: 0,
+      custom_amount: 0,
+      custom_ot_amt: 0,
+      custom_cs_amt: 0,
+      custom_net_wt: 0,
+    }),
+    []
+  );
+
   const [calculationRow, setCalculationRow] = useState(
     initialStateOfCalculationRow
   );
 
   useEffect(() => {
+    const calculateLiveCalculations = async () => {
+      // Calculate live values based on tableData
+      const liveCalculations = salesTableData.reduce(
+        (accumulator: any, row: any) => {
+          accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
+          accumulator.custom_kun_wt += parseFloat(row.custom_kun_wt) || 0;
+          accumulator.custom_cs_wt += parseFloat(row.custom_cs_wt) || 0;
+          accumulator.custom_bb_wt += parseFloat(row.custom_bb_wt) || 0;
+          accumulator.custom_other_wt += parseFloat(row.custom_other_wt) || 0;
+          accumulator.custom_cs += parseFloat(row.custom_cs) || 0;
+          accumulator.custom_kun_pc += parseFloat(row.custom_kun_pc) || 0;
+          accumulator.custom_kun += parseFloat(row.custom_kun) || 0;
+          accumulator.custom_kun_amt += parseFloat(row.custom_kun_amt) || 0;
+          accumulator.custom_ot_ += parseFloat(row.custom_ot_) || 0;
+          accumulator.custom_other += parseFloat(row.custom_other) || 0;
+          return accumulator;
+        },
+        initialStateOfCalculationRow
+      );
+
+      // Calculate total custom amount
+      const totalCustomAmount = salesTableData.reduce(
+        (total: any, item: any) => {
+          console.log(
+            'calculation tableData values',
+            item.custom_cs,
+            item.custom_cs_amt
+          );
+          return (
+            total +
+            (parseFloat(item.custom_cs_amt) || 0) + // custom_cs_amt
+            (parseFloat(item.custom_kun_amt) || 0) + // custom_kun_amt
+            (parseFloat(item.custom_ot_amt) || 0) + // custom_ot_amt
+            (parseFloat(item.custom_other) || 0)
+          );
+        },
+        0
+      );
+
+      liveCalculations.custom_amount = totalCustomAmount;
+
+      // Calculate total custom amount for custom_ot_amt
+      const totalCustomOtAmount = salesTableData.reduce(
+        (total: any, item: any) => {
+          return (
+            total +
+            (parseFloat(item.custom_other_wt) || 0) *
+              (parseFloat(item.custom_ot_) || 0)
+          );
+        },
+        0
+      );
+      liveCalculations.custom_ot_amt = totalCustomOtAmount;
+
+      // Calculate total custom amount for custom_cs_amt
+      const totalCustomCsAmount = salesTableData.reduce(
+        (total: any, item: any) => {
+          return (
+            total +
+            (parseFloat(item.custom_cs) || 0) *
+              (parseFloat(item.custom_cs_wt) || 0)
+          );
+        },
+        0
+      );
+      liveCalculations.custom_cs_amt = totalCustomCsAmount;
+
+      // Calculate total custom net weight for custom_net_wt
+      const totalCustomNetWeight = salesTableData.reduce(
+        (total: any, item: any) => {
+          const customNetWt =
+            parseFloat(item.custom_gross_wt) -
+            (parseFloat(item.custom_kun_wt) +
+              parseFloat(item.custom_cs_wt) +
+              parseFloat(item.custom_bb_wt) +
+              parseFloat(item.custom_other_wt));
+          return total + Math.max(customNetWt, 0);
+        },
+        0
+      );
+      liveCalculations.custom_net_wt = totalCustomNetWeight;
+
+      setCalculationRow(liveCalculations);
+    };
     // Recalculate live calculations whenever tableData changes
     calculateLiveCalculations();
-  }, [salesTableData, setSalesTableData]);
-
-  const calculateLiveCalculations = async () => {
-    // Calculate live values based on tableData
-    const liveCalculations = salesTableData.reduce(
-      (accumulator: any, row: any) => {
-        accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
-        accumulator.custom_kun_wt += parseFloat(row.custom_kun_wt) || 0;
-        accumulator.custom_cs_wt += parseFloat(row.custom_cs_wt) || 0;
-        accumulator.custom_bb_wt += parseFloat(row.custom_bb_wt) || 0;
-        accumulator.custom_other_wt += parseFloat(row.custom_other_wt) || 0;
-        accumulator.custom_cs += parseFloat(row.custom_cs) || 0;
-        accumulator.custom_kun_pc += parseFloat(row.custom_kun_pc) || 0;
-        accumulator.custom_kun += parseFloat(row.custom_kun) || 0;
-        accumulator.custom_kun_amt += parseFloat(row.custom_kun_amt) || 0;
-        accumulator.custom_ot_ += parseFloat(row.custom_ot_) || 0;
-        accumulator.custom_other += parseFloat(row.custom_other) || 0;
-        return accumulator;
-      },
-      initialStateOfCalculationRow
-    );
-
-    // Calculate total custom amount
-    const totalCustomAmount = salesTableData.reduce((total: any, item: any) => {
-      console.log(
-        'calculation tableData values',
-        item.custom_cs,
-        item.custom_cs_amt
-      );
-      return (
-        total +
-        (parseFloat(item.custom_cs_amt) || 0) + // custom_cs_amt
-        (parseFloat(item.custom_kun_amt) || 0) + // custom_kun_amt
-        (parseFloat(item.custom_ot_amt) || 0) + // custom_ot_amt
-        (parseFloat(item.custom_other) || 0)
-      );
-    }, 0);
-
-    liveCalculations.custom_amount = totalCustomAmount;
-
-    // Calculate total custom amount for custom_ot_amt
-    const totalCustomOtAmount = salesTableData.reduce(
-      (total: any, item: any) => {
-        return (
-          total +
-          (parseFloat(item.custom_other_wt) || 0) *
-          (parseFloat(item.custom_ot_) || 0)
-        );
-      },
-      0
-    );
-    liveCalculations.custom_ot_amt = totalCustomOtAmount;
-
-    // Calculate total custom amount for custom_cs_amt
-    const totalCustomCsAmount = salesTableData.reduce(
-      (total: any, item: any) => {
-        return (
-          total +
-          (parseFloat(item.custom_cs) || 0) *
-          (parseFloat(item.custom_cs_wt) || 0)
-        );
-      },
-      0
-    );
-    liveCalculations.custom_cs_amt = totalCustomCsAmount;
-
-    // Calculate total custom net weight for custom_net_wt
-    const totalCustomNetWeight = salesTableData.reduce(
-      (total: any, item: any) => {
-        const customNetWt =
-          parseFloat(item.custom_gross_wt) -
-          (parseFloat(item.custom_kun_wt) +
-            parseFloat(item.custom_cs_wt) +
-            parseFloat(item.custom_bb_wt) +
-            parseFloat(item.custom_other_wt));
-        return total + Math.max(customNetWt, 0);
-      },
-      0
-    );
-    liveCalculations.custom_net_wt = totalCustomNetWeight;
-
-    setCalculationRow(liveCalculations);
-  };
-
+  }, [salesTableData, setSalesTableData, initialStateOfCalculationRow]);
   // console.log(itemCodeList, 'item code list in table ');
   return (
     <>
@@ -270,11 +292,11 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             item?.custom_gross_wt !== '' &&
-                            item?.custom_gross_wt
+                              item?.custom_gross_wt
                           )?.toFixed(3)}
                           defaultValue={Number(
                             item?.custom_gross_wt !== '' &&
-                            item?.custom_gross_wt
+                              item?.custom_gross_wt
                           )?.toFixed(3)}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -284,7 +306,7 @@ const CustomerSalesTable = ({
                             )
                           }
                           readOnly
-                          disabled
+                          // disabled
                         />
                       </td>
 
@@ -356,7 +378,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          // onKeyDown={(e) => handleModal(e, item.idx, item)}
                         />
                       </td>
                       <td className="table_row">
@@ -373,10 +395,10 @@ const CustomerSalesTable = ({
                               0
                               ? 0
                               : Number(item.custom_gross_wt) -
-                              (Number(item.custom_kun_wt) +
-                                Number(item.custom_cs_wt) +
-                                Number(item.custom_bb_wt) +
-                                Number(item.custom_other_wt))
+                                  (Number(item.custom_kun_wt) +
+                                    Number(item.custom_cs_wt) +
+                                    Number(item.custom_bb_wt) +
+                                    Number(item.custom_other_wt))
                           )?.toFixed(3)}
                           defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
                           readOnly
@@ -387,7 +409,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -424,7 +446,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -478,7 +500,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -505,11 +527,11 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             Number(item.custom_other_wt) *
-                            Number(item.custom_ot_)
+                              Number(item.custom_ot_)
                           )?.toFixed(2)}
                           defaultValue={Number(
                             Number(item.custom_other_wt) *
-                            Number(item.custom_ot_)
+                              Number(item.custom_ot_)
                           )?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
@@ -519,7 +541,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -548,17 +570,17 @@ const CustomerSalesTable = ({
                             (Number.isNaN(item.custom_cs_amt)
                               ? 0
                               : Number(item?.custom_cs_amt)) +
-                            Number(item?.custom_kun_amt) +
-                            (Number.isNaN(item.custom_ot_amt)
-                              ? 0
-                              : Number(item?.custom_ot_amt)) +
-                            Number(item?.custom_other)
+                              Number(item?.custom_kun_amt) +
+                              (Number.isNaN(item.custom_ot_amt)
+                                ? 0
+                                : Number(item?.custom_ot_amt)) +
+                              Number(item?.custom_other)
                           )?.toFixed(2)}
                           defaultValue={Number(
                             Number(item?.custom_cs_amt) +
-                            Number(item?.custom_kun_amt) +
-                            Number(item?.custom_ot_amt) +
-                            Number(item?.custom_other)
+                              Number(item?.custom_kun_amt) +
+                              Number(item?.custom_ot_amt) +
+                              Number(item?.custom_other)
                           )}
                           readOnly
                           onChange={(e) =>
@@ -568,7 +590,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                          disabled
+                          // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -576,12 +598,12 @@ const CustomerSalesTable = ({
                           className="d-flex align-items-center delete-link p-1 border-0"
                           onClick={() => {
                             if (!readOnlyFields) {
-                              handleDeleteRowOfSalesTable(item.idx)
+                              handleDeleteRowOfSalesTable(item.idx);
                             }
                           }}
                           onKeyDown={(e) => {
                             if (!readOnlyFields) {
-                              handleTabPressInSales(e, item.idx)
+                              handleTabPressInSales(e, item.idx);
                             }
                           }}
                         >

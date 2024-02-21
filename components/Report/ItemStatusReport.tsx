@@ -75,7 +75,7 @@ const ItemStatusReport: any = ({
         <button
           type="submit"
           className=" btn btn-outline-primary px-2 py-0 form-submit-button"
-          onClick={() => HandleReportPrint(searchName)}
+          onClick={HandleReportPrint}
         >
           Print
         </button>
