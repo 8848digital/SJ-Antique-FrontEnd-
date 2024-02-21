@@ -43,7 +43,11 @@ const PurchaseReceiptFileUploadMaster = ({
             placeholder="Attach"
             value={item?.custom_add_photo}
             onKeyDown={(e) => {
-              keyValue === 'edit' ? handleUpdateReceipt() : handleCreate();
+              e.key === 'Tab'
+                ? keyValue === 'edit'
+                  ? handleUpdateReceipt()
+                  : handleCreate()
+                : '';
             }}
             onClick={() => {
               // if (!readOnlyFields) {

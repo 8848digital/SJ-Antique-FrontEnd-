@@ -185,7 +185,10 @@ const UseBarcodeFilterList = () => {
       version: 'v1',
       method: 'get_item_specific_barcode',
       entity: 'barcode',
-      name: checkedItems.map((items: any) => items.name),
+      name:
+        checkedItems?.length > 0 &&
+        checkedItems !== null &&
+        checkedItems.map((items: any) => items.name),
     };
 
     let getBarcodeDetails: any = await getBarcodeDetailsApi(

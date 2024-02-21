@@ -282,7 +282,7 @@ const CustomerSalesTable = ({
                           setSelectedKundanKarigarDropdownValue={
                             setSelectedItemCodeForCustomerSale
                           }
-                          handleTabPressItemDetails={handleTabPressItemDetails}
+                          // handleTabPressItemDetails={handleTabPressItemDetails}
                         />
                       </td>
                       <td className="table_row">
