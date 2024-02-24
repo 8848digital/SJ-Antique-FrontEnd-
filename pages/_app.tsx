@@ -12,18 +12,9 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 
 config.autoAddCss = false;
 
-// const ErrorFallback = ({ error, resetErrorBoundary }: any) => (
-//   <div>
-//     <h1>Something went wrong!</h1>
-//     <pre>{error.message}</pre>
-//     <button onClick={resetErrorBoundary}>Try again</button>
-//   </div>
-// );
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      {/* <Login /> */}
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ErrorBoundary>
