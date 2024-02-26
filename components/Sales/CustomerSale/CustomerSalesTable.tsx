@@ -38,125 +38,119 @@ const CustomerSalesTable = ({
   handleTabPressItemDetails,
   itemCodeList,
 }: any) => {
-  console.log(salesTableData, 'sales table data ');
+  // console.log(salesTableData, 'sales table data ');
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
 
-  const initialStateOfCalculationRow = useMemo(
-    () => ({
-      custom_gross_wt: 0,
-      custom_kun_wt: 0,
-      custom_cs_wt: 0,
-      custom_bb_wt: 0,
-      custom_other_wt: 0,
-      custom_cs: 0,
-      custom_kun_pc: 0,
-      custom_kun: 0,
-      custom_kun_amt: 0,
-      custom_ot_: 0,
-      custom_other: 0,
-      custom_amount: 0,
-      custom_ot_amt: 0,
-      custom_cs_amt: 0,
-      custom_net_wt: 0,
-    }),
-    []
-  );
+  const initialStateOfCalculationRow: any = {
+    custom_gross_wt: 0,
+    custom_kun_wt: 0,
+    custom_cs_wt: 0,
+    custom_bb_wt: 0,
+    custom_other_wt: 0,
+    custom_cs: 0,
+    custom_kun_pc: 0,
+    custom_kun: 0,
+    custom_kun_amt: 0,
+    custom_ot_: 0,
+    custom_other: 0,
+    custom_amount: 0,
+    custom_ot_amt: 0,
+    custom_cs_amt: 0,
+    custom_net_wt: 0,
+  }
 
   const [calculationRow, setCalculationRow] = useState(
     initialStateOfCalculationRow
   );
 
+
+  const calculateLiveCalculations = async () => {
+    const liveCalculations = salesTableData.reduce(
+      (accumulator: any, row: any) => {
+        accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
+        accumulator.custom_kun_wt += parseFloat(row.custom_kun_wt) || 0;
+        accumulator.custom_cs_wt += parseFloat(row.custom_cs_wt) || 0;
+        accumulator.custom_bb_wt += parseFloat(row.custom_bb_wt) || 0;
+        accumulator.custom_other_wt += parseFloat(row.custom_other_wt) || 0;
+        accumulator.custom_net_wt += parseFloat(row.custom_net_wt) || 0;
+        accumulator.custom_cs += parseFloat(row.custom_cs) || 0;
+        accumulator.custom_kun_pc += parseFloat(row.custom_kun_pc) || 0;
+        accumulator.custom_kun += parseFloat(row.custom_kun) || 0;
+        accumulator.custom_kun_amt += parseFloat(row.custom_kun_amt) || 0;
+        accumulator.custom_ot_ += parseFloat(row.custom_ot_) || 0;
+        accumulator.custom_other += parseFloat(row.custom_other) || 0;
+        return accumulator;
+      },
+      initialStateOfCalculationRow
+    );
+
+    // Calculate total custom amount
+    const totalCustomAmount = salesTableData.reduce(
+      (total: any, item: any) => {
+
+        return (
+          total +
+          (parseFloat(item.custom_cs_amt) || 0) + // custom_cs_amt
+          (parseFloat(item.custom_kun_amt) || 0) + // custom_kun_amt
+          (parseFloat(item.custom_ot_amt) || 0) + // custom_ot_amt
+          (parseFloat(item.custom_other) || 0)
+        );
+      },
+      0
+    );
+
+    liveCalculations.custom_amount = totalCustomAmount;
+
+    // Calculate total custom amount for custom_ot_amt
+    const totalCustomOtAmount = salesTableData.reduce(
+      (total: any, item: any) => {
+        return (
+          total +
+          (parseFloat(item.custom_other_wt) || 0) *
+          (parseFloat(item.custom_ot_) || 0)
+        );
+      },
+      0
+    );
+    liveCalculations.custom_ot_amt = totalCustomOtAmount;
+
+    // Calculate total custom amount for custom_cs_amt
+    const totalCustomCsAmount = salesTableData.reduce(
+      (total: any, item: any) => {
+        return (
+          total +
+          (parseFloat(item.custom_cs) || 0) *
+          (parseFloat(item.custom_cs_wt) || 0)
+        );
+      },
+      0
+    );
+    liveCalculations.custom_cs_amt = totalCustomCsAmount;
+
+    // Calculate total custom net weight for custom_net_wt
+    const totalCustomNetWeight = salesTableData.reduce(
+      (total: any, item: any) => {
+        const customNetWt =
+          parseFloat(item.custom_gross_wt) -
+          (parseFloat(item.custom_kun_wt) +
+            parseFloat(item.custom_cs_wt) +
+            parseFloat(item.custom_bb_wt) +
+            parseFloat(item.custom_other_wt));
+        return total + Math.max(customNetWt, 0);
+      },
+      0
+    );
+    liveCalculations.custom_net_wt = totalCustomNetWeight;
+
+    setCalculationRow(liveCalculations);
+  };
+
+
   useEffect(() => {
-    const calculateLiveCalculations = async () => {
-      // Calculate live values based on tableData
-      const liveCalculations = salesTableData.reduce(
-        (accumulator: any, row: any) => {
-          accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
-          accumulator.custom_kun_wt += parseFloat(row.custom_kun_wt) || 0;
-          accumulator.custom_cs_wt += parseFloat(row.custom_cs_wt) || 0;
-          accumulator.custom_bb_wt += parseFloat(row.custom_bb_wt) || 0;
-          accumulator.custom_other_wt += parseFloat(row.custom_other_wt) || 0;
-          accumulator.custom_cs += parseFloat(row.custom_cs) || 0;
-          accumulator.custom_kun_pc += parseFloat(row.custom_kun_pc) || 0;
-          accumulator.custom_kun += parseFloat(row.custom_kun) || 0;
-          accumulator.custom_kun_amt += parseFloat(row.custom_kun_amt) || 0;
-          accumulator.custom_ot_ += parseFloat(row.custom_ot_) || 0;
-          accumulator.custom_other += parseFloat(row.custom_other) || 0;
-          return accumulator;
-        },
-        initialStateOfCalculationRow
-      );
-
-      // Calculate total custom amount
-      const totalCustomAmount = salesTableData.reduce(
-        (total: any, item: any) => {
-          console.log(
-            'calculation tableData values',
-            item.custom_cs,
-            item.custom_cs_amt
-          );
-          return (
-            total +
-            (parseFloat(item.custom_cs_amt) || 0) + // custom_cs_amt
-            (parseFloat(item.custom_kun_amt) || 0) + // custom_kun_amt
-            (parseFloat(item.custom_ot_amt) || 0) + // custom_ot_amt
-            (parseFloat(item.custom_other) || 0)
-          );
-        },
-        0
-      );
-
-      liveCalculations.custom_amount = totalCustomAmount;
-
-      // Calculate total custom amount for custom_ot_amt
-      const totalCustomOtAmount = salesTableData.reduce(
-        (total: any, item: any) => {
-          return (
-            total +
-            (parseFloat(item.custom_other_wt) || 0) *
-            (parseFloat(item.custom_ot_) || 0)
-          );
-        },
-        0
-      );
-      liveCalculations.custom_ot_amt = totalCustomOtAmount;
-
-      // Calculate total custom amount for custom_cs_amt
-      const totalCustomCsAmount = salesTableData.reduce(
-        (total: any, item: any) => {
-          return (
-            total +
-            (parseFloat(item.custom_cs) || 0) *
-            (parseFloat(item.custom_cs_wt) || 0)
-          );
-        },
-        0
-      );
-      liveCalculations.custom_cs_amt = totalCustomCsAmount;
-
-      // Calculate total custom net weight for custom_net_wt
-      const totalCustomNetWeight = salesTableData.reduce(
-        (total: any, item: any) => {
-          const customNetWt =
-            parseFloat(item.custom_gross_wt) -
-            (parseFloat(item.custom_kun_wt) +
-              parseFloat(item.custom_cs_wt) +
-              parseFloat(item.custom_bb_wt) +
-              parseFloat(item.custom_other_wt));
-          return total + Math.max(customNetWt, 0);
-        },
-        0
-      );
-      liveCalculations.custom_net_wt = totalCustomNetWeight;
-
-      setCalculationRow(liveCalculations);
-    };
-    // Recalculate live calculations whenever tableData changes
     calculateLiveCalculations();
-
-  }, [salesTableData, setSalesTableData, initialStateOfCalculationRow]);
+  }, [salesTableData, calculationRow])
 
 
   const calculateCustomNetWt: any = () => {
@@ -167,9 +161,11 @@ const CustomerSalesTable = ({
         Number(item.custom_bb_wt) +
         Number(item.custom_other_wt)
       );
-      return netWt < 0 ? 0 : netWt.toFixed(3);
+      return netWt < 0 ? 0.000 : netWt.toFixed(3);
     });
   }
+
+  console.log("updated calculation", salesTableData, calculationRow)
 
 
   return (
@@ -314,7 +310,7 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item?.custom_kun_wt)?.toFixed(3)}
+                          value={Number(item?.custom_kun_wt)}
                           defaultValue={Number(item?.custom_kun_wt)}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -331,7 +327,7 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_cs_wt)?.toFixed(3)}
+                          value={Number(item.custom_cs_wt)}
                           defaultValue={Number(item.custom_cs_wt)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -350,7 +346,7 @@ const CustomerSalesTable = ({
                           min={0}
                           value={Number(
                             item.custom_bb_wt < 0 ? 0 : item.custom_bb_wt
-                          )?.toFixed(3)}
+                          )}
                           defaultValue={Number(item.custom_bb_wt)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -367,7 +363,7 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_other_wt)?.toFixed(3)}
+                          value={Number(item.custom_other_wt)}
                           defaultValue={item.custom_other_wt}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
@@ -386,7 +382,6 @@ const CustomerSalesTable = ({
                           type="number"
                           min={0}
                           value={calculateCustomNetWt()[i]}
-
                           defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
                           readOnly
                           onChange={(e) =>
