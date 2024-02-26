@@ -157,7 +157,7 @@ const CustomerSalesTable = ({
     calculateLiveCalculations();
 
   }, [salesTableData, setSalesTableData, initialStateOfCalculationRow]);
-  // console.log(itemCodeList, 'item code list in table ');
+
 
   const calculateCustomNetWt: any = () => {
     return salesTableData.map((item: any, index: any) => {
@@ -170,9 +170,6 @@ const CustomerSalesTable = ({
       return netWt < 0 ? 0 : netWt.toFixed(3);
     });
   }
-
-
-
 
 
   return (

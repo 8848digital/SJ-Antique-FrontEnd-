@@ -291,8 +291,9 @@ const UseCustomerSaleHook = () => {
                 : data[0]?.custom_other_wt
             ),
 
-            custom_net_wt: Number(tableData.custom_gross_wt -
-              (tableData.custom_kun_wt + tableData.custom_cs_wt + tableData.custom_bb_wt + tableData.custom_other_wt)),
+            custom_net_wt: (Number(data.custom_gross_wt) -
+              Number(data.custom_kun_wt + data.custom_cs_wt + data.custom_bb_wt + data.custom_other_wt)),
+
             custom_kun_pc: Number(data[0]?.custom_kun_pcs),
             custom_pr_kun_wt: Number(data[0]?.custom_kun_wt),
             custom_pr_cs_wt: Number(data[0]?.custom_cs_wt),
@@ -300,8 +301,8 @@ const UseCustomerSaleHook = () => {
             custom_pr_other_wt: Number(data[0]?.custom_other_wt),
             warehouse: data[0].custom_warehouse,
           };
-        } else {
           console.log(tableData, 'selected category in detail');
+        } else {
           return tableData;
         }
       });
@@ -444,8 +445,8 @@ const UseCustomerSaleHook = () => {
   };
 
   useEffect(() => {
-    console.log('inside useEffect');
     if (barcodedata === 0) {
+      console.log('inside useEffect');
       const updatedData =
         salesTableData?.length > 0 &&
         salesTableData !== null &&
@@ -566,13 +567,12 @@ const UseCustomerSaleHook = () => {
         } = data;
         return {
           ...updatedObject,
-          // custom_net_wt:
-          //   Number(data?.custom_gross_wt) -
-          //     (Number(data?.custom_kun_wt) +
-          //       Number(data?.custom_cs_wt) +
-          //       Number(data?.custom_bb_wt) +
-          //       Number(data?.custom_other_wt)) <
-          //   0
+          custom_net_wt:
+            Number(data?.custom_gross_wt) -
+            (Number(data?.custom_kun_wt) +
+              Number(data?.custom_cs_wt) +
+              Number(data?.custom_bb_wt) +
+              Number(data?.custom_other_wt))
           //     ? 0
           //     : Number(data?.custom_gross_wt) -
           //       (Number(data?.custom_kun_wt) +
