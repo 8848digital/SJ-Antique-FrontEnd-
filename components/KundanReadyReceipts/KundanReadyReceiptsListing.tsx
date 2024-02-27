@@ -325,14 +325,22 @@ const KundanListing = ({
                           </a>
                         </div>
                         <div className="col-lg-3 col-12">
-                          <a
-                            onClick={() =>
-                              HandleUpdateDocStatus('2', item.name)
-                            }
-                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                          >
-                            Cancel
-                          </a>
+                          {item?.posting_date ===
+                            new Date()?.toISOString()?.split('T')[0] ? (
+                            <>
+                              <a
+                                onClick={() =>
+                                  HandleUpdateDocStatus('2', item.name)
+                                }
+                                className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                              >
+                                Cancel
+                              </a>
+                            </>
+                          ) : (
+                            <div className=""></div>
+                          )}
+
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link
@@ -369,13 +377,21 @@ const KundanListing = ({
                         </div>
 
                         <div className="col-lg-3 col-12">
-                          <a
-                            // href=""
-                            onClick={() => HandleDeleteReceipt(item.name)}
-                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                          >
-                            Delete
-                          </a>
+                          {item?.posting_date ===
+                            new Date()?.toISOString()?.split('T')[0] ? (
+                            <>
+                              <a
+                                // href=""
+                                onClick={() => HandleDeleteReceipt(item.name)}
+                                className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                              >
+                                Delete
+                              </a>
+                            </>
+                          ) : (
+                            <div className=""></div>
+                          )}
+
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link
