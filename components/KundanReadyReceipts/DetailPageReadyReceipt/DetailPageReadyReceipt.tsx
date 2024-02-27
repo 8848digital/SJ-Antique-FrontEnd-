@@ -6,8 +6,6 @@ import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt
 import DocStatusButtonChanges from '../../ButtonChanges/DocStatusButtonChanges';
 import PurchaseReceiptModal from '../../ModalMaster/PurchaseReceiptModal';
 import '../../../styles/detailPage.module.css';
-import { useSelector } from 'react-redux';
-import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import Loader from '../../NoRecord/Loader';
 import NoRecord from '../../NoRecord/NoRecord';
 import { useRouter } from 'next/router';
@@ -22,7 +20,6 @@ const DetailPageReadyReceipt = () => {
   } = UseKundanKarigarDetailHook();
 
   const { query } = useRouter();
-  console.log('query in receipt', query);
   const {
     setClick,
     kundanListing,
@@ -78,7 +75,6 @@ const DetailPageReadyReceipt = () => {
 
   // const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
   const router = useRouter();
-  const receiptType = router.query;
   const [tabDisabled, setTabDisabled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -126,8 +122,8 @@ const DetailPageReadyReceipt = () => {
         <>
           {specificDataFromStore?.data?.length === 0 && isLoading === false ? (
             <NoRecord
-              title="Record not found 😥"
-              heading=""
+              title="Ready Receipt"
+              content="Sorry for disappointing you! We’re unable to find any relevant data"
               backButtonUrl={`/readyReceipt/${query?.receipt}`}
             />
           ) : (

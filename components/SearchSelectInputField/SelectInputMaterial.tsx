@@ -20,14 +20,9 @@ const SelectInputMaterial = ({
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
   const dropdownRef = useRef<HTMLUListElement>(null);
 
-  console.log('check material', materialListData);
-  console.log(id, 'id222');
-
   const HandleSelectInputField = (e: any) => {
-    console.log('input field', e.target.value);
     setShowDropdown(true);
     setSelectedDropdownValue(e.target.value);
-    console.log(selectedDropdownValue, 'selectedDropdownValue');
     const query = e.target.value;
 
     const UpdatedFilterList: any = materialListData?.filter((item: any) => {
@@ -44,7 +39,6 @@ const SelectInputMaterial = ({
         }
         return item;
       });
-    console.log(updatedModalData, 'modal data');
     setMaterialWeight(updatedModalData);
     setSelectedMaterial(query);
   };
@@ -78,8 +72,6 @@ const SelectInputMaterial = ({
         selectedIndex !== -1
       ) {
         e.preventDefault();
-        console.log(filterDropdownList[selectedIndex], 'filter selected index');
-
         HandleMaterialAbbr(filterDropdownList[selectedIndex]);
       }
     }
@@ -91,13 +83,11 @@ const SelectInputMaterial = ({
       selectedIndex !== -1
     ) {
       e.preventDefault();
-      console.log(filterDropdownList[selectedIndex], 'filter selected index');
       handleSelectedOption(filterDropdownList[selectedIndex]);
     }
   };
 
   const handleSelectedOption = (data: any) => {
-    console.log('dataa', data);
     setSelectedDropdownValue(data.material);
     setShowDropdown(false);
     const updatedModalData =
@@ -108,12 +98,10 @@ const SelectInputMaterial = ({
         }
         return item;
       });
-    console.log(updatedModalData, 'modal abbr11');
     setMaterialWeight(updatedModalData);
     setSelectedMaterial(data);
   };
   const HandleMaterialAbbr = (name: any) => {
-    console.log(name, 'name11');
     const updatedModalData =
       materialWeight?.length > 0 &&
       materialWeight?.map((item: any, index: any) => {
@@ -122,12 +110,9 @@ const SelectInputMaterial = ({
         }
         return item;
       });
-    console.log(updatedModalData, 'modal abbr1');
     setMaterialWeight(updatedModalData);
   };
-  console.log(materialWeight, 'materialWeight');
 
-  console.log(selectedDropdownValue, 'selected value');
   useEffect(() => {
     const handleDocumentClick = (e: any) => {
       // Check if the input element itself was clicked
@@ -198,9 +183,8 @@ const SelectInputMaterial = ({
                     }}
                     onMouseDown={() => HandleMaterialAbbr(name)}
                     // onKeyDown={(e)=>HandleAbbrKey(e)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.material}
                   </li>
@@ -218,9 +202,8 @@ const SelectInputMaterial = ({
                     }}
                     // onKeyDown={(e)=>HandleAbbrKey(e)}
                     onMouseDown={() => HandleMaterialAbbr(name)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.material}
                   </li>

@@ -70,7 +70,6 @@ const DetailPageCustomerSale = () => {
     get_detail_delivery_note_data
   );
 
-  console.log('stateForDocStatus in page', stateForDocStatus);
 
   return (
     <div className="container-lg">
@@ -80,10 +79,10 @@ const DetailPageCustomerSale = () => {
       ) : (
         <>
           {DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
-          isLoading === false ? (
+            isLoading === false ? (
             <NoRecord
-              title={`No Record Found 😥`}
-              heading=""
+              title="Customer Sales"
+              content="Sorry for disappointing you! We’re unable to find any relevant data"
               backButtonUrl={`/sales/${query?.saleId}`}
             />
           ) : (

@@ -21,15 +21,12 @@ const SaleReturnsButtonSection = ({
   const { query } = useRouter();
   const pathParts = router?.asPath?.split('/');
   const salesId = pathParts[1];
-  console.log('queryy', query, pathParts);
+
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_sales_return_data
   );
 
-  console.log('sales return data from store', DetailOfDeliveryNoteFromStore);
-
   const HandleAmendButtonChanges: any = async () => {
-    console.log('docStatus from store in amend func');
     setShowSaveButtonForAmendFlow(true);
     setStateForDocStatus(true);
     setReadOnlyFields(false);
@@ -137,19 +134,19 @@ const SaleReturnsButtonSection = ({
             )}
           {DetailOfDeliveryNoteFromStore?.data?.posting_date ===
             new Date()?.toISOString()?.split('T')[0] && (
-            <>
-              {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
-                stateForDocStatus === false && (
-                  <button
-                    type="button"
-                    className={`${styles.create_button} px-2 py-0 me-2`}
-                    onClick={HandleAmendButtonChanges}
-                  >
-                    Amend
-                  </button>
-                )}
-            </>
-          )}
+              <>
+                {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
+                  stateForDocStatus === false && (
+                    <button
+                      type="button"
+                      className={`${styles.create_button} px-2 py-0 me-2`}
+                      onClick={HandleAmendButtonChanges}
+                    >
+                      Amend
+                    </button>
+                  )}
+              </>
+            )}
 
           {showSaveButtonForAmendFlow &&
             stateForDocStatus &&

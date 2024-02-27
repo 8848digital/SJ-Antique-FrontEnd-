@@ -24,12 +24,10 @@ const DocStatusButtonChanges = ({
   const { query } = useRouter();
   const router = useRouter();
 
-  console.log('query', query);
   const pathParts = router?.asPath?.split('/');
   const receiptType = pathParts[2];
 
   const HandleAmendButtonChanges: any = async () => {
-    console.log('docStatus from store in amend func');
     setShowSaveButtonForAmendFlow(true);
     setStateForDocStatus(true);
     setReadOnlyFields(false);

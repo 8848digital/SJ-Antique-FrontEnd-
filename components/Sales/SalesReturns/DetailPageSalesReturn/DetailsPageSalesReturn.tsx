@@ -1,7 +1,6 @@
 import SalesHeader from '@/components/Header/SalesHeader';
 import CustomerSalesTable from '../../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../../CustomerSale/CustomerSalesTable1';
-
 import SaleReturnsButtonSection from './ButtonSectionSalesReturn';
 import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
 import Loader from '@/components/NoRecord/Loader';
@@ -64,10 +63,10 @@ const DetailsPageSalesReturn = () => {
       ) : (
         <>
           {DetailOfSalesReturnFromStore?.data?.length === 0 &&
-          isLoading === false ? (
+            isLoading === false ? (
             <NoRecord
-              title={`No Record Found 😥`}
-              heading=""
+              title="Sales Return"
+              content="Sorry for disappointing you! We’re unable to find any relevant data"
               backButtonUrl={`/sales/${query?.saleId}`}
             />
           ) : (

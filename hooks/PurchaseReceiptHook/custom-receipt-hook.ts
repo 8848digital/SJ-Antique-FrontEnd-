@@ -2,7 +2,6 @@ import DeletePurchaseReceiptApi from '@/services/api/PurchaseReceipt/delete-purc
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import postUploadFile from '@/services/api/PurchaseReceipt/post-upload-file-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
-
 import {
   getSpecificReceipt,
   get_specific_receipt_data,
@@ -117,7 +116,7 @@ const UseCustomReceiptHook: any = () => {
       name,
       params
     );
-    console.log('deletereciept api', deletePurchaseReceiptApi);
+
     if (deletePurchaseReceiptApi?.message?.status === 'success') {
       toast.success(deletePurchaseReceiptApi?.message?.message);
       const capitalizeFirstLetter = (str: any) => {
@@ -128,7 +127,6 @@ const UseCustomReceiptHook: any = () => {
         loginAcessToken,
         capitalizeFirstLetter(lastPartOfURL)
       );
-      console.log('resss', updatedData);
       if (updatedData?.data?.message?.status === 'success') {
         setKundanListing(updatedData?.data?.message?.data);
       }
@@ -138,7 +136,6 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
-    console.log('nameee', name);
     let id: any = name === undefined ? query?.receiptId : name;
 
     const params = `/api/resource/Purchase Receipt/${id}`;
@@ -164,7 +161,6 @@ const UseCustomReceiptHook: any = () => {
           loginAcessToken,
           capitalizeFirstLetter(lastPartOfURL)
         );
-        console.log('resss', updatedData);
         if (updatedData?.data?.message?.status === 'success') {
           setKundanListing(updatedData?.data?.message?.data);
         }
@@ -182,8 +178,6 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const calculateEditTotal = (i: number, value: any) => {
-    console.log('calculate edit value', i, value);
-    console.log(tableData, 'tabledata in edit');
     const updatedData =
       tableData?.length > 0 &&
       tableData !== null &&
@@ -205,7 +199,6 @@ const UseCustomReceiptHook: any = () => {
               return accu + val;
             }, 0);
           }
-          console.log(totalAmountValues, 'total amount edit');
           if (Number(item.totalAmount) >= 0) {
             return {
               ...item,
@@ -229,16 +222,13 @@ const UseCustomReceiptHook: any = () => {
               totalAmount: totalAmountValues,
             };
         }
-        console.log(item, 'updated data after edit2');
         return item;
       });
-    console.log(updatedData, 'updated data after edit');
     setStateForDocStatus(true);
     setTableData(updatedData);
   };
 
   const handleFileUpload = async (id: number, fileVal: any) => {
-    console.log('fileval in upload', fileVal);
     const bodyFormData: any = new FormData();
     // // bodyFormData.append('file', val);
     // bodyFormData.append('file', val, 'screenshot.jpg');
@@ -256,8 +246,6 @@ const UseCustomReceiptHook: any = () => {
             loginAcessToken.token,
             bodyFormData
           );
-
-          console.log('upload file path', uploadedFile);
           return {
             ...row,
             custom_add_photo: `/files/${uploadedFile?.file_name}`,
@@ -295,7 +283,6 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const calculateRowValue = (i: any) => {
-    console.log(i, 'i');
     return (
       materialWeight[i]?.pcs * materialWeight[i]?.piece_ +
       materialWeight[i]?.carat * materialWeight[i]?.carat_ +
@@ -304,7 +291,6 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const handleModal = (event: any, id: any, data: any) => {
-    console.log('table data in modal', data);
     setIndexVal(id);
     const dataVal =
       tableData?.length > 0 &&
@@ -318,8 +304,6 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const UpdateMaterialWeight: any = (id: any, weightAmt: any) => {
-    console.log('updatee', id, weightAmt);
-
     const updatedTableData =
       tableData?.map((item: any) => {
         if (item.idx === id) {
@@ -355,7 +339,6 @@ const UseCustomReceiptHook: any = () => {
     setMaterialWeight(updatedMaterialWeight);
   };
   const UpdatePcsWeight: any = (id: any, pcsAmt: any) => {
-    console.log('updatee', id, pcsAmt);
 
     const updatedTableData =
       tableData?.map((item: any) => {
@@ -389,7 +372,6 @@ const UseCustomReceiptHook: any = () => {
   };
   const calculateGrossWt = (item: any, field: string, value: any) => {
     if (field === 'custom_few_wt') {
-      console.log(value, '@PR value');
       item.custom_gross_wt =
         Number(item?.custom_net_wt) +
         Number(item.custom_mat_wt) +
@@ -420,7 +402,7 @@ const UseCustomReceiptHook: any = () => {
     newValue: any,
     fileVal?: any
   ) => {
-    console.log('handlechange', id, val, field, newValue, 'fileval', fileVal);
+    // console.log('handlechange', id, val, field, newValue, 'fileval', fileVal);
     // Function to format the input to have only three decimal places
     const formatInput = (value: any) => {
       if (typeof value === 'number' || !isNaN(parseFloat(value))) {
@@ -458,17 +440,16 @@ const UseCustomReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-              : formatInput(newValue),
+                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+                : formatInput(newValue),
           custom_gross_wt,
         };
       }
       return item;
     });
-    console.log(updatedData, '@PR item in field change');
+
     setTableData(updatedData);
     if (field === 'custom_add_photo') {
-      console.log(fileVal, 'fileVal');
       handleFileUpload(id, fileVal);
     }
     if (field === 'custom_mat_wt') {

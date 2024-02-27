@@ -6,7 +6,7 @@ import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listi
 const UseDeliveryNoteHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   const [deliveryNoteListing, setDeliveryNoteListing] = useState();
-  console.log('inside dn hook');
+
   const deliveryNoteListParams = {
     version: 'v1',
     method: 'get_listening_delivery_note',

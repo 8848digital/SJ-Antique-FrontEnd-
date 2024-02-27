@@ -19,7 +19,7 @@ const SelectInputKunKarigar = ({
   setSelectedKundanKarigarDropdownValue,
   handleTabPressItemDetails,
 }: any) => {
-  console.log(id, 'id in dropdown');
+
   const inputRef = useRef<any>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   // const [selectedDropdownValue, setSelectedDropdownValue] = useState('')
@@ -29,7 +29,7 @@ const SelectInputKunKarigar = ({
   const [scrollIndex, setScrollIndex] = useState(0);
   const dropdownRef = useRef<HTMLUListElement>(null);
 
-  console.log(kundanKarigarData, 'kundan karigar data in select ');
+
 
   const handleShowDropdown = () => {
     if (!readOnlyFields) {
@@ -49,8 +49,6 @@ const SelectInputKunKarigar = ({
   }, [kunKarigarDropdownReset, setSelectedKundanKarigarDropdownValue]);
 
   const handleSelectedOption = (data: any, i: any) => {
-    console.log('selected item code for selection', data);
-
     setSelectedKundanKarigarDropdownValue(data?.karigar_name);
     if (setSelectedItemCodeForCustomerSale !== undefined) {
       setSelectedItemCodeForCustomerSale({
@@ -58,21 +56,17 @@ const SelectInputKunKarigar = ({
         item_code: data?.karigar_name,
       });
     }
-    console.log(
-      selectedItemCodeForCustomerSale,
-      'selected item code for selection'
-    );
+
     setShowDropdown(false);
     setSelectedIndex(i !== undefined ? i : -1);
     const updatedData = tableData.map((item: any) => {
-      console.log(item, fieldName, 'iten when kun karigar selected');
 
       if (item.idx === id && fieldName === 'custom_kun_karigar') {
         return { ...item, custom_kun_karigar: 0 || data?.karigar_name };
       }
       console.log('selected item code', item.idx, id);
       if (item.idx === id && fieldName === 'item_code') {
-        console.log(item, 'iten when kun karigar selected');
+
         return { ...item, item_code: data?.karigar_name };
       }
       return item;
@@ -82,7 +76,7 @@ const SelectInputKunKarigar = ({
       setStateForDocStatus(true);
     }
   };
-  console.log(tableData, 'iten when kun karigar selected');
+
   const handleKeyDown = (e: any) => {
     if (!readOnlyFields) {
       if (e.key === 'ArrowDown' && !showDropdown) {
@@ -93,8 +87,8 @@ const SelectInputKunKarigar = ({
       } else if (e.key === 'ArrowDown' && showDropdown) {
         setSelectedIndex((prevIndex: any) =>
           prevIndex <
-          (filterDropdownList ? filterDropdownList : kundanKarigarData)
-            ?.length -
+            (filterDropdownList ? filterDropdownList : kundanKarigarData)
+              ?.length -
             1
             ? prevIndex + 1
             : prevIndex
@@ -128,7 +122,7 @@ const SelectInputKunKarigar = ({
       }
     }
   };
-  console.log(typeof handleTabPressItemDetails, 'type of tab pressed');
+
   useEffect(() => {
     const handleDocumentClick = (e: any) => {
       // Check if the input element itself was clicked
@@ -176,12 +170,7 @@ const SelectInputKunKarigar = ({
       item_code: uppercaseValue,
     });
 
-    // if (setSelectedItemCodeForCustomerSale !== undefined) {
-    //   setSelectedItemCodeForCustomerSale({
-    //     id: id,
-    //     item_code: e.target.value,
-    //   });
-    // }
+
     const query = uppercaseValue;
     const updatedFilterList: any =
       kundanKarigarData?.length > 0 &&
@@ -190,7 +179,7 @@ const SelectInputKunKarigar = ({
           item.karigar_name?.toLowerCase()?.indexOf(query?.toLowerCase()) !== -1
         );
       });
-    console.log(updatedFilterList, 'filter list1');
+
     setFilterDropdownList(updatedFilterList);
     setNoRecordsFound(true);
     const updatedData =
@@ -224,9 +213,8 @@ const SelectInputKunKarigar = ({
         type="text"
         name={fieldName}
         className={` ${styles.table_select}`}
-        placeholder={`${
-          placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
-        }`}
+        placeholder={`${placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
+          }`}
         onChange={(e) => {
           handleFieldChange(e);
         }}
@@ -248,9 +236,8 @@ const SelectInputKunKarigar = ({
                   <li
                     key={i}
                     onClick={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>
@@ -264,9 +251,8 @@ const SelectInputKunKarigar = ({
                   <li
                     key={i}
                     onClick={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>

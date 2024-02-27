@@ -63,16 +63,14 @@ const CustomerSaleMaster = () => {
     handleMouseMove,
   }: any = UseScrollbarHook();
 
-  console.log(deliveryNoteListing, 'client name in listing');
-  console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
+
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-          return data.is_return === 0;
-        })
+        return data.is_return === 0;
+      })
       : [];
 
-  console.log('kundan listing', kundanListing);
   return (
     <div className="container-lg px-0">
       <SalesHeader />

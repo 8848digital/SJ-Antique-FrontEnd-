@@ -1,15 +1,16 @@
 import Image from 'next/image';
 import React from 'react';
-import noRecordImg from '../../public/assets/no_record.jpg';
+import noRecordImg from '../../public/assets/no-record.png';
 import { useRouter } from 'next/router';
 
-const NoRecord = ({ title, heading, backButtonUrl, HandleRefresh }: any) => {
+const NoRecord = ({ title, content, backButtonUrl, HandleRefresh }: any) => {
   const router = useRouter();
 
   return (
     <>
       <div className="d-flex justify-content-center mt-5">
         <div>
+          <h2 className='text-center'>{title}</h2>
           <div className="text-center">
             <Image
               src={noRecordImg}
@@ -19,8 +20,7 @@ const NoRecord = ({ title, heading, backButtonUrl, HandleRefresh }: any) => {
               className="text-center"
             />
           </div>
-          <h4>{title}</h4>
-          <p>{heading}</p>
+          <p>{content}</p>
           <div className="text-center">
             {backButtonUrl ? (
               <button
@@ -31,13 +31,14 @@ const NoRecord = ({ title, heading, backButtonUrl, HandleRefresh }: any) => {
                 Go Back
               </button>
             ) : (
-              <button
-                type="button"
-                onClick={HandleRefresh}
-                className="btn btn-primary px-2"
-              >
-                Refresh
-              </button>
+              // <button
+              //   type="button"
+              //   onClick={HandleRefresh}
+              //   className="btn btn-primary px-2"
+              // >
+              //   Refresh
+              // </button>
+              ""
             )}
           </div>
         </div>

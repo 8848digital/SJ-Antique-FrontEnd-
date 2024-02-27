@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 const UseDeliveryNoteListingHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   const [deliveryNoteListing, setDeliveryNoteListing] = useState();
-  console.log('inside dn hook');
   const deliveryNoteListParams = {
     version: 'v1',
     method: 'get_listening_delivery_note_sales_return',
@@ -18,8 +17,6 @@ const UseDeliveryNoteListingHook = () => {
         loginAcessToken.token,
         deliveryNoteListParams
       );
-
-      console.log("deliveryNoteApi api res", deliveryNoteApi)
       if (deliveryNoteApi?.data?.message?.status === 'success') {
         setDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
       }

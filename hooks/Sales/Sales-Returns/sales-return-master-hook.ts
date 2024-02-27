@@ -90,7 +90,6 @@ const UseSalesReturnMasterHook = () => {
   }, []);
 
   const updateSalesTableData = (data: any) => {
-    console.log('dataaa', data);
     setSelectedClient(data[0]?.custom_client_name);
     if (data?.length >= 0) {
       if (selectedItemCodeForCustomerSale?.id) {
@@ -102,7 +101,6 @@ const UseSalesReturnMasterHook = () => {
               : tableData;
           }
         );
-        console.log(updatedTable, 'table data in sale return');
         setSalesReturnTableData(updatedTable);
       }
     } else {
@@ -122,13 +120,11 @@ const UseSalesReturnMasterHook = () => {
       );
     }
   };
-  console.log(salesReturnTableData, 'table data in sale return');
   const removeIdxKey = (item: any) => {
     const { idx, ...itemWithoutIdx } = item;
     return itemWithoutIdx;
   };
 
-  console.log("itemList", itemList, selectedItemCodeForCustomerSale)
   useEffect(() => {
     if (
       itemList?.length > 0 !== null && itemList?.length > 0 && itemList?.some(
@@ -146,8 +142,6 @@ const UseSalesReturnMasterHook = () => {
             getItemDetailsmethod,
             getItemDetailsEntity
           );
-
-          console.log('get details of sales return', getItemCodeDetailsApi);
           if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
             updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
           }
@@ -210,7 +204,6 @@ const UseSalesReturnMasterHook = () => {
 
       items: updatedData,
     };
-    console.log(values, 'values in sr dn');
     const clientVal = values?.custom_client_name;
     if (clientVal !== '') {
       const postSalesReturnApi: any = await PostSalesApi(
@@ -232,32 +225,6 @@ const UseSalesReturnMasterHook = () => {
       toast.error('Client name is mandatory');
     }
   };
-  // const handleTabPressItemDetails = () => {
-  //   if (selectedItemCodeForCustomerSale?.item_code?.length > 0) {
-  //     const getItemCodeDetailsFun = async () => {
-  //       const getItemDetailsmethod: any =
-  //         'get_delivery_note_specific_return_item';
-  //       const getItemDetailsEntity: any = 'sales_return';
-  //       try {
-  //         let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
-  //           loginAcessToken?.token,
-  //           selectedItemCodeForCustomerSale.item_code,
-  //           getItemDetailsmethod,
-  //           getItemDetailsEntity
-  //         );
-
-  //         console.log('get details of sales return', getItemCodeDetailsApi);
-  //         if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-  //           updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
-  //         }
-  //       } catch (error) {
-  //         console.error('Error fetching item details:', error);
-  //       }
-  //     };
-
-  //     getItemCodeDetailsFun();
-  //   }
-  // };
 
   return {
     itemList,

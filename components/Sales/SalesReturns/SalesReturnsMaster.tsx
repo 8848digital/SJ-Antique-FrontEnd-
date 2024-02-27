@@ -3,10 +3,7 @@ import CustomerSalesTable from '../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
 import TabSection from '@/components/TabSection';
 import UseSalesReturnMasterHook from '@/hooks/Sales/Sales-Returns/sales-return-master-hook';
-import UseCustomSalesReturnHook from '@/hooks/Sales/Sales-Returns/custom-sales-return-hook';
-import DetailsPageSalesReturn from './DetailPageSalesReturn/DetailsPageSalesReturn';
 import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
-import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
 import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
 
 const SaleReturnsMaster = () => {
@@ -55,8 +52,8 @@ const SaleReturnsMaster = () => {
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
-          return data.is_return === 1;
-        })
+        return data.is_return === 1;
+      })
       : [];
 
   return (
@@ -98,7 +95,7 @@ const SaleReturnsMaster = () => {
                 deleteApiEntity={'sales_return'}
                 kunKarigarDropdownReset={itemCodeDropdownReset}
                 setKunKarigarDropdownReset={setItemCodeDropdownReset}
-                // purchasRecieptListParams={deliveryNoteListParams}
+              // purchasRecieptListParams={deliveryNoteListParams}
               />
             </div>
           </div>

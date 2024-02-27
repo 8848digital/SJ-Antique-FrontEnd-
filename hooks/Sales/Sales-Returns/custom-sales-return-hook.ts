@@ -56,16 +56,11 @@ const UseCustomSalesReturnHook = () => {
   const [saleReturnDeliveryNoteListing, setSaleReturnDeliveryNoteListing] =
     useState<any>();
 
-  console.log('salesReturnTableData initially', salesReturnTableData);
   const handleSalesReturnTableFieldChange: any = (
     itemIdx: number,
     fieldName: string,
     value: any
   ) => {
-    console.log(
-      'handleSalesReturnTableFieldChange',
-      handleSalesReturnTableFieldChange
-    );
     setSalesReturnTableData((prevData: any) => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
@@ -90,10 +85,10 @@ const UseCustomSalesReturnHook = () => {
                   ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                ? item.custom_kun === ''
-                  ? 1 * value
-                  : Number(item.custom_kun) * value
-                : item.custom_kun_amt,
+                  ? item.custom_kun === ''
+                    ? 1 * value
+                    : Number(item.custom_kun) * value
+                  : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_amt'
                 ? Number(item.custom_other_wt) * value
@@ -108,7 +103,6 @@ const UseCustomSalesReturnHook = () => {
   };
 
   const handleAddRowForSalesReturn: any = () => {
-    console.log('add row in sales return');
     const newRow: any = {
       idx: salesReturnTableData?.length + 1,
       item_code: '',
@@ -132,9 +126,7 @@ const UseCustomSalesReturnHook = () => {
     setSalesReturnTableData([...salesReturnTableData, newRow]);
     setStateForDocStatus(true);
   };
-  console.log(salesReturnTableData, 'sales return detail page');
   const handleDeleteRowOfSalesReturnTable: any = (id: any) => {
-    console.log('delete row id', id);
     if (salesReturnTableData?.length > 1) {
       const updatedData = salesReturnTableData
         .filter((item: any) => item.idx !== id)
@@ -145,12 +137,6 @@ const UseCustomSalesReturnHook = () => {
   };
 
   const handleEmptySaleReturnData = () => {
-    // setSeletedCategory({
-    //  KunCategory: '',
-    //   CsCategory: '',
-    //   BBCategory: '',
-    //   OtCategory: '',
-    // });
     setSelectedClient('');
     setSalesReturnTableData([SalesTableInitialState]);
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
@@ -264,9 +250,9 @@ const UseCustomSalesReturnHook = () => {
             Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-              Number(item[i]?.custom_kun_amt) +
-              Number(item[i]?.custom_ot_amt) +
-              Number(item[i]?.custom_other)
+            Number(item[i]?.custom_kun_amt) +
+            Number(item[i]?.custom_ot_amt) +
+            Number(item[i]?.custom_other)
           ),
         };
       });

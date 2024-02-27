@@ -64,11 +64,6 @@ const UseCustomerSaleDetailHook = () => {
     get_detail_delivery_note_data
   );
 
-  console.log(
-    'delivery note data from store in hook',
-    DetailOfDeliveryNoteFromStore
-  );
-
   const [readOnlyFields, setReadOnlyFields] = useState<boolean>(false);
   const [defaultSalesDate, setDefaultSalesDate] = useState<any>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -76,7 +71,6 @@ const UseCustomerSaleDetailHook = () => {
     useState<boolean>(false);
 
   useEffect(() => {
-    console.log('query in sales hook', query);
     if (Object?.keys(query)?.length > 0) {
       const reqParams: any = {
         token: loginAcessToken.token,
@@ -111,26 +105,26 @@ const UseCustomerSaleDetailHook = () => {
       const kunCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customKunCategory
-            )
+            (data: any) => data.name1 === customKunCategory
+          )
           : null;
       const csCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customCsCategory
-            )
+            (data: any) => data.name1 === customCsCategory
+          )
           : null;
       const otCategoryData =
         kunCsOtCategoryListData?.length > 0
           ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customOtCategory
-            )
+            (data: any) => data.name1 === customOtCategory
+          )
           : null;
       const bbCategoryData =
         BBCategoryListData?.length > 0
           ? BBCategoryListData.find(
-              (data: any) => data.name1 === customBBCategory
-            )
+            (data: any) => data.name1 === customBBCategory
+          )
           : { name1: '', type: 0 };
 
       // Setting selected category state
@@ -147,7 +141,6 @@ const UseCustomerSaleDetailHook = () => {
     kunCsOtCategoryListData,
   ]);
 
-  console.log('selected category in detail', selectedCategory);
   useEffect(() => {
     if (
       DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
@@ -176,15 +169,7 @@ const UseCustomerSaleDetailHook = () => {
     }
   }, [DetailOfDeliveryNoteFromStore]);
 
-  if (DetailOfDeliveryNoteFromStore?.data?.items) {
-    console.log(
-      salesTableData,
-      'sales detail from api'
-      // DetailOfDeliveryNoteFromStore?.data?.items,
-      // typeof DetailOfDeliveryNoteFromStore?.data?.items[0].custom_cs_amt
-    );
-  }
-  console.log('isLoading status', isLoading);
+
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
       // Check if there are no values except "idx"
@@ -271,7 +256,6 @@ const UseCustomerSaleDetailHook = () => {
       values
     );
 
-    console.log('update delivery note api res', updateDeliveryNoteApi);
     if (updateDeliveryNoteApi?.data?.message?.status === 'error') {
       toast.error(`${updateDeliveryNoteApi?.data?.message?.message}`);
     }
@@ -291,7 +275,6 @@ const UseCustomerSaleDetailHook = () => {
       ...tableData,
       qty: 1,
     }));
-    console.log('updated sales table data for amend', updatedSalesTableData);
     const values = {
       amended_from: query?.deliveryNoteId,
       custom_client_name: selectedClient,
@@ -306,7 +289,6 @@ const UseCustomerSaleDetailHook = () => {
       values
     );
 
-    console.log('update delivery note api res', amendDeliveryNoteApi);
     if (amendDeliveryNoteApi?.data?.hasOwnProperty('data')) {
       setStateForDocStatus(false);
       setShowSaveButtonForAmendFlow(false);
@@ -330,9 +312,6 @@ const UseCustomerSaleDetailHook = () => {
       entity,
       id
     );
-    console.log('delete api res', deleteSalesReturnNoteApi);
-
-    // if (deleteSalesReturnNoteApi?.message?.status === 'success') {
   };
 
   const handleDeliveryNotePrintApi: any = async (id: any) => {
@@ -351,7 +330,6 @@ const UseCustomerSaleDetailHook = () => {
     }
   };
 
-  console.log('stateForDocStatus in detail', stateForDocStatus);
 
   return {
     salesTableData,

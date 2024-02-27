@@ -35,7 +35,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   setMatWt,
   specificDataFromStore,
 }: any) => {
-  console.log('table data receipt', tableData);
+  // console.log('table data receipt', tableData);
   const { query } = useRouter();
   const [calculationRow, setCalculationRow] = useState({
     custom_net_wt: 0,
@@ -61,7 +61,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
       // Calculate live values based on tableData
       const liveCalculations = tableData?.reduce(
         (accumulator: any, row: any) => {
-          console.log(row, 'bbbbbbbb');
           accumulator.custom_net_wt += Number(row.custom_net_wt) || 0;
           accumulator.custom_few_wt += Number(row.custom_few_wt) || 0;
           accumulator.custom_mat_wt += Number(row.custom_mat_wt) || 0;
@@ -102,11 +101,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
     // Recalculate live calculations whenever tableData changes
     calculateLiveCalculations();
   }, [tableData, setTableData]);
-  console.log(calculationRow, 'calculation tableData ');
-  console.log(specificDataFromStore, 'specific data master table');
-  // useEffect(() => {
-  //   lastInputRef.current.focus();
-  // }, []);
+
   useEffect(() => {
     if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
       lastInputRef?.current?.focus();
@@ -114,13 +109,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
       firstInputRef?.current?.focus();
     }
   }, [specificDataFromStore, firstInputRef, lastInputRef, tableData?.length]);
-  // setTimeout(() => {
-  //   if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
-  //     lastInputRef?.current?.focus();
-  //   }
-  // }, 0);
 
-  console.log("tabledataa", tableData)
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered">

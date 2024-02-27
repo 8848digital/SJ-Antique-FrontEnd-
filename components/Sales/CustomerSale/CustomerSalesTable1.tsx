@@ -27,7 +27,7 @@ const CustomerSalesTable1 = ({
   isBarcodeChecked,
 }: any) => {
   const { query } = useRouter();
-  console.log(isBarcodeChecked, 'is barcode checked');
+
   return (
     <div className=" mt-2">
       <table className="table table-hover table-bordered">

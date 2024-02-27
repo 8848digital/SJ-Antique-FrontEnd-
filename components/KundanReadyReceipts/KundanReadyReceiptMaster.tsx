@@ -5,11 +5,10 @@ import styles from '../../styles/readyReceipts.module.css';
 import KundanListing from './KundanReadyReceiptsListing';
 import KundanKarigarReadyReceiptMasterTable from './KundanKarigarReadyReceiptMasterTable';
 import KundanTable from './KundanTable';
-import { useRouter } from 'next/router';
 import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
 import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
 import TabSection from '../TabSection';
-import { Tab, Tabs } from 'react-bootstrap';
+
 
 const ReadyReceiptKundanKarigarMaster = () => {
   const {
@@ -67,8 +66,6 @@ const ReadyReceiptKundanKarigarMaster = () => {
     lastInputRef,
     specificDataFromStore,
   } = useReadyReceiptKarigar();
-
-  console.log(lastPartOfURL, ' @RR type');
 
   return (
     <div className="container-lg ">

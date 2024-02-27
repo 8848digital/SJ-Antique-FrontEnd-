@@ -14,14 +14,13 @@ const FilterKundanReadyReceiptListing = ({
   kunKarigarDropdownReset,
   setKunKarigarDropdownReset,
 }: any) => {
-  console.log('receipt no list', receiptNoList);
   let ReceiptNumber: any =
     receiptNoList?.length > 0 &&
     receiptNoList !== null &&
     receiptNoList.map((data: any) => ({
       karigar_name: data.custom_number,
     }));
-  console.log('receiptt', searchReceiptNumber);
+
   return (
     <div className="p-0 px-1">
       <div className="d-flex flex-wrap justify-content-between">

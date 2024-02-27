@@ -30,13 +30,11 @@ const KundanListing = ({
   kunKarigarDropdownReset,
   setKunKarigarDropdownReset,
 }: any) => {
-  console.log(kundanListing, 'param in listing');
   const router = useRouter();
   const pathParts = router.asPath.split('/');
   const lastPartOfURL = pathParts[pathParts.length - 1];
   const { query } = useRouter();
   const dispatch = useDispatch();
-  console.log(query, 'query in listing');
   const storedNumberOfRows = sessionStorage.getItem('numberOfRows');
   let pathName: any = window?.location?.pathname;
 

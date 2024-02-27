@@ -25,7 +25,7 @@ const KundanTable = ({
   const { query } = useRouter();
   const pathParts = router?.asPath?.split('/');
   const lastPartOfURL = pathParts[pathParts?.length - 1];
-  console.log('receipt no', lastPartOfURL, query);
+
   useEffect(() => {
     if (defaultKarigarData === undefined) {
       setReadyReceiptType(
@@ -110,8 +110,8 @@ const KundanTable = ({
                 value={
                   readyReceiptType ||
                   (defaultKarigarData !== undefined &&
-                  defaultKarigarData?.length > 0 &&
-                  defaultKarigarData !== null
+                    defaultKarigarData?.length > 0 &&
+                    defaultKarigarData !== null
                     ? defaultKarigarData[0]?.custom_ready_receipt_type
                     : '')
                 }

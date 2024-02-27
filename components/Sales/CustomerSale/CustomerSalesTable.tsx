@@ -150,7 +150,7 @@ const CustomerSalesTable = ({
 
   useEffect(() => {
     calculateLiveCalculations();
-  }, [salesTableData, calculationRow])
+  }, [salesTableData])
 
 
   const calculateCustomNetWt: any = () => {
@@ -164,9 +164,6 @@ const CustomerSalesTable = ({
       return netWt < 0 ? 0.000 : netWt.toFixed(3);
     });
   }
-
-  console.log("updated calculation", salesTableData, calculationRow)
-
 
   return (
     <>

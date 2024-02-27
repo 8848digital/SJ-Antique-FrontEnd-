@@ -45,7 +45,6 @@ const useReadyReceiptKarigar = () => {
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
   const loginAcessToken = useSelector(get_access_token);
-  console.log(loginAcessToken, 'loginAcessToken');
   let disabledValue: any;
 
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
@@ -123,7 +122,6 @@ const useReadyReceiptKarigar = () => {
       const KundanKarigarAPI = await kundanKarigarApi(loginAcessToken.token);
       const materialListApi = await materialApi(loginAcessToken.token);
       const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
-      console.log(warehouseData, 'stateData');
       setKarigarData(stateData);
       setKundanKarigarData(KundanKarigarAPI);
       setMaterialListData(materialListApi);
@@ -140,7 +138,7 @@ const useReadyReceiptKarigar = () => {
     field: string,
     newValue: any
   ) => {
-    console.log('field change data', id, val, field, newValue);
+    // console.log('field change data', id, val, field, newValue);
 
     const formatInput = (value: any) => {
       const floatValue = parseFloat(value);
@@ -182,11 +180,11 @@ const useReadyReceiptKarigar = () => {
         ...rest,
       })
     );
-    console.log(modalValue, 'modalValue');
+
     if (inputRef.current) {
       disabledValue = inputRef.current.value;
     } else {
-      console.error('The ref to the input element is not available.');
+      // console.error('The ref to the input element is not available.');
     }
 
     const totalAmmount = materialWeight.map(
@@ -203,7 +201,7 @@ const useReadyReceiptKarigar = () => {
         ...rest
       }: any) => ({ ...rest })
     );
-    console.log(totalAmmount, 'bfggh');
+
     const weightAddition = materialWeight.reduce((accu: any, val: any) => {
       console.log(accu, 'accu23', val);
       let weight = val.weight;
@@ -233,12 +231,11 @@ const useReadyReceiptKarigar = () => {
         return accu + val;
       }, 0);
     }
-    // setTotalModalAmount(totalvalues);
-    console.log(totalvalues, 'totalvalues ');
+
     const totalAmmountValues = totalvalues.reduce((accu: any, val: any) => {
       return accu + val;
     }, 0);
-    console.log();
+
     const updatedMaterialWeight =
       tableData?.length > 0 &&
       tableData !== null &&
@@ -279,7 +276,6 @@ const useReadyReceiptKarigar = () => {
       return row;
     });
 
-    console.log(updatedDataVal, 'updatedDataVa');
     setTableData(updatedDataVal);
     if (totalvalues.length > 0) {
       setClickBtn(true);
@@ -292,7 +288,6 @@ const useReadyReceiptKarigar = () => {
       entity: 'material_post_api',
       data: modalValue,
     };
-    console.log(updatedMaterialWeight, 'data45');
     const materialApiVal = await postMaterialApi(loginAcessToken.token, values);
     setShowModal(false);
     setStateForDocStatus(true);
@@ -325,7 +320,6 @@ const useReadyReceiptKarigar = () => {
   };
 
   const handleCreate = async () => {
-    console.log(tableData, 'table56', recipitData);
 
     const updatedtableData =
       tableData?.length > 0 &&
@@ -410,7 +404,7 @@ const useReadyReceiptKarigar = () => {
         loginAcessToken.token,
         values
       );
-      console.log(purchaseReceipt?.data?.message?.message, 'handleCreate');
+
       if (
         purchaseReceipt.status === 200 &&
         purchaseReceipt?.data?.hasOwnProperty('message')
@@ -456,11 +450,9 @@ const useReadyReceiptKarigar = () => {
   };
 
   const handleUpdateReceipt: any = async () => {
-    console.log('update receipt', tableData);
 
     const filteredDataa = filteredTableDataForUpdate(tableData);
 
-    console.log('filtered tablee data', filteredDataa);
     const updatedtableData =
       filteredDataa?.length > 0 &&
       filteredDataa !== null &&
@@ -517,7 +509,6 @@ const useReadyReceiptKarigar = () => {
       items: updatedMergedList,
     };
 
-    console.log('updatedd values', values);
     const isEmptyProductCode = values?.items?.some(
       (obj: any) => obj.product_code === ''
     );
@@ -536,7 +527,6 @@ const useReadyReceiptKarigar = () => {
       updatedReceiptData,
       query?.receiptId
     );
-    console.log('updated purchase receipt api res', updateReceiptApi);
     if (Object?.keys(updateReceiptApi?.data)?.length > 0) {
       if (Object?.keys(updateReceiptApi?.data?.message)?.length > 0) {
         setStateForDocStatus(false);
@@ -589,7 +579,6 @@ const useReadyReceiptKarigar = () => {
 
     const updatedReceiptData: any = { ...recipitData };
     keyToExclude?.forEach((key: any) => delete updatedReceiptData[key]);
-    console.log('santitizedData', updatedReceiptData);
 
     const values = {
       ...updatedReceiptData,
@@ -617,7 +606,7 @@ const useReadyReceiptKarigar = () => {
       console.error('Error during API call:', error);
     }
   };
-  console.log('mat wt', matWt);
+
   return {
     setClick,
     kundanListing,

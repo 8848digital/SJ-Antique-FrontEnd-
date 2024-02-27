@@ -18,7 +18,7 @@ const SearchSelectInputField = ({
   selectDropDownReset,
   setSelectDropDownReset,
 }: any) => {
-  console.log('karigar dataa', karigarData);
+
 
   const inputRef = useRef<any>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
@@ -170,8 +170,6 @@ const SearchSelectInputField = ({
         );
       });
 
-    console.log('updated list after search', updatedFilterList);
-
     setFilterDropdownList(updatedFilterList);
     setNoRecordsFound(true);
 
@@ -213,7 +211,6 @@ const SearchSelectInputField = ({
     }
   };
 
-  console.log(filterDropdownList, 'filter list in search');
   return (
     <>
       <input
@@ -258,9 +255,8 @@ const SearchSelectInputField = ({
                     onMouseDown={(e) => {
                       handleSelectedOption(name, i);
                     }}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>
