@@ -404,10 +404,10 @@ const useReadyReceiptKarigar = () => {
         loginAcessToken.token,
         values
       );
-
+      console.log("purchase receipt api res", purchaseReceipt)
       if (
         purchaseReceipt.status === 200 &&
-        purchaseReceipt?.data?.hasOwnProperty('message')
+        purchaseReceipt?.data?.message?.hasOwnProperty('message')
       ) {
         router.push(
           `${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`
