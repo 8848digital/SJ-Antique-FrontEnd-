@@ -217,10 +217,10 @@ const UseSalesReturnMasterHook = () => {
         router.push(
           `${query.saleId}/${postSalesReturnApi?.data?.message?.name}`
         );
-      } else {
-        toast.error('Error in Creating Delivery note');
+      } else if (postSalesReturnApi?.data?.message?.status === "error") {
+        toast.error(postSalesReturnApi?.data?.message?.message);
       }
-      console.log('postSalesReturnApi res', postSalesReturnApi);
+
     } else {
       toast.error('Client name is mandatory');
     }

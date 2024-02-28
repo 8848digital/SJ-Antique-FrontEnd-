@@ -33,7 +33,7 @@ const LoginMaster = () => {
         router.push('/master');
       }, 900);
     } else {
-      toast.error('Incorrect User or Password');
+      toast.error('Incorrect Username or Password');
       router.push('/');
     }
   };
@@ -55,10 +55,10 @@ const LoginMaster = () => {
           <div className="row">
             <div className="col-lg-12 card shadow p-3 mb-5 bg-white rounded border-0 login-card">
               <div className="  p-lg-5 p-0">
-                <p className="text-uppercase fs-3 text-center">login </p>
+                <p className="text-uppercase fs-3 text-center">login</p>
                 <div className="card-body p-0">
                   <form className="login-form p-2 mx-auto text-center">
-                    <div className="mb-3 ">
+                    <div className="mb-3">
                       <input
                         type="text"
                         id="username"
