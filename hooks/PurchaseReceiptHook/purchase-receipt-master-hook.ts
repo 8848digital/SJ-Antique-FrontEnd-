@@ -519,16 +519,14 @@ const useReadyReceiptKarigar = () => {
     const updatedReceiptData: any = { ...values };
     keyToExclude?.forEach((key: any) => delete updatedReceiptData[key]);
 
-    // if (isEmptyProductCode) {
-    //   toast.error('Mandatory fields Item code Or Karigar');
-    // } else {
     let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
       loginAcessToken.token,
       updatedReceiptData,
       query?.receiptId
     );
-    if (Object?.keys(updateReceiptApi?.data)?.length > 0) {
-      if (Object?.keys(updateReceiptApi?.data?.message)?.length > 0) {
+    console.log("updatedd", updateReceiptApi)
+    if (updateReceiptApi?.hasOwnProperty("data")) {
+      if (updateReceiptApi?.data?.hasOwnProperty("message")) {
         setStateForDocStatus(false);
         const params: any = {
           token: loginAcessToken?.token,
@@ -537,7 +535,7 @@ const useReadyReceiptKarigar = () => {
         dispatch(getSpecificReceipt(params));
       }
     }
-    // }
+
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
