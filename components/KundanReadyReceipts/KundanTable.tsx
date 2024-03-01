@@ -45,7 +45,6 @@ const KundanTable = ({
             <th className="thead" scope="col">
               Date
             </th>
-
             <th className="thead" scope="col">
               Karigar <span className="text-danger">*</span>
             </th>

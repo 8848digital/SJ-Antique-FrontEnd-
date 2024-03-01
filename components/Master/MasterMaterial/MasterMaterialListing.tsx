@@ -164,7 +164,7 @@ const MasterMaterialListing = ({
       ) : (
         <NoRecord
           title=""
-          content="Sorry for disappointing you! We’re unable to find any relevant data"
+          content="Records Not Found !!"
         />
       )}
 

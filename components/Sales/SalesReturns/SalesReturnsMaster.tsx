@@ -63,7 +63,7 @@ const SaleReturnsMaster = () => {
         <div className="d-flex d-flex justify-content-center">
           <TabSection
             firstTabHeading="Sale Returns"
-            secondTabHeading="Create new sales Return"
+            secondTabHeading="Create New Sales Return"
           />
         </div>
 

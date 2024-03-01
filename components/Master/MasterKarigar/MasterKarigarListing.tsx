@@ -94,7 +94,7 @@ const MasterKarigarListing = ({
       ) : (
         <NoRecord
           title=""
-          content="Sorry for disappointing you! We’re unable to find any relevant data"
+          content="No Records Found"
         />
       )}
 

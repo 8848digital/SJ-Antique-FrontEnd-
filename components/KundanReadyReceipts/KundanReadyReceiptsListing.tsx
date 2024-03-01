@@ -228,9 +228,9 @@ const KundanListing = ({
           <tr className="row d-flex px-lg-3 px-0">
             <th className={`thead col-lg-1 col-1`}>Sr No.</th>
             <th className="thead col-lg-2 col-2">Transaction Date</th>
-            <th className="thead col-lg-1 col-2">{colPlaceholder1}</th>
+            <th className="thead col-lg-2 col-2">{colPlaceholder1}</th>
             <th className="thead col-lg-2 col-2">{colPlaceholder2}</th>
-            <th className="thead col-lg-2 col"></th>
+            <th className="thead col-lg-1 col"></th>
             <th className="thead col-lg-1 col-2">Status</th>
             <th className="thead col-lg-3 col-2"></th>
           </tr>
@@ -249,7 +249,7 @@ const KundanListing = ({
                 <td className={`table_row  col-lg-2 col-2 p-0 text-small`}>
                   {formattedDate(item.posting_date)}
                 </td>
-                <td className={`table_row col-lg-1 col-2 p-0 text-small`}>
+                <td className={`table_row col-lg-2 col-2 p-0 text-small`}>
                   <Link
                     href={`${url}/${item.name}`}
                     className="text-dark text-decoration-none"
@@ -262,7 +262,7 @@ const KundanListing = ({
                     ? item.custom_karigar
                     : item.custom_client_name}
                 </td>
-                <td className={` table_row col-lg-2 col p-0 text-small`}></td>
+                <td className={` table_row col-lg-1 col p-0 text-small`}></td>
                 <td className={`table_row col-lg-1 col-2 p-0 text-center text-small`}>
                   {item.docstatus === 0 ? (
                     <span className="align-middle">Draft</span>

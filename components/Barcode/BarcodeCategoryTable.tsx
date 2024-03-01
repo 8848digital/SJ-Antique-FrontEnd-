@@ -35,7 +35,7 @@ const BarcodeCategorySection = ({
           {itemCodeDataToShow?.length > 0 && itemCodeDataToShow !== null ? (
             <>
               {itemCodeDataToShow.map((data: any, index: any) => (
-                <div className="col-lg-3" key={index}>
+                <div className="col-lg-3 col-4" key={index}>
                   <div className="form-check">
                     <input
                       className="form-check-input"

@@ -19,7 +19,9 @@ export default function Document() {
         crossOrigin="anonymous"
         referrerPolicy="no-referrer"
       />
-      {/* <script src="https://example.com/fontawesome/v6.4.2/js/all.js" data-auto-replace-svg="nest"></script> */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
+      <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet"></link>
 
       <body>
         <Main />

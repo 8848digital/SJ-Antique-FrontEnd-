@@ -20,7 +20,7 @@ const NoRecord = ({ title, content, backButtonUrl, HandleRefresh }: any) => {
               className="text-center"
             />
           </div>
-          <p>{content}</p>
+          <p className='text-center'>{content}</p>
           <div className="text-center">
             {backButtonUrl ? (
               <button

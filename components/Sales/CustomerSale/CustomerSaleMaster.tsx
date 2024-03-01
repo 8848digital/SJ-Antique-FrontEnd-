@@ -76,8 +76,8 @@ const CustomerSaleMaster = () => {
       <SalesHeader />
       <div className="d-flex justify-content-center">
         <TabSection
-          firstTabHeading="Sales list"
-          secondTabHeading="Create new Sales "
+          firstTabHeading="Sales List"
+          secondTabHeading="Create New Sales "
         />
       </div>
       <div className="tab-content " id="pills-tabContent">

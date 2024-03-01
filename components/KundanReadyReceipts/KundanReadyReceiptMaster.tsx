@@ -67,13 +67,19 @@ const ReadyReceiptKundanKarigarMaster = () => {
     specificDataFromStore,
   } = useReadyReceiptKarigar();
 
+
+  const capitalizeWords: any = (word: any) => {
+    return word?.replace(/\b\w/g, (char: any) => char?.toUpperCase());
+  }
+  const receiptName: any = capitalizeWords(lastPartOfURL);
+
   return (
     <div className="container-lg ">
       <div>
         <div className="d-flex justify-content-center">
           <TabSection
-            firstTabHeading={`Ready receipts ${lastPartOfURL} karigar`}
-            secondTabHeading="Create new ready receipt"
+            firstTabHeading={`Ready Receipts ${receiptName} Karigar`}
+            secondTabHeading="Create New Ready Receipt"
           />
         </div>
         <div className="tab-content " id="pills-tabContent">
