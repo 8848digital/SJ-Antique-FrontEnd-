@@ -48,6 +48,7 @@ const MasterKarigar: any = ({
           >
             <MasterKarigarListing
               karigarData={filterList}
+              defaultData={karigarData}
               HandleSearchInput={HandleSearchInput}
               placeholder={placeholder}
             />

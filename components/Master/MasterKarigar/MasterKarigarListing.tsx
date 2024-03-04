@@ -5,6 +5,7 @@ import NoRecord from '@/components/NoRecord/NoRecord';
 
 const MasterKarigarListing = ({
   karigarData,
+  defaultData,
   HandleSearchInput,
   placeholder,
 }: any) => {
@@ -26,7 +27,7 @@ const MasterKarigarListing = ({
 
   return (
     <div>
-      {karigarData?.length > 0 ? (
+      {defaultData?.length > 0 ? (
         <>
           <div className="container d-flex justify-content-between p-0 px-3">
             <div>
@@ -71,17 +72,19 @@ const MasterKarigarListing = ({
               <tbody>
                 {karigarData?.length > 0 &&
                   karigarData !== null &&
-                  karigarData.slice(0, tableViewData).map((item: any, i: any) => (
-                    <tr key={i}>
-                      <td className="table-body-row cursor">{i + 1}</td>
-                      <td
-                        className="table-body-row cursor"
-                        onClick={() => HandleDetails(item.karigar_name)}
-                      >
-                        {item.karigar_name}
-                      </td>
-                    </tr>
-                  ))}
+                  karigarData
+                    .slice(0, tableViewData)
+                    .map((item: any, i: any) => (
+                      <tr key={i}>
+                        <td className="table-body-row cursor">{i + 1}</td>
+                        <td
+                          className="table-body-row cursor"
+                          onClick={() => HandleDetails(item.karigar_name)}
+                        >
+                          {item.karigar_name}
+                        </td>
+                      </tr>
+                    ))}
                 {karigarData?.length > 20 && karigarData !== null && (
                   <LoadMoreTableDataInMaster
                     HandleTableViewRows={HandleTableViewRows}
@@ -92,12 +95,8 @@ const MasterKarigarListing = ({
           </div>
         </>
       ) : (
-        <NoRecord
-          title=""
-          content="No Records Found"
-        />
+        <NoRecord title="" content="No Records Found" />
       )}
-
     </div>
   );
 };

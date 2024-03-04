@@ -6,6 +6,7 @@ import NoRecord from '@/components/NoRecord/NoRecord';
 
 const MasterMaterialListing = ({
   materialList,
+  defaultData,
   handleInputChange1,
   handleInputChange2,
   handleInputChange3,
@@ -35,7 +36,7 @@ const MasterMaterialListing = ({
   };
   return (
     <div>
-      {materialList?.length > 0 ? (
+      {defaultData?.length > 0 ? (
         <>
           <div className="d-flex justify-content-between px-3 ">
             <div
@@ -103,55 +104,64 @@ const MasterMaterialListing = ({
               <tbody>
                 {materialList?.length > 0 &&
                   materialList !== null &&
-                  materialList.slice(0, tableViewData).map((item: any, i: any) => (
-                    <tr key={i}>
-                      <td
-                        className="table-body-row cursor"
-                        style={{ width: '80px' }}
-                      >
-                        {i + 1}
-                      </td>
-                      <td
-                        className={`table-body-row cursor ${value === 'material' ? 'w-auto' : ' w-50 '
-                          } `}
-                        onClick={() =>
-                          HandleDetails(
-                            item.material,
-                            item.material_abbr ? item.material_abbr : item.type,
-                            item.material_group
-                          )
-                        }
-                      >
-                        {item.material}
-                      </td>
-                      <td
-                        className={`table-body-row cursor w-auto`}
-                        onClick={() =>
-                          HandleDetails(
-                            item.material,
-                            item.material_abbr ? item.material_abbr : item.type,
-                            item.material_group
-                          )
-                        }
-                      >
-                        {item.material_abbr ? item.material_abbr : item.type}
-                      </td>
-                      {value === 'material' && (
+                  materialList
+                    .slice(0, tableViewData)
+                    .map((item: any, i: any) => (
+                      <tr key={i}>
                         <td
-                          className="table-body-row cursor w-auto"
+                          className="table-body-row cursor"
+                          style={{ width: '80px' }}
+                        >
+                          {i + 1}
+                        </td>
+                        <td
+                          className={`table-body-row cursor ${
+                            value === 'material' ? 'w-auto' : ' w-50 '
+                          } `}
                           onClick={() =>
                             HandleDetails(
                               item.material,
-                              item.material_abbr ? item.material_abbr : item.type,
+                              item.material_abbr
+                                ? item.material_abbr
+                                : item.type,
                               item.material_group
                             )
                           }
                         >
-                          {item.material_group}
+                          {item.material}
                         </td>
-                      )}
-                    </tr>
-                  ))}
+                        <td
+                          className={`table-body-row cursor w-auto`}
+                          onClick={() =>
+                            HandleDetails(
+                              item.material,
+                              item.material_abbr
+                                ? item.material_abbr
+                                : item.type,
+                              item.material_group
+                            )
+                          }
+                        >
+                          {item.material_abbr ? item.material_abbr : item.type}
+                        </td>
+                        {value === 'material' && (
+                          <td
+                            className="table-body-row cursor w-auto"
+                            onClick={() =>
+                              HandleDetails(
+                                item.material,
+                                item.material_abbr
+                                  ? item.material_abbr
+                                  : item.type,
+                                item.material_group
+                              )
+                            }
+                          >
+                            {item.material_group}
+                          </td>
+                        )}
+                      </tr>
+                    ))}
                 {materialList?.length > 20 && materialList !== null && (
                   <LoadMoreTableDataInMaster
                     HandleTableViewRows={HandleTableViewRows}
@@ -162,12 +172,8 @@ const MasterMaterialListing = ({
           </div>
         </>
       ) : (
-        <NoRecord
-          title=""
-          content="Records Not Found !!"
-        />
+        <NoRecord title="" content="Records Not Found !!" />
       )}
-
     </div>
   );
 };
