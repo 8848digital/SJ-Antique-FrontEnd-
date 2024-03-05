@@ -403,10 +403,15 @@ const useReadyReceiptKarigar = () => {
         loginAcessToken.token,
         values
       );
-      // console.log('purchase receipt api res', purchaseReceipt);
+      console.log(
+        'purchase receipt api res',
+        purchaseReceipt,
+        readyReceiptType
+      );
       if (purchaseReceipt?.data?.message?.hasOwnProperty('message')) {
         router.push(
-          `${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`
+          `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
+            ?.message}`
         );
         toast.success('Purchase Receipt Created Successfully');
       } else {
