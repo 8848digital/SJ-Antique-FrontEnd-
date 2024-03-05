@@ -116,14 +116,18 @@ const DocStatusButtonChanges = ({
               Submit
             </button>
           )}
-          {data?.docstatus === 1 && stateForDocStatus === false && (
-            <button
-              type="button"
-              className={`${styles.create_button} px-2 py-0 me-2`}
-              onClick={() => HandleUpdateDocStatus('2')}
-            >
-              Cancel
-            </button>
+          {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
+            <>
+              {data?.docstatus === 1 && stateForDocStatus === false && (
+                <button
+                  type="button"
+                  className={`${styles.create_button} px-2 py-0 me-2`}
+                  onClick={() => HandleUpdateDocStatus('2')}
+                >
+                  Cancel
+                </button>
+              )}
+            </>
           )}
           {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
             <>
@@ -151,14 +155,18 @@ const DocStatusButtonChanges = ({
               </button>
             )}
 
-          {data?.docstatus === 2 && (
-            <button
-              type="button"
-              className={`${styles.create_button} px-2 py-0 me-2 `}
-              onClick={() => HandleDeleteReceipt(query?.receiptId)}
-            >
-              Delete
-            </button>
+          {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
+            <>
+              {data?.docstatus === 2 && (
+                <button
+                  type="button"
+                  className={`${styles.create_button} px-2 py-0 me-2 `}
+                  onClick={() => HandleDeleteReceipt(query?.receiptId)}
+                >
+                  Delete
+                </button>
+              )}
+            </>
           )}
         </div>
       </div>
