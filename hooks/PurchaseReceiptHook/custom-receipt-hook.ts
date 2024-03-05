@@ -69,7 +69,7 @@ const UseCustomReceiptHook: any = () => {
     totalAmount: 0,
     table: [
       {
-        idx: materialWeight === undefined ? 1 : materialWeight?.length,
+        idx: materialWeight === undefined ? materialWeight?.length : 1,
         material_abbr: '',
         material: '',
         pcs: 0,
@@ -230,8 +230,6 @@ const UseCustomReceiptHook: any = () => {
 
   const handleFileUpload = async (id: number, fileVal: any) => {
     const bodyFormData: any = new FormData();
-    // // bodyFormData.append('file', val);
-    // bodyFormData.append('file', val, 'screenshot.jpg');
 
     if (fileVal instanceof File) {
       bodyFormData.append('file', fileVal);
@@ -339,7 +337,6 @@ const UseCustomReceiptHook: any = () => {
     setMaterialWeight(updatedMaterialWeight);
   };
   const UpdatePcsWeight: any = (id: any, pcsAmt: any) => {
-
     const updatedTableData =
       tableData?.map((item: any) => {
         if (item.idx === id) {
@@ -440,8 +437,8 @@ const UseCustomReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-                : formatInput(newValue),
+              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+              : formatInput(newValue),
           custom_gross_wt,
         };
       }
@@ -472,6 +469,7 @@ const UseCustomReceiptHook: any = () => {
   };
 
   const handleAddRow = (value: any) => {
+    console.log('value for add row', value);
     const newRow = {
       idx: tableData?.length + 1,
       product_code: '',
@@ -485,7 +483,8 @@ const UseCustomReceiptHook: any = () => {
       custom_add_photo: '',
       table: [
         {
-          idx: materialWeight !== undefined ? materialWeight?.length + 1 : 1,
+          // idx: materialWeight !== undefined ? materialWeight?.length : 1,
+          idx: value === 'modalRow' ? materialWeight?.length + 1 : 1,
           material_abbr: '',
           material: '',
           pcs: 0,

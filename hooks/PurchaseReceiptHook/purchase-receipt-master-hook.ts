@@ -320,7 +320,6 @@ const useReadyReceiptKarigar = () => {
   };
 
   const handleCreate = async () => {
-
     const updatedtableData =
       tableData?.length > 0 &&
       tableData !== null &&
@@ -404,17 +403,14 @@ const useReadyReceiptKarigar = () => {
         loginAcessToken.token,
         values
       );
-      console.log("purchase receipt api res", purchaseReceipt)
-      if (
-        purchaseReceipt.status === 200 &&
-        purchaseReceipt?.data?.message?.hasOwnProperty('message')
-      ) {
+      // console.log('purchase receipt api res', purchaseReceipt);
+      if (purchaseReceipt?.data?.message?.hasOwnProperty('message')) {
         router.push(
           `${readyReceiptType}/${purchaseReceipt?.data?.message?.message}`
         );
         toast.success('Purchase Receipt Created Successfully');
       } else {
-        toast.error('Error in Creating Purchase Receipt');
+        toast.error(`${purchaseReceipt?.data?.message?.error}`);
       }
     }
   };
@@ -450,7 +446,6 @@ const useReadyReceiptKarigar = () => {
   };
 
   const handleUpdateReceipt: any = async () => {
-
     const filteredDataa = filteredTableDataForUpdate(tableData);
 
     const updatedtableData =
@@ -524,18 +519,20 @@ const useReadyReceiptKarigar = () => {
       updatedReceiptData,
       query?.receiptId
     );
-    console.log("updatedd", updateReceiptApi)
-    if (updateReceiptApi?.hasOwnProperty("data")) {
-      if (updateReceiptApi?.data?.hasOwnProperty("message")) {
+    // console.log('updatedd', updateReceiptApi);
+
+    if (updateReceiptApi?.data?.hasOwnProperty('message')) {
+      if (updateReceiptApi?.data?.message?.hasOwnProperty('name')) {
         setStateForDocStatus(false);
         const params: any = {
           token: loginAcessToken?.token,
           name: query?.receiptId,
         };
         dispatch(getSpecificReceipt(params));
+      } else {
+        toast.error(`${updateReceiptApi?.data?.message?.error}`);
       }
     }
-
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
