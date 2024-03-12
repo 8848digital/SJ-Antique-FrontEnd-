@@ -282,13 +282,13 @@ const useReadyReceiptKarigar = () => {
     } else {
       setClickBtn(false);
     }
-    const values = {
-      version: 'v1',
-      method: 'create_material',
-      entity: 'material_post_api',
-      data: modalValue,
-    };
-    const materialApiVal = await postMaterialApi(loginAcessToken.token, values);
+    // const values = {
+    //   version: 'v1',
+    //   method: 'create_material',
+    //   entity: 'material_post_api',
+    //   data: modalValue,
+    // };
+    // const materialApiVal = await postMaterialApi(loginAcessToken.token, values);
     setShowModal(false);
     setStateForDocStatus(true);
     setMatWt('');

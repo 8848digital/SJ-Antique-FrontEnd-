@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ModalMaster from './ModalMaster';
 import { Button, Modal } from 'react-bootstrap';
+import Hotkeys from 'react-hot-keys';
 
 const PurchaseReceiptModal = ({
   tableData,
@@ -23,6 +24,27 @@ const PurchaseReceiptModal = ({
   handleTabPressOnModal,
 }: any) => {
   console.log('material weight ', materialWeight);
+
+  useEffect(() => {
+    // Function to handle keydown event
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Check if the key combination matches alt+s
+      if (event.altKey && event.key === 's') {
+        // Prevent default behavior to avoid triggering browser shortcuts
+        event.preventDefault();
+        // Call the handleSaveModal function
+        handleSaveModal();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup function to remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleSaveModal]);
+
   return (
     <div>
       {tableData?.length > 0 &&
