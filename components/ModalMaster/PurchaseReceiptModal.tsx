@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import ModalMaster from './ModalMaster';
 import { Button, Modal } from 'react-bootstrap';
-import Hotkeys from 'react-hot-keys';
 
 const PurchaseReceiptModal = ({
   tableData,
