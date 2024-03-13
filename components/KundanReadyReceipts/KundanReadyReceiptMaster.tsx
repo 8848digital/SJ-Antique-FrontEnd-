@@ -9,7 +9,6 @@ import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
 import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
 import TabSection from '../TabSection';
 
-
 const ReadyReceiptKundanKarigarMaster = () => {
   const {
     setClick,
@@ -67,10 +66,9 @@ const ReadyReceiptKundanKarigarMaster = () => {
     specificDataFromStore,
   } = useReadyReceiptKarigar();
 
-
   const capitalizeWords: any = (word: any) => {
     return word?.replace(/\b\w/g, (char: any) => char?.toUpperCase());
-  }
+  };
   const receiptName: any = capitalizeWords(lastPartOfURL);
 
   return (

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
 
 const FilterKundanReadyReceiptListing = ({
@@ -21,9 +22,11 @@ const FilterKundanReadyReceiptListing = ({
       karigar_name: data.custom_number,
     }));
 
+  const { query } = useRouter();
+  console.log('query', query);
   return (
     <div className="p-0 px-1">
-      <div className="d-flex flex-wrap justify-content-between">
+      <div className="d-flex flex-wrap justify-content-between gx-0">
         <div className="col-sm-2 p-0">
           <label className="text-grey">From Date</label>
           <div>
@@ -48,6 +51,21 @@ const FilterKundanReadyReceiptListing = ({
             />
           </div>
         </div>
+        {(query?.receipt === 'kundan' || query?.receipt === 'mangalsutra') && (
+          <div className="col-sm-1 p-0 ">
+            <label className="text-grey">Item Code</label>
+            <div>
+              <input
+                type="text"
+                name="item_code"
+                value={searchInputValues?.item_code}
+                className="form-control input-fields custom-input-field line-height "
+                onChange={HandleSearchInput}
+                autoComplete="off"
+              />
+            </div>
+          </div>
+        )}
         <div className="col-sm-2 p-0">
           <label className="text-grey">{colPlaceholder1}</label>
           <div>
@@ -65,7 +83,7 @@ const FilterKundanReadyReceiptListing = ({
             />
           </div>
         </div>
-        <div className="col-sm-3 p-0">
+        <div className="col-sm-2 p-0">
           <label className="text-grey">{colPlaceholder2}</label>
           <div>
             <SearchSelectInputField
@@ -83,7 +101,7 @@ const FilterKundanReadyReceiptListing = ({
           </div>
         </div>
 
-        <div className=" col-sm-2 p-0">
+        <div className="col-sm-2 p-0">
           <label className="text-grey">Status</label>
           <div>
             <select

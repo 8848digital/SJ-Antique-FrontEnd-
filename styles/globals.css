@@ -405,7 +405,7 @@ hr {
   }
 
   .client-dropdown-width {
-    width: 185px !important;
+    width: 178px !important;
   }
 
   .report-heading {
@@ -453,9 +453,9 @@ hr {
     width: 170px !important;
   }
 
-  .client-dropdown-width {
+  /* .client-dropdown-width {
     width: 255px !important;
-  }
+  } */
 
   .report-width {
     width: 100%;
