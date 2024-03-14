@@ -2,7 +2,7 @@ import React from 'react';
 
 const DailyStatusReportHeading = () => {
   return (
-    <thead>
+    <thead className="sticky-top">
       <tr className="row">
         <th colSpan={2} scope="colgroup" className="thead col-sm-3"></th>
         <th colSpan={3} scope="colgroup" className="thead col-sm-3">

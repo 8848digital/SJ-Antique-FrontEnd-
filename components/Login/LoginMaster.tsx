@@ -11,7 +11,6 @@ const LoginMaster = () => {
   const dispatch = useDispatch();
   const loginAcessToken = useSelector(get_access_token);
   const [loginToken, setLoginToken] = useState('');
-  console.log(loginAcessToken, 'selector');
   const router = useRouter();
   const [userData, setUserData] = useState<any>({
     username: '',
@@ -22,11 +21,10 @@ const LoginMaster = () => {
   const HandleInputChange: any = (e: any) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
-  console.log(userData, 'userData');
 
   const HandleFormSubmit = async () => {
     const loginsucess = await dispatch(getAccessToken(userData));
-    console.log(loginsucess, 'loginsucess');
+
     if (loginsucess.payload.msg == 'success') {
       toast.success('Login Successfully');
       setTimeout(() => {
@@ -44,7 +42,6 @@ const LoginMaster = () => {
     }
   };
   const HandleShowPassword: any = () => {
-    console.log('eye click');
     setShowPassword(!showPassword);
   };
 
@@ -85,8 +82,9 @@ const LoginMaster = () => {
                           required
                         />
                         <i
-                          className={`fa fa-eye p-0 pt-2 fs-6 pswd-eye-icon ${showPassword ? 'text-primary' : ''
-                            } `}
+                          className={`fa fa-eye p-0 pt-2 fs-6 pswd-eye-icon ${
+                            showPassword ? 'text-primary' : ''
+                          } `}
                           onClick={HandleShowPassword}
                         ></i>
                       </div>
