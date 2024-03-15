@@ -111,7 +111,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   }, [specificDataFromStore, firstInputRef, lastInputRef, tableData?.length]);
 
   return (
-    <div className="table responsive">
+    <div className="table-responsive">
       <table className="table table-hover table-bordered">
         <thead>
           <tr>
@@ -160,7 +160,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
             <th className="thead" scope="col">
               Add Photo
             </th>
-            <th className="thead" scope="col"></th>
+            <th className="thead" style={{ width: '1%' }} scope="col"></th>
             <th className="thead" scope="col"></th>
           </tr>
         </thead>
@@ -393,7 +393,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       handleCreate={handleCreate}
                     />
                   </td>
-                  <td className="table_row">
+                  <td className="table_row d-flex justify-content-center">
                     <button
                       className="d-flex align-items-center delete-link p-1 border-0"
                       disabled={readOnlyFields}
@@ -401,9 +401,9 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       <i className="fa-solid fa-plus"></i>
                     </button>
                   </td>
-                  <td className="table_row">
+                  <td className="table_row ">
                     <button
-                      className="form-control d-flex align-items-center delete-link p-1 border-0"
+                      className="form-control d-flex justify-content-center align-items-center delete-link p-1 border-0"
                       onClick={() => handleDeleteRow(item.idx)}
                       onKeyDown={(e) => handleTabPress(e, item.idx)}
                       disabled={readOnlyFields}

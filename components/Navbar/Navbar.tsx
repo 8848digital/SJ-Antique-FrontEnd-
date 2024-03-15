@@ -26,12 +26,11 @@ const Navbar = () => {
 
   return (
     <div className="container-lg">
-      <div className=" bg-light">
+      <div className="">
         <nav
           className="d-flex"
-        // className="container-lg mt-2 d-flex flex-wrap justify-content-between "
+          // className="container-lg mt-2 d-flex flex-wrap justify-content-between "
         >
-          {/* <div></div> */}
           <div className="container-lg mt-2 d-flex flex-wrap justify-content-center ">
             <ReceiptsHeader
               showReceipt={showReceipt}
