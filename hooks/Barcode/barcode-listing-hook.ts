@@ -88,10 +88,12 @@ const useBarcodeListingHook = () => {
 
   const handleSelectAll = (ListData: any, tableViewData: number) => {
     setSelectAll((prevSelectAll: boolean) => {
-      const allItems = ListData.slice(0, tableViewData).map((item: any) => ({
-        id: item.idx,
-        name: item.item_code,
-      }));
+      const allItems =
+        ListData?.length > 0 &&
+        ListData.slice(0, tableViewData).map((item: any) => ({
+          id: item.idx,
+          name: item.item_code,
+        }));
 
       // Update the state to the opposite value
       setMultipleRecordsForPrint(prevSelectAll ? [] : allItems);
