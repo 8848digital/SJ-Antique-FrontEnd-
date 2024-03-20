@@ -48,7 +48,6 @@ const ModalMaster = ({
                   <th className="thead" scope="col">
                     Sr. no
                   </th>
-
                   <th className="thead" scope="col">
                     Material Abbr (Master)
                   </th>

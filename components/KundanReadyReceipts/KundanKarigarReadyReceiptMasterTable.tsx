@@ -170,12 +170,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
             tableData.map((item: any, i: any) => (
               <>
                 <tr key={item.idx} className={`${styles.table_row}`}>
-                  <td
-                    className="table_row"
-                    // ref={firstInputRef}
-                  >
-                    {item.idx}
-                  </td>
+                  <td className="table_row">{item.idx}</td>
                   <td className="table_row">
                     <input
                       className={` ${styles.input_field} text-center`}
