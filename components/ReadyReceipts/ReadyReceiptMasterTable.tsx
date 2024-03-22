@@ -1,15 +1,15 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/readyReceipts.module.css';
-import SelectInputKunKarigar from '../SearchSelectInputField/SelectInputKunKarigar';
-import PurchaseReceiptFileUploadMaster from '../PurchaseReceiptFileUpload/PurchaseReceiptFileUploadMaster';
+import SelectInputKunKarigar from '../InputDropdown/SelectInputKunKarigar';
+import PurchaseReceiptFileUploadMaster from './ReadyReceiptFileUpload/PurchaseReceiptFileUploadMaster';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import TotalReadOnlyRow from './TotalReadOnlyRow';
 
-const KundanKarigarReadyReceiptMasterTable = ({
+const ReadyReceiptMasterTable = ({
   handleFieldChange,
   tableData,
   handleDeleteRow,
@@ -111,7 +111,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
   }, [specificDataFromStore, firstInputRef, lastInputRef, tableData?.length]);
 
   return (
-    <div className="table-responsive">
+    <div className="table responsive">
       <table className="table table-hover table-bordered">
         <thead>
           <tr>
@@ -121,7 +121,6 @@ const KundanKarigarReadyReceiptMasterTable = ({
             <th className="thead" scope="col">
               Product Code<span className="text-danger">*</span>
             </th>
-
             {(query?.receipt === 'kundan' || query?.receipt === 'Kundan') && (
               <th className="thead" scope="col">
                 Kun Karigar
@@ -160,7 +159,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
             <th className="thead" scope="col">
               Add Photo
             </th>
-            <th className="thead" style={{ width: '1%' }} scope="col"></th>
+            <th className="thead" scope="col"></th>
             <th className="thead" scope="col"></th>
           </tr>
         </thead>
@@ -170,7 +169,12 @@ const KundanKarigarReadyReceiptMasterTable = ({
             tableData.map((item: any, i: any) => (
               <>
                 <tr key={item.idx} className={`${styles.table_row}`}>
-                  <td className="table_row">{item.idx}</td>
+                  <td
+                    className="table_row"
+                    // ref={firstInputRef}
+                  >
+                    {item.idx}
+                  </td>
                   <td className="table_row">
                     <input
                       className={` ${styles.input_field} text-center`}
@@ -396,7 +400,7 @@ const KundanKarigarReadyReceiptMasterTable = ({
                       <i className="fa-solid fa-plus"></i>
                     </button>
                   </td>
-                  <td className="table_row ">
+                  <td className="table_row">
                     <button
                       className="form-control d-flex justify-content-center align-items-center delete-link p-1 border-0"
                       onClick={() => handleDeleteRow(item.idx)}
@@ -420,4 +424,4 @@ const KundanKarigarReadyReceiptMasterTable = ({
   );
 };
 
-export default KundanKarigarReadyReceiptMasterTable;
+export default ReadyReceiptMasterTable;

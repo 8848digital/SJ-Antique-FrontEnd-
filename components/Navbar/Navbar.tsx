@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { ClearToken } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import ReceiptsHeader from '../Header/ReceiptsHeader';
-import ReadyReceiptsTabs from '../KundanReadyReceipts/ReadyReceiptsTabs';
+import ReadyReceiptsTabs from '../ReadyReceipts/ReadyReceiptsTabs';
 
 const Navbar = () => {
   const router = useRouter();

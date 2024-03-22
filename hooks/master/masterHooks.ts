@@ -21,9 +21,13 @@ const useMasterHooks = () => {
     const getStateData: any = async () => {
       const karigarData: any = await getKarigarApi(loginAcessToken.token);
       const kunKarigarData = await kundanKarigarApi(loginAcessToken.token);
-      console.log(karigarData, 'KarigarData Master');
-      setKarigarList(karigarData);
-      setKunKarigarList(kunKarigarData);
+      if (karigarData?.data?.message?.status === 'success') {
+        setKarigarList(karigarData?.data?.message?.data);
+      }
+
+      if (kunKarigarData?.data?.message?.status === 'success') {
+        setKunKarigarList(kunKarigarData?.data?.message?.data);
+      }
     };
     getStateData();
   }, []);
@@ -43,12 +47,13 @@ const useMasterHooks = () => {
       console.log(error);
     } else {
       let apiRes: any = await postKarigarApi(loginAcessToken?.token, values);
-      console.log('apires', apiRes);
+
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Karigar Name Created');
         const karigarApi: any = await getKarigarApi(loginAcessToken.token);
-        console.log(karigarApi, 'data after post api');
-        setKarigarList(karigarApi);
+        if (karigarApi?.data?.message?.status === 'success') {
+          setKarigarList(karigarApi?.data?.message?.data);
+        }
       } else {
         toast.error('Karigar Name already exist');
       }
@@ -75,11 +80,13 @@ const useMasterHooks = () => {
       console.log(error);
     } else {
       let apiRes: any = await postKunKarigarApi(loginAcessToken?.token, values);
-      console.log('apires', apiRes);
+
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Kundan Karigar Name Created');
         const karigarApi = await kundanKarigarApi(loginAcessToken?.token);
-        setKunKarigarList(karigarApi);
+        if (karigarApi?.data?.message?.status === 'success') {
+          setKunKarigarList(karigarApi?.data?.message?.data);
+        }
       } else {
         toast.error('Kundan Karigar Name already exist');
       }
@@ -91,7 +98,6 @@ const useMasterHooks = () => {
   const HandleKunInputValue = (e: any) => {
     setError('');
     setInputValue(e.target.value);
-    console.log(inputValue, 'input value');
   };
 
   return {

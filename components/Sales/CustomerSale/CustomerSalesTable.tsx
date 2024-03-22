@@ -2,7 +2,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useMemo, useState } from 'react';
 import styles from '../../../styles/readyReceipts.module.css';
-import SelectInputKunKarigar from '@/components/SearchSelectInputField/SelectInputKunKarigar';
+import SelectInputKunKarigar from '@/components/InputDropdown/SelectInputKunKarigar';
 import SalesTableHeader from './SalesTableHeader';
 import TotalReadOnlyRowForSales from '../TotalReadOnlyRowForSales';
 import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';

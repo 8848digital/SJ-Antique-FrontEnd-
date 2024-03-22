@@ -7,13 +7,13 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/readyReceiptTableListing.module.css';
-import FilterKundanReadyReceiptListing from './FilterKundanReadyReceiptListing';
+import FilterReadyReceiptListing from './FilterReadyReceiptListing';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import PrintApi from '@/services/api/general/print-api';
 import { toast } from 'react-toastify';
 
-const KundanListing = ({
+const ReadyReceiptListing = ({
   kundanListing,
   setKundanListing,
   HandleDeleteReceipt,
@@ -220,7 +220,7 @@ const KundanListing = ({
 
   return (
     <>
-      <FilterKundanReadyReceiptListing
+      <FilterReadyReceiptListing
         HandleSearchInput={HandleSearchInput}
         receiptNoList={filteredList}
         setSearchReceiptNumber={setSearchReceiptNumber}
@@ -438,4 +438,4 @@ const KundanListing = ({
   );
 };
 
-export default KundanListing;
+export default ReadyReceiptListing;

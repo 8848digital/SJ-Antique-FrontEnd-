@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import styles from '../../styles/readyReceipts.module.css';
-import WebCamPurchaseReceipt from '../PurchaseReceiptFileUpload/WebCamPurchaseReceipt';
+import WebCamPurchaseReceipt from './WebCamPurchaseReceipt';
 
 const PhotoUploadModal = ({ handleFieldChange, item }: any) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -54,15 +54,15 @@ const PhotoUploadModal = ({ handleFieldChange, item }: any) => {
                   type="file"
                   style={{ display: 'none' }}
                   onChange={handleFileChange}
-                // onChange={(e) =>
-                //   handleFieldChange(
-                //     item?.idx,
-                //     'tableRow',
-                //     'custom_add_photo',
-                //     `/files/${e.target.files?.[0]?.name}`,
-                //     e.target.files?.[0]
-                //   )
-                // }
+                  // onChange={(e) =>
+                  //   handleFieldChange(
+                  //     item?.idx,
+                  //     'tableRow',
+                  //     'custom_add_photo',
+                  //     `/files/${e.target.files?.[0]?.name}`,
+                  //     e.target.files?.[0]
+                  //   )
+                  // }
                 />
               </i>
               <p onClick={handleUploadClick}>My computer</p>

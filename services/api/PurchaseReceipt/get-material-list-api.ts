@@ -10,8 +10,7 @@ const materialApi = async (get_access_token: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get material', res);
-      response = res?.data?.message?.data;
+      response = res;
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {

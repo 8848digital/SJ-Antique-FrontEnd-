@@ -41,10 +41,6 @@ const TotalReadOnlyRow = ({ calculationRow }: any) => {
             value={Number(calculationRow?.custom_total).toFixed(2)}
           />
         </td>
-
-        {/* <td className="table_row px-0">
-          <ReadOnlyInputFieldComponent value={''} />
-        </td> */}
       </tr>
     </>
   );

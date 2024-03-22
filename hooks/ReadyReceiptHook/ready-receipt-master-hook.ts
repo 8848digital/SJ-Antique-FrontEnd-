@@ -4,7 +4,6 @@ import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-
 import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
-import postMaterialApi from '@/services/api/PurchaseReceipt/post-material-api';
 import purchaseReceiptApi from '@/services/api/PurchaseReceipt/post-purchase-receipt-api';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
 import { getSpecificReceipt } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
@@ -13,15 +12,15 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import UseCustomReceiptHook from './custom-receipt-hook';
+import UseCustomReceiptHook from './custom-ready-receipt-hook';
+import useReadyReceiptCustomCalculationHook from './ready-receipt-custom-calculation-hook';
 
-const useReadyReceiptKarigar = () => {
+const useReadyReceipt = () => {
   const { query } = useRouter();
   const dispatch = useDispatch();
   const router: any = useRouter();
   const pathParts: any = router?.asPath?.split('/');
   const lastPartOfURL: any = pathParts[pathParts?.length - 1];
-
   const inputRef = useRef<any>(null);
   const lastInputRef = useRef<any>(null);
   const firstInputRef = useRef<any>(null);
@@ -33,14 +32,11 @@ const useReadyReceiptKarigar = () => {
     posting_date: '',
     store_location: '',
   });
-
-  const [clickBtn, setClickBtn] = useState<boolean>(false);
   const [clicks, setClick] = useState<boolean>(false);
   const [karigarData, setKarigarData] = useState<any>();
   const [kundanKarigarData, setKundanKarigarData] = useState<any>();
   const [materialListData, setMaterialListData] = useState<any>();
   const [warehouseListData, setWarehouseListData] = useState<any>();
-  const [activeModalId, setActiveModalId] = useState<any>(null);
 
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
@@ -97,6 +93,9 @@ const useReadyReceiptKarigar = () => {
     specificDataFromStore,
   }: any = UseCustomReceiptHook();
 
+  const { calculateWtForCreateReceipt }: any =
+    useReadyReceiptCustomCalculationHook();
+
   useEffect(() => {
     const getPurchaseList = async () => {
       const capitalizeFirstLetter = (str: any) => {
@@ -107,7 +106,7 @@ const useReadyReceiptKarigar = () => {
           loginAcessToken,
           capitalizeFirstLetter(query.receipt)
         );
-        console.log('listdataa', listData);
+
         if (listData?.data?.message?.status === 'success') {
           setKundanListing(listData?.data?.message?.data);
         }
@@ -118,13 +117,23 @@ const useReadyReceiptKarigar = () => {
 
   useEffect(() => {
     const getStateData: any = async () => {
-      const stateData: any = await getKarigarApi(loginAcessToken.token);
-      const KundanKarigarAPI = await kundanKarigarApi(loginAcessToken.token);
-      const materialListApi = await materialApi(loginAcessToken.token);
+      const karigarData: any = await getKarigarApi(loginAcessToken.token);
+      const kundanKarigarData: any = await kundanKarigarApi(
+        loginAcessToken.token
+      );
+      const materialListData: any = await materialApi(loginAcessToken.token);
       const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
-      setKarigarData(stateData);
-      setKundanKarigarData(KundanKarigarAPI);
-      setMaterialListData(materialListApi);
+
+      if (karigarData?.data?.message?.status === 'success') {
+        setKarigarData(karigarData?.data?.message?.data);
+      }
+      if (kundanKarigarData?.data?.message?.status === 'success') {
+        setKundanKarigarData(kundanKarigarData?.data?.message?.data);
+      }
+      if (materialListData?.data?.message?.status === 'success') {
+        setMaterialListData(materialListData?.data?.message?.data);
+      }
+
       if (warehouseData?.data?.message?.status === 'success') {
         setWarehouseListData(warehouseData?.data?.message?.data);
       }
@@ -139,7 +148,6 @@ const useReadyReceiptKarigar = () => {
     newValue: any
   ) => {
     // console.log('field change data', id, val, field, newValue);
-
     const formatInput = (value: any) => {
       const floatValue = parseFloat(value);
       if (!isNaN(floatValue)) {
@@ -277,18 +285,6 @@ const useReadyReceiptKarigar = () => {
     });
 
     setTableData(updatedDataVal);
-    if (totalvalues.length > 0) {
-      setClickBtn(true);
-    } else {
-      setClickBtn(false);
-    }
-    // const values = {
-    //   version: 'v1',
-    //   method: 'create_material',
-    //   entity: 'material_post_api',
-    //   data: modalValue,
-    // };
-    // const materialApiVal = await postMaterialApi(loginAcessToken.token, values);
     setShowModal(false);
     setStateForDocStatus(true);
     setMatWt('');
@@ -296,7 +292,6 @@ const useReadyReceiptKarigar = () => {
 
   const closeModal = () => {
     setShowModal(false);
-    setActiveModalId(null);
   };
 
   const handleRecipietChange = (e: any) => {
@@ -320,47 +315,12 @@ const useReadyReceiptKarigar = () => {
   };
 
   const handleCreate = async () => {
-    const updatedtableData =
-      tableData?.length > 0 &&
-      tableData !== null &&
-      tableData?.map((row: any, i: any) => {
-        if (row.idx === indexVal) {
-          const customOther = parseFloat(row.custom_other);
-          const totalAmount = parseFloat(row.totalAmount);
+    const updatedTableData: any = calculateWtForCreateReceipt(
+      tableData,
+      indexVal
+    );
 
-          if (!isNaN(customOther) && !isNaN(totalAmount)) {
-            return {
-              ...row,
-              custom_gross_wt:
-                Number(row.custom_net_wt) +
-                Number(row.custom_few_wt) +
-                Number(row.custom_mat_wt),
-              custom_total: totalAmount + customOther,
-            };
-          } else if (!isNaN(customOther)) {
-            return {
-              ...row,
-              custom_gross_wt:
-                Number(row.custom_net_wt) +
-                Number(row.custom_few_wt) +
-                Number(row.custom_mat_wt),
-              custom_total: customOther,
-            };
-          } else {
-            return {
-              ...row,
-              custom_gross_wt:
-                Number(row.custom_net_wt) +
-                Number(row.custom_few_wt) +
-                Number(row.custom_mat_wt),
-              custom_total: totalAmount,
-            };
-          }
-        }
-        return row;
-      });
-
-    const modalValue = updatedtableData?.map(
+    const modalValue = updatedTableData?.map(
       ({
         id,
         totalModalWeight,
@@ -436,11 +396,9 @@ const useReadyReceiptKarigar = () => {
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
-      // Check if there are no values except "idx"
       const hasNoValues = Object.keys(row).every(
         (key) => key === 'idx' || key === 'table' || row[key] === ''
       );
-
       // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
       const shouldExclude =
         row.product_code === '' && Number(row.custom_gross_wt) === 0;
@@ -668,4 +626,4 @@ const useReadyReceiptKarigar = () => {
   };
 };
 
-export default useReadyReceiptKarigar;
+export default useReadyReceipt;

@@ -2,14 +2,14 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/readyReceipts.module.css';
-import KundanListing from './KundanReadyReceiptsListing';
-import KundanKarigarReadyReceiptMasterTable from './KundanKarigarReadyReceiptMasterTable';
-import KundanTable from './KundanTable';
-import PurchaseReceiptModal from '../ModalMaster/PurchaseReceiptModal';
-import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
+import ReadyReceiptListing from './ReadyReceiptsListing';
+import ReadyReceiptMasterTable from './ReadyReceiptMasterTable';
+import ReadyReceiptModal from './ReadyReceiptModal/ReadyReceiptModal';
+import useReadyReceipt from '@/hooks/ReadyReceiptHook/ready-receipt-master-hook';
 import TabSection from '../TabSection';
+import ReadyReceiptTable from './ReadyReceiptTable';
 
-const ReadyReceiptKundanKarigarMaster = () => {
+const ReadyReceiptMaster = () => {
   const {
     setClick,
     kundanListing,
@@ -64,7 +64,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
     firstInputRef,
     lastInputRef,
     specificDataFromStore,
-  } = useReadyReceiptKarigar();
+  } = useReadyReceipt();
 
   const capitalizeWords: any = (word: any) => {
     return word?.replace(/\b\w/g, (char: any) => char?.toUpperCase());
@@ -88,7 +88,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
             aria-labelledby="pills-home-tab"
           >
             <div className="tab-responsive ">
-              <KundanListing
+              <ReadyReceiptListing
                 kundanListing={kundanListing}
                 setKundanListing={setKundanListing}
                 HandleDeleteReceipt={HandleDeleteReceipt}
@@ -139,7 +139,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                 </button>
               </div>
               <div className=" ">
-                <KundanTable
+                <ReadyReceiptTable
                   handleRecipietChange={handleRecipietChange}
                   recieptData={recipitData}
                   karigarData={karigarData}
@@ -172,7 +172,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
                 </button>
               </div>
               <div>
-                <KundanKarigarReadyReceiptMasterTable
+                <ReadyReceiptMasterTable
                   handleFieldChange={handleFieldChange}
                   tableData={tableData}
                   handleDeleteRow={handleDeleteRow}
@@ -209,7 +209,7 @@ const ReadyReceiptKundanKarigarMaster = () => {
         </div>
       </div>
       <div>
-        <PurchaseReceiptModal
+        <ReadyReceiptModal
           tableData={tableData}
           showModal={showModal}
           closeModal={closeModal}
@@ -235,4 +235,4 @@ const ReadyReceiptKundanKarigarMaster = () => {
   );
 };
 
-export default ReadyReceiptKundanKarigarMaster;
+export default ReadyReceiptMaster;

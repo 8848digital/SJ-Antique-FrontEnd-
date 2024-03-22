@@ -1,10 +1,7 @@
-import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import styles from '../../styles/readyReceipts.module.css';
-import UseCustomReceiptHook from '@/hooks/PurchaseReceiptHook/custom-receipt-hook';
+import styles from '../../../styles/readyReceipts.module.css';
 
-const DocStatusButtonChanges = ({
+const ReadyReceiptBtnSection = ({
   data,
   stateForDocStatus,
   handleUpdateReceipt,
@@ -174,4 +171,4 @@ const DocStatusButtonChanges = ({
   );
 };
 
-export default DocStatusButtonChanges;
+export default ReadyReceiptBtnSection;

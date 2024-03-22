@@ -1,5 +1,5 @@
 import CurrentDate from '@/components/CurrentDate';
-import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
+import SearchSelectInputField from '@/components/InputDropdown/SearchSelectInputField';
 import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';

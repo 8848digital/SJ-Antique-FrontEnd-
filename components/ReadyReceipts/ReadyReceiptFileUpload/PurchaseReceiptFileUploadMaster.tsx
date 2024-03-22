@@ -1,10 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import styles from '../../styles/readyReceipts.module.css';
+import styles from '../../../styles/readyReceipts.module.css';
 import WebCamPurchaseReceipt from './WebCamPurchaseReceipt';
-import usePhotoModalHook from '@/hooks/PurchaseReceiptFileUploadHook/Purchase-receipt-file-upload-hook';
+import usePhotoModalHook from '@/hooks/ReadyReceiptHook/ReadyReceiptFileUploadHook/ready-receipt-file-upload-hook';
 import Image from 'next/image';
-import styled from '../../styles/readyReceipts.module.css';
 
 const PurchaseReceiptFileUploadMaster = ({
   handleFieldChange,

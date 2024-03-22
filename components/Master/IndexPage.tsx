@@ -60,10 +60,10 @@ const IndexPage = () => {
     selectDropDownReset,
     setSelectDropDownReset,
   }: any = useClientHook();
-  console.log(materialGroupList, 'indexPage material group data');
+
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
-  console.log(pathcontent, 'pathcontent index');
+
   const key = pathcontent[pathcontent?.length - 1];
   let clientGroup: any =
     clientGroupList?.length > 0 &&
@@ -77,7 +77,7 @@ const IndexPage = () => {
     materialGroupList.map((data: any) => ({
       karigar_name: data.material_group,
     }));
-  console.log(clientGroup, 'client grp in index');
+
   return (
     <div>
       {key === 'karigar' && (

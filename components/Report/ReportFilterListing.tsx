@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
+import SearchSelectInputField from '../InputDropdown/SearchSelectInputField';
 
 const ReportFilterListing: any = ({
   reportName,

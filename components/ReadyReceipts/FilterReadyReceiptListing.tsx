@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
+import SearchSelectInputField from '../InputDropdown/SearchSelectInputField';
 
-const FilterKundanReadyReceiptListing = ({
+const FilterReadyReceiptListing = ({
   HandleSearchInput,
   receiptNoList,
   setSearchReceiptNumber,
@@ -23,7 +23,7 @@ const FilterKundanReadyReceiptListing = ({
     }));
 
   const { query } = useRouter();
-  console.log('query', query);
+
   return (
     <div className="p-0 px-1">
       <div className="d-flex flex-wrap justify-content-between gx-0">
@@ -118,4 +118,4 @@ const FilterKundanReadyReceiptListing = ({
   );
 };
 
-export default FilterKundanReadyReceiptListing;
+export default FilterReadyReceiptListing;

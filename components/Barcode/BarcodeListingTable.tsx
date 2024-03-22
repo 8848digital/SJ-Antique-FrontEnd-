@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from '../../styles/readyReceiptTableListing.module.css';
 import styled from '../../styles/barcode.module.css';
-import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
+import SearchSelectInputField from '../InputDropdown/SearchSelectInputField';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 
 const BarcodeListingTable: any = ({

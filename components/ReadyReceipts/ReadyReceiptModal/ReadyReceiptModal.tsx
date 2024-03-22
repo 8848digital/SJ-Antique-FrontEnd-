@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import ModalMaster from './ModalMaster';
+import ModalMaster from './ReadyReceiptModalMaster';
 import { Button, Modal } from 'react-bootstrap';
 
-const PurchaseReceiptModal = ({
+const ReadyReceiptModal = ({
   tableData,
   showModal,
   closeModal,
@@ -96,4 +96,4 @@ const PurchaseReceiptModal = ({
   );
 };
 
-export default PurchaseReceiptModal;
+export default ReadyReceiptModal;

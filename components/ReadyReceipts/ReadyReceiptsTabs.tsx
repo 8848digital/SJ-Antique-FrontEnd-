@@ -8,8 +8,6 @@ const ReadyReceiptsTabs: any = ({ showReceipt }: any) => {
 
   const pathcontent = router?.asPath?.split('/');
 
-  // const value = pathcontent[pathcontent?.length - 1];
-
   const KundanValue =
     (pathcontent?.length > 0 &&
       pathcontent !== null &&

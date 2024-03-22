@@ -1,4 +1,4 @@
-import SearchSelectInputField from '@/components/SearchSelectInputField/SearchSelectInputField';
+import SearchSelectInputField from '@/components/InputDropdown/SearchSelectInputField';
 import React from 'react';
 
 const AddMaterial = ({

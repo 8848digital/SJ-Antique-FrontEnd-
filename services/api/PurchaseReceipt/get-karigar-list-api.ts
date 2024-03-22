@@ -12,7 +12,7 @@ const getKarigarApi = async (get_access_token: any) => {
     )
     .then((res: any) => {
       console.log('get karigar', res);
-      response = res?.data?.message?.data;
+      response = res;
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {

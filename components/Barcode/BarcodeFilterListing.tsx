@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
+import SearchSelectInputField from '../InputDropdown/SearchSelectInputField';
 import styles from '../../styles/barcode.module.css';
 
 const BarcodeFilterListing: any = ({

@@ -1,10 +1,10 @@
-import UseKundanKarigarDetailHook from '@/hooks/PurchaseReceiptHook/PurchaseReceiptDetailHook/kundan-karigar-detail-hook';
+import UseKundanKarigarDetailHook from '@/hooks/ReadyReceiptHook/ReadyReceiptDetail/ready-receipt-detail-hook';
 import React, { useEffect, useState } from 'react';
-import KundanTable from '../KundanTable';
-import KundanKarigarReadyReceiptMasterTable from '../KundanKarigarReadyReceiptMasterTable';
-import useReadyReceiptKarigar from '@/hooks/PurchaseReceiptHook/purchase-receipt-master-hook';
-import DocStatusButtonChanges from '../../ButtonChanges/DocStatusButtonChanges';
-import PurchaseReceiptModal from '../../ModalMaster/PurchaseReceiptModal';
+import ReadyReceipt from '../ReadyReceiptTable';
+import ReadyReceiptMasterTable from '../ReadyReceiptMasterTable';
+import useReadyReceiptKarigar from '@/hooks/ReadyReceiptHook/ready-receipt-master-hook';
+import ReadyReceiptBtnSection from './ReadyReceiptBtnSection';
+import ReadyReceiptModal from '../ReadyReceiptModal/ReadyReceiptModal';
 import '../../../styles/detailPage.module.css';
 import Loader from '../../NoRecord/Loader';
 import NoRecord from '../../NoRecord/NoRecord';
@@ -73,8 +73,6 @@ const DetailPageReadyReceipt = () => {
     specificDataFromStore,
   } = useReadyReceiptKarigar();
 
-  // const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
-  const router = useRouter();
   const [tabDisabled, setTabDisabled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -132,7 +130,7 @@ const DetailPageReadyReceipt = () => {
                 defaultKarigarData !== null &&
                 defaultKarigarData.map((data: any, index: any) => (
                   <div key={index}>
-                    <DocStatusButtonChanges
+                    <ReadyReceiptBtnSection
                       data={data}
                       stateForDocStatus={stateForDocStatus}
                       setStateForDocStatus={setStateForDocStatus}
@@ -164,7 +162,7 @@ const DetailPageReadyReceipt = () => {
                 ))}
 
               <div className=" table">
-                <KundanTable
+                <ReadyReceipt
                   handleRecipietChange={handleRecipietChange}
                   recieptData={recipitData}
                   karigarData={karigarData}
@@ -196,7 +194,7 @@ const DetailPageReadyReceipt = () => {
                 </button>
               </div>
               <div className="table">
-                <KundanKarigarReadyReceiptMasterTable
+                <ReadyReceiptMasterTable
                   handleFieldChange={handleFieldChange}
                   tableData={tableData}
                   selectedKundanKarigarDropdownValue={
@@ -224,7 +222,7 @@ const DetailPageReadyReceipt = () => {
                   specificDataFromStore={specificDataFromStore}
                 />
               </div>
-              <PurchaseReceiptModal
+              <ReadyReceiptModal
                 tableData={tableData}
                 showModal={showModal}
                 closeModal={closeModal}

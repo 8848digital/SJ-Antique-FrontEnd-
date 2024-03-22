@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import CurrentDate from '../CurrentDate';
-import SearchSelectInputField from '../SearchSelectInputField/SearchSelectInputField';
+import SearchSelectInputField from '../InputDropdown/SearchSelectInputField';
 import { useRouter } from 'next/router';
 
-const KundanTable = ({
+const ReadyReceiptTable = ({
   handleRecipietChange,
   recieptData,
   karigarData,
@@ -109,8 +109,8 @@ const KundanTable = ({
                 value={
                   readyReceiptType ||
                   (defaultKarigarData !== undefined &&
-                    defaultKarigarData?.length > 0 &&
-                    defaultKarigarData !== null
+                  defaultKarigarData?.length > 0 &&
+                  defaultKarigarData !== null
                     ? defaultKarigarData[0]?.custom_ready_receipt_type
                     : '')
                 }
@@ -145,4 +145,4 @@ const KundanTable = ({
   );
 };
 
-export default KundanTable;
+export default ReadyReceiptTable;
