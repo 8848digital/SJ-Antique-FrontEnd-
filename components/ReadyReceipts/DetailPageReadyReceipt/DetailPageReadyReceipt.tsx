@@ -21,9 +21,6 @@ const DetailPageReadyReceipt = () => {
 
   const { query } = useRouter();
   const {
-    setClick,
-    kundanListing,
-    handleCreate,
     handleRecipietChange,
     handleAddRow,
     karigarData,
@@ -161,7 +158,7 @@ const DetailPageReadyReceipt = () => {
                   </div>
                 ))}
 
-              <div className=" table">
+              <div className="table">
                 <ReadyReceipt
                   handleRecipietChange={handleRecipietChange}
                   recieptData={recipitData}

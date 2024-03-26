@@ -2,26 +2,21 @@ import DeletePurchaseReceiptApi from '@/services/api/PurchaseReceipt/delete-purc
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import postUploadFile from '@/services/api/PurchaseReceipt/post-upload-file-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
-import {
-  getSpecificReceipt,
-  get_specific_receipt_data,
-} from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import { getSpecificReceipt, get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-const UseCustomReceiptHook: any = () => {
+const useCustomReadyReceiptHook: any = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { query } = useRouter();
   const pathParts = router.asPath.split('/');
   const lastPartOfURL = pathParts[pathParts.length - 1];
-
   const loginAcessToken = useSelector(get_access_token);
   let specificDataFromStore: any = useSelector(get_specific_receipt_data);
-
   const [kundanListing, setKundanListing] = useState<any>([]);
   const [defaultKarigarData, setDefaultKarigarData] = useState<any>([]);
   const [indexVal, setIndexVal] = useState<any>();
@@ -31,12 +26,8 @@ const UseCustomReceiptHook: any = () => {
     tableMatWt: '',
     bbPcs: '',
   });
-  const [
-    selectedKundanKarigarDropdownValue,
-    setSelectedKundanKarigarDropdownValue,
-  ] = useState('');
-  const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] =
-    useState<any>(false);
+  const [selectedKundanKarigarDropdownValue, setSelectedKundanKarigarDropdownValue] = useState<any>('');
+  const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] = useState<any>(false);
   const [materialWeight, setMaterialWeight] = useState<any>([
     {
       idx: 1,
@@ -98,6 +89,7 @@ const UseCustomReceiptHook: any = () => {
       return updatedTable;
     });
   }, [query]);
+
   const purchasRecieptListParams = {
     version: 'v1',
     method: 'get_specific_purchase_receipt',
@@ -270,6 +262,7 @@ const UseCustomReceiptHook: any = () => {
     }
     setStateForDocStatus(true);
   };
+
   const handleDeleteChildTableRow = (id: any) => {
     if (materialWeight?.length > 1) {
       const updatedData = materialWeight?.filter(
@@ -290,15 +283,12 @@ const UseCustomReceiptHook: any = () => {
 
   const handleModal = (event: any, id: any, data: any) => {
     setIndexVal(id);
-    const dataVal =
-      tableData?.length > 0 &&
-      tableData !== null &&
-      tableData?.filter((item: any) => {
-        if (item.idx === id && event.key === 'F2') {
-          setShowModal(true);
-          setMaterialWeight(item?.table);
-        }
-      });
+    const dataVal = tableData?.filter((item: any) => {
+      if (item.idx === id && event.key === 'F2') {
+        setShowModal(true);
+        setMaterialWeight(item?.table);
+      }
+    });
   };
 
   const UpdateMaterialWeight: any = (id: any, weightAmt: any) => {
@@ -336,6 +326,7 @@ const UseCustomReceiptHook: any = () => {
 
     setMaterialWeight(updatedMaterialWeight);
   };
+
   const UpdatePcsWeight: any = (id: any, pcsAmt: any) => {
     const updatedTableData =
       tableData?.map((item: any) => {
@@ -367,6 +358,7 @@ const UseCustomReceiptHook: any = () => {
 
     setMaterialWeight(updatedMaterialWeight);
   };
+
   const calculateGrossWt = (item: any, field: string, value: any) => {
     if (field === 'custom_few_wt') {
       item.custom_gross_wt =
@@ -400,7 +392,7 @@ const UseCustomReceiptHook: any = () => {
     fileVal?: any
   ) => {
     // console.log('handlechange', id, val, field, newValue, 'fileval', fileVal);
-    // Function to format the input to have only three decimal places
+
     const formatInput = (value: any) => {
       if (typeof value === 'number' || !isNaN(parseFloat(value))) {
         const floatValue = parseFloat(value);
@@ -437,8 +429,8 @@ const UseCustomReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-              : formatInput(newValue),
+                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+                : formatInput(newValue),
           custom_gross_wt,
         };
       }
@@ -450,21 +442,50 @@ const UseCustomReceiptHook: any = () => {
       handleFileUpload(id, fileVal);
     }
     if (field === 'custom_mat_wt') {
-      const numericValue =
-        typeof newValue === 'string' ? parseFloat(newValue) : newValue;
+      const numericValue = typeof newValue === 'string' ? parseFloat(newValue) : newValue;
       if (!isNaN(numericValue)) {
         const formattedValue = numericValue.toFixed(3);
         UpdateMaterialWeight(id, formatInput(newValue));
       }
     }
     if (field === 'custom_pcs') {
-      const numericValue =
-        typeof newValue === 'string' ? parseFloat(newValue) : newValue;
+      const numericValue = typeof newValue === 'string' ? parseFloat(newValue) : newValue;
       if (!isNaN(numericValue)) {
         UpdatePcsWeight(id, formatInput(newValue));
       }
     }
 
+    setStateForDocStatus(true);
+  };
+
+  const handleModalFieldChange = (
+    id: number,
+    val: any,
+    field: string,
+    newValue: any
+  ) => {
+    // console.log('field change data', id, val, field, newValue);
+    const formatInput = (value: any) => {
+      const floatValue = parseFloat(value);
+      if (!isNaN(floatValue)) {
+        if (field === 'piece_' || field === 'carat_' || field === 'gm_') {
+          return parseFloat(floatValue.toFixed(2)); // Format to 2 decimal places for custom_total
+        } else {
+          return parseFloat(floatValue.toFixed(3)); // Format to 3 decimal places for other fields
+        }
+      }
+      return null;
+    };
+    const updatedModalData =
+      materialWeight?.length > 0 &&
+      materialWeight?.map((item: any, i: any) => {
+        if (i === id) {
+          return { ...item, [field]: 0 || formatInput(newValue) };
+        }
+        return item;
+      });
+
+    setMaterialWeight(updatedModalData);
     setStateForDocStatus(true);
   };
 
@@ -558,7 +579,8 @@ const UseCustomReceiptHook: any = () => {
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
     specificDataFromStore,
+    handleModalFieldChange
   };
 };
 
-export default UseCustomReceiptHook;
+export default useCustomReadyReceiptHook;
