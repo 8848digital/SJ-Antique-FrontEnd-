@@ -63,6 +63,7 @@ const CustomerSaleMaster = () => {
     handleMouseLeave,
     handleMouseMove,
   }: any = UseScrollbarHook();
+  console.log('deliveryNoteListing in tsx', deliveryNoteListing);
 
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0

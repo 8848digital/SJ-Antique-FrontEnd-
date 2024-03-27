@@ -79,19 +79,19 @@ const ProductCodeReport = ({
               <table className="table table-hover table-striped cursor ">
                 <thead className="sticky-top">
                   <tr className="row justify-content-center ">
-                    <th scope="col" className="thead col-sm-1 ">
+                    <th scope="col" className="thead col-1 ">
                       Sr.No.
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Product Code
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Gross Wt
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Net Wt
                     </th>
-                    <th scope="col" className="thead col-sm-2 ">
+                    <th scope="col" className="thead col-2 ">
                       Karigar
                     </th>
                   </tr>
@@ -106,19 +106,19 @@ const ProductCodeReport = ({
                             key={index}
                             className={`row justify-content-center text-center ${styles.table_row} `}
                           >
-                            <td className="col-sm-1 table_row py-1 py-auto">
+                            <td className="col-1 table_row py-1 py-auto">
                               {index + 1}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.name}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.custom_gross_wt}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.custom_net_wt}
                             </td>
-                            <td className="col-sm-2 table_row py-1 py-auto">
+                            <td className="col-2 table_row py-1 py-auto">
                               {data.custom_karigar}
                             </td>
                           </tr>

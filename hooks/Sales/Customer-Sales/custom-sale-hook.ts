@@ -9,8 +9,8 @@ const UseDeliveryNoteHook = () => {
 
   const deliveryNoteListParams = {
     version: 'v1',
-    method: 'get_listening_delivery_note',
-    entity: 'sales',
+    method: 'get_listening_delivery_note_sales_return',
+    entity: 'sales_return',
   };
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {

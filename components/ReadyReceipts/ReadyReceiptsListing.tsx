@@ -205,17 +205,12 @@ const ReadyReceiptListing = ({
       entity: printApiEntity,
     };
     let printApiRes: any = await PrintApi(reqParams);
-    console.log(printApiRes, 'print api res');
+
     if (printApiRes?.data?.message?.status === 'success') {
       if (printApiRes?.data?.message?.data?.data?.length > 0) {
         window.open(printApiRes?.data?.message?.data?.data[0]?.print_url);
       }
     }
-  };
-  const deleteParams = {
-    version: deleteApiVersion,
-    method: deleteApiMethod,
-    entity: deleteApiEntity,
   };
 
   return (

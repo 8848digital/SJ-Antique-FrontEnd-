@@ -85,10 +85,10 @@ const UseCustomSalesReturnHook = () => {
                   ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                  ? item.custom_kun === ''
-                    ? 1 * value
-                    : Number(item.custom_kun) * value
-                  : item.custom_kun_amt,
+                ? item.custom_kun === ''
+                  ? 1 * value
+                  : Number(item.custom_kun) * value
+                : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_amt'
                 ? Number(item.custom_other_wt) * value
@@ -173,7 +173,7 @@ const UseCustomSalesReturnHook = () => {
         const deliveryNoteListParams = {
           version: 'v1',
           method: 'get_listening_delivery_note_sales_return',
-          entity: 'delivery_note_api',
+          entity: 'sales_return',
         };
         let updatedData: any = await getDeliveryNoteListing(
           loginAcessToken.token,
@@ -250,9 +250,9 @@ const UseCustomSalesReturnHook = () => {
             Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-            Number(item[i]?.custom_kun_amt) +
-            Number(item[i]?.custom_ot_amt) +
-            Number(item[i]?.custom_other)
+              Number(item[i]?.custom_kun_amt) +
+              Number(item[i]?.custom_ot_amt) +
+              Number(item[i]?.custom_other)
           ),
         };
       });
