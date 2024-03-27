@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import UseCustomReceiptHook from './custom-ready-receipt-hook';
+import useCustomReadyReceiptHook from './ready-receipt-custom-hook';
 import useReadyReceiptCustomCalculationHook from './ready-receipt-custom-calculation-hook';
 
 const useReadyReceipt = () => {
@@ -25,7 +25,7 @@ const useReadyReceipt = () => {
   const lastInputRef = useRef<any>(null);
   const firstInputRef = useRef<any>(null);
   const [readyReceiptType, setReadyReceiptType] = useState<any>('');
-  const [recipitData, setRecipitData] = useState({
+  const [recipitData, setRecipitData] = useState<any>({
     custom_karigar: ' ',
     remarks: '',
     custom_ready_receipt_type: readyReceiptType,
@@ -37,14 +37,11 @@ const useReadyReceipt = () => {
   const [kundanKarigarData, setKundanKarigarData] = useState<any>();
   const [materialListData, setMaterialListData] = useState<any>();
   const [warehouseListData, setWarehouseListData] = useState<any>();
-
-  const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
-    useState<any>(false);
+  const [kunKarigarDropdownReset, setKunKarigarDropdownReset] = useState<any>(false);
   const loginAcessToken = useSelector(get_access_token);
-  let disabledValue: any;
-
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   const [selectedLocation, setSelectedLocation] = useState<any>();
+  let disabledValue: any;
   useEffect(() => {
     setRecipitData({
       ...recipitData,
@@ -71,10 +68,8 @@ const useReadyReceipt = () => {
     setTableData,
     materialWeight,
     setMaterialWeight,
-    UpdateMaterialWeight,
     handleClearFileUploadInput,
     calculateEditTotal,
-    handleFileUpload,
     handleDeleteRow,
     handleDeleteChildTableRow,
     calculateRowValue,
@@ -86,14 +81,14 @@ const useReadyReceipt = () => {
     purchasRecieptListParams,
     initialTableState,
     handleAddRow,
-    matWt,
     setMatWt,
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
     specificDataFromStore,
-  }: any = UseCustomReceiptHook();
+    handleModalFieldChange
+  }: any = useCustomReadyReceiptHook();
 
-  const { calculateWtForCreateReceipt }: any =
+  const { calculateWtForCreateReceipt, calculateTableDataForUpdateReceipt, calculateTableDataForAmendReceipt, filteredTableDataForUpdate, calculateReadyReceiptModalData }: any =
     useReadyReceiptCustomCalculationHook();
 
   useEffect(() => {
@@ -141,37 +136,6 @@ const useReadyReceipt = () => {
     getStateData();
   }, []);
 
-  const handleModalFieldChange = (
-    id: number,
-    val: any,
-    field: string,
-    newValue: any
-  ) => {
-    // console.log('field change data', id, val, field, newValue);
-    const formatInput = (value: any) => {
-      const floatValue = parseFloat(value);
-      if (!isNaN(floatValue)) {
-        if (field === 'piece_' || field === 'carat_' || field === 'gm_') {
-          return parseFloat(floatValue.toFixed(2)); // Format to 2 decimal places for custom_total
-        } else {
-          return parseFloat(floatValue.toFixed(3)); // Format to 3 decimal places for other fields
-        }
-      }
-      return null;
-    };
-    const updatedModalData =
-      materialWeight?.length > 0 &&
-      materialWeight?.map((item: any, i: any) => {
-        if (i === id) {
-          return { ...item, [field]: 0 || formatInput(newValue) };
-        }
-        return item;
-      });
-
-    setMaterialWeight(updatedModalData);
-    setStateForDocStatus(true);
-  };
-
   const handleSaveModal = async (id: any) => {
     const modalValue = materialWeight.map(
       ({
@@ -189,11 +153,9 @@ const useReadyReceipt = () => {
       })
     );
 
-    if (inputRef.current) {
+    if (inputRef?.current) {
       disabledValue = inputRef.current.value;
-    } else {
-      // console.error('The ref to the input element is not available.');
-    }
+    } else { }
 
     const totalAmmount = materialWeight.map(
       ({
@@ -210,79 +172,7 @@ const useReadyReceipt = () => {
       }: any) => ({ ...rest })
     );
 
-    const weightAddition = materialWeight.reduce((accu: any, val: any) => {
-      console.log(accu, 'accu23', val);
-      let weight = val.weight;
-      if (val.weight === '') {
-        weight = 0;
-      }
-      const total = Number(accu) + Number(weight);
-      return total;
-    }, 0);
-
-    const updatedMaterialVal = materialWeight.map((item: any) => {
-      return {
-        ...item,
-        amount: disabledValue,
-      };
-    });
-
-    const totalvalues = materialWeight.map(
-      (row: any) =>
-        row.pcs * row.piece_ + row.carat * row.carat_ + row.weight * row.gm_
-    );
-    let numbers: any;
-    if (Array.isArray(totalvalues) && totalvalues.length === 1) {
-      numbers = totalvalues[0];
-    } else {
-      numbers = totalvalues.reduce((accu: any, val: any) => {
-        return accu + val;
-      }, 0);
-    }
-
-    const totalAmmountValues = totalvalues.reduce((accu: any, val: any) => {
-      return accu + val;
-    }, 0);
-
-    const updatedMaterialWeight =
-      tableData?.length > 0 &&
-      tableData !== null &&
-      tableData?.map((row: any, i: any) => {
-        if (row.idx === indexVal) {
-          const numbersParsed = Number(numbers);
-          return {
-            ...row,
-            totalModalWeight: weightAddition,
-
-            totalAmount: totalAmmountValues,
-            table: materialWeight.map(({ id, ...rest }: any) => ({ ...rest })),
-            custom_mat_wt: weightAddition,
-            custom_gross_wt:
-              Number(row.custom_net_wt) +
-              Number(row.custom_few_wt) +
-              Number(weightAddition),
-            custom_total: numbersParsed,
-          };
-        }
-        return row;
-      });
-
-    const updatedDataVal = updatedMaterialWeight.map((row: any, i: any) => {
-      if (row.idx === indexVal) {
-        return {
-          ...row,
-          table: row.table.map((tableItem: any, index: any) => ({
-            ...tableItem,
-
-            amount:
-              (Number(tableItem.pcs) || 0) * (Number(tableItem.piece_) || 0) +
-              (Number(tableItem.carat) || 0) * (Number(tableItem.carat_) || 0) +
-              (Number(tableItem.weight) || 0) * (Number(tableItem.gm_) || 0),
-          })),
-        };
-      }
-      return row;
-    });
+    const { updatedDataVal }: any = calculateReadyReceiptModalData({ materialWeight, tableData, indexVal })
 
     setTableData(updatedDataVal);
     setShowModal(false);
@@ -315,20 +205,9 @@ const useReadyReceipt = () => {
   };
 
   const handleCreate = async () => {
-    const updatedTableData: any = calculateWtForCreateReceipt(
-      tableData,
-      indexVal
-    );
-
-    const modalValue = updatedTableData?.map(
-      ({
-        id,
-        totalModalWeight,
-        totalAmount,
-        // custom_pcs,
-        totalModalPcs,
-        ...rest
-      }: any) => ({
+    const updatedTableData: any = calculateWtForCreateReceipt({ tableData, indexVal });
+    const modalValue: any = updatedTableData?.map(
+      ({ id, totalModalWeight, totalAmount, totalModalPcs, ...rest }: any) => ({
         ...rest,
       })
     );
@@ -340,16 +219,11 @@ const useReadyReceipt = () => {
       ...recipitData,
       items: modalValue,
     };
-    console.log(values, 'values on PR create');
+
     const isEmptyProductCode = values?.items?.some(
-      (obj: any) => obj.product_code === ''
-    );
+      (obj: any) => obj.product_code === '');
     const isEmptyNetWt = values?.items?.some(
-      (obj: any) => obj.custom_net_wt === 0
-    );
-    const isEmptyMaterial = values?.items?.some((obj: any) =>
-      obj.table.some((vals: any) => vals.material === '')
-    );
+      (obj: any) => obj.custom_net_wt === 0);
     const productVal = values.custom_karigar;
 
     if (isEmptyProductCode) {
@@ -363,16 +237,9 @@ const useReadyReceipt = () => {
         loginAcessToken.token,
         values
       );
-      console.log(
-        'purchase receipt api res',
-        purchaseReceipt,
-        readyReceiptType
-      );
+      // console.log('purchase receipt api res', purchaseReceipt);
       if (purchaseReceipt?.data?.message?.hasOwnProperty('message')) {
-        router.push(
-          `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
-            ?.message}`
-        );
+        router.push(`${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message?.message}`);
         toast.success('Purchase Receipt Created Successfully');
       } else {
         toast.error(`${purchaseReceipt?.data?.message?.error}`);
@@ -394,66 +261,11 @@ const useReadyReceipt = () => {
     setKunKarigarDropdownReset(true);
   };
 
-  const filteredTableDataForUpdate = (tableData: any) => {
-    const filteredTableData = tableData.filter((row: any) => {
-      const hasNoValues = Object.keys(row).every(
-        (key) => key === 'idx' || key === 'table' || row[key] === ''
-      );
-      // Exclude objects where item_code has no values and custom_gross_wt is equal to 0
-      const shouldExclude =
-        row.product_code === '' && Number(row.custom_gross_wt) === 0;
-
-      return !hasNoValues && !shouldExclude;
-    });
-    return filteredTableData;
-  };
-
   const handleUpdateReceipt: any = async () => {
     const filteredDataa = filteredTableDataForUpdate(tableData);
+    const updatedTableData: any = calculateTableDataForUpdateReceipt({ filteredDataa, indexVal });
 
-    const updatedtableData =
-      filteredDataa?.length > 0 &&
-      filteredDataa !== null &&
-      filteredDataa?.map((row: any, i: any) => {
-        if (row.idx === indexVal) {
-          if (
-            row.totalAmount !== undefined &&
-            row.custom_other !== '' &&
-            row.custom_total !== '' &&
-            row.custom_other !== 0
-          ) {
-            return {
-              ...row,
-              custom_gross_wt:
-                Number(row.custom_net_wt) +
-                Number(row.custom_few_wt) +
-                Number(row.custom_mat_wt),
-              custom_total: Number(row.totalAmount) + Number(row.custom_other),
-            };
-          } else if (row.totalAmount === undefined && row.custom_other === 0) {
-            return {
-              ...row,
-              custom_gross_wt:
-                Number(row.custom_net_wt) +
-                Number(row.custom_few_wt) +
-                Number(row.custom_mat_wt),
-              custom_total: Number(row.custom_total),
-            };
-          } else {
-            return {
-              ...row,
-              custom_gross_wt:
-                Number(row.custom_net_wt) +
-                Number(row.custom_few_wt) +
-                Number(row.custom_mat_wt),
-              custom_total: Number(row.custom_total),
-            };
-          }
-        }
-        return row;
-      });
-
-    const updatedMergedList = updatedtableData.map((obj: any) => ({
+    const updatedMergedList = updatedTableData.map((obj: any) => ({
       ...obj,
       custom_purchase_receipt_item_breakup: '',
       item_group: 'All Item Groups',
@@ -467,11 +279,6 @@ const useReadyReceipt = () => {
       items: updatedMergedList,
     };
 
-    const isEmptyProductCode = values?.items?.some(
-      (obj: any) => obj.product_code === ''
-    );
-
-    const productVal = values.custom_karigar;
     const keyToExclude = ['posting_date'];
 
     const updatedReceiptData: any = { ...values };
@@ -482,7 +289,6 @@ const useReadyReceipt = () => {
       updatedReceiptData,
       query?.receiptId
     );
-    // console.log('updatedd', updateReceiptApi);
 
     if (updateReceiptApi?.data?.hasOwnProperty('message')) {
       if (updateReceiptApi?.data?.message?.hasOwnProperty('name')) {
@@ -499,33 +305,9 @@ const useReadyReceipt = () => {
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
-    const updatedtableData =
-      tableData?.length > 0 &&
-      tableData !== null &&
-      tableData?.map((row: any, i: any) => {
-        if (row.idx === indexVal) {
-          if (row.custom_other !== '' && row.custom_total !== '') {
-            return {
-              ...row,
-              custom_total: Number(row.totalAmount) + Number(row.custom_other),
-            };
-          } else if (row.custom_other !== '') {
-            return {
-              ...row,
-              custom_total: Number(row.custom_other),
-            };
-          } else {
-            return {
-              ...row,
-              custom_total: Number(row.totalAmount),
-            };
-          }
-        }
-        return row;
-      });
-
+    const updatedTableData: any = calculateTableDataForAmendReceipt({ tableData, indexVal })
     // Change key name from 'product_code' to 'item_code' in the tableData
-    const updatedTableDataWithRenamedKey = updatedtableData?.map((row: any) => {
+    const updatedTableDataWithRenamedKey = updatedTableData?.map((row: any) => {
       return {
         ...row,
         item_code: row.product_code,
@@ -558,11 +340,8 @@ const useReadyReceipt = () => {
         router.push(newURL, asPath);
         setStateForDocStatus(false);
         setShowSaveButtonForAmendFlow(false);
-      } else {
-      }
-    } catch (error) {
-      console.error('Error during API call:', error);
-    }
+      } else { }
+    } catch (error) { }
   };
 
   return {
