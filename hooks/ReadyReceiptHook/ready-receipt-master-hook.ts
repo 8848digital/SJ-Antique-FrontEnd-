@@ -37,7 +37,8 @@ const useReadyReceipt = () => {
   const [kundanKarigarData, setKundanKarigarData] = useState<any>();
   const [materialListData, setMaterialListData] = useState<any>();
   const [warehouseListData, setWarehouseListData] = useState<any>();
-  const [kunKarigarDropdownReset, setKunKarigarDropdownReset] = useState<any>(false);
+  const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
+    useState<any>(false);
   const loginAcessToken = useSelector(get_access_token);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   const [selectedLocation, setSelectedLocation] = useState<any>();
@@ -85,11 +86,16 @@ const useReadyReceipt = () => {
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
     specificDataFromStore,
-    handleModalFieldChange
+    handleModalFieldChange,
   }: any = useCustomReadyReceiptHook();
 
-  const { calculateWtForCreateReceipt, calculateTableDataForUpdateReceipt, calculateTableDataForAmendReceipt, filteredTableDataForUpdate, calculateReadyReceiptModalData }: any =
-    useReadyReceiptCustomCalculationHook();
+  const {
+    calculateWtForCreateReceipt,
+    calculateTableDataForUpdateReceipt,
+    calculateTableDataForAmendReceipt,
+    filteredTableDataForUpdate,
+    calculateReadyReceiptModalData,
+  }: any = useReadyReceiptCustomCalculationHook();
 
   useEffect(() => {
     const getPurchaseList = async () => {
@@ -155,7 +161,8 @@ const useReadyReceipt = () => {
 
     if (inputRef?.current) {
       disabledValue = inputRef.current.value;
-    } else { }
+    } else {
+    }
 
     const totalAmmount = materialWeight.map(
       ({
@@ -172,7 +179,11 @@ const useReadyReceipt = () => {
       }: any) => ({ ...rest })
     );
 
-    const { updatedDataVal }: any = calculateReadyReceiptModalData({ materialWeight, tableData, indexVal })
+    const { updatedDataVal }: any = calculateReadyReceiptModalData({
+      materialWeight,
+      tableData,
+      indexVal,
+    });
 
     setTableData(updatedDataVal);
     setShowModal(false);
@@ -205,7 +216,10 @@ const useReadyReceipt = () => {
   };
 
   const handleCreate = async () => {
-    const updatedTableData: any = calculateWtForCreateReceipt({ tableData, indexVal });
+    const updatedTableData: any = calculateWtForCreateReceipt({
+      tableData,
+      indexVal,
+    });
     const modalValue: any = updatedTableData?.map(
       ({ id, totalModalWeight, totalAmount, totalModalPcs, ...rest }: any) => ({
         ...rest,
@@ -221,9 +235,11 @@ const useReadyReceipt = () => {
     };
 
     const isEmptyProductCode = values?.items?.some(
-      (obj: any) => obj.product_code === '');
+      (obj: any) => obj.product_code === ''
+    );
     const isEmptyNetWt = values?.items?.some(
-      (obj: any) => obj.custom_net_wt === 0);
+      (obj: any) => obj.custom_net_wt === 0
+    );
     const productVal = values.custom_karigar;
 
     if (isEmptyProductCode) {
@@ -239,7 +255,10 @@ const useReadyReceipt = () => {
       );
       // console.log('purchase receipt api res', purchaseReceipt);
       if (purchaseReceipt?.data?.message?.hasOwnProperty('message')) {
-        router.push(`${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message?.message}`);
+        router.push(
+          `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
+            ?.message}`
+        );
         toast.success('Purchase Receipt Created Successfully');
       } else {
         toast.error(`${purchaseReceipt?.data?.message?.error}`);
@@ -263,7 +282,10 @@ const useReadyReceipt = () => {
 
   const handleUpdateReceipt: any = async () => {
     const filteredDataa = filteredTableDataForUpdate(tableData);
-    const updatedTableData: any = calculateTableDataForUpdateReceipt({ filteredDataa, indexVal });
+    const updatedTableData: any = calculateTableDataForUpdateReceipt({
+      filteredDataa,
+      indexVal,
+    });
 
     const updatedMergedList = updatedTableData.map((obj: any) => ({
       ...obj,
@@ -305,7 +327,10 @@ const useReadyReceipt = () => {
   };
 
   const HandleAmendButtonForDuplicateChitti: any = async () => {
-    const updatedTableData: any = calculateTableDataForAmendReceipt({ tableData, indexVal })
+    const updatedTableData: any = calculateTableDataForAmendReceipt({
+      tableData,
+      indexVal,
+    });
     // Change key name from 'product_code' to 'item_code' in the tableData
     const updatedTableDataWithRenamedKey = updatedTableData?.map((row: any) => {
       return {
@@ -340,8 +365,9 @@ const useReadyReceipt = () => {
         router.push(newURL, asPath);
         setStateForDocStatus(false);
         setShowSaveButtonForAmendFlow(false);
-      } else { }
-    } catch (error) { }
+      } else {
+      }
+    } catch (error) {}
   };
 
   return {
