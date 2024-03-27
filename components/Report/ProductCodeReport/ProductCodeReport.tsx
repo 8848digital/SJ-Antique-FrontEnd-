@@ -28,13 +28,13 @@ const ProductCodeReport = ({
     reportData !== null &&
     (itemCodeSearchValues.name || itemCodeSearchValues.karigar)
       ? reportData.filter((item: any) => {
-          const itemCodeMatch = itemCodeSearchValues
+          const itemCodeMatch = itemCodeSearchValues.name
             ? item?.name
                 ?.toLowerCase()
                 .includes(itemCodeSearchValues?.name?.toLowerCase())
             : true;
-          const karigatMatch = itemCodeSearchValues
-            ? item?.custom_kun_karigar
+          const karigatMatch = itemCodeSearchValues.karigar
+            ? item?.custom_karigar
                 ?.toLowerCase()
                 .includes(itemCodeSearchValues?.karigar?.toLowerCase())
             : true;
@@ -54,7 +54,7 @@ const ProductCodeReport = ({
       {isLoading === 0 && <Loader />}
       {isLoading === 2 && (
         <NoRecord
-          title={`No Record Found 😥`}
+          title={`No Record Found `}
           heading=""
           HandleRefresh={HandleRefresh}
         />

@@ -3,8 +3,9 @@ import CustomerSalesTable from '../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
 import TabSection from '@/components/TabSection';
 import UseSalesReturnMasterHook from '@/hooks/Sales/Sales-Returns/sales-return-master-hook';
-import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
+
 import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
+import ReadyReceiptListing from '@/components/ReadyReceipts/ReadyReceiptsListing';
 
 const SaleReturnsMaster = () => {
   const {
@@ -52,8 +53,8 @@ const SaleReturnsMaster = () => {
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
-        return data.is_return === 1;
-      })
+          return data.is_return === 1;
+        })
       : [];
 
   return (
@@ -75,7 +76,7 @@ const SaleReturnsMaster = () => {
             aria-labelledby="pills-home-tab"
           >
             <div className="tab-responsive">
-              <KundanListing
+              <ReadyReceiptListing
                 kundanListing={salesReturnListing}
                 karigarData={
                   clientNameListData?.length > 0 &&
@@ -95,7 +96,7 @@ const SaleReturnsMaster = () => {
                 deleteApiEntity={'sales_return'}
                 kunKarigarDropdownReset={itemCodeDropdownReset}
                 setKunKarigarDropdownReset={setItemCodeDropdownReset}
-              // purchasRecieptListParams={deliveryNoteListParams}
+                // purchasRecieptListParams={deliveryNoteListParams}
               />
             </div>
           </div>

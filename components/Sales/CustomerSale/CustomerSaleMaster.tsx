@@ -1,11 +1,12 @@
 import SalesHeader from '@/components/Header/SalesHeader';
-import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
+
 import TabSection from '@/components/TabSection';
 import UseCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sale-hook';
 import CustomerSalesTable from './CustomerSalesTable';
 import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
 import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
+import ReadyReceiptListing from '@/components/ReadyReceipts/ReadyReceiptsListing';
 
 const CustomerSaleMaster = () => {
   const {
@@ -63,12 +64,11 @@ const CustomerSaleMaster = () => {
     handleMouseMove,
   }: any = UseScrollbarHook();
 
-
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-        return data.is_return === 0;
-      })
+          return data.is_return === 0;
+        })
       : [];
 
   return (
@@ -88,7 +88,7 @@ const CustomerSaleMaster = () => {
           aria-labelledby="pills-home-tab"
         >
           <div className="tab-responsive">
-            <KundanListing
+            <ReadyReceiptListing
               kundanListing={kundanListing}
               karigarData={
                 clientNameListData?.length > 0 &&
