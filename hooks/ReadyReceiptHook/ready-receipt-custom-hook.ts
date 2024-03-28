@@ -2,7 +2,10 @@ import DeletePurchaseReceiptApi from '@/services/api/PurchaseReceipt/delete-purc
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
 import postUploadFile from '@/services/api/PurchaseReceipt/post-upload-file-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
-import { getSpecificReceipt, get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import {
+  getSpecificReceipt,
+  get_specific_receipt_data,
+} from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -26,8 +29,12 @@ const useCustomReadyReceiptHook: any = () => {
     tableMatWt: '',
     bbPcs: '',
   });
-  const [selectedKundanKarigarDropdownValue, setSelectedKundanKarigarDropdownValue] = useState<any>('');
-  const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] = useState<any>(false);
+  const [
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+  ] = useState<any>('');
+  const [showSaveButtonForAmendFlow, setShowSaveButtonForAmendFlow] =
+    useState<any>(false);
   const [materialWeight, setMaterialWeight] = useState<any>([
     {
       idx: 1,
@@ -294,7 +301,7 @@ const useCustomReadyReceiptHook: any = () => {
   const UpdateMaterialWeight: any = (id: any, weightAmt: any) => {
     const updatedTableData =
       tableData?.map((item: any) => {
-        if (item.idx === id) {
+        if (item.idx === id && item.idx === 1) {
           return {
             ...item,
             custom_mat_wt: weightAmt,
@@ -302,10 +309,15 @@ const useCustomReadyReceiptHook: any = () => {
               Number(item?.custom_net_wt) +
               Number(item?.custom_few_wt) +
               Number(weightAmt),
-            table: item.table?.map((materialData: any) => ({
-              ...materialData,
-              weight: weightAmt,
-            })),
+            table: item.table?.map((materialData: any) => {
+              if (materialData?.idx === 1) {
+                return {
+                  ...materialData,
+                  weight: weightAmt,
+                };
+              }
+              return materialData;
+            }),
           };
         }
         return item;
@@ -315,7 +327,7 @@ const useCustomReadyReceiptHook: any = () => {
 
     const updatedMaterialWeight =
       materialWeight?.map((item: any) => {
-        if (item.idx === id) {
+        if (item.idx === id && item.idx === 1) {
           return {
             ...item,
             weight: weightAmt,
@@ -326,18 +338,18 @@ const useCustomReadyReceiptHook: any = () => {
 
     setMaterialWeight(updatedMaterialWeight);
   };
-
   const UpdatePcsWeight: any = (id: any, pcsAmt: any) => {
     const updatedTableData =
       tableData?.map((item: any) => {
-        if (item.idx === id) {
+        if (item.idx === id && item.idx === 1) {
           return {
             ...item,
-            // custom_pcs: pcsAmt,
-            table: item.table?.map((materialData: any) => ({
-              ...materialData,
-              pcs: pcsAmt,
-            })),
+            table: item.table?.map((materialData: any) => {
+              if (materialData.idx === 1) {
+                return { ...materialData, pcs: pcsAmt };
+              }
+              return materialData;
+            }),
           };
         }
         return item;
@@ -347,7 +359,7 @@ const useCustomReadyReceiptHook: any = () => {
 
     const updatedMaterialWeight =
       materialWeight?.map((item: any) => {
-        if (item.idx === id) {
+        if (item.idx === id && item.idx === 1) {
           return {
             ...item,
             pcs: pcsAmt,
@@ -429,8 +441,8 @@ const useCustomReadyReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-                : formatInput(newValue),
+              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+              : formatInput(newValue),
           custom_gross_wt,
         };
       }
@@ -442,14 +454,16 @@ const useCustomReadyReceiptHook: any = () => {
       handleFileUpload(id, fileVal);
     }
     if (field === 'custom_mat_wt') {
-      const numericValue = typeof newValue === 'string' ? parseFloat(newValue) : newValue;
+      const numericValue =
+        typeof newValue === 'string' ? parseFloat(newValue) : newValue;
       if (!isNaN(numericValue)) {
         const formattedValue = numericValue.toFixed(3);
         UpdateMaterialWeight(id, formatInput(newValue));
       }
     }
     if (field === 'custom_pcs') {
-      const numericValue = typeof newValue === 'string' ? parseFloat(newValue) : newValue;
+      const numericValue =
+        typeof newValue === 'string' ? parseFloat(newValue) : newValue;
       if (!isNaN(numericValue)) {
         UpdatePcsWeight(id, formatInput(newValue));
       }
@@ -579,7 +593,7 @@ const useCustomReadyReceiptHook: any = () => {
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
     specificDataFromStore,
-    handleModalFieldChange
+    handleModalFieldChange,
   };
 };
 
