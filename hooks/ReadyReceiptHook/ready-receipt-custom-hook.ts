@@ -301,7 +301,7 @@ const useCustomReadyReceiptHook: any = () => {
   const UpdateMaterialWeight: any = (id: any, weightAmt: any) => {
     const updatedTableData =
       tableData?.map((item: any) => {
-        if (item.idx === id && item.idx === 1) {
+        if (item.idx === id) {
           return {
             ...item,
             custom_mat_wt: weightAmt,
@@ -341,7 +341,7 @@ const useCustomReadyReceiptHook: any = () => {
   const UpdatePcsWeight: any = (id: any, pcsAmt: any) => {
     const updatedTableData =
       tableData?.map((item: any) => {
-        if (item.idx === id && item.idx === 1) {
+        if (item.idx === id) {
           return {
             ...item,
             table: item.table?.map((materialData: any) => {
@@ -370,7 +370,6 @@ const useCustomReadyReceiptHook: any = () => {
 
     setMaterialWeight(updatedMaterialWeight);
   };
-
   const calculateGrossWt = (item: any, field: string, value: any) => {
     if (field === 'custom_few_wt') {
       item.custom_gross_wt =
