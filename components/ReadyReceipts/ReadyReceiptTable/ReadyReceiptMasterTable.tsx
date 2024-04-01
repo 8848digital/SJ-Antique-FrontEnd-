@@ -1,13 +1,12 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../../styles/readyReceipts.module.css';
-import SelectInputKunKarigar from '../InputDropdown/SelectInputKunKarigar';
-import PurchaseReceiptFileUploadMaster from './ReadyReceiptFileUpload/PurchaseReceiptFileUploadMaster';
+import styles from '../../../styles/readyReceipts.module.css';
+import SelectInputKunKarigar from '../../InputDropdown/SelectInputKunKarigar';
+import PurchaseReceiptFileUploadMaster from './ReadyReceiptFileUpload/ReadyReceiptFileUploadMaster';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import { useEffect, useState } from 'react';
 import TotalReadOnlyRow from './TotalReadOnlyRow';
+import ReadyReceiptMasterTableHeader from './ReadyReceiptMasterTableHeader';
 
 const ReadyReceiptMasterTable = ({
   handleFieldChange,
@@ -18,10 +17,7 @@ const ReadyReceiptMasterTable = ({
   kundanKarigarData,
   handleModal,
   readOnlyFields,
-  selectedDropdownValue,
-  setSelectedDropdownValue,
   setStateForDocStatus,
-  selectedKundanKarigarDropdownValue,
   setSelectedKundanKarigarDropdownValue,
   kunKarigarDropdownReset,
   setKunKarigarDropdownReset,
@@ -113,68 +109,14 @@ const ReadyReceiptMasterTable = ({
   return (
     <div className="table responsive">
       <table className="table table-hover table-bordered">
-        <thead>
-          <tr>
-            <th className="thead" scope="col">
-              Sr.no
-            </th>
-            <th className="thead" scope="col">
-              Product Code<span className="text-danger">*</span>
-            </th>
-            {(query?.receipt === 'kundan' || query?.receipt === 'Kundan') && (
-              <th className="thead" scope="col">
-                Kun Karigar
-              </th>
-            )}
-            <th className="thead" scope="col">
-              Net Wt<span className="text-danger">*</span>
-            </th>
-            {(query?.receipt === 'kundan' || query?.receipt === 'Kundan') && (
-              <th className="thead" scope="col">
-                Few Wt
-              </th>
-            )}
-            <th className="thead" scope="col">
-              Mat Wt
-            </th>
-            <th className="thead" scope="col">
-              Gross Wt
-            </th>
-            {query?.receipt === 'mangalsutra' ||
-            query?.receipt === 'Mangalsutra' ? (
-              <th className="thead" scope="col">
-                BB Pcs
-              </th>
-            ) : (
-              <th className="thead" scope="col">
-                Kun Pcs
-              </th>
-            )}
-            <th className="thead" scope="col">
-              Other
-            </th>
-            <th className="thead" scope="col">
-              Total
-            </th>
-            <th className="thead" scope="col">
-              Add Photo
-            </th>
-            <th className="thead" scope="col"></th>
-            <th className="thead" scope="col"></th>
-          </tr>
-        </thead>
+        <ReadyReceiptMasterTableHeader />
         <tbody>
           {tableData?.length > 0 &&
             tableData !== null &&
             tableData.map((item: any, i: any) => (
               <>
                 <tr key={item.idx} className={`${styles.table_row}`}>
-                  <td
-                    className="table_row"
-                    // ref={firstInputRef}
-                  >
-                    {item.idx}
-                  </td>
+                  <td className="table_row">{item.idx}</td>
                   <td className="table_row">
                     <input
                       className={` ${styles.input_field} text-center`}
@@ -202,9 +144,6 @@ const ReadyReceiptMasterTable = ({
                         defaultValue={item.custom_kun_karigar}
                         tableData={tableData}
                         setTableData={setTableData}
-                        // selectedKundanKarigarDropdownValue={
-                        //   selectedKundanKarigarDropdownValue
-                        // }
                         setSelectedKundanKarigarDropdownValue={
                           setSelectedKundanKarigarDropdownValue
                         }

@@ -3,15 +3,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/readyReceipts.module.css';
 import ReadyReceiptListing from './ReadyReceiptsListing';
-import ReadyReceiptMasterTable from './ReadyReceiptMasterTable';
-import ReadyReceiptModal from './ReadyReceiptModal/ReadyReceiptModal';
+import ReadyReceiptMasterTable from './ReadyReceiptTable/ReadyReceiptMasterTable';
+import ReadyReceiptModal from './ReadyReceiptTable/ReadyReceiptModal/ReadyReceiptModal';
 import useReadyReceipt from '@/hooks/ReadyReceiptHook/ready-receipt-master-hook';
 import TabSection from '../TabSection';
-import ReadyReceiptTable from './ReadyReceiptTable';
+import ReadyReceiptTable from './ReadyReceiptTable/ReadyReceiptTable';
+import ReadyReceiptsTabs from './ReadyReceiptsTabs';
 
 const ReadyReceiptMaster = () => {
   const {
-    setClick,
     kundanListing,
     setKundanListing,
     handleCreate,
@@ -56,7 +56,6 @@ const ReadyReceiptMaster = () => {
     calculateEditTotal,
     purchasRecieptListParams,
     handleClearFileUploadInput,
-    handleUpdateReceipt,
     setMatWt,
     warehouseListData,
     selectedLocation,
@@ -74,6 +73,7 @@ const ReadyReceiptMaster = () => {
   return (
     <div className="container-lg ">
       <div>
+        <ReadyReceiptsTabs />
         <div className="d-flex justify-content-center">
           <TabSection
             firstTabHeading={`Ready Receipts ${receiptName} Karigar`}

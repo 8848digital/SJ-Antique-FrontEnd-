@@ -10,17 +10,42 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import UseDeliveryNoteHook from './delivery-note-hook';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import { GetDetailOfDeliveryNote } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
 import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
+import useCustomerSalesListingHook from './customer-sales-listing-hook';
+import useCustomCustomerSalesHook from './custom-customer-sales-hook';
 
-const UseCustomerSaleHook = () => {
+const useCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
-    UseDeliveryNoteHook();
+    useCustomerSalesListingHook();
+
+  const {
+    handleAddRowForSales,
+    salesTableData,
+    SalesTableInitialState,
+    setSalesTableData,
+    setStateForDocStatus,
+    kunCsOtFixedAmt,
+    setKunCsOtFixedAmt,
+    stateForDocStatus,
+    handleEmptyDeliveryNote,
+    selectedCategory,
+    setSeletedCategory,
+    setSelectedClient,
+    setItemCodeDropdownReset,
+    selectedClient,
+    selectedItemCodeForCustomerSale,
+    setSelectedItemCodeForCustomerSale,
+    itemCodeDropdownReset,
+    updateSalesTableData,
+    handleDeleteRowOfSalesTable,
+    handleFixedAmt,
+  } = useCustomCustomerSalesHook();
+
   const dispatch = useDispatch();
   const router = useRouter();
   const { query } = useRouter();
@@ -32,34 +57,16 @@ const UseCustomerSaleHook = () => {
   const [BBCategoryListData, setBBCategoryListData] = useState<any>([]);
   const [clientNameListData, setClientNameListData] = useState<any>([]);
   const [itemList, setItemList] = useState<any>([]);
-  const [stateForDocStatus, setStateForDocStatus] = useState<boolean>(false);
-  const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
-    useState<any>({ id: '', item_code: '' });
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   const [selectedItemCode, setSelectedItemCode] = useState();
-  const [selectedCategory, setSeletedCategory] = useState<any>({
-    KunCategory: '',
-    CsCategory: '',
-    BBCategory: '',
-    OtCategory: '',
-  });
-
   const [deliveryNoteData, setDeliveryNoteData] = useState({
     store_location: '',
   });
   const [warehouseListData, setWarehouseListData] = useState<any>();
   const [barcodeListData, setBarcodeListData] = useState<any>();
-  const [selectedClient, setSelectedClient] = useState<string>('');
   const [selectedLocation, setSelectedLocation] = useState<string>('Mumbai');
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
   const [clientGroupList, setClientGroupList] = useState();
-  const [itemCodeDropdownReset, setItemCodeDropdownReset] =
-    useState<boolean>(false);
-  const [kunCsOtFixedAmt, setKunCsOtFixedAmt] = useState({
-    csFixedAmt: 0,
-    kunFixedAmt: 0,
-    otFixedAmt: 0,
-  });
   const [barcodedata, setBarcodeData] = useState<number>(0);
   const [isBarcodeChecked, setIsBarcodeChecked] = useState<boolean>(false);
 
@@ -69,29 +76,24 @@ const UseCustomerSaleHook = () => {
         loginAcessToken.token
       );
       const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
-
       if (kunCsOtCategoryApi?.data?.message?.status === 'success') {
         setKunCsOtCategoryListData(kunCsOtCategoryApi?.data?.message?.data);
       }
-
       let BBCategoryApi: any = await getBBCategoryApi(loginAcessToken.token);
       if (BBCategoryApi?.data?.message?.status === 'success') {
         setBBCategoryListData(BBCategoryApi?.data?.message?.data);
       }
-
       let ClientNameApi: any = await getClientApi(loginAcessToken.token);
       if (ClientNameApi?.data?.message?.status === 'success') {
         setClientNameListData(ClientNameApi?.data?.message?.data);
       }
       let itemListApi: any = await getItemListInSalesApi(loginAcessToken.token);
-
       if (itemListApi?.data?.data?.length > 0) {
         setItemList(itemListApi?.data?.data);
       }
       const clientGroupData: any = await getClientGroupApi(
         loginAcessToken.token
       );
-      console.log(clientGroupData, 'client group data in hook');
       if (clientGroupData?.data?.message?.status === 'success') {
         setClientGroupList(clientGroupData?.data?.message?.data);
       }
@@ -111,34 +113,6 @@ const UseCustomerSaleHook = () => {
   useEffect(() => {
     setSelectedLocation('Mumbai');
   }, []);
-  const SalesTableInitialState: any = {
-    idx: 1,
-    custom_pr_bb_wt: '',
-    custom_pr_cs_wt: '',
-    custom_pr_kun_wt: '',
-    custom_pr_other_wt: '',
-    item_code: '',
-    custom_gross_wt: 0,
-    custom_kun_wt: '',
-    custom_cs_wt: '',
-    custom_bb_wt: '',
-    custom_other_wt: '',
-    custom_net_wt: '',
-    custom_cs: '',
-    custom_cs_amt: 0,
-    custom_kun_pc: '',
-    custom_kun: '',
-    custom_kun_amt: 0,
-    custom_ot_: '',
-    custom_ot_amt: 0,
-    custom_other: '',
-    custom_amount: 0,
-    warehouse: '',
-  };
-
-  const [salesTableData, setSalesTableData] = useState<any>([
-    SalesTableInitialState,
-  ]);
 
   const handleSalesTableFieldChange: any = (
     itemIdx: number,
@@ -186,6 +160,7 @@ const UseCustomerSaleHook = () => {
     });
     setStateForDocStatus(true);
   };
+
   const itemCodeListFunc = () => {
     if (barcodedata === 1) {
       const namesArray =
@@ -235,68 +210,6 @@ const UseCustomerSaleHook = () => {
           }
         });
       setSalesTableData(updatedData);
-    }
-  };
-
-  const updateSalesTableData = (data: any) => {
-    if (selectedItemCodeForCustomerSale?.id) {
-      // Assuming data is a list with a single object
-      const updatedTable = salesTableData?.map((tableData: any) => {
-        if (tableData.idx === selectedItemCodeForCustomerSale.id) {
-          return {
-            ...tableData,
-            custom_gross_wt: data[0]?.custom_gross_wt,
-            custom_kun_wt: Number(
-              selectedCategory.KunCategory !== '' &&
-                selectedCategory?.KunCategory !== undefined
-                ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
-                    100
-                : data[0]?.custom_kun_wt
-            ),
-            custom_cs_wt: Number(
-              selectedCategory.CsCategory !== '' &&
-                selectedCategory?.CsCategory !== undefined
-                ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
-                    100
-                : data[0]?.custom_cs_wt
-            ),
-            custom_bb_wt: Number(
-              selectedCategory.BBCategory !== '' &&
-                selectedCategory?.BBCategory !== undefined
-                ? data[0]?.custom_bb_wt - selectedCategory.BBCategory.type
-                : data[0].custom_bb_wt
-            ),
-            custom_other_wt: Number(
-              selectedCategory.OtCategory !== '' &&
-                selectedCategory?.OtCategory !== undefined
-                ? (data[0]?.custom_other_wt *
-                    selectedCategory.OtCategory.type) /
-                    100
-                : data[0]?.custom_other_wt
-            ),
-
-            custom_net_wt:
-              Number(data.custom_gross_wt) -
-              Number(
-                data.custom_kun_wt +
-                  data.custom_cs_wt +
-                  data.custom_bb_wt +
-                  data.custom_other_wt
-              ),
-
-            custom_kun_pc: Number(data[0]?.custom_kun_pcs),
-            custom_pr_kun_wt: Number(data[0]?.custom_kun_wt),
-            custom_pr_cs_wt: Number(data[0]?.custom_cs_wt),
-            custom_pr_bb_wt: Number(data[0]?.custom_bb_wt),
-            custom_pr_other_wt: Number(data[0]?.custom_other_wt),
-            warehouse: data[0].custom_warehouse,
-          };
-        } else {
-          return tableData;
-        }
-      });
-
-      setSalesTableData(updatedTable);
     }
   };
 
@@ -371,48 +284,6 @@ const UseCustomerSaleHook = () => {
     itemDetailApiFun();
   }, [selectedItemCodeForCustomerSale]);
 
-  const handleAddRowForSales: any = () => {
-    const newRow: any = {
-      idx: salesTableData?.length + 1,
-      custom_pr_bb_wt: '',
-      custom_pr_cs_wt: '',
-      custom_pr_kun_wt: '',
-      custom_pr_other_wt: '',
-      item_code: '',
-      custom_gross_wt: 0,
-      custom_kun_wt: '',
-      custom_cs_wt: '',
-      custom_bb_wt: '',
-      custom_other_wt: '',
-      custom_net_wt: '',
-      custom_cs: Number(kunCsOtFixedAmt?.csFixedAmt),
-      custom_cs_amt: 0,
-      custom_kun_pc: '',
-      custom_kun: Number(kunCsOtFixedAmt?.kunFixedAmt),
-      custom_kun_amt: 0,
-      custom_ot_: Number(kunCsOtFixedAmt?.otFixedAmt),
-      custom_ot_amt: 0,
-      custom_other: '',
-      custom_amount: 0,
-      warehouse: '',
-    };
-
-    setSalesTableData([...salesTableData, newRow]);
-    setStateForDocStatus(true);
-  };
-
-  const handleDeleteRowOfSalesTable: any = (id: any) => {
-    if (salesTableData?.length > 1) {
-      const updatedData =
-        salesTableData?.length > 0 &&
-        salesTableData !== null &&
-        salesTableData
-          .filter((item: any) => item.idx !== id)
-          .map((row: any, index: number) => ({ ...row, idx: index + 1 }));
-      setSalesTableData(updatedData);
-      setStateForDocStatus(true);
-    }
-  };
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
     const selectedArray =
@@ -498,24 +369,6 @@ const UseCustomerSaleHook = () => {
     }
   }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt]);
 
-  const handleEmptyDeliveryNote = () => {
-    setSeletedCategory({
-      KunCategory: '',
-      CsCategory: '',
-      BBCategory: '',
-      OtCategory: '',
-    });
-    setKunCsOtFixedAmt({
-      csFixedAmt: 0,
-      kunFixedAmt: 0,
-      otFixedAmt: 0,
-    });
-    setSelectedClient('');
-    setSalesTableData([SalesTableInitialState]);
-    setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
-    setStateForDocStatus(true);
-    setItemCodeDropdownReset(true);
-  };
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
       // Check if there are no values except "idx"
@@ -552,23 +405,6 @@ const UseCustomerSaleHook = () => {
               Number(data?.custom_cs_wt) +
               Number(data?.custom_bb_wt) +
               Number(data?.custom_other_wt)),
-          //     ? 0
-          //     : Number(data?.custom_gross_wt) -
-          //       (Number(data?.custom_kun_wt) +
-          //         Number(data?.custom_cs_wt) +
-          //         Number(data?.custom_bb_wt) +
-          //         Number(data?.custom_other_wt)),
-          // custom_amount: Number(
-          //   (Number.isNaN(data.custom_cs_amt)
-          //     ? 0
-          //     : Number(data?.custom_cs_amt)) +
-          //     Number(data?.custom_kun_amt) +
-          //     (Number.isNaN(data.custom_ot_amt)
-          //       ? 0
-          //       : Number(data?.custom_ot_amt)) +
-          //     Number(data?.custom_other)
-          // )?.toFixed(2),
-          // custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
         };
       });
 
@@ -626,7 +462,7 @@ const UseCustomerSaleHook = () => {
     method: 'get_listening_delivery_note_sales_return',
     entity: 'sales_return',
   };
-  const HandleDeleteDeliveryNote: any = async (name: any) => {
+  const handleDeleteDeliveryNote: any = async (name: any) => {
     const version = 'v1';
     const method = 'delete_delivery_note_api';
     const entity = 'sales';
@@ -653,7 +489,7 @@ const UseCustomerSaleHook = () => {
     }
   };
 
-  const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
+  const handleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
     let id: any = name === undefined ? query?.deliveryNoteId : name;
     const params = `/api/resource/Delivery Note/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
@@ -681,28 +517,6 @@ const UseCustomerSaleHook = () => {
     }
   };
 
-  const HandleFixedAmt = (e: any) => {
-    const { name, value } = e.target;
-    setKunCsOtFixedAmt({ ...kunCsOtFixedAmt, [name]: value });
-
-    setSalesTableData((prevData: any) => {
-      return prevData.map((item: any, i: number) => {
-        return {
-          ...item,
-          custom_cs: Number(name === 'csFixedAmt' ? value : item?.custom_cs),
-          custom_kun: Number(name === 'kunFixedAmt' ? value : item?.custom_kun),
-          custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
-          custom_amount: Number(
-            Number(item[i]?.custom_cs_amt) +
-              Number(item[i]?.custom_kun_amt) +
-              Number(item[i]?.custom_ot_amt) +
-              Number(item[i]?.custom_other)
-          ),
-        };
-      });
-    });
-    setStateForDocStatus(true);
-  };
   const handleBarcodeData = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (barcodedata === 0) {
       setBarcodeData(1);
@@ -751,11 +565,6 @@ const UseCustomerSaleHook = () => {
             );
 
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-              console.log(
-                getItemCodeDetailsApi?.data.message.data,
-                'selected sale client table'
-              );
-              // Call the function to update salesTableData
               updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
             }
           } catch (error) {
@@ -792,7 +601,7 @@ const UseCustomerSaleHook = () => {
     stateForDocStatus,
     setStateForDocStatus,
     clientGroupList,
-    HandleDeleteDeliveryNote,
+    handleDeleteDeliveryNote,
     handleSelectClientGroup,
     itemCodeDropdownReset,
     setItemCodeDropdownReset,
@@ -800,7 +609,7 @@ const UseCustomerSaleHook = () => {
     deliveryNoteListing,
     selectedItemCode,
     setSelectedItemCode,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleTabPressInSales,
     warehouseListData,
     selectedLocation,
@@ -809,7 +618,7 @@ const UseCustomerSaleHook = () => {
     deliveryNoteData,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
@@ -821,4 +630,4 @@ const UseCustomerSaleHook = () => {
   };
 };
 
-export default UseCustomerSaleHook;
+export default useCustomerSaleHook;

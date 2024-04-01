@@ -183,8 +183,9 @@ const SelectInputMaterial = ({
                     }}
                     onMouseDown={() => HandleMaterialAbbr(name)}
                     // onKeyDown={(e)=>HandleAbbrKey(e)}
-                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
-                      }`}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
                   >
                     {name.material}
                   </li>
@@ -202,8 +203,9 @@ const SelectInputMaterial = ({
                     }}
                     // onKeyDown={(e)=>HandleAbbrKey(e)}
                     onMouseDown={() => HandleMaterialAbbr(name)}
-                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
-                      }`}
+                    className={`dropdown-list ${
+                      i === selectedIndex ? 'selected' : ''
+                    }`}
                   >
                     {name.material}
                   </li>

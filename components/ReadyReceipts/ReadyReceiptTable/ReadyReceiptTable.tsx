@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import CurrentDate from '../CurrentDate';
-import SearchSelectInputField from '../InputDropdown/SearchSelectInputField';
+import CurrentDate from '../../CurrentDate';
+import SearchSelectInputField from '../../InputDropdown/SearchSelectInputField';
 import { useRouter } from 'next/router';
 
 const ReadyReceiptTable = ({

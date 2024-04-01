@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import UseCustomSalesReturnHook from './custom-sales-return-hook';
+import useCustomSalesReturnHook from './custom-sales-return-hook';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
 
-const UseSalesReturnMasterHook = () => {
+const useSalesReturnMasterHook = () => {
   const router = useRouter();
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
@@ -36,15 +36,15 @@ const UseSalesReturnMasterHook = () => {
     setItemCodeDropdownReset,
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleDeleteSalesReturn,
     handleTabPressInSales,
     selectedLocation,
     setSelectedLocation,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
-  }: any = UseCustomSalesReturnHook();
+    handleFixedAmt,
+  }: any = useCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
   const [deliveryNoteData, setDeliveryNoteData] = useState({
     store_location: '',
@@ -127,8 +127,12 @@ const UseSalesReturnMasterHook = () => {
 
   useEffect(() => {
     if (
-      itemList?.length > 0 !== null && itemList?.length > 0 && itemList?.some(
-        (obj: any) => obj.name === `${selectedItemCodeForCustomerSale.item_code}`?.toUpperCase()
+      itemList?.length > 0 !== null &&
+      itemList?.length > 0 &&
+      itemList?.some(
+        (obj: any) =>
+          obj.name ===
+          `${selectedItemCodeForCustomerSale.item_code}`?.toUpperCase()
       )
     ) {
       const getItemCodeDetailsFun = async () => {
@@ -182,9 +186,9 @@ const UseSalesReturnMasterHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-            Number(data?.custom_other)
+              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+              Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -217,10 +221,9 @@ const UseSalesReturnMasterHook = () => {
         router.push(
           `${query.saleId}/${postSalesReturnApi?.data?.message?.name}`
         );
-      } else if (postSalesReturnApi?.data?.message?.status === "error") {
+      } else if (postSalesReturnApi?.data?.message?.status === 'error') {
         toast.error(postSalesReturnApi?.data?.message?.message);
       }
-
     } else {
       toast.error('Client name is mandatory');
     }
@@ -243,7 +246,7 @@ const UseSalesReturnMasterHook = () => {
     itemCodeDropdownReset,
     handleSelectClientGroup,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     saleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
     handleTabPressInSales,
@@ -260,11 +263,11 @@ const UseSalesReturnMasterHook = () => {
     setSaleReturnDeliveryNoteListing,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     // handleTabPressItemDetails,
     selectedItemCode,
     setSelectedItemCode,
   };
 };
 
-export default UseSalesReturnMasterHook;
+export default useSalesReturnMasterHook;

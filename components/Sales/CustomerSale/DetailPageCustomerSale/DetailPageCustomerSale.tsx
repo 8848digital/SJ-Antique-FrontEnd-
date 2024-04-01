@@ -3,7 +3,7 @@ import CustomerSalesTable from '../CustomerSalesTable';
 import CustomerSalesTable2 from '../CustomerSalesTable2';
 import CustomerSalesTable1 from '../CustomerSalesTable1';
 import SalesHeader from '@/components/Header/SalesHeader';
-import UseCustomerSaleDetailHook from '@/hooks/Sales/Customer-Sales/sales-detail-page-hook';
+import useCustomerSaleDetailHook from '@/hooks/Sales/Customer-Sales/sales-detail-page-hook';
 import CustomerSalesButtonsSection from './CustomerSalesButtonsSection';
 import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import Loader from '@/components/NoRecord/Loader';
 
 const DetailPageCustomerSale = () => {
-  const router = useRouter();
   const { query } = useRouter();
   const {
     salesTableData,
@@ -41,13 +40,13 @@ const DetailPageCustomerSale = () => {
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
     // HandleUpdateSalesdocStatus,
-    HandleAmendButtonForCustomerSales,
-    HandleDeleteRecords,
+    handleAmendButtonForCustomerSales,
+    handleDeleteRecords,
     handleDeliveryNotePrintApi,
     defaultSalesDate,
     isLoading,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleTabPressInSales,
     warehouseListData,
     selectedLocation,
@@ -56,7 +55,7 @@ const DetailPageCustomerSale = () => {
     setDeliveryNoteData,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
@@ -64,12 +63,11 @@ const DetailPageCustomerSale = () => {
     isBarcodeChecked,
     itemCodeList,
     handleTabPressItemDetails,
-  }: any = UseCustomerSaleDetailHook();
+  }: any = useCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
-
 
   return (
     <div className="container-lg">
@@ -79,7 +77,7 @@ const DetailPageCustomerSale = () => {
       ) : (
         <>
           {DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
-            isLoading === false ? (
+          isLoading === false ? (
             <NoRecord
               title="Customer Sales"
               content="Sorry for disappointing you! We’re unable to find any relevant data"
@@ -96,11 +94,11 @@ const DetailPageCustomerSale = () => {
                   setReadOnlyFields={setReadOnlyFields}
                   showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
                   setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
-                  HandleUpdateSalesdocStatus={HandleUpdateDocStatus}
+                  HandleUpdateSalesdocStatus={handleUpdateDocStatus}
                   HandleAmendButtonForCustomerSales={
-                    HandleAmendButtonForCustomerSales
+                    handleAmendButtonForCustomerSales
                   }
-                  HandleDeleteRecords={HandleDeleteRecords}
+                  HandleDeleteRecords={handleDeleteRecords}
                   handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
                 />
               </div>
@@ -152,7 +150,7 @@ const DetailPageCustomerSale = () => {
                 handleTabPressInSales={handleTabPressInSales}
                 kunCsOtFixedAmt={kunCsOtFixedAmt}
                 setKunCsOtFixedAmt={setKunCsOtFixedAmt}
-                HandleFixedAmt={HandleFixedAmt}
+                handleFixedAmt={handleFixedAmt}
                 showAdditionalInputForCalculation={true}
                 handleBarcodeData={handleBarcodeData}
                 barcodeListData={barcodeListData}

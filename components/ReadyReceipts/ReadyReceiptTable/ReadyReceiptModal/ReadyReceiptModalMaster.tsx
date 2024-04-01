@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../../../styles/readyReceipts.module.css';
+import styles from '../../../../styles/readyReceipts.module.css';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
-import SelectInputMaterial from '../../InputDropdown/SelectInputMaterial';
+import SelectInputMaterial from '../../../InputDropdown/SelectInputMaterial';
 const ReadyReceiptModalMaster = ({
   handleModalFieldChange,
   handleAddRow,

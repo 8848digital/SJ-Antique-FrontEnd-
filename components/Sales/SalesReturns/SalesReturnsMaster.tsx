@@ -25,7 +25,7 @@ const SaleReturnsMaster = () => {
     itemCodeDropdownReset,
     handleSelectClientGroup,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     saleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
     handleTabPressInSales,
@@ -36,7 +36,7 @@ const SaleReturnsMaster = () => {
     deliveryNoteData,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     handleTabPressItemDetails,
     selectedItemCode,
     setSelectedItemCode,
@@ -85,10 +85,10 @@ const SaleReturnsMaster = () => {
                     karigar_name: data.client_name,
                   }))
                 }
-                colPlaceholder1={'Sales no.'}
+                colPlaceholder1={'Sales No.'}
                 colPlaceholder2={'Client '}
                 HandleDeleteReceipt={handleDeleteSalesReturn}
-                HandleUpdateDocStatus={HandleUpdateDocStatus}
+                HandleUpdateDocStatus={handleUpdateDocStatus}
                 printApiMethod={'print_delivery_note_sales'}
                 printApiEntity={'sales'}
                 deleteApiVersion={'v1'}
@@ -170,7 +170,7 @@ const SaleReturnsMaster = () => {
                 handleTabPressInSales={handleTabPressInSales}
                 kunCsOtFixedAmt={kunCsOtFixedAmt}
                 setKunCsOtFixedAmt={setKunCsOtFixedAmt}
-                HandleFixedAmt={HandleFixedAmt}
+                handleFixedAmt={handleFixedAmt}
                 showAddrowBtn={true}
                 scrollableTableRef={scrollableTableRef}
                 handleMouseDown={handleMouseDown}

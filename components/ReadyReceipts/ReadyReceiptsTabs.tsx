@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from '../../styles/header.module.css';
 
-const ReadyReceiptsTabs: any = ({ showReceipt }: any) => {
+const ReadyReceiptsTabs: any = () => {
   const router = useRouter();
 
   const pathcontent = router?.asPath?.split('/');
@@ -24,40 +24,36 @@ const ReadyReceiptsTabs: any = ({ showReceipt }: any) => {
     <div className=" justify-content-center">
       <div className="navbar d-flex justify-content-center p-0">
         <div>
-          {showReceipt ? (
-            <div className="d-flex justify-content-center">
-              <Link
-                href="/readyReceipt/kundan"
-                className="text-decoration-none btn-margin"
-                onClick={() => setActive(0)}
+          <div className="d-flex justify-content-center">
+            <Link
+              href="/readyReceipt/kundan"
+              className="text-decoration-none btn-margin"
+              onClick={() => setActive(0)}
+            >
+              <button
+                className={`${styles.button} ${
+                  KundanValue ? 'activeColor' : ''
+                }`}
               >
-                <button
-                  className={`${styles.button} ${
-                    KundanValue ? 'activeColor' : ''
-                  }`}
-                >
-                  Ready Receipts (Kundan Karigar)
-                  <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
-                </button>
-              </Link>
-              <Link
-                href="/readyReceipt/mangalsutra"
-                className="text-decoration-none btn-margin"
-                onClick={() => setActive(1)}
+                Ready Receipts (Kundan Karigar)
+                <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
+              </button>
+            </Link>
+            <Link
+              href="/readyReceipt/mangalsutra"
+              className="text-decoration-none btn-margin"
+              onClick={() => setActive(1)}
+            >
+              <button
+                className={`${styles.button} ${
+                  mangalsutraValue ? 'activeColor' : ''
+                } `}
               >
-                <button
-                  className={`${styles.button} ${
-                    mangalsutraValue ? 'activeColor' : ''
-                  } `}
-                >
-                  Ready Receipts (Mangalsutra Karigar)
-                  <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
-                </button>
-              </Link>
-            </div>
-          ) : (
-            ''
-          )}
+                Ready Receipts (Mangalsutra Karigar)
+                <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

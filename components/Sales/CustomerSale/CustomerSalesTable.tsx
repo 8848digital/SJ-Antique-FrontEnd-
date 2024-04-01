@@ -24,7 +24,7 @@ const CustomerSalesTable = ({
   selectedItemCode,
   handleTabPressInSales,
   kunCsOtFixedAmt,
-  HandleFixedAmt,
+  handleFixedAmt,
   showAddrowBtn,
   scrollableTableRef,
   handleMouseDown,
@@ -213,7 +213,7 @@ const CustomerSalesTable = ({
                       className={` ${styles.customer_sale_input_field} text-end `}
                       min={0}
                       value={kunCsOtFixedAmt?.csFixedAmt}
-                      onChange={(e) => HandleFixedAmt(e)}
+                      onChange={(e) => handleFixedAmt(e)}
                     />
                   </td>
                   <td className="table_row border-0"></td>
@@ -225,7 +225,7 @@ const CustomerSalesTable = ({
                       className={` ${styles.customer_sale_input_field} text-end `}
                       min={0}
                       value={kunCsOtFixedAmt?.kunFixedAmt}
-                      onChange={(e) => HandleFixedAmt(e)}
+                      onChange={(e) => handleFixedAmt(e)}
                     />
                   </td>
                   <td className="table_row border-0"></td>
@@ -236,7 +236,7 @@ const CustomerSalesTable = ({
                       className={` ${styles.customer_sale_input_field} text-end `}
                       min={0}
                       value={kunCsOtFixedAmt?.otFixedAmt}
-                      onChange={(e) => HandleFixedAmt(e)}
+                      onChange={(e) => handleFixedAmt(e)}
                     />
                   </td>
                   <td className="table_row border-0"></td>

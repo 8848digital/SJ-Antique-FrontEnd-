@@ -1,14 +1,15 @@
 import UseKundanKarigarDetailHook from '@/hooks/ReadyReceiptHook/ReadyReceiptDetail/ready-receipt-detail-hook';
 import React, { useEffect, useState } from 'react';
-import ReadyReceipt from '../ReadyReceiptTable';
-import ReadyReceiptMasterTable from '../ReadyReceiptMasterTable';
+
 import useReadyReceiptKarigar from '@/hooks/ReadyReceiptHook/ready-receipt-master-hook';
 import ReadyReceiptBtnSection from './ReadyReceiptBtnSection';
-import ReadyReceiptModal from '../ReadyReceiptModal/ReadyReceiptModal';
 import '../../../styles/detailPage.module.css';
 import Loader from '../../NoRecord/Loader';
 import NoRecord from '../../NoRecord/NoRecord';
 import { useRouter } from 'next/router';
+import ReadyReceiptModal from '../ReadyReceiptTable/ReadyReceiptModal/ReadyReceiptModal';
+import ReadyReceiptMasterTable from '../ReadyReceiptTable/ReadyReceiptMasterTable';
+import ReadyReceiptTable from '../ReadyReceiptTable/ReadyReceiptTable';
 
 const DetailPageReadyReceipt = () => {
   const {
@@ -159,7 +160,7 @@ const DetailPageReadyReceipt = () => {
                 ))}
 
               <div className="table">
-                <ReadyReceipt
+                <ReadyReceiptTable
                   handleRecipietChange={handleRecipietChange}
                   recieptData={recipitData}
                   karigarData={karigarData}

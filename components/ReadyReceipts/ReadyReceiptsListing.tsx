@@ -166,37 +166,7 @@ const ReadyReceiptListing = ({
         })
       : kundanListing;
 
-  const HandleCancelReceipt: any = async (name: any) => {
-    console.log('name', name);
-    let cancelReceipt: any = await UpdateDocStatusApi(
-      loginAcessToken?.token,
-      '2',
-      name
-    );
-    if (cancelReceipt?.hasOwnProperty('data')) {
-      const capitalizeFirstLetter = (str: any) => {
-        return str?.charAt(0)?.toUpperCase() + str?.slice(1);
-      };
-
-      let updatedData: any = await getPurchasreceiptListApi(
-        loginAcessToken,
-        capitalizeFirstLetter(lastPartOfURL)
-      );
-
-      console.log('updated data', updatedData);
-
-      setKundanListing(updatedData?.data?.message?.data);
-      const params: any = {
-        token: loginAcessToken?.token,
-        name: query?.receiptId,
-      };
-      dispatch(getSpecificReceipt(params));
-    } else {
-      toast.error('Failed to cancel records');
-    }
-  };
-
-  const HandlePrintApi: any = async (name: any) => {
+  const handlePrintApi: any = async (name: any) => {
     const reqParams = {
       token: loginAcessToken?.token,
       name: name,
@@ -335,7 +305,7 @@ const ReadyReceiptListing = ({
                       <div className="row justify-content-center ">
                         <div className="col-lg-3 col-12">
                           <a
-                            onClick={() => HandlePrintApi(item.name)}
+                            onClick={() => handlePrintApi(item.name)}
                             className={`button-section-text text-info ${styles.cursor_pointer}`}
                           >
                             Print

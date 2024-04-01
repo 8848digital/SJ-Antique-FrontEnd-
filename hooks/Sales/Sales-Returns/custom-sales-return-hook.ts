@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-const UseCustomSalesReturnHook = () => {
+const useCustomSalesReturnHook = () => {
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState<any>({ id: '', item_code: '' });
   const dispatch = useDispatch();
@@ -153,7 +153,7 @@ const UseCustomSalesReturnHook = () => {
     setSelectedClientGroup(value);
   };
 
-  const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
+  const handleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
     let id: any = name === undefined ? query?.deliveryNoteId : name;
     const params = `/api/resource/Delivery Note/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
@@ -228,7 +228,7 @@ const UseCustomSalesReturnHook = () => {
     }
     setStateForDocStatus(true);
   };
-  const HandleFixedAmt = (e: any) => {
+  const handleFixedAmt = (e: any) => {
     const { name, value } = e.target;
     setKunCsOtFixedAmt({ ...kunCsOtFixedAmt, [name]: value });
 
@@ -280,15 +280,15 @@ const UseCustomSalesReturnHook = () => {
     setItemCodeDropdownReset,
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleDeleteSalesReturn,
     handleTabPressInSales,
     selectedLocation,
     setSelectedLocation,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
   };
 };
 
-export default UseCustomSalesReturnHook;
+export default useCustomSalesReturnHook;

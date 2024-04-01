@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-const UseScrollbarHook = () => {
+const useScrollbarHook = () => {
   const scrollableTableRef = useRef<HTMLDivElement>(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -39,4 +39,4 @@ const UseScrollbarHook = () => {
     handleMouseMove,
   };
 };
-export default UseScrollbarHook;
+export default useScrollbarHook;

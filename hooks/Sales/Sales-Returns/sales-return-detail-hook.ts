@@ -9,9 +9,9 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import UseSalesReturnMasterHook from './sales-return-master-hook';
+import useSalesReturnMasterHook from './sales-return-master-hook';
 
-const UseSalesReturnDetailHook = () => {
+const useSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const router = useRouter();
@@ -52,14 +52,13 @@ const UseSalesReturnDetailHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
-  }: any = UseSalesReturnMasterHook();
+  }: any = useSalesReturnMasterHook();
 
   const loginAcessToken = useSelector(get_access_token);
 
   const DetailOfSalesReturnFromStore: any = useSelector(
     get_detail_sales_return_data
   );
-
 
   const [readOnlyFields, setReadOnlyFields] = useState<any>(false);
   const [defaultSalesDate, setDefaultSalesDate] = useState<any>('');
@@ -120,9 +119,9 @@ const UseSalesReturnDetailHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-            Number(data?.custom_other)
+              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+              Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -171,7 +170,6 @@ const UseSalesReturnDetailHook = () => {
       );
     }
   };
-
 
   const handleAmendButtonForSalesReturn: any = async () => {
     const updatedSalesTableData: any = salesReturnTableData.map(
@@ -248,4 +246,4 @@ const UseSalesReturnDetailHook = () => {
   };
 };
 
-export default UseSalesReturnDetailHook;
+export default useSalesReturnDetailHook;

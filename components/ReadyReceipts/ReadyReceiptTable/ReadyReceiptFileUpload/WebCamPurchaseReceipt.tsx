@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Webcam from 'react-webcam';
 
-const WebCamPurchaseReceipt = ({
+const WebCamReadyReceipt = ({
   handleFieldChange,
   setShowWebcam,
   item,
@@ -71,4 +71,4 @@ const WebCamPurchaseReceipt = ({
   );
 };
 
-export default WebCamPurchaseReceipt;
+export default WebCamReadyReceipt;

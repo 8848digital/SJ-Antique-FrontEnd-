@@ -1,13 +1,20 @@
 import React from 'react';
-import ReadOnlyInputFieldComponent from '../ReadOnlyInputFieldComponent';
+import ReadOnlyInputFieldComponent from '../../ReadOnlyInputFieldComponent';
 import { useRouter } from 'next/router';
 
 const TotalReadOnlyRow = ({ calculationRow }: any) => {
-  const { query } = useRouter()
+  const { query } = useRouter();
   return (
     <>
       <tr className="">
-        <td className="text-center table_row py-1" colSpan={Number(query?.receipt === 'kundan' || query?.receipt === 'Kundan' ? '3' : '2')}>
+        <td
+          className="text-center table_row py-1"
+          colSpan={Number(
+            query?.receipt === 'kundan' || query?.receipt === 'Kundan'
+              ? '3'
+              : '2'
+          )}
+        >
           Total
         </td>
         <td className="table_row py-1">
@@ -15,14 +22,13 @@ const TotalReadOnlyRow = ({ calculationRow }: any) => {
             value={Number(calculationRow?.custom_net_wt).toFixed(3)}
           />
         </td>
-        {(query?.receipt === 'kundan' ||
-          query?.receipt === 'Kundan') && (
-            <td className="table_row py-1">
-              <ReadOnlyInputFieldComponent
-                value={Number(calculationRow?.custom_few_wt).toFixed(3)}
-              />
-            </td>
-          )}
+        {(query?.receipt === 'kundan' || query?.receipt === 'Kundan') && (
+          <td className="table_row py-1">
+            <ReadOnlyInputFieldComponent
+              value={Number(calculationRow?.custom_few_wt).toFixed(3)}
+            />
+          </td>
+        )}
         <td className="table_row py-1">
           <ReadOnlyInputFieldComponent
             value={Number(calculationRow?.custom_mat_wt).toFixed(3)}

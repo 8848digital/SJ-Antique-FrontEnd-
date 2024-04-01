@@ -11,9 +11,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import UseCustomerSaleHook from './customer-sale-hook';
+import useCustomerSaleHook from './customer-sales-hook';
 
-const UseCustomerSaleDetailHook = () => {
+const useCustomerSaleDetailHook = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const router = useRouter();
@@ -39,7 +39,7 @@ const UseCustomerSaleDetailHook = () => {
     stateForDocStatus,
     setStateForDocStatus,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleTabPressInSales,
     warehouseListData,
     selectedLocation,
@@ -48,7 +48,7 @@ const UseCustomerSaleDetailHook = () => {
     setDeliveryNoteData,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
@@ -57,10 +57,10 @@ const UseCustomerSaleDetailHook = () => {
     isBarcodeChecked,
     itemCodeList,
     handleTabPressItemDetails,
-  }: any = UseCustomerSaleHook();
+  }: any = useCustomerSaleHook();
 
   const loginAcessToken = useSelector(get_access_token);
-  const DetailOfDeliveryNoteFromStore: any = useSelector(
+  const detailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
 
@@ -81,24 +81,24 @@ const UseCustomerSaleDetailHook = () => {
   }, [query]);
 
   useEffect(() => {
-    if (DetailOfDeliveryNoteFromStore?.docStatus > 0) {
+    if (detailOfDeliveryNoteFromStore?.docStatus > 0) {
       setReadOnlyFields(true);
     } else {
       setReadOnlyFields(false);
     }
-  }, [DetailOfDeliveryNoteFromStore]);
+  }, [detailOfDeliveryNoteFromStore]);
 
   useEffect(() => {
-    if (DetailOfDeliveryNoteFromStore?.hasOwnProperty('data')) {
-      // Extracting data from DetailOfDeliveryNoteFromStore
+    if (detailOfDeliveryNoteFromStore?.hasOwnProperty('data')) {
+      // Extracting data from detailOfDeliveryNoteFromStore
       const customKunCategory =
-        DetailOfDeliveryNoteFromStore?.data?.custom_kun_category;
+        detailOfDeliveryNoteFromStore?.data?.custom_kun_category;
       const customCsCategory =
-        DetailOfDeliveryNoteFromStore?.data?.custom_cs_category;
+        detailOfDeliveryNoteFromStore?.data?.custom_cs_category;
       const customBBCategory =
-        DetailOfDeliveryNoteFromStore?.data?.custom_bb_category;
+        detailOfDeliveryNoteFromStore?.data?.custom_bb_category;
       const customOtCategory =
-        DetailOfDeliveryNoteFromStore?.data?.custom_ot_category;
+        detailOfDeliveryNoteFromStore?.data?.custom_ot_category;
 
       // Filtering kunCsOtCategoryListData based on custom_category
 
@@ -136,38 +136,38 @@ const UseCustomerSaleDetailHook = () => {
       });
     }
   }, [
-    DetailOfDeliveryNoteFromStore,
+    detailOfDeliveryNoteFromStore,
     BBCategoryListData,
     kunCsOtCategoryListData,
   ]);
 
   useEffect(() => {
     if (
-      DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
-      DetailOfDeliveryNoteFromStore?.isLoading === 'pending'
+      detailOfDeliveryNoteFromStore?.data?.length === 0 &&
+      detailOfDeliveryNoteFromStore?.isLoading === 'pending'
     ) {
       setIsLoading(true);
     } else if (
-      DetailOfDeliveryNoteFromStore?.hasOwnProperty('data') &&
-      DetailOfDeliveryNoteFromStore?.isLoading === 'succeeded'
+      detailOfDeliveryNoteFromStore?.hasOwnProperty('data') &&
+      detailOfDeliveryNoteFromStore?.isLoading === 'succeeded'
     ) {
       setIsLoading(false);
-      setSalesTableData(DetailOfDeliveryNoteFromStore?.data?.items);
-      setBarcodeData(DetailOfDeliveryNoteFromStore?.data?.custom_is_barcode);
+      setSalesTableData(detailOfDeliveryNoteFromStore?.data?.items);
+      setBarcodeData(detailOfDeliveryNoteFromStore?.data?.custom_is_barcode);
       setIsBarcodeChecked(
-        DetailOfDeliveryNoteFromStore?.data?.custom_is_barcode === 1
+        detailOfDeliveryNoteFromStore?.data?.custom_is_barcode === 1
           ? true
           : false
       );
       setSelectedClient(
-        DetailOfDeliveryNoteFromStore?.data?.custom_client_name
+        detailOfDeliveryNoteFromStore?.data?.custom_client_name
       );
-      setSelectedLocation(DetailOfDeliveryNoteFromStore?.data?.store_location);
-      setDefaultSalesDate(DetailOfDeliveryNoteFromStore?.data?.posting_date);
+      setSelectedLocation(detailOfDeliveryNoteFromStore?.data?.store_location);
+      setDefaultSalesDate(detailOfDeliveryNoteFromStore?.data?.posting_date);
     } else {
       setIsLoading(false);
     }
-  }, [DetailOfDeliveryNoteFromStore]);
+  }, [detailOfDeliveryNoteFromStore]);
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
@@ -200,37 +200,6 @@ const UseCustomerSaleDetailHook = () => {
 
         return {
           ...updatedObject,
-          // custom_net_wt:
-          //   Number(data?.custom_gross_wt) -
-          //     (Number(data?.custom_kun_wt) +
-          //       Number(data?.custom_cs_wt) +
-          //       Number(data?.custom_bb_wt) +
-          //       Number(data?.custom_other_wt)) <
-          //   0
-          //     ? 0
-          //     : Number(data?.custom_gross_wt) -
-          //       (Number(data?.custom_kun_wt) +
-          //         Number(data?.custom_cs_wt) +
-          //         Number(data?.custom_bb_wt) +
-          //         Number(data?.custom_other_wt)),
-          // custom_amount: Number(
-          //   (Number.isNaN(data.custom_cs_amt)
-          //     ? 0
-          //     : Number(data?.custom_cs_amt)) +
-          //     Number(data?.custom_kun_amt) +
-          //     (Number.isNaN(data.custom_ot_amt)
-          //       ? 0
-          //       : Number(data?.custom_ot_amt)) +
-          //     Number(data?.custom_other)
-          // )?.toFixed(2),
-          // custom_cs_amt:
-          //   Number(data?.custom_cs_amt) === null
-          //     ? 0
-          //     : Number(data?.custom_cs_amt),
-          // custom_ot_amt:
-          //   Number(data?.custom_ot_amt) === null
-          //     ? 0
-          //     : Number(data?.custom_ot_amt),
         };
       });
     const values = {
@@ -269,7 +238,7 @@ const UseCustomerSaleDetailHook = () => {
     }
   };
 
-  const HandleAmendButtonForCustomerSales: any = async () => {
+  const handleAmendButtonForCustomerSales: any = async () => {
     const updatedSalesTableData: any = salesTableData.map((tableData: any) => ({
       ...tableData,
       qty: 1,
@@ -300,17 +269,21 @@ const UseCustomerSaleDetailHook = () => {
     }
   };
 
-  const HandleDeleteRecords: any = async (id: any) => {
+  const handleDeleteRecords: any = async (id: any) => {
     const version: any = 'v1';
     const method: any = 'delete_delivery_note_api';
-    const entity: any = 'delivery_note_api';
-    let deleteSalesReturnNoteApi: any = await DeleteApi(
+    const entity: any = 'sales';
+    let deleteSalesNote: any = await DeleteApi(
       loginAcessToken?.token,
       version,
       method,
       entity,
       id
     );
+
+    if (deleteSalesNote?.data?.message?.status === 'success') {
+      router.push(`/sales/${query?.saleId}`);
+    }
   };
 
   const handleDeliveryNotePrintApi: any = async (id: any) => {
@@ -356,9 +329,9 @@ const UseCustomerSaleDetailHook = () => {
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
     // HandleUpdateSalesdocStatus,
-    HandleUpdateDocStatus,
-    HandleAmendButtonForCustomerSales,
-    HandleDeleteRecords,
+    handleUpdateDocStatus,
+    handleAmendButtonForCustomerSales,
+    handleDeleteRecords,
     handleDeliveryNotePrintApi,
     defaultSalesDate,
     isLoading,
@@ -372,7 +345,7 @@ const UseCustomerSaleDetailHook = () => {
     setDeliveryNoteData,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
@@ -383,4 +356,4 @@ const UseCustomerSaleDetailHook = () => {
   };
 };
 
-export default UseCustomerSaleDetailHook;
+export default useCustomerSaleDetailHook;
