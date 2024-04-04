@@ -1,6 +1,5 @@
 import UseKundanKarigarDetailHook from '@/hooks/ReadyReceiptHook/ReadyReceiptDetail/ready-receipt-detail-hook';
 import React, { useEffect, useState } from 'react';
-
 import useReadyReceiptKarigar from '@/hooks/ReadyReceiptHook/ready-receipt-master-hook';
 import ReadyReceiptBtnSection from './ReadyReceiptBtnSection';
 import '../../../styles/detailPage.module.css';
@@ -10,6 +9,7 @@ import { useRouter } from 'next/router';
 import ReadyReceiptModal from '../ReadyReceiptTable/ReadyReceiptModal/ReadyReceiptModal';
 import ReadyReceiptMasterTable from '../ReadyReceiptTable/ReadyReceiptMasterTable';
 import ReadyReceiptTable from '../ReadyReceiptTable/ReadyReceiptTable';
+import ReadyReceiptsTabs from '../ReadyReceiptsTabs';
 
 const DetailPageReadyReceipt = () => {
   const {
@@ -128,6 +128,7 @@ const DetailPageReadyReceipt = () => {
                 defaultKarigarData !== null &&
                 defaultKarigarData.map((data: any, index: any) => (
                   <div key={index}>
+                    <ReadyReceiptsTabs />
                     <ReadyReceiptBtnSection
                       data={data}
                       stateForDocStatus={stateForDocStatus}

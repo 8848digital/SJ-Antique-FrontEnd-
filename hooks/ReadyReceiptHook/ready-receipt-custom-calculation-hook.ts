@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 const useReadyReceiptCustomCalculationHook = () => {
-
   const calculateWtForCreateReceipt: any = ({ tableData, indexVal }: any) => {
     return tableData?.map((row: any, i: any) => {
       if (row.idx === indexVal) {
@@ -41,7 +40,11 @@ const useReadyReceiptCustomCalculationHook = () => {
     });
   };
 
-  const calculateReadyReceiptModalData: any = ({ materialWeight, tableData, indexVal }: any) => {
+  const calculateReadyReceiptModalData: any = ({
+    materialWeight,
+    tableData,
+    indexVal,
+  }: any) => {
     const weightAddition: any = materialWeight.reduce((accu: any, val: any) => {
       let weight: any = val.weight;
       if (val.weight === '') {
@@ -65,9 +68,12 @@ const useReadyReceiptCustomCalculationHook = () => {
       }, 0);
     }
 
-    const totalAmmountValues: any = totalvalues.reduce((accu: any, val: any) => {
-      return accu + val;
-    }, 0);
+    const totalAmmountValues: any = totalvalues.reduce(
+      (accu: any, val: any) => {
+        return accu + val;
+      },
+      0
+    );
 
     const updatedMaterialWeight: any = tableData?.map((row: any, i: any) => {
       if (row.idx === indexVal) {
@@ -88,30 +94,44 @@ const useReadyReceiptCustomCalculationHook = () => {
       return row;
     });
 
-    const updatedDataVal: any = updatedMaterialWeight.map((row: any, i: any) => {
-      if (row.idx === indexVal) {
-        return {
-          ...row,
-          table: row.table.map((tableItem: any, index: any) => ({
-            ...tableItem,
+    const updatedModalData: any = updatedMaterialWeight.map(
+      (row: any, i: any) => {
+        if (row.idx === indexVal) {
+          return {
+            ...row,
+            table: row.table.map((tableItem: any, index: any) => ({
+              ...tableItem,
 
-            amount:
-              (Number(tableItem.pcs) || 0) * (Number(tableItem.piece_) || 0) +
-              (Number(tableItem.carat) || 0) * (Number(tableItem.carat_) || 0) +
-              (Number(tableItem.weight) || 0) * (Number(tableItem.gm_) || 0),
-          })),
-        };
+              amount:
+                (Number(tableItem.pcs) || 0) * (Number(tableItem.piece_) || 0) +
+                (Number(tableItem.carat) || 0) *
+                  (Number(tableItem.carat_) || 0) +
+                (Number(tableItem.weight) || 0) * (Number(tableItem.gm_) || 0),
+            })),
+          };
+        }
+        return row;
       }
-      return row;
+    );
+
+    let updatedDataVal: any = updatedModalData.map((tableItem: any) => {
+      tableItem.table = tableItem.table.filter((modalData: any) => {
+        return Object.keys(modalData.material)?.length > 0;
+      });
+
+      return tableItem;
     });
 
     return {
       updatedMaterialWeight,
       updatedDataVal,
     };
-  }
+  };
 
-  const calculateTableDataForAmendReceipt: any = ({ tableData, indexVal }: any) => {
+  const calculateTableDataForAmendReceipt: any = ({
+    tableData,
+    indexVal,
+  }: any) => {
     return tableData?.map((row: any, i: any) => {
       if (row.idx === indexVal) {
         if (row.custom_other !== '' && row.custom_total !== '') {
@@ -133,10 +153,14 @@ const useReadyReceiptCustomCalculationHook = () => {
       }
       return row;
     });
-  }
+  };
 
-  const calculateTableDataForUpdateReceipt: any = ({ filteredDataa, indexVal }: any) => {
-    return filteredDataa?.length > 0 &&
+  const calculateTableDataForUpdateReceipt: any = ({
+    filteredDataa,
+    indexVal,
+  }: any) => {
+    return (
+      filteredDataa?.length > 0 &&
       filteredDataa !== null &&
       filteredDataa?.map((row: any, i: any) => {
         if (row.idx === indexVal) {
@@ -175,9 +199,9 @@ const useReadyReceiptCustomCalculationHook = () => {
           }
         }
         return row;
-      });
-
-  }
+      })
+    );
+  };
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
@@ -192,7 +216,13 @@ const useReadyReceiptCustomCalculationHook = () => {
     });
     return filteredTableData;
   };
-  return { calculateWtForCreateReceipt, calculateTableDataForUpdateReceipt, calculateTableDataForAmendReceipt, filteredTableDataForUpdate, calculateReadyReceiptModalData };
+  return {
+    calculateWtForCreateReceipt,
+    calculateTableDataForUpdateReceipt,
+    calculateTableDataForAmendReceipt,
+    filteredTableDataForUpdate,
+    calculateReadyReceiptModalData,
+  };
 };
 
 export default useReadyReceiptCustomCalculationHook;

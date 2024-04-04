@@ -32,7 +32,7 @@ const useReadyReceipt = () => {
     posting_date: '',
     store_location: '',
   });
-  const [clicks, setClick] = useState<boolean>(false);
+
   const [karigarData, setKarigarData] = useState<any>();
   const [kundanKarigarData, setKundanKarigarData] = useState<any>();
   const [materialListData, setMaterialListData] = useState<any>();
@@ -114,7 +114,7 @@ const useReadyReceipt = () => {
       }
     };
     getPurchaseList();
-  }, [clicks, router]);
+  }, [router]);
 
   useEffect(() => {
     const getStateData: any = async () => {
@@ -371,7 +371,6 @@ const useReadyReceipt = () => {
   };
 
   return {
-    setClick,
     kundanListing,
     handleCreate,
     handleRecipietChange,

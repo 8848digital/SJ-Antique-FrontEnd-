@@ -22,8 +22,6 @@ const ReadyReceiptModal = ({
   setReadOnlyFields,
   handleTabPressOnModal,
 }: any) => {
-  console.log('material weight ', materialWeight);
-
   useEffect(() => {
     // Function to handle keydown event
     const handleKeyDown = (event: KeyboardEvent) => {
