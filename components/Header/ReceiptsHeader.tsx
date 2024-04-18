@@ -1,16 +1,12 @@
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styles from '../../styles/header.module.css';
 import { useRouter } from 'next/router';
 
 const ReceiptsHeader = () => {
   const router = useRouter();
-  const [activeItem, setActiveItem] = useState('Master');
-
-  const handleItemClick = (value: any) => {
-    setActiveItem(value);
-  };
-
+  const pathParts = router.asPath.split('/');
+  const url1 = pathParts[pathParts.length - 1];
+  const url2 = pathParts[pathParts.length - 2];
   const headerData: any = [
     { label: 'Master', href: '/master' },
     { label: 'Ready Receipts', href: '/readyReceipt/kundan' },
@@ -19,11 +15,27 @@ const ReceiptsHeader = () => {
     { label: 'Barcode', href: '/barcode' },
   ];
 
+  const currentActivePageInitially: any = () => {
+    const currentPage: any = headerData.filter((data: any, index: any) => {
+      return data.href.includes(url1) || data.href.includes(url2);
+    });
+    return currentPage[0]?.label;
+  };
+
+  const [activeItem, setActiveItem] = useState(currentActivePageInitially());
+
+  useEffect(() => {
+    currentActivePageInitially();
+  }, [router]);
+
+  const handleItemClick = (value: any) => {
+    setActiveItem(value);
+  };
+
   return (
     <div className="d-flex flex-wrap justify-content-center">
       {headerData.map((item: any, index: any) => (
         <div key={index} className="btn-margin">
-          {/* <Link href={item.href}> */}
           <button
             className={`${styles.button} ${
               activeItem === item.label ? 'activeColor' : ''
@@ -39,7 +51,6 @@ const ReceiptsHeader = () => {
             ></i>
             {item.label}
           </button>
-          {/* </Link> */}
         </div>
       ))}
     </div>

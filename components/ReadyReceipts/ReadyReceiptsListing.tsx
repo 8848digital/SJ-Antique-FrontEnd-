@@ -268,12 +268,12 @@ const ReadyReceiptListing = ({
                     >
                       <div className="row justify-content-center">
                         <div className="col-lg-3 col-12">
-                          <Link
-                            href={`${url}/${item.name}`}
-                            className="button-section-text text-info align-top "
+                          <a
+                            onClick={() => handlePrintApi(item.name)}
+                            className={`button-section-text text-info ${styles.cursor_pointer}`}
                           >
-                            Edit
-                          </Link>
+                            Print
+                          </a>
                         </div>
                         <div className="col-lg-3 col-12">
                           <a
