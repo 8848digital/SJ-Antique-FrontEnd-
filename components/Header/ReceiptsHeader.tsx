@@ -1,177 +1,60 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import styles from '../../styles/header.module.css';
+import { useRouter } from 'next/router';
 
-const ReceiptsHeader = ({
-  showReceipt,
-  setShowReceipts,
-  showSales,
-  setShowSales,
-  showMaster,
-  setShowMaster,
-  showReport,
-  setShowReport,
-  showBarcode,
-  setShowBarcode,
-}: any) => {
+const ReceiptsHeader = () => {
   const router = useRouter();
-  const pathcontent = router?.asPath?.split('/');
-  const value = pathcontent[1];
+  const pathParts = router.asPath.split('/');
+  const url1 = pathParts[pathParts.length - 1];
+  const url2 = pathParts[pathParts.length - 2];
+  const headerData = useMemo(()=> [
+      { label: 'Master', href: '/master' },
+      { label: 'Ready Receipts', href: '/readyReceipt/kundan' },
+      { label: 'Sales', href: '/sales/customerSale' },
+      { label: 'Report', href: '/report' },
+      { label: 'Barcode', href: '/barcode' },
+    ],[]
+  ) 
+
+  const currentActivePageInitially = useCallback(() => {
+    const currentPage = headerData.filter((data:any) => {
+      return data.href.includes(url1) || data.href.includes(url2);
+    });
+    return currentPage[0]?.label;
+  }, [headerData, url1, url2]);
+
+  const [activeItem, setActiveItem] = useState(currentActivePageInitially());
 
   useEffect(() => {
-    if (value === 'readyReceipt') {
-      setShowReceipts(true);
-    }
-    if (value === 'master') {
-      setShowMaster(true);
-    }
-    if (value === 'sales') {
-      setShowSales(true);
-    }
-    if (value === 'report') {
-      setShowReport(true);
-    }
-    if (value === 'barcode') {
-      setShowBarcode(true);
-    }
-  }, [
-    setShowMaster,
-    setShowReceipts,
-    setShowSales,
-    setShowReport,
-    setShowBarcode,
-    value,
-  ]);
+    currentActivePageInitially();
+  }, [router,currentActivePageInitially]);
 
-  const handleReadyRecipt = (val: any) => {
-    switch (val) {
-      case 'Receipts':
-        setShowReceipts(true);
-        setShowSales(false);
-        setShowMaster(false);
-        setShowReport(false);
-        setShowBarcode(false);
-        break;
-      case 'Sales':
-        setShowSales(true);
-        setShowReceipts(false);
-        setShowMaster(false);
-        setShowReport(false);
-        setShowBarcode(false);
-        break;
-      case 'Master':
-        setShowMaster(true);
-        setShowReceipts(false);
-        setShowSales(false);
-        setShowReport(false);
-        setShowBarcode(false);
-        break;
-      case 'Report':
-        setShowMaster(false);
-        setShowReceipts(false);
-        setShowSales(false);
-        setShowReport(true);
-        setShowBarcode(false);
-        break;
-      case 'Barcode':
-        setShowBarcode(true);
-        setShowMaster(false);
-        setShowReceipts(false);
-        setShowSales(false);
-        setShowReport(false);
-        break;
-      default:
-        setShowMaster(true);
-        setShowReceipts(false);
-        setShowSales(false);
-        setShowReport(false);
-        setShowBarcode(false);
-    }
+  const handleItemClick = (value: any) => {
+    setActiveItem(value);
   };
 
   return (
-    <>
-      <div className="d-flex flex-wrap justify-content-center">
-        <div>
-          <Link className="text-decoration-none btn-margin" href="/master">
-            <button
-              className={`${styles.button} ${showMaster ? 'activeColor' : ''}`}
-              onClick={() => handleReadyRecipt('Master')}
-            >
-              <i
-                className="fa-regular fa-file icons-color mr-2"
-                style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
-              ></i>
-              Master
-            </button>
-          </Link>
-        </div>
-        <div>
-          <Link
-            className="text-decoration-none btn-margin"
-            href="/readyReceipt/kundan"
+    <div className="d-flex flex-wrap justify-content-center">
+      {headerData.map((item: any, index: any) => (
+        <div key={index} className="btn-margin">
+          <button
+            className={`${styles.button} ${
+              activeItem === item.label ? 'activeColor' : ''
+            }`}
+            onClick={() => {
+              handleItemClick(item.label);
+              router.push(item.href);
+            }}
           >
-            <button
-              onClick={() => handleReadyRecipt('Receipts')}
-              className={`${styles.button} ${
-                showReceipt ? 'activeColor' : ''
-              } `}
-            >
-              <i
-                className="fa-regular fa-file icons-color mr-2"
-                style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
-              ></i>
-              Ready Receipts
-            </button>
-          </Link>
+            <i
+              className="fa-regular fa-file icons-color mr-2"
+              style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
+            ></i>
+            {item.label}
+          </button>
         </div>
-        <div>
-          <Link
-            className="text-decoration-none btn-margin"
-            href="/sales/customerSale"
-          >
-            <button
-              className={`${styles.button} ${showSales ? 'activeColor' : ''}`}
-              onClick={() => handleReadyRecipt('Sales')}
-            >
-              <i
-                className="fa-regular fa-file icons-color mr-2"
-                style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
-              ></i>
-              Sales
-            </button>
-          </Link>
-        </div>
-        <div>
-          <Link className="text-decoration-none btn-margin" href="/report">
-            <button
-              className={`${styles.button} ${showReport ? 'activeColor' : ''}`}
-              onClick={() => handleReadyRecipt('Report')}
-            >
-              <i
-                className="fa-regular fa-file icons-color mr-2"
-                style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
-              ></i>
-              Report
-            </button>
-          </Link>
-          <Link className="text-decoration-none btn-margin" href="/barcode">
-            <button
-              className={`${styles.button} ${showBarcode ? 'activeColor' : ''}`}
-              onClick={() => handleReadyRecipt('Barcode')}
-            >
-              <i
-                className="fa-regular fa-file icons-color mr-2"
-                style={{ color: '#CDAB6E', fontSize: 20, marginRight: '9px' }}
-              ></i>
-              Barcode
-            </button>
-          </Link>
-        </div>
-      </div>
-    </>
+      ))}
+    </div>
   );
 };
 
