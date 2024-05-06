@@ -115,11 +115,11 @@ const useReadyReceiptCustomCalculationHook = () => {
     );
 
     let updatedDataVal: any = updatedModalData.map((tableItem: any) => {
-      tableItem.table = tableItem.table.filter((modalData: any) => {
+      let newTableItem = { ...tableItem };
+      newTableItem.table = tableItem.table.filter((modalData: any) => {
         return Object.keys(modalData.material)?.length > 0;
       });
-
-      return tableItem;
+      return newTableItem;
     });
 
     return {
