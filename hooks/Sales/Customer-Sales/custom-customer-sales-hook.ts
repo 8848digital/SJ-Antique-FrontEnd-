@@ -101,6 +101,7 @@ const useCustomCustomerSalesHook = () => {
   };
 
   const updateSalesTableData = (data: any) => {
+    console.log("///update table", data, selectedItemCodeForCustomerSale)
     if (selectedItemCodeForCustomerSale?.id) {
       // Assuming data is a list with a single object
       const updatedTable = salesTableData?.map((tableData: any) => {
@@ -110,41 +111,39 @@ const useCustomCustomerSalesHook = () => {
             custom_gross_wt: data[0]?.custom_gross_wt,
             custom_kun_wt: Number(
               selectedCategory.KunCategory !== '' &&
-                selectedCategory?.KunCategory !== undefined
+                selectedCategory?.KunCategory !== null
                 ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) /
-                    100
+                100
                 : data[0]?.custom_kun_wt
             ),
             custom_cs_wt: Number(
               selectedCategory.CsCategory !== '' &&
-                selectedCategory?.CsCategory !== undefined
+                selectedCategory?.CsCategory !== null
                 ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) /
-                    100
+                100
                 : data[0]?.custom_cs_wt
             ),
             custom_bb_wt: Number(
               selectedCategory.BBCategory !== '' &&
-                selectedCategory?.BBCategory !== undefined
+                selectedCategory?.BBCategory !== null
                 ? data[0]?.custom_bb_wt - selectedCategory.BBCategory.type
                 : data[0].custom_bb_wt
             ),
             custom_other_wt: Number(
               selectedCategory.OtCategory !== '' &&
-                selectedCategory?.OtCategory !== undefined
+                selectedCategory?.OtCategory !== null
                 ? (data[0]?.custom_other_wt *
-                    selectedCategory.OtCategory.type) /
-                    100
+                  selectedCategory.OtCategory.type) /
+                100
                 : data[0]?.custom_other_wt
             ),
 
             custom_net_wt:
-              Number(data.custom_gross_wt) -
-              Number(
-                data.custom_kun_wt +
-                  data.custom_cs_wt +
-                  data.custom_bb_wt +
-                  data.custom_other_wt
-              ),
+              Number(data[0]?.custom_gross_wt) -
+              (Number(data[0]?.custom_kun_wt) +
+                Number(data[0]?.custom_cs_wt) +
+                Number(data[0]?.custom_bb_wt) +
+                Number(data[0]?.custom_other_wt)),
 
             custom_kun_pc: Number(data[0]?.custom_kun_pcs),
             custom_pr_kun_wt: Number(data[0]?.custom_kun_wt),
@@ -187,9 +186,9 @@ const useCustomCustomerSalesHook = () => {
           custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-              Number(item[i]?.custom_kun_amt) +
-              Number(item[i]?.custom_ot_amt) +
-              Number(item[i]?.custom_other)
+            Number(item[i]?.custom_kun_amt) +
+            Number(item[i]?.custom_ot_amt) +
+            Number(item[i]?.custom_other)
           ),
         };
       });
