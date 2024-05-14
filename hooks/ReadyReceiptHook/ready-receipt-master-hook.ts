@@ -221,11 +221,13 @@ const useReadyReceipt = () => {
       indexVal,
     });
     const modalValue: any = updatedTableData?.map(
-      ({ id, totalModalWeight, totalAmount, totalModalPcs, ...rest }: any) => ({
-        ...rest,
-      })
+      ({ id, totalModalWeight, totalAmount, totalModalPcs, ...rest }: any) => {
+        if (!rest.hasOwnProperty('custom_kun_karigar')) {
+          return { ...rest, custom_kun_karigar: 'default_value' };
+        }
+        return rest;
+      }
     );
-
     const values = {
       version: 'v1',
       method: 'create_purchase_receipt',
@@ -254,15 +256,16 @@ const useReadyReceipt = () => {
         values
       );
       // console.log('purchase receipt api res', purchaseReceipt);
-      if (purchaseReceipt?.data?.message?.hasOwnProperty('message')) {
+      if (purchaseReceipt?.data?.message?.status === "error") {
+        toast.error(`${purchaseReceipt?.data?.message?.message}`);
+      } else {
         router.push(
           `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
             ?.message}`
         );
         toast.success('Purchase Receipt Created Successfully');
-      } else {
-        toast.error(`${purchaseReceipt?.data?.message?.error}`);
       }
+
     }
   };
 
@@ -367,7 +370,7 @@ const useReadyReceipt = () => {
         setShowSaveButtonForAmendFlow(false);
       } else {
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return {

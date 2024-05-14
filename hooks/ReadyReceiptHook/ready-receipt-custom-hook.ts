@@ -376,7 +376,6 @@ const useCustomReadyReceiptHook: any = () => {
         Number(item?.custom_net_wt) +
         Number(item.custom_mat_wt) +
         Number(value);
-      console.log(item, '@PR item');
       return Number(value);
     }
     if (field === 'custom_mat_wt') {
@@ -440,8 +439,8 @@ const useCustomReadyReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-              : formatInput(newValue),
+                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+                : formatInput(newValue),
           custom_gross_wt,
         };
       }
@@ -503,7 +502,6 @@ const useCustomReadyReceiptHook: any = () => {
   };
 
   const handleAddRow = (value: any) => {
-    console.log('value for add row', value);
     const newRow = {
       idx: tableData?.length + 1,
       product_code: '',

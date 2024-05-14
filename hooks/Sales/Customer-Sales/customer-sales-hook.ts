@@ -503,6 +503,7 @@ const useCustomerSaleHook = () => {
       docStatus,
       params
     );
+    // console.log("handleUpdateDocStatus", updateDocStatus) 
     if (updateDocStatus?.data?.hasOwnProperty('data')) {
       if (name === undefined) {
         const reqParams: any = {
@@ -520,6 +521,8 @@ const useCustomerSaleHook = () => {
           setDeliveryNoteListing(updatedData?.data?.message?.data);
         }
       }
+    } else {
+      toast.error("Failed to Update Sales note")
     }
   };
 

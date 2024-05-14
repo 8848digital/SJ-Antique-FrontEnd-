@@ -43,14 +43,6 @@ const ReadyReceiptMasterTable = ({
     custom_total: 0,
   });
 
-  const calculateGrossWt = (i: any) => {
-    console.log(i, 'i');
-    return (
-      tableData[i]?.custom_net_wt +
-      tableData[i]?.custom_few_wt +
-      tableData[i]?.custom_mat_wt
-    );
-  };
 
   useEffect(() => {
     const calculateLiveCalculations = async () => {
@@ -136,25 +128,25 @@ const ReadyReceiptMasterTable = ({
                   </td>
                   {(query?.receipt === 'kundan' ||
                     query?.receipt === 'Kundan') && (
-                    <td className="table_row">
-                      <SelectInputKunKarigar
-                        kundanKarigarData={kundanKarigarData}
-                        kunKarigarDropdownReset={kunKarigarDropdownReset}
-                        setKunKarigarDropdownReset={setKunKarigarDropdownReset}
-                        defaultValue={item.custom_kun_karigar}
-                        tableData={tableData}
-                        setTableData={setTableData}
-                        setSelectedKundanKarigarDropdownValue={
-                          setSelectedKundanKarigarDropdownValue
-                        }
-                        item={item}
-                        id={item.idx}
-                        setStateForDocStatus={setStateForDocStatus}
-                        readOnlyFields={readOnlyFields}
-                        fieldName={'custom_kun_karigar'}
-                      />
-                    </td>
-                  )}
+                      <td className="table_row">
+                        <SelectInputKunKarigar
+                          kundanKarigarData={kundanKarigarData}
+                          kunKarigarDropdownReset={kunKarigarDropdownReset}
+                          setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+                          defaultValue={item.custom_kun_karigar}
+                          tableData={tableData}
+                          setTableData={setTableData}
+                          setSelectedKundanKarigarDropdownValue={
+                            setSelectedKundanKarigarDropdownValue
+                          }
+                          item={item}
+                          id={item.idx}
+                          setStateForDocStatus={setStateForDocStatus}
+                          readOnlyFields={readOnlyFields}
+                          fieldName={'custom_kun_karigar'}
+                        />
+                      </td>
+                    )}
 
                   <td className="table_row">
                     <input
@@ -178,27 +170,27 @@ const ReadyReceiptMasterTable = ({
                   </td>
                   {(query?.receipt === 'kundan' ||
                     query?.receipt === 'Kundan') && (
-                    <td className="table_row">
-                      <input
-                        className={` ${styles.input_field} text-end`}
-                        type="number"
-                        min={0}
-                        value={item.custom_few_wt}
-                        defaultValue={
-                          item.custom_few_wt && item.custom_few_wt?.toFixed(3)
-                        }
-                        onChange={(e) =>
-                          handleFieldChange(
-                            item.idx,
-                            'tableRow',
-                            'custom_few_wt',
-                            e.target.value
-                          )
-                        }
-                        readOnly={readOnlyFields}
-                      />
-                    </td>
-                  )}
+                      <td className="table_row">
+                        <input
+                          className={` ${styles.input_field} text-end`}
+                          type="number"
+                          min={0}
+                          value={item.custom_few_wt}
+                          defaultValue={
+                            item.custom_few_wt && item.custom_few_wt?.toFixed(3)
+                          }
+                          onChange={(e) =>
+                            handleFieldChange(
+                              item.idx,
+                              'tableRow',
+                              'custom_few_wt',
+                              e.target.value
+                            )
+                          }
+                          readOnly={readOnlyFields}
+                        />
+                      </td>
+                    )}
                   <td className="table_row">
                     <input
                       className={` ${styles.input_field} text-end`}
@@ -243,7 +235,7 @@ const ReadyReceiptMasterTable = ({
                     />
                   </td>
                   {query?.receipt === 'mangalsutra' ||
-                  query?.receipt === 'Mangalsutra' ? (
+                    query?.receipt === 'Mangalsutra' ? (
                     <td className="table_row">
                       <input
                         className={` ${styles.input_field} text-end`}
@@ -311,11 +303,11 @@ const ReadyReceiptMasterTable = ({
                       value={parseFloat(
                         Number(tableData[i].totalAmount) >= 0
                           ? Number(tableData[i]?.custom_other) +
-                              Number(tableData[i]?.totalAmount)
+                          Number(tableData[i]?.totalAmount)
                           : tableData[i]?.custom_total !== '' &&
                             tableData[i]?.custom_total !== undefined
-                          ? tableData[i]?.custom_total
-                          : tableData[i]?.custom_other
+                            ? tableData[i]?.custom_total
+                            : tableData[i]?.custom_other
                       )?.toFixed(2)}
                     />
                   </td>

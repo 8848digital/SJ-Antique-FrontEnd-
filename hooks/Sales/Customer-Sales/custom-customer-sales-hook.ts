@@ -101,7 +101,7 @@ const useCustomCustomerSalesHook = () => {
   };
 
   const updateSalesTableData = (data: any) => {
-    console.log("///update table", data, selectedItemCodeForCustomerSale)
+
     if (selectedItemCodeForCustomerSale?.id) {
       // Assuming data is a list with a single object
       const updatedTable = salesTableData?.map((tableData: any) => {
