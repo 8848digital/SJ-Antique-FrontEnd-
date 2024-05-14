@@ -432,7 +432,7 @@ const useCustomerSaleHook = () => {
     };
     let reqField = values.custom_client_name;
     if (reqField === '') {
-      toast.error('Client Name is Empty');
+      toast.error('Client Name is Mandatory');
     } else {
       const postDeliveryNote: any = await PostSalesApi(
         loginAcessToken.token,
@@ -479,7 +479,8 @@ const useCustomerSaleHook = () => {
       name
     );
 
-    if (Object?.keys(deleteApi?.data)?.length === 0) {
+
+    if (deleteApi?.data?.message?.status === "success") {
       toast.success('Sales note Deleted');
       let updatedData: any = await getDeliveryNoteListing(
         loginAcessToken.token,
@@ -490,6 +491,7 @@ const useCustomerSaleHook = () => {
       }
     } else {
       toast.error('Failed to delete sales note');
+
     }
   };
 

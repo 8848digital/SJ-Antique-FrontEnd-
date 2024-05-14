@@ -67,8 +67,8 @@ const CustomerSaleMaster = () => {
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-          return data.is_return === 0;
-        })
+        return data.is_return === 0;
+      })
       : [];
 
   return (
@@ -99,7 +99,7 @@ const CustomerSaleMaster = () => {
               }
               colPlaceholder1={'Sales No.'}
               colPlaceholder2={'Client '}
-              handleDeleteReceipt={handleDeleteDeliveryNote}
+              HandleDeleteReceipt={handleDeleteDeliveryNote}
               HandleUpdateDocStatus={handleUpdateDocStatus}
               printApiMethod={'print_delivery_note_sales'}
               printApiEntity={'sales'}
