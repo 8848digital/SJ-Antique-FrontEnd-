@@ -54,7 +54,7 @@ const DetailPageReadyReceipt = () => {
     handleUpdateReceipt,
     setShowSaveButtonForAmendFlow,
     showSaveButtonForAmendFlow,
-    HandleAmendButtonForDuplicateChitti,
+    handleAmendButtonForDuplicateChitti,
     selectedKundanKarigarDropdownValue,
     setSelectedKundanKarigarDropdownValue,
     calculateEditTotal,
@@ -140,8 +140,8 @@ const DetailPageReadyReceipt = () => {
                         setShowSaveButtonForAmendFlow
                       }
                       showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
-                      HandleAmendButtonForDuplicateChitti={
-                        HandleAmendButtonForDuplicateChitti
+                      handleAmendButtonForDuplicateChitti={
+                        handleAmendButtonForDuplicateChitti
                       }
                       handlePrintApi={handlePrintApi}
                       printApiMethod={

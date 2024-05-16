@@ -104,7 +104,6 @@ const ReadyReceiptMasterTable = ({
         <ReadyReceiptMasterTableHeader />
         <tbody>
           {tableData?.length > 0 &&
-            tableData !== null &&
             tableData.map((item: any, i: any) => (
               <>
                 <tr key={item.idx} className={`${styles.table_row}`}>

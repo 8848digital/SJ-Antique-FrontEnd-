@@ -329,7 +329,7 @@ const useReadyReceipt = () => {
     }
   };
 
-  const HandleAmendButtonForDuplicateChitti: any = async () => {
+  const handleAmendButtonForDuplicateChitti: any = async () => {
     const updatedTableData: any = calculateTableDataForAmendReceipt({
       tableData,
       indexVal,
@@ -359,6 +359,8 @@ const useReadyReceipt = () => {
         values,
         query?.receiptId
       );
+
+      console.log("amend api res",amendReceiptApi)
 
       if (amendReceiptApi?.data?.hasOwnProperty('data')) {
         const newURL = `/readyReceipt/${readyReceiptType}/${amendReceiptApi?.data?.data?.name}`;
@@ -413,7 +415,7 @@ const useReadyReceipt = () => {
     showSaveButtonForAmendFlow,
     HandleUpdateDocStatus,
     setKundanListing,
-    HandleAmendButtonForDuplicateChitti,
+    handleAmendButtonForDuplicateChitti,
     handleTabPressOnModal,
     HandleEmptyReadyReceiptForm,
     selectedKundanKarigarDropdownValue,

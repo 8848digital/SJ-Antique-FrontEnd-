@@ -32,6 +32,11 @@ const ReadyReceiptFileUploadMaster = ({
     handlePreview,
     switchCamera,
   } = usePhotoModalHook();
+  
+  const handleTabPress:any = () => {
+    keyValue === 'edit' ? handleUpdateReceipt() : handleCreate();
+
+  }
   return (
     <>
       <div className="d-flex justify-content-center align-items-center">
@@ -41,9 +46,10 @@ const ReadyReceiptFileUploadMaster = ({
             className={` ${styles.input_field} text-center cursor`}
             placeholder="Attach"
             value={item?.custom_add_photo}
-            onKeyDown={(e) => {
-              keyValue === 'edit' ? handleUpdateReceipt() : handleCreate();
-            }}
+            // onKeyDown={(e) => {
+            //   keyValue === 'edit' ? handleUpdateReceipt() : handleCreate();
+            // }}
+            onKeyDown={handleTabPress}
             onClick={() => {
               // if (!readOnlyFields) {
               handleShowPhotoModal(item);

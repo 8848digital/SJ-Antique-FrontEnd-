@@ -10,7 +10,7 @@ const ReadyReceiptBtnSection = ({
   setShowSaveButtonForAmendFlow,
   showSaveButtonForAmendFlow,
   setStateForDocStatus,
-  HandleAmendButtonForDuplicateChitti,
+  handleAmendButtonForDuplicateChitti,
   handlePrintApi,
   HandleUpdateDocStatus,
   HandleDeleteReceipt,
@@ -118,8 +118,7 @@ const ReadyReceiptBtnSection = ({
               Submit
             </button>
           )}
-          {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
-            <>
+          
               {data?.docstatus === 1 && stateForDocStatus === false && (
                 <button
                   type="button"
@@ -129,8 +128,6 @@ const ReadyReceiptBtnSection = ({
                   Cancel
                 </button>
               )}
-            </>
-          )}
           {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
             <>
               {data?.docstatus === 2 && stateForDocStatus === false && (
@@ -150,15 +147,13 @@ const ReadyReceiptBtnSection = ({
             readOnlyFields === false && (
               <button
                 type="submit"
-                onClick={HandleAmendButtonForDuplicateChitti}
+                onClick={handleAmendButtonForDuplicateChitti}
                 className={`${styles.create_button} px-2 py-0 me-2 `}
               >
                 Save
               </button>
             )}
 
-          {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
-            <>
               {data?.docstatus === 2 && (
                 <button
                   type="button"
@@ -168,8 +163,7 @@ const ReadyReceiptBtnSection = ({
                   Delete
                 </button>
               )}
-            </>
-          )}
+
         </div>
       </div>
     </>

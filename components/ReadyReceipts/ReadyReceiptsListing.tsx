@@ -1,17 +1,12 @@
-import { useEffect } from 'react';
-import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
-import { getSpecificReceipt } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
+import PrintApi from '@/services/api/general/print-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/readyReceiptTableListing.module.css';
-import FilterReadyReceiptListing from './FilterReadyReceiptListing';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
-import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
-import PrintApi from '@/services/api/general/print-api';
-import { toast } from 'react-toastify';
+import FilterReadyReceiptListing from './FilterReadyReceiptListing';
 
 const ReadyReceiptListing = ({
   kundanListing,
@@ -22,10 +17,6 @@ const ReadyReceiptListing = ({
   colPlaceholder2,
   printApiEntity,
   printApiMethod,
-  deleteApiVersion,
-  deleteApiMethod,
-  deleteApiEntity,
-  purchasRecieptListParams,
   HandleUpdateDocStatus,
   kunKarigarDropdownReset,
   setKunKarigarDropdownReset,
@@ -312,9 +303,6 @@ const ReadyReceiptListing = ({
                           </a>
                         </div>
                         <div className="col-lg-3 col-12">
-                          {item?.posting_date ===
-                          new Date()?.toISOString()?.split('T')[0] ? (
-                            <>
                               <a
                                 onClick={() =>
                                   HandleUpdateDocStatus('2', item.name)
@@ -323,10 +311,6 @@ const ReadyReceiptListing = ({
                               >
                                 Cancel
                               </a>
-                            </>
-                          ) : (
-                            <div className=""></div>
-                          )}
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link
@@ -363,20 +347,12 @@ const ReadyReceiptListing = ({
                         </div>
 
                         <div className="col-lg-3 col-12">
-                          {item?.posting_date ===
-                          new Date()?.toISOString()?.split('T')[0] ? (
-                            <>
                               <a
-                                // href=""
                                 onClick={() => HandleDeleteReceipt(item.name)}
                                 className={`button-section-text text-danger ${styles.cursor_pointer}`}
                               >
                                 Delete
                               </a>
-                            </>
-                          ) : (
-                            <div className=""></div>
-                          )}
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link
