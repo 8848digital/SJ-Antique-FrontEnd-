@@ -212,13 +212,13 @@ const DetailPageReadyReceipt = () => {
                   setReadOnlyFields={setReadOnlyFields}
                   calculateEditTotal={calculateEditTotal}
                   handleClearFileUploadInput={handleClearFileUploadInput}
-                  keyValue={'edit'}
                   handleUpdateReceipt={handleUpdateReceipt}
                   lastInputRef={lastInputRef}
                   firstInputRef={firstInputRef}
                   setMatWt={setMatWt}
                   setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                   specificDataFromStore={specificDataFromStore}
+                  handleAmendButtonForDuplicateChitti={handleAmendButtonForDuplicateChitti}
                 />
               </div>
               <ReadyReceiptModal

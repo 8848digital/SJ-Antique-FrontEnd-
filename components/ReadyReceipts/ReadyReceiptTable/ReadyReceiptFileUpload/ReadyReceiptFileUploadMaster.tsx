@@ -4,15 +4,18 @@ import styles from '../../../../styles/readyReceipts.module.css';
 import WebCamPurchaseReceipt from './WebCamPurchaseReceipt';
 import usePhotoModalHook from '@/hooks/ReadyReceiptHook/ReadyReceiptFileUploadHook/ready-receipt-file-upload-hook';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { get_specific_receipt_data } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 
 const ReadyReceiptFileUploadMaster = ({
   handleFieldChange,
   item,
   handleClearFileUploadInput,
   readOnlyFields,
-  keyValue,
   handleCreate,
   handleUpdateReceipt,
+  handleAmendButtonForDuplicateChitti
 }: any) => {
   const {
     handlePhotaModalClose,
@@ -32,10 +35,21 @@ const ReadyReceiptFileUploadMaster = ({
     handlePreview,
     switchCamera,
   } = usePhotoModalHook();
-  
-  const handleTabPress:any = () => {
-    keyValue === 'edit' ? handleUpdateReceipt() : handleCreate();
 
+  const { query } = useRouter()
+  const readyReceiptDetailDataFromStore: any = useSelector(get_specific_receipt_data);
+
+  const handleTabPress: any = () => {
+    if (!readOnlyFields) {
+      if (query?.receipt && query?.receiptId && readyReceiptDetailDataFromStore?.docStatus === 2) {
+        handleAmendButtonForDuplicateChitti()
+      } else if (query?.receipt && query?.receiptId) {
+        handleUpdateReceipt()
+      }
+      else {
+        handleCreate()
+      }
+    }
   }
   return (
     <>
@@ -46,9 +60,6 @@ const ReadyReceiptFileUploadMaster = ({
             className={` ${styles.input_field} text-center cursor`}
             placeholder="Attach"
             value={item?.custom_add_photo}
-            // onKeyDown={(e) => {
-            //   keyValue === 'edit' ? handleUpdateReceipt() : handleCreate();
-            // }}
             onKeyDown={handleTabPress}
             onClick={() => {
               // if (!readOnlyFields) {
@@ -124,11 +135,10 @@ const ReadyReceiptFileUploadMaster = ({
                   </i>
                   <p className="m-0">My Device</p>
                 </button>
-                <button className="btn btn-file-upload" onClick={toggleWebcam}>
+                {/* <button className="btn btn-file-upload" onClick={toggleWebcam}>
                   <i
-                    className={`fa ${
-                      showWebcam ? 'fa-times' : 'fa-camera'
-                    } px-2 text-primary fs-5`}
+                    className={`fa ${showWebcam ? 'fa-times' : 'fa-camera'
+                      } px-2 text-primary fs-5`}
                   ></i>
                   <p className="m-0">
                     {showWebcam ? 'Close Camera' : 'Camera'}
@@ -142,7 +152,7 @@ const ReadyReceiptFileUploadMaster = ({
                     setCapturedImage={setCapturedImage}
                     switchCamera={switchCamera}
                   />
-                )}
+                )} */}
               </div>
             )}
           </>

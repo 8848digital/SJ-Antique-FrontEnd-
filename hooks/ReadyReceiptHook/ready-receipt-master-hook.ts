@@ -255,15 +255,15 @@ const useReadyReceipt = () => {
         loginAcessToken.token,
         values
       );
-      // console.log('purchase receipt api res', purchaseReceipt);
-      if (purchaseReceipt?.data?.message?.status === "error") {
-        toast.error(`${purchaseReceipt?.data?.message?.message}`);
-      } else {
+      console.log('purchase receipt api res', purchaseReceipt);
+      if (purchaseReceipt?.data?.message?.status === "success") {
         router.push(
           `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
             ?.message}`
         );
         toast.success('Purchase Receipt Created Successfully');
+      } else {
+        toast.error(`${purchaseReceipt?.data?.message?.message}`);
       }
 
     }
@@ -360,7 +360,7 @@ const useReadyReceipt = () => {
         query?.receiptId
       );
 
-      console.log("amend api res",amendReceiptApi)
+      console.log("amend api res", amendReceiptApi)
 
       if (amendReceiptApi?.data?.hasOwnProperty('data')) {
         const newURL = `/readyReceipt/${readyReceiptType}/${amendReceiptApi?.data?.data?.name}`;

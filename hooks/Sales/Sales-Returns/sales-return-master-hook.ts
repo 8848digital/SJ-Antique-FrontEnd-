@@ -93,7 +93,7 @@ const useSalesReturnMasterHook = () => {
     setSelectedClient(data[0]?.custom_client_name);
     if (data?.length >= 0) {
       if (selectedItemCodeForCustomerSale?.id) {
-        console.log(salesReturnTableData, 'table data in sale return');
+
         const updatedTable = salesReturnTableData?.map(
           (tableData: any, index: any) => {
             return tableData.idx === selectedItemCodeForCustomerSale.id
@@ -119,6 +119,7 @@ const useSalesReturnMasterHook = () => {
           : newRows || [SalesTableInitialState]
       );
     }
+
   };
   const removeIdxKey = (item: any) => {
     const { idx, ...itemWithoutIdx } = item;
@@ -148,6 +149,7 @@ const useSalesReturnMasterHook = () => {
           );
           if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
             updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+            handleAddRowForSalesReturn();
           }
         } catch (error) {
           console.error('Error fetching item details:', error);

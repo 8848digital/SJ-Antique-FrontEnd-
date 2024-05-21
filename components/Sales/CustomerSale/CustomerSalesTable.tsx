@@ -1,13 +1,12 @@
+import SelectInputKunKarigar from '@/components/InputDropdown/SelectInputKunKarigar';
+import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useMemo, useState } from 'react';
-import styles from '../../../styles/readyReceipts.module.css';
-import SelectInputKunKarigar from '@/components/InputDropdown/SelectInputKunKarigar';
-import SalesTableHeader from './SalesTableHeader';
-import TotalReadOnlyRowForSales from '../TotalReadOnlyRowForSales';
-import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
+import { useEffect, useRef, useState, createRef } from 'react';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import styles from '../../../styles/readyReceipts.module.css';
+import TotalReadOnlyRowForSales from '../TotalReadOnlyRowForSales';
+import SalesTableHeader from './SalesTableHeader';
 
 const CustomerSalesTable = ({
   salesTableData,
@@ -34,11 +33,11 @@ const CustomerSalesTable = ({
   handleTabPressItemDetails,
   itemCodeList,
 }: any) => {
-  // console.log(salesTableData, 'sales table data ');
+  console.log("sales table data updated", salesTableData)
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
-  const { query } = useRouter();
+
 
   const initialStateOfCalculationRow: any = {
     custom_gross_wt: 0,
@@ -167,6 +166,8 @@ const CustomerSalesTable = ({
   // };
 
   // console.log("sales table data", salesTableData, calculateCustomNetWt())
+
+
   return (
     <>
       {showAddrowBtn === true && (
@@ -252,7 +253,7 @@ const CustomerSalesTable = ({
                   <>
                     <tr key={item.idx} className={`${styles.table_row}`}>
                       <td className="table_row">{item?.idx}</td>
-                      <td className="table_row">
+                      <td className="table_row" >
                         <SelectInputKunKarigar
                           kundanKarigarData={itemCodeList}
                           kunKarigarDropdownReset={itemCodeDropdownReset}
@@ -277,6 +278,7 @@ const CustomerSalesTable = ({
                             setSelectedItemCodeForCustomerSale
                           }
                           handleTabPressItemDetails={handleTabPressItemDetails}
+
                         />
                       </td>
                       <td className="table_row">
@@ -588,6 +590,7 @@ const CustomerSalesTable = ({
                               handleTabPressInSales(e, item.idx);
                             }
                           }}
+
                         >
                           <FontAwesomeIcon
                             icon={faTrash}

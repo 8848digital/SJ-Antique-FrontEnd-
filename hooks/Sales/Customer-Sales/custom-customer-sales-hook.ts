@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const useCustomCustomerSalesHook = () => {
   const loginAcessToken = useSelector(get_access_token);
@@ -101,7 +100,6 @@ const useCustomCustomerSalesHook = () => {
   };
 
   const updateSalesTableData = (data: any) => {
-
     if (selectedItemCodeForCustomerSale?.id) {
       // Assuming data is a list with a single object
       const updatedTable = salesTableData?.map((tableData: any) => {
@@ -158,6 +156,7 @@ const useCustomCustomerSalesHook = () => {
       });
 
       setSalesTableData(updatedTable);
+      handleAddRowForSales();
     }
   };
   const handleDeleteRowOfSalesTable: any = (id: any) => {

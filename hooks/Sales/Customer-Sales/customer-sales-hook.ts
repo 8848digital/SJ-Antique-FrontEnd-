@@ -119,6 +119,7 @@ const useCustomerSaleHook = () => {
     fieldName: string,
     value: any
   ) => {
+    console.log("sales table dataaa", itemIdx, fieldName, value)
     setSalesTableData((prevData: any) => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
@@ -152,6 +153,9 @@ const useCustomerSaleHook = () => {
               fieldName === 'custom_ot_'
                 ? Number(item.custom_other_wt) * value
                 : item.custom_ot_amt,
+
+            custom_amount: Number(item.custom_cs_amt) + Number(item.custom_kun_amt) + Number(item.custom_ot_amt) + Number(item.custom_other)
+
           };
         } else {
           return item;
@@ -160,6 +164,7 @@ const useCustomerSaleHook = () => {
     });
     setStateForDocStatus(true);
   };
+
 
   const itemCodeListFunc = () => {
     if (barcodedata === 1) {
@@ -183,7 +188,6 @@ const useCustomerSaleHook = () => {
     if (selectedItemCodeForCustomerSale?.id) {
       const updatedData =
         salesTableData?.length > 0 &&
-        salesTableData !== null &&
         salesTableData.map((item: any) => {
           if (item.idx === selectedItemCodeForCustomerSale.id) {
             return {
@@ -210,6 +214,7 @@ const useCustomerSaleHook = () => {
           }
         });
       setSalesTableData(updatedData);
+      handleAddRowForSales();
     }
   };
 
@@ -279,6 +284,7 @@ const useCustomerSaleHook = () => {
         getItemCodeDetailsFun();
       }
     }
+
   };
   useEffect(() => {
     itemDetailApiFun();

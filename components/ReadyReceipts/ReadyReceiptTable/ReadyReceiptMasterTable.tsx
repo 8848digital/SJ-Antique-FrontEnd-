@@ -24,12 +24,12 @@ const ReadyReceiptMasterTable = ({
   calculateEditTotal,
   handleClearFileUploadInput,
   handleCreate,
-  keyValue,
   handleUpdateReceipt,
   lastInputRef,
   firstInputRef,
   setMatWt,
   specificDataFromStore,
+  handleAmendButtonForDuplicateChitti
 }: any) => {
   // console.log('table data receipt', tableData);
   const { query } = useRouter();
@@ -317,9 +317,9 @@ const ReadyReceiptMasterTable = ({
                       item={item}
                       readOnlyFields={readOnlyFields}
                       handleClearFileUploadInput={handleClearFileUploadInput}
-                      keyValue={keyValue}
                       handleUpdateReceipt={handleUpdateReceipt}
                       handleCreate={handleCreate}
+                      handleAmendButtonForDuplicateChitti={handleAmendButtonForDuplicateChitti}
                     />
                   </td>
                   <td className="table_row d-flex justify-content-center">
