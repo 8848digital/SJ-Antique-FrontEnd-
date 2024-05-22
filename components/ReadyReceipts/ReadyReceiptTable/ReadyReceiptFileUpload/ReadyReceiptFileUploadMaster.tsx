@@ -62,9 +62,9 @@ const ReadyReceiptFileUploadMaster = ({
             value={item?.custom_add_photo}
             onKeyDown={handleTabPress}
             onClick={() => {
-              // if (!readOnlyFields) {
-              handleShowPhotoModal(item);
-              // }
+              if (!readOnlyFields) {
+                handleShowPhotoModal(item);
+              }
             }}
           />
         </div>

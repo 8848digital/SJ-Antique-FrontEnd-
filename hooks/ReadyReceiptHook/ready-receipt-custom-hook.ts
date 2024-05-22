@@ -121,7 +121,6 @@ const useCustomReadyReceiptHook: any = () => {
       const capitalizeFirstLetter = (str: any) => {
         return str?.charAt(0)?.toUpperCase() + str?.slice(1);
       };
-
       let updatedData: any = await getPurchasreceiptListApi(
         loginAcessToken,
         capitalizeFirstLetter(lastPartOfURL)

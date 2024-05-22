@@ -256,7 +256,7 @@ const useReadyReceipt = () => {
         values
       );
       console.log('purchase receipt api res', purchaseReceipt);
-      if (purchaseReceipt?.data?.message?.status === "success") {
+      if (purchaseReceipt?.data?.message?.status === "Success") {
         router.push(
           `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
             ?.message}`
