@@ -364,7 +364,7 @@ const CustomerSalesTable = ({
                           type="number"
                           min={0}
                           value={Number(item.custom_other_wt)}
-                          defaultValue={item.custom_other_wt}
+                          defaultValue={Number(item.custom_other_wt)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -437,8 +437,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={item.custom_kun_pc}
-                          defaultValue={item.custom_kun_pc}
+                          value={Number(item.custom_kun_pc)}
+                          defaultValue={Number(item.custom_kun_pc)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -454,8 +454,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={item.custom_kun}
-                          defaultValue={item.custom_kun}
+                          value={Number(item.custom_kun)}
+                          defaultValue={Number(item.custom_kun)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -472,7 +472,7 @@ const CustomerSalesTable = ({
                           type="number"
                           min={0}
                           value={Number(item.custom_kun_amt)?.toFixed(2)}
-                          defaultValue={item.custom_kun_amt?.toFixed(2)}
+                          defaultValue={Number(item.custom_kun_amt)?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -507,7 +507,7 @@ const CustomerSalesTable = ({
                           type="number"
                           min={0}
                           value={Number(item.custom_ot_amt)?.toFixed(2)}
-                          defaultValue={(item.custom_ot_amt)?.toFixed(2)}
+                          defaultValue={Number(item.custom_ot_amt)?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
