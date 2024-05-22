@@ -17,7 +17,6 @@ const getItemDetailsInSalesApi = async (
       getHeaders
     )
     .then((res: any) => {
-      console.log('get karigar', res);
       response = res;
     })
     .catch((err: any) => {

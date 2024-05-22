@@ -102,29 +102,28 @@ const useCustomSalesReturnHook = () => {
     setStateForDocStatus(true);
   };
 
-  const handleAddRowForSalesReturn: any = () => {
-    console.log("addd row")
-    const newRow: any = {
-      idx: salesReturnTableData?.length + 1,
-      item_code: '',
-      custom_gross_wt: '',
-      custom_kun_wt: '',
-      custom_cs_wt: '',
-      custom_bb_wt: '',
-      custom_other_wt: '',
-      custom_net_wt: '',
-      custom_cs: kunCsOtFixedAmt?.csFixedAmt,
-      custom_cs_amt: '',
-      custom_kun_pc: '',
-      custom_kun: kunCsOtFixedAmt?.kunFixedAmt,
-      custom_kun_amt: '',
-      custom_ot_: kunCsOtFixedAmt?.otFixedAmt,
-      custom_ot_amt: 0,
-      custom_other: '',
-      custom_amount: 0,
-    };
+  const newRowForSalesReturnTable: any = {
+    idx: salesReturnTableData?.length + 1,
+    item_code: '',
+    custom_gross_wt: '',
+    custom_kun_wt: '',
+    custom_cs_wt: '',
+    custom_bb_wt: '',
+    custom_other_wt: '',
+    custom_net_wt: '',
+    custom_cs: kunCsOtFixedAmt?.csFixedAmt,
+    custom_cs_amt: '',
+    custom_kun_pc: '',
+    custom_kun: kunCsOtFixedAmt?.kunFixedAmt,
+    custom_kun_amt: '',
+    custom_ot_: kunCsOtFixedAmt?.otFixedAmt,
+    custom_ot_amt: 0,
+    custom_other: '',
+    custom_amount: 0,
+  };
 
-    setSalesReturnTableData([...salesReturnTableData, newRow]);
+  const handleAddRowForSalesReturn: any = () => {
+    setSalesReturnTableData([...salesReturnTableData, newRowForSalesReturnTable]);
     setStateForDocStatus(true);
   };
   const handleDeleteRowOfSalesReturnTable: any = (id: any) => {
@@ -289,6 +288,7 @@ const useCustomSalesReturnHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     handleFixedAmt,
+    newRowForSalesReturnTable
   };
 };
 

@@ -44,6 +44,7 @@ const useSalesReturnMasterHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     handleFixedAmt,
+    newRowForSalesReturnTable
   }: any = useCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
   const [deliveryNoteData, setDeliveryNoteData] = useState({
@@ -91,36 +92,45 @@ const useSalesReturnMasterHook = () => {
 
   const updateSalesTableData = (data: any) => {
     setSelectedClient(data[0]?.custom_client_name);
-    if (data?.length >= 0) {
+    if (data?.length > 0) {
       if (selectedItemCodeForCustomerSale?.id) {
+        setSalesReturnTableData((prevSalesReturnTableData: any) => {
+          const updatedTable = prevSalesReturnTableData?.map(
+            (tableData: any) => {
+              return tableData.idx === selectedItemCodeForCustomerSale.id
+                ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
+                : tableData;
+            }
+          );
+          return updatedTable;
+        });
 
-        const updatedTable = salesReturnTableData?.map(
-          (tableData: any, index: any) => {
-            return tableData.idx === selectedItemCodeForCustomerSale.id
-              ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
-              : tableData;
-          }
+        setSalesReturnTableData((prevSalesTableData: any) => {
+          return [...prevSalesTableData, newRowForSalesReturnTable];
+        });
+      } else {
+        // Create a new row for each item in data[0]?.items
+        const newRows = removeIdxKey(data[0]?.items)?.map(
+          (item: any, index: any) => ({
+            ...SalesTableInitialState,
+            ...removeIdxKey(item),
+            idx: index + 1, // Use a unique idx for each row
+          })
         );
-        setSalesReturnTableData(updatedTable);
+
+        setSalesReturnTableData((prevData: any) =>
+          prevData
+            ? [...prevData, ...newRows]
+            : newRows || [SalesTableInitialState]
+        );
+        // Update state with new row
+        setSalesReturnTableData((prevSalesTableData: any) => {
+          return [...prevSalesTableData, newRowForSalesReturnTable];
+        });
       }
-    } else {
-      // Create a new row for each item in data[0]?.items
-      const newRows = removeIdxKey(data[0]?.items)?.map(
-        (item: any, index: any) => ({
-          ...SalesTableInitialState,
-          ...removeIdxKey(item),
-          idx: index + 1, // Use a unique idx for each row
-        })
-      );
-
-      setSalesReturnTableData((prevData: any) =>
-        prevData
-          ? [...prevData, ...newRows]
-          : newRows || [SalesTableInitialState]
-      );
     }
-
   };
+
   const removeIdxKey = (item: any) => {
     const { idx, ...itemWithoutIdx } = item;
     return itemWithoutIdx;
@@ -149,7 +159,7 @@ const useSalesReturnMasterHook = () => {
           );
           if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
             updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
-            handleAddRowForSalesReturn();
+
           }
         } catch (error) {
           console.error('Error fetching item details:', error);

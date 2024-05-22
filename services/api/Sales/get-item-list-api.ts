@@ -11,7 +11,6 @@ const getItemListInSalesApi = async (get_access_token: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get item list', res);
       response = res;
     })
     .catch((err: any) => {

@@ -11,7 +11,6 @@ const getDeliveryNoteListing = async (get_access_token: any, params: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get dn list', res);
       response = res;
     })
     .catch((err: any) => {

@@ -26,7 +26,6 @@ const useCustomerSaleHook = () => {
   const {
     handleAddRowForSales,
     salesTableData,
-    SalesTableInitialState,
     setSalesTableData,
     setStateForDocStatus,
     kunCsOtFixedAmt,
@@ -42,6 +41,7 @@ const useCustomerSaleHook = () => {
     setSelectedItemCodeForCustomerSale,
     itemCodeDropdownReset,
     updateSalesTableData,
+    updateBarcodeSalesTableData,
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
   } = useCustomCustomerSalesHook();
@@ -184,39 +184,6 @@ const useCustomerSaleHook = () => {
     }
   };
   const itemCodeList = itemCodeListFunc();
-  const updateBarcodeSalesTableData = (data: any) => {
-    if (selectedItemCodeForCustomerSale?.id) {
-      const updatedData =
-        salesTableData?.length > 0 &&
-        salesTableData.map((item: any) => {
-          if (item.idx === selectedItemCodeForCustomerSale.id) {
-            return {
-              ...item,
-              item_code: data[0]?.item_code,
-              custom_gross_wt: data[0]?.custom_gross_wt,
-              custom_kun_wt: data[0]?.custom_kun_wt,
-              custom_cs_wt: data[0]?.custom_cs_wt,
-              custom_bb_wt: data[0]?.custom_bb_wt,
-              custom_other_wt: data[0]?.custom_other_wt,
-              custom_net_wt: data[0]?.custom_net_wt,
-              custom_cs: data[0]?.custom_cs,
-              custom_cs_amt: data[0]?.custom_cs_amt,
-              custom_kun_pc: data[0]?.custom_kun_pc,
-              custom_kun: data[0]?.custom_kun,
-              custom_kun_amt: data[0]?.custom_kun_amt,
-              custom_ot_: data[0]?.custom_ot_,
-              custom_ot_amt: data[0]?.custom_ot_amt,
-              custom_other: data[0]?.custom_other,
-              custom_amount: data[0]?.custom_amount,
-            };
-          } else {
-            return item;
-          }
-        });
-      setSalesTableData(updatedData);
-      handleAddRowForSales();
-    }
-  };
 
   const itemDetailApiFun = () => {
     if (barcodedata === 1) {
