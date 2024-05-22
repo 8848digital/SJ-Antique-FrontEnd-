@@ -114,54 +114,56 @@ const useCustomerSaleHook = () => {
     setSelectedLocation('Mumbai');
   }, []);
 
-  const handleSalesTableFieldChange: any = (
-    itemIdx: number,
-    fieldName: string,
-    value: any
-  ) => {
-    console.log("sales table dataaa", itemIdx, fieldName, value)
+  const handleSalesTableFieldChange = (itemIdx: any, fieldName: any, value: any) => {
+
     setSalesTableData((prevData: any) => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
-          return {
+          const updatedItem = {
             ...item,
-            [fieldName]: Number(value),
-            custom_net_wt:
-              Number(item?.custom_gross_wt) -
-                (Number(item?.custom_kun_wt) +
-                  Number(item?.custom_cs_wt) +
-                  Number(item?.custom_bb_wt) +
-                  Number(item?.custom_other_wt)) <
-                0
-                ? 0
-                : Number(item?.custom_gross_wt) -
-                (Number(item?.custom_kun_wt) +
-                  Number(item?.custom_cs_wt) +
-                  Number(item?.custom_bb_wt) +
-                  Number(item?.custom_other_wt)),
-            custom_cs_amt:
-              fieldName === 'custom_cs'
-                ? Number(item.custom_cs_wt) * value
-                : item.custom_cs_amt,
-            custom_kun_amt:
-              fieldName === 'custom_kun'
-                ? Number(item?.custom_kun_pc) * value
-                : fieldName === 'custom_kun_pc'
-                  ? Number(item.custom_kun) * value
-                  : item.custom_kun_amt,
-            custom_ot_amt:
-              fieldName === 'custom_ot_'
-                ? Number(item.custom_other_wt) * value
-                : item.custom_ot_amt,
-
-            custom_amount: Number(item.custom_cs_amt) + Number(item.custom_kun_amt) + Number(item.custom_ot_amt) + Number(item.custom_other)
-
+            [fieldName]: Number(value)
           };
+
+          // Calculate the dependent values
+          updatedItem.custom_net_wt = Math.max(
+            0,
+            Number(updatedItem.custom_gross_wt) - (
+              Number(updatedItem.custom_kun_wt) +
+              Number(updatedItem.custom_cs_wt) +
+              Number(updatedItem.custom_bb_wt) +
+              Number(updatedItem.custom_other_wt)
+            )
+          );
+
+          if (fieldName === 'custom_cs') {
+            updatedItem.custom_cs_amt = Number(updatedItem.custom_cs_wt) * value;
+          }
+
+          if (fieldName === 'custom_kun') {
+            updatedItem.custom_kun_amt = Number(updatedItem.custom_kun_pc) * value;
+          }
+
+          if (fieldName === 'custom_kun_pc') {
+            updatedItem.custom_kun_amt = Number(updatedItem.custom_kun) * value;
+          }
+
+          if (fieldName === 'custom_ot_') {
+            updatedItem.custom_ot_amt = Number(updatedItem.custom_other_wt) * value;
+          }
+
+          updatedItem.custom_amount = (
+            Number(updatedItem.custom_cs_amt) +
+            Number(updatedItem.custom_kun_amt) +
+            Number(updatedItem.custom_ot_amt) +
+            Number(updatedItem.custom_other)
+          );
+          return updatedItem;
         } else {
           return item;
         }
       });
     });
+
     setStateForDocStatus(true);
   };
 
@@ -274,7 +276,6 @@ const useCustomerSaleHook = () => {
     if (barcodedata === 0) {
       const updatedData =
         salesTableData?.length > 0 &&
-        salesTableData !== null &&
         salesTableData.map((data: any) => {
           const kunInitial = Number(data?.custom_pr_kun_wt) || 0;
           const csWtInitial = Number(data?.custom_pr_cs_wt) || 0;
@@ -328,23 +329,13 @@ const useCustomerSaleHook = () => {
                 Number(data?.custom_cs_wt) +
                 Number(data?.custom_bb_wt) +
                 Number(data?.custom_other_wt)),
-            custom_amount: Number(
-              (Number.isNaN(data.custom_cs_amt)
-                ? 0
-                : Number(data?.custom_cs_amt)) +
-              Number(data?.custom_kun_amt) +
-              (Number.isNaN(data.custom_ot_amt)
-                ? 0
-                : Number(data?.custom_ot_amt)) +
-              Number(data?.custom_other)
-            )?.toFixed(3),
+
           };
         });
       setSalesTableData(updatedData);
     }
   }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt]);
 
-  // console.log("/////", salesTableData)
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
@@ -476,7 +467,6 @@ const useCustomerSaleHook = () => {
       docStatus,
       params
     );
-    // console.log("handleUpdateDocStatus", updateDocStatus) 
     if (updateDocStatus?.data?.hasOwnProperty('data')) {
       if (name === undefined) {
         const reqParams: any = {

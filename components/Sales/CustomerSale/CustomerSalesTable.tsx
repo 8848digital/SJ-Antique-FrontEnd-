@@ -33,7 +33,7 @@ const CustomerSalesTable = ({
   handleTabPressItemDetails,
   itemCodeList,
 }: any) => {
-  console.log("sales table data updated", salesTableData)
+  // console.log("sales table data updated", salesTableData)
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
@@ -248,7 +248,6 @@ const CustomerSalesTable = ({
             </thead>
             <tbody>
               {salesTableData?.length > 0 &&
-                salesTableData !== null &&
                 salesTableData.map((item: any, i: any) => (
                   <>
                     <tr key={item.idx} className={`${styles.table_row}`}>
@@ -283,7 +282,7 @@ const CustomerSalesTable = ({
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.customer_sale_input_field} text-end `}
+                          className={`${styles.customer_sale_input_field} text-end`}
                           type="number"
                           min={0}
                           value={Number(
@@ -472,10 +471,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={(
-                            Number(item.custom_kun_pc) * Number(item.custom_kun)
-                          )?.toFixed(2)}
-                          defaultValue={item.custom_kun_amt}
+                          value={Number(item.custom_kun_amt)?.toFixed(2)}
+                          defaultValue={item.custom_kun_amt?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -484,7 +481,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // disabled
+
                         />
                       </td>
                       <td className="table_row">
@@ -509,14 +506,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(
-                            Number(item.custom_other_wt) *
-                            Number(item.custom_ot_)
-                          )?.toFixed(2)}
-                          defaultValue={Number(
-                            Number(item.custom_other_wt) *
-                            Number(item.custom_ot_)
-                          )?.toFixed(2)}
+                          value={Number(item.custom_ot_amt)?.toFixed(2)}
+                          defaultValue={(item.custom_ot_amt)?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -525,7 +516,6 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // disabled
                         />
                       </td>
                       <td className="table_row">
@@ -550,22 +540,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(
-                            (Number.isNaN(item.custom_cs_amt)
-                              ? 0
-                              : Number(item?.custom_cs_amt)) +
-                            Number(item?.custom_kun_amt) +
-                            (Number.isNaN(item.custom_ot_amt)
-                              ? 0
-                              : Number(item?.custom_ot_amt)) +
-                            Number(item?.custom_other)
-                          )?.toFixed(2)}
-                          defaultValue={Number(
-                            Number(item?.custom_cs_amt) +
-                            Number(item?.custom_kun_amt) +
-                            Number(item?.custom_ot_amt) +
-                            Number(item?.custom_other)
-                          )}
+                          value={Number(item.custom_amount)}
+                          defaultValue={Number(item.custom_amount)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -574,7 +550,6 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // disabled
                         />
                       </td>
                       <td className="table_row">
