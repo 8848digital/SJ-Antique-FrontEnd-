@@ -69,9 +69,9 @@ const DetailPageReadyReceipt = () => {
     selectedLocation,
     setSelectedLocation,
     specificDataFromStore,
+    tabDisabled
   } = useReadyReceiptKarigar();
 
-  const [tabDisabled, setTabDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     if (defaultKarigarData?.length > 0 && defaultKarigarData !== null) {
@@ -91,27 +91,27 @@ const DetailPageReadyReceipt = () => {
     setTableData,
     setSelectedLocation,
   ]);
-  useEffect(() => {
-    setTabDisabled(true); // Disable Tab key
-    setTimeout(() => {
-      setTabDisabled(false); // Enable Tab key after 2 seconds
-    }, 2000);
-  }, []);
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (tabDisabled && event.key === 'Tab') {
-        event.preventDefault(); // Prevent default Tab behavior
-      }
-    };
+  // useEffect(() => {
+  //   setTabDisabled(true); // Disable Tab key
+  //   setTimeout(() => {
+  //     setTabDisabled(false); // Enable Tab key after 2 seconds
+  //   }, 2000);
+  // }, []);
+  // useEffect(() => {
+  //   const handleKeyDown = (event: KeyboardEvent) => {
+  //     if (tabDisabled && event.key === 'Tab') {
+  //       event.preventDefault(); // Prevent default Tab behavior
+  //     }
+  //   };
 
-    window.addEventListener('keydown', handleKeyDown); // Add event listener
+  //   window.addEventListener('keydown', handleKeyDown); // Add event listener
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown); // Cleanup on component unmount
-    };
-  }, [tabDisabled]);
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown); // Cleanup on component unmount
+  //   };
+  // }, [tabDisabled]);
   return (
-    <div className="container">
+    <div className="container" style={{ position: 'relative' }}>
       {isLoading ? (
         <Loader />
       ) : (
@@ -123,9 +123,13 @@ const DetailPageReadyReceipt = () => {
               backButtonUrl={`/readyReceipt/${query?.receipt}`}
             />
           ) : (
+            <>
+            {tabDisabled ? (<Loader/>):(
+
             <div>
               {defaultKarigarData?.length > 0 &&
                 defaultKarigarData !== null &&
+                
                 defaultKarigarData.map((data: any, index: any) => (
                   <div key={index}>
                     <ReadyReceiptsTabs />
@@ -219,6 +223,7 @@ const DetailPageReadyReceipt = () => {
                   setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                   specificDataFromStore={specificDataFromStore}
                   handleAmendButtonForDuplicateChitti={handleAmendButtonForDuplicateChitti}
+                  tabDisabled={tabDisabled}
                 />
               </div>
               <ReadyReceiptModal
@@ -243,6 +248,8 @@ const DetailPageReadyReceipt = () => {
                 handleTabPressOnModal={handleTabPressOnModal}
               />
             </div>
+            )}
+            </>
           )}
         </>
       )}

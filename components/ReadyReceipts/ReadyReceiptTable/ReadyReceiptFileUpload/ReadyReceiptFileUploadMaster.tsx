@@ -34,6 +34,7 @@ const ReadyReceiptFileUploadMaster = ({
     showPreview,
     handlePreview,
     switchCamera,
+    tabDisabled
   } = usePhotoModalHook();
 
   const { query } = useRouter()

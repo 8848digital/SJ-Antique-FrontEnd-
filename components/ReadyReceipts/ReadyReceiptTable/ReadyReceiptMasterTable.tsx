@@ -29,7 +29,8 @@ const ReadyReceiptMasterTable = ({
   firstInputRef,
   setMatWt,
   specificDataFromStore,
-  handleAmendButtonForDuplicateChitti
+  handleAmendButtonForDuplicateChitti,
+  tabDisabled
 }: any) => {
   // console.log('table data receipt', tableData);
   const { query } = useRouter();
@@ -320,6 +321,7 @@ const ReadyReceiptMasterTable = ({
                       handleUpdateReceipt={handleUpdateReceipt}
                       handleCreate={handleCreate}
                       handleAmendButtonForDuplicateChitti={handleAmendButtonForDuplicateChitti}
+                      tabDisabled={tabDisabled}
                     />
                   </td>
                   <td className="table_row d-flex justify-content-center">

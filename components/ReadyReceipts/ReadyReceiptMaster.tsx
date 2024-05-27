@@ -63,6 +63,7 @@ const ReadyReceiptMaster = () => {
     firstInputRef,
     lastInputRef,
     specificDataFromStore,
+    tabDisabled
   } = useReadyReceipt();
 
   const capitalizeWords: any = (word: any) => {
@@ -202,6 +203,7 @@ const ReadyReceiptMaster = () => {
                   firstInputRef={firstInputRef}
                   lastInputRef={lastInputRef}
                   specificDataFromStore={specificDataFromStore}
+                  tabDisabled={tabDisabled}
                 />
               </div>
             </div>

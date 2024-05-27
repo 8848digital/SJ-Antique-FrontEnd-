@@ -42,6 +42,7 @@ const useReadyReceipt = () => {
   const loginAcessToken = useSelector(get_access_token);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   const [selectedLocation, setSelectedLocation] = useState<any>();
+  const [tabDisabled, setTabDisabled] = useState<boolean>(false);
   let disabledValue: any;
   useEffect(() => {
     setRecipitData({
@@ -96,6 +97,20 @@ const useReadyReceipt = () => {
     filteredTableDataForUpdate,
     calculateReadyReceiptModalData,
   }: any = useReadyReceiptCustomCalculationHook();
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (tabDisabled && event.key === 'Tab') {
+        event.preventDefault(); // Prevent default Tab behavior
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown); // Add event listener
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown); // Cleanup on component unmount
+    };
+  }, [tabDisabled]);
 
   useEffect(() => {
     const getPurchaseList = async () => {
@@ -216,6 +231,7 @@ const useReadyReceipt = () => {
   };
 
   const handleCreate = async () => {
+    setTabDisabled(true);
     const updatedTableData: any = calculateWtForCreateReceipt({
       tableData,
       indexVal,
@@ -246,26 +262,30 @@ const useReadyReceipt = () => {
 
     if (isEmptyProductCode) {
       toast.error('Please fill all the required fields');
+      setTabDisabled(false);
     } else if (isEmptyNetWt) {
       toast.error('Please fill all the required fields');
+      setTabDisabled(false);
     } else if (productVal === ' ') {
       toast.error('Mandatory field Karigar');
+      setTabDisabled(false);
     } else {
       const purchaseReceipt: any = await purchaseReceiptApi(
         loginAcessToken.token,
         values
       );
       console.log('purchase receipt api res', purchaseReceipt);
-      if (purchaseReceipt?.data?.message?.status === "Success") {
+      if (purchaseReceipt?.data?.message?.status === 'Success') {
         router.push(
           `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
             ?.message}`
         );
         toast.success('Purchase Receipt Created Successfully');
+        setTabDisabled(false);
       } else {
         toast.error(`${purchaseReceipt?.data?.message?.message}`);
+        setTabDisabled(false);
       }
-
     }
   };
 
@@ -282,8 +302,11 @@ const useReadyReceipt = () => {
     setSelectedKundanKarigarDropdownValue('');
     setKunKarigarDropdownReset(true);
   };
-
   const handleUpdateReceipt: any = async () => {
+    if(tabDisabled){
+      return
+    }
+    setTabDisabled(true);
     const filteredDataa = filteredTableDataForUpdate(tableData);
     const updatedTableData: any = calculateTableDataForUpdateReceipt({
       filteredDataa,
@@ -323,8 +346,10 @@ const useReadyReceipt = () => {
           name: query?.receiptId,
         };
         dispatch(getSpecificReceipt(params));
+        setTabDisabled(false);
       } else {
         toast.error(`${updateReceiptApi?.data?.message?.error}`);
+        setTabDisabled(false);
       }
     }
   };
@@ -360,7 +385,7 @@ const useReadyReceipt = () => {
         query?.receiptId
       );
 
-      console.log("amend api res", amendReceiptApi)
+      console.log('amend api res', amendReceiptApi);
 
       if (amendReceiptApi?.data?.hasOwnProperty('data')) {
         const newURL = `/readyReceipt/${readyReceiptType}/${amendReceiptApi?.data?.data?.name}`;
@@ -372,7 +397,7 @@ const useReadyReceipt = () => {
         setShowSaveButtonForAmendFlow(false);
       } else {
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return {
@@ -432,6 +457,7 @@ const useReadyReceipt = () => {
     selectedLocation,
     setSelectedLocation,
     specificDataFromStore,
+    tabDisabled,
   };
 };
 
