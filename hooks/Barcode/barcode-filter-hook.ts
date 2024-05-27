@@ -155,8 +155,8 @@ const UseBarcodeFilterList = () => {
         setItemCodeDataToShow(checkItemCodesToShow);
         const ids =
           checkItemCodesToShow?.length > 0 &&
-          checkItemCodesToShow.map((item: any) => ({
-            id: item.idx,
+          checkItemCodesToShow.map((item: any, index: any) => ({
+            id: index,
             name: item.item_code,
           }));
         setCheckedItems(ids);
@@ -164,8 +164,8 @@ const UseBarcodeFilterList = () => {
         setItemCodeDataToShow(searchBarcodeItemDetailsResult);
         const ids =
           searchBarcodeItemDetailsResult?.length > 0 &&
-          searchBarcodeItemDetailsResult.map((item: any) => ({
-            id: item.idx,
+          searchBarcodeItemDetailsResult.map((item: any, index: any) => ({
+            id: index,
             name: item.item_code,
           }));
         setCheckedItems(ids);
@@ -357,7 +357,7 @@ const UseBarcodeFilterList = () => {
   };
 
   const HandleCreateBarcode = async () => {
-    console.log(salesTableData, '@barcode post barcode');
+    console.log(salesTableData, 'barcode post barcode');
 
     const updatedData =
       salesTableData?.length > 0 &&

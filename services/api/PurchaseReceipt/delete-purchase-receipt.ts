@@ -22,7 +22,15 @@ const DeletePurchaseReceiptApi = async (token: any, name: any, param: any) => {
       console.log(response, 'deleteRes');
     })
     .catch((err: any) => {
-      console.log(err);
+      if (err.code === 'ECONNABORTED') {
+        response = 'Request timed out';
+      } else if (err.code === 'ERR_BAD_REQUEST') {
+        response = 'Bad Request';
+      } else if (err.code === 'ERR_INVALID_URL') {
+        response = 'Invalid URL';
+      } else {
+        response = err;
+      }
     });
   return response;
 };

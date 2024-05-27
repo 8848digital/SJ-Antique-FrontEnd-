@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/header.module.css';
 import { useRouter } from 'next/router';
 
@@ -7,27 +7,26 @@ const ReceiptsHeader = () => {
   const pathParts = router.asPath.split('/');
   const url1 = pathParts[pathParts.length - 1];
   const url2 = pathParts[pathParts.length - 2];
-  const headerData = useMemo(()=> [
-      { label: 'Master', href: '/master' },
-      { label: 'Ready Receipts', href: '/readyReceipt/kundan' },
-      { label: 'Sales', href: '/sales/customerSale' },
-      { label: 'Report', href: '/report' },
-      { label: 'Barcode', href: '/barcode' },
-    ],[]
-  ) 
+  const headerData: any = [
+    { label: 'Master', href: '/master' },
+    { label: 'Ready Receipts', href: '/readyReceipt/kundan' },
+    { label: 'Sales', href: '/sales/customerSale' },
+    { label: 'Report', href: '/report' },
+    { label: 'Barcode', href: '/barcode' },
+  ];
 
-  const currentActivePageInitially = useCallback(() => {
-    const currentPage = headerData.filter((data:any) => {
+  const currentActivePageInitially: any = () => {
+    const currentPage: any = headerData.filter((data: any, index: any) => {
       return data.href.includes(url1) || data.href.includes(url2);
     });
     return currentPage[0]?.label;
-  }, [headerData, url1, url2]);
+  };
 
   const [activeItem, setActiveItem] = useState(currentActivePageInitially());
 
   useEffect(() => {
     currentActivePageInitially();
-  }, [router,currentActivePageInitially]);
+  }, [router]);
 
   const handleItemClick = (value: any) => {
     setActiveItem(value);

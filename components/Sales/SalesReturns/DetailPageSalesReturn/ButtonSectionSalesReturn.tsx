@@ -21,15 +21,12 @@ const SaleReturnsButtonSection = ({
   const { query } = useRouter();
   const pathParts = router?.asPath?.split('/');
   const salesId = pathParts[1];
-  console.log('queryy', query, pathParts);
+
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_sales_return_data
   );
 
-  console.log('sales return data from store', DetailOfDeliveryNoteFromStore);
-
   const HandleAmendButtonChanges: any = async () => {
-    console.log('docStatus from store in amend func');
     setShowSaveButtonForAmendFlow(true);
     setStateForDocStatus(true);
     setReadOnlyFields(false);
@@ -105,7 +102,8 @@ const SaleReturnsButtonSection = ({
                 Save
               </button>
             )}
-          {DetailOfDeliveryNoteFromStore?.docStatus === 1 &&
+          {(DetailOfDeliveryNoteFromStore?.docStatus === 0 ||
+            DetailOfDeliveryNoteFromStore?.docStatus === 1) &&
             stateForDocStatus === false && (
               <button
                 type="button"

@@ -8,15 +8,9 @@ import { useDispatch } from 'react-redux';
 import { ClearToken } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import ReceiptsHeader from '../Header/ReceiptsHeader';
-import ReadyReceiptsTabs from '../KundanReadyReceipts/ReadyReceiptsTabs';
 
 const Navbar = () => {
   const router = useRouter();
-  const [showReceipt, setShowReceipts] = useState<boolean>(false);
-  const [showSales, setShowSales] = useState<boolean>(false);
-  const [showMaster, setShowMaster] = useState<boolean>(false);
-  const [showReport, setShowReport] = useState<boolean>(false);
-  const [showBarcode, setShowBarcode] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const handleClick = () => {
@@ -26,25 +20,10 @@ const Navbar = () => {
 
   return (
     <div className="container-lg">
-      <div className=" bg-light">
-        <nav
-          className="d-flex"
-        // className="container-lg mt-2 d-flex flex-wrap justify-content-between "
-        >
-          {/* <div></div> */}
+      <div className="">
+        <nav className="d-flex">
           <div className="container-lg mt-2 d-flex flex-wrap justify-content-center ">
-            <ReceiptsHeader
-              showReceipt={showReceipt}
-              setShowReceipts={setShowReceipts}
-              showSales={showSales}
-              setShowSales={setShowSales}
-              showMaster={showMaster}
-              setShowMaster={setShowMaster}
-              showReport={showReport}
-              setShowReport={setShowReport}
-              showBarcode={showBarcode}
-              setShowBarcode={setShowBarcode}
-            />
+            <ReceiptsHeader />
           </div>
 
           <div className="text-end mt-2">
@@ -74,7 +53,6 @@ const Navbar = () => {
           </div>
         </nav>
         <hr className=" my-1" />
-        <ReadyReceiptsTabs showReceipt={showReceipt} />
       </div>
     </div>
   );

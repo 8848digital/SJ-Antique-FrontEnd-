@@ -1,11 +1,12 @@
 import SalesHeader from '@/components/Header/SalesHeader';
-import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
+
 import TabSection from '@/components/TabSection';
-import UseCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sale-hook';
+import useCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sales-hook';
 import CustomerSalesTable from './CustomerSalesTable';
 import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
-import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
+import useScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
+import ReadyReceiptListing from '@/components/ReadyReceipts/ReadyReceiptsListing';
 
 const CustomerSaleMaster = () => {
   const {
@@ -29,7 +30,7 @@ const CustomerSaleMaster = () => {
     handleDNCreate,
     handleSelectClientGroup,
     clientGroupList,
-    HandleDeleteDeliveryNote,
+    handleDeleteDeliveryNote,
     itemCodeDropdownReset,
     setItemCodeDropdownReset,
     deliveryNoteListParams,
@@ -37,7 +38,7 @@ const CustomerSaleMaster = () => {
     handleDeliveryNotePrintApi,
     selectedItemCode,
     setSelectedItemCode,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleTabPressInSales,
     warehouseListData,
     selectedLocation,
@@ -46,7 +47,7 @@ const CustomerSaleMaster = () => {
     deliveryNoteData,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     barcodedata,
     setBarcodeData,
     handleBarcodeData,
@@ -54,32 +55,29 @@ const CustomerSaleMaster = () => {
     isBarcodeChecked,
     handleTabPressItemDetails,
     itemCodeList,
-  }: any = UseCustomerSaleHook();
+  }: any = useCustomerSaleHook();
   const {
     scrollableTableRef,
     handleMouseDown,
     handleMouseUp,
     handleMouseLeave,
     handleMouseMove,
-  }: any = UseScrollbarHook();
+  }: any = useScrollbarHook();
 
-  console.log(deliveryNoteListing, 'client name in listing');
-  console.log('kunCsOtCategoryListData', kunCsOtCategoryListData);
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-          return data.is_return === 0;
-        })
+        return data.is_return === 0;
+      })
       : [];
 
-  console.log('kundan listing', kundanListing);
   return (
     <div className="container-lg px-0">
       <SalesHeader />
       <div className="d-flex justify-content-center">
         <TabSection
-          firstTabHeading="Sales list"
-          secondTabHeading="Create new Sales "
+          firstTabHeading="Sales List"
+          secondTabHeading="Create New Sales "
         />
       </div>
       <div className="tab-content " id="pills-tabContent">
@@ -90,7 +88,7 @@ const CustomerSaleMaster = () => {
           aria-labelledby="pills-home-tab"
         >
           <div className="tab-responsive">
-            <KundanListing
+            <ReadyReceiptListing
               kundanListing={kundanListing}
               karigarData={
                 clientNameListData?.length > 0 &&
@@ -101,8 +99,8 @@ const CustomerSaleMaster = () => {
               }
               colPlaceholder1={'Sales No.'}
               colPlaceholder2={'Client '}
-              HandleDeleteReceipt={HandleDeleteDeliveryNote}
-              HandleUpdateDocStatus={HandleUpdateDocStatus}
+              HandleDeleteReceipt={handleDeleteDeliveryNote}
+              HandleUpdateDocStatus={handleUpdateDocStatus}
               printApiMethod={'print_delivery_note_sales'}
               printApiEntity={'sales'}
               deleteApiVersion={'v1'}
@@ -183,8 +181,7 @@ const CustomerSaleMaster = () => {
               setSelectedItemCode={setSelectedItemCode}
               handleTabPressInSales={handleTabPressInSales}
               kunCsOtFixedAmt={kunCsOtFixedAmt}
-              // setKunCsOtFixedAmt={setKunCsOtFixedAmt}
-              HandleFixedAmt={HandleFixedAmt}
+              handleFixedAmt={handleFixedAmt}
               showAddrowBtn={true}
               scrollableTableRef={scrollableTableRef}
               handleMouseDown={handleMouseDown}

@@ -21,7 +21,7 @@ const ErrorBoundary = ({ children }: any) => {
       <div className="text-center mt-5">
         <i
           className="fa-solid fa-ghost text-secondary"
-          style={{ fontSize: 50 }}
+          style={{ fontSize: 30 }}
         ></i>
         <h1>Something Went Wrong!!</h1>
       </div>

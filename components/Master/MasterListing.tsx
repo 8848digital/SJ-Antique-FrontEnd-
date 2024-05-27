@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from '../../styles/header.module.css';
+
 const MasterListing: any = ({ value }: any) => {
   return (
     <div>
@@ -75,7 +76,7 @@ const MasterListing: any = ({ value }: any) => {
                 value === 'kunCsOtCategory' ? 'activeColor' : ''
               }`}
             >
-              Kun-Cs-Ot- Category
+              Kun-Cs-Ot-Category
               <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
             </button>
           </Link>

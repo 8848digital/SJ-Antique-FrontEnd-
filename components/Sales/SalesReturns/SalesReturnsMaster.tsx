@@ -3,11 +3,9 @@ import CustomerSalesTable from '../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
 import TabSection from '@/components/TabSection';
 import UseSalesReturnMasterHook from '@/hooks/Sales/Sales-Returns/sales-return-master-hook';
-import UseCustomSalesReturnHook from '@/hooks/Sales/Sales-Returns/custom-sales-return-hook';
-import DetailsPageSalesReturn from './DetailPageSalesReturn/DetailsPageSalesReturn';
-import KundanListing from '@/components/KundanReadyReceipts/KundanReadyReceiptsListing';
-import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
+
 import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
+import ReadyReceiptListing from '@/components/ReadyReceipts/ReadyReceiptsListing';
 
 const SaleReturnsMaster = () => {
   const {
@@ -27,7 +25,7 @@ const SaleReturnsMaster = () => {
     itemCodeDropdownReset,
     handleSelectClientGroup,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     saleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
     handleTabPressInSales,
@@ -38,7 +36,7 @@ const SaleReturnsMaster = () => {
     deliveryNoteData,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     handleTabPressItemDetails,
     selectedItemCode,
     setSelectedItemCode,
@@ -66,7 +64,7 @@ const SaleReturnsMaster = () => {
         <div className="d-flex d-flex justify-content-center">
           <TabSection
             firstTabHeading="Sale Returns"
-            secondTabHeading="Create new sales Return"
+            secondTabHeading="Create New Sales Return"
           />
         </div>
 
@@ -78,7 +76,7 @@ const SaleReturnsMaster = () => {
             aria-labelledby="pills-home-tab"
           >
             <div className="tab-responsive">
-              <KundanListing
+              <ReadyReceiptListing
                 kundanListing={salesReturnListing}
                 karigarData={
                   clientNameListData?.length > 0 &&
@@ -87,10 +85,10 @@ const SaleReturnsMaster = () => {
                     karigar_name: data.client_name,
                   }))
                 }
-                colPlaceholder1={'Sales no.'}
+                colPlaceholder1={'Sales No.'}
                 colPlaceholder2={'Client '}
                 HandleDeleteReceipt={handleDeleteSalesReturn}
-                HandleUpdateDocStatus={HandleUpdateDocStatus}
+                HandleUpdateDocStatus={handleUpdateDocStatus}
                 printApiMethod={'print_delivery_note_sales'}
                 printApiEntity={'sales'}
                 deleteApiVersion={'v1'}
@@ -172,7 +170,7 @@ const SaleReturnsMaster = () => {
                 handleTabPressInSales={handleTabPressInSales}
                 kunCsOtFixedAmt={kunCsOtFixedAmt}
                 setKunCsOtFixedAmt={setKunCsOtFixedAmt}
-                HandleFixedAmt={HandleFixedAmt}
+                handleFixedAmt={handleFixedAmt}
                 showAddrowBtn={true}
                 scrollableTableRef={scrollableTableRef}
                 handleMouseDown={handleMouseDown}

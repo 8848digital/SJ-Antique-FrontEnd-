@@ -9,39 +9,12 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import UseCustomSalesReturnHook from './custom-sales-return-hook';
-import UseSalesReturnMasterHook from './sales-return-master-hook';
+import useSalesReturnMasterHook from './sales-return-master-hook';
 
-const UseSalesReturnDetailHook = () => {
+const useSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const router = useRouter();
-  // const {
-  //   salesReturnTableData,
-  //   setSalesReturnTableData,
-  //   handleSalesReturnTableFieldChange,
-  //   handleAddRowForSalesReturn,
-  //   handleDeleteRowOfSalesReturnTable,
-  //   stateForDocStatus,
-  //   setStateForDocStatus,
-  //   handleEmptySaleReturnData,
-  //   itemCodeDropdownReset,
-  //   selectedClient,
-  //   setSelectedClient,
-  //   selectedClientGroup,
-  //   handleSelectClientGroup,
-  //   SalesTableInitialState,
-  //   setItemCodeDropdownReset,
-  //   saleReturnDeliveryNoteListing,
-  //   setSaleReturnDeliveryNoteListing,
-  //   HandleUpdateDocStatus,
-  //   handleDeleteSalesReturn,
-  //   handleTabPressInSales,
-  //   selectedLocation,
-  //   setSelectedLocation,
-  //   deliveryNoteData,
-  //   setDeliveryNoteData,
-  // }: any = UseCustomSalesReturnHook();
 
   const {
     itemList,
@@ -79,15 +52,13 @@ const UseSalesReturnDetailHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
-  }: any = UseSalesReturnMasterHook();
+  }: any = useSalesReturnMasterHook();
 
   const loginAcessToken = useSelector(get_access_token);
 
   const DetailOfSalesReturnFromStore: any = useSelector(
     get_detail_sales_return_data
   );
-
-  console.log('DetailOfSalesReturnFromStore', DetailOfSalesReturnFromStore);
 
   const [readOnlyFields, setReadOnlyFields] = useState<any>(false);
   const [defaultSalesDate, setDefaultSalesDate] = useState<any>('');
@@ -97,7 +68,6 @@ const UseSalesReturnDetailHook = () => {
     useState<boolean>(false);
 
   useEffect(() => {
-    console.log('query in sales hook', query);
     if (Object?.keys(query)?.length > 0) {
       const reqParams: any = {
         token: loginAcessToken.token,
@@ -134,7 +104,6 @@ const UseSalesReturnDetailHook = () => {
       setIsLoading(false);
     }
   }, [DetailOfSalesReturnFromStore]);
-  console.log(salesReturnTableData, 'sales return detail page');
 
   const handleUpdateSalesReturn: any = async () => {
     const filteredData = filteredTableDataForUpdate(salesReturnTableData);
@@ -150,9 +119,9 @@ const UseSalesReturnDetailHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-              Number(data?.custom_other)
+            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+            Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -175,7 +144,6 @@ const UseSalesReturnDetailHook = () => {
       values
     );
 
-    console.log('update delivery note api res', updateSalesReturnApi);
     if (updateSalesReturnApi?.data?.message?.status === 'success') {
       setStateForDocStatus(false);
 
@@ -203,33 +171,6 @@ const UseSalesReturnDetailHook = () => {
     }
   };
 
-  // const handleDeleteSalesReturn: any = async (id: any) => {
-  //   const version = 'v1';
-  //   const method = 'delete_delivery_note_api';
-  //   const entity = 'delivery_note_api';
-
-  //   let deleteApi: any = await DeleteApi(
-  //     loginAcessToken?.token,
-  //     version,
-  //     method,
-  //     entity,
-  //     id
-  //   );
-
-  //   if (Object?.keys(deleteApi?.data)?.length === 0) {
-  //     toast.success('Sales Return note Deleted');
-  //     const deliveryNoteApi: any = await getDeliveryNoteListing(
-  //       loginAcessToken.token,
-  //       deliveryNoteListParams
-  //     );
-  //     if (deliveryNoteApi?.data?.message?.status === 'success') {
-  //       setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
-  //     }
-  //   } else {
-  //     toast.error('Failed to delete Sales Return');
-  //   }
-  // };
-
   const handleAmendButtonForSalesReturn: any = async () => {
     const updatedSalesTableData: any = salesReturnTableData.map(
       (tableData: any) => ({
@@ -237,7 +178,6 @@ const UseSalesReturnDetailHook = () => {
         qty: 1,
       })
     );
-    console.log('updated sales return data for amend', updatedSalesTableData);
     const values = {
       amended_from: query?.deliveryNoteId,
       custom_client_name: selectedClient,
@@ -249,7 +189,7 @@ const UseSalesReturnDetailHook = () => {
       values
     );
 
-    console.log('update delivery note api res', amendDeliveryNoteApi);
+    // console.log('update delivery note api res', amendDeliveryNoteApi);
     if (amendDeliveryNoteApi?.data?.hasOwnProperty('data')) {
       setStateForDocStatus(false);
       setShowSaveButtonForAmendFlow(false);
@@ -306,4 +246,4 @@ const UseSalesReturnDetailHook = () => {
   };
 };
 
-export default UseSalesReturnDetailHook;
+export default useSalesReturnDetailHook;

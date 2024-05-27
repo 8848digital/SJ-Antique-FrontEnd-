@@ -17,7 +17,6 @@ const UpdateSaleApi = async (token: any, val: any) => {
   await axios
     .put(`${CONSTANTS.API_BASE_URL}${params}`, val, config)
     .then((res: any) => {
-      console.log('post purchase receipt', res);
       response = res;
     })
     .catch((err: any) => {

@@ -11,7 +11,7 @@ const BarcodeCategorySection = ({
   setSeletedCategory,
   handleSelectChange,
 }: any) => {
-  console.log('itemCodeDataToShow', checkedItems);
+  console.log('itemCodeDataToShow', checkedItems, itemCodeDataToShow);
   return (
     <div className="tab-width ">
       <div>
@@ -35,15 +35,15 @@ const BarcodeCategorySection = ({
           {itemCodeDataToShow?.length > 0 && itemCodeDataToShow !== null ? (
             <>
               {itemCodeDataToShow.map((data: any, index: any) => (
-                <div className="col-lg-3" key={index}>
+                <div className="col-lg-3 col-4" key={index}>
                   <div className="form-check">
                     <input
                       className="form-check-input"
                       type="checkbox"
                       checked={checkedItems?.some(
-                        (checkedItem: any) => checkedItem.id === data.idx
+                        (checkedItem: any) => checkedItem.id === index
                       )}
-                      onChange={() => handleCheckboxChange(data.idx, data.name)}
+                      onChange={() => handleCheckboxChange(index, data.name)}
                     />
 
                     <label

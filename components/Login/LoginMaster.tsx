@@ -11,7 +11,6 @@ const LoginMaster = () => {
   const dispatch = useDispatch();
   const loginAcessToken = useSelector(get_access_token);
   const [loginToken, setLoginToken] = useState('');
-  console.log(loginAcessToken, 'selector');
   const router = useRouter();
   const [userData, setUserData] = useState<any>({
     username: '',
@@ -22,18 +21,17 @@ const LoginMaster = () => {
   const HandleInputChange: any = (e: any) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
-  console.log(userData, 'userData');
 
   const HandleFormSubmit = async () => {
     const loginsucess = await dispatch(getAccessToken(userData));
-    console.log(loginsucess, 'loginsucess');
+
     if (loginsucess.payload.msg == 'success') {
       toast.success('Login Successfully');
       setTimeout(() => {
         router.push('/master');
       }, 900);
     } else {
-      toast.error('Incorrect User or Password');
+      toast.error('Incorrect Username or Password');
       router.push('/');
     }
   };
@@ -44,7 +42,6 @@ const LoginMaster = () => {
     }
   };
   const HandleShowPassword: any = () => {
-    console.log('eye click');
     setShowPassword(!showPassword);
   };
 
@@ -55,10 +52,10 @@ const LoginMaster = () => {
           <div className="row">
             <div className="col-lg-12 card shadow p-3 mb-5 bg-white rounded border-0 login-card">
               <div className="  p-lg-5 p-0">
-                <p className="text-uppercase fs-3 text-center">login </p>
+                <p className="text-uppercase fs-3 text-center">login</p>
                 <div className="card-body p-0">
                   <form className="login-form p-2 mx-auto text-center">
-                    <div className="mb-3 ">
+                    <div className="mb-3">
                       <input
                         type="text"
                         id="username"

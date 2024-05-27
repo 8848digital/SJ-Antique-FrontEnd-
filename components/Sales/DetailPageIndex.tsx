@@ -5,7 +5,6 @@ import DetailsPageSalesReturn from './SalesReturns/DetailPageSalesReturn/Details
 
 const DetailPageIndex = () => {
   const { query } = useRouter();
-  console.log('query in sales return detail page', query);
   return (
     <div>
       {query?.saleId === 'customerSale' && <DetailPageCustomerSale />}

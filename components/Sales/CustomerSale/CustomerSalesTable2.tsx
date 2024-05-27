@@ -11,14 +11,9 @@ const CustomerSalesTable2 = ({
   readOnlyFields,
   keyValue,
 }: any) => {
-  console.log(keyValue, 'key in details page');
+
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
-  );
-
-  console.log(
-    'DetailOfDeliveryNote from store in tsx',
-    DetailOfDeliveryNoteFromStore
   );
 
   return (
@@ -45,8 +40,8 @@ const CustomerSalesTable2 = ({
                   selectedCategory?.KunCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_kun_category
                     : selectedCategory?.KunCategory?.name1 !== undefined
-                    ? selectedCategory?.KunCategory?.name1
-                    : ''
+                      ? selectedCategory?.KunCategory?.name1
+                      : ''
                 }
               >
                 <option selected></option>
@@ -73,8 +68,8 @@ const CustomerSalesTable2 = ({
                   selectedCategory?.CsCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_cs_category
                     : selectedCategory?.CsCategory?.name1 !== undefined
-                    ? selectedCategory?.CsCategory?.name1
-                    : ''
+                      ? selectedCategory?.CsCategory?.name1
+                      : ''
                 }
               >
                 <option selected></option>
@@ -99,8 +94,8 @@ const CustomerSalesTable2 = ({
                   selectedCategory?.BBCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_bb_category
                     : selectedCategory?.BBCategory?.name1 !== undefined
-                    ? selectedCategory?.BBCategory?.name1
-                    : ''
+                      ? selectedCategory?.BBCategory?.name1
+                      : ''
                 }
               >
                 <option selected></option>
@@ -122,8 +117,8 @@ const CustomerSalesTable2 = ({
                   selectedCategory?.OtCategory === '' && keyValue === 'edit'
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_ot_category
                     : selectedCategory?.OtCategory?.name1 !== undefined
-                    ? selectedCategory?.OtCategory?.name1
-                    : ''
+                      ? selectedCategory?.OtCategory?.name1
+                      : ''
                 }
               >
                 <option selected></option>

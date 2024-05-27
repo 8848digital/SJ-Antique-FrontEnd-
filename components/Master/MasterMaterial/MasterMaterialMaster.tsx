@@ -81,6 +81,7 @@ const MasterMaterialMaster: any = ({
           >
             <MasterMaterialListing
               materialList={filteredList}
+              defaultData={materialList}
               handleInputChange1={handleInputChange1}
               handleInputChange2={handleInputChange2}
               handleInputChange3={handleInputChange3}

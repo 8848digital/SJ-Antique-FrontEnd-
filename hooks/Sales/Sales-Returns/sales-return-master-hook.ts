@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import UseCustomSalesReturnHook from './custom-sales-return-hook';
+import useCustomSalesReturnHook from './custom-sales-return-hook';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
 
-const UseSalesReturnMasterHook = () => {
+const useSalesReturnMasterHook = () => {
   const router = useRouter();
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
@@ -36,15 +36,16 @@ const UseSalesReturnMasterHook = () => {
     setItemCodeDropdownReset,
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleDeleteSalesReturn,
     handleTabPressInSales,
     selectedLocation,
     setSelectedLocation,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
-  }: any = UseCustomSalesReturnHook();
+    handleFixedAmt,
+    newRowForSalesReturnTable
+  }: any = useCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
   const [deliveryNoteData, setDeliveryNoteData] = useState({
     store_location: '',
@@ -90,49 +91,59 @@ const UseSalesReturnMasterHook = () => {
   }, []);
 
   const updateSalesTableData = (data: any) => {
-    console.log('dataaa', data);
     setSelectedClient(data[0]?.custom_client_name);
-    if (data?.length >= 0) {
+    if (data?.length > 0) {
       if (selectedItemCodeForCustomerSale?.id) {
-        console.log(salesReturnTableData, 'table data in sale return');
-        const updatedTable = salesReturnTableData?.map(
-          (tableData: any, index: any) => {
-            return tableData.idx === selectedItemCodeForCustomerSale.id
-              ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
-              : tableData;
-          }
-        );
-        console.log(updatedTable, 'table data in sale return');
-        setSalesReturnTableData(updatedTable);
-      }
-    } else {
-      // Create a new row for each item in data[0]?.items
-      const newRows = removeIdxKey(data[0]?.items)?.map(
-        (item: any, index: any) => ({
-          ...SalesTableInitialState,
-          ...removeIdxKey(item),
-          idx: index + 1, // Use a unique idx for each row
-        })
-      );
+        setSalesReturnTableData((prevSalesReturnTableData: any) => {
+          const updatedTable = prevSalesReturnTableData?.map(
+            (tableData: any) => {
+              return tableData.idx === selectedItemCodeForCustomerSale.id
+                ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
+                : tableData;
+            }
+          );
+          return updatedTable;
+        });
 
-      setSalesReturnTableData((prevData: any) =>
-        prevData
-          ? [...prevData, ...newRows]
-          : newRows || [SalesTableInitialState]
-      );
+        setSalesReturnTableData((prevSalesTableData: any) => {
+          return [...prevSalesTableData, newRowForSalesReturnTable];
+        });
+      } else {
+        // Create a new row for each item in data[0]?.items
+        const newRows = removeIdxKey(data[0]?.items)?.map(
+          (item: any, index: any) => ({
+            ...SalesTableInitialState,
+            ...removeIdxKey(item),
+            idx: index + 1, // Use a unique idx for each row
+          })
+        );
+
+        setSalesReturnTableData((prevData: any) =>
+          prevData
+            ? [...prevData, ...newRows]
+            : newRows || [SalesTableInitialState]
+        );
+        // Update state with new row
+        setSalesReturnTableData((prevSalesTableData: any) => {
+          return [...prevSalesTableData, newRowForSalesReturnTable];
+        });
+      }
     }
   };
-  console.log(salesReturnTableData, 'table data in sale return');
+
   const removeIdxKey = (item: any) => {
     const { idx, ...itemWithoutIdx } = item;
     return itemWithoutIdx;
   };
 
-  console.log("itemList", itemList, selectedItemCodeForCustomerSale)
   useEffect(() => {
     if (
-      itemList?.length > 0 !== null && itemList?.length > 0 && itemList?.some(
-        (obj: any) => obj.name === `${selectedItemCodeForCustomerSale.item_code}`?.toUpperCase()
+      itemList?.length > 0 !== null &&
+      itemList?.length > 0 &&
+      itemList?.some(
+        (obj: any) =>
+          obj.name ===
+          `${selectedItemCodeForCustomerSale.item_code}`?.toUpperCase()
       )
     ) {
       const getItemCodeDetailsFun = async () => {
@@ -146,10 +157,9 @@ const UseSalesReturnMasterHook = () => {
             getItemDetailsmethod,
             getItemDetailsEntity
           );
-
-          console.log('get details of sales return', getItemCodeDetailsApi);
           if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
             updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+
           }
         } catch (error) {
           console.error('Error fetching item details:', error);
@@ -210,7 +220,6 @@ const UseSalesReturnMasterHook = () => {
 
       items: updatedData,
     };
-    console.log(values, 'values in sr dn');
     const clientVal = values?.custom_client_name;
     if (clientVal !== '') {
       const postSalesReturnApi: any = await PostSalesApi(
@@ -220,44 +229,17 @@ const UseSalesReturnMasterHook = () => {
 
       if (postSalesReturnApi?.data?.message?.status === 'success') {
         toast.success('Delivery note Created Sucessfully');
-        console.log('queryyy', query, router);
+
         router.push(
           `${query.saleId}/${postSalesReturnApi?.data?.message?.name}`
         );
-      } else {
-        toast.error('Error in Creating Delivery note');
+      } else if (postSalesReturnApi?.data?.message?.status === 'error') {
+        toast.error(postSalesReturnApi?.data?.message?.message);
       }
-      console.log('postSalesReturnApi res', postSalesReturnApi);
     } else {
       toast.error('Client name is mandatory');
     }
   };
-  // const handleTabPressItemDetails = () => {
-  //   if (selectedItemCodeForCustomerSale?.item_code?.length > 0) {
-  //     const getItemCodeDetailsFun = async () => {
-  //       const getItemDetailsmethod: any =
-  //         'get_delivery_note_specific_return_item';
-  //       const getItemDetailsEntity: any = 'sales_return';
-  //       try {
-  //         let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
-  //           loginAcessToken?.token,
-  //           selectedItemCodeForCustomerSale.item_code,
-  //           getItemDetailsmethod,
-  //           getItemDetailsEntity
-  //         );
-
-  //         console.log('get details of sales return', getItemCodeDetailsApi);
-  //         if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-  //           updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
-  //         }
-  //       } catch (error) {
-  //         console.error('Error fetching item details:', error);
-  //       }
-  //     };
-
-  //     getItemCodeDetailsFun();
-  //   }
-  // };
 
   return {
     itemList,
@@ -276,7 +258,7 @@ const UseSalesReturnMasterHook = () => {
     itemCodeDropdownReset,
     handleSelectClientGroup,
     setItemCodeDropdownReset,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     saleReturnDeliveryNoteListing,
     handleDeleteSalesReturn,
     handleTabPressInSales,
@@ -293,11 +275,11 @@ const UseSalesReturnMasterHook = () => {
     setSaleReturnDeliveryNoteListing,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
     // handleTabPressItemDetails,
     selectedItemCode,
     setSelectedItemCode,
   };
 };
 
-export default UseSalesReturnMasterHook;
+export default useSalesReturnMasterHook;

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-const UseCustomSalesReturnHook = () => {
+const useCustomSalesReturnHook = () => {
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState<any>({ id: '', item_code: '' });
   const dispatch = useDispatch();
@@ -56,16 +56,11 @@ const UseCustomSalesReturnHook = () => {
   const [saleReturnDeliveryNoteListing, setSaleReturnDeliveryNoteListing] =
     useState<any>();
 
-  console.log('salesReturnTableData initially', salesReturnTableData);
   const handleSalesReturnTableFieldChange: any = (
     itemIdx: number,
     fieldName: string,
     value: any
   ) => {
-    console.log(
-      'handleSalesReturnTableFieldChange',
-      handleSalesReturnTableFieldChange
-    );
     setSalesReturnTableData((prevData: any) => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
@@ -90,10 +85,10 @@ const UseCustomSalesReturnHook = () => {
                   ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                ? item.custom_kun === ''
-                  ? 1 * value
-                  : Number(item.custom_kun) * value
-                : item.custom_kun_amt,
+                  ? item.custom_kun === ''
+                    ? 1 * value
+                    : Number(item.custom_kun) * value
+                  : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_amt'
                 ? Number(item.custom_other_wt) * value
@@ -107,34 +102,31 @@ const UseCustomSalesReturnHook = () => {
     setStateForDocStatus(true);
   };
 
-  const handleAddRowForSalesReturn: any = () => {
-    console.log('add row in sales return');
-    const newRow: any = {
-      idx: salesReturnTableData?.length + 1,
-      item_code: '',
-      custom_gross_wt: '',
-      custom_kun_wt: '',
-      custom_cs_wt: '',
-      custom_bb_wt: '',
-      custom_other_wt: '',
-      custom_net_wt: '',
-      custom_cs: kunCsOtFixedAmt?.csFixedAmt,
-      custom_cs_amt: '',
-      custom_kun_pc: '',
-      custom_kun: kunCsOtFixedAmt?.kunFixedAmt,
-      custom_kun_amt: '',
-      custom_ot_: kunCsOtFixedAmt?.otFixedAmt,
-      custom_ot_amt: 0,
-      custom_other: '',
-      custom_amount: 0,
-    };
+  const newRowForSalesReturnTable: any = {
+    idx: salesReturnTableData?.length + 1,
+    item_code: '',
+    custom_gross_wt: '',
+    custom_kun_wt: '',
+    custom_cs_wt: '',
+    custom_bb_wt: '',
+    custom_other_wt: '',
+    custom_net_wt: '',
+    custom_cs: kunCsOtFixedAmt?.csFixedAmt,
+    custom_cs_amt: '',
+    custom_kun_pc: '',
+    custom_kun: kunCsOtFixedAmt?.kunFixedAmt,
+    custom_kun_amt: '',
+    custom_ot_: kunCsOtFixedAmt?.otFixedAmt,
+    custom_ot_amt: 0,
+    custom_other: '',
+    custom_amount: 0,
+  };
 
-    setSalesReturnTableData([...salesReturnTableData, newRow]);
+  const handleAddRowForSalesReturn: any = () => {
+    setSalesReturnTableData([...salesReturnTableData, newRowForSalesReturnTable]);
     setStateForDocStatus(true);
   };
-  console.log(salesReturnTableData, 'sales return detail page');
   const handleDeleteRowOfSalesReturnTable: any = (id: any) => {
-    console.log('delete row id', id);
     if (salesReturnTableData?.length > 1) {
       const updatedData = salesReturnTableData
         .filter((item: any) => item.idx !== id)
@@ -145,12 +137,6 @@ const UseCustomSalesReturnHook = () => {
   };
 
   const handleEmptySaleReturnData = () => {
-    // setSeletedCategory({
-    //  KunCategory: '',
-    //   CsCategory: '',
-    //   BBCategory: '',
-    //   OtCategory: '',
-    // });
     setSelectedClient('');
     setSalesReturnTableData([SalesTableInitialState]);
     setSelectedItemCodeForCustomerSale({ id: '', item_code: '' });
@@ -167,7 +153,7 @@ const UseCustomSalesReturnHook = () => {
     setSelectedClientGroup(value);
   };
 
-  const HandleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
+  const handleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
     let id: any = name === undefined ? query?.deliveryNoteId : name;
     const params = `/api/resource/Delivery Note/${id}`;
     let updateDocStatus: any = await UpdateDocStatusApi(
@@ -187,7 +173,7 @@ const UseCustomSalesReturnHook = () => {
         const deliveryNoteListParams = {
           version: 'v1',
           method: 'get_listening_delivery_note_sales_return',
-          entity: 'delivery_note_api',
+          entity: 'sales_return',
         };
         let updatedData: any = await getDeliveryNoteListing(
           loginAcessToken.token,
@@ -242,7 +228,7 @@ const UseCustomSalesReturnHook = () => {
     }
     setStateForDocStatus(true);
   };
-  const HandleFixedAmt = (e: any) => {
+  const handleFixedAmt = (e: any) => {
     const { name, value } = e.target;
     setKunCsOtFixedAmt({ ...kunCsOtFixedAmt, [name]: value });
 
@@ -264,9 +250,9 @@ const UseCustomSalesReturnHook = () => {
             Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-              Number(item[i]?.custom_kun_amt) +
-              Number(item[i]?.custom_ot_amt) +
-              Number(item[i]?.custom_other)
+            Number(item[i]?.custom_kun_amt) +
+            Number(item[i]?.custom_ot_amt) +
+            Number(item[i]?.custom_other)
           ),
         };
       });
@@ -294,15 +280,16 @@ const UseCustomSalesReturnHook = () => {
     setItemCodeDropdownReset,
     saleReturnDeliveryNoteListing,
     setSaleReturnDeliveryNoteListing,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleDeleteSalesReturn,
     handleTabPressInSales,
     selectedLocation,
     setSelectedLocation,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
-    HandleFixedAmt,
+    handleFixedAmt,
+    newRowForSalesReturnTable
   };
 };
 
-export default UseCustomSalesReturnHook;
+export default useCustomSalesReturnHook;

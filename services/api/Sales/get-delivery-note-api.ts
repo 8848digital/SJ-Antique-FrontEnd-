@@ -8,7 +8,6 @@ const getDeliveryNoteApi = async (get_access_token: any) => {
   await axios
     .get(`${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`, getHeaders)
     .then((res: any) => {
-      console.log('get DN list', res);
       response = res;
     })
     .catch((err: any) => {

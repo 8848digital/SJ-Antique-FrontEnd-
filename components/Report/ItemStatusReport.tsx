@@ -7,6 +7,7 @@ import Loader from '../NoRecord/Loader';
 import NoRecord from '../NoRecord/NoRecord';
 import { useRouter } from 'next/router';
 import DailyStatusReportHeading from './DailyStatusReportHeading';
+import styled from '../../styles/report.module.css';
 
 const ItemStatusReport: any = ({
   itemStatusReportState,
@@ -23,11 +24,6 @@ const ItemStatusReport: any = ({
   searchInputValues,
   isLoading,
   HandleRefresh,
-  scrollableTableRef,
-  handleMouseDown,
-  handleMouseUp,
-  handleMouseLeave,
-  handleMouseMove,
   searchName,
   setSearchName,
   name,
@@ -41,7 +37,7 @@ const ItemStatusReport: any = ({
     console.log('inside load more', data);
     setTableViewData(data);
   };
-  console.log('@report daily qty status', itemStatusReportState);
+  // console.log('@report daily qty status', itemStatusReportState);
   const filteredList =
     itemStatusReportState?.length > 0 &&
     itemStatusReportState !== null &&
@@ -96,6 +92,7 @@ const ItemStatusReport: any = ({
         setSearchName={setSearchName}
         name={name}
         HandleSerachReport={HandleSerachReport}
+        searchInputValues={searchInputValues}
       />
 
       {isLoading === 0 && <Loader />}
@@ -116,28 +113,11 @@ const ItemStatusReport: any = ({
                 : filteredList?.length - 3}
             </div>
           )}
-          <div className="table-responsive ">
+          <div className="row justify-content-center">
             <div
-              ref={scrollableTableRef}
-              className="scrollable-table-container"
-              onMouseDown={handleMouseDown}
-              onMouseLeave={handleMouseLeave}
-              onMouseUp={handleMouseUp}
-              onMouseMove={handleMouseMove}
+              className={`col table-responsie m-auto ${styled.table_container}`}
             >
               <table className="table table-hover table-striped cursor report-width">
-                {/* <thead>
-                  <th className="thead" scope="col">
-                    Sr.No.
-                  </th>
-                  {filteredList?.length > 0 &&
-                    filteredList !== null &&
-                    Object.keys(filteredList[0]).map((key) => (
-                      <th className="thead" scope="col" key={key}>
-                        {key.replace(/_/g, ' ')}
-                      </th>
-                    ))}
-                </thead> */}
                 <DailyStatusReportHeading />
                 <tbody>
                   {filteredList?.length > 0 &&
@@ -193,13 +173,17 @@ const ItemStatusReport: any = ({
                           )}
                         </tr>
                       ))}
-                  {filteredList?.length > 20 && filteredList !== null && (
-                    <LoadMoreTableDataInMaster
-                      HandleTableViewRows={HandleTableViewRows}
-                    />
-                  )}
                 </tbody>
               </table>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-9 mx-auto">
+              {filteredList?.length > 20 && filteredList !== null && (
+                <LoadMoreTableDataInMaster
+                  HandleTableViewRows={HandleTableViewRows}
+                />
+              )}
             </div>
           </div>
         </>

@@ -29,16 +29,18 @@ const useMaterialHook = () => {
       const materialGroupData = await getMaterialGroupApi(
         loginAcessToken.token
       );
-      setMaterialList(materialData);
+
+      if (materialData?.data?.message?.status === 'success') {
+        setMaterialList(materialData?.data?.message?.data);
+      }
       if (materialGroupData?.data?.message?.status === 'success') {
         setMaterialGroupList(materialGroupData?.data?.message?.data);
       }
-      console.log(materialGroupList, 'material group data');
     };
     getStateData();
   }, []);
+
   const HandleNameChange = (e: any) => {
-    console.log(nameValue, 'changing client');
     const { name, value } = e.target;
     setNameValue({ ...nameValue, [name]: value });
     setError1('');
@@ -52,10 +54,9 @@ const useMaterialHook = () => {
       entity: 'material',
       data: [{ ...nameValue, material_group: selectedMaterialGroup }],
     };
-    console.log(values, 'valuesname');
+
     if (nameValue.material === '' || nameValue.material === undefined) {
       setError1('Input field cannot be empty');
-      console.log(error1);
     } else if (
       nameValue.material_abbr === '' ||
       nameValue.material_abbr === undefined
@@ -95,7 +96,7 @@ const useMaterialHook = () => {
       entity: 'material_group',
       material_group: inputValueM,
     };
-    console.log(values, 'valuesname');
+
     if (inputValueM.trim() === '') {
       setErrorM('Input field cannot be empty');
     } else {
@@ -117,9 +118,8 @@ const useMaterialHook = () => {
   const HandleMaterialGrpValue = (e: any) => {
     setErrorM('');
     setInputValueM(e.target.value);
-    console.log(inputValueM, 'input value');
   };
-  console.log(selectedMaterialGroup, 'selected material');
+
   return {
     materialList,
     error1,
