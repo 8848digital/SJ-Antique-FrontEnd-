@@ -60,7 +60,6 @@ const SelectInputKunKarigar = ({
       if (item.idx === id && fieldName === 'custom_kun_karigar') {
         return { ...item, custom_kun_karigar: 0 || data?.karigar_name };
       }
-      console.log('selected item code', item.idx, id);
       if (item.idx === id && fieldName === 'item_code') {
         return { ...item, item_code: data?.karigar_name };
       }
@@ -112,13 +111,13 @@ const SelectInputKunKarigar = ({
         typeof handleTabPressItemDetails === 'function' &&
         (e.key === 'Tab' || e.keyCode === 9)
       ) {
-        console.log('tab pressed');
         handleTabPressItemDetails();
       }
     }
   };
 
   useEffect(() => {
+    inputRef?.current?.focus()
     const handleDocumentClick = (e: any) => {
       // Check if the input element itself was clicked
       if (
@@ -159,7 +158,6 @@ const SelectInputKunKarigar = ({
       setShowDropdown(true);
     }
     const uppercaseValue = e.target.value.toUpperCase();
-    console.log('uppercase item code', uppercaseValue);
     setSelectedKundanKarigarDropdownValue({
       id: id,
       item_code: uppercaseValue,

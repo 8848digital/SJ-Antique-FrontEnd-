@@ -49,6 +49,7 @@ const useSalesReturnMasterHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    updateSalesTableData
   }: any = useCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
   const [deliveryNoteData, setDeliveryNoteData] = useState({
@@ -93,52 +94,6 @@ const useSalesReturnMasterHook = () => {
 
     getDataFromapi();
   }, []);
-
-  const updateSalesTableData = (data: any) => {
-    setSelectedClient(data[0]?.custom_client_name);
-    if (data?.length > 0) {
-      if (selectedItemCodeForCustomerSale?.id) {
-        setSalesReturnTableData((prevSalesReturnTableData: any) => {
-          const updatedTable = prevSalesReturnTableData?.map(
-            (tableData: any) => {
-              return tableData.idx === selectedItemCodeForCustomerSale.id
-                ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
-                : tableData;
-            }
-          );
-          return updatedTable;
-        });
-
-        setSalesReturnTableData((prevSalesTableData: any) => {
-          return [...prevSalesTableData, newRowForSalesReturnTable];
-        });
-      } else {
-        // Create a new row for each item in data[0]?.items
-        const newRows = removeIdxKey(data[0]?.items)?.map(
-          (item: any, index: any) => ({
-            ...SalesTableInitialState,
-            ...removeIdxKey(item),
-            idx: index + 1, // Use a unique idx for each row
-          })
-        );
-
-        setSalesReturnTableData((prevData: any) =>
-          prevData
-            ? [...prevData, ...newRows]
-            : newRows || [SalesTableInitialState]
-        );
-        // Update state with new row
-        setSalesReturnTableData((prevSalesTableData: any) => {
-          return [...prevSalesTableData, newRowForSalesReturnTable];
-        });
-      }
-    }
-  };
-
-  const removeIdxKey = (item: any) => {
-    const { idx, ...itemWithoutIdx } = item;
-    return itemWithoutIdx;
-  };
 
   useEffect(() => {
     if (

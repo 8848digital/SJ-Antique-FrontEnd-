@@ -143,6 +143,46 @@ const useCustomSalesReturnHook = () => {
       setStateForDocStatus(true);
     }
   };
+  const removeIdxKey = (item: any) => {
+    const { idx, ...itemWithoutIdx } = item;
+    return itemWithoutIdx;
+  };
+  const updateSalesTableData = (data: any) => {
+    setSelectedClient(data[0]?.custom_client_name);
+    if (data?.length > 0) {
+      if (selectedItemCodeForCustomerSale?.id) {
+        setSalesReturnTableData((prevSalesReturnTableData: any) => {
+          const updatedTable = prevSalesReturnTableData?.map(
+            (tableData: any) => {
+              return tableData.idx === selectedItemCodeForCustomerSale.id
+                ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
+                : tableData;
+            }
+          );
+          return updatedTable;
+        });
+
+        setSalesReturnTableData((prevSalesTableData: any) => {
+          return [...prevSalesTableData, newRowForSalesReturnTable];
+        });
+      } else {
+        // Create a new row for each item in data[0]?.items
+        const newRows = removeIdxKey(data[0]?.items)?.map(
+          (item: any, index: any) => ({
+            ...SalesTableInitialState,
+            ...removeIdxKey(item),
+            idx: index + 1, // Use a unique idx for each row
+          })
+        );
+
+        setSalesReturnTableData((prevData: any) =>
+          prevData
+            ? [...prevData, ...newRows]
+            : newRows || [SalesTableInitialState]
+        );
+      }
+    }
+  };
 
   const handleEmptySaleReturnData = () => {
     setSelectedClient('');
@@ -302,6 +342,7 @@ const useCustomSalesReturnHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    updateSalesTableData
   };
 };
 
