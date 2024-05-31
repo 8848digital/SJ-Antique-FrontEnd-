@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../../styles/readyReceiptTableListing.module.css';
+import DeleteModal from '../DeleteModal';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
 import FilterReadyReceiptListing from './FilterReadyReceiptListing';
 
@@ -20,6 +21,10 @@ const ReadyReceiptListing = ({
   HandleUpdateDocStatus,
   kunKarigarDropdownReset,
   setKunKarigarDropdownReset,
+  showDeleteModal,
+  handleCloseDeleteModal,
+  handleShowDeleteModal,
+  deleteRecord,
 }: any) => {
   const router = useRouter();
   const pathParts = router.asPath.split('/');
@@ -84,77 +89,77 @@ const ReadyReceiptListing = ({
 
   const filteredList =
     kundanListing?.length > 0 &&
-      kundanListing !== null &&
-      (searchInputValues.from_date ||
-        searchInputValues.to_date ||
-        searchInputValues.item_code ||
-        searchKarigar ||
-        searchReceiptNumber ||
-        searchInputValues.status)
+    kundanListing !== null &&
+    (searchInputValues.from_date ||
+      searchInputValues.to_date ||
+      searchInputValues.item_code ||
+      searchKarigar ||
+      searchReceiptNumber ||
+      searchInputValues.status)
       ? kundanListing.filter((item: any) => {
-        const postingDate = new Date(item?.posting_date);
+          const postingDate = new Date(item?.posting_date);
 
-        const dateMatch =
-          (!searchInputValues.from_date ||
-            postingDate >= new Date(searchInputValues.from_date)) &&
-          (!searchInputValues.to_date ||
-            postingDate <= new Date(searchInputValues.to_date));
+          const dateMatch =
+            (!searchInputValues.from_date ||
+              postingDate >= new Date(searchInputValues.from_date)) &&
+            (!searchInputValues.to_date ||
+              postingDate <= new Date(searchInputValues.to_date));
 
-        const itemCodeMatch = searchInputValues?.item_code
-          ? item?.item_code?.some(
-            (code: any) =>
-              code
+          const itemCodeMatch = searchInputValues?.item_code
+            ? item?.item_code?.some(
+                (code: any) =>
+                  code
+                    ?.toLowerCase()
+                    .includes(searchInputValues.item_code.toLowerCase())
+              )
+            : true;
+
+          const karigarMatch = searchKarigar
+            ? item?.custom_karigar
+              ? item.custom_karigar
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
+              : item?.custom_client_name
+                  ?.toLowerCase()
+                  ?.includes(searchKarigar?.toLowerCase())
+            : true;
+
+          const receiptNumberMatch = searchReceiptNumber
+            ? item?.name
                 ?.toLowerCase()
-                .includes(searchInputValues.item_code.toLowerCase())
-          )
-          : true;
+                .includes(searchReceiptNumber.toString().toLowerCase())
+            : true;
 
-        const karigarMatch = searchKarigar
-          ? item?.custom_karigar
-            ? item.custom_karigar
-              ?.toLowerCase()
-              ?.includes(searchKarigar?.toLowerCase())
-            : item?.custom_client_name
-              ?.toLowerCase()
-              ?.includes(searchKarigar?.toLowerCase())
-          : true;
+          if (searchInputValues.status === 'Draft') {
+            return (
+              item?.docstatus === 0 &&
+              dateMatch &&
+              itemCodeMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Submitted') {
+            return (
+              item?.docstatus === 1 &&
+              dateMatch &&
+              itemCodeMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          } else if (searchInputValues.status === 'Cancel') {
+            return (
+              item?.docstatus === 2 &&
+              dateMatch &&
+              itemCodeMatch &&
+              karigarMatch &&
+              receiptNumberMatch
+            );
+          }
 
-        const receiptNumberMatch = searchReceiptNumber
-          ? item?.name
-            ?.toLowerCase()
-            .includes(searchReceiptNumber.toString().toLowerCase())
-          : true;
-
-        if (searchInputValues.status === 'Draft') {
           return (
-            item?.docstatus === 0 &&
-            dateMatch &&
-            itemCodeMatch &&
-            karigarMatch &&
-            receiptNumberMatch
+            dateMatch && karigarMatch && receiptNumberMatch && itemCodeMatch
           );
-        } else if (searchInputValues.status === 'Submitted') {
-          return (
-            item?.docstatus === 1 &&
-            dateMatch &&
-            itemCodeMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        } else if (searchInputValues.status === 'Cancel') {
-          return (
-            item?.docstatus === 2 &&
-            dateMatch &&
-            itemCodeMatch &&
-            karigarMatch &&
-            receiptNumberMatch
-          );
-        }
-
-        return (
-          dateMatch && karigarMatch && receiptNumberMatch && itemCodeMatch
-        );
-      })
+        })
       : kundanListing;
 
   const handlePrintApi: any = async (name: any) => {
@@ -218,7 +223,7 @@ const ReadyReceiptListing = ({
               >
                 <td
                   className={`table_row p-0  col-lg-1 col-1 text-small`}
-                // style={{ width: '50px' }}
+                  // style={{ width: '50px' }}
                 >
                   {i + 1}
                 </td>
@@ -332,7 +337,7 @@ const ReadyReceiptListing = ({
                       <div className="row justify-content-center  ">
                         <div className="col-lg-3 col-12">
                           {item?.posting_date ===
-                            new Date()?.toISOString()?.split('T')[0] ? (
+                          new Date()?.toISOString()?.split('T')[0] ? (
                             <>
                               <Link
                                 href={`${url}/${item.name}`}
@@ -348,10 +353,10 @@ const ReadyReceiptListing = ({
 
                         <div className="col-lg-3 col-12">
                           {item?.posting_date ===
-                            new Date()?.toISOString()?.split('T')[0] ? (
+                          new Date()?.toISOString()?.split('T')[0] ? (
                             <>
                               <a
-                                onClick={() => HandleDeleteReceipt(item.name)}
+                                onClick={()=>handleShowDeleteModal(item.name)}
                                 className={`button-section-text text-danger ${styles.cursor_pointer}`}
                               >
                                 Delete
@@ -382,6 +387,13 @@ const ReadyReceiptListing = ({
           )}
         </tbody>
       </table>
+      <DeleteModal
+        heading={'Purchase Receipt'}
+        confirmDelete={HandleDeleteReceipt}
+        showDeleteModal={showDeleteModal}
+        handleCloseDeleteModal={handleCloseDeleteModal}
+        deleteRecord={deleteRecord}
+      />
     </>
   );
 };

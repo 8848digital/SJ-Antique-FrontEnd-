@@ -11,8 +11,16 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 
 const useCustomReadyReceiptHook: any = () => {
+  const {
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+  }: any = useDeleteModal();
   const dispatch = useDispatch();
   const router = useRouter();
   const { query } = useRouter();
@@ -104,6 +112,7 @@ const useCustomReadyReceiptHook: any = () => {
   };
 
   const HandleDeleteReceipt: any = async (name: any) => {
+    setShowDeleteModal(false)
     const params: any = {
       version: 'v1',
       method: 'delete_purchase_receipt',
@@ -400,8 +409,7 @@ const useCustomReadyReceiptHook: any = () => {
     newValue: any,
     fileVal?: any
   ) => {
-    // console.log('handlechange', id, val, field, newValue, 'fileval', fileVal);
-
+   
     const formatInput = (value: any) => {
       if (typeof value === 'number' || !isNaN(parseFloat(value))) {
         const floatValue = parseFloat(value);
@@ -475,7 +483,6 @@ const useCustomReadyReceiptHook: any = () => {
     field: string,
     newValue: any
   ) => {
-    // console.log('field change data', id, val, field, newValue);
     const formatInput = (value: any) => {
       const floatValue = parseFloat(value);
       if (!isNaN(floatValue)) {
@@ -590,6 +597,11 @@ const useCustomReadyReceiptHook: any = () => {
     setSelectedKundanKarigarDropdownValue,
     specificDataFromStore,
     handleModalFieldChange,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+   
   };
 };
 

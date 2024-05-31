@@ -63,7 +63,11 @@ const ReadyReceiptMaster = () => {
     firstInputRef,
     lastInputRef,
     specificDataFromStore,
-    tabDisabled
+    tabDisabled,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord
   } = useReadyReceipt();
 
   const capitalizeWords: any = (word: any) => {
@@ -113,6 +117,10 @@ const ReadyReceiptMaster = () => {
                 }
                 kunKarigarDropdownReset={kunKarigarDropdownReset}
                 setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+                showDeleteModal={showDeleteModal}
+                handleCloseDeleteModal={handleCloseDeleteModal}
+                handleShowDeleteModal={handleShowDeleteModal}
+                deleteRecord={deleteRecord}
               />
             </div>
           </div>

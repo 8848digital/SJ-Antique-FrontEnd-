@@ -69,7 +69,11 @@ const DetailPageReadyReceipt = () => {
     selectedLocation,
     setSelectedLocation,
     specificDataFromStore,
-    tabDisabled
+    tabDisabled,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord
   } = useReadyReceiptKarigar();
 
 
@@ -160,6 +164,10 @@ const DetailPageReadyReceipt = () => {
                       }
                       HandleUpdateDocStatus={HandleUpdateDocStatus}
                       HandleDeleteReceipt={HandleDeleteReceipt}
+                      showDeleteModal={showDeleteModal}
+                handleCloseDeleteModal={handleCloseDeleteModal}
+                handleShowDeleteModal={handleShowDeleteModal}
+                deleteRecord={deleteRecord}
                     />
                   </div>
                 ))}

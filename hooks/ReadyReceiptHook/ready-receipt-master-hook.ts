@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useCustomReadyReceiptHook from './ready-receipt-custom-hook';
 import useReadyReceiptCustomCalculationHook from './ready-receipt-custom-calculation-hook';
+import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 
 const useReadyReceipt = () => {
   const { query } = useRouter();
@@ -88,6 +89,10 @@ const useReadyReceipt = () => {
     setSelectedKundanKarigarDropdownValue,
     specificDataFromStore,
     handleModalFieldChange,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   }: any = useCustomReadyReceiptHook();
 
   const {
@@ -274,7 +279,6 @@ const useReadyReceipt = () => {
         loginAcessToken.token,
         values
       );
-      console.log('purchase receipt api res', purchaseReceipt);
       if (purchaseReceipt?.data?.message?.status === 'Success') {
         router.push(
           `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
@@ -303,8 +307,8 @@ const useReadyReceipt = () => {
     setKunKarigarDropdownReset(true);
   };
   const handleUpdateReceipt: any = async () => {
-    if(tabDisabled){
-      return
+    if (tabDisabled) {
+      return;
     }
     setTabDisabled(true);
     const filteredDataa = filteredTableDataForUpdate(tableData);
@@ -385,8 +389,6 @@ const useReadyReceipt = () => {
         query?.receiptId
       );
 
-      console.log('amend api res', amendReceiptApi);
-
       if (amendReceiptApi?.data?.hasOwnProperty('data')) {
         const newURL = `/readyReceipt/${readyReceiptType}/${amendReceiptApi?.data?.data?.name}`;
         const asPath = `/readyReceipt/${readyReceiptType}/${amendReceiptApi?.data?.data?.name}`;
@@ -458,6 +460,10 @@ const useReadyReceipt = () => {
     setSelectedLocation,
     specificDataFromStore,
     tabDisabled,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   };
 };
 

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import styles from '../../../styles/readyReceipts.module.css';
+import DeleteModal from '@/components/DeleteModal';
 
 const ReadyReceiptBtnSection = ({
   data,
@@ -17,6 +18,10 @@ const ReadyReceiptBtnSection = ({
   printApiMethod,
   printApiEntity,
   specificDataFromStore,
+  showDeleteModal,
+  handleCloseDeleteModal,
+  handleShowDeleteModal,
+  deleteRecord,
 }: any) => {
   const { query } = useRouter();
   const router = useRouter();
@@ -160,7 +165,7 @@ const ReadyReceiptBtnSection = ({
                 <button
                   type="button"
                   className={`${styles.create_button} px-2 py-0 me-2 `}
-                  onClick={() => HandleDeleteReceipt(query?.receiptId)}
+                  onClick={()=>handleShowDeleteModal(query?.receiptId)}
                 >
                   Delete
                 </button>
@@ -169,6 +174,13 @@ const ReadyReceiptBtnSection = ({
           )}
         </div>
       </div>
+      <DeleteModal
+        heading={'Purchase Receipt'}
+        confirmDelete={HandleDeleteReceipt}
+        showDeleteModal={showDeleteModal}
+        handleCloseDeleteModal={handleCloseDeleteModal}
+        deleteRecord={deleteRecord}
+      />
     </>
   );
 };
