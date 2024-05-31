@@ -49,6 +49,10 @@ const DetailsPageSalesReturn = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   }: any = UseSalesReturnDetailHook();
 
   const { query }: any = useRouter();
@@ -86,6 +90,10 @@ const DetailsPageSalesReturn = () => {
                   }
                   HandleDeleteDeliveryNote={handleDeleteSalesReturn}
                   handlePrintApi={handlePrintApi}
+                  showDeleteModal={showDeleteModal}
+                handleCloseDeleteModal={handleCloseDeleteModal}
+                handleShowDeleteModal={handleShowDeleteModal}
+                deleteRecord={deleteRecord}
                 />
               </div>
               <div>

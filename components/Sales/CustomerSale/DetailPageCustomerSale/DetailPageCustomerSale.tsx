@@ -63,6 +63,10 @@ const DetailPageCustomerSale = () => {
     isBarcodeChecked,
     itemCodeList,
     handleTabPressItemDetails,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   }: any = useCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -100,6 +104,10 @@ const DetailPageCustomerSale = () => {
                   }
                   HandleDeleteRecords={handleDeleteRecords}
                   handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
+                  showDeleteModal={showDeleteModal}
+                handleCloseDeleteModal={handleCloseDeleteModal}
+                handleShowDeleteModal={handleShowDeleteModal}
+                deleteRecord={deleteRecord}
                 />
               </div>
               <CustomerSalesTable1

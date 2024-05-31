@@ -117,6 +117,7 @@ const ReadyReceiptMaster = () => {
                 }
                 kunKarigarDropdownReset={kunKarigarDropdownReset}
                 setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+                heading={'Purchase Receipt'}
                 showDeleteModal={showDeleteModal}
                 handleCloseDeleteModal={handleCloseDeleteModal}
                 handleShowDeleteModal={handleShowDeleteModal}

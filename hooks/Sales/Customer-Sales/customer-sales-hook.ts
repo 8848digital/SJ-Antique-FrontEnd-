@@ -18,6 +18,7 @@ import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-li
 import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
 import useCustomerSalesListingHook from './customer-sales-listing-hook';
 import useCustomCustomerSalesHook from './custom-customer-sales-hook';
+import { useDeleteModal } from '@/hooks/DeleteModal/delete-modal-hook';
 
 const useCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -45,6 +46,14 @@ const useCustomerSaleHook = () => {
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
   } = useCustomCustomerSalesHook();
+
+  const {
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+  }: any = useDeleteModal();
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -431,6 +440,7 @@ const useCustomerSaleHook = () => {
     entity: 'sales_return',
   };
   const handleDeleteDeliveryNote: any = async (name: any) => {
+    setShowDeleteModal(false)
     const version = 'v1';
     const method = 'delete_delivery_note_api';
     const entity = 'sales';
@@ -599,6 +609,10 @@ const useCustomerSaleHook = () => {
     setIsBarcodeChecked,
     handleTabPressItemDetails,
     itemCodeList,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   };
 };
 

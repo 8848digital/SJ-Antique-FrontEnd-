@@ -21,6 +21,7 @@ const ReadyReceiptListing = ({
   HandleUpdateDocStatus,
   kunKarigarDropdownReset,
   setKunKarigarDropdownReset,
+  heading,
   showDeleteModal,
   handleCloseDeleteModal,
   handleShowDeleteModal,
@@ -388,7 +389,7 @@ const ReadyReceiptListing = ({
         </tbody>
       </table>
       <DeleteModal
-        heading={'Purchase Receipt'}
+        heading={heading}
         confirmDelete={HandleDeleteReceipt}
         showDeleteModal={showDeleteModal}
         handleCloseDeleteModal={handleCloseDeleteModal}

@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from '../../../../styles/readyReceipts.module.css';
 import { useRouter } from 'next/router';
+import DeleteModal from '@/components/DeleteModal';
 
 const CustomerSalesButtonsSection = ({
   stateForDocStatus,
@@ -16,6 +17,10 @@ const CustomerSalesButtonsSection = ({
   HandleAmendButtonForCustomerSales,
   HandleDeleteRecords,
   handleDeliveryNotePrintApi,
+  showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
@@ -27,7 +32,6 @@ const CustomerSalesButtonsSection = ({
   );
 
   const HandleAmendButtonChanges: any = async () => {
-    console.log('docStatus from store in amend func');
     setShowSaveButtonForAmendFlow(true);
     setStateForDocStatus(true);
     setReadOnlyFields(false);
@@ -168,13 +172,20 @@ const CustomerSalesButtonsSection = ({
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2 `}
-              onClick={() => HandleDeleteRecords(query?.deliveryNoteId)}
+              onClick={()=>handleShowDeleteModal(query?.deliveryNoteId)}
             >
               Delete
             </button>
           )}
         </div>
       </div>
+        <DeleteModal
+        heading={'Delivery Note'}
+        confirmDelete={HandleDeleteRecords}
+        showDeleteModal={showDeleteModal}
+        handleCloseDeleteModal={handleCloseDeleteModal}
+        deleteRecord={deleteRecord}
+      />
     </>
   );
 };

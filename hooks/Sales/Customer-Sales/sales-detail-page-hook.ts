@@ -57,6 +57,10 @@ const useCustomerSaleDetailHook = () => {
     isBarcodeChecked,
     itemCodeList,
     handleTabPressItemDetails,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   }: any = useCustomerSaleHook();
 
   const loginAcessToken = useSelector(get_access_token);
@@ -353,6 +357,10 @@ const useCustomerSaleDetailHook = () => {
     isBarcodeChecked,
     itemCodeList,
     handleTabPressItemDetails,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   };
 };
 

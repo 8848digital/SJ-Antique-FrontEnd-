@@ -1,3 +1,4 @@
+import { useDeleteModal } from '@/hooks/DeleteModal/delete-modal-hook';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import DeleteApi from '@/services/api/general/delete-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
@@ -9,6 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const useCustomSalesReturnHook = () => {
+  const {
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+  }: any = useDeleteModal();
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState<any>({ id: '', item_code: '' });
   const dispatch = useDispatch();
@@ -188,6 +196,7 @@ const useCustomSalesReturnHook = () => {
   };
 
   const handleDeleteSalesReturn: any = async (id: any) => {
+    setShowDeleteModal(false)
     const version = 'v1';
     const method = 'delete_delivery_note_sales_return';
     const entity = 'sales_return';
@@ -288,7 +297,11 @@ const useCustomSalesReturnHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     handleFixedAmt,
-    newRowForSalesReturnTable
+    newRowForSalesReturnTable,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   };
 };
 

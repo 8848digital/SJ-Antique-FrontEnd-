@@ -40,6 +40,10 @@ const SaleReturnsMaster = () => {
     handleTabPressItemDetails,
     selectedItemCode,
     setSelectedItemCode,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   }: any = UseSalesReturnMasterHook();
 
   const {
@@ -96,6 +100,11 @@ const SaleReturnsMaster = () => {
                 deleteApiEntity={'sales_return'}
                 kunKarigarDropdownReset={itemCodeDropdownReset}
                 setKunKarigarDropdownReset={setItemCodeDropdownReset}
+                heading={'Delivery Note'}
+                showDeleteModal={showDeleteModal}
+                handleCloseDeleteModal={handleCloseDeleteModal}
+                handleShowDeleteModal={handleShowDeleteModal}
+                deleteRecord={deleteRecord}
                 // purchasRecieptListParams={deliveryNoteListParams}
               />
             </div>

@@ -52,6 +52,10 @@ const useSalesReturnDetailHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   }: any = useSalesReturnMasterHook();
 
   const loginAcessToken = useSelector(get_access_token);
@@ -189,7 +193,6 @@ const useSalesReturnDetailHook = () => {
       values
     );
 
-    // console.log('update delivery note api res', amendDeliveryNoteApi);
     if (amendDeliveryNoteApi?.data?.hasOwnProperty('data')) {
       setStateForDocStatus(false);
       setShowSaveButtonForAmendFlow(false);
@@ -243,6 +246,10 @@ const useSalesReturnDetailHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     HandleFixedAmt,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   };
 };
 

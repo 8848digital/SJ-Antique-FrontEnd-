@@ -55,6 +55,10 @@ const CustomerSaleMaster = () => {
     isBarcodeChecked,
     handleTabPressItemDetails,
     itemCodeList,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   }: any = useCustomerSaleHook();
   const {
     scrollableTableRef,
@@ -109,6 +113,11 @@ const CustomerSaleMaster = () => {
               purchasRecieptListParams={deliveryNoteListParams}
               kunKarigarDropdownReset={itemCodeDropdownReset}
               setKunKarigarDropdownReset={setItemCodeDropdownReset}
+              heading={'Delivery Note'}
+              showDeleteModal={showDeleteModal}
+                handleCloseDeleteModal={handleCloseDeleteModal}
+                handleShowDeleteModal={handleShowDeleteModal}
+                deleteRecord={deleteRecord}
             />
           </div>
         </div>

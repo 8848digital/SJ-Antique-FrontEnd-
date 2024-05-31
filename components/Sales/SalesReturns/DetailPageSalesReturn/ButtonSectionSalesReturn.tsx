@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import styles from '../../../../styles/readyReceipts.module.css';
 import { useRouter } from 'next/router';
 import { get_detail_sales_return_data } from '@/store/slices/Sales/get-detail-sales-return-slice';
+import DeleteModal from '@/components/DeleteModal';
 
 const SaleReturnsButtonSection = ({
   stateForDocStatus,
@@ -16,6 +17,10 @@ const SaleReturnsButtonSection = ({
   HandleAmendButtonForSalesReturn,
   HandleDeleteDeliveryNote,
   handlePrintApi,
+  showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
@@ -165,13 +170,20 @@ const SaleReturnsButtonSection = ({
             <button
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2 `}
-              onClick={() => HandleDeleteDeliveryNote(query?.deliveryNoteId)}
+              onClick={() => handleShowDeleteModal(query?.deliveryNoteId)}
             >
               Delete
             </button>
           )}
         </div>
       </div>
+      <DeleteModal
+        heading={'Delivery Note'}
+        confirmDelete={HandleDeleteDeliveryNote}
+        showDeleteModal={showDeleteModal}
+        handleCloseDeleteModal={handleCloseDeleteModal}
+        deleteRecord={deleteRecord}
+      />
     </>
   );
 };

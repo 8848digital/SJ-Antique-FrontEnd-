@@ -44,7 +44,11 @@ const useSalesReturnMasterHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     handleFixedAmt,
-    newRowForSalesReturnTable
+    newRowForSalesReturnTable,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   }: any = useCustomSalesReturnHook();
   const [clientNameListData, setClientNameListData] = useState<any>([]);
   const [deliveryNoteData, setDeliveryNoteData] = useState({
@@ -279,6 +283,10 @@ const useSalesReturnMasterHook = () => {
     // handleTabPressItemDetails,
     selectedItemCode,
     setSelectedItemCode,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   };
 };
 
