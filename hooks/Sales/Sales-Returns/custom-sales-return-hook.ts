@@ -149,6 +149,9 @@ const useCustomSalesReturnHook = () => {
   };
   const updateSalesTableData = (data: any) => {
     setSelectedClient(data[0]?.custom_client_name);
+    setSalesReturnTableData((prevSalesTableData: any) => {
+      return [...prevSalesTableData, newRowForSalesReturnTable];
+    });
     if (data?.length > 0) {
       if (selectedItemCodeForCustomerSale?.id) {
         setSalesReturnTableData((prevSalesReturnTableData: any) => {
@@ -160,10 +163,6 @@ const useCustomSalesReturnHook = () => {
             }
           );
           return updatedTable;
-        });
-
-        setSalesReturnTableData((prevSalesTableData: any) => {
-          return [...prevSalesTableData, newRowForSalesReturnTable];
         });
       } else {
         // Create a new row for each item in data[0]?.items

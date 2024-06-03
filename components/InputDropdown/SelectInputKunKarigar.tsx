@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/readyReceipts.module.css';
+import { useRouter } from 'next/router';
 
 const SelectInputKunKarigar = ({
   kundanKarigarData,
@@ -27,7 +28,7 @@ const SelectInputKunKarigar = ({
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
   const [scrollIndex, setScrollIndex] = useState(0);
   const dropdownRef = useRef<HTMLUListElement>(null);
-
+  const router = useRouter()
   const handleShowDropdown = () => {
     if (!readOnlyFields) {
       setShowDropdown(!showDropdown);
@@ -117,7 +118,9 @@ const SelectInputKunKarigar = ({
   };
 
   useEffect(() => {
-    inputRef?.current?.focus()
+    if (router?.asPath.startsWith('/sales')){
+      inputRef?.current?.focus()
+    }
     const handleDocumentClick = (e: any) => {
       // Check if the input element itself was clicked
       if (

@@ -136,6 +136,9 @@ const useCustomReadyReceiptHook: any = () => {
       );
       if (updatedData?.data?.message?.status === 'success') {
         setKundanListing(updatedData?.data?.message?.data);
+        if(query?.receiptId === name){
+          router.back()
+        }
       }
     } else {
       toast.error('Failed to Delete purchase Receipt');
