@@ -453,7 +453,6 @@ const useCustomerSaleHook = () => {
       name
     );
 
-
     if (deleteApi?.data?.message?.status === "success") {
       toast.success('Sales note Deleted');
       let updatedData: any = await getDeliveryNoteListing(
@@ -462,6 +461,9 @@ const useCustomerSaleHook = () => {
       );
       if (updatedData?.data?.message?.status === 'success') {
         setDeliveryNoteListing(updatedData?.data?.message?.data);
+        if(query?.receiptId === name){
+          router.back()
+        }
       }
     } else {
       toast.error('Failed to delete sales note');

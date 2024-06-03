@@ -247,9 +247,8 @@ const useCustomSalesReturnHook = () => {
       entity,
       id
     );
-
-    if (Object?.keys(deleteApi?.data)?.length === 0) {
-      toast.success('Sales Return note Deleted');
+    if (deleteApi?.data?.message?.status === "success") {
+      toast.success(deleteApi?.data?.message?.message);
       const deliveryNoteListParams = {
         version: 'v1',
         method: 'get_listening_delivery_note_sales_return',

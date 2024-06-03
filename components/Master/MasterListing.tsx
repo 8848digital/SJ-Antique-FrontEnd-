@@ -86,7 +86,27 @@ const MasterListing: any = ({ value }: any) => {
                 value === 'BBCategory' ? 'activeColor' : ''
               }`}
             >
-              BB Category
+              BB-Category
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
+          <Link href="/master/category" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${
+                value === 'category' ? 'activeColor' : ''
+              }`}
+            >
+              Category
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
+          <Link href="/master/subCategory" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${
+                value === 'subCategory' ? 'activeColor' : ''
+              }`}
+            >
+              Sub-Category
               <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
             </button>
           </Link>

@@ -229,6 +229,60 @@ const IndexPage = () => {
           tab2={'Create New BB Category'}
         />
       )}
+      {key === 'category' && (
+        <MasterMaterialMaster
+          value={key}
+          materialList={
+            clientList?.length > 0 &&
+            clientList !== null &&
+            clientList.map((data: any) => ({
+              material: data.client_name,
+              material_abbr: data.client_group,
+            }))
+          }
+          clientGroup={clientGroup}
+          HandleNameChange={HandleClientNameChange}
+          HandleSave={HandleClientSave}
+          nameValue={clientName}
+          error1={error1}
+          error2={error2}
+          placeholder1={'Category Name'}
+          placeholder2={'Category Group'}
+          tab1={'Category name'}
+          tab2={'Create New Category'}
+          setSearchClient={setSearchClient}
+          searchClient={searchClient}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+        />
+      )}
+      {key === 'subCategory' && (
+        <MasterMaterialMaster
+          value={key}
+          materialList={
+            clientList?.length > 0 &&
+            clientList !== null &&
+            clientList.map((data: any) => ({
+              material: data.client_name,
+              material_abbr: data.client_group,
+            }))
+          }
+          clientGroup={clientGroup}
+          HandleNameChange={HandleClientNameChange}
+          HandleSave={HandleClientSave}
+          nameValue={clientName}
+          error1={error1}
+          error2={error2}
+          placeholder1={'Sub-category Name'}
+          placeholder2={'Sub-category Group'}
+          tab1={'Category name'}
+          tab2={'Create New Category'}
+          setSearchClient={setSearchClient}
+          searchClient={searchClient}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+        />
+      )}
     </div>
   );
 };

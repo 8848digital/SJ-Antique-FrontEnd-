@@ -49,7 +49,7 @@ const ReportHeader = () => {
             dailyQtyStatusValue ? 'activeColor' : ''
           }`}
         >
-          Daily Quantity Status
+          Daily Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>
