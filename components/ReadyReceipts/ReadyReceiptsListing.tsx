@@ -278,6 +278,10 @@ const ReadyReceiptListing = ({
                               HandleUpdateDocStatus('1', item.name)
                             }
                             className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                            style={{
+                              pointerEvents: (item?.posting_date ===
+                                new Date()?.toISOString()?.split('T')[0]) ? "auto" : "none",
+                            }}
                           >
                             Submit
                           </a>
@@ -337,35 +341,33 @@ const ReadyReceiptListing = ({
                     >
                       <div className="row justify-content-center  ">
                         <div className="col-lg-3 col-12">
-                          {item?.posting_date ===
-                          new Date()?.toISOString()?.split('T')[0] ? (
-                            <>
+                          
                               <Link
                                 href={`${url}/${item.name}`}
                                 className="button-section-text text-info "
-                              >
+                                style={{
+                                  pointerEvents: (item?.posting_date ===
+                                    new Date()?.toISOString()?.split('T')[0]) ? "auto" : "none",
+                                }}>
                                 Amend
                               </Link>
-                            </>
-                          ) : (
-                            <div className=""></div>
-                          )}
+                            
                         </div>
 
                         <div className="col-lg-3 col-12">
-                          {item?.posting_date ===
-                          new Date()?.toISOString()?.split('T')[0] ? (
-                            <>
+                          
                               <a
                                 onClick={()=>handleShowDeleteModal(item.name)}
                                 className={`button-section-text text-danger ${styles.cursor_pointer}`}
+                                style={{
+                                  pointerEvents: (item?.posting_date ===
+                                    new Date()?.toISOString()?.split('T')[0]) ? "auto" : "none",
+                                }}
                               >
                                 Delete
                               </a>
-                            </>
-                          ) : (
-                            <div className=""></div>
-                          )}
+                            
+                         
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link

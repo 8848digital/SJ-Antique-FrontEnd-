@@ -236,6 +236,9 @@ const useReadyReceipt = () => {
   };
 
   const handleCreate = async () => {
+    if (tabDisabled) {
+      return;
+    }
     setTabDisabled(true);
     const updatedTableData: any = calculateWtForCreateReceipt({
       tableData,

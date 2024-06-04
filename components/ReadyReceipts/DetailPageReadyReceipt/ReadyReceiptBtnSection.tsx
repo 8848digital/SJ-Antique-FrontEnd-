@@ -34,6 +34,11 @@ const ReadyReceiptBtnSection = ({
     setStateForDocStatus(true);
     setReadOnlyFields(false);
   };
+  const dateFlag =
+    data?.posting_date === new Date()?.toISOString()?.split('T')[0]
+      ? false
+      : true;
+  console.log(dateFlag,'flag');
 
   return (
     <>
@@ -119,6 +124,7 @@ const ReadyReceiptBtnSection = ({
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2`}
               onClick={() => HandleUpdateDocStatus('1')}
+              disabled={dateFlag}
             >
               Submit
             </button>
@@ -133,18 +139,16 @@ const ReadyReceiptBtnSection = ({
               Cancel
             </button>
           )}
-          {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
-            <>
-              {data?.docstatus === 2 && stateForDocStatus === false && (
-                <button
-                  type="button"
-                  className={`${styles.create_button} px-2 py-0 me-2`}
-                  onClick={HandleAmendButtonChanges}
-                >
-                  Amend
-                </button>
-              )}
-            </>
+
+          {data?.docstatus === 2 && stateForDocStatus === false && (
+            <button
+              type="button"
+              className={`${styles.create_button} px-2 py-0 me-2`}
+              onClick={HandleAmendButtonChanges}
+              disabled={dateFlag}
+            >
+              Amend
+            </button>
           )}
 
           {showSaveButtonForAmendFlow &&
@@ -159,18 +163,15 @@ const ReadyReceiptBtnSection = ({
               </button>
             )}
 
-          {data?.posting_date === new Date()?.toISOString()?.split('T')[0] && (
-            <>
-              {data?.docstatus === 2 && (
-                <button
-                  type="button"
-                  className={`${styles.create_button} px-2 py-0 me-2 `}
-                  onClick={()=>handleShowDeleteModal(query?.receiptId)}
-                >
-                  Delete
-                </button>
-              )}
-            </>
+          {data?.docstatus === 2 && (
+            <button
+              type="button"
+              className={`${styles.create_button} px-2 py-0 me-2 `}
+              onClick={() => handleShowDeleteModal(query?.receiptId)}
+              disabled={dateFlag}
+            >
+              Delete
+            </button>
           )}
         </div>
       </div>

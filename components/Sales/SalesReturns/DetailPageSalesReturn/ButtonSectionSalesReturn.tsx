@@ -37,6 +37,9 @@ const SaleReturnsButtonSection = ({
     setReadOnlyFields(false);
   };
 
+  const dateFlag = DetailOfDeliveryNoteFromStore?.data?.posting_date ===
+  new Date()?.toISOString()?.split('T')[0] ? false : true
+
   return (
     <>
       <div className="d-flex align-items-center justify-content-between">
@@ -124,6 +127,7 @@ const SaleReturnsButtonSection = ({
                 type="button"
                 className={`${styles.create_button} px-2 py-0 me-2`}
                 onClick={() => HandleUpdateSalesdocStatus('1')}
+                disabled={dateFlag}
               >
                 Submit
               </button>
@@ -138,21 +142,19 @@ const SaleReturnsButtonSection = ({
                 Cancel
               </button>
             )}
-          {DetailOfDeliveryNoteFromStore?.data?.posting_date ===
-            new Date()?.toISOString()?.split('T')[0] && (
-            <>
+          
               {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
                 stateForDocStatus === false && (
                   <button
                     type="button"
                     className={`${styles.create_button} px-2 py-0 me-2`}
                     onClick={HandleAmendButtonChanges}
+                    disabled={dateFlag}
                   >
                     Amend
                   </button>
                 )}
-            </>
-          )}
+            
 
           {showSaveButtonForAmendFlow &&
             stateForDocStatus &&
@@ -171,6 +173,7 @@ const SaleReturnsButtonSection = ({
               type="button"
               className={`${styles.create_button} px-2 py-0 me-2 `}
               onClick={() => handleShowDeleteModal(query?.deliveryNoteId)}
+              disabled={dateFlag}
             >
               Delete
             </button>
