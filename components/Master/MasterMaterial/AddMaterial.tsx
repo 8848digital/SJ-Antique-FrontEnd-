@@ -49,11 +49,11 @@ const AddMaterial = ({
           <span className="text-danger">*</span>
         </div>
         <div className="p-1">
-          {value === 'client' ? (
+          {value === 'client' || value === 'subCategory' ? (
             <SearchSelectInputField
               karigarData={clientGroup}
               className={'form-control w-50 border p-0 px-2'}
-              placeholder={'Client Group'}
+              placeholder={placeholder2}
               selectedDropdownValue={searchClient}
               setSelectedDropdownValue={setSearchClient}
               style={'client-width'}

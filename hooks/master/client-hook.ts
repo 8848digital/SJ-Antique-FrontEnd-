@@ -1,14 +1,18 @@
 import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
+import getCategoryApi from '@/services/api/Master/get-category-api';
 import getClientApi from '@/services/api/Master/get-client-api';
 import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
+import getSubCategoryApi from '@/services/api/Master/grt-sub-category-api';
 import postBBCategoryApi from '@/services/api/Master/post-bbCategory-api';
+import postCategoryApi from '@/services/api/Master/post-category-api';
 import postClientApi from '@/services/api/Master/post-client-api';
 import postGroupDataApi from '@/services/api/Master/post-client-group-api';
 import postKunCsOtCategoryApi from '@/services/api/Master/post-kunCsOtCategory-api';
+import postSubCategoryApi from '@/services/api/Master/post-sub-category-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const useClientHook = () => {
@@ -20,12 +24,14 @@ const useClientHook = () => {
   const [clientGroupList, setClientGroupList] = useState();
   const [KunCsOtCategory, setKunCsOtCategory] = useState();
   const [BBCategory, setBBCategory] = useState();
+  const [category, setCategory] = useState();
+  const [subCategory, setSubCategory] = useState();
   const [searchClient, setSearchClient] = useState('');
+  const [searchCategory, setSearchCategory] = useState('');
   const [inputValue1, setInputValue1] = useState('');
   const [errorC, setErrorC] = useState('');
   const [selectDropDownReset, setSelectDropDownReset] =
     useState<boolean>(false);
-  console.log(searchClient, 'search client in dropdown');
   // get api function
   useEffect(() => {
     const getStateData: any = async () => {
@@ -35,8 +41,8 @@ const useClientHook = () => {
       );
       const kunCsOtData = await getKunCsOtCategoryApi(loginAcessToken.token);
       const BBData = await getBBCategoryApi(loginAcessToken.token);
-      console.log(clientData, 'kuncsotdata');
-
+      const categoryData = await getCategoryApi(loginAcessToken.token);
+      const subCategoryData = await getSubCategoryApi(loginAcessToken.token);
       if (clientGroupData?.data?.message?.status === 'success') {
         setClientGroupList(clientGroupData?.data?.message?.data);
       }
@@ -48,6 +54,12 @@ const useClientHook = () => {
       }
       if (BBData?.data?.message?.status === 'success') {
         setBBCategory(BBData?.data?.message?.data);
+      }
+      if (categoryData?.data?.message?.status === 'success') {
+        setCategory(BBData?.data?.message?.data);
+      }
+      if (subCategoryData?.data?.message?.status === 'success') {
+        setSubCategory(BBData?.data?.message?.data);
       }
     };
     getStateData();
@@ -118,6 +130,59 @@ const useClientHook = () => {
       setSelectDropDownReset(true);
     }
   };
+
+  // Sub-category post API
+  const HandleSubCategoryChange = (e: any) => {
+    const { value } = e.target;
+
+    console.log(clientName, searchClient, 'client name saved');
+    setClientNameValue({
+      ...clientName,
+      material: value,
+      material_abbr: searchCategory,
+    });
+    setError1('');
+    setError2('');
+  };
+  const HandleSubCategorySave = async () => {
+    const values = {
+      version: 'v1',
+      method: 'create_client',
+      entity: 'client',
+      client_name: clientName?.material,
+      client_group: searchCategory,
+    };
+    console.log(values, 'valuesname');
+    if (clientName?.material === '' || clientName.material === undefined) {
+      console.log('inside console1');
+      setError1('Input field cannot be empty');
+      console.log(errorC1);
+    } else if (
+      clientName.material_abbr === '' ||
+      clientName.material_abbr === undefined
+    ) {
+      console.log('inside console2');
+      setError2('Input field cannot be empty');
+    } else {
+      console.log('inside console3');
+      let apiRes: any = await postSubCategoryApi(loginAcessToken?.token, values);
+      console.log('apires', apiRes);
+      if (apiRes?.status === 'success') {
+        toast.success('Sub-category Name Created');
+        const clientData = await getClientApi(loginAcessToken.token);
+        setClientList(clientData?.data?.message?.data);
+      } else {
+        toast.error('Sub-category Name already exist');
+      }
+      setError1('');
+      setClientNameValue({
+        material: '',
+        material_abbr: '',
+      });
+      setSelectDropDownReset(true);
+    }
+  };
+
   // KunCsOt category post api
   const HandleKunCsOtChange = (e: any) => {
     console.log(clientName, 'changing client');
@@ -248,6 +313,40 @@ const useClientHook = () => {
     setSearchClient(value);
   };
 
+  // Category post API
+  const HandleCategorySubmit = async () => {
+    const values = {
+      version: 'v1',
+      method: 'create_client_group',
+      entity: 'client_group',
+      client_group: inputValue1,
+    };
+    console.log(values, 'valuesname');
+    if (inputValue1.trim() === '') {
+      setErrorC('Input field cannot be empty');
+    } else {
+      let apiRes: any = await postCategoryApi(loginAcessToken?.token, values);
+      console.log('apires', apiRes);
+      if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+        toast.success('Category Name Created');
+        const categoryData: any = await getCategoryApi(loginAcessToken.token);
+        setCategory(categoryData?.data?.message?.data);
+      } else {
+        toast.error('Category Name already exist');
+      }
+      setErrorC('');
+      setInputValue1('');
+    }
+  };
+  const HandleCategoryValue = (e: any) => {
+    setErrorC('');
+    setInputValue1(e.target.value);
+    console.log(inputValue1, 'input value');
+  };
+  const handleSelectCategory = (value: any) => {
+    setSearchCategory(value);
+  };
+
   return {
     clientList,
     HandleClientNameChange,
@@ -272,6 +371,15 @@ const useClientHook = () => {
     handleSelectClientGroup,
     selectDropDownReset,
     setSelectDropDownReset,
+    category,
+    handleSelectCategory,
+    HandleCategorySubmit,
+    HandleCategoryValue,
+    subCategory,
+    HandleSubCategoryChange,
+    HandleSubCategorySave,
+    setSearchCategory,
+    searchCategory
   };
 };
 export default useClientHook;

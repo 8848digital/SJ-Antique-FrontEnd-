@@ -59,6 +59,15 @@ const IndexPage = () => {
     clientGroupList,
     selectDropDownReset,
     setSelectDropDownReset,
+    category,
+    handleSelectCategory,
+    HandleCategorySubmit,
+    HandleCategoryValue,
+    subCategory,
+    HandleSubCategoryChange,
+    HandleSubCategorySave,
+    setSearchCategory,
+    searchCategory
   }: any = useClientHook();
 
   const router = useRouter();
@@ -76,6 +85,12 @@ const IndexPage = () => {
     materialGroupList !== null &&
     materialGroupList.map((data: any) => ({
       karigar_name: data.material_group,
+    }));
+  let categoryName: any =
+    category?.length > 0 &&
+    category !== null &&
+    category.map((data: any) => ({
+      karigar_name: data.client_group,
     }));
 
   return (
@@ -230,55 +245,42 @@ const IndexPage = () => {
         />
       )}
       {key === 'category' && (
-        <MasterMaterialMaster
-          value={key}
-          materialList={
-            clientList?.length > 0 &&
-            clientList !== null &&
-            clientList.map((data: any) => ({
-              material: data.client_name,
-              material_abbr: data.client_group,
-            }))
-          }
-          clientGroup={clientGroup}
-          HandleNameChange={HandleClientNameChange}
-          HandleSave={HandleClientSave}
-          nameValue={clientName}
-          error1={error1}
-          error2={error2}
-          placeholder1={'Category Name'}
-          placeholder2={'Category Group'}
-          tab1={'Category name'}
-          tab2={'Create New Category'}
-          setSearchClient={setSearchClient}
-          searchClient={searchClient}
-          selectDropDownReset={selectDropDownReset}
-          setSelectDropDownReset={setSelectDropDownReset}
-        />
+        <MasterKarigar
+        karigarData={categoryName}
+        inputValue={inputValue1}
+        HandleInputValue={HandleCategoryValue}
+        HandleSubmit={HandleCategorySubmit}
+        error={errorC}
+        setError={setErrorC}
+        value={key}
+        placeholder={'Category Name'}
+        tab1={'Category List'}
+        tab2={'Create New Category'}
+      />
       )}
       {key === 'subCategory' && (
         <MasterMaterialMaster
           value={key}
           materialList={
-            clientList?.length > 0 &&
-            clientList !== null &&
-            clientList.map((data: any) => ({
+            subCategory?.length > 0 &&
+            subCategory !== null &&
+            subCategory.map((data: any) => ({
               material: data.client_name,
               material_abbr: data.client_group,
             }))
           }
-          clientGroup={clientGroup}
-          HandleNameChange={HandleClientNameChange}
-          HandleSave={HandleClientSave}
+          clientGroup={categoryName}
+          HandleNameChange={HandleSubCategoryChange}
+          HandleSave={HandleSubCategorySave}
           nameValue={clientName}
           error1={error1}
           error2={error2}
           placeholder1={'Sub-category Name'}
-          placeholder2={'Sub-category Group'}
-          tab1={'Category name'}
-          tab2={'Create New Category'}
-          setSearchClient={setSearchClient}
-          searchClient={searchClient}
+          placeholder2={'Category Name'}
+          tab1={'Sub-Category name'}
+          tab2={'Create New Sub-Category'}
+          setSearchClient={setSearchCategory}
+          searchClient={searchCategory}
           selectDropDownReset={selectDropDownReset}
           setSelectDropDownReset={setSelectDropDownReset}
         />
