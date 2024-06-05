@@ -39,6 +39,7 @@ const ReadyReceiptBtnSection = ({
       ? false
       : true;
 
+
   return (
     <>
       <div className="d-flex align-items-center justify-content-between">

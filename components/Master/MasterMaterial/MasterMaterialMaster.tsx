@@ -23,12 +23,10 @@ const MasterMaterialMaster: any = ({
   selectDropDownReset,
   setSelectDropDownReset,
 }: any) => {
-  console.log(materialList, 'kuncsotdata');
   const [inputName, setInputName] = useState('');
   const [inputMatGroup, setInputMatGrp] = useState('');
   const [inputGroup, setInputGroup] = useState('');
   const handleInputChange1 = (event: any) => {
-    console.log('inside 1', event.target.value);
     setInputName(event.target.value);
   };
   const handleInputChange2 = (event: any) => {
@@ -61,7 +59,6 @@ const MasterMaterialMaster: any = ({
       return materialMatch && materialGroupMatch && materialAbbrMatch;
     });
 
-  console.log(filteredList, 'kuncsotdata');
   return (
     <div className="container-lg">
       <MasterListing value={value} />

@@ -11,9 +11,7 @@ const getMaterialGroupApi = async (get_access_token: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get material group', res);
       response = res;
-      console.log(response, 'get client group');
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {

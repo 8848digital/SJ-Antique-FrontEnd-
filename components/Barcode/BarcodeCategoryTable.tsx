@@ -11,7 +11,6 @@ const BarcodeCategorySection = ({
   setSeletedCategory,
   handleSelectChange,
 }: any) => {
-  console.log('itemCodeDataToShow', checkedItems, itemCodeDataToShow);
   return (
     <div className="tab-width ">
       <div>

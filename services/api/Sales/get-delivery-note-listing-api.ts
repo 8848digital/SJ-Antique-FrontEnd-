@@ -4,7 +4,6 @@ import axios from 'axios';
 const getDeliveryNoteListing = async (get_access_token: any, params: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
-  console.log('inside api call', params);
   await axios
     .get(
       `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=${params?.version}&method=${params?.method}&entity=${params?.entity}`,

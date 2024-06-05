@@ -41,10 +41,8 @@ const useMasterHooks = () => {
       entity: 'karigar',
       karigar_name: inputValue,
     };
-    console.log(values, 'values');
     if (inputValue.trim() === '') {
       setError('Input field cannot be empty');
-      console.log(error);
     } else {
       let apiRes: any = await postKarigarApi(loginAcessToken?.token, values);
 
@@ -64,7 +62,6 @@ const useMasterHooks = () => {
   const HandleInputValue = (e: any) => {
     setError('');
     setInputValue(e.target.value);
-    console.log(inputValue, 'input value');
   };
   // post kundan karigar api
   const HandleKunSubmit = async () => {
@@ -74,10 +71,8 @@ const useMasterHooks = () => {
       entity: 'kundan_karigar',
       karigar_name: inputValue,
     };
-    console.log(values, 'values');
     if (inputValue.trim() === '') {
       setError('Input field cannot be empty');
-      console.log(error);
     } else {
       let apiRes: any = await postKunKarigarApi(loginAcessToken?.token, values);
 
@@ -93,7 +88,6 @@ const useMasterHooks = () => {
       setError('');
       setInputValue('');
     }
-    console.log(kunKarigarList, 'new added');
   };
   const HandleKunInputValue = (e: any) => {
     setError('');

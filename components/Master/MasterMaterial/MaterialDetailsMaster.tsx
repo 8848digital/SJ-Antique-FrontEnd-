@@ -6,7 +6,6 @@ const MaterialDetailsMaster = () => {
 
   const { name1, name2, name3, placeholder1, placeholder2, placeholder3 } =
     router.query;
-  console.log(name3, 'name3');
   return (
     <div className="container mt-5 d-flex justify-content-center">
       <div className="card mt-2 w-50 ">

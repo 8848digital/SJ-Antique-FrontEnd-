@@ -6,7 +6,6 @@ export const getAccessToken: any = createAsyncThunk(
   'accessToken/getAccessToken',
   async (param: any) => {
     const AccessTokenData = await getAccessTokenApi(param);
-    console.log(AccessTokenData, 'AccessTokenData');
     return AccessTokenData;
   }
 );
@@ -38,7 +37,6 @@ export const GetAccessTokenScreen: any = createSlice({
       state.token = '';
     });
     builder.addCase(getAccessToken.fulfilled, (state, action) => {
-      console.log('token payload', action?.payload);
       if (action?.payload?.data?.hasOwnProperty('access_token')) {
         state.token = action?.payload?.data?.access_token;
         state.isLoading = 'succeeded';

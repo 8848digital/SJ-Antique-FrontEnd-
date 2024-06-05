@@ -11,7 +11,6 @@ const getBarcodeListingApi: any = async (get_access_token: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get barcode listing', res);
       response = res;
     })
     .catch((err: any) => {

@@ -7,7 +7,6 @@ export const GetDetailOfDeliveryNote: any = createAsyncThunk(
   async (params: any) => {
     const DetailOfDeliveryNoteData: any =
       await GetDetailOfDeliveryNoteAPi(params);
-    console.log('DetailOfDeliveryNoteData res', DetailOfDeliveryNoteData);
     return DetailOfDeliveryNoteData;
   }
 );

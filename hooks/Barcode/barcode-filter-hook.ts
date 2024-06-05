@@ -77,7 +77,6 @@ const UseBarcodeFilterList = () => {
         loginAcessToken.token
       );
       const BBData: any = await getBBCategoryApi(loginAcessToken.token);
-      console.log(karigarData?.data?.message?.data, 'karigar client data');
 
       if (karigarData?.data?.message?.status === 'success') {
         setKarigarList(karigarData?.data?.message?.data);
@@ -98,7 +97,6 @@ const UseBarcodeFilterList = () => {
     };
     getStateData();
   }, []);
-  console.log('@barcode karigar data', karigarList);
 
   const handleSearchBarcodeItemCodeDetails = (e: any, fieldName: any) => {
     let value = e.target.value;
@@ -125,7 +123,6 @@ const UseBarcodeFilterList = () => {
         loginAcessToken?.token
       );
 
-    console.log('get item code by search', searchBarcodeItemCodeDetailsApi);
     if (searchBarcodeItemCodeDetailsApi?.data?.message?.status === 'success') {
       const getBarcodeListingData: any = await getBarcodeListingApi(
         loginAcessToken.token
@@ -134,11 +131,7 @@ const UseBarcodeFilterList = () => {
         getBarcodeListingData?.data?.message?.data;
       let searchBarcodeItemDetailsResult: any =
         searchBarcodeItemCodeDetailsApi?.data?.message?.data;
-      console.log(
-        'searchBarcodeItemDetailsResult',
-        searchBarcodeItemDetailsResult,
-        barcodeListingDataResult
-      );
+
       const checkItemCodesToShow: any =
         searchBarcodeItemDetailsResult?.length > 0 &&
         searchBarcodeItemDetailsResult.filter((data: any) => {
@@ -150,7 +143,6 @@ const UseBarcodeFilterList = () => {
           );
         });
 
-      console.log('checkItemCodesToShow', checkItemCodesToShow);
       if (searchBarcodeFilterData.barcode_created === 'yes') {
         setItemCodeDataToShow(checkItemCodesToShow);
         const ids =
@@ -174,9 +166,6 @@ const UseBarcodeFilterList = () => {
     setShowCategorySection(true);
     setShowBarcodeTableSection(false);
   };
-
-  console.log('updated searchBarcode filter data', checkedItems);
-  console.log(checkedItems, 'checked items for generate barcode');
   const handleGenerateBarcodeListBtn: any = async () => {
     setShowCategorySection(false);
     setShowBarcodeTableSection(true);
@@ -200,7 +189,6 @@ const UseBarcodeFilterList = () => {
       getBarcodeDetails?.data?.message?.message?.status === 'success' &&
       Object.keys(getBarcodeDetails?.data?.message?.message?.data)?.length > 0
     ) {
-      console.log('initial', getBarcodeDetails?.data?.message?.message.data);
       const data: any = getBarcodeDetails?.data?.message?.message?.data;
       const newData: any = Object.values(data).flatMap(
         (item: any, index: any) =>
@@ -253,7 +241,6 @@ const UseBarcodeFilterList = () => {
             custom_amount: 0,
           }))
       );
-      console.log(newData, '@barcode data ');
       setSalesTableData(newData);
     } else {
       setSalesTableData([SalesTableInitialState]);
@@ -321,11 +308,8 @@ const UseBarcodeFilterList = () => {
         }
       });
     });
-    console.log(salesTableData, 'saletabledata in field change');
   };
-  console.log(salesTableData, '@barcode table data');
   const handleCheckboxChange = (id: any, name: any) => {
-    console.log('prev items check', checkedItems);
 
     setCheckedItems((prevItems: any) => {
       const index = prevItems.findIndex((item: any) => item.id === id);
@@ -341,7 +325,6 @@ const UseBarcodeFilterList = () => {
     });
   };
 
-  console.log('checked items', salesTableData);
 
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
@@ -357,7 +340,6 @@ const UseBarcodeFilterList = () => {
   };
 
   const HandleCreateBarcode = async () => {
-    console.log(salesTableData, 'barcode post barcode');
 
     const updatedData =
       salesTableData?.length > 0 &&
@@ -393,7 +375,6 @@ const UseBarcodeFilterList = () => {
       entity: 'barcode',
       data: updatedData,
     };
-    console.log(values, '@barcode values');
     const createNewBarcodeApi: any = await PostCreateBarcodeApi(
       loginAcessToken.token,
       values
@@ -412,10 +393,8 @@ const UseBarcodeFilterList = () => {
     if (createNewBarcodeApi?.data?.message?.status === 'error') {
       toast.error(`${createNewBarcodeApi?.data?.message?.error}`);
     }
-    console.log(updatedData, '@barcode post updated data');
   };
   const handleTabPress = () => {};
-  console.log('@barcode selected Category', selectedCategory);
 
   const handleAddRowForSales: any = () => {};
   const handleDeleteRowOfSalesTable: any = () => {};

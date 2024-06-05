@@ -32,7 +32,6 @@ const ReadyReceiptMasterTable = ({
   handleAmendButtonForDuplicateChitti,
   tabDisabled
 }: any) => {
-  // console.log('table data receipt', tableData);
   const { query } = useRouter();
   const [calculationRow, setCalculationRow] = useState({
     custom_net_wt: 0,

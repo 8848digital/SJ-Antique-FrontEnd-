@@ -11,7 +11,6 @@ const getBBCategoryApi = async (get_access_token: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get bb category', res);
       response = res;
     })
     .catch((err: any) => {

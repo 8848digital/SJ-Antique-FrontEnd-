@@ -33,7 +33,6 @@ const SelectInputMaterial = ({
     const updatedModalData =
       materialWeight?.length > 0 &&
       materialWeight?.map((item: any, i: any) => {
-        console.log(item, 'modalItem');
         if (i === id) {
           return { ...item, material: 0 || selectedDropdownValue };
         }

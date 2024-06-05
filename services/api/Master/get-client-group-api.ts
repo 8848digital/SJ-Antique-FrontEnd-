@@ -11,9 +11,7 @@ const getClientGroupApi = async (get_access_token: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get client group', res);
       response = res;
-      console.log(response, 'get client group');
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {

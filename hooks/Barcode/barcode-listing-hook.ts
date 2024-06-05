@@ -26,7 +26,6 @@ const useBarcodeListingHook = () => {
   }, []);
 
   const handleBarcodePrint: any = async (item_code: any) => {
-    console.log('handle multiple print', multipleRecordsForPrint);
     const reqParams: any = {
       version: 'v1',
       method: 'print_barcode',
@@ -35,7 +34,6 @@ const useBarcodeListingHook = () => {
     };
 
     let barcodePrintApi: any = await PrintApi(reqParams);
-    console.log('barcodeprint api res', barcodePrintApi);
     if (barcodePrintApi?.data?.message?.status === 'success') {
       window.open(barcodePrintApi?.data?.message?.data?.data[0]?.print_url);
     } else if (barcodePrintApi?.status === 'error') {
@@ -44,12 +42,10 @@ const useBarcodeListingHook = () => {
   };
 
   const handleMultipleBarcodePrint: any = async (multipleRecord: any) => {
-    console.log(multipleRecord, 'aaaaaaaaaaa');
     const namesArray =
       multipleRecord?.length > 0 &&
       multipleRecord !== null &&
       multipleRecord.map((record: any) => record.name || record.item_code);
-    console.log(namesArray, 'aaaaaaa');
     const reqParams: any = {
       version: 'v1',
       method: 'get_multiple_specific_print_barcode',
@@ -58,7 +54,6 @@ const useBarcodeListingHook = () => {
     };
 
     let barcodePrintApi: any = await PrintApi(reqParams);
-    console.log('barcodeprint api res', barcodePrintApi);
     if (barcodePrintApi?.data?.message?.status === 'success') {
       window.open(barcodePrintApi?.data?.message?.print_url);
     } else if (barcodePrintApi?.status === 'error') {
@@ -66,10 +61,8 @@ const useBarcodeListingHook = () => {
     }
   };
 
-  console.log('updated multiple record', multipleRecordsForPrint);
 
   const handleCheckboxForBarcodePrint = (id: any, name: any) => {
-    console.log('prev items check', id, name);
 
     setMultipleRecordsForPrint((prevItems: any) => {
       const index = prevItems.findIndex((item: any) => item.id === id);
@@ -102,7 +95,6 @@ const useBarcodeListingHook = () => {
     });
   };
 
-  console.log(BarcodeListData, '@Barcode list data');
   return {
     BarcodeListData,
     setBarcodeListData,

@@ -11,7 +11,6 @@ const postMaterialApi = async (get_access_token: any, val: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('post material', res);
       response = res?.data?.message;
     })
     .catch((err: any) => {

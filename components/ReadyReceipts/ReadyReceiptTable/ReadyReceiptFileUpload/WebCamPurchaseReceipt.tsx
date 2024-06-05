@@ -24,16 +24,13 @@ const WebCamReadyReceipt = ({
       const blob = await fetch(imageSrc).then((res) => res.blob());
       setCapturedImage(imageSrc);
       // Create FormData and append Blob
-      console.log('blobbb', blob);
       handleFieldChange(item.idx, 'tableRow', 'custom_add_photo', blob, blob);
-      console.log('blobb', blob);
     }
     setShowWebcam(false);
   };
 
   const handleSwitchCamera = () => {
     setSwitchCamera(!switchCamera);
-    console.log(switchCamera, 'switch camera');
   };
 
   return (

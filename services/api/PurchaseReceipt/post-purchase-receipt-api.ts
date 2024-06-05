@@ -2,16 +2,9 @@ import axios from 'axios';
 import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
 const purchaseReceiptApi = async (get_access_token: any, val: any) => {
-  console.log(val, 'vals');
 
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
-  const config = {
-    headers: {
-      Accept: 'application/json',
-      Authorization: get_access_token,
-    },
-  };
 
   await axios
     .post(
@@ -20,7 +13,6 @@ const purchaseReceiptApi = async (get_access_token: any, val: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('post purchase receipt', res);
       response = res;
     })
     .catch((err: any) => {

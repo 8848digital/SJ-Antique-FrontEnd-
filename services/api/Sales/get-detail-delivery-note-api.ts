@@ -2,7 +2,6 @@ import { CONSTANTS } from '@/services/config/api-config';
 import axios from 'axios';
 
 const GetDetailOfDeliveryNoteAPi = async (request: any) => {
-  console.log('tokennnn', request);
   let response: any;
   const version = 'v1';
   const method = 'get_specific_delivery_note';
@@ -22,9 +21,7 @@ const GetDetailOfDeliveryNoteAPi = async (request: any) => {
       response = res;
     })
     .catch((err: any) => {
-      console.log(err);
     });
-  console.log(response, 'specific receipt res');
   return response;
 };
 

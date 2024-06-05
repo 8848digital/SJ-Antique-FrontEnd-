@@ -27,7 +27,6 @@ const MasterKarigar: any = ({
         ?.toLowerCase()
         .includes(searchField?.toLowerCase());
     });
-  console.log(karigarData, 'kun karigar master');
   return (
     <div className="container-lg">
       <MasterListing value={value} />

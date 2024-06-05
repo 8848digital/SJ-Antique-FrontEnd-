@@ -7,7 +7,6 @@ const getItemDetailsInSalesApi = async (
   method: any,
   entity: any
 ) => {
-  console.log('item req', method, entity);
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
 

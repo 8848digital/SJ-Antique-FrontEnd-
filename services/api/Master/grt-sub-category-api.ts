@@ -12,7 +12,6 @@ const getSubCategoryApi = async (get_access_token: any) => {
     )
     .then((res: any) => {
       response = res;
-      console.log(response, 'get category group');
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {

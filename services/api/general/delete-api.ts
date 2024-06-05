@@ -9,9 +9,6 @@ const DeleteApi = async (
   name: any
 ) => {
   let response: any;
-  //   const version = 'v1';
-  //   const method = 'delete_purchase_receipt_delete';
-  //   const entity = 'delete_purchase_receipts';
 
   const params = `/api/method/sj_antique.sdk.api?version=${version}&method=${method}&entity=${entity}&name=${name}`;
 
@@ -25,10 +22,8 @@ const DeleteApi = async (
     .delete(`${CONSTANTS.API_BASE_URL}${params}`, config)
     .then((res: any) => {
       response = res;
-      console.log(response, 'deleteRes');
     })
     .catch((err: any) => {
-      console.log(err);
     });
   return response;
 };

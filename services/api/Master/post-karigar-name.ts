@@ -4,7 +4,6 @@ import { CONSTANTS, headerGenerator } from '../../config/api-config';
 const postKarigarApi = async (get_access_token: any, val: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
-  console.log(getHeaders, 'getHeaders');
   await axios
     .post(
       `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`,
@@ -12,7 +11,6 @@ const postKarigarApi = async (get_access_token: any, val: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('post material', res);
       response = res?.data?.message;
     })
     .catch((err: any) => {

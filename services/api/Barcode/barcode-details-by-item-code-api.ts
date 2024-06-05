@@ -2,7 +2,6 @@ import { CONSTANTS, headerGenerator } from '@/services/config/api-config';
 import axios from 'axios';
 
 const getBarcodeDetailsApi = async (token: any, val: any) => {
-    console.log('vals amend', val);
 
     let response: any;
 
@@ -21,7 +20,6 @@ const getBarcodeDetailsApi = async (token: any, val: any) => {
             config
         )
         .then((res: any) => {
-            console.log('post purchase receipt', res);
             response = res;
         })
         .catch((err: any) => {

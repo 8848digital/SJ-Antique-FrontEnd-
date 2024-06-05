@@ -2,7 +2,6 @@ import axios from 'axios';
 import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
 const getSearchBarcodeItemCodeDetails: any = async (request: any, karigar_name: any, get_access_token: any) => {
-    console.log("reqqq", request, karigar_name)
     let response: any;
     const getHeaders = headerGenerator(get_access_token);
 
@@ -13,7 +12,6 @@ const getSearchBarcodeItemCodeDetails: any = async (request: any, karigar_name: 
             getHeaders
         )
         .then((res: any) => {
-            console.log('get karigar', res);
             response = res;
         })
         .catch((err: any) => {

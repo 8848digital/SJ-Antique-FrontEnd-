@@ -2,7 +2,6 @@ import { CONSTANTS } from '@/services/config/api-config';
 import axios from 'axios';
 
 const PrintPurchaseReceiptApi = async (token: any, name: any) => {
-  console.log('tokennnn', token);
   let response: any;
   const version = 'v1';
   const method = 'get_print_purchase_receipt';

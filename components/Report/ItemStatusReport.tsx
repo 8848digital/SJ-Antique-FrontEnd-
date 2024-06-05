@@ -34,10 +34,8 @@ const ItemStatusReport: any = ({
   const [tableViewData, setTableViewData] = useState<any>(20);
 
   const HandleTableViewRows: any = (data: any) => {
-    console.log('inside load more', data);
     setTableViewData(data);
   };
-  // console.log('@report daily qty status', itemStatusReportState);
   const filteredList =
     itemStatusReportState?.length > 0 &&
     itemStatusReportState !== null &&

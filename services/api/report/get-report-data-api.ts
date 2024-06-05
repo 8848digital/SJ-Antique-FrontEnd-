@@ -4,7 +4,6 @@ import { CONSTANTS, headerGenerator } from '../../config/api-config';
 const ReportApi = async (get_access_token: any, params: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
-  console.log(params, '@report params');
 
   const urlParams: any = [];
 

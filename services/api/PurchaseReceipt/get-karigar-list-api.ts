@@ -11,7 +11,6 @@ const getKarigarApi = async (get_access_token: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get karigar', res);
       response = res;
     })
     .catch((err: any) => {

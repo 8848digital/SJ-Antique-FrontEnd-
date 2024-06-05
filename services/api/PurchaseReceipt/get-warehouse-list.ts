@@ -11,7 +11,6 @@ const getWarehouseListApi = async (get_access_token: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('get warehouse list', res);
       response = res;
     })
     .catch((err: any) => {

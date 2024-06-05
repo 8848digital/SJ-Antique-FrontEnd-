@@ -6,11 +6,9 @@
 //   'getClientGroupData/ClientGroupData',
 //   async (params: any) => {
 //     const ClientGroupData: any = await getClientGroupApi(params);
-//     console.log('inside slice', ClientGroupData);
 //     return ClientGroupData;
 //   }
 // );
-// console.log('inside slice', getClientGroupData);
 // interface RepoClientGroupDataState {
 //   data: any;
 //   docStatus: any;

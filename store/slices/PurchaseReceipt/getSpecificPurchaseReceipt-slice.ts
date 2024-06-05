@@ -7,7 +7,6 @@ export const getSpecificReceipt: any = createAsyncThunk(
   async (params: any) => {
     const SpecificReceiptData: any =
       await GetSpecificPurchaseReceiptData(params);
-    console.log('SpecificReceiptData res', SpecificReceiptData);
     return SpecificReceiptData;
   }
 );
@@ -37,7 +36,6 @@ export const GetSpecificReceiptDataScreen = createSlice({
       state.docStatus = '';
     });
     builder.addCase(getSpecificReceipt.fulfilled, (state, action) => {
-      // console.log('first', action?.payload?.data?.message[0].docstatus);
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'

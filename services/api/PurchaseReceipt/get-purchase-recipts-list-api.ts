@@ -19,7 +19,6 @@ const getPurchasreceiptListApi = async (
     )
     .then((res: any) => {
       response = res;
-      console.log('purchase receipt response', response);
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {

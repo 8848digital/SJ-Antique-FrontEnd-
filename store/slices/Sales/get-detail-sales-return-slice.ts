@@ -8,7 +8,6 @@ export const GetDetailOfSalesReturn: any = createAsyncThunk(
   async (params: any) => {
     const DetailOfSalesReturnData: any =
       await GetDetailOfSalesReturnAPi(params);
-    console.log('DetailOfSalesReturnData res', DetailOfSalesReturnData);
     return DetailOfSalesReturnData;
   }
 );

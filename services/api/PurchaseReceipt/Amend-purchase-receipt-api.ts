@@ -2,7 +2,6 @@ import { CONSTANTS, headerGenerator } from '@/services/config/api-config';
 import axios from 'axios';
 
 const AmendPurchaseReceiptApi = async (token: any, val: any, name: any) => {
-    console.log('vals amend', val);
 
     let response: any;
 
@@ -21,7 +20,6 @@ const AmendPurchaseReceiptApi = async (token: any, val: any, name: any) => {
             config
         )
         .then((res: any) => {
-            console.log('post purchase receipt', res);
             response = res;
         })
         .catch((err: any) => {

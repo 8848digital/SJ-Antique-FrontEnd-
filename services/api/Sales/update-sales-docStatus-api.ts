@@ -26,7 +26,6 @@ const UpdateSalesDocStatusApi: any = async (
       response = res;
     })
     .catch((err: any) => {
-      console.log(err);
     });
   return response;
 };

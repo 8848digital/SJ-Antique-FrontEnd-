@@ -47,7 +47,6 @@ const useMaterialHook = () => {
     setError2('');
   };
   const HandleSave = async () => {
-    console.log(nameValue, 'material saved');
     const values = {
       version: 'v1',
       method: 'create_material',
@@ -72,7 +71,6 @@ const useMaterialHook = () => {
         loginAcessToken?.token,
         values
       );
-      console.log('apires', apiRes);
       if (apiRes?.status === 'success') {
         toast.success('Material Name Created');
         const materialData = await materialApi(loginAcessToken.token);
@@ -101,7 +99,6 @@ const useMaterialHook = () => {
       setErrorM('Input field cannot be empty');
     } else {
       let apiRes: any = await postGroupDataApi(loginAcessToken?.token, values);
-      console.log('apires', apiRes);
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Material Group Created');
         const materialGrpData: any = await getMaterialGroupApi(

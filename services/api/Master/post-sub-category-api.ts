@@ -11,7 +11,6 @@ const postSubCategoryApi = async (get_access_token: any, val: any) => {
       getHeaders
     )
     .then((res: any) => {
-      console.log('post client', res);
       response = res?.data?.message;
     })
     .catch((err: any) => {

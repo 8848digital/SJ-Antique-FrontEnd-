@@ -33,7 +33,6 @@ const CustomerSalesTable = ({
   handleTabPressItemDetails,
   itemCodeList,
 }: any) => {
-  // console.log("sales table data updated", salesTableData)
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
@@ -165,7 +164,6 @@ const CustomerSalesTable = ({
   //   });
   // };
 
-  // console.log("sales table data", salesTableData, calculateCustomNetWt())
 
 
   return (

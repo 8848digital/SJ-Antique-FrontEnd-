@@ -22,7 +22,6 @@ const ReadyReceiptModalMaster = ({
   // Use an array to store the selected abbreviation for each row
   const [selectedAbbrs, setSelectedAbbrs] = useState<string[]>([]);
 
-  console.log('selected material', selectedMaterials, selectedAbbrs);
   return (
     <>
       <Modal.Body className="h-50">

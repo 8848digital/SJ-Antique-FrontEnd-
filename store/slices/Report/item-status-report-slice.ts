@@ -6,7 +6,6 @@ export const GetItemStatusReport: any = createAsyncThunk(
   'detailItemStatusReport/getitemStatusReport',
   async (token: any, params: any) => {
     const detailItemStatusReportData: any = await ReportApi(token, params);
-    console.log('detailItemStatusReportData res', detailItemStatusReportData);
     return detailItemStatusReportData;
   }
 );

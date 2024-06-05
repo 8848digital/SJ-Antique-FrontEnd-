@@ -16,7 +16,6 @@ const BarcodeListingTable: any = ({
   setSelectAll,
   handleSelectAll,
 }: any) => {
-  console.log(BarcodeListData, '@Barcode list');
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
   const [tableViewData, setTableViewData] = useState<any>(5);

@@ -2,7 +2,6 @@ import { CONSTANTS, headerGenerator } from '@/services/config/api-config';
 import axios from 'axios';
 
 const UpdateSaleApi = async (token: any, val: any) => {
-  console.log(val, 'vals');
 
   let response: any;
 

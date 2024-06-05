@@ -145,7 +145,6 @@ const useItemStatusReportHook = () => {
     }
   };
   const HandleSearchInput: any = (e: any) => {
-    console.log('first', e.target.name);
     const { name, value } = e.target;
     setSearchInputValues({
       ...searchInputValues,
@@ -175,7 +174,6 @@ const useItemStatusReportHook = () => {
     }
   };
 
-  console.log('report data set', reportData);
 
   return {
     itemStatusReportState,
