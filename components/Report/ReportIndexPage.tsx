@@ -12,14 +12,10 @@ const ReportIndexPage = () => {
   const {
     selectDropDownReset,
     setSelectDropDownReset,
-    searchVoucherNum,
-    setSearchVoucherNum,
     dailyStatusSearchName,
     itemList,
     HandleSearchInput,
     searchInputValues,
-    isLoading,
-    HandleRefresh,
     dailyStatusLoading,
     scrollableTableRef,
     handleMouseDown,
@@ -32,36 +28,100 @@ const ReportIndexPage = () => {
     HandleSerachReport,
     reportData,
     itemCodeSearchValues,
-    setItemCodeSearchValues,
     handleSearchItemCodeReport,
     handleItemCodeSearchInput,
   }: any = useItemStatusReportHook();
   return (
     <div className="">
-      {/* {key === 'itemStatusReport' && (
+      {key === 'daily-qty-status' && (
         <ItemStatusReport
-          itemStatusReportState={itemStatusReportState}
-          reportName={'Item Status Report'}
-          voucherNumber={itemVoucherNumber}
+          itemStatusReportState={reportData}
+          reportName={'Daily Report'}
           selectDropDownReset={selectDropDownReset}
           setSelectDropDownReset={setSelectDropDownReset}
-          searchVoucherNum={searchVoucherNum}
-          setSearchVoucherNum={setSearchVoucherNum}
           itemList={itemList}
-          setSearchItem={setSearchItem}
-          searchItem={searchItem}
           HandleSearchInput={HandleSearchInput}
           searchInputValues={searchInputValues}
-          isLoading={isLoading}
-          HandleRefresh={HandleRefresh}
+          isLoading={dailyStatusLoading}
           scrollableTableRef={scrollableTableRef}
           handleMouseDown={handleMouseDown}
           handleMouseUp={handleMouseUp}
           handleMouseLeave={handleMouseLeave}
           handleMouseMove={handleMouseMove}
+          searchName={searchName}
+          setSearchName={setSearchName}
+          name={dailyStatusSearchName}
+          HandleReportPrint={HandleReportPrint}
+          HandleSerachReport={HandleSerachReport}
         />
-      )} */}
-      {key === 'daily-qty-status' && (
+      )}
+      {key === 'daily-summary-report' && (
+        <ItemStatusReport
+          itemStatusReportState={reportData}
+          reportName={'Daily Report'}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+          itemList={itemList}
+          HandleSearchInput={HandleSearchInput}
+          searchInputValues={searchInputValues}
+          isLoading={dailyStatusLoading}
+          scrollableTableRef={scrollableTableRef}
+          handleMouseDown={handleMouseDown}
+          handleMouseUp={handleMouseUp}
+          handleMouseLeave={handleMouseLeave}
+          handleMouseMove={handleMouseMove}
+          searchName={searchName}
+          setSearchName={setSearchName}
+          name={dailyStatusSearchName}
+          HandleReportPrint={HandleReportPrint}
+          HandleSerachReport={HandleSerachReport}
+        />
+      )}
+      {key === 'karigar-wise-report' && (
+        <ItemStatusReport
+          itemStatusReportState={reportData}
+          reportName={'Daily Report'}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+          itemList={itemList}
+          HandleSearchInput={HandleSearchInput}
+          searchInputValues={searchInputValues}
+          isLoading={dailyStatusLoading}
+          scrollableTableRef={scrollableTableRef}
+          handleMouseDown={handleMouseDown}
+          handleMouseUp={handleMouseUp}
+          handleMouseLeave={handleMouseLeave}
+          handleMouseMove={handleMouseMove}
+          searchName={searchName}
+          setSearchName={setSearchName}
+          name={dailyStatusSearchName}
+          HandleReportPrint={HandleReportPrint}
+          HandleSerachReport={HandleSerachReport}
+        />
+      )}
+      {key === 'customer-wise-report' && (
+        <ItemStatusReport
+          itemStatusReportState={reportData}
+          reportName={'Daily Report'}
+          selectDropDownReset={selectDropDownReset}
+          setSelectDropDownReset={setSelectDropDownReset}
+          itemList={itemList}
+          HandleSearchInput={HandleSearchInput}
+          searchInputValues={searchInputValues}
+          isLoading={dailyStatusLoading}
+          scrollableTableRef={scrollableTableRef}
+          handleMouseDown={handleMouseDown}
+          handleMouseUp={handleMouseUp}
+          handleMouseLeave={handleMouseLeave}
+          handleMouseMove={handleMouseMove}
+          searchName={searchName}
+          setSearchName={setSearchName}
+          name={dailyStatusSearchName}
+          HandleReportPrint={HandleReportPrint}
+          HandleSerachReport={HandleSerachReport}
+        />
+      )}
+      {key === 'item-wise-report' && (
         <ItemStatusReport
           itemStatusReportState={reportData}
           reportName={'Daily Report'}

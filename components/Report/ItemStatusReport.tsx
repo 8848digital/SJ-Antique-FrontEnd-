@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import styles from '../../styles/readyReceipts.module.css';
+import styled from '../../styles/report.module.css';
 import ReportHeader from '../Header/ReportHeader';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
-import ReportFilterListing from './ReportFilterListing';
 import Loader from '../NoRecord/Loader';
 import NoRecord from '../NoRecord/NoRecord';
-import { useRouter } from 'next/router';
-import DailyStatusReportHeading from './DailyStatusReportHeading';
-import styled from '../../styles/report.module.css';
+import ReportHeading from './ReportHeading';
+import ReportFilterListing from './ReportFilterListing';
 
 const ItemStatusReport: any = ({
   itemStatusReportState,
@@ -30,7 +29,7 @@ const ItemStatusReport: any = ({
   HandleReportPrint,
   HandleSerachReport,
 }: any) => {
-  const router = useRouter();
+
   const [tableViewData, setTableViewData] = useState<any>(20);
 
   const HandleTableViewRows: any = (data: any) => {
@@ -116,7 +115,7 @@ const ItemStatusReport: any = ({
               className={`col table-responsie m-auto ${styled.table_container}`}
             >
               <table className="table table-hover table-striped cursor report-width">
-                <DailyStatusReportHeading />
+                <ReportHeading />
                 <tbody>
                   {filteredList?.length > 0 &&
                     filteredList !== null &&

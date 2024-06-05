@@ -1,13 +1,18 @@
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
-import ReportApi from '@/services/api/report/get-report-data-api';
+// import ReportApi from '@/services/api/report/get-daily-status-report-data-api';
+import DailyStatusReportApi from '@/services/api/report/get-daily-status-report-data-api';
+import ProductCodeReportApi from '@/services/api/report/get-product-code-report';
+import ReportPrintApi from '@/services/api/report/report-print-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import UseScrollbarHook from './report-table-scrollbar-hook';
-import { get_item_status_report_data } from '@/store/slices/Report/item-status-report-slice';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import ReportPrintApi from '@/services/api/report/report-print-api';
+import UseScrollbarHook from './report-table-scrollbar-hook';
+import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-report-api';
+import DailySummaryReportApi from '@/services/api/report/get-daily-summary-report-api';
+import KarigarWiseReportApi from '@/services/api/report/get-karigar-wise-report-api';
+import ItemWiseReportApi from '@/services/api/report/get-item-wise-report-api';
 
 const useItemStatusReportHook = () => {
   const {
@@ -28,6 +33,7 @@ const useItemStatusReportHook = () => {
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
 
   const [searchInputValues, setSearchInputValues] = useState({
+    name: '',
     from_date: todayDate,
     to_date: todayDate,
   });
@@ -38,62 +44,77 @@ const useItemStatusReportHook = () => {
   });
 
   // report data states
-  const [itemStatusReportState, setItemStatusReportState] = useState<any>();
   const [reportData, setReportData] = useState<any>([]);
   const [itemList, setItemList] = useState<any>();
 
   // loader state
-  const [isLoading, setIsLoading] = useState<number>(0);
   const [dailyStatusLoading, setDailyStatusLoading] = useState<number>(0);
 
   const router = useRouter();
   const { query } = useRouter();
-  const dispatch = useDispatch();
 
   const HandleRefresh = () => {
     router.reload();
   };
-  const itemStatusReportParams = {
-    version: 'v1',
-    method: 'get_item_status_report',
-    entity: 'report',
-    name: searchItem === undefined ? '' : searchItem,
-    voucher_no: searchVoucherNum === undefined ? '' : searchVoucherNum,
-    from_date:
-      searchInputValues.from_date === undefined
-        ? ''
-        : searchInputValues.from_date,
-    to_date:
-      searchInputValues.to_date === undefined ? '' : searchInputValues.to_date,
-  };
+  // API Params
   const dailyQtyStatusReportParams = {
-    version: 'v1',
-    method: 'get_daily_qty_status_report',
-    entity: 'report',
-    name: searchName === undefined ? '' : searchName,
-    from_date:
-      searchInputValues.from_date === undefined
-        ? ''
-        : searchInputValues.from_date,
-    to_date:
-      searchInputValues.to_date === undefined ? '' : searchInputValues.to_date,
-    voucher_no: '',
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
   };
-  let itemCodeParams: any = {
-    version: 'v1',
-    method: 'product_code_report',
-    entity: 'report',
+  const dailySummaryReportParams = {
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
   };
+  const customerReportParams = {
+    client_name: searchInputValues.name,
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
+  };
+  const karigarReportParams = {
+    karigar_name:'',
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
+  }
+  const itemReportParams = {
+    category:'',
+    sub_category:'',
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
+  }
   useEffect(() => {
     const getStateData = async () => {
       let reportData;
       if (query?.reportId === 'daily-qty-status') {
-        reportData = await ReportApi(
+        reportData = await DailyStatusReportApi(
           loginAccessToken.token,
           dailyQtyStatusReportParams
         );
       } else if (query?.reportId === 'product-code') {
-        reportData = await ReportApi(loginAccessToken.token, itemCodeParams);
+        reportData = await ProductCodeReportApi(loginAccessToken.token);
+      }
+      else if (query?.reportId === 'daily-summary-report') {
+        reportData = await DailySummaryReportApi(
+          loginAccessToken.token,
+          dailySummaryReportParams
+        );
+      }
+      else if (query?.reportId === 'customer-wise-report') {
+        reportData = await CustomerWiseReportApi(
+          loginAccessToken.token,
+          customerReportParams
+        );
+      }
+      else if (query?.reportId === 'karigar-wise-report') {
+        reportData = await KarigarWiseReportApi(
+          loginAccessToken.token,
+          karigarReportParams
+        );
+      }
+      else if (query?.reportId === 'item-wise-report') {
+        reportData = await ItemWiseReportApi(
+          loginAccessToken.token,
+          itemReportParams
+        );
       }
 
       if (reportData?.data?.message?.status === 'success') {
@@ -112,14 +133,7 @@ const useItemStatusReportHook = () => {
     };
     getStateData();
   }, [query]);
-
-  const itemVoucherNumber: any =
-    itemStatusReportState?.length > 0 &&
-    itemStatusReportState !== null &&
-    itemStatusReportState.map((data: any) => ({
-      karigar_name: data.voucher_no,
-    }));
-
+  console.log(reportData, '@report');
   const dailyStatusSearchName: any =
     reportData?.length > 0 &&
     reportData !== null &&
@@ -162,9 +176,9 @@ const useItemStatusReportHook = () => {
   const handleSearchItemCodeReport: any = () => {};
 
   const HandleSerachReport = async () => {
-    const dailyQtyReportData: any = await ReportApi(
+    const dailyQtyReportData: any = await DailyStatusReportApi(
       loginAccessToken.token,
-      dailyQtyStatusReportParams
+      dailySummaryReportParams
     );
     if (dailyQtyReportData?.data?.message?.status === 'success') {
       setReportData(dailyQtyReportData?.data?.message?.data);
@@ -174,10 +188,7 @@ const useItemStatusReportHook = () => {
     }
   };
 
-
   return {
-    itemStatusReportState,
-    itemVoucherNumber,
     setSearchItem,
     searchItem,
     selectDropDownReset,
@@ -188,7 +199,6 @@ const useItemStatusReportHook = () => {
     itemList,
     HandleSearchInput,
     searchInputValues,
-    isLoading,
     HandleRefresh,
     dailyStatusLoading,
     scrollableTableRef,

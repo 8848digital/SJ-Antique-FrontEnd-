@@ -1,11 +1,11 @@
-import ReportApi from '@/services/api/report/get-report-data-api';
+import DailyStatusReportApi from '@/services/api/report/get-daily-status-report-data-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const GetItemStatusReport: any = createAsyncThunk(
   'detailItemStatusReport/getitemStatusReport',
   async (token: any, params: any) => {
-    const detailItemStatusReportData: any = await ReportApi(token, params);
+    const detailItemStatusReportData: any = await DailyStatusReportApi(token, params);
     return detailItemStatusReportData;
   }
 );

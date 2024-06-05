@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { CONSTANTS, headerGenerator } from '../../config/api-config';
 
-const ReportApi = async (get_access_token: any, params: any) => {
+const KarigarWiseReportApi = async (get_access_token: any, params: any) => {
   let response: any;
   const getHeaders = headerGenerator(get_access_token);
 
@@ -12,9 +12,9 @@ const ReportApi = async (get_access_token: any, params: any) => {
   });
 
   // Construct the URL based on the URL parameters
-  let url: any = '/api/method/sj_antique.sdk.api';
+  let url: any = '/api/method/sj_antique.sdk.api?version=v1&method=get_karigar_wise_report&entity=report&';
   if (urlParams.length > 0) {
-    url += `?${urlParams.join('&')}`;
+    url += `${urlParams.join('&')}`;
   }
 
   // let url: any = `/api/method/sj_antique.sdk.api?version=${params?.version}&method=${params?.method}&entity=${params?.entity}&name=${params?.name}&voucher_no=${params?.voucher_no}&from_date=${params?.from_date}&to_date=${params?.to_date}`;
@@ -39,4 +39,4 @@ const ReportApi = async (get_access_token: any, params: any) => {
   return response;
 };
 
-export default ReportApi;
+export default KarigarWiseReportApi;
