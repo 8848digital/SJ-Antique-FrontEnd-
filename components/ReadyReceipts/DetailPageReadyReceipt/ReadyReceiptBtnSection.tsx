@@ -42,11 +42,11 @@ const ReadyReceiptBtnSection = ({
 
   return (
     <>
-      <div className="d-flex align-items-center justify-content-between">
+      <div className="d-flex align-items-center justify-content-between mb-2">
         <div className="">
           <button
             type="button"
-            className={`${styles.create_button} px-2 py-0 me-2`}
+            className={`btn btn-outline-primary px-2 py-0 me-2`}
             onClick={() => {
               router.push(`/readyReceipt/${receiptType}`);
               specificDataFromStore = null;
@@ -97,7 +97,7 @@ const ReadyReceiptBtnSection = ({
           {data?.docstatus === 0 && stateForDocStatus && (
             <button
               type="button"
-              className={`${styles.create_button} px-2 py-0 me-2`}
+              className={` px-2 py-0 me-2`}
               onClick={handleUpdateReceipt}
             >
               Save
@@ -107,7 +107,7 @@ const ReadyReceiptBtnSection = ({
             stateForDocStatus === false && (
               <button
                 type="button"
-                className={`${styles.create_button} px-2 py-0 me-2`}
+                className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={() =>
                   handlePrintApi(
                     query?.receiptId,
@@ -122,7 +122,7 @@ const ReadyReceiptBtnSection = ({
           {data?.docstatus === 0 && stateForDocStatus === false && (
             <button
               type="button"
-              className={`${styles.create_button} px-2 py-0 me-2`}
+              className={`btn btn-outline-primary px-2 py-0 me-2`}
               onClick={() => HandleUpdateDocStatus('1')}
               disabled={dateFlag}
             >
@@ -133,7 +133,7 @@ const ReadyReceiptBtnSection = ({
           {data?.docstatus === 1 && stateForDocStatus === false && (
             <button
               type="button"
-              className={`${styles.create_button} px-2 py-0 me-2`}
+              className={`btn btn-outline-primary px-2 py-0 me-2`}
               onClick={() => HandleUpdateDocStatus('2')}
             >
               Cancel
@@ -143,7 +143,7 @@ const ReadyReceiptBtnSection = ({
           {data?.docstatus === 2 && stateForDocStatus === false && (
             <button
               type="button"
-              className={`${styles.create_button} px-2 py-0 me-2`}
+              className={`btn btn-outline-primary px-2 py-0 me-2`}
               onClick={HandleAmendButtonChanges}
               disabled={dateFlag}
             >
@@ -166,7 +166,7 @@ const ReadyReceiptBtnSection = ({
           {data?.docstatus === 2 && (
             <button
               type="button"
-              className={`${styles.create_button} px-2 py-0 me-2 `}
+              className={`btn btn-outline-primary px-2 py-0 me-2 `}
               onClick={() => handleShowDeleteModal(query?.receiptId)}
               disabled={dateFlag}
             >

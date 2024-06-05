@@ -45,7 +45,7 @@ const CustomerSalesButtonsSection = ({
         <div className="">
           <button
             type="button"
-            className={`${styles.create_button} px-2 py-0 me-2`}
+            className={`btn btn-outline-primary px-2 py-0 me-2`}
             onClick={() => router.back()}
           >
             Back
@@ -103,7 +103,7 @@ const CustomerSalesButtonsSection = ({
             stateForDocStatus && (
               <button
                 type="button"
-                className={`${styles.create_button} px-2 py-0 me-2`}
+                className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={handleUpdateDeliveryNote}
               >
                 Save
@@ -114,7 +114,7 @@ const CustomerSalesButtonsSection = ({
             stateForDocStatus === false && (
               <button
                 type="button"
-                className={`${styles.create_button} px-2 py-0 me-2`}
+                className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={() =>
                   handleDeliveryNotePrintApi(query?.deliveryNoteId)
                 }
@@ -126,7 +126,7 @@ const CustomerSalesButtonsSection = ({
             stateForDocStatus === false && (
               <button
                 type="button"
-                className={`${styles.create_button} px-2 py-0 me-2`}
+                className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={() => HandleUpdateSalesdocStatus('1')}
                 disabled={dateFlag}
               >
@@ -137,7 +137,7 @@ const CustomerSalesButtonsSection = ({
             stateForDocStatus === false && (
               <button
                 type="button"
-                className={`${styles.create_button} px-2 py-0 me-2`}
+                className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={() => HandleUpdateSalesdocStatus('2')}
               >
                 Cancel
@@ -148,7 +148,7 @@ const CustomerSalesButtonsSection = ({
                 stateForDocStatus === false && (
                   <button
                     type="button"
-                    className={`${styles.create_button} px-2 py-0 me-2`}
+                    className={`btn btn-outline-primary px-2 py-0 me-2`}
                     onClick={HandleAmendButtonChanges}
                     disabled={dateFlag}
                   >
@@ -163,7 +163,7 @@ const CustomerSalesButtonsSection = ({
               <button
                 type="submit"
                 onClick={HandleAmendButtonForCustomerSales}
-                className={`${styles.create_button} px-2 py-0 me-2 `}
+                className={`btn btn-outline-primary px-2 py-0 me-2 `}
               >
                 Save
               </button>
@@ -172,7 +172,7 @@ const CustomerSalesButtonsSection = ({
           {DetailOfDeliveryNoteFromStore?.docStatus === 2 && (
             <button
               type="button"
-              className={`${styles.create_button} px-2 py-0 me-2 `}
+              className={`btn btn-outline-primary px-2 py-0 me-2 `}
               onClick={()=>handleShowDeleteModal(query?.deliveryNoteId)}
               disabled={dateFlag}
             >

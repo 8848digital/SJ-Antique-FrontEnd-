@@ -2,26 +2,6 @@
     text-align: end;
 }
 
-.create_button {
-    margin-bottom: 7px;
-    padding: 3px 8px;
-    background: #FFF;
-    color: #0d6efd;
-    border: 1px solid #0d6efd;
-    border-radius: 5px;
-}
-.create_button:disabled{
-    border: 1px solid #999999;
-    background-color: #cccccc;
-    color: #666666;
-    pointer-events:none;
-}
-
-.create_button:hover {
-    background-color: #0d6efd;
-    color: #FFF;
-}
-
 .input_field {
     margin-top: 1%;
     /* justify-content: center; */
