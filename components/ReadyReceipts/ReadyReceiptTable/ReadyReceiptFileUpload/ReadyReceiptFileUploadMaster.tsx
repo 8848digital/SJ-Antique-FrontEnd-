@@ -54,11 +54,11 @@ const ReadyReceiptFileUploadMaster = ({
   }
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center">
-        <div className="w-75 ">
+      <div className="d-flex justify-content-center align-items-center p-0 m-0">
+        <div className="w-75 p-0 m-0 ">
           <input
             type="text"
-            className={` ${styles.input_field} text-center cursor`}
+            className={` ${styles.input_field} text-center cursor m-0 p-0`}
             placeholder="Attach"
             value={item?.custom_add_photo}
             onKeyDown={handleTabPress}

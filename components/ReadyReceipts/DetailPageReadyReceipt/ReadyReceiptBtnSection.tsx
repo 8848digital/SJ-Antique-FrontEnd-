@@ -38,7 +38,6 @@ const ReadyReceiptBtnSection = ({
     data?.posting_date === new Date()?.toISOString()?.split('T')[0]
       ? false
       : true;
-  console.log(dateFlag,'flag');
 
   return (
     <>

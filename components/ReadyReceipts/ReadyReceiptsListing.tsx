@@ -273,18 +273,23 @@ const ReadyReceiptListing = ({
                           </a>
                         </div>
                         <div className="col-lg-3 col-12">
-                          <a
+                          <button
                             onClick={() =>
                               HandleUpdateDocStatus('1', item.name)
                             }
-                            className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                            style={{
-                              pointerEvents: (item?.posting_date ===
-                                new Date()?.toISOString()?.split('T')[0]) ? "auto" : "none",
-                            }}
+                            className={`button-section-text btn-link border-0 ${
+                              item?.posting_date ===
+                              new Date()?.toISOString()?.split('T')[0]
+                                ? 'text-danger'
+                                : 'text-muted'
+                            }`}
+                            disabled={
+                              item?.posting_date !==
+                              new Date()?.toISOString()?.split('T')[0]
+                            }
                           >
                             Submit
-                          </a>
+                          </button>
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link
@@ -341,33 +346,39 @@ const ReadyReceiptListing = ({
                     >
                       <div className="row justify-content-center  ">
                         <div className="col-lg-3 col-12">
-                          
-                              <Link
-                                href={`${url}/${item.name}`}
-                                className="button-section-text text-info "
-                                style={{
-                                  pointerEvents: (item?.posting_date ===
-                                    new Date()?.toISOString()?.split('T')[0]) ? "auto" : "none",
-                                }}>
-                                Amend
-                              </Link>
-                            
+                          <button
+                            className={`button-section-text btn-link border-0 ${
+                              item?.posting_date ===
+                              new Date()?.toISOString()?.split('T')[0]
+                                ? 'text-info'
+                                : 'text-muted'
+                            }`}
+                            onClick={() => router.push(`${url}/${item.name}`)}
+                            disabled={
+                              item?.posting_date !==
+                              new Date()?.toISOString()?.split('T')[0]
+                            }
+                          >
+                            Amend
+                          </button>
                         </div>
 
                         <div className="col-lg-3 col-12">
-                          
-                              <a
-                                onClick={()=>handleShowDeleteModal(item.name)}
-                                className={`button-section-text text-danger ${styles.cursor_pointer}`}
-                                style={{
-                                  pointerEvents: (item?.posting_date ===
-                                    new Date()?.toISOString()?.split('T')[0]) ? "auto" : "none",
-                                }}
-                              >
-                                Delete
-                              </a>
-                            
-                         
+                          <button
+                            onClick={() => handleShowDeleteModal(item.name)}
+                            className={`button-section-text btn-link border-0 ${
+                              item?.posting_date ===
+                              new Date()?.toISOString()?.split('T')[0]
+                                ? 'text-danger'
+                                : 'text-muted'
+                            }`}
+                            disabled={
+                              item?.posting_date !==
+                              new Date()?.toISOString()?.split('T')[0]
+                            }
+                          >
+                            Delete
+                          </button>
                         </div>
                         <div className="col-lg-3 col-12">
                           <Link
