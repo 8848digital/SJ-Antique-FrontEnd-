@@ -23,4 +23,4 @@
 
 ### 4. Report
 
-- It showcases Daily Quantity Status report where table is divided into two parts. Left side of the table describes all the material details of Purchase Receipt & Delivery Note Returns whereas right side describes all the material details of Delivery Notes.
+- It showcases Daily report where table is divided into two parts. Left side of the table describes all the material details of Purchase Receipt & Delivery Note Returns whereas right side describes all the material details of Delivery Notes.

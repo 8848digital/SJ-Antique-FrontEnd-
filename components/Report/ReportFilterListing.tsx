@@ -88,7 +88,7 @@ const ReportFilterListing: any = ({
           Search
         </button>
       </div>
-      {/* {reportName === 'Daily Quantity Status Report' && (
+      {/* {reportName === 'Daily Report' && (
         <div className="col-sm-2 p-0 mx-1">
           <label className="text-grey">Name</label>
           <SearchSelectInputField

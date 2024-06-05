@@ -134,14 +134,14 @@ const ItemStatusReport: any = ({
                           <td
                             className={`col-sm-1 ${
                               index >= filteredList.length - 2 &&
-                              reportName === 'Daily Quantity Status Report'
+                              reportName === 'Daily Report'
                                 ? 'thead'
                                 : 'table_row report-table-row '
                             }`}
                             scope="row"
                           >
                             {index >= filteredList.length - 2 &&
-                            reportName === 'Daily Quantity Status Report'
+                            reportName === 'Daily Report'
                               ? ''
                               : index > 0
                               ? index
@@ -157,7 +157,7 @@ const ItemStatusReport: any = ({
                                     : 'col-sm-1'
                                 } ${
                                   index >= filteredList.length - 2 &&
-                                  reportName === 'Daily Quantity Status Report'
+                                  reportName === 'Daily Report'
                                     ? 'thead'
                                     : 'table_row report-table-row '
                                 }`}

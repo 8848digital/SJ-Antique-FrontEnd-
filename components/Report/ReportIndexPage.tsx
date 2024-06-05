@@ -64,7 +64,7 @@ const ReportIndexPage = () => {
       {key === 'daily-qty-status' && (
         <ItemStatusReport
           itemStatusReportState={reportData}
-          reportName={'Daily Quantity Status Report'}
+          reportName={'Daily Report'}
           selectDropDownReset={selectDropDownReset}
           setSelectDropDownReset={setSelectDropDownReset}
           itemList={itemList}
