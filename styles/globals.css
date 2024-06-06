@@ -58,12 +58,10 @@ a {
   text-decoration: none;
 }
 
-/* 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} */
+
+.selected-dropdown-index {
+  background-color: #c8c9ce;
+}
 
 .nav-pills .nav-link.active {
   background-color: #2f308c !important;

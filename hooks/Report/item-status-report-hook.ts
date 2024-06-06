@@ -1,6 +1,7 @@
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 // import ReportApi from '@/services/api/report/get-daily-status-report-data-api';
 import getClientApi from '@/services/api/Master/get-client-api';
+import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
 import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-report-api';
 import DailyStatusReportApi from '@/services/api/report/get-daily-status-report-data-api';
 import DailySummaryReportApi from '@/services/api/report/get-daily-summary-report-api';
@@ -12,10 +13,8 @@ import ReportPrintApi from '@/services/api/report/report-print-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
-import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
 
 const useItemStatusReportHook = () => {
   // access token
@@ -30,6 +29,7 @@ const useItemStatusReportHook = () => {
   const [searchInputValues, setSearchInputValues] = useState({
     Client_Name: '',
     Karigar_Name: '',
+    product_code: '',
     Category: '',
     Sub_Category: '',
     from_date: todayDate,
@@ -86,6 +86,11 @@ const useItemStatusReportHook = () => {
     from_date: searchInputValues.from_date,
     to_date: searchInputValues.to_date,
   };
+  const productCodeParams = {
+    name: searchInputValues.product_code,
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
+  };
   const getStateData = async () => {
     let reportData;
     if (query?.reportId === 'daily-qty-status') {
@@ -94,10 +99,16 @@ const useItemStatusReportHook = () => {
         dailyQtyStatusReportParams
       );
     } else if (query?.reportId === 'product-code') {
-      reportData = await ProductCodeReportApi(loginAccessToken.token);
+      reportData = await ProductCodeReportApi(
+        loginAccessToken.token,
+        productCodeParams
+      );
       const itemListData = await getItemListInSalesApi(loginAccessToken.token);
       if (itemListData?.data?.data?.length > 0) {
-        setItemList(itemListData?.data?.data);
+        let itemList: any = itemListData?.data?.data.map(
+          (items: any) => items.name
+        );
+        setItemList(itemList);
       }
     } else if (query?.reportId === 'daily-summary-report') {
       reportData = await DailySummaryReportApi(
@@ -157,6 +168,7 @@ const useItemStatusReportHook = () => {
       setSearchInputValues({
         Client_Name: '',
         Karigar_Name: '',
+        product_code: '',
         Category: '',
         Sub_Category: '',
         from_date: todayDate,
@@ -203,8 +215,6 @@ const useItemStatusReportHook = () => {
     });
   };
 
-  const handleSearchItemCodeReport: any = () => {};
-
   const HandleSerachReport = async () => {
     getStateData();
   };
@@ -230,7 +240,6 @@ const useItemStatusReportHook = () => {
     itemCodeSearchValues,
     setItemCodeSearchValues,
     handleItemCodeSearchInput,
-    handleSearchItemCodeReport,
     clientNameData,
     karigarNameData,
   };

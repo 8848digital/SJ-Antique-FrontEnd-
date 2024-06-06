@@ -282,7 +282,7 @@ const useReadyReceipt = () => {
         loginAcessToken.token,
         values
       );
-      if (purchaseReceipt?.data?.message?.status === 'Success') {
+      if (purchaseReceipt?.data?.message?.status === 'success') {
         router.push(
           `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
             ?.message}`

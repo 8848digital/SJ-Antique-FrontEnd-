@@ -8,6 +8,7 @@ const CommonFilters = ({
   handleSearchBtn,
   clientNameData,
   karigarNameData,
+  itemListData,
 }: any) => {
   const { query } = useRouter();
   const categoryList: any = ['category1', 'category2', 'category3'];
@@ -31,23 +32,27 @@ const CommonFilters = ({
     fieldtype: 'Link',
     link_data: karigarNameData,
   };
+  const productCodeData: any = {
+    fieldname: 'product_code',
+    fieldtype: 'Link',
+    link_data: itemListData,
+  };
 
   return (
     <div className="container mt-2">
       <div className="d-flex justify-content-center">
         <div className="col-sm-2 p-0 mx-1">
           <label className="text-grey">From Date</label>
-          
-            <input
-              type="date"
-              name="from_date"
-              value={searchInputValues.from_date}
-              className="form-control bg-primary bg-opacity-10 "
-              onChange={(e: any) =>
-                handleSearchInput(e.target.value, 'from_date')
-              }
-            />
-          
+
+          <input
+            type="date"
+            name="from_date"
+            value={searchInputValues.from_date}
+            className="form-control bg-primary bg-opacity-10 "
+            onChange={(e: any) =>
+              handleSearchInput(e.target.value, 'from_date')
+            }
+          />
         </div>
         <div className="col-sm-2 p-0 mx-1">
           <label className="text-grey">To Date</label>
@@ -83,6 +88,18 @@ const CommonFilters = ({
                 handleSearchInput(value, fieldName)
               }
               value={searchInputValues?.sub_category}
+            />
+          </div>
+        )}
+        {query?.reportId === 'product-code' && (
+          <div className="col-sm-2 p-0 mx-1">
+            <label className="text-grey">Product Code</label>
+            <AutoCompleteInput
+              data={productCodeData}
+              handleSearchInput={(value: any, fieldName: any) =>
+                handleSearchInput(value, fieldName)
+              }
+              value={searchInputValues?.product_code}
             />
           </div>
         )}

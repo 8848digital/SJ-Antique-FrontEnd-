@@ -16,6 +16,7 @@ const CommonReport = ({
   HandleSerachReport,
   clientNameData,
   karigarNameData,
+  itemListData,
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -35,14 +36,10 @@ const CommonReport = ({
         handleSearchBtn={HandleSerachReport}
         clientNameData={clientNameData}
         karigarNameData={karigarNameData}
+        itemListData={itemListData}
       />
       {isLoading === 0 && <Loader />}
-      {isLoading === 2 && (
-        <NoRecord
-          title={`No Record Found `}
-          heading=""
-        />
-      )}
+      {isLoading === 2 && <NoRecord title={`No Record Found `} heading="" />}
 
       {isLoading === 1 && (
         <>
