@@ -16,11 +16,6 @@ const ReportIndexPage = () => {
     HandleSearchInput,
     searchInputValues,
     isLoading,
-    scrollableTableRef,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseLeave,
-    handleMouseMove,
     searchName,
     setSearchName,
     HandleReportPrint,
@@ -29,9 +24,11 @@ const ReportIndexPage = () => {
     itemCodeSearchValues,
     handleSearchItemCodeReport,
     handleItemCodeSearchInput,
+    clientNameData,
+    karigarNameData,
   }: any = useItemStatusReportHook();
   return (
-    <div className="">
+    <>
       {key === 'daily-qty-status' && (
         <ItemStatusReport
           itemStatusReportState={reportData}
@@ -42,11 +39,6 @@ const ReportIndexPage = () => {
           HandleSearchInput={HandleSearchInput}
           searchInputValues={searchInputValues}
           isLoading={isLoading}
-          scrollableTableRef={scrollableTableRef}
-          handleMouseDown={handleMouseDown}
-          handleMouseUp={handleMouseUp}
-          handleMouseLeave={handleMouseLeave}
-          handleMouseMove={handleMouseMove}
           searchName={searchName}
           setSearchName={setSearchName}
           name={dailyStatusSearchName}
@@ -63,9 +55,11 @@ const ReportIndexPage = () => {
           reportData={reportData}
           isLoading={isLoading}
           searchInputValues={searchInputValues}
-          HandleSearchInput={HandleSearchInput}
-          HandleSearchReport={HandleSerachReport}
+          handleSearchInput={HandleSearchInput}
+          handleSearchReport={HandleSerachReport}
           setSelectDropDownReset={setSelectDropDownReset}
+          clientNameData={clientNameData}
+          karigarNameData={karigarNameData}
         />
       )}
       {key === 'product-code' && (
@@ -74,11 +68,6 @@ const ReportIndexPage = () => {
           reportName={'Product Code Report'}
           HandleItemCodeSearchInput={handleItemCodeSearchInput}
           isLoading={isLoading}
-          scrollableTableRef={scrollableTableRef}
-          handleMouseDown={handleMouseDown}
-          handleMouseUp={handleMouseUp}
-          handleMouseLeave={handleMouseLeave}
-          handleMouseMove={handleMouseMove}
           searchName={searchName}
           setSearchName={setSearchName}
           name={dailyStatusSearchName}
@@ -87,7 +76,7 @@ const ReportIndexPage = () => {
           searchInputValues={handleSearchItemCodeReport}
         />
       )}
-    </div>
+    </>
   );
 };
 

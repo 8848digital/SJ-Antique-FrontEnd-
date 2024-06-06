@@ -4,7 +4,7 @@ import styles from '../../styles/header.module.css';
 import { useRouter } from 'next/router';
 
 const ReportHeader = () => {
-  const {query} = useRouter()
+  const { query } = useRouter();
   return (
     <div className="d-flex justify-content-center flex-wrap">
       <Link
@@ -30,6 +30,19 @@ const ReportHeader = () => {
           }`}
         >
           Product Code
+          <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
+        </button>
+      </Link>
+      <Link
+        href="/report/item-wise-report"
+        className="text-decoration-none btn-margin"
+      >
+        <button
+          className={`${styles.button} ${
+            query?.reportId === 'item-wise-report' ? 'activeColor' : ''
+          }`}
+        >
+          Item Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>
@@ -72,19 +85,7 @@ const ReportHeader = () => {
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>
-      <Link
-        href="/report/item-wise-report"
-        className="text-decoration-none btn-margin"
-      >
-        <button
-          className={`${styles.button} ${
-            query?.reportId === 'item-wise-report' ? 'activeColor' : ''
-          }`}
-        >
-         Item Report
-          <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
-        </button>
-      </Link>
+
       <Link
         href="/report/summary-report"
         className="text-decoration-none btn-margin"
@@ -94,7 +95,7 @@ const ReportHeader = () => {
             query?.reportId === 'summary-report' ? 'activeColor' : ''
           }`}
         >
-         Summary Report
+          Summary Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>

@@ -1,29 +1,22 @@
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 // import ReportApi from '@/services/api/report/get-daily-status-report-data-api';
+import getClientApi from '@/services/api/Master/get-client-api';
+import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-report-api';
 import DailyStatusReportApi from '@/services/api/report/get-daily-status-report-data-api';
+import DailySummaryReportApi from '@/services/api/report/get-daily-summary-report-api';
+import ItemWiseReportApi from '@/services/api/report/get-item-wise-report-api';
+import KarigarWiseReportApi from '@/services/api/report/get-karigar-wise-report-api';
 import ProductCodeReportApi from '@/services/api/report/get-product-code-report';
+import summaryReport from '@/services/api/report/get-summary-report-api';
 import ReportPrintApi from '@/services/api/report/report-print-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import UseScrollbarHook from './report-table-scrollbar-hook';
-import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-report-api';
-import DailySummaryReportApi from '@/services/api/report/get-daily-summary-report-api';
-import KarigarWiseReportApi from '@/services/api/report/get-karigar-wise-report-api';
-import ItemWiseReportApi from '@/services/api/report/get-item-wise-report-api';
-import summaryReport from '@/services/api/report/get-summary-report-api';
+import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
 
 const useItemStatusReportHook = () => {
-  const {
-    scrollableTableRef,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseLeave,
-    handleMouseMove,
-  }: any = UseScrollbarHook();
-
   // access token
   const loginAccessToken: any = useSelector(get_access_token);
   // filter states
@@ -35,10 +28,10 @@ const useItemStatusReportHook = () => {
 
   const [searchInputValues, setSearchInputValues] = useState({
     Item_Name: '',
-    Client_Name:'',
-    Karigar_Name:'',
-    Category:'',
-    Sub_Category:'',
+    Client_Name: '',
+    Karigar_Name: '',
+    Category: '',
+    Sub_Category: '',
     from_date: todayDate,
     to_date: todayDate,
   });
@@ -50,6 +43,9 @@ const useItemStatusReportHook = () => {
 
   // report data states
   const [reportData, setReportData] = useState<any>([]);
+  const [clientNameData, setClientNameData] = useState<any>([]);
+  const [karigarNameData, setKarigarNameData] = useState<any>([]);
+
   const [itemList, setItemList] = useState<any>();
 
   // loader state
@@ -68,29 +64,29 @@ const useItemStatusReportHook = () => {
   };
   const dailySummaryReportParams = {
     from_date: '',
-    to_date: ''
+    to_date: '',
   };
   const customerReportParams = {
     client_name: searchInputValues.Client_Name,
     from_date: '',
-    to_date: ''
+    to_date: '',
   };
   const karigarReportParams = {
-    karigar_name:'',
+    karigar_name: '',
     from_date: '',
-    to_date: ''
-  }
+    to_date: '',
+  };
   const itemReportParams = {
-    category:'',
-    sub_category:'',
+    category: '',
+    sub_category: '',
     from_date: '',
-    to_date: ''
-  }
+    to_date: '',
+  };
   const summaryReportParams = {
-    category:'',
+    category: '',
     from_date: '',
-    to_date: ''
-  }
+    to_date: '',
+  };
   const getStateData = async () => {
     let reportData;
     if (query?.reportId === 'daily-qty-status') {
@@ -101,35 +97,46 @@ const useItemStatusReportHook = () => {
     } else if (query?.reportId === 'product-code') {
       reportData = await ProductCodeReportApi(loginAccessToken.token);
       const itemListData = await getItemListInSalesApi(loginAccessToken.token);
-    if (itemListData?.data?.data?.length > 0) {
-      setItemList(itemListData?.data?.data);
-    }
-    }
-    else if (query?.reportId === 'daily-summary-report') {
+      if (itemListData?.data?.data?.length > 0) {
+        setItemList(itemListData?.data?.data);
+      }
+    } else if (query?.reportId === 'daily-summary-report') {
       reportData = await DailySummaryReportApi(
         loginAccessToken.token,
         dailySummaryReportParams
       );
-    }
-    else if (query?.reportId === 'customer-wise-report') {
+    } else if (query?.reportId === 'customer-wise-report') {
       reportData = await CustomerWiseReportApi(
         loginAccessToken.token,
         customerReportParams
       );
-    }
-    else if (query?.reportId === 'karigar-wise-report') {
+      let clientData: any = await getClientApi(loginAccessToken.token);
+
+      if (clientData?.data?.message?.status === 'success') {
+        let clientNameData: any = clientData?.data?.message?.data.map(
+          (items: any) => items.client_name
+        );
+        setClientNameData(clientNameData);
+      }
+    } else if (query?.reportId === 'karigar-wise-report') {
       reportData = await KarigarWiseReportApi(
         loginAccessToken.token,
         karigarReportParams
       );
-    }
-    else if (query?.reportId === 'item-wise-report') {
+      let karigarData: any = await getKarigarApi(loginAccessToken.token);
+
+      if (karigarData?.data?.message?.status === 'success') {
+        let karigarNameData: any = karigarData?.data?.message?.data.map(
+          (items: any) => items.karigar_name
+        );
+        setKarigarNameData(karigarNameData);
+      }
+    } else if (query?.reportId === 'item-wise-report') {
       reportData = await ItemWiseReportApi(
         loginAccessToken.token,
         itemReportParams
       );
-    }
-    else if (query?.reportId === 'summary-report') {
+    } else if (query?.reportId === 'summary-report') {
       reportData = await summaryReport(
         loginAccessToken.token,
         summaryReportParams
@@ -144,8 +151,6 @@ const useItemStatusReportHook = () => {
         setIsLoading(2);
       }
     }
-
-    
   };
   useEffect(() => {
     getStateData();
@@ -174,12 +179,11 @@ const useItemStatusReportHook = () => {
       toast.error(reportPrintApi?.message);
     }
   };
-  const HandleSearchInput: any = (e: any) => {
-    const { name, value } = e.target;
-    setSearchInputValues({
-      ...searchInputValues,
-      [name]: value,
-    });
+  const HandleSearchInput: any = (value: any, fieldName: any) => {
+    setSearchInputValues((prevState: any) => ({
+      ...prevState,
+      [fieldName]: value,
+    }));
   };
   const handleItemCodeSearchInput: any = (e: any) => {
     const { name, value } = e.target;
@@ -192,8 +196,7 @@ const useItemStatusReportHook = () => {
   const handleSearchItemCodeReport: any = () => {};
 
   const HandleSerachReport = async () => {
-    getStateData()
-    
+    getStateData();
   };
 
   return {
@@ -209,11 +212,6 @@ const useItemStatusReportHook = () => {
     searchInputValues,
     HandleRefresh,
     isLoading,
-    scrollableTableRef,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseLeave,
-    handleMouseMove,
     searchName,
     setSearchName,
     HandleReportPrint,
@@ -223,6 +221,8 @@ const useItemStatusReportHook = () => {
     setItemCodeSearchValues,
     handleItemCodeSearchInput,
     handleSearchItemCodeReport,
+    clientNameData,
+    karigarNameData,
   };
 };
 export default useItemStatusReportHook;

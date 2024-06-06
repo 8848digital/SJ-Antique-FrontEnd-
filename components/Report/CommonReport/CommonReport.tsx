@@ -1,24 +1,25 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+import styles from '../../../styles/readyReceipts.module.css';
+import styled from '../../../styles/report.module.css';
 import ReportHeader from '../../Header/ReportHeader';
 import LoadMoreTableDataInMaster from '../../Master/LoadMoreTableDataInMaster';
 import Loader from '../../NoRecord/Loader';
 import NoRecord from '../../NoRecord/NoRecord';
-import styles from '../../../styles/readyReceipts.module.css';
-import styled from '../../../styles/report.module.css';
-import { useRouter } from 'next/router';
 import CommonFilters from './CommonFilters';
 
 const CommonReport = ({
   isLoading,
-  HandleRefresh,
+  handleRefresh,
   reportData,
   searchInputValues,
-  HandleSearchInput,
-  HandleSerachReport,
-  setSelectDropDownReset
+  handleSearchInput,
+  handleSerachReport,
+  clientNameData,
+  karigarNameData,
 }: any) => {
   const { query } = useRouter();
-  console.log(query);
+
   const [tableViewData, setTableViewData] = useState<any>(20);
 
   const HandleTableViewRows: any = (data: any) => {
@@ -33,16 +34,17 @@ const CommonReport = ({
       <ReportHeader />
       <CommonFilters
         searchInputValues={searchInputValues}
-        HandleSearchInput={HandleSearchInput}
-        HandleSearchReport={HandleSerachReport}
-        setSelectDropDownReset={setSelectDropDownReset}
+        handleSearchInput={handleSearchInput}
+        handleSearchBtn={handleSerachReport}
+        clientNameData={clientNameData}
+        karigarNameData={karigarNameData}
       />
       {isLoading === 0 && <Loader />}
       {isLoading === 2 && (
         <NoRecord
           title={`No Record Found `}
           heading=""
-          HandleRefresh={HandleRefresh}
+          // HandleRefresh={handleRefresh}
         />
       )}
 
