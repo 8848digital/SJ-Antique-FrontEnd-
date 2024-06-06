@@ -63,7 +63,7 @@ const ItemStatusReport: any = ({
   return (
     <div className="container-lg ">
       <ReportHeader />
-      <div className="d-flex justify-content-between report-heading">
+      <div className="d-flex justify-content-between report-heading mt-2">
         <h5>{reportName}</h5>
         <button
           type="submit"

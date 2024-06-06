@@ -1,37 +1,38 @@
 import getClientGroupApi from '@/services/api/Master/get-client-group-api';
+import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getClientGroupData: any = createAsyncThunk(
-  'getClientGroupData/ClientGroupData',
+export const getKarigarNameData: any = createAsyncThunk(
+  'getKarigarName/KarigarName',
   async (params: any) => {
-    const ClientGroupData: any = await getClientGroupApi(params);
-    return ClientGroupData;
+    const KarigarName: any = await getKarigarApi(params);
+    return KarigarName;
   }
 );
-interface RepoClientGroupDataState {
+interface RepoKarigarNameState {
   data: any;
   docStatus: any;
   error: string;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
-const initialState: RepoClientGroupDataState = {
+const initialState: RepoKarigarNameState = {
   data: '',
   docStatus: '',
   error: '',
   isLoading: 'idle',
 };
 
-export const GetClientGroupDataScreen = createSlice({
-  name: 'ClientGroupData',
+export const GetKarigarNameScreen = createSlice({
+  name: 'KarigarName',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getClientGroupData.pending, (state) => {
+    builder.addCase(getKarigarNameData.pending, (state) => {
       state.isLoading = 'pending';
     });
-    builder.addCase(getClientGroupData.fulfilled, (state, action) => {
+    builder.addCase(getKarigarNameData.fulfilled, (state, action) => {
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'
@@ -44,14 +45,14 @@ export const GetClientGroupDataScreen = createSlice({
         state.isLoading = 'succeeded';
       }
     });
-    builder.addCase(getClientGroupData.rejected, (state) => {
+    builder.addCase(getKarigarNameData.rejected, (state) => {
       state.isLoading = 'failed';
       state.error = 'failed to store data';
     });
   },
 });
 
-export const get_client_group_data = (state: RootState) =>
-  state.GetClientGroupDataScreen;
+export const get_karigar_name_data = (state: RootState) =>
+  state.GetKarigarNameScreen;
 
-export default GetClientGroupDataScreen.reducer;
+export default GetKarigarNameScreen.reducer;

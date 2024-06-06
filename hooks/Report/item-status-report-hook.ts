@@ -12,9 +12,10 @@ import ReportPrintApi from '@/services/api/report/report-print-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
 
 const useItemStatusReportHook = () => {
   // access token
@@ -27,7 +28,6 @@ const useItemStatusReportHook = () => {
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
 
   const [searchInputValues, setSearchInputValues] = useState({
-    Item_Name: '',
     Client_Name: '',
     Karigar_Name: '',
     Category: '',
@@ -35,7 +35,6 @@ const useItemStatusReportHook = () => {
     from_date: todayDate,
     to_date: todayDate,
   });
-
   const [itemCodeSearchValues, setItemCodeSearchValues] = useState<any>({
     name: '',
     karigar: '',
@@ -63,29 +62,29 @@ const useItemStatusReportHook = () => {
     to_date: searchInputValues.to_date,
   };
   const dailySummaryReportParams = {
-    from_date: '',
-    to_date: '',
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
   };
   const customerReportParams = {
     client_name: searchInputValues.Client_Name,
-    from_date: '',
-    to_date: '',
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
   };
   const karigarReportParams = {
-    karigar_name: '',
-    from_date: '',
-    to_date: '',
+    karigar_name: searchInputValues.Karigar_Name,
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
   };
   const itemReportParams = {
-    category: '',
-    sub_category: '',
-    from_date: '',
-    to_date: '',
+    category: searchInputValues.Category,
+    sub_category: searchInputValues.Sub_Category,
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
   };
   const summaryReportParams = {
-    category: '',
-    from_date: '',
-    to_date: '',
+    category: searchInputValues.Category,
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
   };
   const getStateData = async () => {
     let reportData;
@@ -153,7 +152,18 @@ const useItemStatusReportHook = () => {
     }
   };
   useEffect(() => {
-    getStateData();
+    const fetchData = async () => {
+      await getStateData();
+      setSearchInputValues({
+        Client_Name: '',
+        Karigar_Name: '',
+        Category: '',
+        Sub_Category: '',
+        from_date: todayDate,
+        to_date: todayDate,
+      });
+    };
+    fetchData();
   }, [query]);
   const dailyStatusSearchName: any =
     reportData?.length > 0 &&

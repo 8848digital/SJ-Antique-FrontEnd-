@@ -10,16 +10,13 @@ import CommonFilters from './CommonFilters';
 
 const CommonReport = ({
   isLoading,
-  handleRefresh,
   reportData,
   searchInputValues,
   handleSearchInput,
-  handleSerachReport,
+  HandleSerachReport,
   clientNameData,
   karigarNameData,
 }: any) => {
-  const { query } = useRouter();
-
   const [tableViewData, setTableViewData] = useState<any>(20);
 
   const HandleTableViewRows: any = (data: any) => {
@@ -35,7 +32,7 @@ const CommonReport = ({
       <CommonFilters
         searchInputValues={searchInputValues}
         handleSearchInput={handleSearchInput}
-        handleSearchBtn={handleSerachReport}
+        handleSearchBtn={HandleSerachReport}
         clientNameData={clientNameData}
         karigarNameData={karigarNameData}
       />
@@ -44,7 +41,6 @@ const CommonReport = ({
         <NoRecord
           title={`No Record Found `}
           heading=""
-          // HandleRefresh={handleRefresh}
         />
       )}
 

@@ -56,7 +56,7 @@ const ReportIndexPage = () => {
           isLoading={isLoading}
           searchInputValues={searchInputValues}
           handleSearchInput={HandleSearchInput}
-          handleSearchReport={HandleSerachReport}
+          HandleSerachReport={HandleSerachReport}
           setSelectDropDownReset={setSelectDropDownReset}
           clientNameData={clientNameData}
           karigarNameData={karigarNameData}

@@ -11,7 +11,6 @@ const AutoCompleteInput = ({
   labelText,
   bgColor,
 }: any) => {
-  // console.log("data for input dropdown", data)
 
   const {
     handleShowDropdown,
@@ -52,7 +51,7 @@ const AutoCompleteInput = ({
           onChange={(e) => handleFieldChange(e, data.fieldname)}
           onClick={handleDocumentClick}
           onMouseDown={handleShowDropdown}
-          className="form-control"
+          className="form-control bg-primary bg-opacity-10"
           //   className={`${
           //     bgColor?.current === true
           //       ? 'form-control dropdown-input client-name-input-chitti'
@@ -123,7 +122,7 @@ const AutoCompleteInput = ({
                         {clientGroupList?.length > 0 &&
                           clientGroupList !== null &&
                           clientGroupList.map((data: any, index: any) => (
-                            <option value={data.client_group}></option>
+                            <option key={index} value={data.client_group}></option>
                           ))}
                       </select>
                     </li>
