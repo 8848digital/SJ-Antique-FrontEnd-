@@ -1,8 +1,7 @@
-import { useRouter } from 'next/router';
-import React from 'react';
-import ItemStatusReport from './ItemStatusReport';
 import useItemStatusReportHook from '@/hooks/Report/item-status-report-hook';
-import ReportHeader from '../Header/ReportHeader';
+import { useRouter } from 'next/router';
+import CommonReport from './CommonReport/CommonReport';
+import ItemStatusReport from './ItemStatusReport';
 import ProductCodeReport from './ProductCodeReport/ProductCodeReport';
 
 const ReportIndexPage = () => {
@@ -16,7 +15,7 @@ const ReportIndexPage = () => {
     itemList,
     HandleSearchInput,
     searchInputValues,
-    dailyStatusLoading,
+    isLoading,
     scrollableTableRef,
     handleMouseDown,
     handleMouseUp,
@@ -42,7 +41,7 @@ const ReportIndexPage = () => {
           itemList={itemList}
           HandleSearchInput={HandleSearchInput}
           searchInputValues={searchInputValues}
-          isLoading={dailyStatusLoading}
+          isLoading={isLoading}
           scrollableTableRef={scrollableTableRef}
           handleMouseDown={handleMouseDown}
           handleMouseUp={handleMouseUp}
@@ -55,92 +54,18 @@ const ReportIndexPage = () => {
           HandleSerachReport={HandleSerachReport}
         />
       )}
-      {key === 'daily-summary-report' && (
-        <ItemStatusReport
-          itemStatusReportState={reportData}
-          reportName={'Daily Report'}
-          selectDropDownReset={selectDropDownReset}
-          setSelectDropDownReset={setSelectDropDownReset}
-          itemList={itemList}
-          HandleSearchInput={HandleSearchInput}
+      {(key === 'daily-summary-report' ||
+        key === 'karigar-wise-report' ||
+        key === 'customer-wise-report' ||
+        key === 'item-wise-report' ||
+        key === 'summary-report') && (
+        <CommonReport
+          reportData={reportData}
+          isLoading={isLoading}
           searchInputValues={searchInputValues}
-          isLoading={dailyStatusLoading}
-          scrollableTableRef={scrollableTableRef}
-          handleMouseDown={handleMouseDown}
-          handleMouseUp={handleMouseUp}
-          handleMouseLeave={handleMouseLeave}
-          handleMouseMove={handleMouseMove}
-          searchName={searchName}
-          setSearchName={setSearchName}
-          name={dailyStatusSearchName}
-          HandleReportPrint={HandleReportPrint}
-          HandleSerachReport={HandleSerachReport}
-        />
-      )}
-      {key === 'karigar-wise-report' && (
-        <ItemStatusReport
-          itemStatusReportState={reportData}
-          reportName={'Daily Report'}
-          selectDropDownReset={selectDropDownReset}
-          setSelectDropDownReset={setSelectDropDownReset}
-          itemList={itemList}
           HandleSearchInput={HandleSearchInput}
-          searchInputValues={searchInputValues}
-          isLoading={dailyStatusLoading}
-          scrollableTableRef={scrollableTableRef}
-          handleMouseDown={handleMouseDown}
-          handleMouseUp={handleMouseUp}
-          handleMouseLeave={handleMouseLeave}
-          handleMouseMove={handleMouseMove}
-          searchName={searchName}
-          setSearchName={setSearchName}
-          name={dailyStatusSearchName}
-          HandleReportPrint={HandleReportPrint}
-          HandleSerachReport={HandleSerachReport}
-        />
-      )}
-      {key === 'customer-wise-report' && (
-        <ItemStatusReport
-          itemStatusReportState={reportData}
-          reportName={'Daily Report'}
-          selectDropDownReset={selectDropDownReset}
+          HandleSearchReport={HandleSerachReport}
           setSelectDropDownReset={setSelectDropDownReset}
-          itemList={itemList}
-          HandleSearchInput={HandleSearchInput}
-          searchInputValues={searchInputValues}
-          isLoading={dailyStatusLoading}
-          scrollableTableRef={scrollableTableRef}
-          handleMouseDown={handleMouseDown}
-          handleMouseUp={handleMouseUp}
-          handleMouseLeave={handleMouseLeave}
-          handleMouseMove={handleMouseMove}
-          searchName={searchName}
-          setSearchName={setSearchName}
-          name={dailyStatusSearchName}
-          HandleReportPrint={HandleReportPrint}
-          HandleSerachReport={HandleSerachReport}
-        />
-      )}
-      {key === 'item-wise-report' && (
-        <ItemStatusReport
-          itemStatusReportState={reportData}
-          reportName={'Daily Report'}
-          selectDropDownReset={selectDropDownReset}
-          setSelectDropDownReset={setSelectDropDownReset}
-          itemList={itemList}
-          HandleSearchInput={HandleSearchInput}
-          searchInputValues={searchInputValues}
-          isLoading={dailyStatusLoading}
-          scrollableTableRef={scrollableTableRef}
-          handleMouseDown={handleMouseDown}
-          handleMouseUp={handleMouseUp}
-          handleMouseLeave={handleMouseLeave}
-          handleMouseMove={handleMouseMove}
-          searchName={searchName}
-          setSearchName={setSearchName}
-          name={dailyStatusSearchName}
-          HandleReportPrint={HandleReportPrint}
-          HandleSerachReport={HandleSerachReport}
         />
       )}
       {key === 'product-code' && (
@@ -148,7 +73,7 @@ const ReportIndexPage = () => {
           reportData={reportData}
           reportName={'Product Code Report'}
           HandleItemCodeSearchInput={handleItemCodeSearchInput}
-          isLoading={dailyStatusLoading}
+          isLoading={isLoading}
           scrollableTableRef={scrollableTableRef}
           handleMouseDown={handleMouseDown}
           handleMouseUp={handleMouseUp}

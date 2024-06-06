@@ -85,6 +85,19 @@ const ReportHeader = () => {
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>
+      <Link
+        href="/report/summary-report"
+        className="text-decoration-none btn-margin"
+      >
+        <button
+          className={`${styles.button} ${
+            query?.reportId === 'summary-report' ? 'activeColor' : ''
+          }`}
+        >
+         Summary Report
+          <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
+        </button>
+      </Link>
     </div>
   );
 };

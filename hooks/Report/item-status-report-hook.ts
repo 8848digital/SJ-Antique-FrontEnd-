@@ -13,6 +13,7 @@ import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-repor
 import DailySummaryReportApi from '@/services/api/report/get-daily-summary-report-api';
 import KarigarWiseReportApi from '@/services/api/report/get-karigar-wise-report-api';
 import ItemWiseReportApi from '@/services/api/report/get-item-wise-report-api';
+import summaryReport from '@/services/api/report/get-summary-report-api';
 
 const useItemStatusReportHook = () => {
   const {
@@ -33,7 +34,11 @@ const useItemStatusReportHook = () => {
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
 
   const [searchInputValues, setSearchInputValues] = useState({
-    name: '',
+    Item_Name: '',
+    Client_Name:'',
+    Karigar_Name:'',
+    Category:'',
+    Sub_Category:'',
     from_date: todayDate,
     to_date: todayDate,
   });
@@ -48,7 +53,7 @@ const useItemStatusReportHook = () => {
   const [itemList, setItemList] = useState<any>();
 
   // loader state
-  const [dailyStatusLoading, setDailyStatusLoading] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<number>(0);
 
   const router = useRouter();
   const { query } = useRouter();
@@ -62,78 +67,89 @@ const useItemStatusReportHook = () => {
     to_date: searchInputValues.to_date,
   };
   const dailySummaryReportParams = {
-    from_date: searchInputValues.from_date,
-    to_date: searchInputValues.to_date,
+    from_date: '',
+    to_date: ''
   };
   const customerReportParams = {
-    client_name: searchInputValues.name,
-    from_date: searchInputValues.from_date,
-    to_date: searchInputValues.to_date,
+    client_name: searchInputValues.Client_Name,
+    from_date: '',
+    to_date: ''
   };
   const karigarReportParams = {
     karigar_name:'',
-    from_date: searchInputValues.from_date,
-    to_date: searchInputValues.to_date,
+    from_date: '',
+    to_date: ''
   }
   const itemReportParams = {
     category:'',
     sub_category:'',
-    from_date: searchInputValues.from_date,
-    to_date: searchInputValues.to_date,
+    from_date: '',
+    to_date: ''
   }
-  useEffect(() => {
-    const getStateData = async () => {
-      let reportData;
-      if (query?.reportId === 'daily-qty-status') {
-        reportData = await DailyStatusReportApi(
-          loginAccessToken.token,
-          dailyQtyStatusReportParams
-        );
-      } else if (query?.reportId === 'product-code') {
-        reportData = await ProductCodeReportApi(loginAccessToken.token);
-      }
-      else if (query?.reportId === 'daily-summary-report') {
-        reportData = await DailySummaryReportApi(
-          loginAccessToken.token,
-          dailySummaryReportParams
-        );
-      }
-      else if (query?.reportId === 'customer-wise-report') {
-        reportData = await CustomerWiseReportApi(
-          loginAccessToken.token,
-          customerReportParams
-        );
-      }
-      else if (query?.reportId === 'karigar-wise-report') {
-        reportData = await KarigarWiseReportApi(
-          loginAccessToken.token,
-          karigarReportParams
-        );
-      }
-      else if (query?.reportId === 'item-wise-report') {
-        reportData = await ItemWiseReportApi(
-          loginAccessToken.token,
-          itemReportParams
-        );
-      }
-
-      if (reportData?.data?.message?.status === 'success') {
-        setReportData(reportData?.data?.message?.data);
-        if (reportData?.data?.message?.data?.length > 0) {
-          setDailyStatusLoading(1);
-        } else {
-          setDailyStatusLoading(2);
-        }
-      }
-
+  const summaryReportParams = {
+    category:'',
+    from_date: '',
+    to_date: ''
+  }
+  const getStateData = async () => {
+    let reportData;
+    if (query?.reportId === 'daily-qty-status') {
+      reportData = await DailyStatusReportApi(
+        loginAccessToken.token,
+        dailyQtyStatusReportParams
+      );
+    } else if (query?.reportId === 'product-code') {
+      reportData = await ProductCodeReportApi(loginAccessToken.token);
       const itemListData = await getItemListInSalesApi(loginAccessToken.token);
-      if (itemListData?.data?.data?.length > 0) {
-        setItemList(itemListData?.data?.data);
+    if (itemListData?.data?.data?.length > 0) {
+      setItemList(itemListData?.data?.data);
+    }
+    }
+    else if (query?.reportId === 'daily-summary-report') {
+      reportData = await DailySummaryReportApi(
+        loginAccessToken.token,
+        dailySummaryReportParams
+      );
+    }
+    else if (query?.reportId === 'customer-wise-report') {
+      reportData = await CustomerWiseReportApi(
+        loginAccessToken.token,
+        customerReportParams
+      );
+    }
+    else if (query?.reportId === 'karigar-wise-report') {
+      reportData = await KarigarWiseReportApi(
+        loginAccessToken.token,
+        karigarReportParams
+      );
+    }
+    else if (query?.reportId === 'item-wise-report') {
+      reportData = await ItemWiseReportApi(
+        loginAccessToken.token,
+        itemReportParams
+      );
+    }
+    else if (query?.reportId === 'summary-report') {
+      reportData = await summaryReport(
+        loginAccessToken.token,
+        summaryReportParams
+      );
+    }
+
+    if (reportData?.data?.message?.status === 'success') {
+      setReportData(reportData?.data?.message?.data);
+      if (reportData?.data?.message?.data?.length > 0) {
+        setIsLoading(1);
+      } else {
+        setIsLoading(2);
       }
-    };
+    }
+
+    
+  };
+  useEffect(() => {
     getStateData();
   }, [query]);
-  console.log(reportData, '@report');
   const dailyStatusSearchName: any =
     reportData?.length > 0 &&
     reportData !== null &&
@@ -176,16 +192,8 @@ const useItemStatusReportHook = () => {
   const handleSearchItemCodeReport: any = () => {};
 
   const HandleSerachReport = async () => {
-    const dailyQtyReportData: any = await DailyStatusReportApi(
-      loginAccessToken.token,
-      dailySummaryReportParams
-    );
-    if (dailyQtyReportData?.data?.message?.status === 'success') {
-      setReportData(dailyQtyReportData?.data?.message?.data);
-      if (dailyQtyReportData?.data?.message?.data?.length > 0) {
-        setDailyStatusLoading(1);
-      } else setDailyStatusLoading(2);
-    }
+    getStateData()
+    
   };
 
   return {
@@ -200,7 +208,7 @@ const useItemStatusReportHook = () => {
     HandleSearchInput,
     searchInputValues,
     HandleRefresh,
-    dailyStatusLoading,
+    isLoading,
     scrollableTableRef,
     handleMouseDown,
     handleMouseUp,
