@@ -50,7 +50,6 @@ const useCustomCustomerSalesHook = () => {
   const [itemCodeDropdownReset, setItemCodeDropdownReset] =
     useState<boolean>(false);
 
-
   const newRowDataForSalesTable: any = {
     idx: salesTableData?.length + 1,
     custom_pr_bb_wt: '',
@@ -111,25 +110,31 @@ const useCustomCustomerSalesHook = () => {
               custom_kun_wt: Number(
                 selectedCategory.KunCategory !== '' &&
                   selectedCategory?.KunCategory !== null
-                  ? (data[0]?.custom_kun_wt * selectedCategory.KunCategory.type) / 100
+                  ? (data[0]?.custom_kun_wt *
+                      selectedCategory.KunCategory?.type) /
+                      100
                   : data[0]?.custom_kun_wt
               ),
               custom_cs_wt: Number(
                 selectedCategory.CsCategory !== '' &&
                   selectedCategory?.CsCategory !== null
-                  ? (data[0]?.custom_cs_wt * selectedCategory.CsCategory.type) / 100
+                  ? (data[0]?.custom_cs_wt *
+                      selectedCategory.CsCategory?.type) /
+                      100
                   : data[0]?.custom_cs_wt
               ),
               custom_bb_wt: Number(
                 selectedCategory.BBCategory !== '' &&
                   selectedCategory?.BBCategory !== null
-                  ? data[0]?.custom_bb_wt - selectedCategory.BBCategory.type
+                  ? data[0]?.custom_bb_wt - selectedCategory.BBCategory?.type
                   : data[0].custom_bb_wt
               ),
               custom_other_wt: Number(
                 selectedCategory.OtCategory !== '' &&
                   selectedCategory?.OtCategory !== null
-                  ? (data[0]?.custom_other_wt * selectedCategory.OtCategory.type) / 100
+                  ? (data[0]?.custom_other_wt *
+                      selectedCategory.OtCategory?.type) /
+                      100
                   : data[0]?.custom_other_wt
               ),
               custom_net_wt:
@@ -193,7 +198,6 @@ const useCustomCustomerSalesHook = () => {
 
       // Update state with new row
       setSalesTableData((prevSalesTableData: any) => {
-
         return [...prevSalesTableData, newRowDataForSalesTable];
       });
     }
@@ -225,9 +229,9 @@ const useCustomCustomerSalesHook = () => {
           custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-            Number(item[i]?.custom_kun_amt) +
-            Number(item[i]?.custom_ot_amt) +
-            Number(item[i]?.custom_other)
+              Number(item[i]?.custom_kun_amt) +
+              Number(item[i]?.custom_ot_amt) +
+              Number(item[i]?.custom_other)
           ),
         };
       });
@@ -256,7 +260,7 @@ const useCustomCustomerSalesHook = () => {
     updateSalesTableData,
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
-    updateBarcodeSalesTableData
+    updateBarcodeSalesTableData,
   };
 };
 export default useCustomCustomerSalesHook;

@@ -28,7 +28,6 @@ const SearchSelectInputField = ({
   const [filterDropdownList, setFilterDropdownList] = useState([]);
   const [showClientGroupSelect, setShowClientGroupSelect] = useState(false);
 
-
   useEffect(() => {
     if (selectDropDownReset !== undefined && selectDropDownReset === true)
       setSelectedDropdownValue('');
@@ -254,8 +253,9 @@ const SearchSelectInputField = ({
                       onMouseDown={(e) => {
                         handleSelectedOption(name, i);
                       }}
-                      className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
-                        }`}
+                      className={`dropdown-list ${
+                        i === selectedIndex ? 'selected' : ''
+                      }`}
                     >
                       {name.karigar_name}
                     </li>

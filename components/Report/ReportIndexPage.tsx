@@ -22,6 +22,7 @@ const ReportIndexPage = () => {
     reportData,
     clientNameData,
     karigarNameData,
+    categoryData,
   }: any = useItemStatusReportHook();
   return (
     <>
@@ -52,6 +53,7 @@ const ReportIndexPage = () => {
           clientNameData={clientNameData}
           karigarNameData={karigarNameData}
           itemListData={itemList}
+          categoryData={categoryData}
         />
       )}
     </>

@@ -1,6 +1,6 @@
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
-// import ReportApi from '@/services/api/report/get-daily-status-report-data-api';
 import getClientApi from '@/services/api/Master/get-client-api';
+import getSubCategoryApi from '@/services/api/Master/get-sub-category-api';
 import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
 import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-report-api';
 import DailyStatusReportApi from '@/services/api/report/get-daily-status-report-data-api';
@@ -17,6 +17,9 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const useItemStatusReportHook = () => {
+  const router = useRouter();
+  const { query } = useRouter();
+
   // access token
   const loginAccessToken: any = useSelector(get_access_token);
   // filter states
@@ -32,8 +35,8 @@ const useItemStatusReportHook = () => {
     product_code: '',
     Category: '',
     Sub_Category: '',
-    from_date: todayDate,
-    to_date: todayDate,
+    from_date: query?.reportId === 'daily-qty-status' ? todayDate : '',
+    to_date: query?.reportId === 'daily-qty-status' ? todayDate : '',
   });
   const [itemCodeSearchValues, setItemCodeSearchValues] = useState<any>({
     name: '',
@@ -44,14 +47,12 @@ const useItemStatusReportHook = () => {
   const [reportData, setReportData] = useState<any>([]);
   const [clientNameData, setClientNameData] = useState<any>([]);
   const [karigarNameData, setKarigarNameData] = useState<any>([]);
+  const [categoryData, setCategoryData] = useState<any>([]);
 
   const [itemList, setItemList] = useState<any>();
 
   // loader state
   const [isLoading, setIsLoading] = useState<number>(0);
-
-  const router = useRouter();
-  const { query } = useRouter();
 
   const HandleRefresh = () => {
     router.reload();
@@ -146,11 +147,23 @@ const useItemStatusReportHook = () => {
         loginAccessToken.token,
         itemReportParams
       );
+      let categoryListData: any = await getSubCategoryApi(
+        loginAccessToken?.token
+      );
+      if (categoryListData?.data?.message?.status === 'success') {
+        setCategoryData(categoryListData?.data?.message?.data);
+      }
     } else if (query?.reportId === 'summary-report') {
       reportData = await summaryReport(
         loginAccessToken.token,
         summaryReportParams
       );
+      let categoryListData: any = await getSubCategoryApi(
+        loginAccessToken?.token
+      );
+      if (categoryListData?.data?.message?.status === 'success') {
+        setCategoryData(categoryListData?.data?.message?.data);
+      }
     }
 
     if (reportData?.data?.message?.status === 'success') {
@@ -171,8 +184,8 @@ const useItemStatusReportHook = () => {
         product_code: '',
         Category: '',
         Sub_Category: '',
-        from_date: todayDate,
-        to_date: todayDate,
+        from_date: query?.reportId === 'daily-qty-status' ? todayDate : '',
+        to_date: query?.reportId === 'daily-qty-status' ? todayDate : '',
       });
     };
     fetchData();
@@ -242,6 +255,7 @@ const useItemStatusReportHook = () => {
     handleItemCodeSearchInput,
     clientNameData,
     karigarNameData,
+    categoryData,
   };
 };
 export default useItemStatusReportHook;

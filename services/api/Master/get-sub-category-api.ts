@@ -7,7 +7,7 @@ const getSubCategoryApi = async (get_access_token: any) => {
 
   await axios
     .get(
-      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_client_group&entity=client_group`,
+      `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_list_subcategory&entity=category`,
       getHeaders
     )
     .then((res: any) => {

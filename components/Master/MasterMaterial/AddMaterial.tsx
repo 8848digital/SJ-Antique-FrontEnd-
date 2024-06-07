@@ -40,6 +40,7 @@ const AddMaterial = ({
               HandleNameChange(e);
             }}
             required
+            autoComplete="off"
           />
         </div>
 
@@ -48,28 +49,28 @@ const AddMaterial = ({
           <label htmlFor="">{placeholder2}</label>
           <span className="text-danger">*</span>
         </div>
-        <div className="p-1">
+        <div className="col-lg-6">
           {value === 'client' || value === 'subCategory' ? (
             <SearchSelectInputField
               karigarData={clientGroup}
-              className={'form-control w-50 border p-0 px-2'}
+              className={'form-control  border p-0 px-2'}
               placeholder={placeholder2}
               selectedDropdownValue={searchClient}
               setSelectedDropdownValue={setSearchClient}
-              style={'client-width'}
               selectDropDownReset={selectDropDownReset}
               setSelectDropDownReset={setSelectDropDownReset}
             />
           ) : (
             <input
               type="text"
-              className="form-control w-50 border p-0 px-2"
+              className="form-control border p-0 px-2"
               name="material_abbr"
               value={nameValue.material_abbr}
               onChange={(e) => {
                 HandleNameChange(e);
               }}
               required
+              autoComplete="off"
             />
           )}
         </div>
@@ -80,16 +81,17 @@ const AddMaterial = ({
               <label htmlFor="">{placeholder3}</label>
               <span className="text-danger">*</span>
             </div>
-            <SearchSelectInputField
-              karigarData={clientGroup}
-              className={'form-control w-50 border p-0 px-2'}
-              placeholder={'Material Group'}
-              selectedDropdownValue={searchClient}
-              setSelectedDropdownValue={setSearchClient}
-              style={'client-width'}
-              selectDropDownReset={selectDropDownReset}
-              setSelectDropDownReset={setSelectDropDownReset}
-            />
+            <div className="col-lg-6">
+              <SearchSelectInputField
+                karigarData={clientGroup}
+                className={'form-control border p-0 px-2'}
+                placeholder={'Material Group'}
+                selectedDropdownValue={searchClient}
+                setSelectedDropdownValue={setSearchClient}
+                selectDropDownReset={selectDropDownReset}
+                setSelectDropDownReset={setSelectDropDownReset}
+              />
+            </div>
             {/* <div> {error3 && <p className="text-danger">{error3}</p>}</div> */}
           </>
         )}

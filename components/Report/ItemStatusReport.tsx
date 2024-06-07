@@ -29,7 +29,6 @@ const ItemStatusReport: any = ({
   HandleReportPrint,
   HandleSerachReport,
 }: any) => {
-
   const [tableViewData, setTableViewData] = useState<any>(20);
 
   const HandleTableViewRows: any = (data: any) => {

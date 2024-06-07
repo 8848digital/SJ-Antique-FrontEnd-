@@ -17,6 +17,7 @@ const CommonReport = ({
   clientNameData,
   karigarNameData,
   itemListData,
+  categoryData,
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -27,6 +28,7 @@ const CommonReport = ({
   };
   const headers =
     reportData.length > 0 && reportData[0] ? Object.keys(reportData[0]) : [];
+
   return (
     <div className="container-lg">
       <ReportHeader />
@@ -37,6 +39,7 @@ const CommonReport = ({
         clientNameData={clientNameData}
         karigarNameData={karigarNameData}
         itemListData={itemListData}
+        categoryData={categoryData}
       />
       {isLoading === 0 && <Loader />}
       {isLoading === 2 && <NoRecord title={`No Record Found `} heading="" />}
@@ -59,8 +62,8 @@ const CommonReport = ({
             >
               <table className="table table-hover table-striped cursor ">
                 <thead className="sticky-top">
-                  <tr className="row justify-content-center ">
-                    <th scope="col" className="thead col-1 ">
+                  <tr className="row justify-content-center">
+                    <th scope="col" className="thead col-1">
                       Sr. No.
                     </th>
                     {headers?.map((header: string, index: number) => (
@@ -71,7 +74,8 @@ const CommonReport = ({
                           headers?.length <= 4 ? 'col-2' : 'col'
                         }`}
                       >
-                        {header.replace('_', ' ')}
+                        {header?.charAt(0)?.toUpperCase() +
+                          header?.slice(1)?.replace('_', ' ')}
                       </th>
                     ))}
                   </tr>
@@ -81,22 +85,27 @@ const CommonReport = ({
                     reportData
                       .slice(0, tableViewData)
                       .map((data: any, index: any) => {
+                        const firstKey = Object.keys(data)[0];
+                        const isTotalRow = data[firstKey] === 'Total';
+
                         return (
                           <tr
                             key={index}
-                            className={`row justify-content-center text-center ${styles.table_row} `}
+                            className={`row justify-content-center text-center  ${
+                              isTotalRow ? 'fw-bold' : ''
+                            }`}
                           >
                             <td
                               scope="col"
                               className="col-1 table_row py-1 py-auto"
                             >
-                              {index + 1}
+                              {!isTotalRow && index + 1}
                             </td>
                             {headers.map((header, idx) => (
                               <td
                                 key={idx}
                                 scope="col"
-                                className={`table_row py-1 py-auto ${
+                                className={`table_row py-1 py-auto  ${
                                   headers?.length <= 4 ? 'col-2' : 'col'
                                 }`}
                               >

@@ -9,18 +9,23 @@ const CommonFilters = ({
   clientNameData,
   karigarNameData,
   itemListData,
+  categoryData,
 }: any) => {
   const { query } = useRouter();
-  const categoryList: any = ['category1', 'category2', 'category3'];
-  const categoryData: any = {
+
+  const categoryListData: any = {
     fieldname: 'Category',
     fieldtype: 'Link',
-    link_data: categoryList,
+    link_data:
+      categoryData?.length > 0 &&
+      categoryData.map((data: any) => data.category),
   };
-  const subCategoryData: any = {
+  const subCategoryListData: any = {
     fieldname: 'Sub_Category',
     fieldtype: 'Link',
-    link_data: categoryList,
+    link_data:
+      categoryData?.length > 0 &&
+      categoryData.map((data: any) => data.subcategory),
   };
   const clientNameList: any = {
     fieldname: 'Client_Name',
@@ -70,7 +75,7 @@ const CommonFilters = ({
             <div className="col-sm-2 p-0 mx-1">
               <label className="text-grey">Category</label>
               <AutoCompleteInput
-                data={categoryData}
+                data={categoryListData}
                 handleSearchInput={(value: any, fieldName: any) =>
                   handleSearchInput(value, fieldName)
                 }
@@ -83,7 +88,7 @@ const CommonFilters = ({
           <div className="col-sm-2 p-0 mx-1">
             <label className="text-grey">Sub Category</label>
             <AutoCompleteInput
-              data={subCategoryData}
+              data={subCategoryListData}
               handleSearchInput={(value: any, fieldName: any) =>
                 handleSearchInput(value, fieldName)
               }

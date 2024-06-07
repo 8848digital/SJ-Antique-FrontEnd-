@@ -67,7 +67,7 @@ const IndexPage = () => {
     HandleSubCategoryChange,
     HandleSubCategorySave,
     setSearchCategory,
-    searchCategory
+    searchCategory,
   }: any = useClientHook();
 
   const router = useRouter();
@@ -88,9 +88,8 @@ const IndexPage = () => {
     }));
   let categoryName: any =
     category?.length > 0 &&
-    category !== null &&
     category.map((data: any) => ({
-      karigar_name: data.client_group,
+      karigar_name: data,
     }));
 
   return (
@@ -246,17 +245,17 @@ const IndexPage = () => {
       )}
       {key === 'category' && (
         <MasterKarigar
-        karigarData={categoryName}
-        inputValue={inputValue1}
-        HandleInputValue={HandleCategoryValue}
-        HandleSubmit={HandleCategorySubmit}
-        error={errorC}
-        setError={setErrorC}
-        value={key}
-        placeholder={'Category Name'}
-        tab1={'Category List'}
-        tab2={'Create New Category'}
-      />
+          karigarData={categoryName}
+          inputValue={inputValue1}
+          HandleInputValue={HandleCategoryValue}
+          HandleSubmit={HandleCategorySubmit}
+          error={errorC}
+          setError={setErrorC}
+          value={key}
+          placeholder={'Category Name'}
+          tab1={'Category List'}
+          tab2={'Create New Category'}
+        />
       )}
       {key === 'subCategory' && (
         <MasterMaterialMaster
@@ -265,8 +264,8 @@ const IndexPage = () => {
             subCategory?.length > 0 &&
             subCategory !== null &&
             subCategory.map((data: any) => ({
-              material: data.client_name,
-              material_abbr: data.client_group,
+              material: data.subcategory,
+              material_abbr: data.category,
             }))
           }
           clientGroup={categoryName}

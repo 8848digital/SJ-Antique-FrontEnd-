@@ -123,33 +123,37 @@ const useCustomerSaleHook = () => {
     setSelectedLocation('Mumbai');
   }, []);
 
-  const handleSalesTableFieldChange = (itemIdx: any, fieldName: any, value: any) => {
-
+  const handleSalesTableFieldChange = (
+    itemIdx: any,
+    fieldName: any,
+    value: any
+  ) => {
     setSalesTableData((prevData: any) => {
       return prevData.map((item: any) => {
         if (item.idx === itemIdx) {
           const updatedItem = {
             ...item,
-            [fieldName]: Number(value)
+            [fieldName]: Number(value),
           };
 
           // Calculate the dependent values
           updatedItem.custom_net_wt = Math.max(
             0,
-            Number(updatedItem.custom_gross_wt) - (
-              Number(updatedItem.custom_kun_wt) +
-              Number(updatedItem.custom_cs_wt) +
-              Number(updatedItem.custom_bb_wt) +
-              Number(updatedItem.custom_other_wt)
-            )
+            Number(updatedItem.custom_gross_wt) -
+              (Number(updatedItem.custom_kun_wt) +
+                Number(updatedItem.custom_cs_wt) +
+                Number(updatedItem.custom_bb_wt) +
+                Number(updatedItem.custom_other_wt))
           );
 
           if (fieldName === 'custom_cs') {
-            updatedItem.custom_cs_amt = Number(updatedItem.custom_cs_wt) * value;
+            updatedItem.custom_cs_amt =
+              Number(updatedItem.custom_cs_wt) * value;
           }
 
           if (fieldName === 'custom_kun') {
-            updatedItem.custom_kun_amt = Number(updatedItem.custom_kun_pc) * value;
+            updatedItem.custom_kun_amt =
+              Number(updatedItem.custom_kun_pc) * value;
           }
 
           if (fieldName === 'custom_kun_pc') {
@@ -157,15 +161,15 @@ const useCustomerSaleHook = () => {
           }
 
           if (fieldName === 'custom_ot_') {
-            updatedItem.custom_ot_amt = Number(updatedItem.custom_other_wt) * value;
+            updatedItem.custom_ot_amt =
+              Number(updatedItem.custom_other_wt) * value;
           }
 
-          updatedItem.custom_amount = (
+          updatedItem.custom_amount =
             Number(updatedItem.custom_cs_amt) +
             Number(updatedItem.custom_kun_amt) +
             Number(updatedItem.custom_ot_amt) +
-            Number(updatedItem.custom_other)
-          );
+            Number(updatedItem.custom_other);
           return updatedItem;
         } else {
           return item;
@@ -175,7 +179,6 @@ const useCustomerSaleHook = () => {
 
     setStateForDocStatus(true);
   };
-
 
   const itemCodeListFunc = () => {
     if (barcodedata === 1) {
@@ -262,7 +265,6 @@ const useCustomerSaleHook = () => {
         getItemCodeDetailsFun();
       }
     }
-
   };
   useEffect(() => {
     itemDetailApiFun();
@@ -322,13 +324,13 @@ const useCustomerSaleHook = () => {
             ),
             custom_cs_amt: Number(
               (selectedCategory.CsCategory !== '' &&
-                selectedCategory?.CsCategory !== null
+              selectedCategory?.CsCategory !== null
                 ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
                 : Number(data?.custom_cs_wt)) * data?.custom_cs
             ),
             custom_ot_amt: Number(
               (selectedCategory.OtCategory !== '' &&
-                selectedCategory?.OtCategory !== null
+              selectedCategory?.OtCategory !== null
                 ? (otWtInitial * selectedCategory?.OtCategory?.type) / 100
                 : Number(data?.custom_other_wt)) * data?.custom_ot_
             ),
@@ -338,13 +340,11 @@ const useCustomerSaleHook = () => {
                 Number(data?.custom_cs_wt) +
                 Number(data?.custom_bb_wt) +
                 Number(data?.custom_other_wt)),
-
           };
         });
       setSalesTableData(updatedData);
     }
   }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt]);
-
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
@@ -440,7 +440,7 @@ const useCustomerSaleHook = () => {
     entity: 'sales_return',
   };
   const handleDeleteDeliveryNote: any = async (name: any) => {
-    setShowDeleteModal(false)
+    setShowDeleteModal(false);
     const version = 'v1';
     const method = 'delete_delivery_note_api';
     const entity = 'sales';
@@ -453,7 +453,7 @@ const useCustomerSaleHook = () => {
       name
     );
 
-    if (deleteApi?.data?.message?.status === "success") {
+    if (deleteApi?.data?.message?.status === 'success') {
       toast.success('Sales note Deleted');
       let updatedData: any = await getDeliveryNoteListing(
         loginAcessToken.token,
@@ -461,13 +461,12 @@ const useCustomerSaleHook = () => {
       );
       if (updatedData?.data?.message?.status === 'success') {
         setDeliveryNoteListing(updatedData?.data?.message?.data);
-        if(query?.receiptId === name){
-          router.back()
+        if (query?.receiptId === name) {
+          router.back();
         }
       }
     } else {
       toast.error('Failed to delete sales note');
-
     }
   };
 
@@ -497,7 +496,7 @@ const useCustomerSaleHook = () => {
         }
       }
     } else {
-      toast.error("Failed to Update Sales note")
+      toast.error('Failed to Update Sales note');
     }
   };
 

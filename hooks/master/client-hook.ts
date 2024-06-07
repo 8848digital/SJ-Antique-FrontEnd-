@@ -3,7 +3,7 @@ import getCategoryApi from '@/services/api/Master/get-category-api';
 import getClientApi from '@/services/api/Master/get-client-api';
 import getClientGroupApi from '@/services/api/Master/get-client-group-api';
 import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
-import getSubCategoryApi from '@/services/api/Master/grt-sub-category-api';
+import getSubCategoryApi from '@/services/api/Master/get-sub-category-api';
 import postBBCategoryApi from '@/services/api/Master/post-bbCategory-api';
 import postCategoryApi from '@/services/api/Master/post-category-api';
 import postClientApi from '@/services/api/Master/post-client-api';
@@ -55,11 +55,12 @@ const useClientHook = () => {
       if (BBData?.data?.message?.status === 'success') {
         setBBCategory(BBData?.data?.message?.data);
       }
+
       if (categoryData?.data?.message?.status === 'success') {
-        setCategory(BBData?.data?.message?.data);
+        setCategory(categoryData?.data?.message?.data);
       }
       if (subCategoryData?.data?.message?.status === 'success') {
-        setSubCategory(BBData?.data?.message?.data);
+        setSubCategory(subCategoryData?.data?.message?.data);
       }
     };
     getStateData();
@@ -135,28 +136,32 @@ const useClientHook = () => {
     setError2('');
   };
   const HandleSubCategorySave = async () => {
+    console.log(
+      'saveee',
+      clientName.material,
+      searchCategory,
+      clientName.material_abbr
+    );
     const values = {
       version: 'v1',
-      method: 'create_client',
-      entity: 'client',
-      client_name: clientName?.material,
-      client_group: searchCategory,
+      method: 'create_subcategory',
+      entity: 'category',
+      category_name: clientName?.material,
+      subcategory_name: searchCategory,
     };
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
-    } else if (
-      clientName.material_abbr === '' ||
-      clientName.material_abbr === undefined
-    ) {
-      setError2('Input field cannot be empty');
     } else {
-      let apiRes: any = await postSubCategoryApi(loginAcessToken?.token, values);
+      let apiRes: any = await postSubCategoryApi(
+        loginAcessToken?.token,
+        values
+      );
       if (apiRes?.status === 'success') {
         toast.success('Sub-category Name Created');
-        const clientData = await getClientApi(loginAcessToken.token);
-        setClientList(clientData?.data?.message?.data);
+        const subCategoryData = await getSubCategoryApi(loginAcessToken.token);
+        setClientList(subCategoryData?.data?.message?.data);
       } else {
-        toast.error('Sub-category Name already exist');
+        toast.error('Sub Category Name already exist');
       }
       setError1('');
       setClientNameValue({
@@ -284,9 +289,9 @@ const useClientHook = () => {
   const HandleCategorySubmit = async () => {
     const values = {
       version: 'v1',
-      method: 'create_client_group',
-      entity: 'client_group',
-      client_group: inputValue1,
+      method: 'create_category',
+      entity: 'category',
+      category_name: inputValue1,
     };
     if (inputValue1.trim() === '') {
       setErrorC('Input field cannot be empty');
@@ -343,7 +348,7 @@ const useClientHook = () => {
     HandleSubCategoryChange,
     HandleSubCategorySave,
     setSearchCategory,
-    searchCategory
+    searchCategory,
   };
 };
 export default useClientHook;

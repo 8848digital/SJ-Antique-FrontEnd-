@@ -21,7 +21,6 @@ const MasterKarigar: any = ({
   };
   const filterList: any =
     karigarData?.length > 0 &&
-    karigarData !== null &&
     karigarData?.filter((value: any) => {
       return value.karigar_name
         ?.toLowerCase()
