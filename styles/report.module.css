@@ -13,3 +13,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.report_header_btn {
+    font-size: 14px;
+}

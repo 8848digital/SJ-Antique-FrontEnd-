@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from '../../styles/header.module.css';
+import styled from '../../styles/master.module.css';
 
 const MasterListing: any = ({ value }: any) => {
   return (
@@ -8,7 +9,7 @@ const MasterListing: any = ({ value }: any) => {
         <div className="d-flex flex-wrap justify-content-center">
           <Link href="/master/karigar" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'karigar' ? 'activeColor' : ''
               }`}
             >
@@ -18,7 +19,7 @@ const MasterListing: any = ({ value }: any) => {
           </Link>
           <Link href="/master/kundanKarigar" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'kundanKarigar' ? 'activeColor' : ''
               }`}
             >
@@ -28,7 +29,7 @@ const MasterListing: any = ({ value }: any) => {
           </Link>
           <Link href="/master/materialGroup" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'materialGroup' ? 'activeColor' : ''
               }`}
             >
@@ -38,7 +39,7 @@ const MasterListing: any = ({ value }: any) => {
           </Link>
           <Link href="/master/material" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'material' ? 'activeColor' : ''
               }`}
             >
@@ -48,7 +49,7 @@ const MasterListing: any = ({ value }: any) => {
           </Link>
           <Link href="/master/clientGroup" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'clientGroup' ? 'activeColor' : ''
               }`}
             >
@@ -58,7 +59,7 @@ const MasterListing: any = ({ value }: any) => {
           </Link>
           <Link href="/master/client" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'client' ? 'activeColor' : ''
               }`}
             >
@@ -72,7 +73,7 @@ const MasterListing: any = ({ value }: any) => {
             className="text-decoration-none "
           >
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'kunCsOtCategory' ? 'activeColor' : ''
               }`}
             >
@@ -82,7 +83,7 @@ const MasterListing: any = ({ value }: any) => {
           </Link>
           <Link href="/master/BBCategory" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'BBCategory' ? 'activeColor' : ''
               }`}
             >
@@ -92,7 +93,7 @@ const MasterListing: any = ({ value }: any) => {
           </Link>
           <Link href="/master/category" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'category' ? 'activeColor' : ''
               }`}
             >
@@ -102,7 +103,7 @@ const MasterListing: any = ({ value }: any) => {
           </Link>
           <Link href="/master/subCategory" className="text-decoration-none ">
             <button
-              className={`${styles.button} ${
+              className={`${styles.button} ${styled.master_btn} ${
                 value === 'subCategory' ? 'activeColor' : ''
               }`}
             >

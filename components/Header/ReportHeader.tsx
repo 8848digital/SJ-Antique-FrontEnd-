@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { useState } from 'react';
-import styles from '../../styles/header.module.css';
 import { useRouter } from 'next/router';
+import styles from '../../styles/header.module.css';
+import styled from '../../styles/report.module.css';
 
 const ReportHeader = () => {
   const { query } = useRouter();
@@ -9,10 +9,10 @@ const ReportHeader = () => {
     <div className="d-flex justify-content-center flex-wrap">
       <Link
         href="/report/daily-qty-status"
-        className="text-decoration-none btn-margin"
+        className="text-decoration-none btn-margin "
       >
         <button
-          className={`${styles.button} ${
+          className={`${styles.button} ${styled.report_header_btn} ${
             query?.reportId === 'daily-qty-status' ? 'activeColor' : ''
           }`}
         >
@@ -25,7 +25,7 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${
+          className={`${styles.button} ${styled.report_header_btn} ${
             query?.reportId === 'product-code' ? 'activeColor' : ''
           }`}
         >
@@ -38,7 +38,7 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${
+          className={`${styles.button} ${styled.report_header_btn} ${
             query?.reportId === 'item-wise-report' ? 'activeColor' : ''
           }`}
         >
@@ -51,7 +51,7 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${
+          className={`${styles.button} ${styled.report_header_btn} ${
             query?.reportId === 'daily-summary-report' ? 'activeColor' : ''
           }`}
         >
@@ -64,7 +64,7 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${
+          className={`${styles.button} ${styled.report_header_btn} ${
             query?.reportId === 'customer-wise-report' ? 'activeColor' : ''
           }`}
         >
@@ -77,7 +77,7 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${
+          className={`${styles.button} ${styled.report_header_btn} ${
             query?.reportId === 'karigar-wise-report' ? 'activeColor' : ''
           }`}
         >
@@ -91,7 +91,7 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${
+          className={`${styles.button} ${styled.report_header_btn} ${
             query?.reportId === 'summary-report' ? 'activeColor' : ''
           }`}
         >
