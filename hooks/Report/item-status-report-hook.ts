@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-const useItemStatusReportHook = () => {
+const useReportHook = () => {
   const router = useRouter();
   const { query } = useRouter();
 
@@ -91,6 +91,8 @@ const useItemStatusReportHook = () => {
     name: searchInputValues.product_code,
     from_date: searchInputValues.from_date,
     to_date: searchInputValues.to_date,
+    custom_karigar: searchInputValues.Karigar_Name,
+    custom_category: searchInputValues.Category
   };
   const getStateData = async () => {
     let reportData;
@@ -110,6 +112,20 @@ const useItemStatusReportHook = () => {
           (items: any) => items.name
         );
         setItemList(itemList);
+      }
+      let karigarData: any = await getKarigarApi(loginAccessToken.token);
+
+      if (karigarData?.data?.message?.status === 'success') {
+        let karigarNameData: any = karigarData?.data?.message?.data.map(
+          (items: any) => items.karigar_name
+        );
+        setKarigarNameData(karigarNameData);
+      }
+      let categoryListData: any = await getSubCategoryApi(
+        loginAccessToken?.token
+      );
+      if (categoryListData?.data?.message?.status === 'success') {
+        setCategoryData(categoryListData?.data?.message?.data);
       }
     } else if (query?.reportId === 'daily-summary-report') {
       reportData = await DailySummaryReportApi(
@@ -258,4 +274,4 @@ const useItemStatusReportHook = () => {
     categoryData,
   };
 };
-export default useItemStatusReportHook;
+export default useReportHook;
