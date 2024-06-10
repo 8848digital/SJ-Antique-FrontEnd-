@@ -1,20 +1,19 @@
 import AmendPurchaseReceiptApi from '@/services/api/PurchaseReceipt/Amend-purchase-receipt-api';
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
-import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
-import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
 import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchase-recipts-list-api';
-import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
 import purchaseReceiptApi from '@/services/api/PurchaseReceipt/post-purchase-receipt-api';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
+import { get_material_data } from '@/store/slices/Master/get-material-slice';
+import { get_warehouse_list_data } from '@/store/slices/Master/get-warehouse-list-slice';
+import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
+import { get_kun_karigar_name_data } from '@/store/slices/Master/kun-karigar-name-slice';
 import { getSpecificReceipt } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import useCustomReadyReceiptHook from './ready-receipt-custom-hook';
 import useReadyReceiptCustomCalculationHook from './ready-receipt-custom-calculation-hook';
-import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
+import useCustomReadyReceiptHook from './ready-receipt-custom-hook';
 
 const useReadyReceipt = () => {
   const { query } = useRouter();
@@ -34,10 +33,10 @@ const useReadyReceipt = () => {
     store_location: '',
   });
 
-  const [karigarData, setKarigarData] = useState<any>();
-  const [kundanKarigarData, setKundanKarigarData] = useState<any>();
-  const [materialListData, setMaterialListData] = useState<any>();
-  const [warehouseListData, setWarehouseListData] = useState<any>();
+  const karigarData = useSelector(get_karigar_name_data).data
+  const kundanKarigarData = useSelector(get_kun_karigar_name_data)
+  const materialListData = useSelector(get_material_data)
+  const warehouseListData = useSelector(get_warehouse_list_data).data
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
   const loginAcessToken = useSelector(get_access_token);
@@ -135,32 +134,6 @@ const useReadyReceipt = () => {
     };
     getPurchaseList();
   }, [router]);
-
-  useEffect(() => {
-    const getStateData: any = async () => {
-      const karigarData: any = await getKarigarApi(loginAcessToken.token);
-      const kundanKarigarData: any = await kundanKarigarApi(
-        loginAcessToken.token
-      );
-      const materialListData: any = await materialApi(loginAcessToken.token);
-      const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
-
-      if (karigarData?.data?.message?.status === 'success') {
-        setKarigarData(karigarData?.data?.message?.data);
-      }
-      if (kundanKarigarData?.data?.message?.status === 'success') {
-        setKundanKarigarData(kundanKarigarData?.data?.message?.data);
-      }
-      if (materialListData?.data?.message?.status === 'success') {
-        setMaterialListData(materialListData?.data?.message?.data);
-      }
-
-      if (warehouseData?.data?.message?.status === 'success') {
-        setWarehouseListData(warehouseData?.data?.message?.data);
-      }
-    };
-    getStateData();
-  }, []);
 
   const handleSaveModal = async (id: any) => {
     const modalValue = materialWeight.map(
@@ -290,8 +263,8 @@ const useReadyReceipt = () => {
         toast.success('Purchase Receipt Created Successfully');
         setTabDisabled(false);
       } else {
-        toast.error(`${purchaseReceipt?.data?.message?.message}`);
         setTabDisabled(false);
+        toast.error(`${purchaseReceipt?.data?.message?.message}`);
       }
     }
   };
