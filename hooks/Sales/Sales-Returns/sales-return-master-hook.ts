@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import useCustomSalesReturnHook from './custom-sales-return-hook';
-import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
-import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useSelector } from 'react-redux';
-import getClientApi from '@/services/api/Master/get-client-api';
-import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
-import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
-import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
+import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
+import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
+import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
+import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
+import { get_warehouse_list_data } from '@/store/slices/Master/get-warehouse-list-slice';
+import { get_access_token } from '@/store/slices/auth/login-slice';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import useCustomSalesReturnHook from './custom-sales-return-hook';
 
 const useSalesReturnMasterHook = () => {
   const router = useRouter();
@@ -51,12 +51,12 @@ const useSalesReturnMasterHook = () => {
     deleteRecord,
     updateSalesTableData
   }: any = useCustomSalesReturnHook();
-  const [clientNameListData, setClientNameListData] = useState<any>([]);
+  const clientNameListData = useSelector(get_client_name_data).data
+  const warehouseListData = useSelector(get_warehouse_list_data).data
   const [deliveryNoteData, setDeliveryNoteData] = useState({
     store_location: '',
   });
   const [itemList, setItemList] = useState<any>([]);
-  const [warehouseListData, setWarehouseListData] = useState<any>();
   const [selectedItemCode, setSelectedItemCode] = useState<any>();
 
   const deliveryNoteListParams = {
@@ -70,14 +70,8 @@ const useSalesReturnMasterHook = () => {
       const itemListApi: any = await getItemListInSalesApi(
         loginAcessToken.token
       );
-
       if (itemListApi?.data?.data?.length > 0) {
         setItemList(itemListApi?.data?.data);
-      }
-
-      const ClientNameApi: any = await getClientApi(loginAcessToken.token);
-      if (ClientNameApi?.data?.message?.status === 'success') {
-        setClientNameListData(ClientNameApi?.data?.message?.data);
       }
       const deliveryNoteApi: any = await getDeliveryNoteListing(
         loginAcessToken.token,
@@ -85,10 +79,6 @@ const useSalesReturnMasterHook = () => {
       );
       if (deliveryNoteApi?.data?.message?.status === 'success') {
         setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
-      }
-      const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
-      if (warehouseData?.data?.message?.status === 'success') {
-        setWarehouseListData(warehouseData?.data?.message?.data);
       }
     };
 

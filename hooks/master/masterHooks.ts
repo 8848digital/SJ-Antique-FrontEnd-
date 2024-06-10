@@ -1,13 +1,10 @@
 import postKarigarApi from '@/services/api/Master/post-karigar-name';
 import postKunKarigarApi from '@/services/api/Master/post-kundan-karigar-name';
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
-import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
-import { get_kun_category_data } from '@/store/slices/Master/get-kun-category-slice';
 import { getKarigarNameData, get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
 import { getKunKarigarNameData, get_kun_karigar_name_data } from '@/store/slices/Master/kun-karigar-name-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 

@@ -1,24 +1,23 @@
 import getBarcodeDetailsApi from '@/services/api/Barcode/barcode-details-by-item-code-api';
+import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
+import PostCreateBarcodeApi from '@/services/api/Barcode/post-create-barcode-api';
 import getSearchBarcodeItemCodeDetails from '@/services/api/Barcode/search-barcode-itemcode-details-api';
-import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
-import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
+import { get_bb_category_data } from '@/store/slices/Master/get-bb-category-slice';
+import { get_kun_category_data } from '@/store/slices/Master/get-kun-category-slice';
+import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import useBarcodeListingHook from './barcode-listing-hook';
 import UseBarcodeTableHook from './barcode-table-hook';
-import PostCreateBarcodeApi from '@/services/api/Barcode/post-create-barcode-api';
-import { toast } from 'react-toastify';
-import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
-import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
-import getKarigarClientApi from '@/services/api/Barcode/get-karigar-client-name-api';
 
 const UseBarcodeFilterList = () => {
   const loginAcessToken = useSelector(get_access_token);
-  const [karigarList, setKarigarList] = useState<any>();
-  const [kunCsOtCategoryData, setKunCsOtCategoryData] = useState<any>();
-  const [BBcategoryData, setBBCategoryData] = useState<any>();
+  const karigarList = useSelector(get_karigar_name_data).data
+  const kunCsOtCategoryData = useSelector(get_kun_category_data).data
+  const BBcategoryData = useSelector(get_bb_category_data).data
   const [searchKarigar, setSearchKarigar] = useState<any>();
   const [selectDropDownReset, setSelectDropDownReset] =
     useState<boolean>(false);
@@ -72,25 +71,7 @@ const UseBarcodeFilterList = () => {
 
   useEffect(() => {
     const getStateData: any = async () => {
-      const karigarData: any = await getKarigarClientApi(loginAcessToken.token);
-      const kunCsOtData: any = await getKunCsOtCategoryApi(
-        loginAcessToken.token
-      );
-      const BBData: any = await getBBCategoryApi(loginAcessToken.token);
-
-      if (karigarData?.data?.message?.status === 'success') {
-        setKarigarList(karigarData?.data?.message?.data);
-      }
-      if (kunCsOtData?.data?.message?.status === 'success') {
-        setKunCsOtCategoryData(kunCsOtData?.data?.message?.data);
-      }
-      if (BBData?.data?.message?.status === 'success') {
-        setBBCategoryData(BBData?.data?.message?.data);
-      }
       let itemListApi: any = await getItemListInSalesApi(loginAcessToken.token);
-
-      // if (itemListApi?.data?.message?.status === 'success') {
-      // }
       if (itemListApi?.data?.data?.length > 0) {
         setItemList(itemListApi?.data?.data);
       }

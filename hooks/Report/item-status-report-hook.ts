@@ -1,7 +1,4 @@
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
-import getClientApi from '@/services/api/Master/get-client-api';
-import getSubCategoryApi from '@/services/api/Master/get-sub-category-api';
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
 import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-report-api';
 import DailyStatusReportApi from '@/services/api/report/get-daily-status-report-data-api';
 import DailySummaryReportApi from '@/services/api/report/get-daily-summary-report-api';
@@ -10,6 +7,9 @@ import KarigarWiseReportApi from '@/services/api/report/get-karigar-wise-report-
 import ProductCodeReportApi from '@/services/api/report/get-product-code-report';
 import summaryReport from '@/services/api/report/get-summary-report-api';
 import ReportPrintApi from '@/services/api/report/report-print-api';
+import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
+import { get_sub_category_data } from '@/store/slices/Master/get-sub-category-slice';
+import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -45,9 +45,9 @@ const useReportHook = () => {
 
   // report data states
   const [reportData, setReportData] = useState<any>([]);
-  const [clientNameData, setClientNameData] = useState<any>([]);
-  const [karigarNameData, setKarigarNameData] = useState<any>([]);
-  const [categoryData, setCategoryData] = useState<any>([]);
+  const clientNameData = useSelector(get_client_name_data).data
+  let karigarNameData = useSelector(get_karigar_name_data).data
+  const categoryData = useSelector(get_sub_category_data).data
 
   const [itemList, setItemList] = useState<any>();
 
@@ -113,20 +113,6 @@ const useReportHook = () => {
         );
         setItemList(itemList);
       }
-      let karigarData: any = await getKarigarApi(loginAccessToken.token);
-
-      if (karigarData?.data?.message?.status === 'success') {
-        let karigarNameData: any = karigarData?.data?.message?.data.map(
-          (items: any) => items.karigar_name
-        );
-        setKarigarNameData(karigarNameData);
-      }
-      let categoryListData: any = await getSubCategoryApi(
-        loginAccessToken?.token
-      );
-      if (categoryListData?.data?.message?.status === 'success') {
-        setCategoryData(categoryListData?.data?.message?.data);
-      }
     } else if (query?.reportId === 'daily-summary-report') {
       reportData = await DailySummaryReportApi(
         loginAccessToken.token,
@@ -137,49 +123,22 @@ const useReportHook = () => {
         loginAccessToken.token,
         customerReportParams
       );
-      let clientData: any = await getClientApi(loginAccessToken.token);
-
-      if (clientData?.data?.message?.status === 'success') {
-        let clientNameData: any = clientData?.data?.message?.data.map(
-          (items: any) => items.client_name
-        );
-        setClientNameData(clientNameData);
-      }
     } else if (query?.reportId === 'karigar-wise-report') {
       reportData = await KarigarWiseReportApi(
         loginAccessToken.token,
         karigarReportParams
       );
-      let karigarData: any = await getKarigarApi(loginAccessToken.token);
-
-      if (karigarData?.data?.message?.status === 'success') {
-        let karigarNameData: any = karigarData?.data?.message?.data.map(
-          (items: any) => items.karigar_name
-        );
-        setKarigarNameData(karigarNameData);
-      }
+      
     } else if (query?.reportId === 'item-wise-report') {
       reportData = await ItemWiseReportApi(
         loginAccessToken.token,
         itemReportParams
       );
-      let categoryListData: any = await getSubCategoryApi(
-        loginAccessToken?.token
-      );
-      if (categoryListData?.data?.message?.status === 'success') {
-        setCategoryData(categoryListData?.data?.message?.data);
-      }
     } else if (query?.reportId === 'summary-report') {
       reportData = await summaryReport(
         loginAccessToken.token,
         summaryReportParams
       );
-      let categoryListData: any = await getSubCategoryApi(
-        loginAccessToken?.token
-      );
-      if (categoryListData?.data?.message?.status === 'success') {
-        setCategoryData(categoryListData?.data?.message?.data);
-      }
     }
 
     if (reportData?.data?.message?.status === 'success') {

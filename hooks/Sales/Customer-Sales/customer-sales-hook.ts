@@ -1,24 +1,24 @@
-import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
-import getClientApi from '@/services/api/Master/get-client-api';
-import getClientGroupApi from '@/services/api/Master/get-client-group-api';
-import getKunCsOtCategoryApi from '@/services/api/Master/get-kunCsOtCategory-api';
+import { useDeleteModal } from '@/hooks/DeleteModal/delete-modal-hook';
+import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
+import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
+import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 import DeleteApi from '@/services/api/general/delete-api';
+import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
+import { get_bb_category_data } from '@/store/slices/Master/get-bb-category-slice';
+import { get_client_group_data } from '@/store/slices/Master/get-client-group-slice';
+import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
+import { get_kun_category_data } from '@/store/slices/Master/get-kun-category-slice';
+import { get_warehouse_list_data } from '@/store/slices/Master/get-warehouse-list-slice';
+import { GetDetailOfDeliveryNote } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
-import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
-import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
-import { GetDetailOfDeliveryNote } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
-import getWarehouseListApi from '@/services/api/PurchaseReceipt/get-warehouse-list';
-import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
-import useCustomerSalesListingHook from './customer-sales-listing-hook';
 import useCustomCustomerSalesHook from './custom-customer-sales-hook';
-import { useDeleteModal } from '@/hooks/DeleteModal/delete-modal-hook';
+import useCustomerSalesListingHook from './customer-sales-listing-hook';
 
 const useCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -60,54 +60,28 @@ const useCustomerSaleHook = () => {
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
 
-  const [kunCsOtCategoryListData, setKunCsOtCategoryListData] = useState<any>(
-    []
-  );
-  const [BBCategoryListData, setBBCategoryListData] = useState<any>([]);
-  const [clientNameListData, setClientNameListData] = useState<any>([]);
+  const kunCsOtCategoryListData = useSelector(get_kun_category_data)
+  const BBCategoryListData = useSelector(get_bb_category_data).data
+  const warehouseListData = useSelector(get_warehouse_list_data).data
+  const clientNameListData = useSelector(get_client_name_data).data
+  const clientGroupList = useSelector(get_client_group_data).data
   const [itemList, setItemList] = useState<any>([]);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   const [selectedItemCode, setSelectedItemCode] = useState();
   const [deliveryNoteData, setDeliveryNoteData] = useState({
     store_location: '',
   });
-  const [warehouseListData, setWarehouseListData] = useState<any>();
   const [barcodeListData, setBarcodeListData] = useState<any>();
   const [selectedLocation, setSelectedLocation] = useState<string>('Mumbai');
   const [selectedClientGroup, setSelectedClientGroup] = useState<string>('');
-  const [clientGroupList, setClientGroupList] = useState();
   const [barcodedata, setBarcodeData] = useState<number>(0);
   const [isBarcodeChecked, setIsBarcodeChecked] = useState<boolean>(false);
 
   useEffect(() => {
     const getKunCsOTCategoryData = async () => {
-      const kunCsOtCategoryApi: any = await getKunCsOtCategoryApi(
-        loginAcessToken.token
-      );
-      const warehouseData = await getWarehouseListApi(loginAcessToken?.token);
-      if (kunCsOtCategoryApi?.data?.message?.status === 'success') {
-        setKunCsOtCategoryListData(kunCsOtCategoryApi?.data?.message?.data);
-      }
-      let BBCategoryApi: any = await getBBCategoryApi(loginAcessToken.token);
-      if (BBCategoryApi?.data?.message?.status === 'success') {
-        setBBCategoryListData(BBCategoryApi?.data?.message?.data);
-      }
-      let ClientNameApi: any = await getClientApi(loginAcessToken.token);
-      if (ClientNameApi?.data?.message?.status === 'success') {
-        setClientNameListData(ClientNameApi?.data?.message?.data);
-      }
       let itemListApi: any = await getItemListInSalesApi(loginAcessToken.token);
       if (itemListApi?.data?.data?.length > 0) {
         setItemList(itemListApi?.data?.data);
-      }
-      const clientGroupData: any = await getClientGroupApi(
-        loginAcessToken.token
-      );
-      if (clientGroupData?.data?.message?.status === 'success') {
-        setClientGroupList(clientGroupData?.data?.message?.data);
-      }
-      if (warehouseData?.data?.message?.status === 'success') {
-        setWarehouseListData(warehouseData?.data?.message?.data);
       }
       const BarcodeData: any = await getBarcodeListingApi(
         loginAcessToken.token
