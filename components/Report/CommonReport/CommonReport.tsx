@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
 import { useState } from 'react';
-import styles from '../../../styles/readyReceipts.module.css';
 import styled from '../../../styles/report.module.css';
 import ReportHeader from '../../Header/ReportHeader';
 import LoadMoreTableDataInMaster from '../../Master/LoadMoreTableDataInMaster';
@@ -46,7 +44,8 @@ const CommonReport = ({
 
       {isLoading === 1 && (
         <>
-          <div className="text-end pe-3 p-0 text-gray small report-heading ">
+          <div className={`  p-0 text-gray small text-end  ${headers?.length <= 4 ? 'report-heading pe-3' : ''
+            }`}>
             {reportData?.length > 0 && (
               <>
                 {reportData?.slice(0, tableViewData)?.length} of{' '}
@@ -70,9 +69,8 @@ const CommonReport = ({
                       <th
                         key={index}
                         scope="col"
-                        className={`thead ${
-                          headers?.length <= 4 ? 'col-2' : 'col'
-                        }`}
+                        className={`thead ${headers?.length <= 4 ? 'col-2' : 'col'
+                          }`}
                       >
                         {header?.charAt(0)?.toUpperCase() +
                           header?.slice(1)?.replace('_', ' ')}
@@ -91,9 +89,8 @@ const CommonReport = ({
                         return (
                           <tr
                             key={index}
-                            className={`row justify-content-center text-center  ${
-                              isTotalRow ? 'fw-bold' : ''
-                            }`}
+                            className={`row justify-content-center text-center  ${isTotalRow ? 'fw-bold' : ''
+                              }`}
                           >
                             <td
                               scope="col"
@@ -105,9 +102,8 @@ const CommonReport = ({
                               <td
                                 key={idx}
                                 scope="col"
-                                className={`table_row py-1 py-auto  ${
-                                  headers?.length <= 4 ? 'col-2' : 'col'
-                                }`}
+                                className={`table_row py-1 py-auto  ${headers?.length <= 4 ? 'col-2' : 'col'
+                                  }`}
                               >
                                 {data[header]}
                               </td>
@@ -122,7 +118,8 @@ const CommonReport = ({
         </>
       )}
       <div className="row">
-        <div className="col-9 px-0 mx-auto">
+        <div className={` px-0 mx-auto ${headers?.length <= 4 ? 'col-9' : 'col'
+          }`}>
           {reportData?.length > 20 && reportData !== null && (
             <LoadMoreTableDataInMaster
               HandleTableViewRows={HandleTableViewRows}

@@ -1,4 +1,4 @@
-import useItemStatusReportHook from '@/hooks/Report/item-status-report-hook';
+import useReportHook from '@/hooks/Report/item-status-report-hook';
 import { useRouter } from 'next/router';
 import CommonReport from './CommonReport/CommonReport';
 import ItemStatusReport from './ItemStatusReport';
@@ -23,7 +23,7 @@ const ReportIndexPage = () => {
     clientNameData,
     karigarNameData,
     categoryData,
-  }: any = useItemStatusReportHook();
+  }: any = useReportHook();
   return (
     <>
       {key === 'daily-qty-status' ? (

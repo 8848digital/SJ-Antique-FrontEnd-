@@ -272,12 +272,12 @@ const IndexPage = () => {
           HandleNameChange={HandleSubCategoryChange}
           HandleSave={HandleSubCategorySave}
           nameValue={clientName}
-          error1={error1}
-          error2={error2}
-          placeholder1={'Sub-category Name'}
+          error1={errorC1}
+          error2={errorC2}
+          placeholder1={'Sub Category Name'}
           placeholder2={'Category Name'}
-          tab1={'Sub-Category name'}
-          tab2={'Create New Sub-Category'}
+          tab1={'Sub Category name'}
+          tab2={'Create New Sub Category'}
           setSearchClient={setSearchCategory}
           searchClient={searchCategory}
           selectDropDownReset={selectDropDownReset}
