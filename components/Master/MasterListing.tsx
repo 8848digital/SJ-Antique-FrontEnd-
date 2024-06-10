@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import styles from '../../styles/header.module.css';
 import styled from '../../styles/master.module.css';
+import { useMasterListingHook } from '@/hooks/master/master-listing-hook';
 
 const MasterListing: any = ({ value }: any) => {
+  useMasterListingHook()
   return (
     <div>
       <div className="container-lg p-0">

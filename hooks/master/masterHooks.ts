@@ -2,35 +2,25 @@ import postKarigarApi from '@/services/api/Master/post-karigar-name';
 import postKunKarigarApi from '@/services/api/Master/post-kundan-karigar-name';
 import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
 import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
+import { get_kun_category_data } from '@/store/slices/Master/get-kun-category-slice';
+import { getKarigarNameData, get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
+import { getKunKarigarNameData, get_kun_karigar_name_data } from '@/store/slices/Master/kun-karigar-name-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const useMasterHooks = () => {
+  const dispatch = useDispatch()
+
   const router = useRouter();
   const loginAcessToken = useSelector(get_access_token);
   const show = useRef<boolean>(false);
-  // get api states
-  const [karigarList, setKarigarList] = useState();
-  const [kunKarigarList, setKunKarigarList] = useState();
 
-  // get api functions
-  useEffect(() => {
-    const getStateData: any = async () => {
-      const karigarData: any = await getKarigarApi(loginAcessToken.token);
-      const kunKarigarData = await kundanKarigarApi(loginAcessToken.token);
-      if (karigarData?.data?.message?.status === 'success') {
-        setKarigarList(karigarData?.data?.message?.data);
-      }
-
-      if (kunKarigarData?.data?.message?.status === 'success') {
-        setKunKarigarList(kunKarigarData?.data?.message?.data);
-      }
-    };
-    getStateData();
-  }, []);
+  let karigarList = useSelector(get_karigar_name_data).data
+  let kunKarigarList = useSelector(get_kun_karigar_name_data).data
+  
   //post karigar name
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
@@ -48,10 +38,7 @@ const useMasterHooks = () => {
 
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Karigar Name Created');
-        const karigarApi: any = await getKarigarApi(loginAcessToken.token);
-        if (karigarApi?.data?.message?.status === 'success') {
-          setKarigarList(karigarApi?.data?.message?.data);
-        }
+        dispatch(getKarigarNameData(loginAcessToken.token))
       } else {
         toast.error('Karigar Name already exist');
       }
@@ -78,10 +65,7 @@ const useMasterHooks = () => {
 
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Kundan Karigar Name Created');
-        const karigarApi = await kundanKarigarApi(loginAcessToken?.token);
-        if (karigarApi?.data?.message?.status === 'success') {
-          setKunKarigarList(karigarApi?.data?.message?.data);
-        }
+        dispatch(getKunKarigarNameData(loginAcessToken.token))
       } else {
         toast.error('Kundan Karigar Name already exist');
       }

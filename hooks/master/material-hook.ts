@@ -1,16 +1,22 @@
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-
-import getMaterialGroupApi from '@/services/api/Master/get-material-group-api';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import postGroupDataApi from '@/services/api/Master/post-client-group-api';
 import postMaterialMasterApi from '@/services/api/Master/post-material-name';
-import materialApi from '@/services/api/PurchaseReceipt/get-material-list-api';
+import {
+  getMaterialGroupData,
+  get_material_group_data,
+} from '@/store/slices/Master/get-material-group-slice';
+import {
+  getMaterialData,
+  get_material_data,
+} from '@/store/slices/Master/get-material-slice';
 import { toast } from 'react-toastify';
 
 const useMaterialHook = () => {
+  const dispatch = useDispatch();
   const loginAcessToken = useSelector(get_access_token);
-  const [materialList, setMaterialList] = useState();
+  let materialList = useSelector(get_material_data).data;
   const [error1, setError1] = useState('');
   const [error2, setError2] = useState('');
   const [error3, setError3] = useState('');
@@ -20,25 +26,9 @@ const useMaterialHook = () => {
   });
   const [inputValueM, setInputValueM] = useState('');
   const [errorM, setErrorM] = useState('');
-  const [materialGroupList, setMaterialGroupList] = useState();
+  let materialGroupList = useSelector(get_material_group_data).data;
   const [selectedMaterialGroup, setSelectedMaterialGroup] = useState();
   const [matDropdownReset, setMatDropDownReset] = useState<boolean>(false);
-  useEffect(() => {
-    const getStateData: any = async () => {
-      const materialData = await materialApi(loginAcessToken.token);
-      const materialGroupData = await getMaterialGroupApi(
-        loginAcessToken.token
-      );
-
-      if (materialData?.data?.message?.status === 'success') {
-        setMaterialList(materialData?.data?.message?.data);
-      }
-      if (materialGroupData?.data?.message?.status === 'success') {
-        setMaterialGroupList(materialGroupData?.data?.message?.data);
-      }
-    };
-    getStateData();
-  }, []);
 
   const HandleNameChange = (e: any) => {
     const { name, value } = e.target;
@@ -73,8 +63,7 @@ const useMaterialHook = () => {
       );
       if (apiRes?.status === 'success') {
         toast.success('Material Name Created');
-        const materialData = await materialApi(loginAcessToken.token);
-        setMaterialList(materialData);
+        dispatch(getMaterialData(loginAcessToken.token));
       } else {
         toast.error('Material Name already exist');
       }
@@ -101,10 +90,7 @@ const useMaterialHook = () => {
       let apiRes: any = await postGroupDataApi(loginAcessToken?.token, values);
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Material Group Created');
-        const materialGrpData: any = await getMaterialGroupApi(
-          loginAcessToken.token
-        );
-        setMaterialGroupList(materialGrpData?.data?.message?.data);
+        dispatch(getMaterialGroupData(loginAcessToken.token));
       } else {
         toast.error('Material Group already exist');
       }

@@ -1,37 +1,37 @@
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import getMaterialGroupApi from '@/services/api/Master/get-material-group-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getKarigarNameData: any = createAsyncThunk(
-  'getKarigarName/karigarName',
+export const getMaterialGroupData: any = createAsyncThunk(
+  'getMaterialGroup/materialGroup',
   async (params: any) => {
-    const KarigarName: any = await getKarigarApi(params);
-    return KarigarName;
+    const MaterialGroup: any = await getMaterialGroupApi(params);
+    return MaterialGroup;
   }
 );
-interface RepoKarigarNameState {
+interface RepoMaterialGroupState {
   data: any;
   docStatus: any;
   error: string;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
-const initialState: RepoKarigarNameState = {
+const initialState: RepoMaterialGroupState = {
   data: '',
   docStatus: '',
   error: '',
   isLoading: 'idle',
 };
 
-export const GetKarigarNameScreen = createSlice({
-  name: 'karigarName',
+export const GetMaterialGroupScreen = createSlice({
+  name: 'materialGroup',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getKarigarNameData.pending, (state) => {
+    builder.addCase(getMaterialGroupData.pending, (state) => {
       state.isLoading = 'pending';
     });
-    builder.addCase(getKarigarNameData.fulfilled, (state, action) => {
+    builder.addCase(getMaterialGroupData.fulfilled, (state, action) => {
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'
@@ -43,14 +43,14 @@ export const GetKarigarNameScreen = createSlice({
         state.isLoading = 'succeeded';
       }
     });
-    builder.addCase(getKarigarNameData.rejected, (state) => {
+    builder.addCase(getMaterialGroupData.rejected, (state) => {
       state.isLoading = 'failed';
       state.error = 'failed to store data';
     });
   },
 });
 
-export const get_karigar_name_data = (state: RootState) =>
-  state.GetKarigarNameScreen;
+export const get_material_group_data = (state: RootState) =>
+  state.GetMaterialGroupScreen;
 
-export default GetKarigarNameScreen.reducer;
+export default GetMaterialGroupScreen.reducer;

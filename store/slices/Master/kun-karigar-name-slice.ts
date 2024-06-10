@@ -1,37 +1,37 @@
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import kundanKarigarApi from '@/services/api/PurchaseReceipt/get-kundan-karigar-list-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getKarigarNameData: any = createAsyncThunk(
-  'getKarigarName/karigarName',
+export const getKunKarigarNameData: any = createAsyncThunk(
+  'getKunKarigarName/kunKarigarName',
   async (params: any) => {
-    const KarigarName: any = await getKarigarApi(params);
-    return KarigarName;
+    const KunKarigarName: any = await kundanKarigarApi(params);
+    return KunKarigarName;
   }
 );
-interface RepoKarigarNameState {
+interface RepoKunKarigarNameState {
   data: any;
   docStatus: any;
   error: string;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
-const initialState: RepoKarigarNameState = {
+const initialState: RepoKunKarigarNameState = {
   data: '',
   docStatus: '',
   error: '',
   isLoading: 'idle',
 };
 
-export const GetKarigarNameScreen = createSlice({
-  name: 'karigarName',
+export const GetKunKarigarNameScreen = createSlice({
+  name: 'kunKarigarName',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getKarigarNameData.pending, (state) => {
+    builder.addCase(getKunKarigarNameData.pending, (state) => {
       state.isLoading = 'pending';
     });
-    builder.addCase(getKarigarNameData.fulfilled, (state, action) => {
+    builder.addCase(getKunKarigarNameData.fulfilled, (state, action) => {
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'
@@ -43,14 +43,14 @@ export const GetKarigarNameScreen = createSlice({
         state.isLoading = 'succeeded';
       }
     });
-    builder.addCase(getKarigarNameData.rejected, (state) => {
+    builder.addCase(getKunKarigarNameData.rejected, (state) => {
       state.isLoading = 'failed';
       state.error = 'failed to store data';
     });
   },
 });
 
-export const get_karigar_name_data = (state: RootState) =>
-  state.GetKarigarNameScreen;
+export const get_kun_karigar_name_data = (state: RootState) =>
+  state.GetKunKarigarNameScreen;
 
-export default GetKarigarNameScreen.reducer;
+export default GetKunKarigarNameScreen.reducer;

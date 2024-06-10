@@ -1,37 +1,37 @@
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import getClientApi from '@/services/api/Master/get-client-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getKarigarNameData: any = createAsyncThunk(
-  'getKarigarName/karigarName',
+export const getClientNameData: any = createAsyncThunk(
+  'getClientName/clientName',
   async (params: any) => {
-    const KarigarName: any = await getKarigarApi(params);
-    return KarigarName;
+    const ClientName: any = await getClientApi(params);
+    return ClientName;
   }
 );
-interface RepoKarigarNameState {
+interface RepoClientNameState {
   data: any;
   docStatus: any;
   error: string;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
-const initialState: RepoKarigarNameState = {
+const initialState: RepoClientNameState = {
   data: '',
   docStatus: '',
   error: '',
   isLoading: 'idle',
 };
 
-export const GetKarigarNameScreen = createSlice({
-  name: 'karigarName',
+export const GetClientNameScreen = createSlice({
+  name: 'clientName',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getKarigarNameData.pending, (state) => {
+    builder.addCase(getClientNameData.pending, (state) => {
       state.isLoading = 'pending';
     });
-    builder.addCase(getKarigarNameData.fulfilled, (state, action) => {
+    builder.addCase(getClientNameData.fulfilled, (state, action) => {
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'
@@ -40,17 +40,18 @@ export const GetKarigarNameScreen = createSlice({
         state.isLoading = 'succeeded';
       } else {
         state.data = '';
+        // state.docStatus = '';
         state.isLoading = 'succeeded';
       }
     });
-    builder.addCase(getKarigarNameData.rejected, (state) => {
+    builder.addCase(getClientNameData.rejected, (state) => {
       state.isLoading = 'failed';
       state.error = 'failed to store data';
     });
   },
 });
 
-export const get_karigar_name_data = (state: RootState) =>
-  state.GetKarigarNameScreen;
+export const get_client_name_data = (state: RootState) =>
+  state.GetClientNameScreen;
 
-export default GetKarigarNameScreen.reducer;
+export default GetClientNameScreen.reducer;

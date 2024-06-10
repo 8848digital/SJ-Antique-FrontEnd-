@@ -1,37 +1,37 @@
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import getSubCategoryApi from '@/services/api/Master/get-sub-category-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getKarigarNameData: any = createAsyncThunk(
-  'getKarigarName/karigarName',
+export const getSubCategoryData: any = createAsyncThunk(
+  'getSubCategory/subCategory',
   async (params: any) => {
-    const KarigarName: any = await getKarigarApi(params);
-    return KarigarName;
+    const SubCategory: any = await getSubCategoryApi(params);
+    return SubCategory;
   }
 );
-interface RepoKarigarNameState {
+interface RepoSubCategoryState {
   data: any;
   docStatus: any;
   error: string;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
-const initialState: RepoKarigarNameState = {
+const initialState: RepoSubCategoryState = {
   data: '',
   docStatus: '',
   error: '',
   isLoading: 'idle',
 };
 
-export const GetKarigarNameScreen = createSlice({
-  name: 'karigarName',
+export const GetSubCategoryScreen = createSlice({
+  name: 'subCategory',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getKarigarNameData.pending, (state) => {
+    builder.addCase(getSubCategoryData.pending, (state) => {
       state.isLoading = 'pending';
     });
-    builder.addCase(getKarigarNameData.fulfilled, (state, action) => {
+    builder.addCase(getSubCategoryData.fulfilled, (state, action) => {
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'
@@ -43,14 +43,14 @@ export const GetKarigarNameScreen = createSlice({
         state.isLoading = 'succeeded';
       }
     });
-    builder.addCase(getKarigarNameData.rejected, (state) => {
+    builder.addCase(getSubCategoryData.rejected, (state) => {
       state.isLoading = 'failed';
       state.error = 'failed to store data';
     });
   },
 });
 
-export const get_karigar_name_data = (state: RootState) =>
-  state.GetKarigarNameScreen;
+export const get_sub_category_data = (state: RootState) =>
+  state.GetSubCategoryScreen;
 
-export default GetKarigarNameScreen.reducer;
+export default GetSubCategoryScreen.reducer;

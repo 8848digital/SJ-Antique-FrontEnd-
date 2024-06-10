@@ -1,37 +1,37 @@
-import getKarigarApi from '@/services/api/PurchaseReceipt/get-karigar-list-api';
+import getBBCategoryApi from '@/services/api/Master/get-bbCategory-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getKarigarNameData: any = createAsyncThunk(
-  'getKarigarName/karigarName',
+export const getBBCategoryData: any = createAsyncThunk(
+  'getBBCategory/bbCategory',
   async (params: any) => {
-    const KarigarName: any = await getKarigarApi(params);
-    return KarigarName;
+    const BBCategory: any = await getBBCategoryApi(params);
+    return BBCategory;
   }
 );
-interface RepoKarigarNameState {
+interface RepoBBCategoryState {
   data: any;
   docStatus: any;
   error: string;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
-const initialState: RepoKarigarNameState = {
+const initialState: RepoBBCategoryState = {
   data: '',
   docStatus: '',
   error: '',
   isLoading: 'idle',
 };
 
-export const GetKarigarNameScreen = createSlice({
-  name: 'karigarName',
+export const GetBBCategoryScreen = createSlice({
+  name: 'bbCategory',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getKarigarNameData.pending, (state) => {
+    builder.addCase(getBBCategoryData.pending, (state) => {
       state.isLoading = 'pending';
     });
-    builder.addCase(getKarigarNameData.fulfilled, (state, action) => {
+    builder.addCase(getBBCategoryData.fulfilled, (state, action) => {
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'
@@ -43,14 +43,14 @@ export const GetKarigarNameScreen = createSlice({
         state.isLoading = 'succeeded';
       }
     });
-    builder.addCase(getKarigarNameData.rejected, (state) => {
+    builder.addCase(getBBCategoryData.rejected, (state) => {
       state.isLoading = 'failed';
       state.error = 'failed to store data';
     });
   },
 });
 
-export const get_karigar_name_data = (state: RootState) =>
-  state.GetKarigarNameScreen;
+export const get_bb_category_data = (state: RootState) =>
+  state.GetBBCategoryScreen;
 
-export default GetKarigarNameScreen.reducer;
+export default GetBBCategoryScreen.reducer;
