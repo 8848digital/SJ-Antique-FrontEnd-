@@ -147,17 +147,17 @@ const useCustomSalesReturnHook = () => {
     const { idx, ...itemWithoutIdx } = item;
     return itemWithoutIdx;
   };
-  const updateSalesTableData = (data: any) => {
+  const updateSalesTableData = (data: any,id:number) => {
     setSelectedClient(data[0]?.custom_client_name);
     setSalesReturnTableData((prevSalesTableData: any) => {
       return [...prevSalesTableData, newRowForSalesReturnTable];
     });
     if (data?.length > 0) {
-      if (selectedItemCodeForCustomerSale?.id) {
+      if (id) {
         setSalesReturnTableData((prevSalesReturnTableData: any) => {
           const updatedTable = prevSalesReturnTableData?.map(
             (tableData: any) => {
-              return tableData.idx === selectedItemCodeForCustomerSale.id
+              return tableData.idx === id
                 ? { ...tableData, ...removeIdxKey(data[0]?.items[0]) }
                 : tableData;
             }

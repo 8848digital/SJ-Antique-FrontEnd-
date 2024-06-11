@@ -44,6 +44,7 @@ const SaleReturnsMaster = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailFunction
   }: any = UseSalesReturnMasterHook();
 
   const {
@@ -189,6 +190,7 @@ const SaleReturnsMaster = () => {
                 handleTabPressItemDetails={handleTabPressItemDetails}
                 selectedItemCode={selectedItemCode}
                 setSelectedItemCode={setSelectedItemCode}
+                HandleEnterDetails={itemDetailFunction}
               />
             </div>
           </div>

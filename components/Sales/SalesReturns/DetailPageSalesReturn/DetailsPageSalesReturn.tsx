@@ -53,6 +53,7 @@ const DetailsPageSalesReturn = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailFunction
   }: any = UseSalesReturnDetailHook();
 
   const { query }: any = useRouter();
@@ -146,6 +147,7 @@ const DetailsPageSalesReturn = () => {
                   kunCsOtFixedAmt={kunCsOtFixedAmt}
                   setKunCsOtFixedAmt={setKunCsOtFixedAmt}
                   HandleFixedAmt={HandleFixedAmt}
+                  HandleEnterDetails={itemDetailFunction}
                 />
               </div>
             </>

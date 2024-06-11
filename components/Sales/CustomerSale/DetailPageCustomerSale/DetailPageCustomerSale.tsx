@@ -67,6 +67,7 @@ const DetailPageCustomerSale = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailApiFun
   }: any = useCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -165,6 +166,7 @@ const DetailPageCustomerSale = () => {
                 barcodedata={barcodedata}
                 itemCodeList={itemCodeList}
                 handleTabPressItemDetails={handleTabPressItemDetails}
+                HandleEnterDetails={itemDetailApiFun}
               />
             </div>
           )}

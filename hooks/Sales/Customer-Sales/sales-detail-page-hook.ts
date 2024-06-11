@@ -61,6 +61,7 @@ const useCustomerSaleDetailHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailApiFun
   }: any = useCustomerSaleHook();
 
   const loginAcessToken = useSelector(get_access_token);
@@ -361,6 +362,7 @@ const useCustomerSaleDetailHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailApiFun
   };
 };
 

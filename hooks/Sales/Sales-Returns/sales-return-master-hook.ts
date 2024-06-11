@@ -85,14 +85,14 @@ const useSalesReturnMasterHook = () => {
     getDataFromapi();
   }, []);
 
-  useEffect(() => {
+ const itemDetailFunction = (item_code:string,id:number) => {
     if (
       itemList?.length > 0 !== null &&
       itemList?.length > 0 &&
       itemList?.some(
         (obj: any) =>
           obj.name ===
-          `${selectedItemCodeForCustomerSale.item_code}`?.toUpperCase()
+          item_code?.toUpperCase()
       )
     ) {
       const getItemCodeDetailsFun = async () => {
@@ -102,12 +102,12 @@ const useSalesReturnMasterHook = () => {
         try {
           let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
             loginAcessToken?.token,
-            selectedItemCodeForCustomerSale.item_code,
+            item_code,
             getItemDetailsmethod,
             getItemDetailsEntity
           );
           if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-            updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+            updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data,id);
 
           }
         } catch (error) {
@@ -117,7 +117,7 @@ const useSalesReturnMasterHook = () => {
 
       getItemCodeDetailsFun();
     }
-  }, [selectedItemCodeForCustomerSale]);
+  }
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
       // Check if there are no values except "idx"
@@ -232,6 +232,7 @@ const useSalesReturnMasterHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailFunction
   };
 };
 

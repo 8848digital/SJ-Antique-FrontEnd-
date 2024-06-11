@@ -56,6 +56,7 @@ const useSalesReturnDetailHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailFunction
   }: any = useSalesReturnMasterHook();
 
   const loginAcessToken = useSelector(get_access_token);
@@ -250,6 +251,7 @@ const useSalesReturnDetailHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailFunction
   };
 };
 
