@@ -157,7 +157,6 @@ const useReportHook = () => {
       fetchReadyStockSummaryReportData()
     }
 
-
     if (reportData?.data?.message?.status === 'success') {
       setReportData(reportData?.data?.message?.data);
       if (reportData?.data?.message?.data?.length > 0) {
