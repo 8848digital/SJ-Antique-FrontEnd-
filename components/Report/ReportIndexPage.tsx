@@ -1,7 +1,8 @@
-import useReportHook from '@/hooks/Report/item-status-report-hook';
+import useReportHook from '@/hooks/Report/report-hook';
 import { useRouter } from 'next/router';
 import CommonReport from './CommonReport/CommonReport';
 import ItemStatusReport from './ItemStatusReport';
+import ReadyStockSummaryReport from './ReadyStockSummaryReport';
 
 const ReportIndexPage = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const ReportIndexPage = () => {
     clientNameData,
     karigarNameData,
     categoryData,
+    readyStockSummaryReportData
   }: any = useReportHook();
   return (
     <>
@@ -42,7 +44,20 @@ const ReportIndexPage = () => {
           HandleReportPrint={HandleReportPrint}
           HandleSerachReport={HandleSerachReport}
         />
-      ) : (
+      ) : key === "ready-stock-summary-report" ?
+        <ReadyStockSummaryReport
+          reportData={reportData}
+          readyStockSummaryReportData={readyStockSummaryReportData}
+          isLoading={isLoading}
+          searchInputValues={searchInputValues}
+          handleSearchInput={HandleSearchInput}
+          HandleSerachReport={HandleSerachReport}
+          setSelectDropDownReset={setSelectDropDownReset}
+          clientNameData={clientNameData}
+          karigarNameData={karigarNameData}
+          itemListData={itemList}
+          categoryData={categoryData}
+        /> :
         <CommonReport
           reportData={reportData}
           isLoading={isLoading}
@@ -54,8 +69,7 @@ const ReportIndexPage = () => {
           karigarNameData={karigarNameData}
           itemListData={itemList}
           categoryData={categoryData}
-        />
-      )}
+        />}
     </>
   );
 };

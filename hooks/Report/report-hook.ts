@@ -5,6 +5,7 @@ import DailySummaryReportApi from '@/services/api/report/get-daily-summary-repor
 import ItemWiseReportApi from '@/services/api/report/get-item-wise-report-api';
 import KarigarWiseReportApi from '@/services/api/report/get-karigar-wise-report-api';
 import ProductCodeReportApi from '@/services/api/report/get-product-code-report';
+import { readyStockSummaryApi0_20, readyStockSummaryApi100_150, readyStockSummaryApi20_50, readyStockSummaryApi50_100 } from '@/services/api/report/get-ready-stock-summary-report-api';
 import summaryReport from '@/services/api/report/get-summary-report-api';
 import ReportPrintApi from '@/services/api/report/report-print-api';
 import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
@@ -45,6 +46,12 @@ const useReportHook = () => {
 
   // report data states
   const [reportData, setReportData] = useState<any>([]);
+  const [readyStockSummaryReportData, setReadyStockSummaryReportData] = useState<any>({
+    zeroToTwenty: [],
+    twentyToFifty: [],
+    fiftyToHundred: [],
+    hundredToOnefifty: []
+  });
   const clientNameData = useSelector(get_client_name_data).data
   let karigarNameData = useSelector(get_karigar_name_data).data
   const categoryData = useSelector(get_sub_category_data).data
@@ -87,6 +94,12 @@ const useReportHook = () => {
     from_date: searchInputValues.from_date,
     to_date: searchInputValues.to_date,
   };
+  const readySummaryReportParams = {
+    from_date: searchInputValues.from_date,
+    to_date: searchInputValues.to_date,
+    category: searchInputValues.Category,
+    sub_category: searchInputValues.Sub_Category,
+  };
   const productCodeParams = {
     name: searchInputValues.product_code,
     from_date: searchInputValues.from_date,
@@ -128,7 +141,7 @@ const useReportHook = () => {
         loginAccessToken.token,
         karigarReportParams
       );
-      
+
     } else if (query?.reportId === 'item-wise-report') {
       reportData = await ItemWiseReportApi(
         loginAccessToken.token,
@@ -140,6 +153,10 @@ const useReportHook = () => {
         summaryReportParams
       );
     }
+    else if (query?.reportId === "ready-stock-summary-report") {
+      fetchReadyStockSummaryReportData()
+    }
+
 
     if (reportData?.data?.message?.status === 'success') {
       setReportData(reportData?.data?.message?.data);
@@ -150,6 +167,27 @@ const useReportHook = () => {
       }
     }
   };
+
+  const fetchReadyStockSummaryReportData = async () => {
+    try {
+      const [readyStockData1, readyStockData2, readyStockData3, readyStockData4] = await Promise.all([
+        readyStockSummaryApi0_20(loginAccessToken.token, readySummaryReportParams),
+        readyStockSummaryApi20_50(loginAccessToken.token, readySummaryReportParams),
+        readyStockSummaryApi50_100(loginAccessToken.token, readySummaryReportParams),
+        readyStockSummaryApi100_150(loginAccessToken.token, readySummaryReportParams)
+      ]);
+      setReadyStockSummaryReportData({
+        zeroToTwenty: readyStockData1?.data?.message?.status === "success" ? readyStockData1?.data?.message?.data : [],
+        twentyToFifty: readyStockData2?.data?.message?.status === "success" ? readyStockData2?.data?.message?.data : [],
+        fiftyToHundred: readyStockData3?.data?.message?.status === "success" ? readyStockData3?.data?.message?.data : [],
+        hundredToOnefifty: readyStockData4?.data?.message?.status === "success" ? readyStockData4?.data?.message?.data : []
+      });
+    } catch (error) {
+      console.error("Error fetching data", error);
+    }
+  };
+
+
   useEffect(() => {
     const fetchData = async () => {
       await getStateData();
@@ -231,6 +269,7 @@ const useReportHook = () => {
     clientNameData,
     karigarNameData,
     categoryData,
+    readyStockSummaryReportData
   };
 };
 export default useReportHook;
