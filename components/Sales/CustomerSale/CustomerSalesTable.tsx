@@ -32,6 +32,7 @@ const CustomerSalesTable = ({
   handleMouseMove,
   handleTabPressItemDetails,
   itemCodeList,
+  HandleEnterDetails
 }: any) => {
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
@@ -61,7 +62,7 @@ const CustomerSalesTable = ({
   );
 
   const calculateLiveCalculations = async () => {
-    const liveCalculations = salesTableData.reduce(
+    const liveCalculations = salesTableData?.reduce(
       (accumulator: any, row: any) => {
         accumulator.custom_gross_wt += parseFloat(row.custom_gross_wt) || 0;
         accumulator.custom_kun_wt += parseFloat(row.custom_kun_wt) || 0;
@@ -81,7 +82,7 @@ const CustomerSalesTable = ({
     );
 
     // Calculate total custom amount
-    const totalCustomAmount = salesTableData.reduce((total: any, item: any) => {
+    const totalCustomAmount = salesTableData?.reduce((total: any, item: any) => {
       return (
         total +
         (parseFloat(item.custom_cs_amt) || 0) + // custom_cs_amt
@@ -275,7 +276,7 @@ const CustomerSalesTable = ({
                             setSelectedItemCodeForCustomerSale
                           }
                           handleTabPressItemDetails={handleTabPressItemDetails}
-
+                          HandleEnterDetails={HandleEnterDetails}
                         />
                       </td>
                       <td className="table_row">

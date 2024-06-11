@@ -99,11 +99,11 @@ const useCustomCustomerSalesHook = () => {
     setItemCodeDropdownReset(true);
   };
 
-  const updateSalesTableData = (data: any) => {
-    if (selectedItemCodeForCustomerSale?.id) {
+  const updateSalesTableData = (data: any,id?:number) => {
+    if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
-          if (tableData.idx === selectedItemCodeForCustomerSale.id) {
+          if (tableData.idx === id ) {
             return {
               ...tableData,
               custom_gross_wt: data[0]?.custom_gross_wt,
@@ -160,16 +160,25 @@ const useCustomCustomerSalesHook = () => {
 
       // Update state with new row
       setSalesTableData((prevSalesTableData: any) => {
-        return [...prevSalesTableData, newRowDataForSalesTable];
+        const lastRow = prevSalesTableData[prevSalesTableData.length - 1];
+        const isEmpty = Object.values(lastRow).every(
+          (value) => value === null || value === ''
+        );
+
+        if (isEmpty) {
+          return prevSalesTableData;
+        } else {
+          return [...prevSalesTableData, newRowDataForSalesTable];
+        }
       });
     }
   };
 
-  const updateBarcodeSalesTableData = (data: any) => {
-    if (selectedItemCodeForCustomerSale?.id) {
+  const updateBarcodeSalesTableData = (data: any,id?:number) => {
+    if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedData = prevSalesTableData?.map((item: any) => {
-          if (item.idx === selectedItemCodeForCustomerSale.id) {
+          if (item.idx === id) {
             return {
               ...item,
               item_code: data[0]?.item_code,
@@ -198,7 +207,16 @@ const useCustomCustomerSalesHook = () => {
 
       // Update state with new row
       setSalesTableData((prevSalesTableData: any) => {
-        return [...prevSalesTableData, newRowDataForSalesTable];
+        const lastRow = prevSalesTableData[prevSalesTableData.length - 1];
+        const isEmpty = Object.values(lastRow).every(
+          (value) => value === null || value === ''
+        );
+
+        if (isEmpty) {
+          return prevSalesTableData;
+        } else {
+          return [...prevSalesTableData, newRowDataForSalesTable];
+        }
       });
     }
   };

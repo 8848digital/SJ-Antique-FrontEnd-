@@ -34,8 +34,8 @@ const useReadyReceipt = () => {
   });
 
   const karigarData = useSelector(get_karigar_name_data).data
-  const kundanKarigarData = useSelector(get_kun_karigar_name_data)
-  const materialListData = useSelector(get_material_data)
+  const kundanKarigarData = useSelector(get_kun_karigar_name_data).data
+  const materialListData = useSelector(get_material_data).data
   const warehouseListData = useSelector(get_warehouse_list_data).data
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);

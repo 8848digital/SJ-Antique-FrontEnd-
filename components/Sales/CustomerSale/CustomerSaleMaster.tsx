@@ -59,6 +59,7 @@ const CustomerSaleMaster = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailApiFun
   }: any = useCustomerSaleHook();
   const {
     scrollableTableRef,
@@ -202,6 +203,7 @@ const CustomerSaleMaster = () => {
               barcodedata={barcodedata}
               handleTabPressItemDetails={handleTabPressItemDetails}
               itemCodeList={itemCodeList}
+              HandleEnterDetails={itemDetailApiFun}
             />
           </div>
         </div>

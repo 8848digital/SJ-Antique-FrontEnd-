@@ -130,7 +130,6 @@ const useClientHook = () => {
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
     } else if (clientName?.material?.length !== 3) {
-      console.log("error")
       setError1("Subcategory name must be at least 3 letters.")
     }
     else {

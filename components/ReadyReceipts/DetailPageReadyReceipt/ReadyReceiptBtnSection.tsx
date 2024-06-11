@@ -97,7 +97,7 @@ const ReadyReceiptBtnSection = ({
           {data?.docstatus === 0 && stateForDocStatus && (
             <button
               type="button"
-              className={` px-2 py-0 me-2`}
+              className={` btn btn-outline-primary px-2 py-0 me-2`}
               onClick={handleUpdateReceipt}
             >
               Save

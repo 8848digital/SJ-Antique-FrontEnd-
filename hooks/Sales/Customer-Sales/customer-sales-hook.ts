@@ -173,16 +173,15 @@ const useCustomerSaleHook = () => {
   };
   const itemCodeList = itemCodeListFunc();
 
-  const itemDetailApiFun = () => {
+  const itemDetailApiFun = (item_code:string,id:number) => {
     if (barcodedata === 1) {
       if (
-        // selectedItemCodeForCustomerSale.item_code?.length > 0
         itemCodeList?.length > 0 !== null &&
         itemCodeList?.length > 0 &&
         itemCodeList?.some(
           (obj: any) =>
             obj.karigar_name ===
-            `${selectedItemCodeForCustomerSale.item_code}`?.toUpperCase()
+            item_code?.toUpperCase()
         )
       ) {
         const itemDetailsMethod = 'get_specific_barcode_detail';
@@ -191,14 +190,14 @@ const useCustomerSaleHook = () => {
           try {
             let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
               loginAcessToken?.token,
-              selectedItemCodeForCustomerSale.item_code,
+              item_code,
               itemDetailsMethod,
               itemDetailsEntity
             );
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
               updateBarcodeSalesTableData(
-                getItemCodeDetailsApi?.data?.message?.data
+                getItemCodeDetailsApi?.data?.message?.data,id
               );
             }
           } catch (error) {
@@ -215,7 +214,7 @@ const useCustomerSaleHook = () => {
         itemCodeList?.length > 0 &&
         itemCodeList?.some(
           (obj: any) =>
-            obj.karigar_name === selectedItemCodeForCustomerSale.item_code
+            obj.karigar_name === item_code
         )
       ) {
         const itemDetailsMethod = 'get_item_specific_sales';
@@ -224,13 +223,13 @@ const useCustomerSaleHook = () => {
           try {
             let getItemCodeDetailsApi = await getItemDetailsInSalesApi(
               loginAcessToken?.token,
-              selectedItemCodeForCustomerSale.item_code,
+              item_code,
               itemDetailsMethod,
               itemDetailsEntity
             );
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
-              updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+              updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data,id);
             }
           } catch (error) {
             console.error('Error fetching item details:', error);
@@ -240,9 +239,9 @@ const useCustomerSaleHook = () => {
       }
     }
   };
-  useEffect(() => {
-    itemDetailApiFun();
-  }, [selectedItemCodeForCustomerSale]);
+  // useEffect(() => {
+  //   itemDetailApiFun();
+  // }, [selectedItemCodeForCustomerSale]);
 
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
@@ -498,7 +497,7 @@ const useCustomerSaleHook = () => {
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
               updateBarcodeSalesTableData(
-                getItemCodeDetailsApi?.data?.message?.data
+                getItemCodeDetailsApi?.data?.message?.data,selectedItemCodeForCustomerSale.id
               );
             }
           } catch (error) {
@@ -522,7 +521,7 @@ const useCustomerSaleHook = () => {
             );
 
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-              updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data);
+              updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data,selectedItemCodeForCustomerSale.id);
             }
           } catch (error) {
             console.error('Error fetching item details:', error);
@@ -588,6 +587,7 @@ const useCustomerSaleHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    itemDetailApiFun
   };
 };
 
