@@ -157,7 +157,7 @@ const ReadyReceiptBtnSection = ({
               <button
                 type="submit"
                 onClick={handleAmendButtonForDuplicateChitti}
-                className={`${styles.create_button} px-2 py-0 me-2 `}
+                className={`btn btn-outline-primary px-2 py-0 me-2`}
               >
                 Save
               </button>
