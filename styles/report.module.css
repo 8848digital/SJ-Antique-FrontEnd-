@@ -9,7 +9,7 @@
 }
 
 .table_container {
-    height: 500px;
+    height: 456px;
     overflow-y: auto;
     overflow-x: auto;
     display: inline-block;
@@ -54,7 +54,6 @@
     /* Height of the horizontal scrollbar */
 }
 
-.scrollable_div {
+/* .scrollable_div {
     padding-bottom: 1em;
-    /* Additional space for the scrollbar */
-}
+} */
