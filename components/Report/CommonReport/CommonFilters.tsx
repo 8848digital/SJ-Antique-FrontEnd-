@@ -91,7 +91,7 @@ const CommonFilters = ({
         )}
 
         {(query?.reportId === 'item-wise-report' ||
-          query?.reportId === 'summary-report' || query?.reportId === "product-code") && (
+          query?.reportId === 'summary-report' || query?.reportId === "product-code" || query?.reportId === "ready-stock-summary-report") && (
             <>
               <div className="col-sm-2 p-0 mx-1">
                 <label className="text-grey">Category</label>
@@ -105,7 +105,7 @@ const CommonFilters = ({
               </div>
             </>
           )}
-        {query?.reportId === 'item-wise-report' && (
+        {(query?.reportId === 'item-wise-report' || query?.reportId === "ready-stock-summary-report") && (
           <div className="col-sm-2 p-0 mx-1">
             <label className="text-grey">Sub Category</label>
             <AutoCompleteInput

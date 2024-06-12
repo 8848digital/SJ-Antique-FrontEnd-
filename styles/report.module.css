@@ -1,19 +1,60 @@
-.report_filter_data_field{
+.report_filter_data_field {
     width: 100%;
 }
 
 @media screen and (max-width:768px) {
-    .report_filter_data_field{
+    .report_filter_data_field {
         max-width: 50% !important;
     }
 }
 
 .table_container {
     height: 500px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    /* overflow-y: auto; */
+    overflow-x: auto;
 }
 
 .report_header_btn {
     font-size: 14px;
+}
+
+
+.scrollable_div {
+    max-height: 500px;
+    overflow-x: scroll;
+    white-space: nowrap;
+    overflow-y: auto;
+    /* overflow-y: auto; */
+    white-space: nowrap;
+    scrollbar-width: thin;
+    /* For Chrome, Edge, and Safari */
+    scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+    /* padding-bottom: 40px; */
+    /* For IE/Edge */
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+
+.scrollable_div .table_container {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    white-space: normal;
+
+}
+
+.table_responsives {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.scrollable_div::-webkit-scrollbar {
+    height: 16px;
+    /* Height of the horizontal scrollbar */
+}
+
+.scrollable_div {
+    padding-bottom: 1em;
+    /* Additional space for the scrollbar */
 }
