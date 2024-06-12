@@ -51,26 +51,26 @@ const ReadyStockSummaryReport = ({
                 />
 
                 <div className={`${styled.scrollable_div} my-3`}>
-                    <div className={`${styled.table_container} mx-5 px-3`}>
+                    <div className={`d-inline-block mx-5 px-3`}>
                         <h5 className='text-center my-2'>0-20GMS</h5>
                         <ReportListingTable
                             headers={zeroToTwentyHeaders} reportData={readyStockSummaryReportData?.zeroToTwenty}
                         />
 
                     </div>
-                    <div className={`${styled.table_container} mx-5 px-3`}>
+                    <div className={`d-inline-block mx-5 px-3`}>
                         <h5 className='text-center my-2'>20-50GMS</h5>
                         <ReportListingTable
                             headers={twentyToFiftyHeaders} reportData={readyStockSummaryReportData?.twentyToFifty}
                         />
                     </div>
-                    <div className={`${styled.table_container} mx-5 px-3`}>
+                    <div className={`d-inline-block mx-5 px-3`}>
                         <h5 className='text-center my-2'>50-100GMS</h5>
                         <ReportListingTable
                             headers={fiftyToHundredHeaders} reportData={readyStockSummaryReportData?.fiftyToHundred}
                         />
                     </div>
-                    <div className={`${styled.table_container} mx-5 px-3`}>
+                    <div className={`d-inline-block mx-5 px-3`}>
                         <h5 className='text-center my-2'>100-150GMS</h5>
                         <ReportListingTable
                             headers={hundredToOnefiftyHeaders} reportData={readyStockSummaryReportData?.hundredToOnefifty}

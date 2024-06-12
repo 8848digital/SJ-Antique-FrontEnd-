@@ -10,8 +10,9 @@
 
 .table_container {
     height: 500px;
-    /* overflow-y: auto; */
+    overflow-y: auto;
     overflow-x: auto;
+    display: inline-block;
 }
 
 .report_header_btn {
@@ -23,9 +24,8 @@
     max-height: 500px;
     overflow-x: scroll;
     white-space: nowrap;
-    overflow-y: auto;
+    overflow-y: hidden;
     /* overflow-y: auto; */
-    white-space: nowrap;
     scrollbar-width: thin;
     /* For Chrome, Edge, and Safari */
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
@@ -35,13 +35,13 @@
 }
 
 
-.scrollable_div .table_container {
-    display: inline-block;
+/* .scrollable_div .table_container {
+    
     vertical-align: top;
     width: 50%;
     white-space: normal;
 
-}
+} */
 
 .table_responsives {
     display: block;

@@ -123,8 +123,8 @@ const useClientHook = () => {
       version: 'v1',
       method: 'create_subcategory',
       entity: 'category',
-      category_name: clientName?.material,
-      subcategory_name: searchCategory,
+      category_name:searchCategory ,
+      subcategory_name: clientName?.material,
     };
 
     if (clientName?.material === '' || clientName.material === undefined) {
