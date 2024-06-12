@@ -35,14 +35,6 @@
 }
 
 
-/* .scrollable_div .table_container {
-    
-    vertical-align: top;
-    width: 50%;
-    white-space: normal;
-
-} */
-
 .table_responsives {
     display: block;
     width: 100%;
@@ -55,6 +47,6 @@
 }
 
 .scrollable_div {
-    padding-bottom: 1em;
+    padding-bottom: 35em;
     /* Additional space for the scrollbar */
 }
