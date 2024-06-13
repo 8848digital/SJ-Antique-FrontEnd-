@@ -91,11 +91,16 @@ const ReadyReceiptMasterTable = ({
   }, [tableData, setTableData]);
 
   useEffect(() => {
-    if (specificDataFromStore?.data[0]?.items?.length === tableData?.length) {
-      lastInputRef?.current?.focus();
-    } else {
-      firstInputRef?.current?.focus();
-    }
+    const timer = setTimeout(() => {
+      if (specificDataFromStore?.data[0]?.items?.length !== tableData?.length) {
+        firstInputRef?.current?.focus();
+      } else {
+        console.log('first',lastInputRef);
+        lastInputRef?.current?.focus();
+      }
+    }, 0);
+  
+    return () => clearTimeout(timer);
   }, [specificDataFromStore, firstInputRef, lastInputRef, tableData?.length]);
 
   return (
