@@ -1,23 +1,39 @@
 import postKarigarApi from '@/services/api/Master/post-karigar-name';
 import postKunKarigarApi from '@/services/api/Master/post-kundan-karigar-name';
-import { getKarigarNameData, get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
-import { getKunKarigarNameData, get_kun_karigar_name_data } from '@/store/slices/Master/kun-karigar-name-slice';
+import {
+  getKarigarNameData,
+  get_karigar_name_data,
+} from '@/store/slices/Master/karigar-name-slice';
+import {
+  getKunKarigarNameData,
+  get_kun_karigar_name_data,
+} from '@/store/slices/Master/kun-karigar-name-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 
-const useMasterHooks = () => {
-  const dispatch = useDispatch()
+const useKarigarHooks = () => {
+  const {
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+  }: any = useDeleteModal();
+  const [showAddRecord, setShowAddRecord] = useState(false);
+
+  const dispatch = useDispatch();
 
   const router = useRouter();
   const loginAcessToken = useSelector(get_access_token);
   const show = useRef<boolean>(false);
 
-  let karigarList = useSelector(get_karigar_name_data).data
-  let kunKarigarList = useSelector(get_kun_karigar_name_data).data
-  
+  let karigarList = useSelector(get_karigar_name_data).data;
+  let kunKarigarList = useSelector(get_kun_karigar_name_data).data;
+
   //post karigar name
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState('');
@@ -35,7 +51,7 @@ const useMasterHooks = () => {
 
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Karigar Name Created');
-        dispatch(getKarigarNameData(loginAcessToken.token))
+        dispatch(getKarigarNameData(loginAcessToken.token));
       } else {
         toast.error('Karigar Name already exist');
       }
@@ -62,7 +78,7 @@ const useMasterHooks = () => {
 
       if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
         toast.success('Kundan Karigar Name Created');
-        dispatch(getKunKarigarNameData(loginAcessToken.token))
+        dispatch(getKunKarigarNameData(loginAcessToken.token));
       } else {
         toast.error('Kundan Karigar Name already exist');
       }
@@ -74,11 +90,18 @@ const useMasterHooks = () => {
     setError('');
     setInputValue(e.target.value);
   };
-
+  const handleCloseAddRecord = () => {setShowAddRecord(false),
+    setInputValue('')
+  };
+  const handleShowAddRecord = (item: any) => {
+    setInputValue(item?.karigar_name)
+    setShowAddRecord(true);
+  };
   return {
     karigarList,
     kunKarigarList,
     inputValue,
+    setInputValue,
     HandleInputValue,
     HandleSubmit,
     HandleKunInputValue,
@@ -87,7 +110,15 @@ const useMasterHooks = () => {
     setError,
     router,
     show,
+    showAddRecord,
+    handleShowAddRecord,
+    handleCloseAddRecord,
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
   };
 };
 
-export default useMasterHooks;
+export default useKarigarHooks;

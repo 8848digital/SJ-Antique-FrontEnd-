@@ -1,6 +1,3 @@
-import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import postGroupDataApi from '@/services/api/Master/post-client-group-api';
 import postMaterialMasterApi from '@/services/api/Master/post-material-name';
 import {
@@ -11,9 +8,22 @@ import {
   getMaterialData,
   get_material_data,
 } from '@/store/slices/Master/get-material-slice';
+import { get_access_token } from '@/store/slices/auth/login-slice';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 
 const useMaterialHook = () => {
+  const {
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+  }: any = useDeleteModal();
+  const [showAddRecord, setShowAddRecord] = useState(false);
+
   const dispatch = useDispatch();
   const loginAcessToken = useSelector(get_access_token);
   let materialList = useSelector(get_material_data).data;
@@ -102,6 +112,21 @@ const useMaterialHook = () => {
     setErrorM('');
     setInputValueM(e.target.value);
   };
+  const handleCloseAddRecord = () => {
+    setShowAddRecord(false);
+    setNameValue({
+      material: '',
+      material_abbr: '',
+    });
+  };
+  const handleShowAddRecord = (item: any) => {
+    if(item?.karigar_name){
+      setInputValueM(item?.karigar_name)
+    }else{
+      setNameValue(item);
+    }
+    setShowAddRecord(true);
+  };
 
   return {
     materialList,
@@ -109,6 +134,7 @@ const useMaterialHook = () => {
     error2,
     error3,
     nameValue,
+    setNameValue,
     HandleNameChange,
     HandleSave,
     HandleMaterialGrpSubmit,
@@ -117,10 +143,19 @@ const useMaterialHook = () => {
     setErrorM,
     materialGroupList,
     inputValueM,
+    setInputValueM,
     selectedMaterialGroup,
     setSelectedMaterialGroup,
     matDropdownReset,
     setMatDropDownReset,
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+    showAddRecord,
+    handleShowAddRecord,
+    handleCloseAddRecord,
   };
 };
 export default useMaterialHook;

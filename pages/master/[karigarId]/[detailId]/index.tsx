@@ -1,4 +1,4 @@
-import KarigarDetailsMaster from '@/components/Master/MasterKarigar/KarigarDetailsMaster'
+import KarigarDetailsMaster from '@/components/Master/MasterSingleListing/SingleRecordDetails'
 
 const karigarDetailsPage = () => { 
   return (

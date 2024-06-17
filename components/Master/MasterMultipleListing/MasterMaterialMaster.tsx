@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import MasterListing from '../MasterListing';
-import AddMaterial from './AddMaterial';
-import MasterMaterialListing from './MasterMaterialListing';
+import AddMaterial from './AddRecord';
+import MasterMaterialListing from './MasterMultipleListing';
 import TabSection from '@/components/TabSection';
-const MasterMaterialMaster: any = ({
+const MultipleRecordMaster: any = ({
   value,
   materialList,
   HandleNameChange,
@@ -22,6 +22,13 @@ const MasterMaterialMaster: any = ({
   clientGroup,
   selectDropDownReset,
   setSelectDropDownReset,
+  showDeleteModal,
+  handleCloseDeleteModal,
+  handleShowDeleteModal,
+  deleteRecord,
+  showAddRecord,
+  handleShowAddRecord,
+  handleCloseAddRecord,
 }: any) => {
   const [inputName, setInputName] = useState('');
   const [inputMatGroup, setInputMatGrp] = useState('');
@@ -86,6 +93,19 @@ const MasterMaterialMaster: any = ({
               placeholder2={placeholder2}
               placeholder3={placeholder3}
               value={value}
+              showDeleteModal={showDeleteModal}
+              handleCloseDeleteModal={handleCloseDeleteModal}
+              handleShowDeleteModal={handleShowDeleteModal}
+              deleteRecord={deleteRecord}
+              showAddRecord={showAddRecord}
+              handleShowAddRecord={handleShowAddRecord}
+              handleCloseAddRecord={handleCloseAddRecord}
+              clientGroup={clientGroup}
+            selectDropDownReset={selectDropDownReset}
+            setSelectDropDownReset={setSelectDropDownReset}
+            searchClient={searchClient}
+            setSearchClient={setSearchClient}
+            nameValue={nameValue}
             />
           </div>
           <AddMaterial
@@ -110,4 +130,4 @@ const MasterMaterialMaster: any = ({
     </div>
   );
 };
-export default MasterMaterialMaster;
+export default MultipleRecordMaster;

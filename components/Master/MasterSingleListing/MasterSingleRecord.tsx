@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import MasterKarigarListing from './MasterKarigarListing';
-import AddKarigar from './AddKarigar';
-import MasterListing from '../MasterListing';
 import TabSection from '@/components/TabSection';
+import { useState } from 'react';
+import MasterListing from '../MasterListing';
+import AddKarigar from './AddRecord';
+import SingleRecordListing from './SingleRecordListing';
 
-const MasterKarigar: any = ({
+const MasterSingleRecord: any = ({
   karigarData,
   inputValue,
   HandleInputValue,
@@ -14,6 +14,13 @@ const MasterKarigar: any = ({
   placeholder,
   tab1,
   tab2,
+  showDeleteModal,
+  handleCloseDeleteModal,
+  handleShowDeleteModal,
+  deleteRecord,
+  showAddRecord,
+  handleShowAddRecord,
+  handleCloseAddRecord,
 }: any) => {
   const [searchField, setSearchField] = useState<any>('');
   const HandleSearchInput: any = (e: any) => {
@@ -44,11 +51,22 @@ const MasterKarigar: any = ({
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <MasterKarigarListing
+            <SingleRecordListing
               karigarData={filterList}
               defaultData={karigarData}
               HandleSearchInput={HandleSearchInput}
               placeholder={placeholder}
+              showDeleteModal={showDeleteModal}
+              handleCloseDeleteModal={handleCloseDeleteModal}
+              handleShowDeleteModal={handleShowDeleteModal}
+              deleteRecord={deleteRecord}
+              showAddRecord={showAddRecord}
+              handleShowAddRecord={handleShowAddRecord}
+              handleCloseAddRecord={handleCloseAddRecord}
+              inputValue={inputValue}
+              HandleInputValue={HandleInputValue}
+              error={error}
+              HandleSubmit={HandleSubmit}
             />
           </div>
           <AddKarigar
@@ -63,4 +81,4 @@ const MasterKarigar: any = ({
     </div>
   );
 };
-export default MasterKarigar;
+export default MasterSingleRecord;

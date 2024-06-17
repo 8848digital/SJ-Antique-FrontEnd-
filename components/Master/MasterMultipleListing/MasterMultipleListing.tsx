@@ -1,8 +1,9 @@
+import NoRecord from '@/components/NoRecord/NoRecord';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
-import styles from '../../../styles/master.module.css';
-import NoRecord from '@/components/NoRecord/NoRecord';
+import DeleteModal from '@/components/DeleteModal';
+import AddRecordModal from '../AddRecordModal';
 
 const MasterMaterialListing = ({
   materialList,
@@ -14,6 +15,24 @@ const MasterMaterialListing = ({
   placeholder2,
   placeholder3,
   value,
+  showDeleteModal,
+  handleCloseDeleteModal,
+  handleShowDeleteModal,
+  deleteRecord,
+  showAddRecord,
+  handleShowAddRecord,
+  handleCloseAddRecord,
+  nameValue,
+  HandleNameChange,
+  HandleSave,
+  error1,
+  error2,
+  error3,
+  clientGroup,
+            selectDropDownReset,
+            setSelectDropDownReset,
+            searchClient,
+            setSearchClient
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -99,6 +118,7 @@ const MasterMaterialListing = ({
                   {value === 'material' && (
                     <th className="thead text-start ">{placeholder3}</th>
                   )}
+                  <th className="thead text-start "></th>
                 </tr>
               </thead>
               <tbody>
@@ -116,7 +136,9 @@ const MasterMaterialListing = ({
                         </td>
                         <td
                           className={`table-body-row cursor ${
-                            (value === 'material' || value === 'subCategory') ? 'w-auto' : ' w-50 '
+                            value === 'material' || value === 'subCategory'
+                              ? 'w-auto'
+                              : ' w-50 '
                           } `}
                           onClick={() =>
                             HandleDetails(
@@ -160,6 +182,22 @@ const MasterMaterialListing = ({
                             {item.material_group}
                           </td>
                         )}
+                        <td className="table-body-row cursor w-25 p-0">
+                          <div className="d-flex justify-content-around">
+                            <button
+                              className="btn btn-link p-0"
+                              onClick={()=>handleShowAddRecord(item)}
+                            >
+                              Update
+                            </button>
+                            <button
+                              className="btn btn-link text-danger p-0"
+                              onClick={handleShowDeleteModal}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
                       </tr>
                     ))}
                 {materialList?.length > 20 && materialList !== null && (
@@ -169,6 +207,33 @@ const MasterMaterialListing = ({
                 )}
               </tbody>
             </table>
+            <DeleteModal
+              heading={'Record'}
+              // confirmDelete={HandleDeleteReceipt}
+              showDeleteModal={showDeleteModal}
+              handleCloseDeleteModal={handleCloseDeleteModal}
+              deleteRecord={deleteRecord}
+            />
+            <AddRecordModal
+              showAddRecord={showAddRecord}
+              handleCloseAddRecord={handleCloseAddRecord}
+              nameValue={nameValue}
+              HandleNameChange={HandleNameChange}
+              HandleSubmit={HandleSave}
+              error1={error1}
+              error2={error2}
+              error3={error3}
+              placeholder1={placeholder1}
+              placeholder2={placeholder2}
+              placeholder3={placeholder3}
+              DropdownList={clientGroup}
+            selectDropDownReset={selectDropDownReset}
+            setSelectDropDownReset={setSelectDropDownReset}
+            searchClient={searchClient}
+            setSearchClient={setSearchClient}
+            value={value}
+            isMultiple={true}
+            />
           </div>
         </>
       ) : (

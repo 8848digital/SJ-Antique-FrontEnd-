@@ -29,8 +29,19 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 
-const useClientHook = () => {
+const useMasterHook = () => {
+  const {
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+  }: any = useDeleteModal();
+  const [showAddRecord, setShowAddRecord] = useState(false);
+
+  
   const dispatch = useDispatch();
   // access token
   const loginAcessToken = useSelector(get_access_token);
@@ -294,7 +305,15 @@ const useClientHook = () => {
   const handleSelectCategory = (value: any) => {
     setSearchCategory(value);
   };
-
+  const handleCloseAddRecord = () => setShowAddRecord(false);
+  const handleShowAddRecord = (item:any) => {
+    if(item?.karigar_name){
+      setInputValue1(item?.karigar_name)
+    }else{
+      setClientNameValue(item);
+      setSearchClient(item?.material_abbr)
+    }
+    setShowAddRecord(true);}
   return {
     clientList,
     HandleClientNameChange,
@@ -316,6 +335,7 @@ const useClientHook = () => {
     HandleClientGrpSubmit,
     HandleClientGrpValue,
     inputValue1,
+    setInputValue1,
     clientGroupList,
     handleSelectClientGroup,
     selectDropDownReset,
@@ -329,6 +349,11 @@ const useClientHook = () => {
     HandleSubCategorySave,
     setSearchCategory,
     searchCategory,
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,showAddRecord, handleShowAddRecord, handleCloseAddRecord
   };
 };
-export default useClientHook;
+export default useMasterHook;

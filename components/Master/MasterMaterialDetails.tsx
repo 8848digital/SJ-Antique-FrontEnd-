@@ -1,4 +1,4 @@
-import MaterialDetailsMaster from '@/components/Master/MasterMaterial/MaterialDetailsMaster'
+import MaterialDetailsMaster from '@/components/Master/MasterMultipleListing/MultipleDetails'
 import React from 'react'
 
 const masterMaterialDetails = () => {

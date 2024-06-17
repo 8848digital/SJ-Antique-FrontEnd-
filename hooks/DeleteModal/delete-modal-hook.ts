@@ -7,8 +7,8 @@ export const useDeleteModal = () => {
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false), setDeleteRecord('');
   };
-  const handleShowDeleteModal = (name: string) => {
-    setDeleteRecord(name);
+  const handleShowDeleteModal = (name?: string) => {
+    setDeleteRecord(name || '');
     setShowDeleteModal(true);
   };
   return {

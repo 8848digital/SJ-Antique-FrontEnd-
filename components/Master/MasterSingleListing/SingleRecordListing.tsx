@@ -2,12 +2,25 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
 import NoRecord from '@/components/NoRecord/NoRecord';
+import DeleteModal from '@/components/DeleteModal';
+import AddRecordModal from '../AddRecordModal';
 
-const MasterKarigarListing = ({
+const SingleRecordListing = ({
   karigarData,
   defaultData,
   HandleSearchInput,
   placeholder,
+  showDeleteModal,
+  handleCloseDeleteModal,
+  handleShowDeleteModal,
+  deleteRecord,
+  showAddRecord,
+  handleShowAddRecord,
+  handleCloseAddRecord,
+  inputValue,
+  HandleInputValue,
+  error,
+  HandleSubmit,
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -67,6 +80,7 @@ const MasterKarigarListing = ({
                   <th scope="col" className="thead text-start">
                     {placeholder}
                   </th>
+                  <th scope="col" className="thead text-start"></th>
                 </tr>
               </thead>
               <tbody>
@@ -83,6 +97,22 @@ const MasterKarigarListing = ({
                         >
                           {item.karigar_name}
                         </td>
+                        <td className="table-body-row cursor w-25 p-0">
+                          <div className="d-flex justify-content-around">
+                            <button
+                              className="btn btn-link p-0 small"
+                              onClick={()=>handleShowAddRecord(item)}
+                            >
+                              Update
+                            </button>
+                            <button
+                              className="btn btn-link text-danger p-0"
+                              onClick={handleShowDeleteModal}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
                       </tr>
                     ))}
                 {karigarData?.length > 20 && karigarData !== null && (
@@ -92,6 +122,23 @@ const MasterKarigarListing = ({
                 )}
               </tbody>
             </table>
+            <DeleteModal
+              heading={placeholder}
+              // confirmDelete={HandleDeleteReceipt}
+              showDeleteModal={showDeleteModal}
+              handleCloseDeleteModal={handleCloseDeleteModal}
+              deleteRecord={deleteRecord}
+            />
+            <AddRecordModal
+              showAddRecord={showAddRecord}
+              handleCloseAddRecord={handleCloseAddRecord}
+              inputValue={inputValue}
+              HandleInputValue={HandleInputValue}
+              error1={error}
+              HandleSubmit={HandleSubmit}
+              placeholder1={placeholder}
+              isMultiple={false}
+            />
           </div>
         </>
       ) : (
@@ -101,4 +148,4 @@ const MasterKarigarListing = ({
   );
 };
 
-export default MasterKarigarListing;
+export default SingleRecordListing;
