@@ -35,10 +35,10 @@ const ReadyReceiptBtnSection = ({
     setReadOnlyFields(false);
   };
   const dateFlag =
-    data?.posting_date === new Date()?.toISOString()?.split('T')[0]
+    data?.posting_date ===
+    new Date().toISOString().split('T')[0].split('-').reverse().join('-')
       ? false
       : true;
-
 
   return (
     <>

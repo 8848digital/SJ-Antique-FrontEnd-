@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 
 const CurrentDate = ({ defaultKarigarData, defaultSalesDate }: any) => {
   const formatDate = (inputDate: Date) => {
-    const formattedDate = inputDate.toLocaleDateString('en-GB');
-    return formattedDate.replace(/\//g, '-');
+    const formattedDate = inputDate
+      .toISOString()
+      .split('T')[0]
+      .split('-')
+      .reverse()
+      .join('-');
+    return formattedDate;
   };
 
   const getDate = () => {
-    const today = new Date();
+    const today = new Date()
     return formatDate(today);
   };
 
