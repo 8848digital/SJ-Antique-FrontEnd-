@@ -51,6 +51,7 @@ const IndexPage = () => {
     searchClient,
     errorC1,
     errorC2,
+    errorC3,
     errorC,
     setErrorC,
     HandleClientGrpSubmit,
@@ -274,8 +275,10 @@ const IndexPage = () => {
           nameValue={clientName}
           error1={errorC1}
           error2={errorC2}
+          error3={errorC3}
           placeholder1={'Sub Category Name'}
-          placeholder2={'Category Name'}
+          placeholder2={'Sub Category Full Form'}
+          placeholder3={'Category Name'}
           tab1={'Sub Category name'}
           tab2={'Create New Sub Category'}
           setSearchClient={setSearchCategory}

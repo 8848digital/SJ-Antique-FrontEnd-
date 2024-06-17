@@ -50,7 +50,7 @@ const AddMaterial = ({
           <span className="text-danger">*</span>
         </div>
         <div className="col-lg-6">
-          {value === 'client' || value === 'subCategory' ? (
+          {value === 'client' ? (
             <SearchSelectInputField
               karigarData={clientGroup}
               className={'form-control  border p-0 px-2'}
@@ -75,7 +75,7 @@ const AddMaterial = ({
           )}
         </div>
         <div> {error2 && <p className="text-danger">{error2}</p>}</div>
-        {value === 'material' && (
+        {(value === 'material' || value === 'subCategory')&&  (
           <>
             <div className=" m-1">
               <label htmlFor="">{placeholder3}</label>
@@ -85,7 +85,7 @@ const AddMaterial = ({
               <SearchSelectInputField
                 karigarData={clientGroup}
                 className={'form-control border p-0 px-2'}
-                placeholder={'Material Group'}
+                placeholder={placeholder3}
                 selectedDropdownValue={searchClient}
                 setSelectedDropdownValue={setSearchClient}
                 selectDropDownReset={selectDropDownReset}

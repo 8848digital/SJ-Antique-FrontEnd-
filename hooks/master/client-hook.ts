@@ -51,6 +51,7 @@ const useClientHook = () => {
   // get api function
   const [errorC1, setError1] = useState('');
   const [errorC2, setError2] = useState('');
+  const [errorC3, setError3] = useState('')
   const [clientName, setClientNameValue] = useState({
     material: '',
     material_abbr: '',
@@ -131,6 +132,10 @@ const useClientHook = () => {
       setError1('Input field cannot be empty');
     } else if (clientName?.material?.length !== 3) {
       setError1("Subcategory name must be at least 3 letters.")
+    } else if (clientName?.material_abbr === '' || clientName?.material_abbr === undefined){
+      setError2('Input field cannot be empty')
+    }else if (searchCategory === '' || searchCategory === undefined){
+      setError3('Input field cannot be empty')
     }
     else {
       let apiRes: any = await postSubCategoryApi(
@@ -305,6 +310,7 @@ const useClientHook = () => {
     searchClient,
     errorC1,
     errorC2,
+    errorC3,
     errorC,
     setErrorC,
     HandleClientGrpSubmit,

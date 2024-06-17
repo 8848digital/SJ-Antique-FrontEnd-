@@ -65,7 +65,7 @@ const MasterMaterialListing = ({
               />
             </div>
             <div className="">
-              {value === 'material' && (
+              {(value === 'material' || value === 'subCategory') && (
                 <input
                   type="text"
                   name="input3"
@@ -116,7 +116,7 @@ const MasterMaterialListing = ({
                         </td>
                         <td
                           className={`table-body-row cursor ${
-                            value === 'material' ? 'w-auto' : ' w-50 '
+                            (value === 'material' || value === 'subCategory') ? 'w-auto' : ' w-50 '
                           } `}
                           onClick={() =>
                             HandleDetails(
@@ -144,7 +144,7 @@ const MasterMaterialListing = ({
                         >
                           {item.material_abbr ? item.material_abbr : item.type}
                         </td>
-                        {value === 'material' && (
+                        {(value === 'material' || value === 'subCategory') && (
                           <td
                             className="table-body-row cursor w-auto"
                             onClick={() =>
