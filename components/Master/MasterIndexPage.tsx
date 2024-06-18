@@ -1,8 +1,7 @@
 import useMasterHook from '@/hooks/master/master-hook';
 import { useRouter } from 'next/router';
-import React from 'react';
-import MasterSingleRecord from './MasterSingleListing/MasterSingleRecord';
 import MultipleRecordMaster from './MasterMultipleListing/MasterMaterialMaster';
+import MasterSingleRecord from './MasterSingleListing/MasterSingleRecord';
 
 const MasterIndexPage = () => {
   const {
@@ -205,7 +204,8 @@ const MasterIndexPage = () => {
             subCategory !== null &&
             subCategory.map((data: any) => ({
               material: data.subcategory,
-              material_abbr: data.category,
+              material_abbr: data.full_form,
+              material_group:data.category
             }))
           }
           clientGroup={categoryName}
@@ -215,7 +215,7 @@ const MasterIndexPage = () => {
           error1={errorC1}
           error2={errorC2}
           error3={errorC3}
-          placeholder1={'Sub Category Name'}
+          placeholder1={'Sub Category '}
           placeholder2={'Full Form'}
           placeholder3={'Category Name'}
           tab1={'Sub Category name'}

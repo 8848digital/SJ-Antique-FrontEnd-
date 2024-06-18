@@ -59,7 +59,6 @@ const useMasterHook = () => {
   const [errorC, setErrorC] = useState('');
   const [selectDropDownReset, setSelectDropDownReset] =
     useState<boolean>(false);
-  // get api function
   const [errorC1, setError1] = useState('');
   const [errorC2, setError2] = useState('');
   const [errorC3, setError3] = useState('')
@@ -121,12 +120,8 @@ const useMasterHook = () => {
 
   // Sub-category post API
   const HandleSubCategoryChange = (e: any) => {
-    const { value } = e.target;
-    setClientNameValue({
-      ...clientName,
-      material: value,
-      material_abbr: searchCategory,
-    });
+    const { name, value } = e.target;
+    setClientNameValue({ ...clientName, [name]: value });
     setError1('');
     setError2('');
   };
@@ -137,6 +132,7 @@ const useMasterHook = () => {
       entity: 'category',
       category_name:searchCategory ,
       subcategory_name: clientName?.material,
+      full_form:clientName?.material_abbr
     };
 
     if (clientName?.material === '' || clientName.material === undefined) {

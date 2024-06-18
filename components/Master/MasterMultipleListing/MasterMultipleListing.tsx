@@ -29,10 +29,10 @@ const MasterMaterialListing = ({
   error2,
   error3,
   clientGroup,
-            selectDropDownReset,
-            setSelectDropDownReset,
-            searchClient,
-            setSearchClient
+  selectDropDownReset,
+  setSelectDropDownReset,
+  searchClient,
+  setSearchClient,
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -115,7 +115,7 @@ const MasterMaterialListing = ({
                   <th className="thead text-start">Sr.No</th>
                   <th className="thead text-start ">{placeholder1}</th>
                   <th className="thead text-start ">{placeholder2}</th>
-                  {value === 'material' && (
+                  {(value === 'material' || value === 'subCategory') && (
                     <th className="thead text-start ">{placeholder3}</th>
                   )}
                   <th className="thead text-start "></th>
@@ -186,7 +186,7 @@ const MasterMaterialListing = ({
                           <div className="d-flex justify-content-around">
                             <button
                               className="btn btn-link p-0"
-                              onClick={()=>handleShowAddRecord(item)}
+                              onClick={() => handleShowAddRecord(item)}
                             >
                               Update
                             </button>
@@ -227,12 +227,12 @@ const MasterMaterialListing = ({
               placeholder2={placeholder2}
               placeholder3={placeholder3}
               DropdownList={clientGroup}
-            selectDropDownReset={selectDropDownReset}
-            setSelectDropDownReset={setSelectDropDownReset}
-            searchClient={searchClient}
-            setSearchClient={setSearchClient}
-            value={value}
-            isMultiple={true}
+              selectDropDownReset={selectDropDownReset}
+              setSelectDropDownReset={setSelectDropDownReset}
+              searchClient={searchClient}
+              setSearchClient={setSearchClient}
+              value={value}
+              isMultiple={true}
             />
           </div>
         </>
