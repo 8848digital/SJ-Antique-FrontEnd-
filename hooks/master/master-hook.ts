@@ -16,7 +16,10 @@ import {
   getClientGroupData,
   get_client_group_data,
 } from '@/store/slices/Master/get-client-group-slice';
-import { getClientNameData, get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
+import {
+  getClientNameData,
+  get_client_name_data,
+} from '@/store/slices/Master/get-client-name-slice';
 import {
   getKunCategoryData,
   get_kun_category_data,
@@ -30,6 +33,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
+import MasterUpdateApi from '@/services/api/Master/master-update-api';
 
 const useMasterHook = () => {
   const {
@@ -41,11 +45,10 @@ const useMasterHook = () => {
   }: any = useDeleteModal();
   const [showAddRecord, setShowAddRecord] = useState(false);
 
-  
   const dispatch = useDispatch();
   // access token
   const loginAcessToken = useSelector(get_access_token);
-  // api states
+  // Listing states
   let clientList = useSelector(get_client_name_data).data;
   let clientGroupList = useSelector(get_client_group_data).data;
   let KunCsOtCategory = useSelector(get_kun_category_data).data;
@@ -61,11 +64,14 @@ const useMasterHook = () => {
     useState<boolean>(false);
   const [errorC1, setError1] = useState('');
   const [errorC2, setError2] = useState('');
-  const [errorC3, setError3] = useState('')
+  const [errorC3, setError3] = useState('');
   const [clientName, setClientNameValue] = useState({
     material: '',
     material_abbr: '',
   });
+
+  const [originalName, setOriginalName]=useState()
+
   // client post api
   useEffect(() => {
     setClientNameValue({
@@ -130,21 +136,23 @@ const useMasterHook = () => {
       version: 'v1',
       method: 'create_subcategory',
       entity: 'category',
-      category_name:searchCategory ,
+      category_name: searchCategory,
       subcategory_name: clientName?.material,
-      full_form:clientName?.material_abbr
+      full_form: clientName?.material_abbr,
     };
 
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
     } else if (clientName?.material?.length !== 3) {
-      setError1("Subcategory name must be at least 3 letters.")
-    } else if (clientName?.material_abbr === '' || clientName?.material_abbr === undefined){
-      setError2('Input field cannot be empty')
-    }else if (searchCategory === '' || searchCategory === undefined){
-      setError3('Input field cannot be empty')
-    }
-    else {
+      setError1('Subcategory name must be at least 3 letters.');
+    } else if (
+      clientName?.material_abbr === '' ||
+      clientName?.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
+    } else if (searchCategory === '' || searchCategory === undefined) {
+      setError3('Input field cannot be empty');
+    } else {
       let apiRes: any = await postSubCategoryApi(
         loginAcessToken?.token,
         values
@@ -163,6 +171,17 @@ const useMasterHook = () => {
       setSelectDropDownReset(true);
     }
   };
+  const HandleUpdateSubCategory = () =>{
+const body ={
+  version:"v1",
+    entity:"category",
+    method:"update_sub_category_details",
+    name:"ATB",
+    subcategory_name:"ATB",
+    category:"Antique Temple",
+    full_form: "Antique Temple Bombay"
+}
+  }
 
   // KunCsOt category post api
   const HandleKunCsOtChange = (e: any) => {
@@ -301,15 +320,44 @@ const useMasterHook = () => {
   const handleSelectCategory = (value: any) => {
     setSearchCategory(value);
   };
-  const handleCloseAddRecord = () => setShowAddRecord(false);
-  const handleShowAddRecord = (item:any) => {
-    if(item?.karigar_name){
-      setInputValue1(item?.karigar_name)
-    }else{
-      setClientNameValue(item);
-      setSearchClient(item?.material_abbr)
+  const HandleUpdateCategory = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'category',
+      method: 'update_category_details',
+      name: originalName,
+      category_name: inputValue1,
+    };
+    if (inputValue1.trim() === '') {
+      setErrorC('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      console.log(apiRes)
+      if (apiRes?.data?.message?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+        toast.success('Category Name Updated Successfully!');
+        dispatch(getCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('Category Name already exist');
+      }
+      setErrorC('');
+      setInputValue1('');
     }
-    setShowAddRecord(true);}
+    setShowAddRecord(false)
+  };
+
+  // Handle Add record Modal
+  const handleCloseAddRecord = () => setShowAddRecord(false);
+  const handleShowAddRecord = (item: any) => {
+    if (item?.karigar_name) {
+      setInputValue1(item?.karigar_name);
+      setOriginalName(item?.karigar_name) // for category
+    } else {
+      setClientNameValue(item);
+      setSearchClient(item?.material_abbr);
+    }
+    setShowAddRecord(true);
+  };
+  console.log(originalName)
   return {
     clientList,
     HandleClientNameChange,
@@ -349,7 +397,11 @@ const useMasterHook = () => {
     setShowDeleteModal,
     handleCloseDeleteModal,
     handleShowDeleteModal,
-    deleteRecord,showAddRecord, handleShowAddRecord, handleCloseAddRecord
+    deleteRecord,
+    showAddRecord,
+    handleShowAddRecord,
+    handleCloseAddRecord,
+    HandleUpdateCategory
   };
 };
 export default useMasterHook;

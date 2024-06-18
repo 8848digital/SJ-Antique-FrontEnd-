@@ -6,7 +6,7 @@ const AddRecordModal = ({
   handleCloseAddRecord,
   inputValue,
   HandleInputValue,
-  HandleSubmit,
+  HandleUpdate,
   nameValue,
   HandleNameChange,
   error1,
@@ -127,7 +127,7 @@ const AddRecordModal = ({
           <Button variant="secondary" onClick={handleCloseAddRecord}>
             Close
           </Button>
-          <Button variant="primary" onClick={HandleSubmit}>
+          <Button variant="primary" onClick={HandleUpdate}>
             Save
           </Button>
         </Modal.Footer>

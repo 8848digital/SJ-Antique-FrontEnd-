@@ -21,6 +21,7 @@ const MasterSingleRecord: any = ({
   showAddRecord,
   handleShowAddRecord,
   handleCloseAddRecord,
+  HandleUpdate
 }: any) => {
   const [searchField, setSearchField] = useState<any>('');
   const HandleSearchInput: any = (e: any) => {
@@ -66,7 +67,7 @@ const MasterSingleRecord: any = ({
               inputValue={inputValue}
               HandleInputValue={HandleInputValue}
               error={error}
-              HandleSubmit={HandleSubmit}
+              HandleUpdate={HandleUpdate}
             />
           </div>
           <AddKarigar

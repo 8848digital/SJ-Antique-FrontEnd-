@@ -42,7 +42,11 @@ const MasterIndexPage = () => {
     setShowDeleteModal,
     handleCloseDeleteModal,
     handleShowDeleteModal,
-    deleteRecord,showAddRecord, handleShowAddRecord, handleCloseAddRecord
+    deleteRecord,
+    showAddRecord,
+    handleShowAddRecord,
+    handleCloseAddRecord,
+    HandleUpdateCategory
   }: any = useMasterHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -194,6 +198,7 @@ const MasterIndexPage = () => {
           showAddRecord={showAddRecord}
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
+          HandleUpdate={HandleUpdateCategory}
         />
       )}
       {key === 'subCategory' && (
@@ -205,7 +210,7 @@ const MasterIndexPage = () => {
             subCategory.map((data: any) => ({
               material: data.subcategory,
               material_abbr: data.full_form,
-              material_group:data.category
+              material_group: data.category,
             }))
           }
           clientGroup={categoryName}
