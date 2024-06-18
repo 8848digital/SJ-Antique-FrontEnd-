@@ -20,11 +20,11 @@ const CurrentDate = ({ defaultKarigarData, defaultSalesDate }: any) => {
 
   const CurrentDateValue: any = () => {
     if (defaultKarigarData !== undefined && defaultKarigarData.length > 0) {
-      const postingDate = new Date(defaultKarigarData[0]?.posting_date);
-      return formatDate(postingDate);
+      const postingDate = defaultKarigarData[0]?.posting_date;
+      return postingDate;
     } else if (defaultSalesDate !== undefined) {
-      const postingDateForSales = new Date(defaultSalesDate);
-      return formatDate(postingDateForSales);
+      const postingDateForSales = defaultSalesDate;
+      return postingDateForSales;
     } else {
       return currentDate;
     }

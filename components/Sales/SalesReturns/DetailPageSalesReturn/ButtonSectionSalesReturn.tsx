@@ -38,7 +38,7 @@ const SaleReturnsButtonSection = ({
   };
 
   const dateFlag = DetailOfDeliveryNoteFromStore?.data?.posting_date ===
-  new Date()?.toISOString()?.split('T')[0] ? false : true
+  new Date().toISOString().split('T')[0].split('-').reverse().join('-') ? false : true
 
   return (
     <>
