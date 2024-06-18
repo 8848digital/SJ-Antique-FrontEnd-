@@ -17,13 +17,7 @@ const CommonReport = ({
   itemListData,
   categoryData,
 }: any) => {
-  const [tableViewData, setTableViewData] = useState<any>(20);
-
-  const HandleTableViewRows: any = (data: any) => {
-    if (data !== 5) {
-      setTableViewData(data);
-    }
-  };
+  
   const headers =
     reportData.length > 0 && reportData[0] ? Object.keys(reportData[0]) : [];
 
@@ -46,26 +40,15 @@ const CommonReport = ({
         <>
           <div className={`  p-0 text-gray small text-end  ${headers?.length <= 4 ? 'report-heading pe-3' : ''
             }`}>
-            {reportData?.length > 0 && (
-              <>
-                {reportData?.slice(0, tableViewData)?.length} of{' '}
-                {reportData?.length < 10
-                  ? '0' + reportData?.length
-                  : reportData?.length}
-              </>
-            )}
+            
           </div>
-          <ReportListingTable headers={headers} reportData={reportData} tableViewData={tableViewData} />
+          <ReportListingTable headers={headers} reportData={reportData}  />
         </>
       )}
       <div className="row">
         <div className={` px-0 mx-auto ${headers?.length <= 4 ? 'col-9' : 'col'
           }`}>
-          {reportData?.length > 20 && reportData !== null && (
-            <LoadMoreTableDataInMaster
-              HandleTableViewRows={HandleTableViewRows}
-            />
-          )}
+      
         </div>
       </div>
     </div>

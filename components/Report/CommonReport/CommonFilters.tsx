@@ -30,12 +30,16 @@ const CommonFilters = ({
   const clientNameList: any = {
     fieldname: 'Client_Name',
     fieldtype: 'Link',
-    link_data: clientNameData,
+    link_data:
+      clientNameData?.length > 0 &&
+      clientNameData.map((data: any) => data.client_name),
   };
   const karigarNameListData: any = {
     fieldname: 'Karigar_Name',
     fieldtype: 'Link',
-    link_data: karigarNameData,
+    link_data:
+      karigarNameData?.length > 0 &&
+      karigarNameData.map((data: any) => data.karigar_name),
   };
   const productCodeData: any = {
     fieldname: 'product_code',

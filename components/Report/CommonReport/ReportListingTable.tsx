@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '../../../styles/report.module.css';
 
-const ReportListingTable = ({ headers, reportData, tableViewData }: any) => {
-  console.log('report data', reportData, headers);
+const ReportListingTable = ({ headers, reportData }: any) => {
   return (
     <div className="row justify-content-center">
       <div className={`col table-responsie m-auto ${styled.table_container}`}>
@@ -13,11 +12,7 @@ const ReportListingTable = ({ headers, reportData, tableViewData }: any) => {
                 Sr. No.
               </th>
               {headers?.map((header: string, index: number) => (
-                <th
-                  key={index}
-                  scope="col"
-                  className={`thead ${headers?.length <= 4 ? 'col-2' : 'col'}`}
-                >
+                <th key={index} scope="col" className={`thead col`}>
                   {header?.charAt(0)?.toUpperCase() +
                     header?.slice(1)?.replace('_', ' ')}
                 </th>
@@ -27,7 +22,6 @@ const ReportListingTable = ({ headers, reportData, tableViewData }: any) => {
           <tbody>
             {reportData
               .slice(0, -1) // Excludes the last row
-              .slice(0, tableViewData) // Still consider tableViewData limit
               .map((data: any, index: any) => {
                 const firstKey = Object.keys(data)[0];
                 const isTotalRow = data[firstKey] === 'Total';
@@ -35,8 +29,9 @@ const ReportListingTable = ({ headers, reportData, tableViewData }: any) => {
                 return (
                   <tr
                     key={index}
-                    className={`row row-cols-7 justify-content-center text-center ${isTotalRow ? 'fw-bold bg-warning ' : ''
-                      }`}
+                    className={`row row-cols-7 justify-content-center text-center ${
+                      isTotalRow ? 'fw-bold bg-warning ' : ''
+                    }`}
                   >
                     <td scope="col" className="col-1 table_row py-1 py-auto">
                       {!isTotalRow && index + 1}
@@ -45,8 +40,7 @@ const ReportListingTable = ({ headers, reportData, tableViewData }: any) => {
                       <td
                         key={idx}
                         scope="col"
-                        className={`table_row py-1 py-auto ${headers?.length <= 4 ? 'col-2' : 'col'
-                          }`}
+                        className={`table_row py-1 py-auto col `}
                       >
                         {data[header]}
                       </td>
@@ -62,12 +56,13 @@ const ReportListingTable = ({ headers, reportData, tableViewData }: any) => {
             <table className={`table table-hover table-striped cursor`}>
               <tbody>
                 <tr className="row row-cols-7 justify-content-center text-center fw-bold">
-
                   {headers.map((header: any, idx: any) => (
                     <td
                       key={idx}
                       scope="col"
-                      className={`table_row py-1 py-auto ${styled.total_row_container}   ${headers?.length <= 4 ? 'col-2' : 'col'}`}
+                      className={`table_row py-1 py-auto ${
+                        styled.total_row_container
+                      } col`}
                     >
                       {reportData[reportData.length - 1][header]}
                     </td>
