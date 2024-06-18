@@ -29,6 +29,7 @@ const MultipleRecordMaster: any = ({
   showAddRecord,
   handleShowAddRecord,
   handleCloseAddRecord,
+  handleUpdate
 }: any) => {
   const [inputName, setInputName] = useState('');
   const [inputMatGroup, setInputMatGrp] = useState('');
@@ -106,6 +107,8 @@ const MultipleRecordMaster: any = ({
             searchClient={searchClient}
             setSearchClient={setSearchClient}
             nameValue={nameValue}
+            handleUpdate={handleUpdate}
+            HandleNameChange={HandleNameChange}
             />
           </div>
           <AddMaterial

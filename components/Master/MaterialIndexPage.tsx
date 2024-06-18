@@ -1,40 +1,46 @@
 import useMaterialHook from '@/hooks/master/material-hook';
-import React from 'react'
+import React from 'react';
 import MasterSingleRecord from './MasterSingleListing/MasterSingleRecord';
 import { useRouter } from 'next/router';
 import MultipleRecordMaster from './MasterMultipleListing/MasterMaterialMaster';
 
 const MaterialIndexPage = () => {
-    const {
-        materialList,
-        HandleNameChange,
-        HandleSave,
-        nameValue,
-        setNameValue,
-        error1,
-        error2,
-        error3,
-        HandleMaterialGrpSubmit,
-        HandleMaterialGrpValue,
-        errorM,
-        setErrorM,
-        materialGroupList,
-        inputValueM,
-        setInputValueM,
-        selectedMaterialGroup,
-        setSelectedMaterialGroup,
-        matDropdownReset,
-        setMatDropDownReset,showDeleteModal,
-        setShowDeleteModal,
-        handleCloseDeleteModal,
-        handleShowDeleteModal,
-        deleteRecord,showAddRecord, handleShowAddRecord, handleCloseAddRecord
-      }: any = useMaterialHook();
-      const router = useRouter();
+  const {
+    materialList,
+    HandleNameChange,
+    HandleSave,
+    nameValue,
+    setNameValue,
+    error1,
+    error2,
+    error3,
+    HandleMaterialGrpSubmit,
+    HandleMaterialGrpValue,
+    errorM,
+    setErrorM,
+    materialGroupList,
+    inputValueM,
+    setInputValueM,
+    selectedMaterialGroup,
+    setSelectedMaterialGroup,
+    matDropdownReset,
+    setMatDropDownReset,
+    showDeleteModal,
+    setShowDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+    showAddRecord,
+    handleShowAddRecord,
+    handleCloseAddRecord,
+    handleUpdateMaterial,
+    handleUpdateMaterialGroup,
+  }: any = useMaterialHook();
+  const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
 
   const key = pathcontent[pathcontent?.length - 1];
-      let materialGroup: any =
+  let materialGroup: any =
     materialGroupList?.length > 0 &&
     materialGroupList !== null &&
     materialGroupList.map((data: any) => ({
@@ -42,7 +48,7 @@ const MaterialIndexPage = () => {
     }));
   return (
     <div>
-        {key === 'materialGroup' && (
+      {key === 'materialGroup' && (
         <MasterSingleRecord
           karigarData={materialGroup}
           inputValue={inputValueM}
@@ -62,6 +68,7 @@ const MaterialIndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           setInputValueM={setInputValueM}
+          handleUpdate={handleUpdateMaterialGroup}
         />
       )}
       {key === 'material' && (
@@ -92,10 +99,11 @@ const MaterialIndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           setNameValue={setNameValue}
+          handleUpdate={handleUpdateMaterial}
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default MaterialIndexPage
+export default MaterialIndexPage;

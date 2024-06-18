@@ -46,7 +46,10 @@ const MasterIndexPage = () => {
     showAddRecord,
     handleShowAddRecord,
     handleCloseAddRecord,
-    HandleUpdateCategory
+    handleUpdateCategory,
+    handleUpdateSubCategory,
+    handleUpdateClient,
+    handleUpdateClientGroup
   }: any = useMasterHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -119,6 +122,7 @@ const MasterIndexPage = () => {
           showAddRecord={showAddRecord}
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
+          handleUpdate={handleUpdateClient}
         />
       )}
       {key === 'kunCsOtCategory' && (
@@ -198,7 +202,7 @@ const MasterIndexPage = () => {
           showAddRecord={showAddRecord}
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
-          HandleUpdate={HandleUpdateCategory}
+          handleUpdate={handleUpdateCategory}
         />
       )}
       {key === 'subCategory' && (
@@ -236,6 +240,7 @@ const MasterIndexPage = () => {
           showAddRecord={showAddRecord}
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
+          handleUpdate={handleUpdateSubCategory}
         />
       )}
     </div>

@@ -6,7 +6,7 @@ const AddRecordModal = ({
   handleCloseAddRecord,
   inputValue,
   HandleInputValue,
-  HandleUpdate,
+  handleUpdate,
   nameValue,
   HandleNameChange,
   error1,
@@ -34,7 +34,6 @@ const AddRecordModal = ({
             <>
               <div className=" m-1">
                 <label>{placeholder1}</label>
-                <span className="text-danger">*</span>
               </div>
               <div className="p-1">
                 <input
@@ -51,9 +50,8 @@ const AddRecordModal = ({
             </>
           ) : (
             <>
-              <div className=" m-1">
+              <div className="m-1">
                 <label htmlFor="">{placeholder1}</label>
-                <span className="text-danger">*</span>
               </div>
               <div className="p-1">
                 <input
@@ -72,7 +70,6 @@ const AddRecordModal = ({
               <div> {error1 && <p className="text-danger">{error1}</p>}</div>
               <div className=" m-1">
                 <label htmlFor="">{placeholder2}</label>
-                <span className="text-danger">*</span>
               </div>
               <div className="col-lg-6">
                 {value === 'client' ? (
@@ -104,7 +101,6 @@ const AddRecordModal = ({
                 <>
                   <div className=" m-1">
                     <label htmlFor="">{placeholder3}</label>
-                    <span className="text-danger">*</span>
                   </div>
                   <div className="col-lg-6">
                     <SearchSelectInputField
@@ -127,7 +123,7 @@ const AddRecordModal = ({
           <Button variant="secondary" onClick={handleCloseAddRecord}>
             Close
           </Button>
-          <Button variant="primary" onClick={HandleUpdate}>
+          <Button variant="primary" onClick={handleUpdate}>
             Save
           </Button>
         </Modal.Footer>

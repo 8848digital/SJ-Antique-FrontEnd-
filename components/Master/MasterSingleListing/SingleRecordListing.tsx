@@ -20,7 +20,7 @@ const SingleRecordListing = ({
   inputValue,
   HandleInputValue,
   error,
-  HandleUpdate
+  handleUpdate
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -135,7 +135,7 @@ const SingleRecordListing = ({
               inputValue={inputValue}
               HandleInputValue={HandleInputValue}
               error1={error}
-              HandleUpdate={HandleUpdate}
+              handleUpdate={handleUpdate}
               placeholder1={placeholder}
               isMultiple={false}
             />

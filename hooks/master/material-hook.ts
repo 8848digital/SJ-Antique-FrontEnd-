@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
+import MasterUpdateApi from '@/services/api/Master/master-update-api';
 
 const useMaterialHook = () => {
   const {
@@ -34,6 +35,7 @@ const useMaterialHook = () => {
     material: '',
     material_abbr: '',
   });
+  const [originalName, setOriginalName] = useState();
   const [inputValueM, setInputValueM] = useState('');
   const [errorM, setErrorM] = useState('');
   let materialGroupList = useSelector(get_material_group_data).data;
@@ -85,6 +87,48 @@ const useMaterialHook = () => {
       setMatDropDownReset(true);
     }
   };
+  const handleUpdateMaterial=async()=>{
+    const body ={
+      version: "v1",
+    entity: "material",
+    method: "update_material_detail",
+    name:  originalName,
+    material_name: nameValue?.material,
+    material_abbr: nameValue?.material_abbr,
+    material_group:selectedMaterialGroup
+    }
+    if (nameValue.material === '' || nameValue.material === undefined) {
+      setError1('Input field cannot be empty');
+    } else if (
+      nameValue.material_abbr === '' ||
+      nameValue.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
+    } else if (
+      selectedMaterialGroup === '' ||
+      selectedMaterialGroup === undefined
+    ) {
+      setError3('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(
+        loginAcessToken?.token,
+        body
+      );
+      if (apiRes?.data?.message?.status === 'success') {
+        toast.success('Material Name Updated Successfully!');
+        dispatch(getMaterialData(loginAcessToken.token));
+      } else {
+        toast.error('Material Name already exist');
+      }
+      setError1('');
+      setNameValue({
+        material: '',
+        material_abbr: '',
+      });
+      setMatDropDownReset(true);
+    }
+    setShowAddRecord(false)
+  }
   // post material group
   const HandleMaterialGrpSubmit = async () => {
     const values = {
@@ -112,6 +156,31 @@ const useMaterialHook = () => {
     setErrorM('');
     setInputValueM(e.target.value);
   };
+  const handleUpdateMaterialGroup =async()=>{
+    const body={
+      version:"v1",
+    entity:"material_group",
+    method:"update_material_group_detail",
+    name:originalName,
+    material_group:selectedMaterialGroup
+    }
+    if (inputValueM.trim() === '') {
+      setErrorM('Input field cannot be empty');
+    } else {
+      let apiRes: any = await postGroupDataApi(loginAcessToken?.token, body);
+      if (apiRes?.data?.message?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+        toast.success('Material Group Updated Successfully!');
+        dispatch(getMaterialGroupData(loginAcessToken.token));
+      } else {
+        toast.error('Material Group already exist');
+      }
+      setErrorM('');
+      setInputValueM('');
+    }
+    setShowAddRecord(false)
+  }
+
+  // add record modal 
   const handleCloseAddRecord = () => {
     setShowAddRecord(false);
     setNameValue({
@@ -156,6 +225,8 @@ const useMaterialHook = () => {
     showAddRecord,
     handleShowAddRecord,
     handleCloseAddRecord,
+    handleUpdateMaterial,
+    handleUpdateMaterialGroup
   };
 };
 export default useMaterialHook;

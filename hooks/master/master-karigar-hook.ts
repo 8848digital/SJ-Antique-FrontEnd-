@@ -14,6 +14,7 @@ import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
+import MasterUpdateApi from '@/services/api/Master/master-update-api';
 
 const useKarigarHooks = () => {
   const {
@@ -24,7 +25,7 @@ const useKarigarHooks = () => {
     deleteRecord,
   }: any = useDeleteModal();
   const [showAddRecord, setShowAddRecord] = useState(false);
-
+  const [originalName, setOriginalName] = useState();
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -63,6 +64,29 @@ const useKarigarHooks = () => {
     setError('');
     setInputValue(e.target.value);
   };
+  const handleUpdateKarigar = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'karigar',
+      method: 'update_karigar_detail',
+      name: originalName,
+      karigar_name: inputValue,
+    };
+    if (inputValue.trim() === '') {
+      setError('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (apiRes?.data?.message?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+        toast.success('Karigar Name Updated Successfully!');
+        dispatch(getKarigarNameData(loginAcessToken.token));
+      } else {
+        toast.error('Karigar Name already exist');
+      }
+      setError('');
+      setInputValue('');
+    }
+    setShowAddRecord(false);
+  };
   // post kundan karigar api
   const HandleKunSubmit = async () => {
     const values = {
@@ -90,11 +114,38 @@ const useKarigarHooks = () => {
     setError('');
     setInputValue(e.target.value);
   };
-  const handleCloseAddRecord = () => {setShowAddRecord(false),
-    setInputValue('')
+  const handleUpdateKunKarigar = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'kundan_karigar',
+      method: 'update_kundan_karigar_detail',
+      name: originalName,
+      karigar_name: inputValue,
+      warehouse: 'Mumbai - 8DL',
+    };
+    if (inputValue.trim() === '') {
+      setError('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (apiRes?.data?.message?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+        toast.success('Kundan Karigar Name Updated Successfully!');
+        dispatch(getKunKarigarNameData(loginAcessToken.token));
+      } else {
+        toast.error('Kundan Karigar Name already exist');
+      }
+      setError('');
+      setInputValue('');
+      setShowAddRecord(false)
+    }
+  };
+
+  // Add Record Functions
+  const handleCloseAddRecord = () => {
+    setShowAddRecord(false), setInputValue('');
   };
   const handleShowAddRecord = (item: any) => {
-    setInputValue(item?.karigar_name)
+    setInputValue(item?.karigar_name);
+    setOriginalName(item?.karigar_name);
     setShowAddRecord(true);
   };
   return {
@@ -118,6 +169,8 @@ const useKarigarHooks = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    handleUpdateKarigar,
+    handleUpdateKunKarigar,
   };
 };
 

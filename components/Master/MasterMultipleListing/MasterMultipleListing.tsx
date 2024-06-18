@@ -24,7 +24,7 @@ const MasterMaterialListing = ({
   handleCloseAddRecord,
   nameValue,
   HandleNameChange,
-  HandleSave,
+  handleUpdate,
   error1,
   error2,
   error3,
@@ -219,7 +219,7 @@ const MasterMaterialListing = ({
               handleCloseAddRecord={handleCloseAddRecord}
               nameValue={nameValue}
               HandleNameChange={HandleNameChange}
-              HandleSubmit={HandleSave}
+              handleUpdate={handleUpdate}
               error1={error1}
               error2={error2}
               error3={error3}

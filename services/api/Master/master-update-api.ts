@@ -7,12 +7,11 @@ const MasterUpdateApi: any = async (
 ) => {
   let response: any;
   const getHeaders = headerGenerator(token);
-  const params = ''
   await axios
     .put(`${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`, body, getHeaders)
     .then((res: any) => {
       response = res;
-      console.log(response)
+      console.log(response,'response')
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {

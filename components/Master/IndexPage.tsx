@@ -22,6 +22,8 @@ const IndexPage = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
+    handleUpdateKarigar,
+    handleUpdateKunKarigar
   }: any = useKarigarHooks();
 
   const router = useRouter();
@@ -51,6 +53,7 @@ const IndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           setInputValue={setInputValue}
+          handleUpdate={handleUpdateKarigar}
         />
       )}
       {key === 'kundanKarigar' && (
@@ -73,6 +76,7 @@ const IndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           setInputValue={setInputValue}
+          handleUpdate={handleUpdateKunKarigar}
         />
       )}
     </div>
