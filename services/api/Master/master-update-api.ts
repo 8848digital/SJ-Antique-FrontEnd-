@@ -11,7 +11,6 @@ const MasterUpdateApi: any = async (
     .put(`${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api`, body, getHeaders)
     .then((res: any) => {
       response = res;
-      console.log(response,'response')
     })
     .catch((err: any) => {
       if (err.code === 'ECONNABORTED') {

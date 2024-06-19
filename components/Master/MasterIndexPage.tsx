@@ -49,7 +49,9 @@ const MasterIndexPage = () => {
     handleUpdateCategory,
     handleUpdateSubCategory,
     handleUpdateClient,
-    handleUpdateClientGroup
+    handleUpdateClientGroup,
+    handleUpdateBBCategory,
+    handleUpdateKunCsOtCategory
   }: any = useMasterHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -88,6 +90,7 @@ const MasterIndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           setInputValue={setInputValue1}
+          handleUpdate={handleUpdateClientGroup}
         />
       )}
       {key === 'client' && (
@@ -133,7 +136,7 @@ const MasterIndexPage = () => {
             KunCsOtCategory !== null &&
             KunCsOtCategory.map((data: any) => ({
               material: data.name1,
-              type: data.type,
+              material_abbr: data.type,
             }))
           }
           HandleNameChange={HandleKunCsOtChange}
@@ -152,6 +155,7 @@ const MasterIndexPage = () => {
           showAddRecord={showAddRecord}
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
+          handleUpdate={handleUpdateKunCsOtCategory}
         />
       )}
       {key === 'BBCategory' && (
@@ -162,7 +166,7 @@ const MasterIndexPage = () => {
             BBCategory !== null &&
             BBCategory.map((data: any) => ({
               material: data.name1,
-              type: data.type,
+              material_abbr: data.type,
             }))
           }
           HandleNameChange={HandleBBChange}
@@ -181,6 +185,7 @@ const MasterIndexPage = () => {
           showAddRecord={showAddRecord}
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
+          handleUpdate={handleUpdateBBCategory}
         />
       )}
       {key === 'category' && (

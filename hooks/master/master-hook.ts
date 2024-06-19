@@ -123,15 +123,15 @@ const useMasterHook = () => {
       setSelectDropDownReset(true);
     }
   };
-  const handleUpdateClient=async()=>{
-    const body ={
-      version:"v1",
-    entity:"client",
-    method:"update_client_detail",
-    name:originalName,
-    client_group:searchClient,
-    client_name:clientName?.material
-    }
+  const handleUpdateClient = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'client',
+      method: 'update_client_detail',
+      name: originalName,
+      client_group: searchClient,
+      client_name: clientName?.material,
+    };
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
     } else if (
@@ -153,9 +153,9 @@ const useMasterHook = () => {
         material_abbr: '',
       });
       setSelectDropDownReset(true);
+      setShowAddRecord(false);
     }
-    setShowAddRecord(false)
-  }
+  };
 
   // Sub-category post API
   const HandleSubCategoryChange = (e: any) => {
@@ -226,10 +226,7 @@ const useMasterHook = () => {
     } else if (searchCategory === '' || searchCategory === undefined) {
       setError3('Input field cannot be empty');
     } else {
-      let apiRes: any = await MasterUpdateApi(
-        loginAcessToken?.token,
-        body
-      );
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
       if (apiRes?.data?.message?.status === 'success') {
         toast.success('Sub-category Name Created');
         dispatch(getSubCategoryData(loginAcessToken.token));
@@ -242,8 +239,8 @@ const useMasterHook = () => {
         material_abbr: '',
       });
       setSelectDropDownReset(true);
+      setShowAddRecord(false);
     }
-    setShowAddRecord(false)
   };
 
   // KunCsOt category post api
@@ -286,6 +283,38 @@ const useMasterHook = () => {
       });
     }
   };
+  const handleUpdateKunCsOtCategory = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'kun_cs_ot_category',
+      method: 'update_kun_cs_ot_details',
+      name: originalName,
+      name1: clientName?.material,
+      type: clientName?.material_abbr,
+    };
+    if (clientName?.material === '' || clientName.material === undefined) {
+      setError1('Input field cannot be empty');
+    } else if (
+      clientName.material_abbr === '' ||
+      clientName.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (apiRes?.data?.message?.status === 'success') {
+        toast.success('Kun-Cs-Ot Category Created');
+        dispatch(getKunCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('Kun-Cs-Ot Category already exist');
+      }
+      setError1('');
+      setClientNameValue({
+        material: '',
+        material_abbr: '',
+      });
+      setShowAddRecord(false);
+    }
+  };
   // post bb category api
   const HandleBBChange = (e: any) => {
     const { name, value } = e.target;
@@ -323,6 +352,38 @@ const useMasterHook = () => {
       });
     }
   };
+  const handleUpdateBBCategory = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'bb_category',
+      method: 'update_bb_category_details',
+      name: originalName,
+      name1: clientName?.material,
+      type: clientName?.material_abbr,
+    };
+    if (clientName?.material === '' || clientName.material === undefined) {
+      setError1('Input field cannot be empty');
+    } else if (
+      clientName.material_abbr === '' ||
+      clientName.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (apiRes?.data?.message?.status === 'success') {
+        toast.success('BB Category Created');
+        dispatch(getBBCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('BB Category already exist');
+      }
+      setError1('');
+      setClientNameValue({
+        material: '',
+        material_abbr: '',
+      });
+      setShowAddRecord(false);
+    }
+  };
 
   // client group post api
   const HandleClientGrpSubmit = async () => {
@@ -353,9 +414,32 @@ const useMasterHook = () => {
   const handleSelectClientGroup = (value: any) => {
     setSearchClient(value);
   };
-  const handleUpdateClientGroup=async()=>{
-
-  }
+  const handleUpdateClientGroup = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'client_group',
+      method: 'update_client_group_detail',
+      name: originalName,
+      client_group: inputValue1,
+    };
+    if (inputValue1.trim() === '') {
+      setErrorC('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (
+        apiRes?.data?.message?.status === 'success' &&
+        apiRes?.hasOwnProperty('data')
+      ) {
+        toast.success('Client Group Updated Successfully!');
+        dispatch(getClientGroupData(loginAcessToken.token));
+      } else {
+        toast.error('Client Group already exist');
+      }
+      setErrorC('');
+      setInputValue1('');
+      setShowAddRecord(false);
+    }
+  };
 
   // Category post API
   const HandleCategorySubmit = async () => {
@@ -409,8 +493,8 @@ const useMasterHook = () => {
       }
       setErrorC('');
       setInputValue1('');
+      setShowAddRecord(false);
     }
-    setShowAddRecord(false);
   };
 
   // Handle Add record Modal
@@ -418,7 +502,7 @@ const useMasterHook = () => {
   const handleShowAddRecord = (item: any) => {
     if (item?.karigar_name) {
       setInputValue1(item?.karigar_name);
-      setOriginalName(item?.karigar_name); // for category
+      setOriginalName(item?.karigar_name);
     } else {
       setClientNameValue(item);
       setSearchClient(item?.material_abbr);
@@ -473,7 +557,9 @@ const useMasterHook = () => {
     handleUpdateCategory,
     handleUpdateSubCategory,
     handleUpdateClient,
-    handleUpdateClientGroup
+    handleUpdateClientGroup,
+    handleUpdateBBCategory,
+    handleUpdateKunCsOtCategory
   };
 };
 export default useMasterHook;

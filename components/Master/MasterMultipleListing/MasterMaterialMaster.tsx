@@ -109,6 +109,9 @@ const MultipleRecordMaster: any = ({
             nameValue={nameValue}
             handleUpdate={handleUpdate}
             HandleNameChange={HandleNameChange}
+            error1={error1}
+            error2={error2}
+            error3={error3}
             />
           </div>
           <AddMaterial

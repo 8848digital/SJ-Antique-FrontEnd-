@@ -87,16 +87,16 @@ const useMaterialHook = () => {
       setMatDropDownReset(true);
     }
   };
-  const handleUpdateMaterial=async()=>{
-    const body ={
-      version: "v1",
-    entity: "material",
-    method: "update_material_detail",
-    name:  originalName,
-    material_name: nameValue?.material,
-    material_abbr: nameValue?.material_abbr,
-    material_group:selectedMaterialGroup
-    }
+  const handleUpdateMaterial = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'material',
+      method: 'update_material_detail',
+      name: originalName,
+      material_name: nameValue?.material,
+      material_abbr: nameValue?.material_abbr,
+      material_group: selectedMaterialGroup,
+    };
     if (nameValue.material === '' || nameValue.material === undefined) {
       setError1('Input field cannot be empty');
     } else if (
@@ -110,10 +110,7 @@ const useMaterialHook = () => {
     ) {
       setError3('Input field cannot be empty');
     } else {
-      let apiRes: any = await MasterUpdateApi(
-        loginAcessToken?.token,
-        body
-      );
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
       if (apiRes?.data?.message?.status === 'success') {
         toast.success('Material Name Updated Successfully!');
         dispatch(getMaterialData(loginAcessToken.token));
@@ -126,9 +123,9 @@ const useMaterialHook = () => {
         material_abbr: '',
       });
       setMatDropDownReset(true);
+      setShowAddRecord(false);
     }
-    setShowAddRecord(false)
-  }
+  };
   // post material group
   const HandleMaterialGrpSubmit = async () => {
     const values = {
@@ -156,19 +153,22 @@ const useMaterialHook = () => {
     setErrorM('');
     setInputValueM(e.target.value);
   };
-  const handleUpdateMaterialGroup =async()=>{
-    const body={
-      version:"v1",
-    entity:"material_group",
-    method:"update_material_group_detail",
-    name:originalName,
-    material_group:selectedMaterialGroup
-    }
+  const handleUpdateMaterialGroup = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'material_group',
+      method: 'update_material_group_detail',
+      name: originalName,
+      material_group: inputValueM,
+    };
     if (inputValueM.trim() === '') {
       setErrorM('Input field cannot be empty');
     } else {
-      let apiRes: any = await postGroupDataApi(loginAcessToken?.token, body);
-      if (apiRes?.data?.message?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (
+        apiRes?.data?.message?.status === 'success' &&
+        apiRes?.hasOwnProperty('data')
+      ) {
         toast.success('Material Group Updated Successfully!');
         dispatch(getMaterialGroupData(loginAcessToken.token));
       } else {
@@ -176,11 +176,11 @@ const useMaterialHook = () => {
       }
       setErrorM('');
       setInputValueM('');
+      setShowAddRecord(false);
     }
-    setShowAddRecord(false)
-  }
+  };
 
-  // add record modal 
+  // add record modal
   const handleCloseAddRecord = () => {
     setShowAddRecord(false);
     setNameValue({
@@ -189,10 +189,12 @@ const useMaterialHook = () => {
     });
   };
   const handleShowAddRecord = (item: any) => {
-    if(item?.karigar_name){
-      setInputValueM(item?.karigar_name)
-    }else{
+    if (item?.karigar_name) {
+      setInputValueM(item?.karigar_name);
+      setOriginalName(item?.karigar_name)
+    } else {
       setNameValue(item);
+      setOriginalName(item?.material)
     }
     setShowAddRecord(true);
   };
@@ -226,7 +228,7 @@ const useMaterialHook = () => {
     handleShowAddRecord,
     handleCloseAddRecord,
     handleUpdateMaterial,
-    handleUpdateMaterialGroup
+    handleUpdateMaterialGroup,
   };
 };
 export default useMaterialHook;
