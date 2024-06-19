@@ -1,7 +1,7 @@
 import useMasterHook from '@/hooks/master/master-hook';
 import { useRouter } from 'next/router';
-import MultipleRecordMaster from './MasterMultipleListing/MasterMaterialMaster';
-import MasterSingleRecord from './MasterSingleListing/MasterSingleRecord';
+import MultipleRecordMaster from '../MasterMultipleListing/MasterMaterialMaster';
+import MasterSingleRecord from '../MasterSingleListing/MasterSingleRecord';
 
 const MasterIndexPage = () => {
   const {
@@ -51,7 +51,13 @@ const MasterIndexPage = () => {
     handleUpdateClient,
     handleUpdateClientGroup,
     handleUpdateBBCategory,
-    handleUpdateKunCsOtCategory
+    handleUpdateKunCsOtCategory,
+    handleDeleteCategory,
+    handleDeleteSubCategory,
+    handleDeleteClient,
+    handleDeleteClientGroup,
+    handleDeleteBBCategory,
+    handleDeleteKunCSOtCategory
   }: any = useMasterHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -91,6 +97,7 @@ const MasterIndexPage = () => {
           handleCloseAddRecord={handleCloseAddRecord}
           setInputValue={setInputValue1}
           handleUpdate={handleUpdateClientGroup}
+          handleDelete={handleDeleteClientGroup}
         />
       )}
       {key === 'client' && (
@@ -126,6 +133,7 @@ const MasterIndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           handleUpdate={handleUpdateClient}
+          handleDelete={handleDeleteClient}
         />
       )}
       {key === 'kunCsOtCategory' && (
@@ -156,6 +164,7 @@ const MasterIndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           handleUpdate={handleUpdateKunCsOtCategory}
+          handleDelete={handleDeleteKunCSOtCategory}
         />
       )}
       {key === 'BBCategory' && (
@@ -186,6 +195,7 @@ const MasterIndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           handleUpdate={handleUpdateBBCategory}
+          handleDelete={handleDeleteBBCategory}
         />
       )}
       {key === 'category' && (
@@ -208,6 +218,7 @@ const MasterIndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           handleUpdate={handleUpdateCategory}
+          handleDelete={handleDeleteCategory}
         />
       )}
       {key === 'subCategory' && (
@@ -246,6 +257,7 @@ const MasterIndexPage = () => {
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
           handleUpdate={handleUpdateSubCategory}
+          handleDelete={handleDeleteSubCategory}
         />
       )}
     </div>

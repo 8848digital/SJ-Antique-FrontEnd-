@@ -1,6 +1,7 @@
-import IndexPage from '@/components/Master/IndexPage';
-import MasterIndexPage from '@/components/Master/MasterIndexPage';
-import MaterialIndexPage from '@/components/Master/MaterialIndexPage';
+import IndexPage from "@/components/Master/InadexPage/IndexPage"
+import MasterIndexPage from "@/components/Master/InadexPage/MasterIndexPage"
+import MaterialIndexPage from "@/components/Master/InadexPage/MaterialIndexPage"
+
 
 const index = () => {
   return(

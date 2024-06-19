@@ -29,7 +29,8 @@ const MultipleRecordMaster: any = ({
   showAddRecord,
   handleShowAddRecord,
   handleCloseAddRecord,
-  handleUpdate
+  handleUpdate,
+  handleDelete
 }: any) => {
   const [inputName, setInputName] = useState('');
   const [inputMatGroup, setInputMatGrp] = useState('');
@@ -112,6 +113,7 @@ const MultipleRecordMaster: any = ({
             error1={error1}
             error2={error2}
             error3={error3}
+            handleDelete={handleDelete}
             />
           </div>
           <AddMaterial

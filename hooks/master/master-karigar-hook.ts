@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 import MasterUpdateApi from '@/services/api/Master/master-update-api';
+import MasterDeleteApi from '@/services/api/Master/master-delete-api';
 
 const useKarigarHooks = () => {
   const {
@@ -76,7 +77,10 @@ const useKarigarHooks = () => {
       setError('Input field cannot be empty');
     } else {
       let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
-      if (apiRes?.data?.message?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+      if (
+        apiRes?.data?.message?.status === 'success' &&
+        apiRes?.hasOwnProperty('data')
+      ) {
         toast.success('Karigar Name Updated Successfully!');
         dispatch(getKarigarNameData(loginAcessToken.token));
       } else {
@@ -86,6 +90,22 @@ const useKarigarHooks = () => {
       setInputValue('');
     }
     setShowAddRecord(false);
+  };
+  const handleDeleteKarigar = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Karigar',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('Karigar successfully deleted!')
+        dispatch(getKarigarNameData (loginAcessToken.token));
+      }else{
+        toast.error('Karigar cannot be deleted')
+      }
+      setShowDeleteModal(false)
+    }
   };
   // post kundan karigar api
   const HandleKunSubmit = async () => {
@@ -127,7 +147,10 @@ const useKarigarHooks = () => {
       setError('Input field cannot be empty');
     } else {
       let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
-      if (apiRes?.data?.message?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+      if (
+        apiRes?.data?.message?.status === 'success' &&
+        apiRes?.hasOwnProperty('data')
+      ) {
         toast.success('Kundan Karigar Name Updated Successfully!');
         dispatch(getKunKarigarNameData(loginAcessToken.token));
       } else {
@@ -135,10 +158,25 @@ const useKarigarHooks = () => {
       }
       setError('');
       setInputValue('');
-      setShowAddRecord(false)
+      setShowAddRecord(false);
     }
   };
-
+  const handleDeleteKunKarigar = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      let apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Kundan Karigar',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('Kundan Karigar successfully deleted!')
+        dispatch(getKunKarigarNameData(loginAcessToken.token));
+      }else{
+        toast.error('Kundan Karigar cannot be deleted')
+      }
+      setShowDeleteModal(false)
+    }
+  };
   // Add Record Functions
   const handleCloseAddRecord = () => {
     setShowAddRecord(false), setInputValue('');
@@ -171,6 +209,8 @@ const useKarigarHooks = () => {
     deleteRecord,
     handleUpdateKarigar,
     handleUpdateKunKarigar,
+    handleDeleteKarigar,
+    handleDeleteKunKarigar
   };
 };
 

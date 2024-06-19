@@ -4,6 +4,9 @@ import { useState } from 'react';
 import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
 import DeleteModal from '@/components/DeleteModal';
 import AddRecordModal from '../AddRecordModal';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const MasterMaterialListing = ({
   materialList,
@@ -33,6 +36,7 @@ const MasterMaterialListing = ({
   setSelectDropDownReset,
   searchClient,
   setSearchClient,
+  handleDelete
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -53,6 +57,11 @@ const MasterMaterialListing = ({
       },
     });
   };
+  const PopoverLeft =(item:any)=> (
+    <Popover id="popover-positioned-left" title="Popover left" className="p-2">
+      This {placeholder1} has been used somewhere.
+    </Popover>
+  );
   return (
     <div>
       {defaultData?.length > 0 ? (
@@ -190,12 +199,25 @@ const MasterMaterialListing = ({
                             >
                               Update
                             </button>
-                            <button
-                              className="btn btn-link text-danger p-0"
-                              onClick={handleShowDeleteModal}
-                            >
-                              Delete
-                            </button>
+                            <div>
+                              <button
+                                className="btn btn-link text-danger p-0"
+                                onClick={()=>handleShowDeleteModal(item?.material)}
+                              >
+                                Delete
+                              </button>
+                              <OverlayTrigger
+                                trigger="click"
+                                placement="left"
+                                overlay={<PopoverLeft item={item}/>}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faCircleInfo}
+                                  className=" ps-2"
+                                  style={{ color: '#6164ef' }}
+                                />
+                              </OverlayTrigger>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -209,7 +231,7 @@ const MasterMaterialListing = ({
             </table>
             <DeleteModal
               heading={'Record'}
-              // confirmDelete={HandleDeleteReceipt}
+              confirmDelete={handleDelete}
               showDeleteModal={showDeleteModal}
               handleCloseDeleteModal={handleCloseDeleteModal}
               deleteRecord={deleteRecord}

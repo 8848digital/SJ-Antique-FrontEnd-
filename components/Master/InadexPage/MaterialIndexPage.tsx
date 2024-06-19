@@ -1,8 +1,8 @@
 import useMaterialHook from '@/hooks/master/material-hook';
 import React from 'react';
-import MasterSingleRecord from './MasterSingleListing/MasterSingleRecord';
+import MasterSingleRecord from '../MasterSingleListing/MasterSingleRecord';
 import { useRouter } from 'next/router';
-import MultipleRecordMaster from './MasterMultipleListing/MasterMaterialMaster';
+import MultipleRecordMaster from '../MasterMultipleListing/MasterMaterialMaster';
 
 const MaterialIndexPage = () => {
   const {
@@ -35,6 +35,8 @@ const MaterialIndexPage = () => {
     handleCloseAddRecord,
     handleUpdateMaterial,
     handleUpdateMaterialGroup,
+    handleDeleteMaterial,
+    handleDeleteMaterialGroup
   }: any = useMaterialHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -69,6 +71,7 @@ const MaterialIndexPage = () => {
           handleCloseAddRecord={handleCloseAddRecord}
           setInputValueM={setInputValueM}
           handleUpdate={handleUpdateMaterialGroup}
+          handleDelete={handleDeleteMaterialGroup}
         />
       )}
       {key === 'material' && (
@@ -100,6 +103,7 @@ const MaterialIndexPage = () => {
           handleCloseAddRecord={handleCloseAddRecord}
           setNameValue={setNameValue}
           handleUpdate={handleUpdateMaterial}
+          handleDelete={handleDeleteMaterial}
         />
       )}
     </div>

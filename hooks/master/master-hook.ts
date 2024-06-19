@@ -34,6 +34,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 import MasterUpdateApi from '@/services/api/Master/master-update-api';
+import MasterDeleteApi from '@/services/api/Master/master-delete-api';
 
 const useMasterHook = () => {
   const {
@@ -156,6 +157,22 @@ const useMasterHook = () => {
       setShowAddRecord(false);
     }
   };
+  const handleDeleteClient = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Client',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('Client Deleted Successfully!')
+        dispatch(getClientNameData(loginAcessToken.token));
+      }else{
+        toast.error('Client cannot be deleted')
+      }
+      setShowDeleteModal(false)
+    }
+  };
 
   // Sub-category post API
   const HandleSubCategoryChange = (e: any) => {
@@ -242,6 +259,22 @@ const useMasterHook = () => {
       setShowAddRecord(false);
     }
   };
+  const handleDeleteSubCategory = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Sub Category',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('Sub Category Deleted Successfully!')
+        dispatch(getSubCategoryData(loginAcessToken.token));
+      }else{
+        toast.error('Sub Category cannot be deleted')
+      }
+      setShowDeleteModal(false)
+    }
+  };
 
   // KunCsOt category post api
   const HandleKunCsOtChange = (e: any) => {
@@ -315,6 +348,22 @@ const useMasterHook = () => {
       setShowAddRecord(false);
     }
   };
+  const handleDeleteKunCSOtCategory = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Kun-CS-Ot Category',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('Kun-CS-Ot Category Deleted Successfully!')
+        dispatch(getKunCategoryData(loginAcessToken.token));
+      }else{
+        toast.error('Kun-CS-Ot Category cannot be deleted')
+      }
+      setShowDeleteModal(false)
+    }
+  };
   // post bb category api
   const HandleBBChange = (e: any) => {
     const { name, value } = e.target;
@@ -384,6 +433,22 @@ const useMasterHook = () => {
       setShowAddRecord(false);
     }
   };
+  const handleDeleteBBCategory = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'BB Category',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('BB Category Deleted Successfully!')
+        dispatch(getBBCategoryData(loginAcessToken.token));
+      }else{
+        toast.error('BB Category cannot be deleted')
+      }
+      setShowDeleteModal(false)
+    }
+  };
 
   // client group post api
   const HandleClientGrpSubmit = async () => {
@@ -440,6 +505,22 @@ const useMasterHook = () => {
       setShowAddRecord(false);
     }
   };
+  const handleDeleteClientGroup = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Client Group',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('Client Group Deleted Successfully!')
+        dispatch(getClientGroupData(loginAcessToken.token));
+      }else{
+        toast.error('Client Group cannot be deleted')
+      }
+      setShowDeleteModal(false)
+    }
+  };
 
   // Category post API
   const HandleCategorySubmit = async () => {
@@ -494,6 +575,22 @@ const useMasterHook = () => {
       setErrorC('');
       setInputValue1('');
       setShowAddRecord(false);
+    }
+  };
+  const handleDeleteCategory = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Category',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('Category Deleted Successfully!')
+        dispatch(getCategoryData(loginAcessToken.token));
+      }else{
+        toast.error('Category cannot be deleted')
+      }
+      setShowDeleteModal(false)
     }
   };
 
@@ -559,7 +656,13 @@ const useMasterHook = () => {
     handleUpdateClient,
     handleUpdateClientGroup,
     handleUpdateBBCategory,
-    handleUpdateKunCsOtCategory
+    handleUpdateKunCsOtCategory,
+    handleDeleteCategory,
+    handleDeleteSubCategory,
+    handleDeleteClient,
+    handleDeleteClientGroup,
+    handleDeleteBBCategory,
+    handleDeleteKunCSOtCategory
   };
 };
 export default useMasterHook;

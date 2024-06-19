@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 import MasterUpdateApi from '@/services/api/Master/master-update-api';
+import MasterDeleteApi from '@/services/api/Master/master-delete-api';
 
 const useMaterialHook = () => {
   const {
@@ -126,6 +127,22 @@ const useMaterialHook = () => {
       setShowAddRecord(false);
     }
   };
+  const handleDeleteMaterial = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Material',
+        name
+      );
+      if(apiRes?.status === 202){
+        toast.success('Material Deleted Successfully!')
+        dispatch(getMaterialData(loginAcessToken.token));
+      }else{
+        toast.error('Material cannot be deleted')
+      }
+      setShowDeleteModal(false)
+    }
+  };
   // post material group
   const HandleMaterialGrpSubmit = async () => {
     const values = {
@@ -179,6 +196,23 @@ const useMaterialHook = () => {
       setShowAddRecord(false);
     }
   };
+  const handleDeleteMaterialGroup = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Material Group',
+        name
+      );
+      console.log(apiRes?.status)
+      if(apiRes?.status === 202){
+        toast.success('Material group deleted successfully!')
+        dispatch(getMaterialGroupData(loginAcessToken.token));
+      }else{
+        toast.error('Material Group cannot be deleted.')
+      }
+    }
+    setShowDeleteModal(false)
+  };
 
   // add record modal
   const handleCloseAddRecord = () => {
@@ -191,10 +225,10 @@ const useMaterialHook = () => {
   const handleShowAddRecord = (item: any) => {
     if (item?.karigar_name) {
       setInputValueM(item?.karigar_name);
-      setOriginalName(item?.karigar_name)
+      setOriginalName(item?.karigar_name);
     } else {
       setNameValue(item);
-      setOriginalName(item?.material)
+      setOriginalName(item?.material);
     }
     setShowAddRecord(true);
   };
@@ -229,6 +263,8 @@ const useMaterialHook = () => {
     handleCloseAddRecord,
     handleUpdateMaterial,
     handleUpdateMaterialGroup,
+    handleDeleteMaterial,
+    handleDeleteMaterialGroup,
   };
 };
 export default useMaterialHook;

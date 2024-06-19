@@ -4,6 +4,9 @@ import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
 import NoRecord from '@/components/NoRecord/NoRecord';
 import DeleteModal from '@/components/DeleteModal';
 import AddRecordModal from '../AddRecordModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 const SingleRecordListing = ({
   karigarData,
@@ -20,7 +23,8 @@ const SingleRecordListing = ({
   inputValue,
   HandleInputValue,
   error,
-  handleUpdate
+  handleUpdate,
+  handleDelete,
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -37,7 +41,11 @@ const SingleRecordListing = ({
       },
     });
   };
-
+  const popoverLeft = (
+    <Popover id="popover-positioned-left" title="Popover left" className="p-2">
+      This {placeholder} has been used somewhere.
+    </Popover>
+  );
   return (
     <div>
       {defaultData?.length > 0 ? (
@@ -101,16 +109,31 @@ const SingleRecordListing = ({
                           <div className="d-flex justify-content-around">
                             <button
                               className="btn btn-link p-0 small"
-                              onClick={()=>handleShowAddRecord(item)}
+                              onClick={() => handleShowAddRecord(item)}
                             >
                               Update
                             </button>
-                            <button
-                              className="btn btn-link text-danger p-0"
-                              onClick={handleShowDeleteModal}
-                            >
-                              Delete
-                            </button>
+                            <div>
+                              <button
+                                className="btn btn-link text-danger p-0"
+                                onClick={() =>
+                                  handleShowDeleteModal(item?.karigar_name)
+                                }
+                              >
+                                Delete
+                              </button>
+                              <OverlayTrigger
+                                trigger="click"
+                                placement="left"
+                                overlay={popoverLeft}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faCircleInfo}
+                                  className=" ps-2"
+                                  style={{ color: '#6164ef' }}
+                                />
+                              </OverlayTrigger>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -124,7 +147,7 @@ const SingleRecordListing = ({
             </table>
             <DeleteModal
               heading={placeholder}
-              // confirmDelete={HandleDeleteReceipt}
+              confirmDelete={handleDelete}
               showDeleteModal={showDeleteModal}
               handleCloseDeleteModal={handleCloseDeleteModal}
               deleteRecord={deleteRecord}
