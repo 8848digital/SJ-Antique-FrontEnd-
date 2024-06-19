@@ -36,7 +36,7 @@ const MasterMaterialListing = ({
   setSelectDropDownReset,
   searchClient,
   setSearchClient,
-  handleDelete
+  handleDelete,
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -57,7 +57,7 @@ const MasterMaterialListing = ({
       },
     });
   };
-  const PopoverLeft =(item:any)=> (
+  const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
       This {placeholder1} has been used somewhere.
     </Popover>
@@ -199,24 +199,31 @@ const MasterMaterialListing = ({
                             >
                               Update
                             </button>
-                            <div>
+                            <div className='d-flex justify-space-between'>
                               <button
                                 className="btn btn-link text-danger p-0"
-                                onClick={()=>handleShowDeleteModal(item?.material)}
+                                onClick={() =>
+                                  handleShowDeleteModal(item?.material)
+                                }
+                                disabled={item?.delete === 0 ? true : false}
                               >
                                 Delete
                               </button>
-                              <OverlayTrigger
-                                trigger="click"
-                                placement="left"
-                                overlay={<PopoverLeft item={item}/>}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faCircleInfo}
-                                  className=" ps-2"
-                                  style={{ color: '#6164ef' }}
-                                />
-                              </OverlayTrigger>
+                              {item?.delete === 0 ? (
+                                <OverlayTrigger
+                                  trigger="click"
+                                  placement="left"
+                                  overlay={popoverLeft}
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faCircleInfo}
+                                    className=" ps-2 mt-1"
+                                    style={{ color: '#6164ef' }}
+                                  />
+                                </OverlayTrigger>
+                              ) : (
+                                <span className="px-2 mx-1"></span>
+                              )}
                             </div>
                           </div>
                         </td>

@@ -9,7 +9,7 @@
 }
 
 .table_container {
-    height: 456px;
+    height: 65vh;
     overflow-y: auto;
     overflow-x: auto;
     display: inline-block;
@@ -19,9 +19,8 @@
     font-size: 14px;
 }
 
-
 .scrollable_div {
-    max-height: 500px;
+    max-height: 70vh;
     overflow-x: scroll;
     white-space: nowrap;
     overflow-y: hidden;

@@ -6,7 +6,6 @@ const MasterDeleteApi = async (
   doctype:any,
   name:any
 ) => {
-    console.log(token,doctype,name)
   let response: any;
   const headers = headerGenerator(token)
 

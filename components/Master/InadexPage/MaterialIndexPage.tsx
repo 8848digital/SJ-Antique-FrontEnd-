@@ -47,6 +47,7 @@ const MaterialIndexPage = () => {
     materialGroupList !== null &&
     materialGroupList.map((data: any) => ({
       karigar_name: data.material_group,
+      delete : data.delete
     }));
   return (
     <div>

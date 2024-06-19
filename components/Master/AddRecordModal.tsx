@@ -27,7 +27,7 @@ const AddRecordModal = ({
     <>
       <Modal show={showAddRecord} onHide={handleCloseAddRecord}>
         <Modal.Header closeButton>
-          <Modal.Title>Add {placeholder1}</Modal.Title>
+          <Modal.Title>Update {placeholder1}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {!isMultiple ? (

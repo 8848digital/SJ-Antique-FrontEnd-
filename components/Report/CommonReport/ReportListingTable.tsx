@@ -3,7 +3,7 @@ import styled from '../../../styles/report.module.css';
 
 const ReportListingTable = ({ headers, reportData }: any) => {
   return (
-    <div className="row justify-content-center">
+    <div className="row justify-content-center mt-3">
       <div className={`col table-responsie m-auto ${styled.table_container}`}>
         <table className="table table-hover table-striped cursor ">
           <thead className="sticky-top">

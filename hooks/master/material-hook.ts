@@ -203,7 +203,6 @@ const useMaterialHook = () => {
         'Material Group',
         name
       );
-      console.log(apiRes?.status)
       if(apiRes?.status === 202){
         toast.success('Material group deleted successfully!')
         dispatch(getMaterialGroupData(loginAcessToken.token));

@@ -74,14 +74,14 @@ const useMasterHook = () => {
   const [originalName, setOriginalName] = useState();
 
   // client post api
-  useEffect(() => {
-    setClientNameValue({
-      ...clientName,
-      material_abbr: searchClient,
-    });
-    setError1('');
-    setError2('');
-  }, []);
+  // useEffect(() => {
+  //   setClientNameValue({
+  //     ...clientName,
+  //     material_abbr: searchClient,
+  //   });
+  //   setError1('');
+  //   setError2('');
+  // }, []);
   const HandleClientNameChange = (e: any) => {
     const { value } = e.target;
 
@@ -136,8 +136,8 @@ const useMasterHook = () => {
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
     } else if (
-      clientName.material_abbr === '' ||
-      clientName.material_abbr === undefined
+      searchClient === '' ||
+      searchClient === undefined
     ) {
       setError2('Input field cannot be empty');
     } else {

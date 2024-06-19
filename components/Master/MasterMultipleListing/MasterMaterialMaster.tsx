@@ -30,7 +30,7 @@ const MultipleRecordMaster: any = ({
   handleShowAddRecord,
   handleCloseAddRecord,
   handleUpdate,
-  handleDelete
+  handleDelete,
 }: any) => {
   const [inputName, setInputName] = useState('');
   const [inputMatGroup, setInputMatGrp] = useState('');
@@ -44,7 +44,6 @@ const MultipleRecordMaster: any = ({
   const handleInputChange3 = (event: any) => {
     setInputMatGrp(event.target.value);
   };
-
   const filteredList: any =
     materialList?.length > 0 &&
     materialList !== null &&
@@ -103,17 +102,17 @@ const MultipleRecordMaster: any = ({
               handleShowAddRecord={handleShowAddRecord}
               handleCloseAddRecord={handleCloseAddRecord}
               clientGroup={clientGroup}
-            selectDropDownReset={selectDropDownReset}
-            setSelectDropDownReset={setSelectDropDownReset}
-            searchClient={searchClient}
-            setSearchClient={setSearchClient}
-            nameValue={nameValue}
-            handleUpdate={handleUpdate}
-            HandleNameChange={HandleNameChange}
-            error1={error1}
-            error2={error2}
-            error3={error3}
-            handleDelete={handleDelete}
+              selectDropDownReset={selectDropDownReset}
+              setSelectDropDownReset={setSelectDropDownReset}
+              searchClient={searchClient}
+              setSearchClient={setSearchClient}
+              nameValue={nameValue}
+              handleUpdate={handleUpdate}
+              HandleNameChange={HandleNameChange}
+              error1={error1}
+              error2={error2}
+              error3={error3}
+              handleDelete={handleDelete}
             />
           </div>
           <AddMaterial

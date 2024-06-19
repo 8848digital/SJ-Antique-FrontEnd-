@@ -119,20 +119,25 @@ const SingleRecordListing = ({
                                 onClick={() =>
                                   handleShowDeleteModal(item?.karigar_name)
                                 }
+                                disabled={item?.delete === 0 ? true : false}
                               >
                                 Delete
                               </button>
-                              <OverlayTrigger
-                                trigger="click"
-                                placement="left"
-                                overlay={popoverLeft}
-                              >
-                                <FontAwesomeIcon
-                                  icon={faCircleInfo}
-                                  className=" ps-2"
-                                  style={{ color: '#6164ef' }}
-                                />
-                              </OverlayTrigger>
+                              {item?.delete === 0 ? (
+                                <OverlayTrigger
+                                  trigger="click"
+                                  placement="left"
+                                  overlay={popoverLeft}
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faCircleInfo}
+                                    className=" ps-2"
+                                    style={{ color: '#6164ef'}}
+                                  />
+                                </OverlayTrigger>
+                              ):(
+                                <span className='px-2 mx-1'></span>
+                              )}
                             </div>
                           </div>
                         </td>
