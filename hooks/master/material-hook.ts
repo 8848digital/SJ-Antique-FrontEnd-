@@ -222,6 +222,7 @@ const useMaterialHook = () => {
       material_abbr: '',
     });
     setSelectedMaterialGroup('')
+    setInputValueM('')
   };
   const handleShowAddRecord = (item: any) => {
     if (item?.karigar_name) {
