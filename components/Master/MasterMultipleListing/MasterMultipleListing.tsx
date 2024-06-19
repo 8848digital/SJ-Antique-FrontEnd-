@@ -145,9 +145,9 @@ const MasterMaterialListing = ({
                         </td>
                         <td
                           className={`table-body-row cursor ${
-                            value === 'material' || value === 'subCategory'
-                              ? 'w-auto'
-                              : ' w-50 '
+                            value === 'kunCsOtCategory' || value === 'BBCategory'
+                              ? 'w-25'
+                              : ' w-auto '
                           } `}
                           onClick={() =>
                             HandleDetails(
