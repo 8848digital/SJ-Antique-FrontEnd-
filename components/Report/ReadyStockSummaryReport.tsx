@@ -18,7 +18,6 @@ const ReadyStockSummaryReport = ({
 }: any) => {
     const [tableViewData, setTableViewData] = useState<any>(20);
 
-    // console.log("readyStockSummaryReportData", readyStockSummaryReportData)
     const HandleTableViewRows: any = (data: any) => {
         if (data !== 5) {
             setTableViewData(data);
@@ -34,7 +33,6 @@ const ReadyStockSummaryReport = ({
     const hundredToOnefiftyHeaders =
         readyStockSummaryReportData?.hundredToOnefifty?.length > 0 && readyStockSummaryReportData?.hundredToOnefifty[0] ? Object.keys(readyStockSummaryReportData?.hundredToOnefifty[0]) : []
 
-    // console.log("twentyToHundredHeaders", zeroToTwentyHeaders)
     return (
         <>
             <div className={`mx-4 `}>

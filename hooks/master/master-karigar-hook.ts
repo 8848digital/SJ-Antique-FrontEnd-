@@ -98,13 +98,13 @@ const useKarigarHooks = () => {
         'Karigar',
         name
       );
-      if(apiRes?.status === 202){
-        toast.success('Karigar successfully deleted!')
-        dispatch(getKarigarNameData (loginAcessToken.token));
-      }else{
-        toast.error('Karigar cannot be deleted')
+      if (apiRes?.status === 202) {
+        toast.success('Karigar successfully deleted!');
+        dispatch(getKarigarNameData(loginAcessToken.token));
+      } else {
+        toast.error('Karigar cannot be deleted');
       }
-      setShowDeleteModal(false)
+      setShowDeleteModal(false);
     }
   };
   // post kundan karigar api
@@ -168,13 +168,13 @@ const useKarigarHooks = () => {
         'Kundan Karigar',
         name
       );
-      if(apiRes?.status === 202){
-        toast.success('Kundan Karigar successfully deleted!')
+      if (apiRes?.status === 202) {
+        toast.success('Kundan Karigar successfully deleted!');
         dispatch(getKunKarigarNameData(loginAcessToken.token));
-      }else{
-        toast.error('Kundan Karigar cannot be deleted')
+      } else {
+        toast.error('Kundan Karigar cannot be deleted');
       }
-      setShowDeleteModal(false)
+      setShowDeleteModal(false);
     }
   };
   // Add Record Functions
@@ -210,7 +210,7 @@ const useKarigarHooks = () => {
     handleUpdateKarigar,
     handleUpdateKunKarigar,
     handleDeleteKarigar,
-    handleDeleteKunKarigar
+    handleDeleteKunKarigar,
   };
 };
 

@@ -59,7 +59,7 @@ const MasterMaterialListing = ({
   };
   const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
-      This {placeholder1} has been used somewhere.
+     small Unable to delete. Transactions exist for this entry.
     </Popover>
   );
   return (
@@ -145,9 +145,9 @@ const MasterMaterialListing = ({
                         </td>
                         <td
                           className={`table-body-row cursor ${
-                            value === 'material' || value === 'subCategory'
-                              ? 'w-auto'
-                              : ' w-50 '
+                            value === 'kunCsOtCategory' || value === 'BBCategory'
+                              ? 'w-25'
+                              : ' w-auto '
                           } `}
                           onClick={() =>
                             HandleDetails(
@@ -211,14 +211,15 @@ const MasterMaterialListing = ({
                               </button>
                               {item?.delete === 0 ? (
                                 <OverlayTrigger
-                                  trigger="click"
+                                  trigger={['hover','click']}
+                                  rootClose
                                   placement="left"
                                   overlay={popoverLeft}
                                 >
                                   <FontAwesomeIcon
                                     icon={faCircleInfo}
-                                    className=" ps-2 mt-1"
-                                    style={{ color: '#6164ef' }}
+                                    className=" ps-2"
+                                    style={{ color: '#6164ef',marginTop:'5px'}}
                                   />
                                 </OverlayTrigger>
                               ) : (

@@ -40,7 +40,7 @@ const useMaterialHook = () => {
   const [inputValueM, setInputValueM] = useState('');
   const [errorM, setErrorM] = useState('');
   let materialGroupList = useSelector(get_material_group_data).data;
-  const [selectedMaterialGroup, setSelectedMaterialGroup] = useState();
+  const [selectedMaterialGroup, setSelectedMaterialGroup] = useState('');
   const [matDropdownReset, setMatDropDownReset] = useState<boolean>(false);
 
   const HandleNameChange = (e: any) => {
@@ -123,6 +123,7 @@ const useMaterialHook = () => {
         material: '',
         material_abbr: '',
       });
+      setSelectedMaterialGroup('')
       setMatDropDownReset(true);
       setShowAddRecord(false);
     }
@@ -220,6 +221,8 @@ const useMaterialHook = () => {
       material: '',
       material_abbr: '',
     });
+    setSelectedMaterialGroup('')
+    setInputValueM('')
   };
   const handleShowAddRecord = (item: any) => {
     if (item?.karigar_name) {
@@ -228,6 +231,8 @@ const useMaterialHook = () => {
     } else {
       setNameValue(item);
       setOriginalName(item?.material);
+      setSelectedMaterialGroup(item?.material_group)
+      setMatDropDownReset(false)
     }
     setShowAddRecord(true);
   };

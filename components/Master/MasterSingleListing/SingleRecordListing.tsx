@@ -43,7 +43,7 @@ const SingleRecordListing = ({
   };
   const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
-      This {placeholder} has been used somewhere.
+      Unable to delete. Transactions exist for this entry.
     </Popover>
   );
   return (
@@ -113,7 +113,7 @@ const SingleRecordListing = ({
                             >
                               Update
                             </button>
-                            <div>
+                            <div className='d-flex justify-space-between'>
                               <button
                                 className="btn btn-link text-danger p-0"
                                 onClick={() =>
@@ -125,14 +125,15 @@ const SingleRecordListing = ({
                               </button>
                               {item?.delete === 0 ? (
                                 <OverlayTrigger
-                                  trigger="click"
+                                trigger={['hover', 'click']}
+                                rootClose
                                   placement="left"
                                   overlay={popoverLeft}
                                 >
                                   <FontAwesomeIcon
                                     icon={faCircleInfo}
                                     className=" ps-2"
-                                    style={{ color: '#6164ef'}}
+                                    style={{ color: '#6164ef',marginTop:'5px'}}
                                   />
                                 </OverlayTrigger>
                               ):(

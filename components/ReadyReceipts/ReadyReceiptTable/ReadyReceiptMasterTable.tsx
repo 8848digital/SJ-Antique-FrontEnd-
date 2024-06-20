@@ -95,7 +95,6 @@ const ReadyReceiptMasterTable = ({
       if (specificDataFromStore?.data[0]?.items?.length !== tableData?.length) {
         firstInputRef?.current?.focus();
       } else {
-        console.log('first',lastInputRef);
         lastInputRef?.current?.focus();
       }
     }, 0);

@@ -60,7 +60,7 @@ const useCustomerSaleHook = () => {
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
 
-  const kunCsOtCategoryListData = useSelector(get_kun_category_data)
+  const kunCsOtCategoryListData = useSelector(get_kun_category_data).data
   const BBCategoryListData = useSelector(get_bb_category_data).data
   const warehouseListData = useSelector(get_warehouse_list_data).data
   const clientNameListData = useSelector(get_client_name_data).data

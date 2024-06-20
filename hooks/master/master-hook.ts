@@ -101,11 +101,12 @@ const useMasterHook = () => {
       client_name: clientName?.material,
       client_group: searchClient,
     };
+
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
     } else if (
-      clientName.material_abbr === '' ||
-      clientName.material_abbr === undefined
+      searchClient === '' ||
+      searchClient === undefined
     ) {
       setError2('Input field cannot be empty');
     } else {
@@ -154,6 +155,7 @@ const useMasterHook = () => {
         material_abbr: '',
       });
       setSelectDropDownReset(true);
+      setSearchClient('')
       setShowAddRecord(false);
     }
   };
@@ -574,6 +576,7 @@ const useMasterHook = () => {
       }
       setErrorC('');
       setInputValue1('');
+      setSearchCategory('')
       setShowAddRecord(false);
     }
   };
@@ -595,7 +598,15 @@ const useMasterHook = () => {
   };
 
   // Handle Add record Modal
-  const handleCloseAddRecord = () => setShowAddRecord(false);
+  const handleCloseAddRecord = () => {setShowAddRecord(false)
+    setSearchClient('')
+    setClientNameValue({
+      material: '',
+      material_abbr: '',
+    })
+    setInputValue1('')
+    setSearchCategory('')
+  };
   const handleShowAddRecord = (item: any) => {
     if (item?.karigar_name) {
       setInputValue1(item?.karigar_name);
@@ -605,6 +616,7 @@ const useMasterHook = () => {
       setSearchClient(item?.material_abbr);
       setSearchCategory(item?.material_group);
       setOriginalName(item?.material);
+      setSelectDropDownReset(false)
     }
     setShowAddRecord(true);
   };
