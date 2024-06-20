@@ -43,7 +43,7 @@ const SingleRecordListing = ({
   };
   const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
-      This {placeholder} has been used somewhere.
+      Unable to delete. Transactions exist for this entry.
     </Popover>
   );
   return (
@@ -125,7 +125,8 @@ const SingleRecordListing = ({
                               </button>
                               {item?.delete === 0 ? (
                                 <OverlayTrigger
-                                  trigger="click"
+                                trigger={['hover', 'click']}
+                                rootClose
                                   placement="left"
                                   overlay={popoverLeft}
                                 >

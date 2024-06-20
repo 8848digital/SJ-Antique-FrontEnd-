@@ -101,11 +101,12 @@ const useMasterHook = () => {
       client_name: clientName?.material,
       client_group: searchClient,
     };
+
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
     } else if (
-      clientName.material_abbr === '' ||
-      clientName.material_abbr === undefined
+      searchClient === '' ||
+      searchClient === undefined
     ) {
       setError2('Input field cannot be empty');
     } else {

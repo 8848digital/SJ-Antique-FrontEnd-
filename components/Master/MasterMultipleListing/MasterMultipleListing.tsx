@@ -59,7 +59,7 @@ const MasterMaterialListing = ({
   };
   const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
-      This {placeholder1} has been used somewhere.
+     small Unable to delete. Transactions exist for this entry.
     </Popover>
   );
   return (
@@ -211,7 +211,8 @@ const MasterMaterialListing = ({
                               </button>
                               {item?.delete === 0 ? (
                                 <OverlayTrigger
-                                  trigger="click"
+                                  trigger={['hover','click']}
+                                  rootClose
                                   placement="left"
                                   overlay={popoverLeft}
                                 >
