@@ -218,8 +218,8 @@ const MasterMaterialListing = ({
                                 >
                                   <FontAwesomeIcon
                                     icon={faCircleInfo}
-                                    className=" ps-2 mt-1"
-                                    style={{ color: '#6164ef' }}
+                                    className=" ps-2"
+                                    style={{ color: '#6164ef',marginTop:'5px'}}
                                   />
                                 </OverlayTrigger>
                               ) : (

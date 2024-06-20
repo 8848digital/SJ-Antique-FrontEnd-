@@ -113,7 +113,7 @@ const SingleRecordListing = ({
                             >
                               Update
                             </button>
-                            <div>
+                            <div className='d-flex justify-space-between'>
                               <button
                                 className="btn btn-link text-danger p-0"
                                 onClick={() =>
@@ -133,7 +133,7 @@ const SingleRecordListing = ({
                                   <FontAwesomeIcon
                                     icon={faCircleInfo}
                                     className=" ps-2"
-                                    style={{ color: '#6164ef'}}
+                                    style={{ color: '#6164ef',marginTop:'5px'}}
                                   />
                                 </OverlayTrigger>
                               ):(
