@@ -59,7 +59,7 @@ const MasterMaterialListing = ({
   };
   const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
-     small Unable to delete. Transactions exist for this entry.
+      Unable to delete. Transactions exist for this entry.
     </Popover>
   );
   return (
@@ -145,7 +145,8 @@ const MasterMaterialListing = ({
                         </td>
                         <td
                           className={`table-body-row cursor ${
-                            value === 'kunCsOtCategory' || value === 'BBCategory'
+                            value === 'kunCsOtCategory' ||
+                            value === 'BBCategory'
                               ? 'w-25'
                               : ' w-auto '
                           } `}
@@ -199,7 +200,7 @@ const MasterMaterialListing = ({
                             >
                               Update
                             </button>
-                            <div className='d-flex justify-space-between'>
+                            <div className="d-flex justify-space-between">
                               <button
                                 className="btn btn-link text-danger p-0"
                                 onClick={() =>
@@ -211,7 +212,7 @@ const MasterMaterialListing = ({
                               </button>
                               {item?.delete === 0 ? (
                                 <OverlayTrigger
-                                  trigger={['hover','click']}
+                                  trigger={['hover', 'click']}
                                   rootClose
                                   placement="left"
                                   overlay={popoverLeft}
@@ -219,7 +220,10 @@ const MasterMaterialListing = ({
                                   <FontAwesomeIcon
                                     icon={faCircleInfo}
                                     className=" ps-2"
-                                    style={{ color: '#6164ef',marginTop:'5px'}}
+                                    style={{
+                                      color: '#6164ef',
+                                      marginTop: '5px',
+                                    }}
                                   />
                                 </OverlayTrigger>
                               ) : (
