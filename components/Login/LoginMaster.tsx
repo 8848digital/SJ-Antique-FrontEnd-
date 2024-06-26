@@ -28,7 +28,7 @@ const LoginMaster = () => {
     if (loginsucess.payload.msg == 'success') {
       toast.success('Login Successfully');
       setTimeout(() => {
-        router.push('/master');
+        router.push('/master/karigar');
       }, 900);
     } else {
       toast.error('Incorrect Username or Password');

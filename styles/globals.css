@@ -73,7 +73,7 @@ a {
 }
 
 .thead {
-  background-color: #2f308c !important;
+  background-color: #4b4d9a !important;
   color: #FFF !important;
   line-height: 12px;
   font-weight: 400;
@@ -296,7 +296,7 @@ hr {
 }
 
 .activeColor {
-  background-color: #6164ef;
+  background-color: #6c6ef2;
   border: #6164ef;
   color: #FFF;
   border: none;

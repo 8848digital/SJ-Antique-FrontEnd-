@@ -8,10 +8,10 @@ const ReceiptsHeader = () => {
   const url1 = pathParts[pathParts.length - 1];
   const url2 = pathParts[pathParts.length - 2];
   const headerData: any = [
-    { label: 'Master', href: '/master' },
+    { label: 'Master', href: '/master/karigar' },
     { label: 'Ready Receipts', href: '/readyReceipt/kundan' },
     { label: 'Sales', href: '/sales/customerSale' },
-    { label: 'Report', href: '/report' },
+    { label: 'Report', href: '/report/daily-qty-status' },
     { label: 'Barcode', href: '/barcode' },
   ];
 

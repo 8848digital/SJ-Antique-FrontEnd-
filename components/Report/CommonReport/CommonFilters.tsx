@@ -17,34 +17,45 @@ const CommonFilters = ({
     fieldname: 'Category',
     fieldtype: 'Link',
     link_data:
-      categoryData?.length > 0 &&
-      categoryData.map((data: any) => data.category),
+      categoryData?.length > 0
+        ? Array.from(new Set(categoryData.map((data: any) => data.category)))
+        : [],
   };
   const subCategoryListData: any = {
     fieldname: 'Sub_Category',
     fieldtype: 'Link',
     link_data:
-      categoryData?.length > 0 &&
-      categoryData.map((data: any) => data.subcategory),
+      categoryData?.length > 0
+        ? Array.from(new Set(categoryData.map((data: any) => data.subcategory)))
+        : [],
   };
   const clientNameList: any = {
     fieldname: 'Client_Name',
     fieldtype: 'Link',
     link_data:
-      karigarNameData?.length > 0 &&
-      karigarNameData.map((data: any) => data.karigar_name),
+      clientNameData?.length > 0
+        ? Array.from(
+            new Set(karigarNameData.map((data: any) => data.karigar_name))
+          )
+        : [],
   };
   const karigarNameListData: any = {
     fieldname: 'Karigar_Name',
     fieldtype: 'Link',
     link_data:
-      karigarNameData?.length > 0 &&
-      karigarNameData.map((data: any) => data.karigar_name),
+      karigarNameData?.length > 0
+        ? Array.from(
+            new Set(karigarNameData.map((data: any) => data.karigar_name))
+          )
+        : [],
   };
   const productCodeData: any = {
     fieldname: 'product_code',
     fieldtype: 'Link',
-    link_data: itemListData,
+    link_data:
+      itemListData?.length > 0
+        ? Array.from(new Set(itemListData.map((data: any) => data)))
+        : [],
   };
 
   return (

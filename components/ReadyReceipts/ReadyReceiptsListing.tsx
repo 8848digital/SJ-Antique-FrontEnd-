@@ -294,7 +294,7 @@ const ReadyReceiptListing = ({
                         <div className="col-lg-3 col-12">
                           <Link
                             href={`${url}/${item.name}`}
-                            className="button-section-text text-info "
+                            className="button-section-text text-info"
                           >
                             View
                           </Link>

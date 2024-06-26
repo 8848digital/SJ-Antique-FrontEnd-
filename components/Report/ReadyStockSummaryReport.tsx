@@ -1,83 +1,142 @@
-import { useState } from 'react'
-import styled from '../../styles/report.module.css'
-import CommonFilters from './CommonReport/CommonFilters'
-import ReportListingTable from './CommonReport/ReportListingTable'
-import ReportHeader from '../Header/ReportHeader'
+import { useState } from 'react';
+import styled from '../../styles/report.module.css';
+import CommonFilters from './CommonReport/CommonFilters';
+import ReportListingTable from './CommonReport/ReportListingTable';
+import ReportHeader from '../Header/ReportHeader';
+import Loader from '../NoRecord/Loader';
 
 const ReadyStockSummaryReport = ({
-    isLoading,
-    reportData,
-    readyStockSummaryReportData,
-    searchInputValues,
-    handleSearchInput,
-    HandleSerachReport,
-    clientNameData,
-    karigarNameData,
-    itemListData,
-    categoryData,
+  isLoading,
+  reportData,
+  readyStockSummaryReportData,
+  searchInputValues,
+  handleSearchInput,
+  HandleSerachReport,
+  clientNameData,
+  karigarNameData,
+  itemListData,
+  categoryData,
 }: any) => {
-    const [tableViewData, setTableViewData] = useState<any>(20);
+  const [tableViewData, setTableViewData] = useState<any>(20);
 
-    const HandleTableViewRows: any = (data: any) => {
-        if (data !== 5) {
-            setTableViewData(data);
-        }
-    };
+  const HandleTableViewRows: any = (data: any) => {
+    if (data !== 5) {
+      setTableViewData(data);
+    }
+  };
 
-    const zeroToTwentyHeaders =
-        readyStockSummaryReportData?.zeroToTwenty?.length > 0 && readyStockSummaryReportData?.zeroToTwenty[0] ? Object.keys(readyStockSummaryReportData?.zeroToTwenty[0]) : []
-    const twentyToFiftyHeaders =
-        readyStockSummaryReportData?.twentyToFifty?.length > 0 && readyStockSummaryReportData?.twentyToFifty[0] ? Object.keys(readyStockSummaryReportData?.twentyToFifty[0]) : []
-    const fiftyToHundredHeaders =
-        readyStockSummaryReportData?.fiftyToHundred?.length > 0 && readyStockSummaryReportData?.fiftyToHundred[0] ? Object.keys(readyStockSummaryReportData?.fiftyToHundred[0]) : []
-    const hundredToOnefiftyHeaders =
-        readyStockSummaryReportData?.hundredToOnefifty?.length > 0 && readyStockSummaryReportData?.hundredToOnefifty[0] ? Object.keys(readyStockSummaryReportData?.hundredToOnefifty[0]) : []
+  const zeroToTwentyHeaders =
+    readyStockSummaryReportData?.zeroToTwenty?.length > 0 &&
+    readyStockSummaryReportData?.zeroToTwenty[0]
+      ? Object.keys(readyStockSummaryReportData?.zeroToTwenty[0])
+      : [];
+  const twentyToFiftyHeaders =
+    readyStockSummaryReportData?.twentyToFifty?.length > 0 &&
+    readyStockSummaryReportData?.twentyToFifty[0]
+      ? Object.keys(readyStockSummaryReportData?.twentyToFifty[0])
+      : [];
+  const fiftyToHundredHeaders =
+    readyStockSummaryReportData?.fiftyToHundred?.length > 0 &&
+    readyStockSummaryReportData?.fiftyToHundred[0]
+      ? Object.keys(readyStockSummaryReportData?.fiftyToHundred[0])
+      : [];
+  const hundredToOnefiftyHeaders =
+    readyStockSummaryReportData?.hundredToOnefifty?.length > 0 &&
+    readyStockSummaryReportData?.hundredToOnefifty[0]
+      ? Object.keys(readyStockSummaryReportData?.hundredToOnefifty[0])
+      : [];
 
-    return (
-        <>
-            <div className={`mx-4 `}>
-                <ReportHeader />
+  console.log('ready stock report', readyStockSummaryReportData.zeroToTwenty);
+  return (
+    <>
+      <div className={`mx-4 `}>
+        <ReportHeader />
 
-                <CommonFilters
-                    searchInputValues={searchInputValues}
-                    handleSearchInput={handleSearchInput}
-                    handleSearchBtn={HandleSerachReport}
-                    clientNameData={clientNameData}
-                    karigarNameData={karigarNameData}
-                    itemListData={itemListData}
-                    categoryData={categoryData}
+        <CommonFilters
+          searchInputValues={searchInputValues}
+          handleSearchInput={handleSearchInput}
+          handleSearchBtn={HandleSerachReport}
+          clientNameData={clientNameData}
+          karigarNameData={karigarNameData}
+          itemListData={itemListData}
+          categoryData={categoryData}
+        />
+
+        <div className={`${styled.scrollable_div} my-3`}>
+          <div
+            className={`d-inline-block mx-5 px-3 ${
+              readyStockSummaryReportData?.zeroToTwenty?.length === 0 && 'w-25'
+            }`}
+          >
+            {readyStockSummaryReportData?.zeroToTwenty?.length > 0 ? (
+              <>
+                <h5 className="text-center my-2">0-20GMS</h5>
+                <ReportListingTable
+                  headers={zeroToTwentyHeaders}
+                  reportData={readyStockSummaryReportData?.zeroToTwenty}
                 />
+              </>
+            ) : (
+              <Loader />
+            )}
+          </div>
+          <div
+            className={`d-inline-block mx-5 px-3 ${
+              readyStockSummaryReportData?.twentyToFifty?.length === 0 && 'w-25'
+            }`}
+          >
+            {readyStockSummaryReportData?.twentyToFifty?.length > 0 ? (
+              <>
+                <h5 className="text-center my-2">20-50GMS</h5>
+                <ReportListingTable
+                  headers={twentyToFiftyHeaders}
+                  reportData={readyStockSummaryReportData?.twentyToFifty}
+                />
+              </>
+            ) : (
+              <Loader />
+            )}
+          </div>
+          <div
+            className={`d-inline-block mx-5 px-3 ${
+              readyStockSummaryReportData?.fiftyToHundred?.length === 0 &&
+              'w-25'
+            }`}
+          >
+            {readyStockSummaryReportData?.fiftyToHundred?.length > 0 ? (
+              <>
+                <h5 className="text-center my-2">50-100GMS</h5>
+                <ReportListingTable
+                  headers={fiftyToHundredHeaders}
+                  reportData={readyStockSummaryReportData?.fiftyToHundred}
+                />
+              </>
+            ) : (
+              <Loader />
+            )}
+          </div>
+          <div
+            className={`d-inline-block mx-5 px-3 ${
+              readyStockSummaryReportData?.hundredToOnefifty?.length === 0 &&
+              'w-25'
+            }`}
+          >
+            {readyStockSummaryReportData?.hundredToOnefifty?.length > 0 ? (
+              <>
+                <h5 className="text-center my-2">100-150GMS</h5>
+                <ReportListingTable
+                  headers={hundredToOnefiftyHeaders}
+                  reportData={readyStockSummaryReportData?.hundredToOnefifty}
+                />
+              </>
+            ) : (
+              <Loader />
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
-                <div className={`${styled.scrollable_div} my-3`}>
-                    <div className={`d-inline-block mx-5 px-3`}>
-                        <h5 className='text-center my-2'>0-20GMS</h5>
-                        <ReportListingTable
-                            headers={zeroToTwentyHeaders} reportData={readyStockSummaryReportData?.zeroToTwenty}
-                        />
-
-                    </div>
-                    <div className={`d-inline-block mx-5 px-3`}>
-                        <h5 className='text-center my-2'>20-50GMS</h5>
-                        <ReportListingTable
-                            headers={twentyToFiftyHeaders} reportData={readyStockSummaryReportData?.twentyToFifty}
-                        />
-                    </div>
-                    <div className={`d-inline-block mx-5 px-3`}>
-                        <h5 className='text-center my-2'>50-100GMS</h5>
-                        <ReportListingTable
-                            headers={fiftyToHundredHeaders} reportData={readyStockSummaryReportData?.fiftyToHundred}
-                        />
-                    </div>
-                    <div className={`d-inline-block mx-5 px-3`}>
-                        <h5 className='text-center my-2'>100-150GMS</h5>
-                        <ReportListingTable
-                            headers={hundredToOnefiftyHeaders} reportData={readyStockSummaryReportData?.hundredToOnefifty}
-                        />
-                    </div>
-                </div>
-            </div >
-        </>
-    )
-}
-
-export default ReadyStockSummaryReport
+export default ReadyStockSummaryReport;

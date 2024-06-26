@@ -56,13 +56,15 @@ const ReportListingTable = ({ headers, reportData }: any) => {
             <table className={`table table-hover table-striped cursor`}>
               <tbody>
                 <tr className="row row-cols-7 justify-content-center text-center fw-bold">
+                  <td
+                    scope="col"
+                    className={`col-1 table_row py-1 py-auto ${styled.total_row_container}`}
+                  ></td>
                   {headers.map((header: any, idx: any) => (
                     <td
                       key={idx}
                       scope="col"
-                      className={`table_row py-1 py-auto ${
-                        styled.total_row_container
-                      } col`}
+                      className={`table_row py-1 py-auto ${styled.total_row_container} col`}
                     >
                       {reportData[reportData.length - 1][header]}
                     </td>
