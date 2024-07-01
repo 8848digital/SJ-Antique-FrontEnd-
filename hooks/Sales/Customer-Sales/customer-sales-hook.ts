@@ -60,11 +60,11 @@ const useCustomerSaleHook = () => {
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
 
-  const kunCsOtCategoryListData = useSelector(get_kun_category_data).data
-  const BBCategoryListData = useSelector(get_bb_category_data).data
-  const warehouseListData = useSelector(get_warehouse_list_data).data
-  const clientNameListData = useSelector(get_client_name_data).data
-  const clientGroupList = useSelector(get_client_group_data).data
+  const kunCsOtCategoryListData = useSelector(get_kun_category_data).data;
+  const BBCategoryListData = useSelector(get_bb_category_data).data;
+  const warehouseListData = useSelector(get_warehouse_list_data).data;
+  const clientNameListData = useSelector(get_client_name_data).data;
+  const clientGroupList = useSelector(get_client_group_data).data;
   const [itemList, setItemList] = useState<any>([]);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   const [selectedItemCode, setSelectedItemCode] = useState();
@@ -173,15 +173,13 @@ const useCustomerSaleHook = () => {
   };
   const itemCodeList = itemCodeListFunc();
 
-  const itemDetailApiFun = (item_code:string,id:number) => {
+  const itemDetailApiFun = (item_code: string, id: number) => {
     if (barcodedata === 1) {
       if (
         itemCodeList?.length > 0 !== null &&
         itemCodeList?.length > 0 &&
         itemCodeList?.some(
-          (obj: any) =>
-            obj.karigar_name ===
-            item_code?.toUpperCase()
+          (obj: any) => obj.karigar_name === item_code?.toUpperCase()
         )
       ) {
         const itemDetailsMethod = 'get_specific_barcode_detail';
@@ -197,7 +195,8 @@ const useCustomerSaleHook = () => {
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
               updateBarcodeSalesTableData(
-                getItemCodeDetailsApi?.data?.message?.data,id
+                getItemCodeDetailsApi?.data?.message?.data,
+                id
               );
             }
           } catch (error) {
@@ -212,10 +211,7 @@ const useCustomerSaleHook = () => {
         // selectedItemCodeForCustomerSale.item_code?.length > 0
         itemCodeList !== null &&
         itemCodeList?.length > 0 &&
-        itemCodeList?.some(
-          (obj: any) =>
-            obj.karigar_name === item_code
-        )
+        itemCodeList?.some((obj: any) => obj.karigar_name === item_code)
       ) {
         const itemDetailsMethod = 'get_item_specific_sales';
         const itemDetailsEntity = 'sales';
@@ -229,7 +225,10 @@ const useCustomerSaleHook = () => {
             );
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
-              updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data,id);
+              updateSalesTableData(
+                getItemCodeDetailsApi?.data?.message?.data,
+                id
+              );
             }
           } catch (error) {
             console.error('Error fetching item details:', error);
@@ -272,39 +271,62 @@ const useCustomerSaleHook = () => {
             custom_kun_wt: Number(
               selectedCategory.KunCategory !== '' &&
                 selectedCategory?.KunCategory !== null
-                ? (kunInitial * selectedCategory?.KunCategory?.type) / 100
+                ? selectedCategory?.KunCategory?.type === undefined
+                  ? kunInitial
+                  : kunInitial === 0
+                  ? 0
+                  : (kunInitial * selectedCategory?.KunCategory?.type) / 100
                 : kunInitial
             ),
             custom_cs_wt: Number(
               selectedCategory.CsCategory !== '' &&
                 selectedCategory?.CsCategory !== null
-                ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
+                ? selectedCategory?.CsCategory?.type === undefined
+                  ? csWtInitial
+                  : csWtInitial === 0
+                  ? 0
+                  : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
                 : csWtInitial
             ),
             custom_bb_wt: Number(
               selectedCategory?.BBCategory !== '' &&
                 selectedCategory?.BBCategory !== null
-                ? bbWtInitial === 0
+                ? selectedCategory?.BBCategory?.type === undefined
+                  ? bbWtInitial
+                  : bbWtInitial === 0
                   ? 0
                   : bbWtInitial - selectedCategory?.BBCategory?.type
                 : bbWtInitial
             ),
+
             custom_other_wt: Number(
               selectedCategory.OtCategory !== '' &&
                 selectedCategory?.OtCategory !== null
-                ? (otWtInitial * selectedCategory.OtCategory?.type) / 100
+                ? selectedCategory?.OtCategory?.type === undefined
+                  ? otWtInitial
+                  : otWtInitial === 0
+                  ? 0
+                  : (otWtInitial * selectedCategory.OtCategory?.type) / 100
                 : otWtInitial
             ),
             custom_cs_amt: Number(
               (selectedCategory.CsCategory !== '' &&
               selectedCategory?.CsCategory !== null
-                ? (csWtInitial * selectedCategory?.CsCategory?.type) / 100
+                ? selectedCategory?.CsCategory?.type === undefined
+                  ? csWtInitial
+                  : csWtInitial === 0
+                  ? 0
+                  : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
                 : Number(data?.custom_cs_wt)) * data?.custom_cs
             ),
             custom_ot_amt: Number(
               (selectedCategory.OtCategory !== '' &&
               selectedCategory?.OtCategory !== null
-                ? (otWtInitial * selectedCategory?.OtCategory?.type) / 100
+                ? selectedCategory?.OtCategory?.type === undefined
+                  ? otWtInitial
+                  : otWtInitial === 0
+                  ? 0
+                  : (otWtInitial * selectedCategory?.OtCategory?.type) / 100
                 : Number(data?.custom_other_wt)) * data?.custom_ot_
             ),
             custom_net_wt:
@@ -497,7 +519,8 @@ const useCustomerSaleHook = () => {
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
               updateBarcodeSalesTableData(
-                getItemCodeDetailsApi?.data?.message?.data,selectedItemCodeForCustomerSale.id
+                getItemCodeDetailsApi?.data?.message?.data,
+                selectedItemCodeForCustomerSale.id
               );
             }
           } catch (error) {
@@ -521,7 +544,10 @@ const useCustomerSaleHook = () => {
             );
 
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-              updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data,selectedItemCodeForCustomerSale.id);
+              updateSalesTableData(
+                getItemCodeDetailsApi?.data?.message?.data,
+                selectedItemCodeForCustomerSale.id
+              );
             }
           } catch (error) {
             console.error('Error fetching item details:', error);
@@ -587,7 +613,7 @@ const useCustomerSaleHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailApiFun
+    itemDetailApiFun,
   };
 };
 

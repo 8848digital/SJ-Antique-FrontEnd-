@@ -67,7 +67,7 @@ const DetailPageCustomerSale = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailApiFun
+    itemDetailApiFun,
   }: any = useCustomerSaleDetailHook();
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
@@ -106,9 +106,9 @@ const DetailPageCustomerSale = () => {
                   HandleDeleteRecords={handleDeleteRecords}
                   handleDeliveryNotePrintApi={handleDeliveryNotePrintApi}
                   showDeleteModal={showDeleteModal}
-                handleCloseDeleteModal={handleCloseDeleteModal}
-                handleShowDeleteModal={handleShowDeleteModal}
-                deleteRecord={deleteRecord}
+                  handleCloseDeleteModal={handleCloseDeleteModal}
+                  handleShowDeleteModal={handleShowDeleteModal}
+                  deleteRecord={deleteRecord}
                 />
               </div>
               <CustomerSalesTable1
