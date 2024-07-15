@@ -46,7 +46,6 @@ const ReadyStockSummaryReport = ({
       ? Object.keys(readyStockSummaryReportData?.hundredToOnefifty[0])
       : [];
 
-  console.log('ready stock report', readyStockSummaryReportData.zeroToTwenty);
   return (
     <>
       <div className={`mx-4 `}>

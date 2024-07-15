@@ -31,6 +31,8 @@
     /* padding-bottom: 40px; */
     /* For IE/Edge */
     -ms-overflow-style: -ms-autohiding-scrollbar;
+    margin: 0;
+    padding: 0;
 }
 
 

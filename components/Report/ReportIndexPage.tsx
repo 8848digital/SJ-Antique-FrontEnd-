@@ -1,7 +1,6 @@
-import useReportHook from '@/hooks/Report/report-hook';
 import { useRouter } from 'next/router';
+import useReportHook from '@/hooks/Report/report-hook';
 import CommonReport from './CommonReport/CommonReport';
-import ItemStatusReport from './ItemStatusReport';
 import ReadyStockSummaryReport from './ReadyStockSummaryReport';
 
 const ReportIndexPage = () => {
@@ -9,67 +8,50 @@ const ReportIndexPage = () => {
   const pathcontent = router?.asPath?.split('/');
   const key = pathcontent[pathcontent?.length - 1];
   const {
-    selectDropDownReset,
     setSelectDropDownReset,
-    dailyStatusSearchName,
     itemList,
-    HandleSearchInput,
+    handleSearchInput,
     searchInputValues,
     isLoading,
-    searchName,
-    setSearchName,
-    HandleReportPrint,
-    HandleSerachReport,
+    handleSearchReport,
     reportData,
     clientNameData,
     karigarNameData,
     categoryData,
-    readyStockSummaryReportData
+    readyStockSummaryReportData,
+    handleReportPrint,
   }: any = useReportHook();
   return (
     <>
-      {key === 'daily-qty-status' ? (
-        <ItemStatusReport
-          itemStatusReportState={reportData}
-          reportName={'Daily Report'}
-          selectDropDownReset={selectDropDownReset}
-          setSelectDropDownReset={setSelectDropDownReset}
-          itemList={itemList}
-          HandleSearchInput={HandleSearchInput}
-          searchInputValues={searchInputValues}
-          isLoading={isLoading}
-          searchName={searchName}
-          setSearchName={setSearchName}
-          name={dailyStatusSearchName}
-          HandleReportPrint={HandleReportPrint}
-          HandleSerachReport={HandleSerachReport}
-        />
-      ) : key === "ready-stock-summary-report" ?
+      {key === 'ready-stock-summary-report' ? (
         <ReadyStockSummaryReport
           reportData={reportData}
           readyStockSummaryReportData={readyStockSummaryReportData}
           isLoading={isLoading}
           searchInputValues={searchInputValues}
-          handleSearchInput={HandleSearchInput}
-          HandleSerachReport={HandleSerachReport}
+          handleSearchInput={handleSearchInput}
+          HandleSerachReport={handleSearchReport}
           setSelectDropDownReset={setSelectDropDownReset}
           clientNameData={clientNameData}
           karigarNameData={karigarNameData}
           itemListData={itemList}
           categoryData={categoryData}
-        /> :
+        />
+      ) : (
         <CommonReport
           reportData={reportData}
           isLoading={isLoading}
           searchInputValues={searchInputValues}
-          handleSearchInput={HandleSearchInput}
-          HandleSerachReport={HandleSerachReport}
+          handleSearchInput={handleSearchInput}
+          HandleSerachReport={handleSearchReport}
           setSelectDropDownReset={setSelectDropDownReset}
           clientNameData={clientNameData}
           karigarNameData={karigarNameData}
           itemListData={itemList}
           categoryData={categoryData}
-        />}
+          handleReportPrint={handleReportPrint}
+        />
+      )}
     </>
   );
 };

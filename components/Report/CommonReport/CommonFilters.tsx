@@ -14,7 +14,7 @@ const CommonFilters = ({
   const { query } = useRouter();
 
   const categoryListData: any = {
-    fieldname: 'Category',
+    fieldname: 'category',
     fieldtype: 'Link',
     link_data:
       categoryData?.length > 0
@@ -22,7 +22,7 @@ const CommonFilters = ({
         : [],
   };
   const subCategoryListData: any = {
-    fieldname: 'Sub_Category',
+    fieldname: 'sub_category',
     fieldtype: 'Link',
     link_data:
       categoryData?.length > 0
@@ -30,7 +30,7 @@ const CommonFilters = ({
         : [],
   };
   const clientNameList: any = {
-    fieldname: 'Client_Name',
+    fieldname: 'client_name',
     fieldtype: 'Link',
     link_data:
       clientNameData?.length > 0
@@ -40,7 +40,7 @@ const CommonFilters = ({
         : [],
   };
   const karigarNameListData: any = {
-    fieldname: 'Karigar_Name',
+    fieldname: 'karigar',
     fieldtype: 'Link',
     link_data:
       karigarNameData?.length > 0
@@ -155,7 +155,7 @@ const CommonFilters = ({
               handleSearchInput={(value: any, fieldName: any) =>
                 handleSearchInput(value, fieldName)
               }
-              value={searchInputValues?.karigar_name}
+              value={searchInputValues?.karigar}
             />
           </div>
         )}

@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from '../../../styles/report.module.css';
+import { useRouter } from 'next/router';
 
 const ReportListingTable = ({ headers, reportData }: any) => {
+  const { query } = useRouter();
+
   return (
     <div className="row justify-content-center mt-3">
       <div className={`col table-responsie m-auto ${styled.table_container}`}>
@@ -21,7 +24,8 @@ const ReportListingTable = ({ headers, reportData }: any) => {
           </thead>
           <tbody>
             {reportData
-              .slice(0, -1) // Excludes the last row
+              .slice(0, query.reportId === 'daily-qty-status' ? -2 : -1)
+              // Excludes the last row
               .map((data: any, index: any) => {
                 const firstKey = Object.keys(data)[0];
                 const isTotalRow = data[firstKey] === 'Total';
@@ -55,6 +59,23 @@ const ReportListingTable = ({ headers, reportData }: any) => {
           <div className={`sticky-bottom `}>
             <table className={`table table-hover table-striped cursor`}>
               <tbody>
+                {query.reportId === 'daily-qty-status' && (
+                  <tr className="row row-cols-7 justify-content-center text-center fw-bold">
+                    <td
+                      scope="col"
+                      className={`col-1 table_row py-1 py-auto ${styled.total_row_container}`}
+                    ></td>
+                    {headers.map((header: any, idx: any) => (
+                      <td
+                        key={idx}
+                        scope="col"
+                        className={`table_row py-1 py-auto ${styled.total_row_container} col`}
+                      >
+                        {reportData[reportData.length - 2][header]}
+                      </td>
+                    ))}
+                  </tr>
+                )}
                 <tr className="row row-cols-7 justify-content-center text-center fw-bold">
                   <td
                     scope="col"

@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 import ReportHeader from '../../Header/ReportHeader';
-import LoadMoreTableDataInMaster from '../../Master/LoadMoreTableDataInMaster';
 import Loader from '../../NoRecord/Loader';
 import NoRecord from '../../NoRecord/NoRecord';
 import CommonFilters from './CommonFilters';
@@ -16,14 +15,26 @@ const CommonReport = ({
   karigarNameData,
   itemListData,
   categoryData,
+  handleReportPrint,
 }: any) => {
-  
+  const { query } = useRouter();
+
   const headers =
     reportData.length > 0 && reportData[0] ? Object.keys(reportData[0]) : [];
 
   return (
     <div className="container-lg">
       <ReportHeader />
+      {query?.reportId === 'daily-qty-status' && (
+        <div className="d-flex justify-content-end ">
+          <button
+            className="btn btn-outline-primary py-0 px-3"
+            onClick={handleReportPrint}
+          >
+            Print
+          </button>
+        </div>
+      )}
       <CommonFilters
         searchInputValues={searchInputValues}
         handleSearchInput={handleSearchInput}
@@ -38,18 +49,18 @@ const CommonReport = ({
 
       {isLoading === 1 && (
         <>
-          <div className={`  p-0 text-gray small text-end  ${headers?.length <= 4 ? 'report-heading pe-3' : ''
-            }`}>
-            
-          </div>
-          <ReportListingTable headers={headers} reportData={reportData}  />
+          <div
+            className={`p-0 text-gray small text-end ${
+              headers?.length <= 4 ? 'report-heading pe-3' : ''
+            }`}
+          ></div>
+          <ReportListingTable headers={headers} reportData={reportData} />
         </>
       )}
       <div className="row">
-        <div className={` px-0 mx-auto ${headers?.length <= 4 ? 'col-9' : 'col'
-          }`}>
-      
-        </div>
+        <div
+          className={`px-0 mx-auto ${headers?.length <= 4 ? 'col-9' : 'col'}`}
+        ></div>
       </div>
     </div>
   );

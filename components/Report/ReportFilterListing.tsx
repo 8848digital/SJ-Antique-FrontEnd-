@@ -48,7 +48,9 @@ const ReportFilterListing: any = ({
             name="from_date"
             value={searchInputValues.from_date}
             className="form-control input-fields custom-input-field line-height bg-primary bg-opacity-10 "
-            onChange={HandleSearchInput}
+            onChange={(e: any) =>
+              HandleSearchInput(e.target.value, 'from_date')
+            }
           />
         </div>
       </div>
@@ -60,7 +62,7 @@ const ReportFilterListing: any = ({
             name="to_date"
             value={searchInputValues.to_date}
             className="form-control input-fields custom-input-field line-height bg-primary bg-opacity-10"
-            onChange={HandleSearchInput}
+            onChange={(e: any) => HandleSearchInput(e.target.value, 'to_date')}
           />
         </div>
       </div>
@@ -88,21 +90,6 @@ const ReportFilterListing: any = ({
           Search
         </button>
       </div>
-      {/* {reportName === 'Daily Report' && (
-        <div className="col-sm-2 p-0 mx-1">
-          <label className="text-grey">Name</label>
-          <SearchSelectInputField
-            karigarData={name}
-            placeholder="Name"
-            className="form-control input-fields custom-input-field line-height "
-            style="max-width"
-            selectedDropdownValue={searchName}
-            setSelectedDropdownValue={setSearchName}
-            selectDropDownReset={selectDropDownReset}
-            setSelectDropDownReset={setSelectDropDownReset}
-          />
-        </div>
-      )} */}
     </div>
   );
 };
