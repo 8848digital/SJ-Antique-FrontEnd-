@@ -14,7 +14,8 @@ import GetKarigarNameReducer from './slices/Master/karigar-name-slice';
 import GetKunKarigarNameReducer from './slices/Master/kun-karigar-name-slice';
 import GetSpecificReceiptDataReducer from './slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import GetItemStatusReportReducer from './slices/Report/item-status-report-slice';
-import  GetWarehouseListReducer  from './slices/Master/get-warehouse-list-slice';
+import GetWarehouseListReducer from './slices/Master/get-warehouse-list-slice';
+import buttonLoadingReducer from './slices/btn-loading-slice';
 
 const appReducer = combineReducers({
   GetAccessTokenScreen: GetAccessTokenScreen,
@@ -25,14 +26,15 @@ const appReducer = combineReducers({
   GetClientGroupDataScreen: GetClientGroupDataReducer,
   GetKarigarNameScreen: GetKarigarNameReducer,
   GetKunKarigarNameScreen: GetKunKarigarNameReducer,
-  GetMaterialGroupScreen:GetMaterialGroupReducer,
-  GetMaterialScreen:GetMaterialReducer,
-  GetClientNameScreen:GetClientNameReducer,
-  GetKunCategoryScreen:GetKunCategoryReducer,
-  GetBBCategoryScreen:GetBBCategoryReducer,
-  GetCategoryScreen:GetCategoryReducer,
-  GetSubCategoryScreen:GetSubCategoryReducer,
-  GetWarehouseListScreen:GetWarehouseListReducer
+  GetMaterialGroupScreen: GetMaterialGroupReducer,
+  GetMaterialScreen: GetMaterialReducer,
+  GetClientNameScreen: GetClientNameReducer,
+  GetKunCategoryScreen: GetKunCategoryReducer,
+  GetBBCategoryScreen: GetBBCategoryReducer,
+  GetCategoryScreen: GetCategoryReducer,
+  GetSubCategoryScreen: GetSubCategoryReducer,
+  GetWarehouseListScreen: GetWarehouseListReducer,
+  buttonLoadingScreen: buttonLoadingReducer,
 });
 
 const rootReducer = (state: any, action: any) => {

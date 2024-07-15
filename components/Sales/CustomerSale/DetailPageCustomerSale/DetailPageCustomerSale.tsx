@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import CustomerSalesTable from '../CustomerSalesTable';
 import CustomerSalesTable2 from '../CustomerSalesTable2';
 import CustomerSalesTable1 from '../CustomerSalesTable1';
@@ -6,9 +8,7 @@ import SalesHeader from '@/components/Header/SalesHeader';
 import useCustomerSaleDetailHook from '@/hooks/Sales/Customer-Sales/sales-detail-page-hook';
 import CustomerSalesButtonsSection from './CustomerSalesButtonsSection';
 import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
-import { useSelector } from 'react-redux';
 import NoRecord from '@/components/NoRecord/NoRecord';
-import { useRouter } from 'next/router';
 import Loader from '@/components/NoRecord/Loader';
 
 const DetailPageCustomerSale = () => {
@@ -28,10 +28,8 @@ const DetailPageCustomerSale = () => {
     setSeletedCategory,
     handleSelectChange,
     itemList,
-    handleEmptyDeliveryNote,
     selectedClient,
     setSelectedClient,
-    handleDNCreate,
     stateForDocStatus,
     setStateForDocStatus,
     handleUpdateDeliveryNote,
@@ -39,7 +37,6 @@ const DetailPageCustomerSale = () => {
     setReadOnlyFields,
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
-    // HandleUpdateSalesdocStatus,
     handleAmendButtonForCustomerSales,
     handleDeleteRecords,
     handleDeliveryNotePrintApi,
@@ -57,7 +54,6 @@ const DetailPageCustomerSale = () => {
     setKunCsOtFixedAmt,
     handleFixedAmt,
     barcodedata,
-    setBarcodeData,
     handleBarcodeData,
     barcodeListData,
     isBarcodeChecked,
@@ -123,7 +119,6 @@ const DetailPageCustomerSale = () => {
                 setSelectedLocation={setSelectedLocation}
                 setDeliveryNoteData={setDeliveryNoteData}
                 deliveryNoteData={deliveryNoteData}
-                // itemCodeDropdownReset={itemCodeDropdownReset}
                 setItemCodeDropdownReset={setItemCodeDropdownReset}
                 handleBarcodeData={handleBarcodeData}
                 isBarcodeChecked={isBarcodeChecked}

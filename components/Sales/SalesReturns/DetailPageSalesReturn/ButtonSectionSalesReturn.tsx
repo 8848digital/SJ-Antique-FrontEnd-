@@ -1,9 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import styles from '../../../../styles/readyReceipts.module.css';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { get_detail_sales_return_data } from '@/store/slices/Sales/get-detail-sales-return-slice';
 import DeleteModal from '@/components/DeleteModal';
+import styles from '../../../../styles/readyReceipts.module.css';
+import { buttonLoadingState } from '@/store/slices/btn-loading-slice';
 
 const SaleReturnsButtonSection = ({
   stateForDocStatus,
@@ -18,15 +19,13 @@ const SaleReturnsButtonSection = ({
   HandleDeleteDeliveryNote,
   handlePrintApi,
   showDeleteModal,
-    handleCloseDeleteModal,
-    handleShowDeleteModal,
-    deleteRecord,
+  handleCloseDeleteModal,
+  handleShowDeleteModal,
+  deleteRecord,
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
-  const pathParts = router?.asPath?.split('/');
-  const salesId = pathParts[1];
-
+  const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_sales_return_data
   );
@@ -37,8 +36,11 @@ const SaleReturnsButtonSection = ({
     setReadOnlyFields(false);
   };
 
-  const dateFlag = DetailOfDeliveryNoteFromStore?.data?.posting_date ===
-  new Date().toISOString().split('T')[0].split('-').reverse().join('-') ? false : true
+  const dateFlag =
+    DetailOfDeliveryNoteFromStore?.data?.posting_date ===
+    new Date().toISOString().split('T')[0].split('-').reverse().join('-')
+      ? false
+      : true;
 
   return (
     <>
@@ -106,7 +108,11 @@ const SaleReturnsButtonSection = ({
                 type="button"
                 className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={handleUpdateDeliveryNote}
+                disabled={buttonLoadingStateFromStore?.loading}
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Save
               </button>
             )}
@@ -117,7 +123,11 @@ const SaleReturnsButtonSection = ({
                 type="button"
                 className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={() => handlePrintApi(query?.deliveryNoteId)}
+                disabled={buttonLoadingStateFromStore?.loading}
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Print
               </button>
             )}
@@ -142,19 +152,18 @@ const SaleReturnsButtonSection = ({
                 Cancel
               </button>
             )}
-          
-              {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
-                stateForDocStatus === false && (
-                  <button
-                    type="button"
-                    className={`btn btn-outline-primary px-2 py-0 me-2`}
-                    onClick={HandleAmendButtonChanges}
-                    disabled={dateFlag}
-                  >
-                    Amend
-                  </button>
-                )}
-            
+
+          {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
+            stateForDocStatus === false && (
+              <button
+                type="button"
+                className={`btn btn-outline-primary px-2 py-0 me-2`}
+                onClick={HandleAmendButtonChanges}
+                disabled={dateFlag}
+              >
+                Amend
+              </button>
+            )}
 
           {showSaveButtonForAmendFlow &&
             stateForDocStatus &&
@@ -162,8 +171,12 @@ const SaleReturnsButtonSection = ({
               <button
                 type="submit"
                 onClick={HandleAmendButtonForSalesReturn}
+                disabled={buttonLoadingStateFromStore?.loading}
                 className={`btn btn-outline-primary px-2 py-0 me-2 `}
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Save
               </button>
             )}

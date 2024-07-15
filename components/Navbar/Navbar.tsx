@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { ClearToken } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import ReceiptsHeader from '../Header/ReceiptsHeader';
+import { btnLoadingStop } from '@/store/slices/btn-loading-slice';
 
 const Navbar = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(ClearToken());
+    dispatch(btnLoadingStop());
     router.push('/');
   };
 

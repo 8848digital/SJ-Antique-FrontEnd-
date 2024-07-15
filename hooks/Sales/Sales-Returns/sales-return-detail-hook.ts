@@ -1,3 +1,6 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AmendDeliveryNoteApi from '@/services/api/Sales/delivery-note-amend-api';
 import UpdateSaleApi from '@/services/api/Sales/put-update-delivery-note-api';
 import PrintApi from '@/services/api/general/print-api';
@@ -6,10 +9,11 @@ import {
   get_detail_sales_return_data,
 } from '@/store/slices/Sales/get-detail-sales-return-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import useSalesReturnMasterHook from './sales-return-master-hook';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+} from '@/store/slices/btn-loading-slice';
 
 const useSalesReturnDetailHook = () => {
   const dispatch = useDispatch();
@@ -19,7 +23,6 @@ const useSalesReturnDetailHook = () => {
   const {
     itemList,
     clientNameListData,
-    handleSRCreate,
     salesReturnTableData,
     setSalesReturnTableData,
     selectedItemCodeForCustomerSale,
@@ -43,11 +46,9 @@ const useSalesReturnDetailHook = () => {
     selectedLocation,
     deliveryNoteData,
     setDeliveryNoteData,
-    SalesTableInitialState,
     stateForDocStatus,
     filteredTableDataForUpdate,
     selectedClientGroup,
-
     setSaleReturnDeliveryNoteListing,
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
@@ -56,7 +57,7 @@ const useSalesReturnDetailHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailFunction
+    itemDetailFunction,
   }: any = useSalesReturnMasterHook();
 
   const loginAcessToken = useSelector(get_access_token);
@@ -124,9 +125,9 @@ const useSalesReturnDetailHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-            Number(data?.custom_other)
+              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+              Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -144,6 +145,7 @@ const useSalesReturnDetailHook = () => {
       is_return: '1',
       items: updatedData,
     };
+    dispatch(btnLoadingStart());
     let updateSalesReturnApi: any = await UpdateSaleApi(
       loginAcessToken?.token,
       values
@@ -151,12 +153,14 @@ const useSalesReturnDetailHook = () => {
 
     if (updateSalesReturnApi?.data?.message?.status === 'success') {
       setStateForDocStatus(false);
-
+      dispatch(btnLoadingStop());
       const reqParams: any = {
         token: loginAcessToken.token,
         name: query?.deliveryNoteId,
       };
       dispatch(GetDetailOfSalesReturn(reqParams));
+    } else {
+      dispatch(btnLoadingStop());
     }
   };
 
@@ -168,11 +172,15 @@ const useSalesReturnDetailHook = () => {
       method: 'print_delivery_note_sales',
       entity: 'sales',
     };
+    dispatch(btnLoadingStart());
     let deliveryNotePrintApi: any = await PrintApi(reqParams);
     if (deliveryNotePrintApi?.data?.message?.status === 'success') {
       window.open(
         deliveryNotePrintApi?.data?.message?.data?.data[0]?.print_url
       );
+      dispatch(btnLoadingStop());
+    } else {
+      dispatch(btnLoadingStop());
     }
   };
 
@@ -189,6 +197,7 @@ const useSalesReturnDetailHook = () => {
       is_return: '1',
       items: updatedSalesTableData,
     };
+    dispatch(btnLoadingStart());
     let amendDeliveryNoteApi: any = await AmendDeliveryNoteApi(
       loginAcessToken?.token,
       values
@@ -197,12 +206,14 @@ const useSalesReturnDetailHook = () => {
     if (amendDeliveryNoteApi?.data?.hasOwnProperty('data')) {
       setStateForDocStatus(false);
       setShowSaveButtonForAmendFlow(false);
-
+      dispatch(btnLoadingStop());
       const newURL = `/sales/${query?.saleId}/${amendDeliveryNoteApi?.data?.data?.name}`;
       const asPath = `/sales/${query?.saleId}/${amendDeliveryNoteApi?.data?.data?.name}`;
 
       // Update the URL with the required query parameter
       router.push(newURL, asPath);
+    } else {
+      dispatch(btnLoadingStop());
     }
   };
 
@@ -251,7 +262,7 @@ const useSalesReturnDetailHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailFunction
+    itemDetailFunction,
   };
 };
 

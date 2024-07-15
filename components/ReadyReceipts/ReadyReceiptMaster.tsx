@@ -10,6 +10,8 @@ import TabSection from '../TabSection';
 import ReadyReceiptTable from './ReadyReceiptTable/ReadyReceiptTable';
 import ReadyReceiptsTabs from './ReadyReceiptsTabs';
 import Loader from '../NoRecord/Loader';
+import { buttonLoadingState } from '@/store/slices/btn-loading-slice';
+import { useSelector } from 'react-redux';
 
 const ReadyReceiptMaster = () => {
   const {
@@ -75,6 +77,7 @@ const ReadyReceiptMaster = () => {
     return word?.replace(/\b\w/g, (char: any) => char?.toUpperCase());
   };
   const receiptName: any = capitalizeWords(lastPartOfURL);
+  const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
 
   return (
     <>
@@ -149,7 +152,11 @@ const ReadyReceiptMaster = () => {
                       type="button"
                       className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
                       onClick={handleCreate}
+                      disabled={buttonLoadingStateFromStore?.loading}
                     >
+                      {buttonLoadingStateFromStore?.loading === true && (
+                        <i className="fa fa-spinner fa-spin me-1"></i>
+                      )}
                       Create
                     </button>
                   </div>

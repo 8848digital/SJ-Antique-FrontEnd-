@@ -73,9 +73,8 @@ const DetailPageReadyReceipt = () => {
     showDeleteModal,
     handleCloseDeleteModal,
     handleShowDeleteModal,
-    deleteRecord
+    deleteRecord,
   } = useReadyReceiptKarigar();
-
 
   useEffect(() => {
     if (defaultKarigarData?.length > 0 && defaultKarigarData !== null) {
@@ -95,25 +94,7 @@ const DetailPageReadyReceipt = () => {
     setTableData,
     setSelectedLocation,
   ]);
-  // useEffect(() => {
-  //   setTabDisabled(true); // Disable Tab key
-  //   setTimeout(() => {
-  //     setTabDisabled(false); // Enable Tab key after 2 seconds
-  //   }, 2000);
-  // }, []);
-  // useEffect(() => {
-  //   const handleKeyDown = (event: KeyboardEvent) => {
-  //     if (tabDisabled && event.key === 'Tab') {
-  //       event.preventDefault(); // Prevent default Tab behavior
-  //     }
-  //   };
 
-  //   window.addEventListener('keydown', handleKeyDown); // Add event listener
-
-  //   return () => {
-  //     window.removeEventListener('keydown', handleKeyDown); // Cleanup on component unmount
-  //   };
-  // }, [tabDisabled]);
   return (
     <div className="container" style={{ position: 'relative' }}>
       {isLoading ? (
@@ -128,135 +109,139 @@ const DetailPageReadyReceipt = () => {
             />
           ) : (
             <>
-            {tabDisabled ? (<Loader/>):(
+              {tabDisabled ? (
+                <Loader />
+              ) : (
+                <div>
+                  {defaultKarigarData?.length > 0 &&
+                    defaultKarigarData !== null &&
+                    defaultKarigarData.map((data: any, index: any) => (
+                      <div key={index}>
+                        <ReadyReceiptsTabs />
+                        <ReadyReceiptBtnSection
+                          data={data}
+                          stateForDocStatus={stateForDocStatus}
+                          setStateForDocStatus={setStateForDocStatus}
+                          handleUpdateReceipt={handleUpdateReceipt}
+                          readOnlyFields={readOnlyFields}
+                          setReadOnlyFields={setReadOnlyFields}
+                          setShowSaveButtonForAmendFlow={
+                            setShowSaveButtonForAmendFlow
+                          }
+                          showSaveButtonForAmendFlow={
+                            showSaveButtonForAmendFlow
+                          }
+                          handleAmendButtonForDuplicateChitti={
+                            handleAmendButtonForDuplicateChitti
+                          }
+                          handlePrintApi={handlePrintApi}
+                          printApiMethod={
+                            lastPartOfURL === 'kundan'
+                              ? 'print_purchase_receipt_kundan'
+                              : 'print_purchase_receipt_mangalsutra'
+                          }
+                          printApiEntity={
+                            lastPartOfURL === 'kundan'
+                              ? 'purchase_receipt'
+                              : 'purchase_receipt'
+                          }
+                          HandleUpdateDocStatus={HandleUpdateDocStatus}
+                          HandleDeleteReceipt={HandleDeleteReceipt}
+                          showDeleteModal={showDeleteModal}
+                          handleCloseDeleteModal={handleCloseDeleteModal}
+                          handleShowDeleteModal={handleShowDeleteModal}
+                          deleteRecord={deleteRecord}
+                        />
+                      </div>
+                    ))}
 
-            <div>
-              {defaultKarigarData?.length > 0 &&
-                defaultKarigarData !== null &&
-                
-                defaultKarigarData.map((data: any, index: any) => (
-                  <div key={index}>
-                    <ReadyReceiptsTabs />
-                    <ReadyReceiptBtnSection
-                      data={data}
-                      stateForDocStatus={stateForDocStatus}
+                  <div className="table">
+                    <ReadyReceiptTable
+                      handleRecipietChange={handleRecipietChange}
+                      recieptData={recipitData}
+                      karigarData={karigarData}
+                      setRecipitData={setRecipitData}
+                      selectedDropdownValue={selectedDropdownValue}
+                      setSelectedDropdownValue={setSelectedDropdownValue}
+                      defaultKarigarData={defaultKarigarData}
+                      setReadyReceiptType={setReadyReceiptType}
                       setStateForDocStatus={setStateForDocStatus}
-                      handleUpdateReceipt={handleUpdateReceipt}
                       readOnlyFields={readOnlyFields}
                       setReadOnlyFields={setReadOnlyFields}
-                      setShowSaveButtonForAmendFlow={
-                        setShowSaveButtonForAmendFlow
+                      warehouseListData={warehouseListData}
+                      selectedLocation={selectedLocation}
+                      setSelectedLocation={setSelectedLocation}
+                      // kunKarigarDropdownReset={kunKarigarDropdownReset}
+                      setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+                    />
+                  </div>
+                  <div className="container d-flex justify-content-end p-o">
+                    <button
+                      className="btn btn-link p-0"
+                      onClick={() => {
+                        if (!readOnlyFields) {
+                          handleAddRow('tableRow');
+                        }
+                      }}
+                    >
+                      Add Row
+                    </button>
+                  </div>
+                  <div className="table">
+                    <ReadyReceiptMasterTable
+                      handleFieldChange={handleFieldChange}
+                      tableData={tableData}
+                      selectedKundanKarigarDropdownValue={
+                        selectedKundanKarigarDropdownValue
                       }
-                      showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
+                      setSelectedKundanKarigarDropdownValue={
+                        setSelectedKundanKarigarDropdownValue
+                      }
+                      handleDeleteRow={handleDeleteRow}
+                      handleTabPress={handleTabPress}
+                      setTableData={setTableData}
+                      kundanKarigarData={kundanKarigarData}
+                      handleModal={handleModal}
+                      setStateForDocStatus={setStateForDocStatus}
+                      readOnlyFields={readOnlyFields}
+                      setReadOnlyFields={setReadOnlyFields}
+                      calculateEditTotal={calculateEditTotal}
+                      handleClearFileUploadInput={handleClearFileUploadInput}
+                      handleUpdateReceipt={handleUpdateReceipt}
+                      lastInputRef={lastInputRef}
+                      firstInputRef={firstInputRef}
+                      setMatWt={setMatWt}
+                      setKunKarigarDropdownReset={setKunKarigarDropdownReset}
+                      specificDataFromStore={specificDataFromStore}
                       handleAmendButtonForDuplicateChitti={
                         handleAmendButtonForDuplicateChitti
                       }
-                      handlePrintApi={handlePrintApi}
-                      printApiMethod={
-                        lastPartOfURL === 'kundan'
-                          ? 'print_purchase_receipt_kundan'
-                          : 'print_purchase_receipt_mangalsutra'
-                      }
-                      printApiEntity={
-                        lastPartOfURL === 'kundan'
-                          ? 'purchase_receipt'
-                          : 'purchase_receipt'
-                      }
-                      HandleUpdateDocStatus={HandleUpdateDocStatus}
-                      HandleDeleteReceipt={HandleDeleteReceipt}
-                      showDeleteModal={showDeleteModal}
-                handleCloseDeleteModal={handleCloseDeleteModal}
-                handleShowDeleteModal={handleShowDeleteModal}
-                deleteRecord={deleteRecord}
+                      tabDisabled={tabDisabled}
                     />
                   </div>
-                ))}
-
-              <div className="table">
-                <ReadyReceiptTable
-                  handleRecipietChange={handleRecipietChange}
-                  recieptData={recipitData}
-                  karigarData={karigarData}
-                  setRecipitData={setRecipitData}
-                  selectedDropdownValue={selectedDropdownValue}
-                  setSelectedDropdownValue={setSelectedDropdownValue}
-                  defaultKarigarData={defaultKarigarData}
-                  setReadyReceiptType={setReadyReceiptType}
-                  setStateForDocStatus={setStateForDocStatus}
-                  readOnlyFields={readOnlyFields}
-                  setReadOnlyFields={setReadOnlyFields}
-                  warehouseListData={warehouseListData}
-                  selectedLocation={selectedLocation}
-                  setSelectedLocation={setSelectedLocation}
-                  // kunKarigarDropdownReset={kunKarigarDropdownReset}
-                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
-                />
-              </div>
-              <div className="container d-flex justify-content-end p-o">
-                <button
-                  className="btn btn-link p-0"
-                  onClick={() => {
-                    if (!readOnlyFields) {
-                      handleAddRow('tableRow');
-                    }
-                  }}
-                >
-                  Add Row
-                </button>
-              </div>
-              <div className="table">
-                <ReadyReceiptMasterTable
-                  handleFieldChange={handleFieldChange}
-                  tableData={tableData}
-                  selectedKundanKarigarDropdownValue={
-                    selectedKundanKarigarDropdownValue
-                  }
-                  setSelectedKundanKarigarDropdownValue={
-                    setSelectedKundanKarigarDropdownValue
-                  }
-                  handleDeleteRow={handleDeleteRow}
-                  handleTabPress={handleTabPress}
-                  setTableData={setTableData}
-                  kundanKarigarData={kundanKarigarData}
-                  handleModal={handleModal}
-                  setStateForDocStatus={setStateForDocStatus}
-                  readOnlyFields={readOnlyFields}
-                  setReadOnlyFields={setReadOnlyFields}
-                  calculateEditTotal={calculateEditTotal}
-                  handleClearFileUploadInput={handleClearFileUploadInput}
-                  handleUpdateReceipt={handleUpdateReceipt}
-                  lastInputRef={lastInputRef}
-                  firstInputRef={firstInputRef}
-                  setMatWt={setMatWt}
-                  setKunKarigarDropdownReset={setKunKarigarDropdownReset}
-                  specificDataFromStore={specificDataFromStore}
-                  handleAmendButtonForDuplicateChitti={handleAmendButtonForDuplicateChitti}
-                  tabDisabled={tabDisabled}
-                />
-              </div>
-              <ReadyReceiptModal
-                tableData={tableData}
-                showModal={showModal}
-                closeModal={closeModal}
-                handleModalFieldChange={handleModalFieldChange}
-                handleAddRow={handleAddRow}
-                materialWeight={materialWeight}
-                setMaterialWeight={setMaterialWeight}
-                materialListData={materialListData}
-                calculateRowValue={calculateRowValue}
-                handleDeleteChildTableRow={handleDeleteChildTableRow}
-                setRecipitData={setRecipitData}
-                recipitData={recipitData}
-                selectedDropdownValue={selectedDropdownValue}
-                setSelectedDropdownValue={setSelectedDropdownValue}
-                handleSaveModal={handleSaveModal}
-                setStateForDocStatus={setStateForDocStatus}
-                readOnlyFields={readOnlyFields}
-                setReadOnlyFields={setReadOnlyFields}
-                handleTabPressOnModal={handleTabPressOnModal}
-              />
-            </div>
-            )}
+                  <ReadyReceiptModal
+                    tableData={tableData}
+                    showModal={showModal}
+                    closeModal={closeModal}
+                    handleModalFieldChange={handleModalFieldChange}
+                    handleAddRow={handleAddRow}
+                    materialWeight={materialWeight}
+                    setMaterialWeight={setMaterialWeight}
+                    materialListData={materialListData}
+                    calculateRowValue={calculateRowValue}
+                    handleDeleteChildTableRow={handleDeleteChildTableRow}
+                    setRecipitData={setRecipitData}
+                    recipitData={recipitData}
+                    selectedDropdownValue={selectedDropdownValue}
+                    setSelectedDropdownValue={setSelectedDropdownValue}
+                    handleSaveModal={handleSaveModal}
+                    setStateForDocStatus={setStateForDocStatus}
+                    readOnlyFields={readOnlyFields}
+                    setReadOnlyFields={setReadOnlyFields}
+                    handleTabPressOnModal={handleTabPressOnModal}
+                  />
+                </div>
+              )}
             </>
           )}
         </>

@@ -14,6 +14,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useReadyReceiptCustomCalculationHook from './ready-receipt-custom-calculation-hook';
 import useCustomReadyReceiptHook from './ready-receipt-custom-hook';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+} from '@/store/slices/btn-loading-slice';
 
 const useReadyReceipt = () => {
   const { query } = useRouter();
@@ -33,10 +37,10 @@ const useReadyReceipt = () => {
     store_location: '',
   });
 
-  const karigarData = useSelector(get_karigar_name_data).data
-  const kundanKarigarData = useSelector(get_kun_karigar_name_data).data
-  const materialListData = useSelector(get_material_data).data
-  const warehouseListData = useSelector(get_warehouse_list_data).data
+  const karigarData = useSelector(get_karigar_name_data).data;
+  const kundanKarigarData = useSelector(get_kun_karigar_name_data).data;
+  const materialListData = useSelector(get_material_data).data;
+  const warehouseListData = useSelector(get_warehouse_list_data).data;
   const [kunKarigarDropdownReset, setKunKarigarDropdownReset] =
     useState<any>(false);
   const loginAcessToken = useSelector(get_access_token);
@@ -251,6 +255,7 @@ const useReadyReceipt = () => {
       toast.error('Mandatory field Karigar');
       setTabDisabled(false);
     } else {
+      dispatch(btnLoadingStart());
       const purchaseReceipt: any = await purchaseReceiptApi(
         loginAcessToken.token,
         values
@@ -260,9 +265,11 @@ const useReadyReceipt = () => {
           `${readyReceiptType?.toLowerCase()}/${purchaseReceipt?.data?.message
             ?.message}`
         );
+        dispatch(btnLoadingStop());
         toast.success('Purchase Receipt Created Successfully');
         setTabDisabled(false);
       } else {
+        dispatch(btnLoadingStop());
         setTabDisabled(false);
         toast.error(`${purchaseReceipt?.data?.message?.message}`);
       }
@@ -311,7 +318,7 @@ const useReadyReceipt = () => {
 
     const updatedReceiptData: any = { ...values };
     keyToExclude?.forEach((key: any) => delete updatedReceiptData[key]);
-
+    dispatch(btnLoadingStart());
     let updateReceiptApi: any = await UpdatePurchaseReceiptApi(
       loginAcessToken.token,
       updatedReceiptData,
@@ -326,9 +333,11 @@ const useReadyReceipt = () => {
           name: query?.receiptId,
         };
         dispatch(getSpecificReceipt(params));
+        dispatch(btnLoadingStop());
         setTabDisabled(false);
       } else {
         toast.error(`${updateReceiptApi?.data?.message?.error}`);
+        dispatch(btnLoadingStop());
         setTabDisabled(false);
       }
     }

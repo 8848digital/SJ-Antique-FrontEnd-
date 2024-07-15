@@ -1,3 +1,7 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import getItemDetailsInSalesApi from '@/services/api/Sales/get-item-details-api';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
@@ -5,14 +9,15 @@ import PostSalesApi from '@/services/api/Sales/post-delivery-note-api';
 import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
 import { get_warehouse_list_data } from '@/store/slices/Master/get-warehouse-list-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import useCustomSalesReturnHook from './custom-sales-return-hook';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+} from '@/store/slices/btn-loading-slice';
 
 const useSalesReturnMasterHook = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
 
@@ -44,15 +49,14 @@ const useSalesReturnMasterHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     handleFixedAmt,
-    newRowForSalesReturnTable,
     showDeleteModal,
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    updateSalesTableData
+    updateSalesTableData,
   }: any = useCustomSalesReturnHook();
-  const clientNameListData = useSelector(get_client_name_data).data
-  const warehouseListData = useSelector(get_warehouse_list_data).data
+  const clientNameListData = useSelector(get_client_name_data).data;
+  const warehouseListData = useSelector(get_warehouse_list_data).data;
   const [deliveryNoteData, setDeliveryNoteData] = useState({
     store_location: '',
   });
@@ -85,15 +89,11 @@ const useSalesReturnMasterHook = () => {
     getDataFromapi();
   }, []);
 
- const itemDetailFunction = (item_code:string,id:number) => {
+  const itemDetailFunction = (item_code: string, id: number) => {
     if (
       itemList?.length > 0 !== null &&
       itemList?.length > 0 &&
-      itemList?.some(
-        (obj: any) =>
-          obj.name ===
-          item_code?.toUpperCase()
-      )
+      itemList?.some((obj: any) => obj.name === item_code?.toUpperCase())
     ) {
       const getItemCodeDetailsFun = async () => {
         const getItemDetailsmethod: any =
@@ -107,8 +107,10 @@ const useSalesReturnMasterHook = () => {
             getItemDetailsEntity
           );
           if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-            updateSalesTableData(getItemCodeDetailsApi?.data?.message?.data,id);
-
+            updateSalesTableData(
+              getItemCodeDetailsApi?.data?.message?.data,
+              id
+            );
           }
         } catch (error) {
           console.error('Error fetching item details:', error);
@@ -117,7 +119,7 @@ const useSalesReturnMasterHook = () => {
 
       getItemCodeDetailsFun();
     }
-  }
+  };
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
       // Check if there are no values except "idx"
@@ -132,6 +134,7 @@ const useSalesReturnMasterHook = () => {
     });
     return filteredTableData;
   };
+
   const handleSRCreate: any = async () => {
     const filteredData = filteredTableDataForUpdate(salesReturnTableData);
     const updatedData =
@@ -147,9 +150,9 @@ const useSalesReturnMasterHook = () => {
           custom_ot_amt: Number(data.custom_other_wt) * Number(data.custom_ot_),
           custom_amount: Number(
             Number(Number(data.custom_kun_pc) * Number(data?.custom_kun)) +
-            Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
-            Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
-            Number(data?.custom_other)
+              Number(Number(data?.custom_cs_wt) * Number(data?.custom_cs)) +
+              Number(Number(data.custom_other_wt) * Number(data.custom_ot_)) +
+              Number(data?.custom_other)
           )?.toFixed(2),
         };
       });
@@ -171,6 +174,7 @@ const useSalesReturnMasterHook = () => {
     };
     const clientVal = values?.custom_client_name;
     if (clientVal !== '') {
+      dispatch(btnLoadingStart());
       const postSalesReturnApi: any = await PostSalesApi(
         loginAcessToken.token,
         values
@@ -178,14 +182,16 @@ const useSalesReturnMasterHook = () => {
 
       if (postSalesReturnApi?.data?.message?.status === 'success') {
         toast.success('Delivery note Created Sucessfully');
-
+        dispatch(btnLoadingStop());
         router.push(
           `${query.saleId}/${postSalesReturnApi?.data?.message?.name}`
         );
       } else if (postSalesReturnApi?.data?.message?.status === 'error') {
+        dispatch(btnLoadingStop());
         toast.error(postSalesReturnApi?.data?.message?.message);
       }
     } else {
+      dispatch(btnLoadingStop());
       toast.error('Client name is mandatory');
     }
   };
@@ -232,7 +238,7 @@ const useSalesReturnMasterHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailFunction
+    itemDetailFunction,
   };
 };
 

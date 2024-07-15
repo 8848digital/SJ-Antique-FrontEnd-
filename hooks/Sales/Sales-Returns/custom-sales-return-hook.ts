@@ -1,13 +1,17 @@
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDeleteModal } from '@/hooks/DeleteModal/delete-modal-hook';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
 import DeleteApi from '@/services/api/general/delete-api';
 import UpdateDocStatusApi from '@/services/api/general/update-docStatus-api';
 import { GetDetailOfSalesReturn } from '@/store/slices/Sales/get-detail-sales-return-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+} from '@/store/slices/btn-loading-slice';
 
 const useCustomSalesReturnHook = () => {
   const {
@@ -93,10 +97,10 @@ const useCustomSalesReturnHook = () => {
                   ? 1 * value
                   : Number(item?.custom_kun_pc) * value
                 : fieldName === 'custom_kun_pc'
-                  ? item.custom_kun === ''
-                    ? 1 * value
-                    : Number(item.custom_kun) * value
-                  : item.custom_kun_amt,
+                ? item.custom_kun === ''
+                  ? 1 * value
+                  : Number(item.custom_kun) * value
+                : item.custom_kun_amt,
             custom_ot_amt:
               fieldName === 'custom_ot_amt'
                 ? Number(item.custom_other_wt) * value
@@ -131,7 +135,10 @@ const useCustomSalesReturnHook = () => {
   };
 
   const handleAddRowForSalesReturn: any = () => {
-    setSalesReturnTableData([...salesReturnTableData, newRowForSalesReturnTable]);
+    setSalesReturnTableData([
+      ...salesReturnTableData,
+      newRowForSalesReturnTable,
+    ]);
     setStateForDocStatus(true);
   };
   const handleDeleteRowOfSalesReturnTable: any = (id: any) => {
@@ -147,7 +154,7 @@ const useCustomSalesReturnHook = () => {
     const { idx, ...itemWithoutIdx } = item;
     return itemWithoutIdx;
   };
-  const updateSalesTableData = (data: any,id:number) => {
+  const updateSalesTableData = (data: any, id: number) => {
     setSelectedClient(data[0]?.custom_client_name);
     setSalesReturnTableData((prevSalesTableData: any) => {
       return [...prevSalesTableData, newRowForSalesReturnTable];
@@ -203,6 +210,7 @@ const useCustomSalesReturnHook = () => {
   const handleUpdateDocStatus: any = async (docStatus?: any, name?: any) => {
     let id: any = name === undefined ? query?.deliveryNoteId : name;
     const params = `/api/resource/Delivery Note/${id}`;
+    dispatch(btnLoadingStart());
     let updateDocStatus: any = await UpdateDocStatusApi(
       loginAcessToken?.token,
       docStatus,
@@ -210,6 +218,7 @@ const useCustomSalesReturnHook = () => {
     );
 
     if (updateDocStatus?.data?.hasOwnProperty('data')) {
+      dispatch(btnLoadingStop());
       if (name === undefined) {
         const reqParams: any = {
           token: loginAcessToken.token,
@@ -231,15 +240,17 @@ const useCustomSalesReturnHook = () => {
           setSaleReturnDeliveryNoteListing(updatedData?.data?.message?.data);
         }
       }
+    } else {
+      dispatch(btnLoadingStop());
     }
   };
 
   const handleDeleteSalesReturn: any = async (id: any) => {
-    setShowDeleteModal(false)
+    setShowDeleteModal(false);
     const version = 'v1';
     const method = 'delete_delivery_note_sales_return';
     const entity = 'sales_return';
-
+    dispatch(btnLoadingStart());
     let deleteApi: any = await DeleteApi(
       loginAcessToken?.token,
       version,
@@ -247,7 +258,8 @@ const useCustomSalesReturnHook = () => {
       entity,
       id
     );
-    if (deleteApi?.data?.message?.status === "success") {
+    if (deleteApi?.data?.message?.status === 'success') {
+      dispatch(btnLoadingStop());
       toast.success(deleteApi?.data?.message?.message);
       const deliveryNoteListParams = {
         version: 'v1',
@@ -259,9 +271,11 @@ const useCustomSalesReturnHook = () => {
         deliveryNoteListParams
       );
       if (deliveryNoteApi?.data?.message?.status === 'success') {
+        dispatch(btnLoadingStop());
         setSaleReturnDeliveryNoteListing(deliveryNoteApi?.data?.message?.data);
       }
     } else {
+      dispatch(btnLoadingStop());
       toast.error('Failed to delete Sales Return');
     }
   };
@@ -297,9 +311,9 @@ const useCustomSalesReturnHook = () => {
             Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-            Number(item[i]?.custom_kun_amt) +
-            Number(item[i]?.custom_ot_amt) +
-            Number(item[i]?.custom_other)
+              Number(item[i]?.custom_kun_amt) +
+              Number(item[i]?.custom_ot_amt) +
+              Number(item[i]?.custom_other)
           ),
         };
       });
@@ -340,7 +354,7 @@ const useCustomSalesReturnHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    updateSalesTableData
+    updateSalesTableData,
   };
 };
 

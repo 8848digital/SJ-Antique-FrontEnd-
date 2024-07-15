@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import styles from '../../../styles/readyReceipts.module.css';
 import DeleteModal from '@/components/DeleteModal';
+import { buttonLoadingState } from '@/store/slices/btn-loading-slice';
+import { useSelector } from 'react-redux';
 
 const ReadyReceiptBtnSection = ({
   data,
@@ -28,6 +30,7 @@ const ReadyReceiptBtnSection = ({
 
   const pathParts = router?.asPath?.split('/');
   const receiptType = pathParts[2];
+  const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
 
   const HandleAmendButtonChanges: any = async () => {
     setShowSaveButtonForAmendFlow(true);
@@ -99,7 +102,11 @@ const ReadyReceiptBtnSection = ({
               type="button"
               className={` btn btn-outline-primary px-2 py-0 me-2`}
               onClick={handleUpdateReceipt}
+              disabled={buttonLoadingStateFromStore?.loading}
             >
+              {buttonLoadingStateFromStore?.loading === true && (
+                <i className="fa fa-spinner me-1"></i>
+              )}
               Save
             </button>
           )}
@@ -108,6 +115,7 @@ const ReadyReceiptBtnSection = ({
               <button
                 type="button"
                 className={`btn btn-outline-primary px-2 py-0 me-2`}
+                disabled={buttonLoadingStateFromStore?.loading}
                 onClick={() =>
                   handlePrintApi(
                     query?.receiptId,
@@ -116,6 +124,9 @@ const ReadyReceiptBtnSection = ({
                   )
                 }
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Print
               </button>
             )}
@@ -157,8 +168,12 @@ const ReadyReceiptBtnSection = ({
               <button
                 type="submit"
                 onClick={handleAmendButtonForDuplicateChitti}
+                disabled={buttonLoadingStateFromStore?.loading}
                 className={`btn btn-outline-primary px-2 py-0 me-2`}
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Save
               </button>
             )}

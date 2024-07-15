@@ -1,5 +1,4 @@
 import SalesHeader from '@/components/Header/SalesHeader';
-
 import TabSection from '@/components/TabSection';
 import useCustomerSaleHook from '@/hooks/Sales/Customer-Sales/customer-sales-hook';
 import CustomerSalesTable from './CustomerSalesTable';
@@ -7,6 +6,8 @@ import CustomerSaleTable1 from './CustomerSalesTable1';
 import CustomerSalesTable2 from './CustomerSalesTable2';
 import useScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
 import ReadyReceiptListing from '@/components/ReadyReceipts/ReadyReceiptsListing';
+import { useSelector } from 'react-redux';
+import { buttonLoadingState } from '@/store/slices/btn-loading-slice';
 
 const CustomerSaleMaster = () => {
   const {
@@ -35,7 +36,6 @@ const CustomerSaleMaster = () => {
     setItemCodeDropdownReset,
     deliveryNoteListParams,
     deliveryNoteListing,
-    handleDeliveryNotePrintApi,
     selectedItemCode,
     setSelectedItemCode,
     handleUpdateDocStatus,
@@ -46,7 +46,6 @@ const CustomerSaleMaster = () => {
     setDeliveryNoteData,
     deliveryNoteData,
     kunCsOtFixedAmt,
-    setKunCsOtFixedAmt,
     handleFixedAmt,
     barcodedata,
     setBarcodeData,
@@ -59,7 +58,7 @@ const CustomerSaleMaster = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailApiFun
+    itemDetailApiFun,
   }: any = useCustomerSaleHook();
   const {
     scrollableTableRef,
@@ -68,12 +67,12 @@ const CustomerSaleMaster = () => {
     handleMouseLeave,
     handleMouseMove,
   }: any = useScrollbarHook();
-
+  const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-        return data.is_return === 0;
-      })
+          return data.is_return === 0;
+        })
       : [];
 
   return (
@@ -85,7 +84,7 @@ const CustomerSaleMaster = () => {
           secondTabHeading="Create New Sales "
         />
       </div>
-      <div className="tab-content " id="pills-tabContent">
+      <div className="tab-content" id="pills-tabContent">
         <div
           className="tab-pane fade show active tab-width"
           id="pills-home"
@@ -116,9 +115,9 @@ const CustomerSaleMaster = () => {
               setKunKarigarDropdownReset={setItemCodeDropdownReset}
               heading={'Delivery Note'}
               showDeleteModal={showDeleteModal}
-                handleCloseDeleteModal={handleCloseDeleteModal}
-                handleShowDeleteModal={handleShowDeleteModal}
-                deleteRecord={deleteRecord}
+              handleCloseDeleteModal={handleCloseDeleteModal}
+              handleShowDeleteModal={handleShowDeleteModal}
+              deleteRecord={deleteRecord}
             />
           </div>
         </div>
@@ -140,8 +139,12 @@ const CustomerSaleMaster = () => {
               <button
                 type="button"
                 onClick={handleDNCreate}
+                disabled={buttonLoadingStateFromStore?.loading}
                 className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Create
               </button>
             </div>

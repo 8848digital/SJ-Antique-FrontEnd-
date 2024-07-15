@@ -1,9 +1,10 @@
-import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import styles from '../../../../styles/readyReceipts.module.css';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
+import styles from '../../../../styles/readyReceipts.module.css';
 import DeleteModal from '@/components/DeleteModal';
+import { buttonLoadingState } from '@/store/slices/btn-loading-slice';
 
 const CustomerSalesButtonsSection = ({
   stateForDocStatus,
@@ -18,26 +19,28 @@ const CustomerSalesButtonsSection = ({
   HandleDeleteRecords,
   handleDeliveryNotePrintApi,
   showDeleteModal,
-    handleCloseDeleteModal,
-    handleShowDeleteModal,
-    deleteRecord,
+  handleCloseDeleteModal,
+  handleShowDeleteModal,
+  deleteRecord,
 }: any) => {
   const router = useRouter();
   const { query } = useRouter();
-  const pathParts = router?.asPath?.split('/');
-  const salesId = pathParts[1];
 
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
+  const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
 
   const HandleAmendButtonChanges: any = async () => {
     setShowSaveButtonForAmendFlow(true);
     setStateForDocStatus(true);
     setReadOnlyFields(false);
   };
-  const dateFlag = DetailOfDeliveryNoteFromStore?.data?.posting_date ===
-  new Date().toISOString().split('T')[0].split('-').reverse().join('-') ? false : true
+  const dateFlag =
+    DetailOfDeliveryNoteFromStore?.data?.posting_date ===
+    new Date().toISOString().split('T')[0].split('-').reverse().join('-')
+      ? false
+      : true;
 
   return (
     <>
@@ -105,7 +108,11 @@ const CustomerSalesButtonsSection = ({
                 type="button"
                 className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={handleUpdateDeliveryNote}
+                disabled={buttonLoadingStateFromStore?.loading}
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Save
               </button>
             )}
@@ -118,7 +125,11 @@ const CustomerSalesButtonsSection = ({
                 onClick={() =>
                   handleDeliveryNotePrintApi(query?.deliveryNoteId)
                 }
+                disabled={buttonLoadingStateFromStore?.loading}
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Print
               </button>
             )}
@@ -139,23 +150,23 @@ const CustomerSalesButtonsSection = ({
                 type="button"
                 className={`btn btn-outline-primary px-2 py-0 me-2`}
                 onClick={() => HandleUpdateSalesdocStatus('2')}
+                disabled={buttonLoadingStateFromStore?.loading}
               >
                 Cancel
               </button>
             )}
-          
-              {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
-                stateForDocStatus === false && (
-                  <button
-                    type="button"
-                    className={`btn btn-outline-primary px-2 py-0 me-2`}
-                    onClick={HandleAmendButtonChanges}
-                    disabled={dateFlag}
-                  >
-                    Amend
-                  </button>
-                )}
-           
+
+          {DetailOfDeliveryNoteFromStore?.docStatus === 2 &&
+            stateForDocStatus === false && (
+              <button
+                type="button"
+                className={`btn btn-outline-primary px-2 py-0 me-2`}
+                onClick={HandleAmendButtonChanges}
+                disabled={dateFlag}
+              >
+                Amend
+              </button>
+            )}
 
           {showSaveButtonForAmendFlow &&
             stateForDocStatus &&
@@ -164,7 +175,11 @@ const CustomerSalesButtonsSection = ({
                 type="submit"
                 onClick={HandleAmendButtonForCustomerSales}
                 className={`btn btn-outline-primary px-2 py-0 me-2 `}
+                disabled={buttonLoadingStateFromStore?.loading}
               >
+                {buttonLoadingStateFromStore?.loading === true && (
+                  <i className="fa fa-spinner me-1"></i>
+                )}
                 Save
               </button>
             )}
@@ -173,7 +188,7 @@ const CustomerSalesButtonsSection = ({
             <button
               type="button"
               className={`btn btn-outline-primary px-2 py-0 me-2 `}
-              onClick={()=>handleShowDeleteModal(query?.deliveryNoteId)}
+              onClick={() => handleShowDeleteModal(query?.deliveryNoteId)}
               disabled={dateFlag}
             >
               Delete
@@ -181,7 +196,7 @@ const CustomerSalesButtonsSection = ({
           )}
         </div>
       </div>
-        <DeleteModal
+      <DeleteModal
         heading={'Delivery Note'}
         confirmDelete={HandleDeleteRecords}
         showDeleteModal={showDeleteModal}

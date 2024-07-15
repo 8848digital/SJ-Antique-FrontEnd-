@@ -8,12 +8,17 @@ import {
 } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
 import UseCustomReceiptHook from '@/hooks/ReadyReceiptHook/ready-receipt-custom-hook';
 import PrintApi from '@/services/api/general/print-api';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+  buttonLoadingState,
+} from '@/store/slices/btn-loading-slice';
 
 const UseKundanKarigarDetailHook = () => {
   const dispatch = useDispatch();
   const loginAcessToken = useSelector(get_access_token);
   const { query } = useRouter();
-  // const { tableData, recipitData, indexVal } = useReadyReceiptKarigar();
+  const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
   const { defaultKarigarData, setDefaultKarigarData }: any =
     UseCustomReceiptHook();
   const [readOnlyFields, setReadOnlyFields] = useState<any>(false);
@@ -69,15 +74,15 @@ const UseKundanKarigarDetailHook = () => {
       method: printApiMethod,
       entity: printApiEntity,
     };
+    dispatch(btnLoadingStart());
     let deliveryNotePrintApi: any = await PrintApi(reqParams);
     if (deliveryNotePrintApi?.data?.message?.status === 'success') {
       window.open(
         deliveryNotePrintApi?.data?.message?.data?.data[0]?.print_url
       );
+      dispatch(btnLoadingStop());
     }
   };
-
-
 
   return {
     defaultKarigarData,

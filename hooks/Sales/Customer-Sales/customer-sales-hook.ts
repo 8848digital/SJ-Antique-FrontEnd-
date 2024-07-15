@@ -19,6 +19,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useCustomCustomerSalesHook from './custom-customer-sales-hook';
 import useCustomerSalesListingHook from './customer-sales-listing-hook';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+} from '@/store/slices/btn-loading-slice';
 
 const useCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -402,6 +406,7 @@ const useCustomerSaleHook = () => {
     if (reqField === '') {
       toast.error('Client Name is Mandatory');
     } else {
+      dispatch(btnLoadingStart());
       const postDeliveryNote: any = await PostSalesApi(
         loginAcessToken.token,
         values
@@ -409,9 +414,11 @@ const useCustomerSaleHook = () => {
 
       if (postDeliveryNote?.data?.message?.status === 'success') {
         toast.success('Delivery note Created Successfully');
+        dispatch(btnLoadingStop());
         router.push(`${query.saleId}/${postDeliveryNote?.data?.message?.name}`);
       }
       if (postDeliveryNote?.data?.message?.status === 'error') {
+        dispatch(btnLoadingStop());
         toast.error(`${postDeliveryNote?.data?.message?.message}`);
       }
     }
@@ -436,6 +443,7 @@ const useCustomerSaleHook = () => {
   };
   const handleDeleteDeliveryNote: any = async (name: any) => {
     setShowDeleteModal(false);
+    dispatch(btnLoadingStart());
     const version = 'v1';
     const method = 'delete_delivery_note_api';
     const entity = 'sales';
@@ -450,6 +458,7 @@ const useCustomerSaleHook = () => {
 
     if (deleteApi?.data?.message?.status === 'success') {
       toast.success('Sales note Deleted');
+      dispatch(btnLoadingStop());
       let updatedData: any = await getDeliveryNoteListing(
         loginAcessToken.token,
         deliveryNoteListParams
@@ -461,6 +470,7 @@ const useCustomerSaleHook = () => {
         }
       }
     } else {
+      dispatch(btnLoadingStop());
       toast.error('Failed to delete sales note');
     }
   };
@@ -473,12 +483,14 @@ const useCustomerSaleHook = () => {
       docStatus,
       params
     );
+    dispatch(btnLoadingStart());
     if (updateDocStatus?.data?.hasOwnProperty('data')) {
       if (name === undefined) {
         const reqParams: any = {
           token: loginAcessToken.token,
           name: query?.deliveryNoteId,
         };
+        dispatch(btnLoadingStop());
         dispatch(GetDetailOfDeliveryNote(reqParams));
       } else {
         let updatedData: any = await getDeliveryNoteListing(
@@ -491,6 +503,7 @@ const useCustomerSaleHook = () => {
         }
       }
     } else {
+      dispatch(btnLoadingStop());
       toast.error('Failed to Update Sales note');
     }
   };

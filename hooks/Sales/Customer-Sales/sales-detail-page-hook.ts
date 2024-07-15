@@ -12,6 +12,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useCustomerSaleHook from './customer-sales-hook';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+} from '@/store/slices/btn-loading-slice';
 
 const useCustomerSaleDetailHook = () => {
   const dispatch = useDispatch();
@@ -224,15 +228,18 @@ const useCustomerSaleDetailHook = () => {
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
+    dispatch(btnLoadingStart());
     let updateDeliveryNoteApi: any = await UpdateSaleApi(
       loginAcessToken?.token,
       values
     );
 
     if (updateDeliveryNoteApi?.data?.message?.status === 'error') {
+      dispatch(btnLoadingStop());
       toast.error(`${updateDeliveryNoteApi?.data?.message?.message}`);
     }
     if (updateDeliveryNoteApi?.data?.message?.status === 'success') {
+      dispatch(btnLoadingStop());
       setStateForDocStatus(false);
 
       const reqParams: any = {
@@ -240,6 +247,8 @@ const useCustomerSaleDetailHook = () => {
         name: query?.deliveryNoteId,
       };
       dispatch(GetDetailOfDeliveryNote(reqParams));
+    } else {
+      dispatch(btnLoadingStop);
     }
   };
 
@@ -299,11 +308,15 @@ const useCustomerSaleDetailHook = () => {
       method: 'print_delivery_note_sales',
       entity: 'sales',
     };
+    dispatch(btnLoadingStart());
     let deliveryNotePrintApi: any = await PrintApi(reqParams);
     if (deliveryNotePrintApi?.data?.message?.status === 'success') {
+      dispatch(btnLoadingStop());
       window.open(
         deliveryNotePrintApi?.data?.message?.data?.data[0]?.print_url
       );
+    } else {
+      dispatch(btnLoadingStop());
     }
   };
 

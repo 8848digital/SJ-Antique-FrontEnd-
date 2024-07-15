@@ -12,6 +12,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+} from '@/store/slices/btn-loading-slice';
 
 const useCustomReadyReceiptHook: any = () => {
   const {
@@ -112,7 +116,8 @@ const useCustomReadyReceiptHook: any = () => {
   };
 
   const HandleDeleteReceipt: any = async (name: any) => {
-    setShowDeleteModal(false)
+    setShowDeleteModal(false);
+    dispatch(btnLoadingStart());
     const params: any = {
       version: 'v1',
       method: 'delete_purchase_receipt',
@@ -127,6 +132,7 @@ const useCustomReadyReceiptHook: any = () => {
 
     if (deletePurchaseReceiptApi?.message?.status === 'success') {
       toast.success(deletePurchaseReceiptApi?.message?.message);
+      dispatch(btnLoadingStop());
       const capitalizeFirstLetter = (str: any) => {
         return str?.charAt(0)?.toUpperCase() + str?.slice(1);
       };
@@ -136,12 +142,13 @@ const useCustomReadyReceiptHook: any = () => {
       );
       if (updatedData?.data?.message?.status === 'success') {
         setKundanListing(updatedData?.data?.message?.data);
-        if(query?.receiptId === name){
-          router.back()
+        if (query?.receiptId === name) {
+          router.back();
         }
       }
     } else {
       toast.error('Failed to Delete purchase Receipt');
+      dispatch(btnLoadingStop());
     }
   };
 
@@ -381,29 +388,6 @@ const useCustomReadyReceiptHook: any = () => {
 
     setMaterialWeight(updatedMaterialWeight);
   };
-  const calculateGrossWt = (item: any, field: string, value: any) => {
-    if (field === 'custom_few_wt') {
-      item.custom_gross_wt =
-        Number(item?.custom_net_wt) +
-        Number(item.custom_mat_wt) +
-        Number(value);
-      return Number(value);
-    }
-    if (field === 'custom_mat_wt') {
-      item.custom_gross_wt =
-        Number(item?.custom_net_wt) +
-        Number(item.custom_few_wt) +
-        Number(value);
-      return Number(value);
-    }
-    if (field === 'custom_net_wt') {
-      item.custom_gross_wt =
-        Number(item?.custom_few_wt) +
-        Number(item.custom_mat_wt) +
-        Number(value);
-      return Number(value);
-    }
-  };
 
   const handleFieldChange = (
     id: number,
@@ -412,7 +396,6 @@ const useCustomReadyReceiptHook: any = () => {
     newValue: any,
     fileVal?: any
   ) => {
-   
     const formatInput = (value: any) => {
       if (typeof value === 'number' || !isNaN(parseFloat(value))) {
         const floatValue = parseFloat(value);
@@ -449,8 +432,8 @@ const useCustomReadyReceiptHook: any = () => {
             field === 'custom_add_photo'
               ? filePath
               : field === 'product_code'
-                ? newValue.toUpperCase() // Convert to uppercase for 'product code'
-                : formatInput(newValue),
+              ? newValue.toUpperCase() // Convert to uppercase for 'product code'
+              : formatInput(newValue),
           custom_gross_wt,
         };
       }
@@ -604,7 +587,6 @@ const useCustomReadyReceiptHook: any = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-   
   };
 };
 

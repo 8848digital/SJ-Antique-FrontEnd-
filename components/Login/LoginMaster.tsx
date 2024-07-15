@@ -1,16 +1,11 @@
-import {
-  getAccessToken,
-  get_access_token,
-} from '@/store/slices/auth/login-slice';
+import { getAccessToken } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const LoginMaster = () => {
   const dispatch = useDispatch();
-  const loginAcessToken = useSelector(get_access_token);
-  const [loginToken, setLoginToken] = useState('');
   const router = useRouter();
   const [userData, setUserData] = useState<any>({
     username: '',

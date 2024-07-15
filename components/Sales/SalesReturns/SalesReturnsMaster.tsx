@@ -3,9 +3,10 @@ import CustomerSalesTable from '../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../CustomerSale/CustomerSalesTable1';
 import TabSection from '@/components/TabSection';
 import UseSalesReturnMasterHook from '@/hooks/Sales/Sales-Returns/sales-return-master-hook';
-
 import UseScrollbarHook from '@/hooks/Report/report-table-scrollbar-hook';
 import ReadyReceiptListing from '@/components/ReadyReceipts/ReadyReceiptsListing';
+import { buttonLoadingState } from '@/store/slices/btn-loading-slice';
+import { useSelector } from 'react-redux';
 
 const SaleReturnsMaster = () => {
   const {
@@ -44,7 +45,7 @@ const SaleReturnsMaster = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailFunction
+    itemDetailFunction,
   }: any = UseSalesReturnMasterHook();
 
   const {
@@ -55,6 +56,7 @@ const SaleReturnsMaster = () => {
     handleMouseMove,
   }: any = UseScrollbarHook();
 
+  const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
   const salesReturnListing =
     saleReturnDeliveryNoteListing && saleReturnDeliveryNoteListing.length > 0
       ? saleReturnDeliveryNoteListing.filter((data: any) => {
@@ -106,7 +108,6 @@ const SaleReturnsMaster = () => {
                 handleCloseDeleteModal={handleCloseDeleteModal}
                 handleShowDeleteModal={handleShowDeleteModal}
                 deleteRecord={deleteRecord}
-                // purchasRecieptListParams={deliveryNoteListParams}
               />
             </div>
           </div>
@@ -128,8 +129,12 @@ const SaleReturnsMaster = () => {
                 <button
                   type="button"
                   onClick={handleSRCreate}
+                  disabled={buttonLoadingStateFromStore?.loading}
                   className={`btn btn-outline-primary form-submit-button px-2 py-0 ms-3`}
                 >
+                  {buttonLoadingStateFromStore?.loading === true && (
+                    <i className="fa fa-spinner me-1"></i>
+                  )}
                   Create
                 </button>
               </div>
