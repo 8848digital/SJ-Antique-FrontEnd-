@@ -1,11 +1,11 @@
-import ReadyReceiptMaster from '@/components/ReadyReceipts/ReadyReceiptMaster';
 import React from 'react';
+import ReadyReceiptMaster from '@/components/ReadyReceipts/ReadyReceiptMaster';
 
 const ReadyReceipt = () => {
   return (
-    <div>
+    <>
       <ReadyReceiptMaster />
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,5 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import Link from 'next/link';
 import styles from '../../styles/header.module.css';
 
 const ReadyReceiptsTabs: any = () => {
@@ -19,7 +18,6 @@ const ReadyReceiptsTabs: any = () => {
     (pathcontent?.includes('mangalsutra') ||
       pathcontent?.includes('Mangalsutra'));
 
-  const [active, setActive] = useState(0);
   return (
     <div className=" justify-content-center">
       <div className="navbar d-flex justify-content-center p-0">
@@ -28,7 +26,6 @@ const ReadyReceiptsTabs: any = () => {
             <Link
               href="/readyReceipt/kundan"
               className="text-decoration-none btn-margin"
-              onClick={() => setActive(0)}
             >
               <button
                 className={`${styles.button} ${
@@ -42,7 +39,6 @@ const ReadyReceiptsTabs: any = () => {
             <Link
               href="/readyReceipt/mangalsutra"
               className="text-decoration-none btn-margin"
-              onClick={() => setActive(1)}
             >
               <button
                 className={`${styles.button} ${

@@ -1,27 +1,23 @@
-import UseKundanKarigarDetailHook from '@/hooks/ReadyReceiptHook/ReadyReceiptDetail/ready-receipt-detail-hook';
-import React, { useEffect, useState } from 'react';
-import useReadyReceiptKarigar from '@/hooks/ReadyReceiptHook/ready-receipt-master-hook';
-import ReadyReceiptBtnSection from './ReadyReceiptBtnSection';
+import useReadyReceiptDetailHook from '@/hooks/ReadyReceiptHook/ReadyReceiptDetail/ready-receipt-detail-hook';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import '../../../styles/detailPage.module.css';
 import Loader from '../../NoRecord/Loader';
 import NoRecord from '../../NoRecord/NoRecord';
-import { useRouter } from 'next/router';
-import ReadyReceiptModal from '../ReadyReceiptTable/ReadyReceiptModal/ReadyReceiptModal';
 import ReadyReceiptMasterTable from '../ReadyReceiptTable/ReadyReceiptMasterTable';
+import ReadyReceiptModal from '../ReadyReceiptTable/ReadyReceiptModal/ReadyReceiptModal';
 import ReadyReceiptTable from '../ReadyReceiptTable/ReadyReceiptTable';
 import ReadyReceiptsTabs from '../ReadyReceiptsTabs';
+import ReadyReceiptBtnSection from './ReadyReceiptBtnSection';
 
 const DetailPageReadyReceipt = () => {
+  const { query } = useRouter();
   const {
     defaultKarigarData,
     readOnlyFields,
     setReadOnlyFields,
     isLoading,
     handlePrintApi,
-  } = UseKundanKarigarDetailHook();
-
-  const { query } = useRouter();
-  const {
     handleRecipietChange,
     handleAddRow,
     karigarData,
@@ -47,7 +43,6 @@ const DetailPageReadyReceipt = () => {
     HandleDeleteReceipt,
     selectedDropdownValue,
     setSelectedDropdownValue,
-    readyReceiptType,
     setReadyReceiptType,
     stateForDocStatus,
     setStateForDocStatus,
@@ -68,13 +63,13 @@ const DetailPageReadyReceipt = () => {
     warehouseListData,
     selectedLocation,
     setSelectedLocation,
-    specificDataFromStore,
     tabDisabled,
     showDeleteModal,
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-  } = useReadyReceiptKarigar();
+    specificDataFromStore,
+  } = useReadyReceiptDetailHook();
 
   useEffect(() => {
     if (defaultKarigarData?.length > 0 && defaultKarigarData !== null) {
@@ -95,6 +90,7 @@ const DetailPageReadyReceipt = () => {
     setSelectedLocation,
   ]);
 
+  console.log('detail page render');
   return (
     <div className="container" style={{ position: 'relative' }}>
       {isLoading ? (
@@ -171,7 +167,6 @@ const DetailPageReadyReceipt = () => {
                       warehouseListData={warehouseListData}
                       selectedLocation={selectedLocation}
                       setSelectedLocation={setSelectedLocation}
-                      // kunKarigarDropdownReset={kunKarigarDropdownReset}
                       setKunKarigarDropdownReset={setKunKarigarDropdownReset}
                     />
                   </div>

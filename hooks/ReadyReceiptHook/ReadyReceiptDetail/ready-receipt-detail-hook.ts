@@ -1,30 +1,84 @@
-import { get_access_token } from '@/store/slices/auth/login-slice';
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import UseCustomReceiptHook from '@/hooks/ReadyReceiptHook/ready-receipt-custom-hook';
+import PrintApi from '@/services/api/general/print-api';
+import { get_access_token } from '@/store/slices/auth/login-slice';
+import {
+  btnLoadingStart,
+  btnLoadingStop,
+} from '@/store/slices/btn-loading-slice';
 import {
   getSpecificReceipt,
   get_specific_receipt_data,
 } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
-import UseCustomReceiptHook from '@/hooks/ReadyReceiptHook/ready-receipt-custom-hook';
-import PrintApi from '@/services/api/general/print-api';
-import {
-  btnLoadingStart,
-  btnLoadingStop,
-  buttonLoadingState,
-} from '@/store/slices/btn-loading-slice';
+import useReadyReceipt from '@/hooks/ReadyReceiptHook/ready-receipt-master-hook';
 
 const UseKundanKarigarDetailHook = () => {
   const dispatch = useDispatch();
   const loginAcessToken = useSelector(get_access_token);
   const { query } = useRouter();
-  const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
+
   const { defaultKarigarData, setDefaultKarigarData }: any =
     UseCustomReceiptHook();
+
+  const {
+    handleRecipietChange,
+    handleAddRow,
+    karigarData,
+    setRecipitData,
+    handleFieldChange,
+    tableData,
+    handleDeleteRow,
+    handleTabPress,
+    setTableData,
+    kundanKarigarData,
+    handleModal,
+    handleModalFieldChange,
+    materialWeight,
+    materialListData,
+    calculateRowValue,
+    handleDeleteChildTableRow,
+    recipitData,
+    setMaterialWeight,
+    closeModal,
+    handleSaveModal,
+    showModal,
+    lastPartOfURL,
+    HandleDeleteReceipt,
+    selectedDropdownValue,
+    setSelectedDropdownValue,
+    setReadyReceiptType,
+    stateForDocStatus,
+    setStateForDocStatus,
+    handleUpdateReceipt,
+    setShowSaveButtonForAmendFlow,
+    showSaveButtonForAmendFlow,
+    handleAmendButtonForDuplicateChitti,
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+    calculateEditTotal,
+    handleClearFileUploadInput,
+    lastInputRef,
+    firstInputRef,
+    setMatWt,
+    HandleUpdateDocStatus,
+    handleTabPressOnModal,
+    setKunKarigarDropdownReset,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
+    tabDisabled,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+  } = useReadyReceipt();
+
   const [readOnlyFields, setReadOnlyFields] = useState<any>(false);
   const [isLoading, setIsLoading] = useState<any>(false);
 
-  const SpecificDataFromStore: any = useSelector(get_specific_receipt_data);
+  const specificDataFromStore: any = useSelector(get_specific_receipt_data);
 
   useEffect(() => {
     if (Object?.keys(query)?.length > 0) {
@@ -38,29 +92,29 @@ const UseKundanKarigarDetailHook = () => {
 
   useEffect(() => {
     if (
-      SpecificDataFromStore?.data?.length === 0 &&
-      SpecificDataFromStore?.isLoading === 'pending'
+      specificDataFromStore?.data?.length === 0 &&
+      specificDataFromStore?.isLoading === 'pending'
     ) {
       setIsLoading(true);
     } else if (
-      SpecificDataFromStore?.hasOwnProperty('data') &&
-      SpecificDataFromStore?.isLoading === 'succeeded'
+      specificDataFromStore?.hasOwnProperty('data') &&
+      specificDataFromStore?.isLoading === 'succeeded'
     ) {
       setIsLoading(false);
-      setDefaultKarigarData([...SpecificDataFromStore?.data]);
+      setDefaultKarigarData([...specificDataFromStore?.data]);
     } else {
       setIsLoading(false);
       setDefaultKarigarData([]);
     }
-  }, [SpecificDataFromStore]);
+  }, [specificDataFromStore]);
 
   useEffect(() => {
-    if (SpecificDataFromStore?.docStatus > 0) {
+    if (specificDataFromStore?.docStatus > 0) {
       setReadOnlyFields(true);
     } else {
       setReadOnlyFields(false);
     }
-  }, [SpecificDataFromStore]);
+  }, [specificDataFromStore]);
 
   const handlePrintApi: any = async (
     id: any,
@@ -90,6 +144,58 @@ const UseKundanKarigarDetailHook = () => {
     setReadOnlyFields,
     isLoading,
     handlePrintApi,
+    handleRecipietChange,
+    handleAddRow,
+    karigarData,
+    setRecipitData,
+    handleFieldChange,
+    tableData,
+    handleDeleteRow,
+    handleTabPress,
+    setTableData,
+    kundanKarigarData,
+    handleModal,
+    handleModalFieldChange,
+    materialWeight,
+    materialListData,
+    calculateRowValue,
+    handleDeleteChildTableRow,
+    recipitData,
+    setMaterialWeight,
+    closeModal,
+    handleSaveModal,
+    showModal,
+    lastPartOfURL,
+    HandleDeleteReceipt,
+    selectedDropdownValue,
+    setSelectedDropdownValue,
+
+    setReadyReceiptType,
+    stateForDocStatus,
+    setStateForDocStatus,
+    handleUpdateReceipt,
+    setShowSaveButtonForAmendFlow,
+    showSaveButtonForAmendFlow,
+    handleAmendButtonForDuplicateChitti,
+    selectedKundanKarigarDropdownValue,
+    setSelectedKundanKarigarDropdownValue,
+    calculateEditTotal,
+    handleClearFileUploadInput,
+    lastInputRef,
+    firstInputRef,
+    setMatWt,
+    HandleUpdateDocStatus,
+    handleTabPressOnModal,
+    setKunKarigarDropdownReset,
+    warehouseListData,
+    selectedLocation,
+    setSelectedLocation,
+    tabDisabled,
+    showDeleteModal,
+    handleCloseDeleteModal,
+    handleShowDeleteModal,
+    deleteRecord,
+    specificDataFromStore,
   };
 };
 

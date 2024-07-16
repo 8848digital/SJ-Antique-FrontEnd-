@@ -128,6 +128,7 @@ const useReportHook = () => {
 
   const fetchReadyStockSummaryReportData = async () => {
     try {
+      setIsLoading(1);
       const [
         readyStockData1,
         readyStockData2,
@@ -139,6 +140,7 @@ const useReportHook = () => {
         readyStockSummaryApi50_100(loginAccessToken.token, searchInputValues),
         readyStockSummaryApi100_150(loginAccessToken.token, searchInputValues),
       ]);
+      setIsLoading(0);
       setReadyStockSummaryReportData({
         zeroToTwenty:
           readyStockData1?.data?.message?.status === 'success'
@@ -159,6 +161,7 @@ const useReportHook = () => {
       });
     } catch (error) {
       console.error('Error fetching data', error);
+      setIsLoading(0);
     }
   };
 

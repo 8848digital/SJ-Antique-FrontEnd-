@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import styled from '../../styles/report.module.css';
+import ReportHeader from '../Header/ReportHeader';
 import CommonFilters from './CommonReport/CommonFilters';
 import ReportListingTable from './CommonReport/ReportListingTable';
-import ReportHeader from '../Header/ReportHeader';
-import Loader from '../NoRecord/Loader';
 
 const ReadyStockSummaryReport = ({
   isLoading,
@@ -17,14 +15,6 @@ const ReadyStockSummaryReport = ({
   itemListData,
   categoryData,
 }: any) => {
-  const [tableViewData, setTableViewData] = useState<any>(20);
-
-  const HandleTableViewRows: any = (data: any) => {
-    if (data !== 5) {
-      setTableViewData(data);
-    }
-  };
-
   const zeroToTwentyHeaders =
     readyStockSummaryReportData?.zeroToTwenty?.length > 0 &&
     readyStockSummaryReportData?.zeroToTwenty[0]
@@ -50,7 +40,6 @@ const ReadyStockSummaryReport = ({
     <>
       <div className={`mx-4 `}>
         <ReportHeader />
-
         <CommonFilters
           searchInputValues={searchInputValues}
           handleSearchInput={handleSearchInput}
@@ -62,76 +51,63 @@ const ReadyStockSummaryReport = ({
         />
 
         <div className={`${styled.scrollable_div} my-3`}>
-          <div
-            className={`d-inline-block mx-5 px-3 ${
-              readyStockSummaryReportData?.zeroToTwenty?.length === 0 && 'w-25'
-            }`}
-          >
-            {readyStockSummaryReportData?.zeroToTwenty?.length > 0 ? (
-              <>
-                <h5 className="text-center my-2">0-20GMS</h5>
-                <ReportListingTable
-                  headers={zeroToTwentyHeaders}
-                  reportData={readyStockSummaryReportData?.zeroToTwenty}
-                />
-              </>
-            ) : (
-              <Loader />
-            )}
-          </div>
-          <div
-            className={`d-inline-block mx-5 px-3 ${
-              readyStockSummaryReportData?.twentyToFifty?.length === 0 && 'w-25'
-            }`}
-          >
-            {readyStockSummaryReportData?.twentyToFifty?.length > 0 ? (
-              <>
-                <h5 className="text-center my-2">20-50GMS</h5>
-                <ReportListingTable
-                  headers={twentyToFiftyHeaders}
-                  reportData={readyStockSummaryReportData?.twentyToFifty}
-                />
-              </>
-            ) : (
-              <Loader />
-            )}
-          </div>
-          <div
-            className={`d-inline-block mx-5 px-3 ${
-              readyStockSummaryReportData?.fiftyToHundred?.length === 0 &&
-              'w-25'
-            }`}
-          >
-            {readyStockSummaryReportData?.fiftyToHundred?.length > 0 ? (
-              <>
-                <h5 className="text-center my-2">50-100GMS</h5>
-                <ReportListingTable
-                  headers={fiftyToHundredHeaders}
-                  reportData={readyStockSummaryReportData?.fiftyToHundred}
-                />
-              </>
-            ) : (
-              <Loader />
-            )}
-          </div>
-          <div
-            className={`d-inline-block mx-5 px-3 ${
-              readyStockSummaryReportData?.hundredToOnefifty?.length === 0 &&
-              'w-25'
-            }`}
-          >
-            {readyStockSummaryReportData?.hundredToOnefifty?.length > 0 ? (
-              <>
-                <h5 className="text-center my-2">100-150GMS</h5>
-                <ReportListingTable
-                  headers={hundredToOnefiftyHeaders}
-                  reportData={readyStockSummaryReportData?.hundredToOnefifty}
-                />
-              </>
-            ) : (
-              <Loader />
-            )}
-          </div>
+          {readyStockSummaryReportData?.zeroToTwenty?.length > 0 && (
+            <div
+              className={`d-inline-block mx-5 px-3 ${
+                readyStockSummaryReportData?.zeroToTwenty?.length === 0 &&
+                'w-25'
+              }`}
+            >
+              <h5 className="text-center my-2">0-20GMS</h5>
+              <ReportListingTable
+                headers={zeroToTwentyHeaders}
+                reportData={readyStockSummaryReportData?.zeroToTwenty}
+              />
+            </div>
+          )}
+
+          {readyStockSummaryReportData?.twentyToFifty?.length > 0 && (
+            <div
+              className={`d-inline-block mx-5 px-3 ${
+                readyStockSummaryReportData?.twentyToFifty?.length === 0 &&
+                'w-25'
+              }`}
+            >
+              <h5 className="text-center my-2">20-50GMS</h5>
+              <ReportListingTable
+                headers={twentyToFiftyHeaders}
+                reportData={readyStockSummaryReportData?.twentyToFifty}
+              />
+            </div>
+          )}
+          {readyStockSummaryReportData?.fiftyToHundred?.length > 0 && (
+            <div
+              className={`d-inline-block mx-5 px-3 ${
+                readyStockSummaryReportData?.fiftyToHundred?.length === 0 &&
+                'w-25'
+              }`}
+            >
+              <h5 className="text-center my-2">50-100GMS</h5>
+              <ReportListingTable
+                headers={fiftyToHundredHeaders}
+                reportData={readyStockSummaryReportData?.fiftyToHundred}
+              />
+            </div>
+          )}
+          {readyStockSummaryReportData?.hundredToOnefifty?.length > 0 && (
+            <div
+              className={`d-inline-block mx-5 px-3 ${
+                readyStockSummaryReportData?.hundredToOnefifty?.length === 0 &&
+                'w-25'
+              }`}
+            >
+              <h5 className="text-center my-2">100-150GMS</h5>
+              <ReportListingTable
+                headers={hundredToOnefiftyHeaders}
+                reportData={readyStockSummaryReportData?.hundredToOnefifty}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
