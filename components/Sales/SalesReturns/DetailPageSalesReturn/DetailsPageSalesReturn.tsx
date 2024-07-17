@@ -3,11 +3,11 @@ import CustomerSalesTable from '../../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../../CustomerSale/CustomerSalesTable1';
 import SaleReturnsButtonSection from './ButtonSectionSalesReturn';
 import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
-import Loader from '@/components/NoRecord/Loader';
+import Loader from '@/components/General/Loader';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { get_detail_sales_return_data } from '@/store/slices/Sales/get-detail-sales-return-slice';
-import NoRecord from '@/components/NoRecord/NoRecord';
+import NoRecord from '@/components/General/NoRecord';
 
 const DetailsPageSalesReturn = () => {
   const {
@@ -53,7 +53,7 @@ const DetailsPageSalesReturn = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailFunction
+    itemDetailFunction,
   }: any = UseSalesReturnDetailHook();
 
   const { query }: any = useRouter();
@@ -68,7 +68,7 @@ const DetailsPageSalesReturn = () => {
       ) : (
         <>
           {DetailOfSalesReturnFromStore?.data?.length === 0 &&
-            isLoading === false ? (
+          isLoading === false ? (
             <NoRecord
               title="Sales Return"
               content="Sorry for disappointing you! We’re unable to find any relevant data"
@@ -92,9 +92,9 @@ const DetailsPageSalesReturn = () => {
                   HandleDeleteDeliveryNote={handleDeleteSalesReturn}
                   handlePrintApi={handlePrintApi}
                   showDeleteModal={showDeleteModal}
-                handleCloseDeleteModal={handleCloseDeleteModal}
-                handleShowDeleteModal={handleShowDeleteModal}
-                deleteRecord={deleteRecord}
+                  handleCloseDeleteModal={handleCloseDeleteModal}
+                  handleShowDeleteModal={handleShowDeleteModal}
+                  deleteRecord={deleteRecord}
                 />
               </div>
               <div>

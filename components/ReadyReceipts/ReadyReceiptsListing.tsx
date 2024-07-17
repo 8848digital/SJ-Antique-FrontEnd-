@@ -3,7 +3,7 @@ import { get_access_token } from '@/store/slices/auth/login-slice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from '../../styles/readyReceiptTableListing.module.css';
 import DeleteModal from '../DeleteModal';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
@@ -28,10 +28,8 @@ const ReadyReceiptListing = ({
   deleteRecord,
 }: any) => {
   const router = useRouter();
-  const pathParts = router.asPath.split('/');
-  const lastPartOfURL = pathParts[pathParts.length - 1];
   const { query } = useRouter();
-  const dispatch = useDispatch();
+
   const storedNumberOfRows = sessionStorage.getItem('numberOfRows');
   let pathName: any = window?.location?.pathname;
 
@@ -39,7 +37,7 @@ const ReadyReceiptListing = ({
     storedNumberOfRows ? parseInt(storedNumberOfRows) : 5
   );
 
-  const HandleTableViewRows: any = (rows: any) => {
+  const handleTableViewRows: any = (rows: any) => {
     sessionStorage.setItem('numberOfRows', rows);
     setTableViewData(rows);
   };
@@ -58,8 +56,8 @@ const ReadyReceiptListing = ({
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
 
   const [searchInputValues, setSearchInputValues] = useState({
-    from_date: '',
-    to_date: '',
+    from_date: todayDate,
+    to_date: todayDate,
     item_code: '',
     status: '',
   });
@@ -74,8 +72,8 @@ const ReadyReceiptListing = ({
 
   useEffect(() => {
     setSearchInputValues({
-      from_date: '',
-      to_date: '',
+      from_date: todayDate,
+      to_date: todayDate,
       item_code: '',
       status: '',
     });
@@ -396,7 +394,7 @@ const ReadyReceiptListing = ({
             ))}
           {filteredList?.length > 4 && filteredList !== null && (
             <LoadMoreTableDataInMaster
-              HandleTableViewRows={HandleTableViewRows}
+              HandleTableViewRows={handleTableViewRows}
             />
           )}
         </tbody>

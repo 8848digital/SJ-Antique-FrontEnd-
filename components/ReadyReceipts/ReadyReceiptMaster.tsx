@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../../styles/readyReceipts.module.css';
@@ -9,9 +10,8 @@ import useReadyReceipt from '@/hooks/ReadyReceiptHook/ready-receipt-master-hook'
 import TabSection from '../TabSection';
 import ReadyReceiptTable from './ReadyReceiptTable/ReadyReceiptTable';
 import ReadyReceiptsTabs from './ReadyReceiptsTabs';
-import Loader from '../NoRecord/Loader';
+import Loader from '../General/Loader';
 import { buttonLoadingState } from '@/store/slices/btn-loading-slice';
-import { useSelector } from 'react-redux';
 
 const ReadyReceiptMaster = () => {
   const {

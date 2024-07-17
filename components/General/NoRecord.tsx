@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import noRecordImg from '../../public/assets/no-record.png';
+import noRecordImg from '../../public/assets/no-record-img.jpg';
 import { useRouter } from 'next/router';
 
 const NoRecord = ({ title, content, backButtonUrl, HandleRefresh }: any) => {
@@ -10,17 +10,20 @@ const NoRecord = ({ title, content, backButtonUrl, HandleRefresh }: any) => {
     <>
       <div className="d-flex justify-content-center mt-5">
         <div>
-          <h2 className='text-center'>{title}</h2>
           <div className="text-center">
             <Image
               src={noRecordImg}
-              width={200}
+              width={250}
               height={200}
               alt="Picture of no record"
               className="text-center"
             />
           </div>
-          <p className='text-center'>{content}</p>
+          <h3 className="text-center mt-1">{title}</h3>
+          <p className="text-center fs-5 mt-3">
+            {content ||
+              "It looks like we don't have any items that match your search."}
+          </p>
           <div className="text-center">
             {backButtonUrl ? (
               <button
@@ -38,7 +41,7 @@ const NoRecord = ({ title, content, backButtonUrl, HandleRefresh }: any) => {
               // >
               //   Refresh
               // </button>
-              ""
+              ''
             )}
           </div>
         </div>

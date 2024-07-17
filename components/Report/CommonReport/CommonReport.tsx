@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import ReportHeader from '../../Header/ReportHeader';
-import Loader from '../../NoRecord/Loader';
-import NoRecord from '../../NoRecord/NoRecord';
+import Loader from '../../General/Loader';
+import NoRecord from '../../General/NoRecord';
 import CommonFilters from './CommonFilters';
 import ReportListingTable from './ReportListingTable';
 

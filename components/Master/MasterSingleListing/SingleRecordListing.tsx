@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
-import NoRecord from '@/components/NoRecord/NoRecord';
+import NoRecord from '@/components/General/NoRecord';
 import DeleteModal from '@/components/DeleteModal';
 import AddRecordModal from '../AddRecordModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -113,7 +113,7 @@ const SingleRecordListing = ({
                             >
                               Update
                             </button>
-                            <div className='d-flex justify-space-between'>
+                            <div className="d-flex justify-space-between">
                               <button
                                 className="btn btn-link text-danger p-0"
                                 onClick={() =>
@@ -125,19 +125,22 @@ const SingleRecordListing = ({
                               </button>
                               {item?.delete === 0 ? (
                                 <OverlayTrigger
-                                trigger={['hover', 'click']}
-                                rootClose
+                                  trigger={['hover', 'click']}
+                                  rootClose
                                   placement="left"
                                   overlay={popoverLeft}
                                 >
                                   <FontAwesomeIcon
                                     icon={faCircleInfo}
                                     className=" ps-2"
-                                    style={{ color: '#6164ef',marginTop:'5px'}}
+                                    style={{
+                                      color: '#6164ef',
+                                      marginTop: '5px',
+                                    }}
                                   />
                                 </OverlayTrigger>
-                              ):(
-                                <span className='px-2 mx-1'></span>
+                              ) : (
+                                <span className="px-2 mx-1"></span>
                               )}
                             </div>
                           </div>

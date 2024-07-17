@@ -17,7 +17,7 @@ const ReportListingTable = ({ headers, reportData }: any) => {
               {headers?.map((header: string, index: number) => (
                 <th key={index} scope="col" className={`thead col`}>
                   {header?.charAt(0)?.toUpperCase() +
-                    header?.slice(1)?.replace('_', ' ')}
+                    header?.slice(1)?.replace(/_/g, ' ')}
                 </th>
               ))}
             </tr>

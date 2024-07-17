@@ -3,8 +3,8 @@ import styles from '../../styles/readyReceipts.module.css';
 import styled from '../../styles/report.module.css';
 import ReportHeader from '../Header/ReportHeader';
 import LoadMoreTableDataInMaster from '../Master/LoadMoreTableDataInMaster';
-import Loader from '../NoRecord/Loader';
-import NoRecord from '../NoRecord/NoRecord';
+import Loader from '../General/Loader';
+import NoRecord from '../General/NoRecord';
 import ReportHeading from './ReportHeading';
 import ReportFilterListing from './ReportFilterListing';
 

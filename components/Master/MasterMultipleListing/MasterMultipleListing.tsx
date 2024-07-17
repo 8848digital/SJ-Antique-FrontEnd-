@@ -1,4 +1,4 @@
-import NoRecord from '@/components/NoRecord/NoRecord';
+import NoRecord from '@/components/General/NoRecord';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';

@@ -8,8 +8,8 @@ import SalesHeader from '@/components/Header/SalesHeader';
 import useCustomerSaleDetailHook from '@/hooks/Sales/Customer-Sales/sales-detail-page-hook';
 import CustomerSalesButtonsSection from './CustomerSalesButtonsSection';
 import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
-import NoRecord from '@/components/NoRecord/NoRecord';
-import Loader from '@/components/NoRecord/Loader';
+import NoRecord from '@/components/General/NoRecord';
+import Loader from '@/components/General/Loader';
 
 const DetailPageCustomerSale = () => {
   const { query } = useRouter();

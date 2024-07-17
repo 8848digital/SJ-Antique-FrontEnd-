@@ -2,8 +2,8 @@ import useReadyReceiptDetailHook from '@/hooks/ReadyReceiptHook/ReadyReceiptDeta
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import '../../../styles/detailPage.module.css';
-import Loader from '../../NoRecord/Loader';
-import NoRecord from '../../NoRecord/NoRecord';
+import Loader from '../../General/Loader';
+import NoRecord from '../../General/NoRecord';
 import ReadyReceiptMasterTable from '../ReadyReceiptTable/ReadyReceiptMasterTable';
 import ReadyReceiptModal from '../ReadyReceiptTable/ReadyReceiptModal/ReadyReceiptModal';
 import ReadyReceiptTable from '../ReadyReceiptTable/ReadyReceiptTable';

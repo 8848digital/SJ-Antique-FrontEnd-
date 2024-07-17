@@ -1,34 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Component, ErrorInfo, ReactNode } from 'react';
+import image from '../public/assets/error-img.png';
+import styled from '../styles/errorBoundary.module.css';
 
-const ErrorBoundary = ({ children }: any) => {
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    const handleErrors = (event: ErrorEvent) => {
-      console.error('Error caught by error boundary:', event.error);
-      setHasError(true);
+interface ErrorBoundaryProps {
+  children: ReactNode;
+}
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+  errorInfo?: ErrorInfo;
+}
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: undefined,
+      errorInfo: undefined,
     };
-
-    window.addEventListener('error', handleErrors);
-
-    return () => {
-      window.removeEventListener('error', handleErrors);
-    };
-  }, []);
-
-  if (hasError) {
-    return (
-      <div className="text-center mt-5">
-        <i
-          className="fa-solid fa-ghost text-secondary"
-          style={{ fontSize: 30 }}
-        ></i>
-        <h1>Something Went Wrong!!</h1>
-      </div>
-    );
   }
-
-  return <>{children}</>;
-};
-
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    this.setState({ error, errorInfo });
+    console.error('Error Boundary caught an error:', error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div id={styled.error_page}>
+          <div className={styled.error_content}>
+            <div className="p-3" style={{ fontSize: '40px' }}>
+              <Image src={image} width={250} height={250} alt="Error Image" />
+            </div>
+            <h4 data-text="Oops, Something Went Wrong!">
+              Oops, Something Went Wrong!
+            </h4>
+            <p>
+              Sorry, Our engineers are currently fixing something.
+              <br />
+              We expect them to be done soon.
+            </p>
+            <div className={styled.error_btns}>
+              <a href="/">Refresh Page</a>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 export default ErrorBoundary;
