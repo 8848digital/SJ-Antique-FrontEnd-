@@ -19,7 +19,7 @@ const NoRecord = ({ title, content, backButtonUrl, HandleRefresh }: any) => {
               className="text-center"
             />
           </div>
-          <h3 className="text-center mt-1">{title}</h3>
+          <h3 className="text-center mt-1">{title || 'No Records Found'}</h3>
           <p className="text-center fs-5 mt-3">
             {content ||
               "It looks like we don't have any items that match your search."}

@@ -18,15 +18,15 @@ const LoginMaster = () => {
   };
 
   const HandleFormSubmit = async () => {
-    const loginsucess = await dispatch(getAccessToken(userData));
+    const loginFun = await dispatch(getAccessToken(userData));
 
-    if (loginsucess.payload.msg == 'success') {
+    if (loginFun.payload.msg == 'success') {
       toast.success('Login Successfully');
       setTimeout(() => {
         router.push('/master/karigar');
       }, 900);
     } else {
-      toast.error('Incorrect Username or Password');
+      toast.error(`${loginFun?.payload?.error}`);
       router.push('/');
     }
   };
