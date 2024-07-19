@@ -135,6 +135,8 @@ const UseKundanKarigarDetailHook = () => {
         deliveryNotePrintApi?.data?.message?.data?.data[0]?.print_url
       );
       dispatch(btnLoadingStop());
+    } else {
+      dispatch(btnLoadingStop());
     }
   };
 

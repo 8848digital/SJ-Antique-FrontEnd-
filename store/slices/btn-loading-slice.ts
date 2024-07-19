@@ -20,12 +20,7 @@ export const buttonLoadingSlice = createSlice({
     },
     btnLoadingStop: (state) => {
       state.loading = false;
-      // Handle other success-related state changes if needed
     },
-    // ,
-    // btnLoading: (state) => {
-    //   state.loading = false
-    // },
   },
 });
 
