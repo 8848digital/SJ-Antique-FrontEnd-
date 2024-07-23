@@ -18,22 +18,22 @@ const ReadyStockSummaryReport = ({
 }: any) => {
   const zeroToTwentyHeaders =
     readyStockSummaryReportData?.zeroToTwenty?.length > 0 &&
-    readyStockSummaryReportData?.zeroToTwenty[0]
+      readyStockSummaryReportData?.zeroToTwenty[0]
       ? Object.keys(readyStockSummaryReportData?.zeroToTwenty[0])
       : [];
   const twentyToFiftyHeaders =
     readyStockSummaryReportData?.twentyToFifty?.length > 0 &&
-    readyStockSummaryReportData?.twentyToFifty[0]
+      readyStockSummaryReportData?.twentyToFifty[0]
       ? Object.keys(readyStockSummaryReportData?.twentyToFifty[0])
       : [];
   const fiftyToHundredHeaders =
     readyStockSummaryReportData?.fiftyToHundred?.length > 0 &&
-    readyStockSummaryReportData?.fiftyToHundred[0]
+      readyStockSummaryReportData?.fiftyToHundred[0]
       ? Object.keys(readyStockSummaryReportData?.fiftyToHundred[0])
       : [];
   const hundredToOnefiftyHeaders =
     readyStockSummaryReportData?.hundredToOnefifty?.length > 0 &&
-    readyStockSummaryReportData?.hundredToOnefifty[0]
+      readyStockSummaryReportData?.hundredToOnefifty[0]
       ? Object.keys(readyStockSummaryReportData?.hundredToOnefifty[0])
       : [];
 
@@ -50,19 +50,17 @@ const ReadyStockSummaryReport = ({
           itemListData={itemListData}
           categoryData={categoryData}
         />
-        {(
-          readyStockSummaryReportData?.zeroToTwenty &&
-          readyStockSummaryReportData?.twentyToFifty &&
-          readyStockSummaryReportData?.fiftyToHundred &&
-          readyStockSummaryReportData?.hundredToOnefifty
-        ).length > 0 ? (
+        {readyStockSummaryReportData &&
+          (readyStockSummaryReportData.zeroToTwenty.length > 0 ||
+            readyStockSummaryReportData.twentyToFifty.length > 0 ||
+            readyStockSummaryReportData.fiftyToHundred.length > 0 ||
+            readyStockSummaryReportData.hundredToOnefifty.length > 0) ? (
           <div className={`${styled.scrollable_div} my-3`}>
             {readyStockSummaryReportData?.zeroToTwenty?.length > 0 && (
               <div
-                className={`d-inline-block mx-5 px-3 ${
-                  readyStockSummaryReportData?.zeroToTwenty?.length === 0 &&
+                className={`d-inline-block mx-5 px-3 ${readyStockSummaryReportData?.zeroToTwenty?.length === 0 &&
                   'w-25'
-                }`}
+                  }`}
               >
                 <h5 className="text-center my-2">0-20GMS</h5>
                 <ReportListingTable
@@ -74,10 +72,9 @@ const ReadyStockSummaryReport = ({
 
             {readyStockSummaryReportData?.twentyToFifty?.length > 0 && (
               <div
-                className={`d-inline-block mx-5 px-3 ${
-                  readyStockSummaryReportData?.twentyToFifty?.length === 0 &&
+                className={`d-inline-block mx-5 px-3 ${readyStockSummaryReportData?.twentyToFifty?.length === 0 &&
                   'w-25'
-                }`}
+                  }`}
               >
                 <h5 className="text-center my-2">20-50GMS</h5>
                 <ReportListingTable
@@ -88,10 +85,9 @@ const ReadyStockSummaryReport = ({
             )}
             {readyStockSummaryReportData?.fiftyToHundred?.length > 0 && (
               <div
-                className={`d-inline-block mx-5 px-3 ${
-                  readyStockSummaryReportData?.fiftyToHundred?.length === 0 &&
+                className={`d-inline-block mx-5 px-3 ${readyStockSummaryReportData?.fiftyToHundred?.length === 0 &&
                   'w-25'
-                }`}
+                  }`}
               >
                 <h5 className="text-center my-2">50-100GMS</h5>
                 <ReportListingTable
@@ -102,12 +98,11 @@ const ReadyStockSummaryReport = ({
             )}
             {readyStockSummaryReportData?.hundredToOnefifty?.length > 0 && (
               <div
-                className={`d-inline-block mx-5 px-3 ${
-                  readyStockSummaryReportData?.hundredToOnefifty?.length ===
-                    0 && 'w-25'
-                }`}
+                className={`d-inline-block mx-5 px-3 ${readyStockSummaryReportData?.hundredToOnefifty?.length ===
+                  0 && 'w-25'
+                  }`}
               >
-                <h5 className="text-center my-2">100-150GMS</h5>
+                <h5 className="text-center my-2"> &gt; 100GMS</h5>
                 <ReportListingTable
                   headers={hundredToOnefiftyHeaders}
                   reportData={readyStockSummaryReportData?.hundredToOnefifty}

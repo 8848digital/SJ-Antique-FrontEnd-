@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from '../../../styles/report.module.css';
 import { useRouter } from 'next/router';
+import styled from '../../../styles/report.module.css';
 
 const ReportListingTable = ({ headers, reportData }: any) => {
   const { query } = useRouter();
@@ -15,7 +15,7 @@ const ReportListingTable = ({ headers, reportData }: any) => {
                 Sr. No.
               </th>
               {headers?.map((header: string, index: number) => (
-                <th key={index} scope="col" className={`thead col`}>
+                <th key={index} scope="col" className={`thead col ${styled.table_header}`}>
                   {header?.charAt(0)?.toUpperCase() +
                     header?.slice(1)?.replace(/_/g, ' ')}
                 </th>
@@ -33,9 +33,8 @@ const ReportListingTable = ({ headers, reportData }: any) => {
                 return (
                   <tr
                     key={index}
-                    className={`row row-cols-7 justify-content-center text-center ${
-                      isTotalRow ? 'fw-bold bg-warning ' : ''
-                    }`}
+                    className={`row row-cols-7 justify-content-center text-center ${isTotalRow ? 'fw-bold bg-warning ' : ''
+                      }`}
                   >
                     <td scope="col" className="col-1 table_row py-1 py-auto">
                       {!isTotalRow && index + 1}
