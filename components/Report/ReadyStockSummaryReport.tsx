@@ -55,7 +55,7 @@ const ReadyStockSummaryReport = ({
             readyStockSummaryReportData.twentyToFifty.length > 0 ||
             readyStockSummaryReportData.fiftyToHundred.length > 0 ||
             readyStockSummaryReportData.hundredToOnefifty.length > 0) ? (
-          <div className={`${styled.scrollable_div} my-3`}>
+          <div className={`${styled.scrollable_div} text-center my-3`}>
             {readyStockSummaryReportData?.zeroToTwenty?.length > 0 && (
               <div
                 className={`d-inline-block mx-5 px-3 ${readyStockSummaryReportData?.zeroToTwenty?.length === 0 &&
