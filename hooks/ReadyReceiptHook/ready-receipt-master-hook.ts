@@ -29,6 +29,8 @@ const useReadyReceipt = () => {
   const lastInputRef = useRef<any>(null);
   const firstInputRef = useRef<any>(null);
   const [readyReceiptType, setReadyReceiptType] = useState<any>('');
+  const todayDate: any = new Date()?.toISOString()?.split('T')[0];
+
   const [recipitData, setRecipitData] = useState<any>({
     custom_karigar: ' ',
     remarks: '',
@@ -384,7 +386,7 @@ const useReadyReceipt = () => {
         setShowSaveButtonForAmendFlow(false);
       } else {
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return {

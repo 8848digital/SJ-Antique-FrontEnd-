@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Component, ErrorInfo, ReactNode } from 'react';
 import image from '../public/assets/error-img.png';
 import styled from '../styles/errorBoundary.module.css';
+import Link from 'next/link';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -44,7 +45,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
               We expect them to be done soon.
             </p>
             <div className={styled.error_btns}>
-              <a href="/">Refresh Page</a>
+              <Link href="/">Refresh Page</Link>
             </div>
           </div>
         </div>
