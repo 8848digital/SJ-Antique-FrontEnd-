@@ -36,6 +36,7 @@ const ReportIndexPage = () => {
           karigarNameData={karigarNameData}
           itemListData={itemList}
           categoryData={categoryData}
+          handleReportPrint={handleReportPrint}
         />
       ) : (
         <CommonReport

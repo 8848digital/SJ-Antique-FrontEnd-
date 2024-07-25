@@ -5,8 +5,7 @@ import CommonFilters from './CommonReport/CommonFilters';
 import ReportListingTable from './CommonReport/ReportListingTable';
 
 const ReadyStockSummaryReport = ({
-  isLoading,
-  reportData,
+  handleReportPrint,
   readyStockSummaryReportData,
   searchInputValues,
   handleSearchInput,
@@ -41,6 +40,14 @@ const ReadyStockSummaryReport = ({
     <>
       <div className={`mx-4 `}>
         <ReportHeader />
+        {/* <div className="d-flex justify-content-end ">
+          <button
+            className="btn btn-outline-primary py-0 px-3"
+          onClick={handleReportPrint}
+          >
+            Print
+          </button>
+        </div> */}
         <CommonFilters
           searchInputValues={searchInputValues}
           handleSearchInput={handleSearchInput}

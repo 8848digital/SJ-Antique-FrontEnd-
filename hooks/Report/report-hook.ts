@@ -16,7 +16,7 @@ import {
   readyStockSummaryApi50_100,
 } from '@/services/api/report/get-ready-stock-summary-report-api';
 import summaryReport from '@/services/api/report/get-summary-report-api';
-import ReportPrintApi from '@/services/api/report/report-print-api';
+import { customerWiseReportPrintApi, dailyReportPrintApi, dailySummaryReportPrintApi, itemWiseReportPrintApi, karigarWiseReportPrintApi, productReportPrintApi, summaryReportPrintApi } from '@/services/api/report/report-print-api';
 import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
 import { get_sub_category_data } from '@/store/slices/Master/get-sub-category-slice';
 import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
@@ -180,23 +180,67 @@ const useReportHook = () => {
       karigar_name: data.name,
     }));
 
-  const handleReportPrint: any = async () => {
-    const reqParams: any = {
-      version: 'v1',
-      method: 'print_report_daily_qty_status',
-      entity: 'report',
-      from_date: searchInputValues.from_date,
-      to_date: searchInputValues.to_date,
-    };
+  const handleReportPrint = async () => {
 
-    let reportPrintApi: any = await ReportPrintApi(reqParams);
+    try {
+      let reportPrint;
+      switch (query?.reportId) {
+        case 'daily-qty-status':
+          reportPrint = await dailyReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
+        case 'product-code':
+          reportPrint = await productReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
+        case 'item-wise-report':
+          reportPrint = await itemWiseReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
+        case 'daily-summary-report':
+          reportPrint = await dailySummaryReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
+        case 'customer-wise-report':
+          reportPrint = await customerWiseReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
+        case 'karigar-wise-report':
+          reportPrint = await karigarWiseReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
+        case 'summary-report':
+          reportPrint = await summaryReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
+        default:
+          return;
+      }
 
-    if (reportPrintApi?.data?.message?.status === 'success') {
-      window.open(reportPrintApi?.data?.message?.data?.print_url);
-    } else if (reportPrintApi?.status === 'error') {
-      toast.error(reportPrintApi?.message);
+      if (reportPrint?.data?.message?.status === 'success') {
+        window.open(reportPrint?.data?.message?.data?.print_url);
+      } else {
+        toast.error('Failed to Print');
+      }
+    } catch (error) {
+      console.error('Error fetching report print:', error);
     }
-  };
+  }
+
   const handleSearchInput: any = (value: any, fieldName: any) => {
     setSearchInputValues((prevState: any) => ({
       ...prevState,
