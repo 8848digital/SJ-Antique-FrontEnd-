@@ -26,7 +26,6 @@ const MaterialIndexPage = () => {
     matDropdownReset,
     setMatDropDownReset,
     showDeleteModal,
-    setShowDeleteModal,
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
@@ -47,7 +46,7 @@ const MaterialIndexPage = () => {
     materialGroupList !== null &&
     materialGroupList.map((data: any) => ({
       karigar_name: data.material_group,
-      delete : data.delete
+      delete: data.delete
     }));
   return (
     <div>
@@ -60,7 +59,7 @@ const MaterialIndexPage = () => {
           error={errorM}
           setError={setErrorM}
           value={key}
-          placeholder={'Material Group Name'}
+          placeholder={'Material Group'}
           tab1={'Material Group List'}
           tab2={'Create New Material Group'}
           showDeleteModal={showDeleteModal}
@@ -87,7 +86,7 @@ const MaterialIndexPage = () => {
           error3={error3}
           tab1={'Material List'}
           tab2={'Create New Material'}
-          placeholder1={'Material Name'}
+          placeholder1={'Material'}
           placeholder2={'Material Abbr'}
           placeholder3={'Material Group'}
           clientGroup={materialGroup}

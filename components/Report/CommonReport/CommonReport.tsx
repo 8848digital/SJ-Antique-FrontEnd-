@@ -17,7 +17,7 @@ const CommonReport = ({
   categoryData,
   handleReportPrint,
 }: any) => {
-  const { query } = useRouter();
+
 
   const headers =
     reportData.length > 0 && reportData[0] ? Object.keys(reportData[0]) : [];

@@ -35,8 +35,8 @@ const CommonFilters = ({
     link_data:
       clientNameData?.length > 0
         ? Array.from(
-            new Set(karigarNameData.map((data: any) => data.karigar_name))
-          )
+          new Set(clientNameData.map((data: any) => data.client_name))
+        )
         : [],
   };
   const karigarNameListData: any = {
@@ -45,8 +45,8 @@ const CommonFilters = ({
     link_data:
       karigarNameData?.length > 0
         ? Array.from(
-            new Set(karigarNameData.map((data: any) => data.karigar_name))
-          )
+          new Set(karigarNameData.map((data: any) => data.karigar_name))
+        )
         : [],
   };
   const productCodeData: any = {
@@ -91,37 +91,62 @@ const CommonFilters = ({
         )}
 
         {query?.reportId === 'product-code' && (
-          <div className="col-sm-2 p-0 mx-1">
-            <label className="text-grey">Product Code</label>
-            <AutoCompleteInput
-              data={productCodeData}
-              handleSearchInput={(value: any, fieldName: any) =>
-                handleSearchInput(value, fieldName)
-              }
-              value={searchInputValues?.product_code}
-            />
-          </div>
-        )}
-
-        {(query?.reportId === 'item-wise-report' ||
-          query?.reportId === 'summary-report' ||
-          query?.reportId === 'product-code' ||
-          query?.reportId === 'ready-stock-summary-report') && (
           <>
             <div className="col-sm-2 p-0 mx-1">
-              <label className="text-grey">Category</label>
+              <label className="text-grey">Product Code</label>
               <AutoCompleteInput
-                data={categoryListData}
+                data={productCodeData}
                 handleSearchInput={(value: any, fieldName: any) =>
                   handleSearchInput(value, fieldName)
                 }
-                value={searchInputValues?.category}
+                value={searchInputValues?.product_code}
+              />
+            </div>
+            <div className="col-sm-1 p-0 mx-1">
+              <label className="text-grey">Gross Wt</label>
+              <input
+                type="number"
+                name="gross_wt"
+                value={searchInputValues.gross_wt}
+                className="form-control bg-primary bg-opacity-10"
+                onChange={(e: any) =>
+                  handleSearchInput(e.target.value, 'gross_wt')
+                }
+              />
+            </div>
+            <div className="col-sm-1 p-0 mx-1">
+              <label className="text-grey">Net Wt</label>
+              <input
+                type="number"
+                name="net_wt"
+                value={searchInputValues.net_wt}
+                className="form-control bg-primary bg-opacity-10"
+                onChange={(e: any) =>
+                  handleSearchInput(e.target.value, 'net_wt')
+                }
               />
             </div>
           </>
         )}
-        {(query?.reportId === 'item-wise-report' ||
+
+        {(
+          query?.reportId === 'summary-report' ||
+          query?.reportId === 'product-code' ||
           query?.reportId === 'ready-stock-summary-report') && (
+            <>
+              <div className="col-sm-2 p-0 mx-1">
+                <label className="text-grey">Category</label>
+                <AutoCompleteInput
+                  data={categoryListData}
+                  handleSearchInput={(value: any, fieldName: any) =>
+                    handleSearchInput(value, fieldName)
+                  }
+                  value={searchInputValues?.category}
+                />
+              </div>
+            </>
+          )}
+        {(query?.reportId === 'ready-stock-summary-report') && (
           <div className="col-sm-2 p-0 mx-1">
             <label className="text-grey">Sub Category</label>
             <AutoCompleteInput
@@ -134,7 +159,7 @@ const CommonFilters = ({
           </div>
         )}
 
-        {query?.reportId === 'customer-wise-report' && (
+        {(query?.reportId === 'customer-wise-report' || query?.reportId === 'product-code') && (
           <div className="col-sm-2 p-0 mx-1">
             <label className="text-grey">Client Name</label>
             <AutoCompleteInput
@@ -148,17 +173,17 @@ const CommonFilters = ({
         )}
         {(query?.reportId === 'karigar-wise-report' ||
           query?.reportId === 'product-code') && (
-          <div className="col-sm-2 p-0 mx-1">
-            <label className="text-grey">Karigar Name</label>
-            <AutoCompleteInput
-              data={karigarNameListData}
-              handleSearchInput={(value: any, fieldName: any) =>
-                handleSearchInput(value, fieldName)
-              }
-              value={searchInputValues?.karigar}
-            />
-          </div>
-        )}
+            <div className="col-sm-2 p-0 mx-1">
+              <label className="text-grey">Karigar Name</label>
+              <AutoCompleteInput
+                data={karigarNameListData}
+                handleSearchInput={(value: any, fieldName: any) =>
+                  handleSearchInput(value, fieldName)
+                }
+                value={searchInputValues?.karigar}
+              />
+            </div>
+          )}
 
         <div className="mt-4 mb-1 ms-2 d-flex justify-content-start">
           <button

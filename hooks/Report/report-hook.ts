@@ -87,11 +87,11 @@ const useReportHook = () => {
         );
         setItemList(itemList);
       }
-    } else if (query?.reportId === 'daily-summary-report') {
-      reportData = await DailySummaryReportApi(
-        loginAccessToken.token,
-        date ? currentDate : searchInputValues
-      );
+    } else if (query?.reportId === 'detailed-summary-report') {
+      // reportData = await DailySummaryReportApi(
+      //   loginAccessToken.token,
+      //   date ? currentDate : searchInputValues
+      // );
     } else if (query?.reportId === 'customer-wise-report') {
       reportData = await CustomerWiseReportApi(
         loginAccessToken.token,
@@ -99,11 +99,6 @@ const useReportHook = () => {
       );
     } else if (query?.reportId === 'karigar-wise-report') {
       reportData = await KarigarWiseReportApi(
-        loginAccessToken.token,
-        date ? currentDate : searchInputValues
-      );
-    } else if (query?.reportId === 'item-wise-report') {
-      reportData = await ItemWiseReportApi(
         loginAccessToken.token,
         date ? currentDate : searchInputValues
       );
@@ -197,18 +192,12 @@ const useReportHook = () => {
             searchInputValues
           );
           break;
-        case 'item-wise-report':
-          reportPrint = await itemWiseReportPrintApi(
-            loginAccessToken.token,
-            searchInputValues
-          );
-          break;
-        case 'daily-summary-report':
-          reportPrint = await dailySummaryReportPrintApi(
-            loginAccessToken.token,
-            searchInputValues
-          );
-          break;
+        case 'detailed-summary-report':
+        // reportPrint = await itemWiseReportPrintApi(
+        //   loginAccessToken.token,
+        //   searchInputValues
+        // );
+        // break;
         case 'customer-wise-report':
           reportPrint = await customerWiseReportPrintApi(
             loginAccessToken.token,

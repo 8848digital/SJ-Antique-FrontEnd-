@@ -144,12 +144,11 @@ const MasterMaterialListing = ({
                           {i + 1}
                         </td>
                         <td
-                          className={`table-body-row cursor ${
-                            value === 'kunCsOtCategory' ||
-                            value === 'BBCategory'
+                          className={`table-body-row cursor ${value === 'kunCsOtCategory' ||
+                              value === 'BBCategory'
                               ? 'w-25'
                               : ' w-auto '
-                          } `}
+                            } `}
                           onClick={() =>
                             HandleDetails(
                               item.material,
