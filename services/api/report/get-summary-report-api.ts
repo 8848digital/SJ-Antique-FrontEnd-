@@ -1,10 +1,7 @@
-import axios from 'axios';
-import { CONSTANTS, headerGenerator } from '../../config/api-config';
+import { CONSTANTS } from '../../config/api-config';
+import { callGetAPI } from '../utils';
 
 const summaryReport = async (get_access_token: any, params: any) => {
-  let response: any;
-  const getHeaders = headerGenerator(get_access_token);
-
   const urlParams: any = [];
 
   Object?.keys(params).forEach((key: any) => {
@@ -12,29 +9,12 @@ const summaryReport = async (get_access_token: any, params: any) => {
   });
 
   // Construct the URL based on the URL parameters
-  let url: any =
-    '/api/method/sj_antique.sdk.api?version=v1&method=get_summary_report&entity=report&';
+  let url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_summary_report&entity=report&`;
   if (urlParams.length > 0) {
     url += `${urlParams.join('&')}`;
   }
 
-  await axios
-    .get(`${CONSTANTS.API_BASE_URL}${url}`, getHeaders)
-    .then((res: any) => {
-      response = res;
-    })
-    .catch((err: any) => {
-      if (err.code === 'ECONNABORTED') {
-        response = 'Request timed out';
-      } else if (err.code === 'ERR_BAD_REQUEST') {
-        response = 'Bad Request';
-      } else if (err.code === 'ERR_INVALID_URL') {
-        response = 'Invalid URL';
-      } else {
-        response = err;
-      }
-    });
-
+  const response = await callGetAPI(url, get_access_token);
   return response;
 };
 
