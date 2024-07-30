@@ -26,7 +26,7 @@ const CommonFilters = ({
     fieldtype: 'Link',
     link_data:
       categoryData?.length > 0
-        ? Array.from(new Set(categoryData.map((data: any) => data.subcategory)))
+        ? Array.from(new Set(categoryData.map((data: any) => data.code)))
         : [],
   };
   const clientNameList: any = {
@@ -35,8 +35,8 @@ const CommonFilters = ({
     link_data:
       clientNameData?.length > 0
         ? Array.from(
-          new Set(clientNameData.map((data: any) => data.client_name))
-        )
+            new Set(clientNameData.map((data: any) => data.client_name))
+          )
         : [],
   };
   const karigarNameListData: any = {
@@ -45,8 +45,8 @@ const CommonFilters = ({
     link_data:
       karigarNameData?.length > 0
         ? Array.from(
-          new Set(karigarNameData.map((data: any) => data.karigar_name))
-        )
+            new Set(karigarNameData.map((data: any) => data.karigar_name))
+          )
         : [],
   };
   const productCodeData: any = {
@@ -60,7 +60,7 @@ const CommonFilters = ({
 
   return (
     <div className="container mt-2">
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center flex-wrap">
         {query?.reportId !== 'product-code' && (
           <div className="col-sm-2 p-0 mx-1">
             <label className="text-grey">From Date</label>
@@ -90,6 +90,62 @@ const CommonFilters = ({
           </div>
         )}
 
+        {(query?.reportId === 'summary-report' ||
+          query?.reportId === 'product-code' ||
+          query?.reportId === 'ready-stock-summary-report') && (
+          <>
+            <div className="col-sm-2 p-0 mx-1">
+              <label className="text-grey">Category</label>
+              <AutoCompleteInput
+                data={categoryListData}
+                handleSearchInput={(value: any, fieldName: any) =>
+                  handleSearchInput(value, fieldName)
+                }
+                value={searchInputValues?.category}
+              />
+            </div>
+          </>
+        )}
+        {(query?.reportId === 'ready-stock-summary-report' ||
+          query?.reportId === 'summary-report') && (
+          <div className="col-sm-2 p-0 mx-1">
+            <label className="text-grey">Sub Category</label>
+            <AutoCompleteInput
+              data={subCategoryListData}
+              handleSearchInput={(value: any, fieldName: any) =>
+                handleSearchInput(value, fieldName)
+              }
+              value={searchInputValues?.sub_category}
+            />
+          </div>
+        )}
+
+        {(query?.reportId === 'customer-wise-report' ||
+          query?.reportId === 'product-code') && (
+          <div className="col-sm-2 p-0 mx-1">
+            <label className="text-grey">Client Name</label>
+            <AutoCompleteInput
+              data={clientNameList}
+              handleSearchInput={(value: any, fieldName: any) =>
+                handleSearchInput(value, fieldName)
+              }
+              value={searchInputValues?.client_name}
+            />
+          </div>
+        )}
+        {(query?.reportId === 'karigar-wise-report' ||
+          query?.reportId === 'product-code') && (
+          <div className="col-sm-2 p-0 mx-1">
+            <label className="text-grey">Karigar Name</label>
+            <AutoCompleteInput
+              data={karigarNameListData}
+              handleSearchInput={(value: any, fieldName: any) =>
+                handleSearchInput(value, fieldName)
+              }
+              value={searchInputValues?.karigar}
+            />
+          </div>
+        )}
         {query?.reportId === 'product-code' && (
           <>
             <div className="col-sm-2 p-0 mx-1">
@@ -128,63 +184,6 @@ const CommonFilters = ({
             </div>
           </>
         )}
-
-        {(
-          query?.reportId === 'summary-report' ||
-          query?.reportId === 'product-code' ||
-          query?.reportId === 'ready-stock-summary-report') && (
-            <>
-              <div className="col-sm-2 p-0 mx-1">
-                <label className="text-grey">Category</label>
-                <AutoCompleteInput
-                  data={categoryListData}
-                  handleSearchInput={(value: any, fieldName: any) =>
-                    handleSearchInput(value, fieldName)
-                  }
-                  value={searchInputValues?.category}
-                />
-              </div>
-            </>
-          )}
-        {(query?.reportId === 'ready-stock-summary-report') && (
-          <div className="col-sm-2 p-0 mx-1">
-            <label className="text-grey">Sub Category</label>
-            <AutoCompleteInput
-              data={subCategoryListData}
-              handleSearchInput={(value: any, fieldName: any) =>
-                handleSearchInput(value, fieldName)
-              }
-              value={searchInputValues?.sub_category}
-            />
-          </div>
-        )}
-
-        {(query?.reportId === 'customer-wise-report' || query?.reportId === 'product-code') && (
-          <div className="col-sm-2 p-0 mx-1">
-            <label className="text-grey">Client Name</label>
-            <AutoCompleteInput
-              data={clientNameList}
-              handleSearchInput={(value: any, fieldName: any) =>
-                handleSearchInput(value, fieldName)
-              }
-              value={searchInputValues?.client_name}
-            />
-          </div>
-        )}
-        {(query?.reportId === 'karigar-wise-report' ||
-          query?.reportId === 'product-code') && (
-            <div className="col-sm-2 p-0 mx-1">
-              <label className="text-grey">Karigar Name</label>
-              <AutoCompleteInput
-                data={karigarNameListData}
-                handleSearchInput={(value: any, fieldName: any) =>
-                  handleSearchInput(value, fieldName)
-                }
-                value={searchInputValues?.karigar}
-              />
-            </div>
-          )}
-
         <div className="mt-4 mb-1 ms-2 d-flex justify-content-start">
           <button
             className="btn btn-primary m-0 p-1 px-2"

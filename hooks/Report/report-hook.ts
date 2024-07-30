@@ -16,7 +16,16 @@ import {
   readyStockSummaryApi50_100,
 } from '@/services/api/report/get-ready-stock-summary-report-api';
 import summaryReport from '@/services/api/report/get-summary-report-api';
-import { customerWiseReportPrintApi, dailyReportPrintApi, dailySummaryReportPrintApi, itemWiseReportPrintApi, karigarWiseReportPrintApi, productReportPrintApi, summaryReportPrintApi } from '@/services/api/report/report-print-api';
+import {
+  customerWiseReportPrintApi,
+  dailyReportPrintApi,
+  dailySummaryReportPrintApi,
+  itemWiseReportPrintApi,
+  karigarWiseReportPrintApi,
+  productReportPrintApi,
+  readyStockSummaryReportPrintApi,
+  summaryReportPrintApi,
+} from '@/services/api/report/report-print-api';
 import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
 import { get_sub_category_data } from '@/store/slices/Master/get-sub-category-slice';
 import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
@@ -35,7 +44,7 @@ const useReportHook = () => {
   const [selectDropDownReset, setSelectDropDownReset] = useState<string>('');
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
 
-  const [searchInputValues, setSearchInputValues] = useState({
+  const [searchInputValues, setSearchInputValues] = useState<any>({
     from_date: todayDate,
     to_date: todayDate,
   });
@@ -69,6 +78,12 @@ const useReportHook = () => {
   const getStateData = async (date?: any) => {
     let reportData;
     const currentDate: any = { from_date: todayDate, to_date: todayDate };
+    //remove date keys
+    let productCodeFilters: any = Object.fromEntries(
+      Object.entries(searchInputValues).filter(
+        ([key]) => key !== 'from_date' && key !== 'to_date'
+      )
+    );
 
     if (query?.reportId === 'daily-qty-status') {
       reportData = await DailyStatusReportApi(
@@ -78,7 +93,7 @@ const useReportHook = () => {
     } else if (query?.reportId === 'product-code') {
       reportData = await ProductCodeReportApi(
         loginAccessToken.token,
-        date ? currentDate : searchInputValues
+        productCodeFilters
       );
       const itemListData = await getItemListInSalesApi(loginAccessToken.token);
       if (itemListData?.data?.data?.length > 0) {
@@ -118,6 +133,9 @@ const useReportHook = () => {
       } else {
         setIsLoading(2);
       }
+    } else {
+      setReportData([]);
+      setIsLoading(2);
     }
   };
 
@@ -176,7 +194,6 @@ const useReportHook = () => {
     }));
 
   const handleReportPrint = async () => {
-
     try {
       let reportPrint;
       switch (query?.reportId) {
@@ -216,6 +233,12 @@ const useReportHook = () => {
             searchInputValues
           );
           break;
+        case 'ready-stock-summary-report':
+          reportPrint = await readyStockSummaryReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
         default:
           return;
       }
@@ -228,7 +251,7 @@ const useReportHook = () => {
     } catch (error) {
       console.error('Error fetching report print:', error);
     }
-  }
+  };
 
   const handleSearchInput: any = (value: any, fieldName: any) => {
     setSearchInputValues((prevState: any) => ({

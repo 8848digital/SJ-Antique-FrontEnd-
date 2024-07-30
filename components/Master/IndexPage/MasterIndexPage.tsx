@@ -57,7 +57,7 @@ const MasterIndexPage = () => {
     handleDeleteClient,
     handleDeleteClientGroup,
     handleDeleteBBCategory,
-    handleDeleteKunCSOtCategory
+    handleDeleteKunCSOtCategory,
   }: any = useMasterHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -68,13 +68,14 @@ const MasterIndexPage = () => {
     clientGroupList !== null &&
     clientGroupList.map((data: any) => ({
       karigar_name: data.client_group,
-      delete: data.delete
+      delete: data.delete,
     }));
+  console.log('category', category);
   let categoryName: any =
     category?.length > 0 &&
     category.map((data: any) => ({
       karigar_name: data?.category,
-      delete: data?.delete
+      delete: data?.delete,
     }));
   return (
     <div>
@@ -111,7 +112,7 @@ const MasterIndexPage = () => {
             clientList.map((data: any) => ({
               material: data.client_name,
               material_abbr: data.client_group,
-              delete: data.delete
+              delete: data.delete,
             }))
           }
           clientGroup={clientGroup}
@@ -148,7 +149,7 @@ const MasterIndexPage = () => {
             KunCsOtCategory.map((data: any) => ({
               material: data.name1,
               material_abbr: data.type,
-              delete: data.delete
+              delete: data.delete,
             }))
           }
           HandleNameChange={HandleKunCsOtChange}
@@ -180,7 +181,7 @@ const MasterIndexPage = () => {
             BBCategory.map((data: any) => ({
               material: data.name1,
               material_abbr: data.type,
-              delete: data.delete
+              delete: data.delete,
             }))
           }
           HandleNameChange={HandleBBChange}
@@ -233,10 +234,10 @@ const MasterIndexPage = () => {
             subCategory?.length > 0 &&
             subCategory !== null &&
             subCategory.map((data: any) => ({
-              material: data.subcategory,
-              material_abbr: data.full_form,
+              material: data.code,
+              material_abbr: data.sub_category,
               material_group: data.category,
-              delete: data.delete
+              delete: data.delete,
             }))
           }
           clientGroup={categoryName}

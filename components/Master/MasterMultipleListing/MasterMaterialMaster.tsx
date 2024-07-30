@@ -3,6 +3,7 @@ import MasterListing from '../MasterListing';
 import AddMaterial from './AddRecord';
 import MasterMaterialListing from './MasterMultipleListing';
 import TabSection from '@/components/TabSection';
+
 const MultipleRecordMaster: any = ({
   value,
   materialList,

@@ -119,3 +119,22 @@ export const summaryReportPrintApi = async (request: any, params: any) => {
   const response = await callGetAPI(url, request.token);
   return response;
 };
+export const readyStockSummaryReportPrintApi = async (
+  request: any,
+  params: any
+) => {
+  const urlParams: any = [];
+
+  Object?.keys(params).forEach((key: any) => {
+    urlParams.push(`${key}=${params[key]}`);
+  });
+
+  let url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=fetch_ready_stock_summary_report&entity=print_report&`;
+
+  if (urlParams.length > 0) {
+    url += `${urlParams.join('&')}`;
+  }
+
+  const response = await callGetAPI(url, request.token);
+  return response;
+};
