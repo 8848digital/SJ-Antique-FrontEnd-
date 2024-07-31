@@ -1,12 +1,7 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-report-api';
 import DailyStatusReportApi from '@/services/api/report/get-daily-status-report-data-api';
-import DailySummaryReportApi from '@/services/api/report/get-daily-summary-report-api';
-import ItemWiseReportApi from '@/services/api/report/get-item-wise-report-api';
+import detailedSummaryReportApi from '@/services/api/report/get-detailed-summary-report-api';
 import KarigarWiseReportApi from '@/services/api/report/get-karigar-wise-report-api';
 import ProductCodeReportApi from '@/services/api/report/get-product-code-report';
 import {
@@ -19,8 +14,7 @@ import summaryReport from '@/services/api/report/get-summary-report-api';
 import {
   customerWiseReportPrintApi,
   dailyReportPrintApi,
-  dailySummaryReportPrintApi,
-  itemWiseReportPrintApi,
+  detailedSummaryReportPrintApi,
   karigarWiseReportPrintApi,
   productReportPrintApi,
   readyStockSummaryReportPrintApi,
@@ -30,6 +24,10 @@ import { get_client_name_data } from '@/store/slices/Master/get-client-name-slic
 import { get_sub_category_data } from '@/store/slices/Master/get-sub-category-slice';
 import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const useReportHook = () => {
   const router = useRouter();
@@ -103,10 +101,17 @@ const useReportHook = () => {
         setItemList(itemList);
       }
     } else if (query?.reportId === 'detailed-summary-report') {
-      // reportData = await DailySummaryReportApi(
-      //   loginAccessToken.token,
-      //   date ? currentDate : searchInputValues
-      // );
+      reportData = await detailedSummaryReportApi(
+        loginAccessToken.token,
+        date ? currentDate : searchInputValues
+      );
+      const itemListData = await getItemListInSalesApi(loginAccessToken.token);
+      if (itemListData?.data?.data?.length > 0) {
+        let itemList: any = itemListData?.data?.data.map(
+          (items: any) => items.name
+        );
+        setItemList(itemList);
+      }
     } else if (query?.reportId === 'customer-wise-report') {
       reportData = await CustomerWiseReportApi(
         loginAccessToken.token,
@@ -127,6 +132,7 @@ const useReportHook = () => {
     }
 
     if (reportData?.data?.message?.status === 'success') {
+      console.log('reportss', reportData);
       setReportData(reportData?.data?.message?.data);
       if (reportData?.data?.message?.data?.length > 0) {
         setIsLoading(1);
@@ -210,11 +216,11 @@ const useReportHook = () => {
           );
           break;
         case 'detailed-summary-report':
-        // reportPrint = await itemWiseReportPrintApi(
-        //   loginAccessToken.token,
-        //   searchInputValues
-        // );
-        // break;
+          reportPrint = await detailedSummaryReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
         case 'customer-wise-report':
           reportPrint = await customerWiseReportPrintApi(
             loginAccessToken.token,

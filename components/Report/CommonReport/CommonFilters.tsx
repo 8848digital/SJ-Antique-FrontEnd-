@@ -26,7 +26,9 @@ const CommonFilters = ({
     fieldtype: 'Link',
     link_data:
       categoryData?.length > 0
-        ? Array.from(new Set(categoryData.map((data: any) => data.code)))
+        ? Array.from(
+            new Set(categoryData.map((data: any) => data.sub_category))
+          )
         : [],
   };
   const clientNameList: any = {
@@ -61,38 +63,55 @@ const CommonFilters = ({
   return (
     <div className="container mt-2">
       <div className="d-flex justify-content-center flex-wrap">
-        {query?.reportId !== 'product-code' && (
-          <div className="col-sm-2 p-0 mx-1">
-            <label className="text-grey">From Date</label>
-            <input
-              type="date"
-              name="from_date"
-              value={searchInputValues.from_date}
-              className="form-control bg-primary bg-opacity-10 "
-              onChange={(e: any) =>
-                handleSearchInput(e.target.value, 'from_date')
-              }
-            />
-          </div>
+        {query?.reportId !== 'product-code' &&
+          query?.reportId !== 'detailed-summary-report' && (
+            <div className="col-sm-2 p-0 mx-1">
+              <label className="text-grey">From Date</label>
+              <input
+                type="date"
+                name="from_date"
+                value={searchInputValues.from_date}
+                className="form-control bg-primary bg-opacity-10 "
+                onChange={(e: any) =>
+                  handleSearchInput(e.target.value, 'from_date')
+                }
+              />
+            </div>
+          )}
+        {query?.reportId !== 'product-code' &&
+          query?.reportId !== 'detailed-summary-report' && (
+            <div className="col-sm-2 p-0 mx-1">
+              <label className="text-grey">To Date</label>
+              <input
+                type="date"
+                name="to_date"
+                value={searchInputValues.to_date}
+                className="form-control bg-primary bg-opacity-10"
+                onChange={(e: any) =>
+                  handleSearchInput(e.target.value, 'to_date')
+                }
+              />
+            </div>
+          )}
+        {(query?.reportId === 'product-code' ||
+          query?.reportId === 'detailed-summary-report') && (
+          <>
+            <div className="col-sm-2 p-0 mx-1">
+              <label className="text-grey">Product Code</label>
+              <AutoCompleteInput
+                data={productCodeData}
+                handleSearchInput={(value: any, fieldName: any) =>
+                  handleSearchInput(value, fieldName)
+                }
+                value={searchInputValues?.product_code}
+              />
+            </div>
+          </>
         )}
-        {query?.reportId !== 'product-code' && (
-          <div className="col-sm-2 p-0 mx-1">
-            <label className="text-grey">To Date</label>
-            <input
-              type="date"
-              name="to_date"
-              value={searchInputValues.to_date}
-              className="form-control bg-primary bg-opacity-10"
-              onChange={(e: any) =>
-                handleSearchInput(e.target.value, 'to_date')
-              }
-            />
-          </div>
-        )}
-
         {(query?.reportId === 'summary-report' ||
           query?.reportId === 'product-code' ||
-          query?.reportId === 'ready-stock-summary-report') && (
+          query?.reportId === 'ready-stock-summary-report' ||
+          query?.reportId === 'detailed-summary-report') && (
           <>
             <div className="col-sm-2 p-0 mx-1">
               <label className="text-grey">Category</label>
@@ -107,7 +126,8 @@ const CommonFilters = ({
           </>
         )}
         {(query?.reportId === 'ready-stock-summary-report' ||
-          query?.reportId === 'summary-report') && (
+          query?.reportId === 'summary-report' ||
+          query?.reportId === 'detailed-summary-report') && (
           <div className="col-sm-2 p-0 mx-1">
             <label className="text-grey">Sub Category</label>
             <AutoCompleteInput
@@ -146,18 +166,9 @@ const CommonFilters = ({
             />
           </div>
         )}
+
         {query?.reportId === 'product-code' && (
           <>
-            <div className="col-sm-2 p-0 mx-1">
-              <label className="text-grey">Product Code</label>
-              <AutoCompleteInput
-                data={productCodeData}
-                handleSearchInput={(value: any, fieldName: any) =>
-                  handleSearchInput(value, fieldName)
-                }
-                value={searchInputValues?.product_code}
-              />
-            </div>
             <div className="col-sm-1 p-0 mx-1">
               <label className="text-grey">Gross Wt</label>
               <input
@@ -184,6 +195,7 @@ const CommonFilters = ({
             </div>
           </>
         )}
+
         <div className="mt-4 mb-1 ms-2 d-flex justify-content-start">
           <button
             className="btn btn-primary m-0 p-1 px-2"

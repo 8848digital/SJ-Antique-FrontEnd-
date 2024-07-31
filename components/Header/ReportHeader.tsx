@@ -12,8 +12,9 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin "
       >
         <button
-          className={`${styles.button} ${styled.report_header_btn} ${query?.reportId === 'daily-qty-status' ? 'activeColor' : ''
-            }`}
+          className={`${styles.button} ${styled.report_header_btn} ${
+            query?.reportId === 'daily-qty-status' ? 'activeColor' : ''
+          }`}
         >
           Daily Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
@@ -24,8 +25,9 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${styled.report_header_btn} ${query?.reportId === 'product-code' ? 'activeColor' : ''
-            }`}
+          className={`${styles.button} ${styled.report_header_btn} ${
+            query?.reportId === 'product-code' ? 'activeColor' : ''
+          }`}
         >
           Product Code
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
@@ -37,8 +39,9 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${styled.report_header_btn} ${query?.reportId === 'daily-summary-report' ? 'activeColor' : ''
-            }`}
+          className={`${styles.button} ${styled.report_header_btn} ${
+            query?.reportId === 'detailed-summary-report' ? 'activeColor' : ''
+          }`}
         >
           Detailed Summary Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
@@ -49,8 +52,9 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${styled.report_header_btn} ${query?.reportId === 'customer-wise-report' ? 'activeColor' : ''
-            }`}
+          className={`${styles.button} ${styled.report_header_btn} ${
+            query?.reportId === 'customer-wise-report' ? 'activeColor' : ''
+          }`}
         >
           Customer Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
@@ -61,8 +65,9 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${styled.report_header_btn} ${query?.reportId === 'karigar-wise-report' ? 'activeColor' : ''
-            }`}
+          className={`${styles.button} ${styled.report_header_btn} ${
+            query?.reportId === 'karigar-wise-report' ? 'activeColor' : ''
+          }`}
         >
           Karigar Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
@@ -74,8 +79,9 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${styled.report_header_btn} ${query?.reportId === 'summary-report' ? 'activeColor' : ''
-            }`}
+          className={`${styles.button} ${styled.report_header_btn} ${
+            query?.reportId === 'summary-report' ? 'activeColor' : ''
+          }`}
         >
           Summary Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
@@ -86,10 +92,11 @@ const ReportHeader = () => {
         className="text-decoration-none btn-margin"
       >
         <button
-          className={`${styles.button} ${styled.report_header_btn} ${query?.reportId === 'ready-stock-summary-report'
-            ? 'activeColor'
-            : ''
-            }`}
+          className={`${styles.button} ${styled.report_header_btn} ${
+            query?.reportId === 'ready-stock-summary-report'
+              ? 'activeColor'
+              : ''
+          }`}
         >
           Ready Stock Summary Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>

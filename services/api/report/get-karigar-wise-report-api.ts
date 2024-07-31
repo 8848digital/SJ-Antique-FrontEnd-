@@ -14,8 +14,6 @@ const KarigarWiseReportApi = async (get_access_token: any, params: any) => {
     url += `${urlParams.join('&')}`;
   }
 
-  // let url: any = `/api/method/sj_antique.sdk.api?version=${params?.version}&method=${params?.method}&entity=${params?.entity}&name=${params?.name}&voucher_no=${params?.voucher_no}&from_date=${params?.from_date}&to_date=${params?.to_date}`;
-
   const response = await callGetAPI(url, get_access_token);
   return response;
 };

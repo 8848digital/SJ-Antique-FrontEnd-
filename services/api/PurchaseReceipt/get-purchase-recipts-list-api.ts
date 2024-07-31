@@ -12,7 +12,7 @@ const getPurchasreceiptListApi = async (
 
   const url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=${method}&entity=${entity}&custom_ready_receipt_type=${custom_ready_receipt_type}`;
 
-  const response = await callGetAPI(url, get_access_token);
+  const response = await callGetAPI(url, get_access_token.token);
   return response;
 };
 

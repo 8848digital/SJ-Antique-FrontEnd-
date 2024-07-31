@@ -4,6 +4,7 @@ import Loader from '../../General/Loader';
 import NoRecord from '../../General/NoRecord';
 import CommonFilters from './CommonFilters';
 import ReportListingTable from './ReportListingTable';
+import DetailedSummaryReportListingTable from '../DetailedSummaryReportListingTable';
 
 const CommonReport = ({
   isLoading,
@@ -19,7 +20,8 @@ const CommonReport = ({
 }: any) => {
   const headers =
     reportData.length > 0 && reportData[0] ? Object.keys(reportData[0]) : [];
-
+  const { query } = useRouter();
+  console.log('query', query);
   return (
     <div className="container-lg">
       <ReportHeader />
@@ -52,7 +54,14 @@ const CommonReport = ({
               headers?.length <= 4 ? 'report-heading pe-3' : ''
             }`}
           ></div>
-          <ReportListingTable headers={headers} reportData={reportData} />
+          {query.reportId === 'detailed-summary-report' ? (
+            <DetailedSummaryReportListingTable
+              headers={headers}
+              reportData={reportData}
+            />
+          ) : (
+            <ReportListingTable headers={headers} reportData={reportData} />
+          )}
         </>
       )}
       <div className="row">
