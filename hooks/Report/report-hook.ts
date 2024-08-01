@@ -77,7 +77,7 @@ const useReportHook = () => {
     let reportData;
     const currentDate: any = { from_date: todayDate, to_date: todayDate };
     //remove date keys
-    let productCodeFilters: any = Object.fromEntries(
+    let removeDateFilters: any = Object.fromEntries(
       Object.entries(searchInputValues).filter(
         ([key]) => key !== 'from_date' && key !== 'to_date'
       )
@@ -91,7 +91,7 @@ const useReportHook = () => {
     } else if (query?.reportId === 'product-code') {
       reportData = await ProductCodeReportApi(
         loginAccessToken.token,
-        productCodeFilters
+        removeDateFilters
       );
       const itemListData = await getItemListInSalesApi(loginAccessToken.token);
       if (itemListData?.data?.data?.length > 0) {
@@ -103,7 +103,7 @@ const useReportHook = () => {
     } else if (query?.reportId === 'detailed-summary-report') {
       reportData = await detailedSummaryReportApi(
         loginAccessToken.token,
-        date ? currentDate : searchInputValues
+        removeDateFilters
       );
       const itemListData = await getItemListInSalesApi(loginAccessToken.token);
       if (itemListData?.data?.data?.length > 0) {
