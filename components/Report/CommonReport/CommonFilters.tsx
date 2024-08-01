@@ -1,6 +1,6 @@
-import AutoCompleteInput from '@/components/InputDropdown/AutoCompleteInput';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
+import AutoCompleteInput from '@/components/InputDropdown/AutoCompleteInput';
 
 const CommonFilters = ({
   searchInputValues,
@@ -12,6 +12,7 @@ const CommonFilters = ({
   categoryData,
 }: any) => {
   const { query } = useRouter();
+  const [currentSubcategory, setCurrentSubcategory] = useState<any>([]);
 
   const categoryListData: any = {
     fieldname: 'category',
@@ -25,7 +26,11 @@ const CommonFilters = ({
     fieldname: 'sub_category',
     fieldtype: 'Link',
     link_data:
-      categoryData?.length > 0
+      currentSubcategory?.length > 0
+        ? Array.from(
+            new Set(currentSubcategory.map((data: any) => data.sub_category))
+          )
+        : categoryData?.length > 0
         ? Array.from(
             new Set(categoryData.map((data: any) => data.sub_category))
           )
@@ -60,6 +65,12 @@ const CommonFilters = ({
         : [],
   };
 
+  const handleSelectedCategory: any = (value: any, fieldName: any) => {
+    const updatedSubCategory: any =
+      categoryData?.length > 0 &&
+      categoryData.filter((values: any) => values.category === value);
+    setCurrentSubcategory(updatedSubCategory);
+  };
   return (
     <div className="container mt-2">
       <div className="d-flex justify-content-center flex-wrap">
@@ -117,9 +128,10 @@ const CommonFilters = ({
               <label className="text-grey">Category</label>
               <AutoCompleteInput
                 data={categoryListData}
-                handleSearchInput={(value: any, fieldName: any) =>
-                  handleSearchInput(value, fieldName)
-                }
+                handleSearchInput={(value: any, fieldName: any) => {
+                  handleSearchInput(value, fieldName);
+                  handleSelectedCategory(value, fieldName);
+                }}
                 value={searchInputValues?.category}
               />
             </div>
