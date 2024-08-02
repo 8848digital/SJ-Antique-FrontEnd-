@@ -55,7 +55,7 @@ const DetailedSummaryReportListingTable = ({ headers, reportData }: any) => {
                       {data.sub_category}
                     </td>
                     <td scope="col" className={`table_row py-1 py-auto col `}>
-                      {data.item_name}
+                      {data.product_code}
                     </td>
 
                     <td scope="col" className={`table_row py-1 py-auto col `}>
