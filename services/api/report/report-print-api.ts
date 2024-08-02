@@ -8,7 +8,7 @@ export const dailyReportPrintApi = async (request: any, params: any) => {
     urlParams.push(`${key}=${params[key]}`);
   });
 
-  let url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=print_report_daily_qty_status&entity=report&`;
+  let url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=fetch_daily_report&entity=print_report&`;
 
   if (urlParams.length > 0) {
     url += `${urlParams.join('&')}`;

@@ -200,6 +200,12 @@ const useReportHook = () => {
     }));
 
   const handleReportPrint = async () => {
+    let removeDateFilters: any = Object.fromEntries(
+      Object.entries(searchInputValues).filter(
+        ([key]) => key !== 'from_date' && key !== 'to_date'
+      )
+    );
+
     try {
       let reportPrint;
       switch (query?.reportId) {
@@ -212,13 +218,13 @@ const useReportHook = () => {
         case 'product-code':
           reportPrint = await productReportPrintApi(
             loginAccessToken.token,
-            searchInputValues
+            removeDateFilters
           );
           break;
         case 'detailed-summary-report':
           reportPrint = await detailedSummaryReportPrintApi(
             loginAccessToken.token,
-            searchInputValues
+            removeDateFilters
           );
           break;
         case 'customer-wise-report':

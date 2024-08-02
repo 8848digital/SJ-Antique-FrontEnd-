@@ -9,7 +9,7 @@ const DailyStatusReportApi = async (get_access_token: any, params: any) => {
   });
 
   // Construct the URL based on the URL parameters
-  let url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_daily_qty_status_report&entity=report&`;
+  let url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_daily_report&entity=report&`;
   if (urlParams.length > 0) {
     url += `${urlParams.join('&')}`;
   }

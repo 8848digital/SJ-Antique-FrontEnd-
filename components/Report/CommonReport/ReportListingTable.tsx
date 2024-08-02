@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import styled from '../../../styles/report.module.css';
+import DailyReportHeader from '../DailyReportHeader';
 
 const ReportListingTable = ({ headers, reportData }: any) => {
   const { query } = useRouter();
@@ -14,16 +15,22 @@ const ReportListingTable = ({ headers, reportData }: any) => {
               <th scope="col" className="thead col-1">
                 Sr. No.
               </th>
-              {headers?.map((header: string, index: number) => (
-                <th
-                  key={index}
-                  scope="col"
-                  className={`thead col ${styled.table_header}`}
-                >
-                  {header?.charAt(0)?.toUpperCase() +
-                    header?.slice(1)?.replace(/_/g, ' ')}
-                </th>
-              ))}
+              {query.reportId !== 'daily-qty-status' ? (
+                <>
+                  {headers?.map((header: string, index: number) => (
+                    <th
+                      key={index}
+                      scope="col"
+                      className={`thead col ${styled.table_header}`}
+                    >
+                      {header?.charAt(0)?.toUpperCase() +
+                        header?.slice(1)?.replace(/_/g, ' ')}
+                    </th>
+                  ))}
+                </>
+              ) : (
+                <DailyReportHeader />
+              )}
             </tr>
           </thead>
           <tbody>
