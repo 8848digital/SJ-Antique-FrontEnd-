@@ -53,6 +53,30 @@ body {
   background: white !important;
 }
 
+/* Toast notification*/
+.Toastify__toast-container {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: end !important;
+}
+
+.Toastify__toast {
+  font-size: 13px !important;
+  padding: 8px !important;
+  min-height: 30px !important;
+  line-height: 1.2 !important;
+  width: 80%;
+}
+
+.Toastify__toast-body {
+  margin: 0 !important;
+}
+
+.Toastify__close-button {
+  font-size: 13px !important;
+}
+
+
 a {
   color: inherit;
   text-decoration: none;
@@ -310,6 +334,7 @@ hr {
 .table-body-row {
   line-height: 17px !important;
   padding: 4px !important;
+  font-size: 14px !important;
 }
 
 .cursor {
@@ -348,10 +373,8 @@ hr {
   scrollbar-width: thin;
   /* For Chrome, Edge, and Safari */
   scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
-
   /* For IE/Edge */
   -ms-overflow-style: -ms-autohiding-scrollbar;
-
 }
 
 .tab-width {

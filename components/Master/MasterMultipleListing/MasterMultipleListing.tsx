@@ -7,6 +7,7 @@ import AddRecordModal from '../AddRecordModal';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import styled from '../../../styles/master.module.css';
 
 const MasterMaterialListing = ({
   materialList,
@@ -62,6 +63,8 @@ const MasterMaterialListing = ({
       Unable to delete. Transactions exist for this entry.
     </Popover>
   );
+
+  console.log("dataa", defaultData)
   return (
     <div>
       {defaultData?.length > 0 ? (
@@ -144,12 +147,11 @@ const MasterMaterialListing = ({
                           {i + 1}
                         </td>
                         <td
-                          className={`table-body-row cursor ${
-                            value === 'kunCsOtCategory' ||
+                          className={`table-body-row cursor ${value === 'kunCsOtCategory' ||
                             value === 'BBCategory'
-                              ? 'w-25'
-                              : ' w-auto '
-                          } `}
+                            ? 'w-25'
+                            : ' w-auto '
+                            } `}
                           onClick={() =>
                             HandleDetails(
                               item.material,
@@ -160,7 +162,7 @@ const MasterMaterialListing = ({
                             )
                           }
                         >
-                          {item.material}
+                          {typeof item.material === 'string' ? item.material?.toUpperCase() : item.material}
                         </td>
                         <td
                           className={`table-body-row cursor w-auto`}
@@ -174,7 +176,7 @@ const MasterMaterialListing = ({
                             )
                           }
                         >
-                          {item.material_abbr ? item.material_abbr : item.type}
+                          {item.material_abbr ? typeof item.material_abbr === 'string' ? item.material_abbr?.toUpperCase() : item.material_abbr : typeof item.type === 'string' ? item.type?.toUpperCase() : item.type}
                         </td>
                         {(value === 'material' || value === 'subCategory') && (
                           <td
@@ -189,20 +191,21 @@ const MasterMaterialListing = ({
                               )
                             }
                           >
-                            {item.material_group}
+                            {typeof item.material_group === 'string' ? item.material_group?.toUpperCase() : item.material_group}
+
                           </td>
                         )}
                         <td className="table-body-row cursor w-25 p-0">
                           <div className="d-flex justify-content-around">
                             <button
-                              className="btn btn-link p-0"
+                              className={`btn btn-link p-0  ${styled.actions_btn}`}
                               onClick={() => handleShowAddRecord(item)}
                             >
                               Update
                             </button>
                             <div className="d-flex justify-space-between">
                               <button
-                                className="btn btn-link text-danger p-0"
+                                className={`btn btn-link text-danger p-0 ${styled.actions_btn}`}
                                 onClick={() =>
                                   handleShowDeleteModal(item?.material)
                                 }

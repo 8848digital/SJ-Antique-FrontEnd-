@@ -7,6 +7,7 @@ import AddRecordModal from '../AddRecordModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
+import styled from '../../../styles/master.module.css';
 
 const SingleRecordListing = ({
   karigarData,
@@ -103,19 +104,19 @@ const SingleRecordListing = ({
                           className="table-body-row cursor"
                           onClick={() => HandleDetails(item.karigar_name)}
                         >
-                          {item.karigar_name}
+                          {typeof item.karigar_name === 'string' ? item.karigar_name?.toUpperCase() : item.karigar_name}
                         </td>
                         <td className="table-body-row cursor w-25 p-0">
                           <div className="d-flex justify-content-around">
                             <button
-                              className="btn btn-link p-0 small"
+                              className={`btn btn-link p-0 small ${styled.actions_btn}`}
                               onClick={() => handleShowAddRecord(item)}
                             >
                               Update
                             </button>
                             <div className="d-flex justify-space-between">
                               <button
-                                className="btn btn-link text-danger p-0"
+                                className={`btn btn-link text-danger p-0 ${styled.actions_btn}`}
                                 onClick={() =>
                                   handleShowDeleteModal(item?.karigar_name)
                                 }
