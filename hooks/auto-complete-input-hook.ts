@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 
 const useAutoCompleteInputHook = ({
@@ -6,6 +7,7 @@ const useAutoCompleteInputHook = ({
   setStateForDocStatus,
   readOnlyFields,
 }: any) => {
+  const { query } = useRouter();
   const inputRef = useRef<any>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
 
@@ -92,6 +94,13 @@ const useAutoCompleteInputHook = ({
       setStateForDocStatus(true);
     }
   };
+
+  // Use useEffect to reset the input value when the query changes
+  useEffect(() => {
+    if (inputRef?.current) {
+      inputRef.current.value = '';
+    }
+  }, [query]);
 
   const handleFieldChange = (e: any, fieldname: any) => {
     handleSearchInput(e.target.value, fieldname);

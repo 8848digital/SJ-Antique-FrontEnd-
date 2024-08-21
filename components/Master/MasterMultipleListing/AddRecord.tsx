@@ -1,5 +1,5 @@
-import SearchSelectInputField from '@/components/InputDropdown/SearchSelectInputField';
 import React from 'react';
+import SearchSelectInputField from '@/components/InputDropdown/SearchSelectInputField';
 
 const AddMaterial = ({
   nameValue,
@@ -7,7 +7,6 @@ const AddMaterial = ({
   HandleSave,
   error1,
   error2,
-  error3,
   placeholder1,
   placeholder2,
   placeholder3,
@@ -75,7 +74,7 @@ const AddMaterial = ({
           )}
         </div>
         <div> {error2 && <p className="text-danger">{error2}</p>}</div>
-        {(value === 'material' || value === 'subCategory')&&  (
+        {(value === 'material' || value === 'subCategory') && (
           <>
             <div className=" m-1">
               <label htmlFor="">{placeholder3}</label>

@@ -1,12 +1,7 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import getItemListInSalesApi from '@/services/api/Sales/get-item-list-api';
 import CustomerWiseReportApi from '@/services/api/report/get-customer-wise-report-api';
 import DailyStatusReportApi from '@/services/api/report/get-daily-status-report-data-api';
-import DailySummaryReportApi from '@/services/api/report/get-daily-summary-report-api';
-import ItemWiseReportApi from '@/services/api/report/get-item-wise-report-api';
+import detailedSummaryReportApi from '@/services/api/report/get-detailed-summary-report-api';
 import KarigarWiseReportApi from '@/services/api/report/get-karigar-wise-report-api';
 import ProductCodeReportApi from '@/services/api/report/get-product-code-report';
 import {
@@ -16,11 +11,23 @@ import {
   readyStockSummaryApi50_100,
 } from '@/services/api/report/get-ready-stock-summary-report-api';
 import summaryReport from '@/services/api/report/get-summary-report-api';
-import { customerWiseReportPrintApi, dailyReportPrintApi, dailySummaryReportPrintApi, itemWiseReportPrintApi, karigarWiseReportPrintApi, productReportPrintApi, summaryReportPrintApi } from '@/services/api/report/report-print-api';
+import {
+  customerWiseReportPrintApi,
+  dailyReportPrintApi,
+  detailedSummaryReportPrintApi,
+  karigarWiseReportPrintApi,
+  productReportPrintApi,
+  readyStockSummaryReportPrintApi,
+  summaryReportPrintApi,
+} from '@/services/api/report/report-print-api';
 import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
 import { get_sub_category_data } from '@/store/slices/Master/get-sub-category-slice';
 import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const useReportHook = () => {
   const router = useRouter();
@@ -35,7 +42,7 @@ const useReportHook = () => {
   const [selectDropDownReset, setSelectDropDownReset] = useState<string>('');
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
 
-  const [searchInputValues, setSearchInputValues] = useState({
+  const [searchInputValues, setSearchInputValues] = useState<any>({
     from_date: todayDate,
     to_date: todayDate,
   });
@@ -69,6 +76,12 @@ const useReportHook = () => {
   const getStateData = async (date?: any) => {
     let reportData;
     const currentDate: any = { from_date: todayDate, to_date: todayDate };
+    //remove date keys
+    let removeDateFilters: any = Object.fromEntries(
+      Object.entries(searchInputValues).filter(
+        ([key]) => key !== 'from_date' && key !== 'to_date'
+      )
+    );
 
     if (query?.reportId === 'daily-qty-status') {
       reportData = await DailyStatusReportApi(
@@ -78,7 +91,7 @@ const useReportHook = () => {
     } else if (query?.reportId === 'product-code') {
       reportData = await ProductCodeReportApi(
         loginAccessToken.token,
-        date ? currentDate : searchInputValues
+        removeDateFilters
       );
       const itemListData = await getItemListInSalesApi(loginAccessToken.token);
       if (itemListData?.data?.data?.length > 0) {
@@ -87,11 +100,18 @@ const useReportHook = () => {
         );
         setItemList(itemList);
       }
-    } else if (query?.reportId === 'daily-summary-report') {
-      reportData = await DailySummaryReportApi(
+    } else if (query?.reportId === 'detailed-summary-report') {
+      reportData = await detailedSummaryReportApi(
         loginAccessToken.token,
-        date ? currentDate : searchInputValues
+        removeDateFilters
       );
+      const itemListData = await getItemListInSalesApi(loginAccessToken.token);
+      if (itemListData?.data?.data?.length > 0) {
+        let itemList: any = itemListData?.data?.data.map(
+          (items: any) => items.name
+        );
+        setItemList(itemList);
+      }
     } else if (query?.reportId === 'customer-wise-report') {
       reportData = await CustomerWiseReportApi(
         loginAccessToken.token,
@@ -99,11 +119,6 @@ const useReportHook = () => {
       );
     } else if (query?.reportId === 'karigar-wise-report') {
       reportData = await KarigarWiseReportApi(
-        loginAccessToken.token,
-        date ? currentDate : searchInputValues
-      );
-    } else if (query?.reportId === 'item-wise-report') {
-      reportData = await ItemWiseReportApi(
         loginAccessToken.token,
         date ? currentDate : searchInputValues
       );
@@ -117,12 +132,16 @@ const useReportHook = () => {
     }
 
     if (reportData?.data?.message?.status === 'success') {
+      console.log('reportss', reportData);
       setReportData(reportData?.data?.message?.data);
       if (reportData?.data?.message?.data?.length > 0) {
         setIsLoading(1);
       } else {
         setIsLoading(2);
       }
+    } else {
+      setReportData([]);
+      setIsLoading(2);
     }
   };
 
@@ -181,6 +200,11 @@ const useReportHook = () => {
     }));
 
   const handleReportPrint = async () => {
+    let removeDateFilters: any = Object.fromEntries(
+      Object.entries(searchInputValues).filter(
+        ([key]) => key !== 'from_date' && key !== 'to_date'
+      )
+    );
 
     try {
       let reportPrint;
@@ -194,19 +218,13 @@ const useReportHook = () => {
         case 'product-code':
           reportPrint = await productReportPrintApi(
             loginAccessToken.token,
-            searchInputValues
+            removeDateFilters
           );
           break;
-        case 'item-wise-report':
-          reportPrint = await itemWiseReportPrintApi(
+        case 'detailed-summary-report':
+          reportPrint = await detailedSummaryReportPrintApi(
             loginAccessToken.token,
-            searchInputValues
-          );
-          break;
-        case 'daily-summary-report':
-          reportPrint = await dailySummaryReportPrintApi(
-            loginAccessToken.token,
-            searchInputValues
+            removeDateFilters
           );
           break;
         case 'customer-wise-report':
@@ -227,6 +245,12 @@ const useReportHook = () => {
             searchInputValues
           );
           break;
+        case 'ready-stock-summary-report':
+          reportPrint = await readyStockSummaryReportPrintApi(
+            loginAccessToken.token,
+            searchInputValues
+          );
+          break;
         default:
           return;
       }
@@ -239,7 +263,7 @@ const useReportHook = () => {
     } catch (error) {
       console.error('Error fetching report print:', error);
     }
-  }
+  };
 
   const handleSearchInput: any = (value: any, fieldName: any) => {
     setSearchInputValues((prevState: any) => ({

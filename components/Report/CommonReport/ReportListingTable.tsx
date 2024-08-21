@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import styled from '../../../styles/report.module.css';
+import DailyReportHeader from '../DailyReportHeader';
 
 const ReportListingTable = ({ headers, reportData }: any) => {
   const { query } = useRouter();
@@ -14,12 +15,22 @@ const ReportListingTable = ({ headers, reportData }: any) => {
               <th scope="col" className="thead col-1">
                 Sr. No.
               </th>
-              {headers?.map((header: string, index: number) => (
-                <th key={index} scope="col" className={`thead col ${styled.table_header}`}>
-                  {header?.charAt(0)?.toUpperCase() +
-                    header?.slice(1)?.replace(/_/g, ' ')}
-                </th>
-              ))}
+              {query.reportId !== 'daily-qty-status' ? (
+                <>
+                  {headers?.map((header: string, index: number) => (
+                    <th
+                      key={index}
+                      scope="col"
+                      className={`thead col ${styled.table_header}`}
+                    >
+                      {header?.charAt(0)?.toUpperCase() +
+                        header?.slice(1)?.replace(/_/g, ' ')}
+                    </th>
+                  ))}
+                </>
+              ) : (
+                <DailyReportHeader />
+              )}
             </tr>
           </thead>
           <tbody>
@@ -33,8 +44,9 @@ const ReportListingTable = ({ headers, reportData }: any) => {
                 return (
                   <tr
                     key={index}
-                    className={`row row-cols-7 justify-content-center text-center ${isTotalRow ? 'fw-bold bg-warning ' : ''
-                      }`}
+                    className={`row row-cols-7 justify-content-center text-center ${
+                      isTotalRow ? 'fw-bold bg-warning ' : ''
+                    }`}
                   >
                     <td scope="col" className="col-1 table_row py-1 py-auto">
                       {!isTotalRow && index + 1}
@@ -59,7 +71,7 @@ const ReportListingTable = ({ headers, reportData }: any) => {
             <table className={`table table-hover table-striped cursor`}>
               <tbody>
                 {query.reportId === 'daily-qty-status' && (
-                  <tr className="row row-cols-7 justify-content-center text-center fw-bold">
+                  <tr className="row row-cols-7 justify-content-center text-center fw-bold mb-3">
                     <td
                       scope="col"
                       className={`col-1 table_row py-1 py-auto ${styled.total_row_container}`}

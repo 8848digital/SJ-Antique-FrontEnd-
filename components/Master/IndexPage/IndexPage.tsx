@@ -18,7 +18,6 @@ const IndexPage = () => {
     handleShowAddRecord,
     handleCloseAddRecord,
     showDeleteModal,
-    setShowDeleteModal,
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
@@ -44,7 +43,7 @@ const IndexPage = () => {
           error={error}
           setError={setError}
           value={key}
-          placeholder={'Karigar Name'}
+          placeholder={'Karigar'}
           tab1={'Karigar List'}
           tab2={'Create New Karigar'}
           showDeleteModal={showDeleteModal}
@@ -68,7 +67,7 @@ const IndexPage = () => {
           error={error}
           setError={setError}
           value={key}
-          placeholder={'Kundan Karigar Name'}
+          placeholder={'Kundan Karigar'}
           tab1={'Kundan Karigar List'}
           tab2={'Create New Kundan Karigar'}
           showDeleteModal={showDeleteModal}

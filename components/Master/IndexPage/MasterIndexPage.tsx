@@ -57,7 +57,7 @@ const MasterIndexPage = () => {
     handleDeleteClient,
     handleDeleteClientGroup,
     handleDeleteBBCategory,
-    handleDeleteKunCSOtCategory
+    handleDeleteKunCSOtCategory,
   }: any = useMasterHook();
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
@@ -68,13 +68,14 @@ const MasterIndexPage = () => {
     clientGroupList !== null &&
     clientGroupList.map((data: any) => ({
       karigar_name: data.client_group,
-      delete:data.delete
+      delete: data.delete,
     }));
+  console.log('category', category);
   let categoryName: any =
     category?.length > 0 &&
     category.map((data: any) => ({
       karigar_name: data?.category,
-      delete:data?.delete
+      delete: data?.delete,
     }));
   return (
     <div>
@@ -87,7 +88,7 @@ const MasterIndexPage = () => {
           error={errorC}
           setError={setErrorC}
           value={key}
-          placeholder={'Client Group Name'}
+          placeholder={'Client Group'}
           tab1={'Client Group List'}
           tab2={'Create New Client Group'}
           showDeleteModal={showDeleteModal}
@@ -111,7 +112,7 @@ const MasterIndexPage = () => {
             clientList.map((data: any) => ({
               material: data.client_name,
               material_abbr: data.client_group,
-              delete:data.delete
+              delete: data.delete,
             }))
           }
           clientGroup={clientGroup}
@@ -120,10 +121,10 @@ const MasterIndexPage = () => {
           nameValue={clientName}
           error1={errorC1}
           error2={errorC2}
-          placeholder1={'Client Name'}
+          placeholder1={'Client'}
           placeholder2={'Client Group'}
           tab1={'Client Name List'}
-          tab2={'Create New Client Name'}
+          tab2={'Create New Client'}
           setSearchClient={setSearchClient}
           searchClient={searchClient}
           selectDropDownReset={selectDropDownReset}
@@ -148,7 +149,7 @@ const MasterIndexPage = () => {
             KunCsOtCategory.map((data: any) => ({
               material: data.name1,
               material_abbr: data.type,
-              delete:data.delete
+              delete: data.delete,
             }))
           }
           HandleNameChange={HandleKunCsOtChange}
@@ -156,9 +157,9 @@ const MasterIndexPage = () => {
           nameValue={clientName}
           error1={errorC1}
           error2={errorC2}
-          placeholder1={'Category Name'}
+          placeholder1={'Category'}
           placeholder2={'Type'}
-          tab1={'Category Name'}
+          tab1={'Category'}
           tab2={'Create New Category'}
           showDeleteModal={showDeleteModal}
           handleCloseDeleteModal={handleCloseDeleteModal}
@@ -180,7 +181,7 @@ const MasterIndexPage = () => {
             BBCategory.map((data: any) => ({
               material: data.name1,
               material_abbr: data.type,
-              delete:data.delete
+              delete: data.delete,
             }))
           }
           HandleNameChange={HandleBBChange}
@@ -188,9 +189,9 @@ const MasterIndexPage = () => {
           nameValue={clientName}
           error1={errorC1}
           error2={errorC2}
-          placeholder1={'Category Name'}
+          placeholder1={'Category'}
           placeholder2={'Type'}
-          tab1={'Category Name'}
+          tab1={'Category'}
           tab2={'Create New BB Category'}
           showDeleteModal={showDeleteModal}
           handleCloseDeleteModal={handleCloseDeleteModal}
@@ -212,7 +213,7 @@ const MasterIndexPage = () => {
           error={errorC}
           setError={setErrorC}
           value={key}
-          placeholder={'Category Name'}
+          placeholder={'Category'}
           tab1={'Category List'}
           tab2={'Create New Category'}
           showDeleteModal={showDeleteModal}
@@ -233,10 +234,10 @@ const MasterIndexPage = () => {
             subCategory?.length > 0 &&
             subCategory !== null &&
             subCategory.map((data: any) => ({
-              material: data.subcategory,
-              material_abbr: data.full_form,
+              material: data.code,
+              material_abbr: data.sub_category,
               material_group: data.category,
-              delete:data.delete
+              delete: data.delete,
             }))
           }
           clientGroup={categoryName}
@@ -246,10 +247,10 @@ const MasterIndexPage = () => {
           error1={errorC1}
           error2={errorC2}
           error3={errorC3}
-          placeholder1={'Sub Category '}
-          placeholder2={'Full Form'}
-          placeholder3={'Category Name'}
-          tab1={'Sub Category name'}
+          placeholder1={'Code'}
+          placeholder2={'Sub Category'}
+          placeholder3={'Category'}
+          tab1={'Sub Category'}
           tab2={'Create New Sub Category'}
           setSearchClient={setSearchCategory}
           searchClient={searchCategory}

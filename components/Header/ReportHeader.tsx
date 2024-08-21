@@ -33,29 +33,17 @@ const ReportHeader = () => {
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>
+
       <Link
-        href="/report/item-wise-report"
+        href="/report/detailed-summary-report"
         className="text-decoration-none btn-margin"
       >
         <button
           className={`${styles.button} ${styled.report_header_btn} ${
-            query?.reportId === 'item-wise-report' ? 'activeColor' : ''
+            query?.reportId === 'detailed-summary-report' ? 'activeColor' : ''
           }`}
         >
-          Item Report
-          <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
-        </button>
-      </Link>
-      <Link
-        href="/report/daily-summary-report"
-        className="text-decoration-none btn-margin"
-      >
-        <button
-          className={`${styles.button} ${styled.report_header_btn} ${
-            query?.reportId === 'daily-summary-report' ? 'activeColor' : ''
-          }`}
-        >
-          Daily Summary Report
+          Detailed Summary Report
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>

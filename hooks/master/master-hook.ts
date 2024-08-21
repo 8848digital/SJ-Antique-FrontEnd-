@@ -104,10 +104,7 @@ const useMasterHook = () => {
 
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
-    } else if (
-      searchClient === '' ||
-      searchClient === undefined
-    ) {
+    } else if (searchClient === '' || searchClient === undefined) {
       setError2('Input field cannot be empty');
     } else {
       let apiRes: any = await postClientApi(loginAcessToken?.token, values);
@@ -136,10 +133,7 @@ const useMasterHook = () => {
     };
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
-    } else if (
-      searchClient === '' ||
-      searchClient === undefined
-    ) {
+    } else if (searchClient === '' || searchClient === undefined) {
       setError2('Input field cannot be empty');
     } else {
       let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
@@ -155,7 +149,7 @@ const useMasterHook = () => {
         material_abbr: '',
       });
       setSelectDropDownReset(true);
-      setSearchClient('')
+      setSearchClient('');
       setShowAddRecord(false);
     }
   };
@@ -166,13 +160,13 @@ const useMasterHook = () => {
         'Client',
         name
       );
-      if(apiRes?.status === 202){
-        toast.success('Client Deleted Successfully!')
+      if (apiRes?.status === 202) {
+        toast.success('Client Deleted Successfully!');
         dispatch(getClientNameData(loginAcessToken.token));
-      }else{
-        toast.error('Client cannot be deleted')
+      } else {
+        toast.error('Client cannot be deleted');
       }
-      setShowDeleteModal(false)
+      setShowDeleteModal(false);
     }
   };
 
@@ -189,8 +183,8 @@ const useMasterHook = () => {
       method: 'create_subcategory',
       entity: 'category',
       category_name: searchCategory,
-      subcategory_name: clientName?.material,
-      full_form: clientName?.material_abbr,
+      code: clientName?.material,
+      subcategory_name: clientName?.material_abbr,
     };
 
     if (clientName?.material === '' || clientName.material === undefined) {
@@ -228,10 +222,10 @@ const useMasterHook = () => {
       version: 'v1',
       entity: 'category',
       method: 'update_sub_category_details',
-      name: originalName,
-      subcategory_name: clientName?.material,
+      // name: originalName,
+      subcategory_name: clientName?.material_abbr,
+      name: clientName?.material,
       category: searchCategory,
-      full_form: clientName?.material_abbr,
     };
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
@@ -247,10 +241,10 @@ const useMasterHook = () => {
     } else {
       let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
       if (apiRes?.data?.message?.status === 'success') {
-        toast.success('Sub-category Name Created');
+        toast.success('Sub-category Created');
         dispatch(getSubCategoryData(loginAcessToken.token));
       } else {
-        toast.error('Sub Category Name already exist');
+        toast.error('Sub Category already exist');
       }
       setError1('');
       setClientNameValue({
@@ -268,13 +262,13 @@ const useMasterHook = () => {
         'Sub Category',
         name
       );
-      if(apiRes?.status === 202){
-        toast.success('Sub Category Deleted Successfully!')
+      if (apiRes?.status === 202) {
+        toast.success('Sub Category Deleted Successfully!');
         dispatch(getSubCategoryData(loginAcessToken.token));
-      }else{
-        toast.error('Sub Category cannot be deleted')
+      } else {
+        toast.error('Sub Category cannot be deleted');
       }
-      setShowDeleteModal(false)
+      setShowDeleteModal(false);
     }
   };
 
@@ -357,13 +351,13 @@ const useMasterHook = () => {
         'Kun-CS-Ot Category',
         name
       );
-      if(apiRes?.status === 202){
-        toast.success('Kun-CS-Ot Category Deleted Successfully!')
+      if (apiRes?.status === 202) {
+        toast.success('Kun-CS-Ot Category Deleted Successfully!');
         dispatch(getKunCategoryData(loginAcessToken.token));
-      }else{
-        toast.error('Kun-CS-Ot Category cannot be deleted')
+      } else {
+        toast.error('Kun-CS-Ot Category cannot be deleted');
       }
-      setShowDeleteModal(false)
+      setShowDeleteModal(false);
     }
   };
   // post bb category api
@@ -442,13 +436,13 @@ const useMasterHook = () => {
         'BB Category',
         name
       );
-      if(apiRes?.status === 202){
-        toast.success('BB Category Deleted Successfully!')
+      if (apiRes?.status === 202) {
+        toast.success('BB Category Deleted Successfully!');
         dispatch(getBBCategoryData(loginAcessToken.token));
-      }else{
-        toast.error('BB Category cannot be deleted')
+      } else {
+        toast.error('BB Category cannot be deleted');
       }
-      setShowDeleteModal(false)
+      setShowDeleteModal(false);
     }
   };
 
@@ -514,13 +508,13 @@ const useMasterHook = () => {
         'Client Group',
         name
       );
-      if(apiRes?.status === 202){
-        toast.success('Client Group Deleted Successfully!')
+      if (apiRes?.status === 202) {
+        toast.success('Client Group Deleted Successfully!');
         dispatch(getClientGroupData(loginAcessToken.token));
-      }else{
-        toast.error('Client Group cannot be deleted')
+      } else {
+        toast.error('Client Group cannot be deleted');
       }
-      setShowDeleteModal(false)
+      setShowDeleteModal(false);
     }
   };
 
@@ -576,7 +570,7 @@ const useMasterHook = () => {
       }
       setErrorC('');
       setInputValue1('');
-      setSearchCategory('')
+      setSearchCategory('');
       setShowAddRecord(false);
     }
   };
@@ -587,25 +581,26 @@ const useMasterHook = () => {
         'Category',
         name
       );
-      if(apiRes?.status === 202){
-        toast.success('Category Deleted Successfully!')
+      if (apiRes?.status === 202) {
+        toast.success('Category Deleted Successfully!');
         dispatch(getCategoryData(loginAcessToken.token));
-      }else{
-        toast.error('Category cannot be deleted')
+      } else {
+        toast.error('Category cannot be deleted');
       }
-      setShowDeleteModal(false)
+      setShowDeleteModal(false);
     }
   };
 
   // Handle Add record Modal
-  const handleCloseAddRecord = () => {setShowAddRecord(false)
-    setSearchClient('')
+  const handleCloseAddRecord = () => {
+    setShowAddRecord(false);
+    setSearchClient('');
     setClientNameValue({
       material: '',
       material_abbr: '',
-    })
-    setInputValue1('')
-    setSearchCategory('')
+    });
+    setInputValue1('');
+    setSearchCategory('');
   };
   const handleShowAddRecord = (item: any) => {
     if (item?.karigar_name) {
@@ -616,7 +611,7 @@ const useMasterHook = () => {
       setSearchClient(item?.material_abbr);
       setSearchCategory(item?.material_group);
       setOriginalName(item?.material);
-      setSelectDropDownReset(false)
+      setSelectDropDownReset(false);
     }
     setShowAddRecord(true);
   };
@@ -674,7 +669,7 @@ const useMasterHook = () => {
     handleDeleteClient,
     handleDeleteClientGroup,
     handleDeleteBBCategory,
-    handleDeleteKunCSOtCategory
+    handleDeleteKunCSOtCategory,
   };
 };
 export default useMasterHook;

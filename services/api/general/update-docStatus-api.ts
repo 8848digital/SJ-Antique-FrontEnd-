@@ -8,8 +8,6 @@ const UpdateDocStatusApi: any = async (
 ) => {
   let response: any;
 
-  // const params = `/api/resource/Purchase Receipt/${name}`;
-
   let body = {
     docstatus: docStatus,
   };

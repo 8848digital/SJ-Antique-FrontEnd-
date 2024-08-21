@@ -1,7 +1,7 @@
 import { CONSTANTS } from '../../config/api-config';
 import { callGetAPI } from '../utils';
 
-const DailyStatusReportApi = async (get_access_token: any, params: any) => {
+const detailedSummaryReportApi = async (get_access_token: any, params: any) => {
   const urlParams: any = [];
 
   Object?.keys(params).forEach((key: any) => {
@@ -9,7 +9,7 @@ const DailyStatusReportApi = async (get_access_token: any, params: any) => {
   });
 
   // Construct the URL based on the URL parameters
-  let url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_daily_report&entity=report&`;
+  let url: any = `${CONSTANTS.API_BASE_URL}/api/method/sj_antique.sdk.api?version=v1&method=get_detailed_summary_report&entity=report&`;
   if (urlParams.length > 0) {
     url += `${urlParams.join('&')}`;
   }
@@ -18,4 +18,4 @@ const DailyStatusReportApi = async (get_access_token: any, params: any) => {
   return response;
 };
 
-export default DailyStatusReportApi;
+export default detailedSummaryReportApi;

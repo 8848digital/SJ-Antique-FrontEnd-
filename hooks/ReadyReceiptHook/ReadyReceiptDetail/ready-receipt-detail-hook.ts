@@ -171,7 +171,6 @@ const UseKundanKarigarDetailHook = () => {
     HandleDeleteReceipt,
     selectedDropdownValue,
     setSelectedDropdownValue,
-
     setReadyReceiptType,
     stateForDocStatus,
     setStateForDocStatus,
