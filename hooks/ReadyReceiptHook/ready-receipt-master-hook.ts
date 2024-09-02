@@ -36,7 +36,7 @@ const useReadyReceipt = () => {
     remarks: '',
     custom_ready_receipt_type: readyReceiptType,
     posting_date: '',
-    store_location: '',
+    set_warehouse: '',
   });
 
   const karigarData = useSelector(get_karigar_name_data).data;
@@ -54,7 +54,7 @@ const useReadyReceipt = () => {
     setRecipitData({
       ...recipitData,
       custom_ready_receipt_type: readyReceiptType,
-      store_location:
+      set_warehouse:
         selectedLocation !== '' && selectedLocation !== undefined
           ? selectedLocation
           : 'Mumbai',
@@ -284,13 +284,14 @@ const useReadyReceipt = () => {
       remarks: '',
       custom_ready_receipt_type: readyReceiptType,
       posting_date: '',
-      store_location: 'Mumbai',
+      set_warehouse: 'Mumbai',
     });
     setTableData([initialTableState]);
     setSelectedDropdownValue('');
     setSelectedKundanKarigarDropdownValue('');
     setKunKarigarDropdownReset(true);
   };
+
   const handleUpdateReceipt: any = async () => {
     if (tabDisabled) {
       return;
