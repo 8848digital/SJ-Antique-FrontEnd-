@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="container-lg">
+    <div className="container-lg px-0">
       <div className="">
         <nav className="d-flex">
           <div className="container-lg mt-2 d-flex flex-wrap justify-content-center ">
@@ -33,7 +33,7 @@ const Navbar = () => {
               <Dropdown.Toggle
                 variant="success-light"
                 id="dropdown-basic"
-                className="border bg-light"
+                className="border"
               >
                 <FontAwesomeIcon
                   icon={faCircleUser}
@@ -41,7 +41,7 @@ const Navbar = () => {
                 />
               </Dropdown.Toggle>
 
-              <Dropdown.Menu className="">
+              <Dropdown.Menu className="dropdown-menu">
                 <Dropdown.Item className="d-flex justify-content-center">
                   Welcome!!
                 </Dropdown.Item>

@@ -231,7 +231,6 @@ const useSalesReturnMasterHook = () => {
     kunCsOtFixedAmt,
     setKunCsOtFixedAmt,
     handleFixedAmt,
-    // handleTabPressItemDetails,
     selectedItemCode,
     setSelectedItemCode,
     showDeleteModal,

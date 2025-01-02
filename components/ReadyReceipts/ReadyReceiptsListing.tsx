@@ -54,7 +54,7 @@ const ReadyReceiptListing = ({
   const [searchKarigar, setSearchKarigar] = useState<any>('');
 
   const todayDate: any = new Date()?.toISOString()?.split('T')[0];
-
+  console.log({ url });
   const [searchInputValues, setSearchInputValues] = useState({
     from_date: todayDate,
     to_date: todayDate,
@@ -234,7 +234,10 @@ const ReadyReceiptListing = ({
                     href={`${url}/${item.name}`}
                     className="text-dark text-decoration-none"
                   >
-                    {item.custom_number}
+                    {url === 'customerSale' || url === 'saleReturns'
+                      ? item?.name
+                      : item?.custom_number}
+                    {/* {item.custom_number} */}
                   </Link>
                 </td>
                 <td className={` table_row col-lg-2 col-2 p-0 text-small`}>
