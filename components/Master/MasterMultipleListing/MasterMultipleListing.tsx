@@ -52,7 +52,6 @@ const MasterMaterialListing = ({
     </Popover>
   );
 
-  console.log('dataa', defaultData);
   return (
     <div>
       {defaultData?.length > 0 ? (
@@ -115,10 +114,24 @@ const MasterMaterialListing = ({
                   <th className="thead text-start">Sr.No</th>
                   <th className="thead text-start ">{placeholder1}</th>
                   <th className="thead text-start ">{placeholder2}</th>
+                  {value === "client" && (
+                    <>
+                      <th className="thead text-start ">Sales group</th>
+                      <th className="thead text-start ">Kun</th>
+                      <th className="thead text-start ">CS </th>
+                      <th className="thead text-start ">OT </th>
+                      <th className="thead text-start ">BB</th>
+
+                    </>
+                  )}
+
                   {(value === 'material' || value === 'subCategory') && (
                     <th className="thead text-start ">{placeholder3}</th>
                   )}
-                  <th className="thead text-start "></th>
+                  {value === "material" && (
+                    <th className="thead text-start ">Category</th>
+                  )}
+                  <th className="thead text-start"></th>
                 </tr>
               </thead>
               <tbody>
@@ -135,12 +148,11 @@ const MasterMaterialListing = ({
                           {i + 1}
                         </td>
                         <td
-                          className={`table-body-row cursor ${
-                            value === 'kunCsOtCategory' ||
+                          className={`table-body-row cursor ${value === 'kunCsOtCategory' ||
                             value === 'BBCategory'
-                              ? 'w-25'
-                              : ' w-auto '
-                          } `}
+                            ? 'w-25'
+                            : ' w-auto '
+                            } `}
                         >
                           {typeof item.material === 'string'
                             ? item.material?.toUpperCase()
@@ -152,9 +164,28 @@ const MasterMaterialListing = ({
                               ? item.material_abbr?.toUpperCase()
                               : item.material_abbr
                             : typeof item.type === 'string'
-                            ? item.type?.toUpperCase()
-                            : item.type}
+                              ? item.type?.toUpperCase()
+                              : item.type}
                         </td>
+                        {(value === "client" && (
+                          <>
+                            <td className="table-body-row cursor w-auto">
+                              {item?.sales_group}
+                            </td>
+                            <td className="table-body-row cursor w-auto">
+                              {item?.kundan_category}
+                            </td>
+                            <td className="table-body-row cursor w-auto">
+                              {item?.cs_category}
+                            </td>
+                            <td className="table-body-row cursor w-auto">
+                              {item?.ot_category}
+                            </td>
+                            <td className="table-body-row cursor w-auto">
+                              {item?.bb_category}
+                            </td>
+                          </>
+                        ))}
                         {(value === 'material' || value === 'subCategory') && (
                           <td className="table-body-row cursor w-auto">
                             {typeof item.material_group === 'string'
@@ -162,6 +193,11 @@ const MasterMaterialListing = ({
                               : item.material_group}
                           </td>
                         )}
+                        {
+                          value === "material" && (
+                            <td className="table-body-row cursor w-auto">{item?.category}</td>
+                          )
+                        }
                         <td className="table-body-row cursor w-25 p-0">
                           <div className="d-flex justify-content-around">
                             <button

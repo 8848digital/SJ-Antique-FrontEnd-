@@ -40,8 +40,10 @@ import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
 import postCsCategoryApi from '@/services/api/Master/post-cs-category-api';
 import postOtCategoryApi from '@/services/api/Master/post-ot-category-api';
-import { getOtCategoryData } from '@/store/slices/Master/get-OT-category-slice';
-import { getCsCategoryData } from '@/store/slices/Master/get-cs-category-slice';
+import { get_ot_category_data, getOtCategoryData } from '@/store/slices/Master/get-ot-category-slice';
+import { get_cs_category_data, getCsCategoryData } from '@/store/slices/Master/get-cs-category-slice';
+import { get_sales_group_data, getSalesGroupData } from '@/store/slices/Master/get-sales-group-slice';
+import postSalesGroupApi from '@/services/api/Master/sales-group/post-sales-group-api';
 
 const useMasterHook = () => {
   const {
@@ -59,12 +61,16 @@ const useMasterHook = () => {
   // Listing states
   let clientList = useSelector(get_client_name_data).data;
   let clientGroupList = useSelector(get_client_group_data).data;
-  let KunCsOtCategory = useSelector(get_kun_category_data).data;
+  let salesGroupListData = useSelector(get_sales_group_data).data;
+  let kunCategoryData = useSelector(get_kun_category_data).data;
+  let csCategoryData = useSelector(get_cs_category_data).data;
+  let otCategoryData = useSelector(get_ot_category_data).data;
   let BBCategory = useSelector(get_bb_category_data).data;
   let category = useSelector(get_category_data).data;
   let subCategory = useSelector(get_sub_category_data).data;
 
   const [searchClient, setSearchClient] = useState('');
+  const [salesGroup, setSalesGroup] = useState('');
   const [searchCategory, setSearchCategory] = useState('');
   const [inputValue1, setInputValue1] = useState('');
   const [errorC, setErrorC] = useState('');
@@ -76,37 +82,38 @@ const useMasterHook = () => {
   const [clientName, setClientNameValue] = useState({
     material: '',
     material_abbr: '',
+    kundan_category: '',
+    cs_category: '',
+    ot_category: '',
+    bb_category: '',
   });
 
   const [originalName, setOriginalName] = useState();
 
-  // client post api
-  // useEffect(() => {
-  //   setClientNameValue({
-  //     ...clientName,
-  //     material_abbr: searchClient,
-  //   });
-  //   setError1('');
-  //   setError2('');
-  // }, []);
   const HandleClientNameChange = (e: any) => {
-    const { value } = e.target;
-    console.log('client', value);
-    setClientNameValue({
-      ...clientName,
-      material: value,
-      material_abbr: searchClient,
-    });
+    const { value, name } = e.target;
+    setClientNameValue((prevClientName: any) => ({
+      ...prevClientName, // Preserve existing keys
+      material_abbr: searchClient, // Ensure material_abbr is updated correctly
+      [name]: value // Dynamically update the key corresponding to the input's name
+    }));
     setError1('');
     setError2('');
   };
+
   const HandleClientSave = async () => {
+    console.log({ clientName })
     const values = {
       version: 'v1',
       method: 'create_client',
       entity: 'client',
       client_name: clientName?.material,
       client_group: searchClient,
+      sales_group: salesGroup,
+      kundan_category: clientName?.kundan_category,
+      cs_category: clientName?.cs_category,
+      ot_category: clientName?.ot_category,
+      bb_category: clientName?.bb_category
     };
 
     if (clientName?.material === '' || clientName.material === undefined) {
@@ -125,6 +132,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
       setSelectDropDownReset(true);
     }
@@ -154,6 +165,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
       setSelectDropDownReset(true);
       setSearchClient('');
@@ -220,6 +235,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
       setSelectDropDownReset(true);
     }
@@ -257,6 +276,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
       setSelectDropDownReset(true);
       setShowAddRecord(false);
@@ -335,7 +358,7 @@ const useMasterHook = () => {
         clientName?.material,
         clientName?.material_abbr
       );
-      if (apiRes?.status === 'success') {
+      if (apiRes?.data?.message?.status === 'success') {
         toast.success('Kun Category Created');
         dispatch(getKunCategoryData(loginAcessToken.token));
       } else {
@@ -345,6 +368,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
     }
   };
@@ -363,7 +390,7 @@ const useMasterHook = () => {
         clientName?.material,
         clientName?.material_abbr
       );
-      if (apiRes?.status === 'success') {
+      if (apiRes?.data?.message?.status === 'success') {
         toast.success('Cs Category Created');
         dispatch(getCsCategoryData(loginAcessToken.token));
       } else {
@@ -373,6 +400,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
     }
   };
@@ -390,7 +421,7 @@ const useMasterHook = () => {
         clientName?.material,
         clientName?.material_abbr
       );
-      if (apiRes?.status === 'success') {
+      if (apiRes?.data?.message?.status === 'success') {
         toast.success('Ot Category Created');
         dispatch(getOtCategoryData(loginAcessToken.token));
       } else {
@@ -400,6 +431,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
     }
   };
@@ -431,6 +466,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
       setShowAddRecord(false);
     }
@@ -463,6 +502,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
       setShowAddRecord(false);
     }
@@ -495,6 +538,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
       setShowAddRecord(false);
     }
@@ -584,6 +631,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
     }
   };
@@ -615,6 +666,10 @@ const useMasterHook = () => {
       setClientNameValue({
         material: '',
         material_abbr: '',
+        kundan_category: '',
+        cs_category: '',
+        ot_category: '',
+        bb_category: '',
       });
       setShowAddRecord(false);
     }
@@ -658,7 +713,26 @@ const useMasterHook = () => {
       setInputValue1('');
     }
   };
+  const handleSalesGroupSubmit = async () => {
+    if (inputValue1.trim() === '') {
+      setErrorC('Input field cannot be empty');
+    } else {
+      let apiRes: any = await postSalesGroupApi(loginAcessToken?.token, inputValue1);
+      if (apiRes?.data?.message?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+        toast.success('Sales Group Created');
+        dispatch(getSalesGroupData(loginAcessToken.token));
+      } else {
+        toast.error('Sales Group already exist');
+      }
+      setErrorC('');
+      setInputValue1('');
+    }
+  };
   const HandleClientGrpValue = (e: any) => {
+    setErrorC('');
+    setInputValue1(e.target.value);
+  };
+  const handleSalesGroupValue = (e: any) => {
     setErrorC('');
     setInputValue1(e.target.value);
   };
@@ -691,6 +765,32 @@ const useMasterHook = () => {
       setShowAddRecord(false);
     }
   };
+  const handleUpdateSalesGroup = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'sales_group',
+      method: 'update_sales_group_detail',
+      name: originalName,
+      sales_group: inputValue1,
+    };
+    if (inputValue1.trim() === '') {
+      setErrorC('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (
+        apiRes?.data?.message?.status === 'success' &&
+        apiRes?.hasOwnProperty('data')
+      ) {
+        toast.success('Sales Group Updated Successfully!');
+        dispatch(getSalesGroupData(loginAcessToken.token));
+      } else {
+        toast.error('Sales Group already exist');
+      }
+      setErrorC('');
+      setInputValue1('');
+      setShowAddRecord(false);
+    }
+  };
   const handleDeleteClientGroup = async (name: any) => {
     if (name !== undefined && name !== '') {
       const apiRes = await MasterDeleteApi(
@@ -703,6 +803,23 @@ const useMasterHook = () => {
         dispatch(getClientGroupData(loginAcessToken.token));
       } else {
         toast.error('Client Group cannot be deleted');
+      }
+      setShowDeleteModal(false);
+    }
+  };
+
+  const handleDeleteSalesGroup = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'Sales Group',
+        name
+      );
+      if (apiRes?.status === 202) {
+        toast.success('Sales Group Deleted Successfully!');
+        dispatch(getSalesGroupData(loginAcessToken.token));
+      } else {
+        toast.error('Sales Group cannot be deleted');
       }
       setShowDeleteModal(false);
     }
@@ -789,6 +906,10 @@ const useMasterHook = () => {
     setClientNameValue({
       material: '',
       material_abbr: '',
+      kundan_category: '',
+      cs_category: '',
+      ot_category: '',
+      bb_category: '',
     });
     setInputValue1('');
     setSearchCategory('');
@@ -810,7 +931,9 @@ const useMasterHook = () => {
     clientList,
     HandleClientNameChange,
     HandleClientSave,
-    KunCsOtCategory,
+    kunCategoryData,
+    otCategoryData,
+    csCategoryData,
     BBCategory,
     clientName,
     HandleKunCsOtChange,
@@ -861,12 +984,19 @@ const useMasterHook = () => {
     handleDeleteClient,
     handleDeleteClientGroup,
     handleDeleteBBCategory,
+    handleUpdateSalesGroup,
+    handleDeleteSalesGroup,
     handleKunCategorySave,
     handleCsCategorySave,
     handleOtCategorySave,
     handleDeleteKunCategory,
     handleDeleteCsCategory,
     handleDeleteOtCategory,
+    handleSalesGroupValue,
+    handleSalesGroupSubmit,
+    salesGroupListData,
+    salesGroup,
+    setSalesGroup
   };
 };
 export default useMasterHook;

@@ -35,6 +35,7 @@ const useMaterialHook = () => {
   const [nameValue, setNameValue] = useState({
     material: '',
     material_abbr: '',
+    category: ''
   });
   const [originalName, setOriginalName] = useState();
   const [inputValueM, setInputValueM] = useState('');
@@ -84,6 +85,7 @@ const useMaterialHook = () => {
       setNameValue({
         material: '',
         material_abbr: '',
+        category: ''
       });
       setMatDropDownReset(true);
     }
@@ -122,6 +124,7 @@ const useMaterialHook = () => {
       setNameValue({
         material: '',
         material_abbr: '',
+        category: ''
       });
       setSelectedMaterialGroup('')
       setMatDropDownReset(true);
@@ -135,10 +138,10 @@ const useMaterialHook = () => {
         'Material',
         name
       );
-      if(apiRes?.status === 202){
+      if (apiRes?.status === 202) {
         toast.success('Material Deleted Successfully!')
         dispatch(getMaterialData(loginAcessToken.token));
-      }else{
+      } else {
         toast.error('Material cannot be deleted')
       }
       setShowDeleteModal(false)
@@ -204,10 +207,10 @@ const useMaterialHook = () => {
         'Material Group',
         name
       );
-      if(apiRes?.status === 202){
+      if (apiRes?.status === 202) {
         toast.success('Material group deleted successfully!')
         dispatch(getMaterialGroupData(loginAcessToken.token));
-      }else{
+      } else {
         toast.error('Material Group cannot be deleted.')
       }
     }
@@ -220,6 +223,7 @@ const useMaterialHook = () => {
     setNameValue({
       material: '',
       material_abbr: '',
+      category: ''
     });
     setSelectedMaterialGroup('')
     setInputValueM('')

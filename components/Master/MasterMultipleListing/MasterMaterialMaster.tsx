@@ -20,6 +20,8 @@ const MultipleRecordMaster: any = ({
   tab2,
   searchClient,
   setSearchClient,
+  salesGroup,
+  setSalesGroup,
   clientGroup,
   selectDropDownReset,
   setSelectDropDownReset,
@@ -128,6 +130,8 @@ const MultipleRecordMaster: any = ({
             placeholder3={placeholder3}
             searchClient={searchClient}
             setSearchClient={setSearchClient}
+            salesGroup={salesGroup}
+            setSalesGroup={setSalesGroup}
             value={value}
             clientGroup={clientGroup}
             selectDropDownReset={selectDropDownReset}

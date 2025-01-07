@@ -37,16 +37,17 @@ const useKarigarHooks = () => {
   let kunKarigarList = useSelector(get_kun_karigar_name_data).data;
 
   //post karigar name
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState({ name: '', karigar_code: '' });
   const [error, setError] = useState('');
   const HandleSubmit = async () => {
     const values = {
       version: 'v1',
       method: 'create_karigar',
       entity: 'karigar',
-      karigar_name: inputValue,
+      karigar_name: inputValue.name,
+      karigar_code: inputValue.karigar_code
     };
-    if (inputValue.trim() === '') {
+    if (inputValue?.name === '') {
       setError('Input field cannot be empty');
     } else {
       let apiRes: any = await postKarigarApi(loginAcessToken?.token, values);
@@ -57,22 +58,29 @@ const useKarigarHooks = () => {
         toast.error('Karigar Name already exist');
       }
       setError('');
-      setInputValue('');
+      setInputValue({ name: '', karigar_code: '' });
     }
   };
-  const HandleInputValue = (e: any) => {
-    setError('');
-    setInputValue(e.target.value);
+  const HandleInputValue = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setInputValue((prevValue: any) => ({
+      ...prevValue, // Preserve existing values
+      [name]: value // Dynamically update the value for the given input's name
+    }));
+
+    setError(''); // Clear the error state
   };
+
   const handleUpdateKarigar = async () => {
     const body = {
       version: 'v1',
       entity: 'karigar',
       method: 'update_karigar_detail',
       name: originalName,
-      karigar_name: inputValue,
+      karigar_name: inputValue?.name,
+      karigar_code: inputValue?.karigar_code,
     };
-    if (inputValue.trim() === '') {
+    if (inputValue.name === '') {
       setError('Input field cannot be empty');
     } else {
       let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
@@ -86,7 +94,7 @@ const useKarigarHooks = () => {
         toast.error('Karigar Name already exist');
       }
       setError('');
-      setInputValue('');
+      setInputValue({ name: '', karigar_code: '' });
     }
     setShowAddRecord(false);
   };
@@ -112,9 +120,10 @@ const useKarigarHooks = () => {
       version: 'v1',
       method: 'create_kundan_karigar',
       entity: 'kundan_karigar',
-      karigar_name: inputValue,
+      karigar_name: inputValue?.name,
+      karigar_code: inputValue?.karigar_code,
     };
-    if (inputValue.trim() === '') {
+    if (inputValue.name === '') {
       setError('Input field cannot be empty');
     } else {
       let apiRes: any = await postKunKarigarApi(loginAcessToken?.token, values);
@@ -126,12 +135,17 @@ const useKarigarHooks = () => {
         toast.error('Kundan Karigar Name already exist');
       }
       setError('');
-      setInputValue('');
+      setInputValue({ name: '', karigar_code: '' });
     }
   };
   const HandleKunInputValue = (e: any) => {
+    const { name, value } = e.target
+
+    setInputValue((prevValue: any) => ({
+      ...prevValue, [name]: value
+    }))
     setError('');
-    setInputValue(e.target.value);
+
   };
   const handleUpdateKunKarigar = async () => {
     const body = {
@@ -139,10 +153,11 @@ const useKarigarHooks = () => {
       entity: 'kundan_karigar',
       method: 'update_kundan_karigar_detail',
       name: originalName,
-      karigar_name: inputValue,
+      karigar_name: inputValue?.name,
+      karigar_code: inputValue?.karigar_code,
       warehouse: 'Mumbai - 8DL',
     };
-    if (inputValue.trim() === '') {
+    if (inputValue.name === '') {
       setError('Input field cannot be empty');
     } else {
       let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
@@ -156,7 +171,7 @@ const useKarigarHooks = () => {
         toast.error('Kundan Karigar Name already exist');
       }
       setError('');
-      setInputValue('');
+      setInputValue({ name: '', karigar_code: '' });
       setShowAddRecord(false);
     }
   };
@@ -178,13 +193,15 @@ const useKarigarHooks = () => {
   };
   // Add Record Functions
   const handleCloseAddRecord = () => {
-    setShowAddRecord(false), setInputValue('');
+    setShowAddRecord(false), setInputValue({ name: '', karigar_code: '' });
   };
   const handleShowAddRecord = (item: any) => {
-    setInputValue(item?.karigar_name);
+    setInputValue({ name: item?.karigar_name, karigar_code: item?.karigar_code });
     setOriginalName(item?.karigar_name);
     setShowAddRecord(true);
   };
+
+  console.log({ inputValue })
   return {
     karigarList,
     kunKarigarList,

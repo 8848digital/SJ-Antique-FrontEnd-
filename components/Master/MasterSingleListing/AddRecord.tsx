@@ -23,8 +23,27 @@ const AddKarigar = ({
           <input
             type="text"
             className="form-control w-50 border p-1 h-50"
-            value={inputValue}
+            value={inputValue?.name}
+            name='name'
             onChange={(e) => {
+              HandleInputValue(e);
+            }}
+            required
+          />
+        </div>
+        <div>{error && <p className="text-danger">{error}</p>}</div>
+
+        <div className=" m-1">
+          <label>Karigar Code</label>
+          <span className="text-danger">*</span>
+        </div>
+        <div className="p-1">
+          <input
+            type="text"
+            className="form-control w-50 border p-1 h-50"
+            name="karigar_code"
+            value={inputValue?.karigar_code}
+            onChange={(e: any) => {
               HandleInputValue(e);
             }}
             required

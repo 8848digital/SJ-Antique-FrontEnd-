@@ -51,6 +51,6 @@ export const GetCsCategoryScreen = createSlice({
 });
 
 export const get_cs_category_data = (state: RootState) =>
-  state.GetKunCategoryScreen;
+  state.GetCsCategoryScreen;
 
 export default GetCsCategoryScreen.reducer;

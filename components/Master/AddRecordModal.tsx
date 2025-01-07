@@ -39,7 +39,24 @@ const AddRecordModal = ({
                 <input
                   type="text"
                   className="form-control w-50 border p-1 h-50"
-                  value={inputValue}
+                  value={inputValue?.name}
+                  name='name'
+                  onChange={(e) => {
+                    HandleInputValue(e);
+                  }}
+                  required
+                />
+              </div>
+              <div>{error1 && <p className="text-danger">{error1}</p>}</div>
+              <div className=" m-1">
+                <label>Karigar Code</label>
+              </div>
+              <div className="p-1">
+                <input
+                  type="text"
+                  className="form-control w-50 border p-1 h-50"
+                  value={inputValue?.karigar_code}
+                  name='karigar_code'
                   onChange={(e) => {
                     HandleInputValue(e);
                   }}

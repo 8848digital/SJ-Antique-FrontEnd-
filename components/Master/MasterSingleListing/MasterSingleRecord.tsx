@@ -78,6 +78,7 @@ const MasterSingleRecord: any = ({
             error={error}
             HandleSubmit={HandleSubmit}
             placeholder={placeholder}
+            placeholder2={"Karigar Code"}
           />
         </div>
       </div>

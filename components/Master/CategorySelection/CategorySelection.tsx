@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { get_bb_category_data } from '@/store/slices/Master/get-bb-category-slice';
 import { get_cs_category_data } from '@/store/slices/Master/get-cs-category-slice';
 import { get_kun_category_data } from '@/store/slices/Master/get-kun-category-slice';
-import { get_ot_category_data } from '@/store/slices/Master/get-OT-category-slice';
+import { get_ot_category_data } from '@/store/slices/Master/get-ot-category-slice';
 
 const CategorySelection = ({ handleNameChange }: any) => {
   let kunCategory = useSelector(get_kun_category_data)?.data;
@@ -20,16 +20,17 @@ const CategorySelection = ({ handleNameChange }: any) => {
             <select
               className="form-select form-select-sm"
               aria-label=".form-select-sm example"
-              id="bb_category"
-              name="bb_category"
+              id="kundan_category"
+              name="kundan_category"
               onChange={(e) => {
                 handleNameChange(e);
               }}
+
             >
               <option selected>Select Kun Category</option>
               {kunCategory?.length > 0 &&
                 kunCategory.map((category: any, index: any) => (
-                  <option value={category.type} key={index}>
+                  <option value={category.name1} key={index}>
                     {category.name1}
                   </option>
                 ))}
@@ -41,8 +42,8 @@ const CategorySelection = ({ handleNameChange }: any) => {
             <select
               className="form-select form-select-sm "
               aria-label=".form-select-sm example"
-              id="bb_category"
-              name="bb_category"
+              id="cs_category"
+              name="cs_category"
               onChange={(e) => {
                 handleNameChange(e);
               }}
@@ -50,7 +51,7 @@ const CategorySelection = ({ handleNameChange }: any) => {
               <option selected>Select CS Category</option>
               {csCategory?.length > 0 &&
                 csCategory.map((category: any, index: any) => (
-                  <option value={category.type} key={index}>
+                  <option value={category.name1} key={index}>
                     {category.name1}
                   </option>
                 ))}
@@ -61,8 +62,8 @@ const CategorySelection = ({ handleNameChange }: any) => {
             <select
               className="form-select form-select-sm "
               aria-label=".form-select-sm example"
-              id="bb_category"
-              name="bb_category"
+              id="ot_category"
+              name="ot_category"
               onChange={(e) => {
                 handleNameChange(e);
               }}
@@ -70,7 +71,7 @@ const CategorySelection = ({ handleNameChange }: any) => {
               <option selected>Select OT Category</option>
               {otCategory?.length > 0 &&
                 otCategory.map((category: any, index: any) => (
-                  <option value={category.type} key={index}>
+                  <option value={category.name1} key={index}>
                     {category.name1}
                   </option>
                 ))}
@@ -91,7 +92,7 @@ const CategorySelection = ({ handleNameChange }: any) => {
               <option selected>Select BB Category</option>
               {bbCategory?.length > 0 &&
                 bbCategory.map((category: any, index: any) => (
-                  <option value={category.type} key={index}>
+                  <option value={category.name1} key={index}>
                     {category.name1}
                   </option>
                 ))}
