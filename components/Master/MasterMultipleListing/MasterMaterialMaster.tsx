@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import MasterListing from '../MasterListing';
-import AddMaterial from './AddRecord';
+import AddRecord from './AddRecord';
 import MasterMaterialListing from './MasterMultipleListing';
 import TabSection from '@/components/TabSection';
 
@@ -20,6 +20,8 @@ const MultipleRecordMaster: any = ({
   tab2,
   searchClient,
   setSearchClient,
+  salesGroup,
+  setSalesGroup,
   clientGroup,
   selectDropDownReset,
   setSelectDropDownReset,
@@ -116,7 +118,7 @@ const MultipleRecordMaster: any = ({
               handleDelete={handleDelete}
             />
           </div>
-          <AddMaterial
+          <AddRecord
             nameValue={nameValue}
             HandleNameChange={HandleNameChange}
             HandleSave={HandleSave}
@@ -128,6 +130,8 @@ const MultipleRecordMaster: any = ({
             placeholder3={placeholder3}
             searchClient={searchClient}
             setSearchClient={setSearchClient}
+            salesGroup={salesGroup}
+            setSalesGroup={setSalesGroup}
             value={value}
             clientGroup={clientGroup}
             selectDropDownReset={selectDropDownReset}

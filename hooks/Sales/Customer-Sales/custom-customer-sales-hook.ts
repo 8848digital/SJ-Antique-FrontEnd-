@@ -1,5 +1,6 @@
+import getClientDetailsApi from '@/services/api/Sales/get-client-details-api';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const useCustomCustomerSalesHook = () => {
@@ -99,11 +100,30 @@ const useCustomCustomerSalesHook = () => {
     setItemCodeDropdownReset(true);
   };
 
-  const updateSalesTableData = (data: any,id?:number) => {
+
+  const getClientDetails: any = async () => {
+    let getClientDetails: any = await getClientDetailsApi(loginAcessToken?.token, selectedClient)
+    console.log({ getClientDetails })
+    if (getClientDetails?.data?.message?.status === "success") {
+      let categoryData: any = getClientDetails?.data?.message?.data
+      setSeletedCategory({
+        KunCategory: categoryData?.kundan_category,
+        CsCategory: categoryData?.cs_category,
+        BBCategory: categoryData?.bb_category,
+        OtCategory: categoryData?.ot_category,
+      })
+    }
+  }
+  useEffect(() => {
+    getClientDetails()
+  }, [selectedClient])
+  console.log({ selectedCategory })
+
+  const updateSalesTableData = (data: any, id?: number) => {
     if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
-          if (tableData.idx === id ) {
+          if (tableData.idx === id) {
             return {
               ...tableData,
               custom_gross_wt: data[0]?.custom_gross_wt,
@@ -111,16 +131,16 @@ const useCustomCustomerSalesHook = () => {
                 selectedCategory.KunCategory !== '' &&
                   selectedCategory?.KunCategory !== null
                   ? (data[0]?.custom_kun_wt *
-                      selectedCategory.KunCategory?.type) /
-                      100
+                    selectedCategory.KunCategory?.type) /
+                  100
                   : data[0]?.custom_kun_wt
               ),
               custom_cs_wt: Number(
                 selectedCategory.CsCategory !== '' &&
                   selectedCategory?.CsCategory !== null
                   ? (data[0]?.custom_cs_wt *
-                      selectedCategory.CsCategory?.type) /
-                      100
+                    selectedCategory.CsCategory?.type) /
+                  100
                   : data[0]?.custom_cs_wt
               ),
               custom_bb_wt: Number(
@@ -133,8 +153,8 @@ const useCustomCustomerSalesHook = () => {
                 selectedCategory.OtCategory !== '' &&
                   selectedCategory?.OtCategory !== null
                   ? (data[0]?.custom_other_wt *
-                      selectedCategory.OtCategory?.type) /
-                      100
+                    selectedCategory.OtCategory?.type) /
+                  100
                   : data[0]?.custom_other_wt
               ),
               custom_net_wt:
@@ -174,7 +194,7 @@ const useCustomCustomerSalesHook = () => {
     }
   };
 
-  const updateBarcodeSalesTableData = (data: any,id?:number) => {
+  const updateBarcodeSalesTableData = (data: any, id?: number) => {
     if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedData = prevSalesTableData?.map((item: any) => {
@@ -247,9 +267,9 @@ const useCustomCustomerSalesHook = () => {
           custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-              Number(item[i]?.custom_kun_amt) +
-              Number(item[i]?.custom_ot_amt) +
-              Number(item[i]?.custom_other)
+            Number(item[i]?.custom_kun_amt) +
+            Number(item[i]?.custom_ot_amt) +
+            Number(item[i]?.custom_other)
           ),
         };
       });

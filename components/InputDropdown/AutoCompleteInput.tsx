@@ -92,9 +92,8 @@ const AutoCompleteInput = ({
                       onMouseDown={(e) => {
                         handleSelectedOption(name, i, data.fieldname);
                       }}
-                      className={`dropdown-list ${
-                        i === selectedIndex ? 'selected-dropdown-index' : ''
-                      }`}
+                      className={`dropdown-list ${i === selectedIndex ? 'selected-dropdown-index' : ''
+                        }`}
                     >
                       {name}
                     </li>

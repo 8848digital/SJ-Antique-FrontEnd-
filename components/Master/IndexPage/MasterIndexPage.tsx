@@ -8,7 +8,9 @@ const MasterIndexPage = () => {
     clientList,
     HandleClientNameChange,
     HandleClientSave,
-    KunCsOtCategory,
+    kunCategoryData,
+    otCategoryData,
+    csCategoryData,
     BBCategory,
     clientName,
     HandleKunCsOtChange,
@@ -51,18 +53,40 @@ const MasterIndexPage = () => {
     handleUpdateClient,
     handleUpdateClientGroup,
     handleUpdateBBCategory,
-    handleUpdateKunCsOtCategory,
+    handleUpdateKunCategory,
+    handleUpdateCsCategory,
+    handleUpdateOtCategory,
     handleDeleteCategory,
     handleDeleteSubCategory,
     handleDeleteClient,
     handleDeleteClientGroup,
     handleDeleteBBCategory,
-    handleDeleteKunCSOtCategory,
+    handleUpdateSalesGroup,
+    handleDeleteSalesGroup,
+    handleKunCategorySave,
+    handleCsCategorySave,
+    handleOtCategorySave,
+    handleDeleteKunCategory,
+    handleDeleteCsCategory,
+    handleDeleteOtCategory,
+    handleSalesGroupValue,
+    handleSalesGroupSubmit,
+    salesGroupListData,
+    salesGroup,
+    setSalesGroup
   }: any = useMasterHook();
+
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
 
   const key = pathcontent[pathcontent?.length - 1];
+  let salesGroupData: any =
+    salesGroupListData?.length > 0 &&
+    salesGroupListData !== null &&
+    salesGroupListData.map((data: any) => ({
+      karigar_name: data.sales_group,
+      delete: data.delete,
+    }));
   let clientGroup: any =
     clientGroupList?.length > 0 &&
     clientGroupList !== null &&
@@ -70,7 +94,7 @@ const MasterIndexPage = () => {
       karigar_name: data.client_group,
       delete: data.delete,
     }));
-  console.log('category', category);
+
   let categoryName: any =
     category?.length > 0 &&
     category.map((data: any) => ({
@@ -113,6 +137,11 @@ const MasterIndexPage = () => {
               material: data.client_name,
               material_abbr: data.client_group,
               delete: data.delete,
+              sales_group: data.sales_group,
+              kundan_category: data.kundan_category,
+              cs_category: data.cs_category,
+              ot_category: data.ot_category,
+              bb_category: data.bb_category,
             }))
           }
           clientGroup={clientGroup}
@@ -127,6 +156,8 @@ const MasterIndexPage = () => {
           tab2={'Create New Client'}
           setSearchClient={setSearchClient}
           searchClient={searchClient}
+          salesGroup={salesGroup}
+          setSalesGroup={setSalesGroup}
           selectDropDownReset={selectDropDownReset}
           setSelectDropDownReset={setSelectDropDownReset}
           showDeleteModal={showDeleteModal}
@@ -140,7 +171,31 @@ const MasterIndexPage = () => {
           handleDelete={handleDeleteClient}
         />
       )}
-      {key === 'kunCsOtCategory' && (
+      {key === 'sales-group' && (
+        <MasterSingleRecord
+          karigarData={salesGroupData}
+          inputValue={inputValue1}
+          HandleInputValue={handleSalesGroupValue}
+          HandleSubmit={handleSalesGroupSubmit}
+          error={errorC}
+          setError={setErrorC}
+          value={key}
+          placeholder={'Sales Group'}
+          tab1={'Sales Group List'}
+          tab2={'Create New Sales Group'}
+          showDeleteModal={showDeleteModal}
+          handleCloseDeleteModal={handleCloseDeleteModal}
+          handleShowDeleteModal={handleShowDeleteModal}
+          deleteRecord={deleteRecord}
+          showAddRecord={showAddRecord}
+          handleShowAddRecord={handleShowAddRecord}
+          handleCloseAddRecord={handleCloseAddRecord}
+          setInputValue={setInputValue1}
+          handleUpdate={handleUpdateSalesGroup}
+          handleDelete={handleDeleteSalesGroup}
+        />
+      )}
+      {/* {key === 'kunCsOtCategory' && (
         <MultipleRecordMaster
           value={key}
           materialList={
@@ -171,22 +226,22 @@ const MasterIndexPage = () => {
           handleUpdate={handleUpdateKunCsOtCategory}
           handleDelete={handleDeleteKunCSOtCategory}
         />
-      )}
+      )} */}
 
       {key === 'kun-category' && (
         <MultipleRecordMaster
           value={key}
           materialList={
-            KunCsOtCategory?.length > 0 &&
-            KunCsOtCategory !== null &&
-            KunCsOtCategory.map((data: any) => ({
+            kunCategoryData?.length > 0 &&
+            kunCategoryData !== null &&
+            kunCategoryData.map((data: any) => ({
               material: data.name1,
               material_abbr: data.type,
               delete: data.delete,
             }))
           }
           HandleNameChange={HandleKunCsOtChange}
-          HandleSave={HandleKunCsOtSave}
+          HandleSave={handleKunCategorySave}
           nameValue={clientName}
           error1={errorC1}
           error2={errorC2}
@@ -201,8 +256,72 @@ const MasterIndexPage = () => {
           showAddRecord={showAddRecord}
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
-          handleUpdate={handleUpdateKunCsOtCategory}
-          handleDelete={handleDeleteKunCSOtCategory}
+          handleUpdate={handleUpdateKunCategory}
+          handleDelete={handleDeleteKunCategory}
+        />
+      )}
+      {key === 'cs-category' && (
+        <MultipleRecordMaster
+          value={key}
+          materialList={
+            csCategoryData?.length > 0 &&
+            csCategoryData !== null &&
+            csCategoryData.map((data: any) => ({
+              material: data.name1,
+              material_abbr: data.type,
+              delete: data.delete,
+            }))
+          }
+          HandleNameChange={HandleKunCsOtChange}
+          HandleSave={handleCsCategorySave}
+          nameValue={clientName}
+          error1={errorC1}
+          error2={errorC2}
+          placeholder1={'Category'}
+          placeholder2={'Type'}
+          tab1={'Category'}
+          tab2={'Create New Category'}
+          showDeleteModal={showDeleteModal}
+          handleCloseDeleteModal={handleCloseDeleteModal}
+          handleShowDeleteModal={handleShowDeleteModal}
+          deleteRecord={deleteRecord}
+          showAddRecord={showAddRecord}
+          handleShowAddRecord={handleShowAddRecord}
+          handleCloseAddRecord={handleCloseAddRecord}
+          handleUpdate={handleUpdateCsCategory}
+          handleDelete={handleDeleteCsCategory}
+        />
+      )}
+      {key === 'ot-category' && (
+        <MultipleRecordMaster
+          value={key}
+          materialList={
+            otCategoryData?.length > 0 &&
+            otCategoryData !== null &&
+            otCategoryData.map((data: any) => ({
+              material: data.name1,
+              material_abbr: data.type,
+              delete: data.delete,
+            }))
+          }
+          HandleNameChange={HandleKunCsOtChange}
+          HandleSave={handleOtCategorySave}
+          nameValue={clientName}
+          error1={errorC1}
+          error2={errorC2}
+          placeholder1={'Category'}
+          placeholder2={'Type'}
+          tab1={'Category'}
+          tab2={'Create New Category'}
+          showDeleteModal={showDeleteModal}
+          handleCloseDeleteModal={handleCloseDeleteModal}
+          handleShowDeleteModal={handleShowDeleteModal}
+          deleteRecord={deleteRecord}
+          showAddRecord={showAddRecord}
+          handleShowAddRecord={handleShowAddRecord}
+          handleCloseAddRecord={handleCloseAddRecord}
+          handleUpdate={handleUpdateOtCategory}
+          handleDelete={handleDeleteOtCategory}
         />
       )}
 

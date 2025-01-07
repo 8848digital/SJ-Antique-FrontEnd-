@@ -5,8 +5,11 @@ import GetAccessTokenScreen from '../store/slices/auth/login-slice';
 import GetBBCategoryReducer from './slices/Master/get-bb-category-slice';
 import GetCategoryReducer from './slices/Master/get-category-slice';
 import GetClientGroupDataReducer from './slices/Master/get-client-group-slice';
+import GetSalesGroupDataReducer from './slices/Master/get-sales-group-slice';
 import GetClientNameReducer from './slices/Master/get-client-name-slice';
 import GetKunCategoryReducer from './slices/Master/get-kun-category-slice';
+import GetCsCategoryReducer from './slices/Master/get-cs-category-slice';
+import GetOtCategoryReducer from './slices/Master/get-ot-category-slice';
 import GetMaterialGroupReducer from './slices/Master/get-material-group-slice';
 import GetMaterialReducer from './slices/Master/get-material-slice';
 import GetSubCategoryReducer from './slices/Master/get-sub-category-slice';
@@ -29,7 +32,10 @@ const appReducer = combineReducers({
   GetMaterialGroupScreen: GetMaterialGroupReducer,
   GetMaterialScreen: GetMaterialReducer,
   GetClientNameScreen: GetClientNameReducer,
+  GetSalesGroupDataScreen: GetSalesGroupDataReducer,
   GetKunCategoryScreen: GetKunCategoryReducer,
+  GetCsCategoryScreen: GetCsCategoryReducer,
+  GetOtCategoryScreen: GetOtCategoryReducer,
   GetBBCategoryScreen: GetBBCategoryReducer,
   GetCategoryScreen: GetCategoryReducer,
   GetSubCategoryScreen: GetSubCategoryReducer,

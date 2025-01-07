@@ -28,20 +28,24 @@ const SingleRecordListing = ({
   handleDelete,
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
+  const router: any = useRouter();
+  const pathcontent = router?.asPath?.split('/');
+
+  const key = pathcontent[pathcontent?.length - 1];
 
   const HandleTableViewRows: any = (data: any) => {
     setTableViewData(data);
   };
-  const router = useRouter();
-  const HandleDetails = (name: any) => {
-    router.push({
-      pathname: '/master/[karigarId]/KarigarDetailsMaster',
-      query: {
-        name: name,
-        placeholder: placeholder,
-      },
-    });
-  };
+
+  // const HandleDetails = (name: any) => {
+  //   router.push({
+  //     pathname: '/master/[karigarId]/KarigarDetailsMaster',
+  //     query: {
+  //       name: name,
+  //       placeholder: placeholder,
+  //     },
+  //   });
+  // };
   const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
       Unable to delete. Transactions exist for this entry.
@@ -89,6 +93,13 @@ const SingleRecordListing = ({
                   <th scope="col" className="thead text-start">
                     {placeholder}
                   </th>
+                  {
+                    (key === "karigar" || key === "kundanKarigar") && (
+                      <th scope="col" className="thead text-start">
+                        Karigar code
+                      </th>
+                    )
+                  }
                   <th scope="col" className="thead text-start"></th>
                 </tr>
               </thead>
@@ -102,10 +113,23 @@ const SingleRecordListing = ({
                         <td className="table-body-row cursor">{i + 1}</td>
                         <td
                           className="table-body-row cursor"
-                          onClick={() => HandleDetails(item.karigar_name)}
                         >
-                          {typeof item.karigar_name === 'string' ? item.karigar_name?.toUpperCase() : item.karigar_name}
+                          {typeof item.karigar_name === 'string'
+                            ? item.karigar_name?.toUpperCase()
+                            : item.karigar_name}
                         </td>
+                        {
+                          (key === "karigar" || key === "kundanKarigar") && (
+                            <td
+                              className="table-body-row cursor"
+
+                            >
+                              {typeof item.karigar_name === 'string'
+                                ? item.karigar_code?.toUpperCase()
+                                : item.karigar_code}
+                            </td>
+                          )
+                        }
                         <td className="table-body-row cursor w-25 p-0">
                           <div className="d-flex justify-content-around">
                             <button
