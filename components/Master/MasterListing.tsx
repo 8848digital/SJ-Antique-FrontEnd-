@@ -70,21 +70,7 @@ const MasterListing: any = ({ value }: any) => {
             </button>
           </Link>
 
-          <Link
-            href="/master/kunCsOtCategory"
-            className="text-decoration-none "
-          >
-            <button
-              className={`${styles.button} ${styled.master_btn} ${
-                value === 'kunCsOtCategory' ? 'activeColor' : ''
-              }`}
-            >
-              Kun-Cs-Ot-Category
-              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
-            </button>
-          </Link>
-
-          {/* <Link href="/master/kun-category" className="text-decoration-none ">
+          <Link href="/master/kun-category" className="text-decoration-none ">
             <button
               className={`${styles.button} ${styled.master_btn} ${
                 value === 'kun-category' ? 'activeColor' : ''
@@ -93,7 +79,27 @@ const MasterListing: any = ({ value }: any) => {
               Kun-Category
               <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
             </button>
-          </Link> */}
+          </Link>
+          <Link href="/master/cs-category" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${styled.master_btn} ${
+                value === 'cs-category' ? 'activeColor' : ''
+              }`}
+            >
+              CS-Category
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
+          <Link href="/master/ot-category" className="text-decoration-none ">
+            <button
+              className={`${styles.button} ${styled.master_btn} ${
+                value === 'ot-category' ? 'activeColor' : ''
+              }`}
+            >
+              OT-Category
+              <i className="fa-solid fa-arrow-turn-down mx-1 pt-1"></i>
+            </button>
+          </Link>
 
           <Link href="/master/BBCategory" className="text-decoration-none ">
             <button

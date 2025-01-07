@@ -51,14 +51,23 @@ const MasterIndexPage = () => {
     handleUpdateClient,
     handleUpdateClientGroup,
     handleUpdateBBCategory,
-    handleUpdateKunCsOtCategory,
+    handleUpdateKunCategory,
+    handleUpdateCsCategory,
+    handleUpdateOtCategory,
     handleDeleteCategory,
     handleDeleteSubCategory,
     handleDeleteClient,
     handleDeleteClientGroup,
     handleDeleteBBCategory,
     handleDeleteKunCSOtCategory,
+    handleKunCategorySave,
+    handleCsCategorySave,
+    handleOtCategorySave,
+    handleDeleteKunCategory,
+    handleDeleteCsCategory,
+    handleDeleteOtCategory,
   }: any = useMasterHook();
+
   const router = useRouter();
   const pathcontent = router?.asPath?.split('/');
 
@@ -70,7 +79,7 @@ const MasterIndexPage = () => {
       karigar_name: data.client_group,
       delete: data.delete,
     }));
-  console.log('category', category);
+
   let categoryName: any =
     category?.length > 0 &&
     category.map((data: any) => ({
@@ -140,7 +149,7 @@ const MasterIndexPage = () => {
           handleDelete={handleDeleteClient}
         />
       )}
-      {key === 'kunCsOtCategory' && (
+      {/* {key === 'kunCsOtCategory' && (
         <MultipleRecordMaster
           value={key}
           materialList={
@@ -171,22 +180,23 @@ const MasterIndexPage = () => {
           handleUpdate={handleUpdateKunCsOtCategory}
           handleDelete={handleDeleteKunCSOtCategory}
         />
-      )}
+      )} */}
 
       {key === 'kun-category' && (
         <MultipleRecordMaster
           value={key}
           materialList={
-            KunCsOtCategory?.length > 0 &&
-            KunCsOtCategory !== null &&
-            KunCsOtCategory.map((data: any) => ({
-              material: data.name1,
-              material_abbr: data.type,
-              delete: data.delete,
-            }))
+            ''
+            // KunCsOtCategory?.length > 0 &&
+            // KunCsOtCategory !== null &&
+            // KunCsOtCategory.map((data: any) => ({
+            //   material: data.name1,
+            //   material_abbr: data.type,
+            //   delete: data.delete,
+            // }))
           }
           HandleNameChange={HandleKunCsOtChange}
-          HandleSave={HandleKunCsOtSave}
+          HandleSave={handleKunCategorySave}
           nameValue={clientName}
           error1={errorC1}
           error2={errorC2}
@@ -201,8 +211,74 @@ const MasterIndexPage = () => {
           showAddRecord={showAddRecord}
           handleShowAddRecord={handleShowAddRecord}
           handleCloseAddRecord={handleCloseAddRecord}
-          handleUpdate={handleUpdateKunCsOtCategory}
-          handleDelete={handleDeleteKunCSOtCategory}
+          handleUpdate={handleUpdateKunCategory}
+          handleDelete={handleDeleteKunCategory}
+        />
+      )}
+      {key === 'cs-category' && (
+        <MultipleRecordMaster
+          value={key}
+          materialList={
+            ''
+            // KunCsOtCategory?.length > 0 &&
+            // KunCsOtCategory !== null &&
+            // KunCsOtCategory.map((data: any) => ({
+            //   material: data.name1,
+            //   material_abbr: data.type,
+            //   delete: data.delete,
+            // }))
+          }
+          HandleNameChange={HandleKunCsOtChange}
+          HandleSave={handleCsCategorySave}
+          nameValue={clientName}
+          error1={errorC1}
+          error2={errorC2}
+          placeholder1={'Category'}
+          placeholder2={'Type'}
+          tab1={'Category'}
+          tab2={'Create New Category'}
+          showDeleteModal={showDeleteModal}
+          handleCloseDeleteModal={handleCloseDeleteModal}
+          handleShowDeleteModal={handleShowDeleteModal}
+          deleteRecord={deleteRecord}
+          showAddRecord={showAddRecord}
+          handleShowAddRecord={handleShowAddRecord}
+          handleCloseAddRecord={handleCloseAddRecord}
+          handleUpdate={handleUpdateCsCategory}
+          handleDelete={handleDeleteCsCategory}
+        />
+      )}
+      {key === 'ot-category' && (
+        <MultipleRecordMaster
+          value={key}
+          materialList={
+            ''
+            // KunCsOtCategory?.length > 0 &&
+            // KunCsOtCategory !== null &&
+            // KunCsOtCategory.map((data: any) => ({
+            //   material: data.name1,
+            //   material_abbr: data.type,
+            //   delete: data.delete,
+            // }))
+          }
+          HandleNameChange={HandleKunCsOtChange}
+          HandleSave={handleOtCategorySave}
+          nameValue={clientName}
+          error1={errorC1}
+          error2={errorC2}
+          placeholder1={'Category'}
+          placeholder2={'Type'}
+          tab1={'Category'}
+          tab2={'Create New Category'}
+          showDeleteModal={showDeleteModal}
+          handleCloseDeleteModal={handleCloseDeleteModal}
+          handleShowDeleteModal={handleShowDeleteModal}
+          deleteRecord={deleteRecord}
+          showAddRecord={showAddRecord}
+          handleShowAddRecord={handleShowAddRecord}
+          handleCloseAddRecord={handleCloseAddRecord}
+          handleUpdate={handleUpdateOtCategory}
+          handleDelete={handleDeleteOtCategory}
         />
       )}
 

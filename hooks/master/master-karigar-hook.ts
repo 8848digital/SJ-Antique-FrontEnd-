@@ -50,8 +50,7 @@ const useKarigarHooks = () => {
       setError('Input field cannot be empty');
     } else {
       let apiRes: any = await postKarigarApi(loginAcessToken?.token, values);
-
-      if (apiRes?.status === 'success' && apiRes?.hasOwnProperty('data')) {
+      if (apiRes?.data?.message?.status === 'success') {
         toast.success('Karigar Name Created');
         dispatch(getKarigarNameData(loginAcessToken.token));
       } else {

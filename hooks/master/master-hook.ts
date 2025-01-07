@@ -1,8 +1,13 @@
+import MasterDeleteApi from '@/services/api/Master/master-delete-api';
+import MasterUpdateApi from '@/services/api/Master/master-update-api';
 import postBBCategoryApi from '@/services/api/Master/post-bbCategory-api';
 import postCategoryApi from '@/services/api/Master/post-category-api';
 import postClientApi from '@/services/api/Master/post-client-api';
 import postGroupDataApi from '@/services/api/Master/post-client-group-api';
-import postKunCsOtCategoryApi from '@/services/api/Master/post-kunCsOtCategory-api';
+import {
+  default as postKunCategoryApi,
+  default as postKunCsOtCategoryApi,
+} from '@/services/api/Master/post-kun-category-api';
 import postSubCategoryApi from '@/services/api/Master/post-sub-category-api';
 import {
   getBBCategoryData,
@@ -29,12 +34,14 @@ import {
   get_sub_category_data,
 } from '@/store/slices/Master/get-sub-category-slice';
 import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useDeleteModal } from '../DeleteModal/delete-modal-hook';
-import MasterUpdateApi from '@/services/api/Master/master-update-api';
-import MasterDeleteApi from '@/services/api/Master/master-delete-api';
+import postCsCategoryApi from '@/services/api/Master/post-cs-category-api';
+import postOtCategoryApi from '@/services/api/Master/post-ot-category-api';
+import { getOtCategoryData } from '@/store/slices/Master/get-OT-category-slice';
+import { getCsCategoryData } from '@/store/slices/Master/get-cs-category-slice';
 
 const useMasterHook = () => {
   const {
@@ -84,7 +91,7 @@ const useMasterHook = () => {
   // }, []);
   const HandleClientNameChange = (e: any) => {
     const { value } = e.target;
-
+    console.log('client', value);
     setClientNameValue({
       ...clientName,
       material: value,
@@ -279,14 +286,42 @@ const useMasterHook = () => {
     setError1('');
     setError2('');
   };
-  const HandleKunCsOtSave = async () => {
-    const values = {
-      version: 'v1',
-      method: 'create_kun_cs_ot_category',
-      entity: 'kun_cs_ot_category',
-      name1: clientName?.material,
-      type: clientName?.material_abbr,
-    };
+
+  // const HandleKunCsOtSave = async () => {
+  //   const values = {
+  //     version: 'v1',
+  //     method: 'create_kun_cs_ot_category',
+  //     entity: 'kun_cs_ot_category',
+  //     name1: clientName?.material,
+  //     type: clientName?.material_abbr,
+  //   };
+  //   if (clientName?.material === '' || clientName.material === undefined) {
+  //     setError1('Input field cannot be empty');
+  //   } else if (
+  //     clientName.material_abbr === '' ||
+  //     clientName.material_abbr === undefined
+  //   ) {
+  //     setError2('Input field cannot be empty');
+  //   } else {
+  //     let apiRes: any = await postKunCategoryApi(
+  //       loginAcessToken?.token,
+  //       values
+  //     );
+  //     if (apiRes?.status === 'success') {
+  //       toast.success('Kun-Cs-Ot Category Created');
+  //       dispatch(getKunCategoryData(loginAcessToken.token));
+  //     } else {
+  //       toast.error('Kun-Cs-Ot Category already exist');
+  //     }
+  //     setError1('');
+  //     setClientNameValue({
+  //       material: '',
+  //       material_abbr: '',
+  //     });
+  //   }
+  // };
+
+  const handleKunCategorySave: any = async () => {
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
     } else if (
@@ -295,15 +330,16 @@ const useMasterHook = () => {
     ) {
       setError2('Input field cannot be empty');
     } else {
-      let apiRes: any = await postKunCsOtCategoryApi(
+      let apiRes: any = await postKunCategoryApi(
         loginAcessToken?.token,
-        values
+        clientName?.material,
+        clientName?.material_abbr
       );
       if (apiRes?.status === 'success') {
-        toast.success('Kun-Cs-Ot Category Created');
+        toast.success('Kun Category Created');
         dispatch(getKunCategoryData(loginAcessToken.token));
       } else {
-        toast.error('Kun-Cs-Ot Category already exist');
+        toast.error('Kun Category already exist');
       }
       setError1('');
       setClientNameValue({
@@ -312,11 +348,66 @@ const useMasterHook = () => {
       });
     }
   };
-  const handleUpdateKunCsOtCategory = async () => {
+
+  const handleCsCategorySave: any = async () => {
+    if (clientName?.material === '' || clientName.material === undefined) {
+      setError1('Input field cannot be empty');
+    } else if (
+      clientName.material_abbr === '' ||
+      clientName.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
+    } else {
+      let apiRes: any = await postCsCategoryApi(
+        loginAcessToken?.token,
+        clientName?.material,
+        clientName?.material_abbr
+      );
+      if (apiRes?.status === 'success') {
+        toast.success('Cs Category Created');
+        dispatch(getCsCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('Cs Category already exist');
+      }
+      setError1('');
+      setClientNameValue({
+        material: '',
+        material_abbr: '',
+      });
+    }
+  };
+  const handleOtCategorySave: any = async () => {
+    if (clientName?.material === '' || clientName.material === undefined) {
+      setError1('Input field cannot be empty');
+    } else if (
+      clientName.material_abbr === '' ||
+      clientName.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
+    } else {
+      let apiRes: any = await postOtCategoryApi(
+        loginAcessToken?.token,
+        clientName?.material,
+        clientName?.material_abbr
+      );
+      if (apiRes?.status === 'success') {
+        toast.success('Ot Category Created');
+        dispatch(getOtCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('Ot Category already exist');
+      }
+      setError1('');
+      setClientNameValue({
+        material: '',
+        material_abbr: '',
+      });
+    }
+  };
+  const handleUpdateKunCategory = async () => {
     const body = {
       version: 'v1',
-      entity: 'kun_cs_ot_category',
-      method: 'update_kun_cs_ot_details',
+      entity: 'kundan_category',
+      method: 'update_kundan_category_details',
       name: originalName,
       name1: clientName?.material,
       type: clientName?.material_abbr,
@@ -331,10 +422,10 @@ const useMasterHook = () => {
     } else {
       let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
       if (apiRes?.data?.message?.status === 'success') {
-        toast.success('Kun-Cs-Ot Category Created');
+        toast.success('Kun Category Updated');
         dispatch(getKunCategoryData(loginAcessToken.token));
       } else {
-        toast.error('Kun-Cs-Ot Category already exist');
+        toast.error('Failed to update Kun Category');
       }
       setError1('');
       setClientNameValue({
@@ -344,22 +435,121 @@ const useMasterHook = () => {
       setShowAddRecord(false);
     }
   };
-  const handleDeleteKunCSOtCategory = async (name: any) => {
+  const handleUpdateCsCategory = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'cs_category',
+      method: 'update_cs_category_details',
+      name: originalName,
+      name1: clientName?.material,
+      type: clientName?.material_abbr,
+    };
+    if (clientName?.material === '' || clientName.material === undefined) {
+      setError1('Input field cannot be empty');
+    } else if (
+      clientName.material_abbr === '' ||
+      clientName.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (apiRes?.data?.message?.status === 'success') {
+        toast.success('Cs Category Updated');
+        dispatch(getCsCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('Cs Category failed to update');
+      }
+      setError1('');
+      setClientNameValue({
+        material: '',
+        material_abbr: '',
+      });
+      setShowAddRecord(false);
+    }
+  };
+  const handleUpdateOtCategory = async () => {
+    const body = {
+      version: 'v1',
+      entity: 'ot_category',
+      method: 'update_ot_category_details',
+      name: originalName,
+      name1: clientName?.material,
+      type: clientName?.material_abbr,
+    };
+    if (clientName?.material === '' || clientName.material === undefined) {
+      setError1('Input field cannot be empty');
+    } else if (
+      clientName.material_abbr === '' ||
+      clientName.material_abbr === undefined
+    ) {
+      setError2('Input field cannot be empty');
+    } else {
+      let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, body);
+      if (apiRes?.data?.message?.status === 'success') {
+        toast.success('Ot Category Updated');
+        dispatch(getOtCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('Ot Failed to update');
+      }
+      setError1('');
+      setClientNameValue({
+        material: '',
+        material_abbr: '',
+      });
+      setShowAddRecord(false);
+    }
+  };
+
+  const handleDeleteKunCategory: any = async (name: any) => {
     if (name !== undefined && name !== '') {
       const apiRes = await MasterDeleteApi(
         loginAcessToken?.token,
-        'Kun-CS-Ot Category',
+        'Kundan Category',
         name
       );
       if (apiRes?.status === 202) {
-        toast.success('Kun-CS-Ot Category Deleted Successfully!');
+        toast.success('Kun Category Deleted Successfully!');
         dispatch(getKunCategoryData(loginAcessToken.token));
       } else {
-        toast.error('Kun-CS-Ot Category cannot be deleted');
+        toast.error('Kun Category cannot be deleted');
       }
       setShowDeleteModal(false);
     }
   };
+
+  const handleDeleteCsCategory: any = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'CS Category',
+        name
+      );
+      if (apiRes?.status === 202) {
+        toast.success('CS Category Deleted Successfully!');
+        dispatch(getCsCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('Cs Category cannot be deleted');
+      }
+      setShowDeleteModal(false);
+    }
+  };
+  const handleDeleteOtCategory: any = async (name: any) => {
+    if (name !== undefined && name !== '') {
+      const apiRes = await MasterDeleteApi(
+        loginAcessToken?.token,
+        'OT Category',
+        name
+      );
+      if (apiRes?.status === 202) {
+        toast.success('OT Category Deleted Successfully!');
+        dispatch(getOtCategoryData(loginAcessToken.token));
+      } else {
+        toast.error('OT Category cannot be deleted');
+      }
+      setShowDeleteModal(false);
+    }
+  };
+
   // post bb category api
   const HandleBBChange = (e: any) => {
     const { name, value } = e.target;
@@ -547,6 +737,7 @@ const useMasterHook = () => {
   const handleSelectCategory = (value: any) => {
     setSearchCategory(value);
   };
+
   const handleUpdateCategory = async () => {
     const body = {
       version: 'v1',
@@ -623,7 +814,6 @@ const useMasterHook = () => {
     BBCategory,
     clientName,
     HandleKunCsOtChange,
-    HandleKunCsOtSave,
     HandleBBChange,
     HandleBBSave,
     setSearchClient,
@@ -663,13 +853,20 @@ const useMasterHook = () => {
     handleUpdateClient,
     handleUpdateClientGroup,
     handleUpdateBBCategory,
-    handleUpdateKunCsOtCategory,
+    handleUpdateKunCategory,
+    handleUpdateCsCategory,
+    handleUpdateOtCategory,
     handleDeleteCategory,
     handleDeleteSubCategory,
     handleDeleteClient,
     handleDeleteClientGroup,
     handleDeleteBBCategory,
-    handleDeleteKunCSOtCategory,
+    handleKunCategorySave,
+    handleCsCategorySave,
+    handleOtCategorySave,
+    handleDeleteKunCategory,
+    handleDeleteCsCategory,
+    handleDeleteOtCategory,
   };
 };
 export default useMasterHook;

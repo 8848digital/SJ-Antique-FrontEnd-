@@ -45,26 +45,14 @@ const MasterMaterialListing = ({
     setTableViewData(data);
   };
   const router = useRouter();
-  const HandleDetails = (name: any, abbr: any, group?: any) => {
-    router.push({
-      pathname: '/masterMaterialDetails',
-      query: {
-        name1: name,
-        name2: abbr,
-        name3: group,
-        placeholder1: placeholder1,
-        placeholder2: placeholder2,
-        placeholder3: placeholder3,
-      },
-    });
-  };
+
   const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
       Unable to delete. Transactions exist for this entry.
     </Popover>
   );
 
-  console.log("dataa", defaultData)
+  console.log('dataa', defaultData);
   return (
     <div>
       {defaultData?.length > 0 ? (
@@ -147,52 +135,31 @@ const MasterMaterialListing = ({
                           {i + 1}
                         </td>
                         <td
-                          className={`table-body-row cursor ${value === 'kunCsOtCategory' ||
+                          className={`table-body-row cursor ${
+                            value === 'kunCsOtCategory' ||
                             value === 'BBCategory'
-                            ? 'w-25'
-                            : ' w-auto '
-                            } `}
-                          onClick={() =>
-                            HandleDetails(
-                              item.material,
-                              item.material_abbr
-                                ? item.material_abbr
-                                : item.type,
-                              item.material_group
-                            )
-                          }
+                              ? 'w-25'
+                              : ' w-auto '
+                          } `}
                         >
-                          {typeof item.material === 'string' ? item.material?.toUpperCase() : item.material}
+                          {typeof item.material === 'string'
+                            ? item.material?.toUpperCase()
+                            : item.material}
                         </td>
-                        <td
-                          className={`table-body-row cursor w-auto`}
-                          onClick={() =>
-                            HandleDetails(
-                              item.material,
-                              item.material_abbr
-                                ? item.material_abbr
-                                : item.type,
-                              item.material_group
-                            )
-                          }
-                        >
-                          {item.material_abbr ? typeof item.material_abbr === 'string' ? item.material_abbr?.toUpperCase() : item.material_abbr : typeof item.type === 'string' ? item.type?.toUpperCase() : item.type}
+                        <td className={`table-body-row cursor w-auto`}>
+                          {item.material_abbr
+                            ? typeof item.material_abbr === 'string'
+                              ? item.material_abbr?.toUpperCase()
+                              : item.material_abbr
+                            : typeof item.type === 'string'
+                            ? item.type?.toUpperCase()
+                            : item.type}
                         </td>
                         {(value === 'material' || value === 'subCategory') && (
-                          <td
-                            className="table-body-row cursor w-auto"
-                            onClick={() =>
-                              HandleDetails(
-                                item.material,
-                                item.material_abbr
-                                  ? item.material_abbr
-                                  : item.type,
-                                item.material_group
-                              )
-                            }
-                          >
-                            {typeof item.material_group === 'string' ? item.material_group?.toUpperCase() : item.material_group}
-
+                          <td className="table-body-row cursor w-auto">
+                            {typeof item.material_group === 'string'
+                              ? item.material_group?.toUpperCase()
+                              : item.material_group}
                           </td>
                         )}
                         <td className="table-body-row cursor w-25 p-0">

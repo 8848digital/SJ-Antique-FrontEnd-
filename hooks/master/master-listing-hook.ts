@@ -1,7 +1,9 @@
+import { getOtCategoryData } from '@/store/slices/Master/get-OT-category-slice';
 import { getBBCategoryData } from '@/store/slices/Master/get-bb-category-slice';
 import { getCategoryData } from '@/store/slices/Master/get-category-slice';
 import { getClientGroupData } from '@/store/slices/Master/get-client-group-slice';
 import { getClientNameData } from '@/store/slices/Master/get-client-name-slice';
+import { getCsCategoryData } from '@/store/slices/Master/get-cs-category-slice';
 import { getKunCategoryData } from '@/store/slices/Master/get-kun-category-slice';
 import { getMaterialGroupData } from '@/store/slices/Master/get-material-group-slice';
 import { getMaterialData } from '@/store/slices/Master/get-material-slice';
@@ -27,6 +29,8 @@ export const useMasterListingHook = () => {
       dispatch(getClientGroupData(loginAcessToken.token));
       dispatch(getClientNameData(loginAcessToken.token));
       dispatch(getKunCategoryData(loginAcessToken.token));
+      dispatch(getCsCategoryData(loginAcessToken.token));
+      dispatch(getOtCategoryData(loginAcessToken.token));
       dispatch(getBBCategoryData(loginAcessToken.token));
       dispatch(getCategoryData(loginAcessToken.token));
       dispatch(getSubCategoryData(loginAcessToken.token));

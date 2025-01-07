@@ -1,37 +1,37 @@
-import getKunCategoryApi from '@/services/api/Master/get-kun-category-api';
+import getOtCategoryApi from '@/services/api/Master/get-ot-category-api';
 import { RootState } from '@/store/root-reducer';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getKunCategoryData: any = createAsyncThunk(
-  'getKunCategory/KunCategory',
+export const getOtCategoryData: any = createAsyncThunk(
+  'getOtCategory/otCategory',
   async (params: any) => {
-    const KunCategory: any = await getKunCategoryApi(params);
-    return KunCategory;
+    const otCategory: any = await getOtCategoryApi(params);
+    return otCategory;
   }
 );
-interface RepoKunCategoryState {
+interface RepoOtCategoryState {
   data: any;
   docStatus: any;
   error: string;
   isLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
 }
 
-const initialState: RepoKunCategoryState = {
+const initialState: RepoOtCategoryState = {
   data: '',
   docStatus: '',
   error: '',
   isLoading: 'idle',
 };
 
-export const GetKunCategoryScreen = createSlice({
-  name: 'KunCategory',
+export const GetOtCategoryScreen = createSlice({
+  name: 'otCategory',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getKunCategoryData.pending, (state) => {
+    builder.addCase(getOtCategoryData.pending, (state) => {
       state.isLoading = 'pending';
     });
-    builder.addCase(getKunCategoryData.fulfilled, (state, action) => {
+    builder.addCase(getOtCategoryData.fulfilled, (state, action) => {
       if (
         action?.payload?.status === 200 &&
         action?.payload?.data?.message?.status === 'success'
@@ -43,14 +43,14 @@ export const GetKunCategoryScreen = createSlice({
         state.isLoading = 'succeeded';
       }
     });
-    builder.addCase(getKunCategoryData.rejected, (state) => {
+    builder.addCase(getOtCategoryData.rejected, (state) => {
       state.isLoading = 'failed';
       state.error = 'failed to store data';
     });
   },
 });
 
-export const get_kun_category_data = (state: RootState) =>
-  state.GetKunCategoryScreen;
+export const get_ot_category_data = (state: RootState) =>
+  state.GetOtCategoryScreen;
 
-export default GetKunCategoryScreen.reducer;
+export default GetOtCategoryScreen.reducer;

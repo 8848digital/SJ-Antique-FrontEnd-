@@ -33,15 +33,15 @@ const SingleRecordListing = ({
     setTableViewData(data);
   };
   const router = useRouter();
-  const HandleDetails = (name: any) => {
-    router.push({
-      pathname: '/master/[karigarId]/KarigarDetailsMaster',
-      query: {
-        name: name,
-        placeholder: placeholder,
-      },
-    });
-  };
+  // const HandleDetails = (name: any) => {
+  //   router.push({
+  //     pathname: '/master/[karigarId]/KarigarDetailsMaster',
+  //     query: {
+  //       name: name,
+  //       placeholder: placeholder,
+  //     },
+  //   });
+  // };
   const popoverLeft = (
     <Popover id="popover-positioned-left" title="Popover left" className="p-2">
       Unable to delete. Transactions exist for this entry.
@@ -102,9 +102,11 @@ const SingleRecordListing = ({
                         <td className="table-body-row cursor">{i + 1}</td>
                         <td
                           className="table-body-row cursor"
-                          onClick={() => HandleDetails(item.karigar_name)}
+                          // onClick={() => HandleDetails(item.karigar_name)}
                         >
-                          {typeof item.karigar_name === 'string' ? item.karigar_name?.toUpperCase() : item.karigar_name}
+                          {typeof item.karigar_name === 'string'
+                            ? item.karigar_name?.toUpperCase()
+                            : item.karigar_name}
                         </td>
                         <td className="table-body-row cursor w-25 p-0">
                           <div className="d-flex justify-content-around">

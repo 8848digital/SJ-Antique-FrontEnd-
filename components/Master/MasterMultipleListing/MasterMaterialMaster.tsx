@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import MasterListing from '../MasterListing';
-import AddMaterial from './AddRecord';
+import AddRecord from './AddRecord';
 import MasterMaterialListing from './MasterMultipleListing';
 import TabSection from '@/components/TabSection';
 
@@ -116,7 +116,7 @@ const MultipleRecordMaster: any = ({
               handleDelete={handleDelete}
             />
           </div>
-          <AddMaterial
+          <AddRecord
             nameValue={nameValue}
             HandleNameChange={HandleNameChange}
             HandleSave={HandleSave}
