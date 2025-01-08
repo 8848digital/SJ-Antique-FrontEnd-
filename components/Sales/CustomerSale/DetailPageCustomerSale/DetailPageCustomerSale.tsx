@@ -16,7 +16,9 @@ const DetailPageCustomerSale = () => {
   const {
     salesTableData,
     setSalesTableData,
-    kunCsOtCategoryListData,
+    kunCategoryListData,
+    csCategoryListData,
+    otCategoryListData,
     BBCategoryListData,
     clientNameListData,
     selectedItemCodeForCustomerSale,
@@ -78,7 +80,7 @@ const DetailPageCustomerSale = () => {
       ) : (
         <>
           {DetailOfDeliveryNoteFromStore?.data?.length === 0 &&
-          isLoading === false ? (
+            isLoading === false ? (
             <NoRecord
               title="Customer Sales"
               content="Sorry for disappointing you! We’re unable to find any relevant data"
@@ -125,7 +127,9 @@ const DetailPageCustomerSale = () => {
                 isBarcodeChecked={isBarcodeChecked}
               />
               <CustomerSalesTable2
-                kunCsOtCategoryListData={kunCsOtCategoryListData}
+                kunCategoryListData={kunCategoryListData}
+                csCategoryListData={csCategoryListData}
+                otCategoryListData={otCategoryListData}
                 BBCategoryListData={BBCategoryListData}
                 selectedCategory={selectedCategory}
                 setSeletedCategory={setSeletedCategory}
