@@ -57,9 +57,11 @@ const CustomerSalesTable = ({
     custom_net_wt: 0,
   };
 
-  const [calculationRow, setCalculationRow] = useState(
+  const [calculationRow, setCalculationRow] = useState<any>(
     initialStateOfCalculationRow
   );
+
+  console.log({ calculationRow })
 
   const calculateLiveCalculations = async () => {
     const liveCalculations = salesTableData?.reduce(

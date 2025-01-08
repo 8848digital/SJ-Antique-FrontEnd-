@@ -55,7 +55,7 @@ const SelectInputKunKarigar = ({
         item_code: data?.karigar_name,
       });
     }
-    if(HandleEnterDetails){
+    if (HandleEnterDetails) {
       HandleEnterDetails(data?.karigar_name, id);
     }
     setShowDropdown(false);
@@ -85,8 +85,8 @@ const SelectInputKunKarigar = ({
       } else if (e.key === 'ArrowDown' && showDropdown) {
         setSelectedIndex((prevIndex: any) =>
           prevIndex <
-          (filterDropdownList ? filterDropdownList : kundanKarigarData)
-            ?.length -
+            (filterDropdownList ? filterDropdownList : kundanKarigarData)
+              ?.length -
             1
             ? prevIndex + 1
             : prevIndex
@@ -211,9 +211,8 @@ const SelectInputKunKarigar = ({
         type="text"
         name={fieldName}
         className={` ${styles.table_select}`}
-        placeholder={`${
-          placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
-        }`}
+        placeholder={`${placeholderValue !== undefined ? placeholderValue : 'Kundan Karigar'
+          }`}
         onChange={(e) => {
           handleFieldChange(e);
         }}
@@ -235,9 +234,8 @@ const SelectInputKunKarigar = ({
                   <li
                     key={i}
                     onClick={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>
@@ -251,9 +249,8 @@ const SelectInputKunKarigar = ({
                   <li
                     key={i}
                     onClick={() => handleSelectedOption(name, i)}
-                    className={`dropdown-list ${
-                      i === selectedIndex ? 'selected' : ''
-                    }`}
+                    className={`dropdown-list ${i === selectedIndex ? 'selected' : ''
+                      }`}
                   >
                     {name.karigar_name}
                   </li>

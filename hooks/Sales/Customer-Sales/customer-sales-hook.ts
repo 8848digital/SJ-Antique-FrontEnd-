@@ -152,17 +152,16 @@ const useCustomerSaleHook = () => {
             Number(updatedItem.custom_kun_amt) +
             Number(updatedItem.custom_ot_amt) +
             Number(updatedItem.custom_other);
+          updateSalesTableData(updatedItem, itemIdx)
           return updatedItem;
         } else {
           return item;
         }
       });
     });
-
     setStateForDocStatus(true);
   };
 
-  console.log("calculate value", salesTableData)
   const itemCodeListFunc = () => {
     if (barcodedata === 1) {
       const namesArray =
@@ -204,8 +203,9 @@ const useCustomerSaleHook = () => {
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
               updateBarcodeSalesTableData(
-                getItemCodeDetailsApi?.data?.message?.data,
-                id
+                getItemCodeDetailsApi?.data?.message?.data[0],
+                id,
+                "addNewRow"
               );
             }
           } catch (error) {
@@ -235,8 +235,9 @@ const useCustomerSaleHook = () => {
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
               updateSalesTableData(
-                getItemCodeDetailsApi?.data?.message?.data,
-                id
+                getItemCodeDetailsApi?.data?.message?.data[0],
+                id,
+                "addNewRow"
               );
             }
           } catch (error) {
@@ -247,9 +248,6 @@ const useCustomerSaleHook = () => {
       }
     }
   };
-  // useEffect(() => {
-  //   itemDetailApiFun();
-  // }, [selectedItemCodeForCustomerSale]);
 
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
@@ -265,103 +263,60 @@ const useCustomerSaleHook = () => {
 
     // Find the selected object in the corresponding array
     const selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
+
     setSeletedCategory((prevState: any) => ({
       ...prevState,
       [name]: selectedObj,
     }));
 
-    // Additional state update
+    // Update each row of the sales table based on the selected category
+    setSalesTableData((prevSalesTableData: any) => {
+      return prevSalesTableData.map((row: any) => {
+        const updatedRow = {
+          ...row,
+          custom_kun_wt: Number(
+            name === "KunCategory" && selectedObj?.type
+              ? (row.custom_kun_wt * selectedObj.type) / 100
+              : row.custom_kun_wt
+          ),
+          custom_cs_wt: Number(
+            name === "CsCategory" && selectedObj?.type
+              ? (row.custom_cs_wt * selectedObj.type) / 100
+              : row.custom_cs_wt
+          ),
+          custom_bb_wt: Number(
+            name === "BbCategory" && selectedObj?.type
+              ? row.custom_bb_wt - selectedObj.type
+              : row.custom_bb_wt
+          ),
+          custom_other_wt: Number(
+            name === "OtCategory" && selectedObj?.type
+              ? (row.custom_other_wt * selectedObj.type) / 100
+              : row.custom_other_wt
+          ),
+        };
+
+        // Recalculate the custom_net_wt and any other dependent values
+        updatedRow.custom_net_wt =
+          Number(updatedRow.custom_gross_wt) -
+          (Number(updatedRow.custom_kun_wt) +
+            Number(updatedRow.custom_cs_wt) +
+            Number(updatedRow.custom_bb_wt) +
+            Number(updatedRow.custom_other_wt));
+
+        updatedRow.custom_amount =
+          Number(updatedRow.custom_cs_amt) +
+          Number(updatedRow.custom_kun_amt) +
+          Number(updatedRow.custom_ot_amt) +
+          Number(updatedRow.custom_other);
+
+        return updatedRow;
+      });
+    });
+
     setStateForDocStatus(true);
   };
 
-
-
-  useEffect(() => {
-    if (barcodedata === 0) {
-      console.log("testingg")
-      const updatedData =
-        salesTableData?.length > 0 &&
-        salesTableData.map((data: any) => {
-          const kunInitial = Number(data?.custom_pr_kun_wt) || 0;
-          const csWtInitial = Number(data?.custom_pr_cs_wt) || 0;
-          const bbWtInitial = Number(data?.custom_pr_bb_wt) || 0;
-          const otWtInitial = Number(data?.custom_pr_other_wt) || 0;
-          console.log("category", selectedCategory.KunCategory, selectedCategory.CsCategory)
-          return {
-            ...data,
-            custom_gross_wt: data?.custom_gross_wt,
-            custom_kun_wt: Number(
-              selectedCategory.KunCategory !== '' &&
-                selectedCategory?.KunCategory !== null
-                ? selectedCategory?.KunCategory?.type === undefined
-                  ? kunInitial
-                  : kunInitial === 0
-                    ? 0
-                    : (kunInitial * selectedCategory?.KunCategory?.type) / 100
-                : kunInitial
-            ),
-            custom_cs_wt: Number(
-              selectedCategory.CsCategory !== '' &&
-                selectedCategory?.CsCategory !== null
-                ? selectedCategory?.CsCategory?.type === undefined
-                  ? csWtInitial
-                  : csWtInitial === 0
-                    ? 0
-                    : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-                : csWtInitial
-            ),
-            custom_bb_wt: Number(
-              selectedCategory?.BbCategory !== '' &&
-                selectedCategory?.BbCategory !== null
-                ? selectedCategory?.BbCategory?.type === undefined
-                  ? bbWtInitial
-                  : bbWtInitial === 0
-                    ? 0
-                    : bbWtInitial - selectedCategory?.BbCategory?.type
-                : bbWtInitial
-            ),
-
-            custom_other_wt: Number(
-              selectedCategory.OtCategory !== '' &&
-                selectedCategory?.OtCategory !== null
-                ? selectedCategory?.OtCategory?.type === undefined
-                  ? otWtInitial
-                  : otWtInitial === 0
-                    ? 0
-                    : (otWtInitial * selectedCategory.OtCategory?.type) / 100
-                : otWtInitial
-            ),
-            custom_cs_amt: Number(
-              (selectedCategory.CsCategory !== '' &&
-                selectedCategory?.CsCategory !== null
-                ? selectedCategory?.CsCategory?.type === undefined
-                  ? csWtInitial
-                  : csWtInitial === 0
-                    ? 0
-                    : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-                : Number(data?.custom_cs_wt)) * data?.custom_cs
-            ),
-            custom_ot_amt: Number(
-              (selectedCategory.OtCategory !== '' &&
-                selectedCategory?.OtCategory !== null
-                ? selectedCategory?.OtCategory?.type === undefined
-                  ? otWtInitial
-                  : otWtInitial === 0
-                    ? 0
-                    : (otWtInitial * selectedCategory?.OtCategory?.type) / 100
-                : Number(data?.custom_other_wt)) * data?.custom_ot_
-            ),
-            // custom_net_wt:
-            //   Number(data?.custom_gross_wt) -
-            //   (Number(data?.custom_kun_wt) +
-            //     Number(data?.custom_cs_wt) +
-            //     Number(data?.custom_bb_wt) +
-            //     Number(data?.custom_other_wt)),
-          };
-        });
-      setSalesTableData(updatedData);
-    }
-  }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt, selectedClient]);
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
@@ -377,6 +332,7 @@ const useCustomerSaleHook = () => {
     });
     return filteredTableData;
   };
+
   const handleDNCreate: any = async () => {
     const filteredData = filteredTableDataForUpdate(salesTableData);
     const updatedData =
@@ -550,8 +506,9 @@ const useCustomerSaleHook = () => {
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
               updateBarcodeSalesTableData(
-                getItemCodeDetailsApi?.data?.message?.data,
-                selectedItemCodeForCustomerSale.id
+                getItemCodeDetailsApi?.data?.message?.data[0],
+                selectedItemCodeForCustomerSale.id,
+                "addNewRow"
               );
             }
           } catch (error) {
@@ -576,8 +533,9 @@ const useCustomerSaleHook = () => {
 
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               updateSalesTableData(
-                getItemCodeDetailsApi?.data?.message?.data,
-                selectedItemCodeForCustomerSale.id
+                getItemCodeDetailsApi?.data?.message?.data[0],
+                selectedItemCodeForCustomerSale?.id,
+                "addNewRow"
               );
             }
           } catch (error) {
