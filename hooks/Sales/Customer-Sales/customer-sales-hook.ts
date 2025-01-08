@@ -23,6 +23,8 @@ import {
   btnLoadingStart,
   btnLoadingStop,
 } from '@/store/slices/btn-loading-slice';
+import { get_cs_category_data } from '@/store/slices/Master/get-cs-category-slice';
+import { get_ot_category_data } from '@/store/slices/Master/get-ot-category-slice';
 
 const useCustomerSaleHook = () => {
   const { deliveryNoteListing, setDeliveryNoteListing }: any =
@@ -64,7 +66,9 @@ const useCustomerSaleHook = () => {
   const { query } = useRouter();
   const loginAcessToken = useSelector(get_access_token);
 
-  const kunCsOtCategoryListData = useSelector(get_kun_category_data).data;
+  const kunCategoryListData = useSelector(get_kun_category_data).data;
+  const csCategoryListData = useSelector(get_cs_category_data).data;
+  const otCategoryListData = useSelector(get_ot_category_data).data;
   const BBCategoryListData = useSelector(get_bb_category_data).data;
   const warehouseListData = useSelector(get_warehouse_list_data).data;
   const clientNameListData = useSelector(get_client_name_data).data;
@@ -118,10 +122,10 @@ const useCustomerSaleHook = () => {
           updatedItem.custom_net_wt = Math.max(
             0,
             Number(updatedItem.custom_gross_wt) -
-              (Number(updatedItem.custom_kun_wt) +
-                Number(updatedItem.custom_cs_wt) +
-                Number(updatedItem.custom_bb_wt) +
-                Number(updatedItem.custom_other_wt))
+            (Number(updatedItem.custom_kun_wt) +
+              Number(updatedItem.custom_cs_wt) +
+              Number(updatedItem.custom_bb_wt) +
+              Number(updatedItem.custom_other_wt))
           );
 
           if (fieldName === 'custom_cs') {
@@ -158,6 +162,7 @@ const useCustomerSaleHook = () => {
     setStateForDocStatus(true);
   };
 
+  console.log("calculate value", salesTableData)
   const itemCodeListFunc = () => {
     if (barcodedata === 1) {
       const namesArray =
@@ -248,19 +253,32 @@ const useCustomerSaleHook = () => {
 
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
-    const selectedArray =
-      name === 'BBCategory' ? BBCategoryListData : kunCsOtCategoryListData;
-    const selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
 
+    const selectedArray =
+      name === "BbCategory"
+        ? BBCategoryListData
+        : name === "CsCategory"
+          ? csCategoryListData
+          : name === "OtCategory"
+            ? otCategoryListData
+            : kunCategoryListData;
+
+    // Find the selected object in the corresponding array
+    const selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
     setSeletedCategory((prevState: any) => ({
       ...prevState,
       [name]: selectedObj,
     }));
+
+    // Additional state update
     setStateForDocStatus(true);
   };
 
+
+
   useEffect(() => {
     if (barcodedata === 0) {
+      console.log("testingg")
       const updatedData =
         salesTableData?.length > 0 &&
         salesTableData.map((data: any) => {
@@ -268,7 +286,7 @@ const useCustomerSaleHook = () => {
           const csWtInitial = Number(data?.custom_pr_cs_wt) || 0;
           const bbWtInitial = Number(data?.custom_pr_bb_wt) || 0;
           const otWtInitial = Number(data?.custom_pr_other_wt) || 0;
-
+          console.log("category", selectedCategory.KunCategory, selectedCategory.CsCategory)
           return {
             ...data,
             custom_gross_wt: data?.custom_gross_wt,
@@ -278,8 +296,8 @@ const useCustomerSaleHook = () => {
                 ? selectedCategory?.KunCategory?.type === undefined
                   ? kunInitial
                   : kunInitial === 0
-                  ? 0
-                  : (kunInitial * selectedCategory?.KunCategory?.type) / 100
+                    ? 0
+                    : (kunInitial * selectedCategory?.KunCategory?.type) / 100
                 : kunInitial
             ),
             custom_cs_wt: Number(
@@ -288,18 +306,18 @@ const useCustomerSaleHook = () => {
                 ? selectedCategory?.CsCategory?.type === undefined
                   ? csWtInitial
                   : csWtInitial === 0
-                  ? 0
-                  : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
+                    ? 0
+                    : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
                 : csWtInitial
             ),
             custom_bb_wt: Number(
-              selectedCategory?.BBCategory !== '' &&
-                selectedCategory?.BBCategory !== null
-                ? selectedCategory?.BBCategory?.type === undefined
+              selectedCategory?.BbCategory !== '' &&
+                selectedCategory?.BbCategory !== null
+                ? selectedCategory?.BbCategory?.type === undefined
                   ? bbWtInitial
                   : bbWtInitial === 0
-                  ? 0
-                  : bbWtInitial - selectedCategory?.BBCategory?.type
+                    ? 0
+                    : bbWtInitial - selectedCategory?.BbCategory?.type
                 : bbWtInitial
             ),
 
@@ -309,41 +327,41 @@ const useCustomerSaleHook = () => {
                 ? selectedCategory?.OtCategory?.type === undefined
                   ? otWtInitial
                   : otWtInitial === 0
-                  ? 0
-                  : (otWtInitial * selectedCategory.OtCategory?.type) / 100
+                    ? 0
+                    : (otWtInitial * selectedCategory.OtCategory?.type) / 100
                 : otWtInitial
             ),
             custom_cs_amt: Number(
               (selectedCategory.CsCategory !== '' &&
-              selectedCategory?.CsCategory !== null
+                selectedCategory?.CsCategory !== null
                 ? selectedCategory?.CsCategory?.type === undefined
                   ? csWtInitial
                   : csWtInitial === 0
-                  ? 0
-                  : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
+                    ? 0
+                    : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
                 : Number(data?.custom_cs_wt)) * data?.custom_cs
             ),
             custom_ot_amt: Number(
               (selectedCategory.OtCategory !== '' &&
-              selectedCategory?.OtCategory !== null
+                selectedCategory?.OtCategory !== null
                 ? selectedCategory?.OtCategory?.type === undefined
                   ? otWtInitial
                   : otWtInitial === 0
-                  ? 0
-                  : (otWtInitial * selectedCategory?.OtCategory?.type) / 100
+                    ? 0
+                    : (otWtInitial * selectedCategory?.OtCategory?.type) / 100
                 : Number(data?.custom_other_wt)) * data?.custom_ot_
             ),
-            custom_net_wt:
-              Number(data?.custom_gross_wt) -
-              (Number(data?.custom_kun_wt) +
-                Number(data?.custom_cs_wt) +
-                Number(data?.custom_bb_wt) +
-                Number(data?.custom_other_wt)),
+            // custom_net_wt:
+            //   Number(data?.custom_gross_wt) -
+            //   (Number(data?.custom_kun_wt) +
+            //     Number(data?.custom_cs_wt) +
+            //     Number(data?.custom_bb_wt) +
+            //     Number(data?.custom_other_wt)),
           };
         });
       setSalesTableData(updatedData);
     }
-  }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt]);
+  }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt, selectedClient]);
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
@@ -398,7 +416,7 @@ const useCustomerSaleHook = () => {
       entity: 'sales',
       custom_kun_category: selectedCategory?.KunCategory?.name1,
       custom_cs_category: selectedCategory?.CsCategory?.name1,
-      custom_bb_category: selectedCategory?.BBCategory?.name1,
+      custom_bb_category: selectedCategory?.BbCategory?.name1,
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
@@ -575,7 +593,9 @@ const useCustomerSaleHook = () => {
   return {
     salesTableData,
     setSalesTableData,
-    kunCsOtCategoryListData,
+    kunCategoryListData,
+    csCategoryListData,
+    otCategoryListData,
     BBCategoryListData,
     clientNameListData,
     selectedDropdownValue,
@@ -626,7 +646,7 @@ const useCustomerSaleHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailApiFun,
+    itemDetailApiFun
   };
 };
 

@@ -24,7 +24,9 @@ const useCustomerSaleDetailHook = () => {
   const {
     salesTableData,
     setSalesTableData,
-    kunCsOtCategoryListData,
+    kunCategoryListData,
+    csCategoryListData,
+    otCategoryListData,
     BBCategoryListData,
     clientNameListData,
     selectedItemCodeForCustomerSale,
@@ -112,28 +114,28 @@ const useCustomerSaleDetailHook = () => {
       // Filtering kunCsOtCategoryListData based on custom_category
 
       const kunCategoryData =
-        kunCsOtCategoryListData?.length > 0
-          ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customKunCategory
-            )
+        kunCategoryListData?.length > 0
+          ? kunCategoryListData.find(
+            (data: any) => data.name1 === customKunCategory
+          )
           : null;
       const csCategoryData =
-        kunCsOtCategoryListData?.length > 0
-          ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customCsCategory
-            )
+        csCategoryListData?.length > 0
+          ? csCategoryListData.find(
+            (data: any) => data.name1 === customCsCategory
+          )
           : null;
       const otCategoryData =
-        kunCsOtCategoryListData?.length > 0
-          ? kunCsOtCategoryListData.find(
-              (data: any) => data.name1 === customOtCategory
-            )
+        otCategoryListData?.length > 0
+          ? otCategoryListData.find(
+            (data: any) => data.name1 === customOtCategory
+          )
           : null;
       const bbCategoryData =
         BBCategoryListData?.length > 0
           ? BBCategoryListData.find(
-              (data: any) => data.name1 === customBBCategory
-            )
+            (data: any) => data.name1 === customBBCategory
+          )
           : { name1: '', type: 0 };
 
       // Setting selected category state
@@ -147,7 +149,9 @@ const useCustomerSaleDetailHook = () => {
   }, [
     detailOfDeliveryNoteFromStore,
     BBCategoryListData,
-    kunCsOtCategoryListData,
+    kunCategoryListData,
+    csCategoryListData,
+    otCategoryListData
   ]);
 
   useEffect(() => {
@@ -224,7 +228,7 @@ const useCustomerSaleDetailHook = () => {
       custom_is_barcode: barcodedata,
       custom_kun_category: selectedCategory?.KunCategory?.name1,
       custom_cs_category: selectedCategory?.CsCategory?.name1,
-      custom_bb_category: selectedCategory?.BBCategory?.name1,
+      custom_bb_category: selectedCategory?.BbCategory?.name1,
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedData,
     };
@@ -262,7 +266,7 @@ const useCustomerSaleDetailHook = () => {
       custom_client_name: selectedClient,
       custom_kun_category: selectedCategory?.KunCategory?.name1,
       custom_cs_category: selectedCategory?.CsCategory?.name1,
-      custom_bb_category: selectedCategory?.BBCategory?.name1,
+      custom_bb_category: selectedCategory?.BbCategory?.name1,
       custom_ot_category: selectedCategory?.OtCategory?.name1,
       items: updatedSalesTableData,
     };
@@ -323,7 +327,9 @@ const useCustomerSaleDetailHook = () => {
   return {
     salesTableData,
     setSalesTableData,
-    kunCsOtCategoryListData,
+    kunCategoryListData,
+    csCategoryListData,
+    otCategoryListData,
     BBCategoryListData,
     clientNameListData,
     selectedItemCodeForCustomerSale,

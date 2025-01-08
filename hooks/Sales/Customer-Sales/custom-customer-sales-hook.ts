@@ -38,7 +38,7 @@ const useCustomCustomerSalesHook = () => {
   const [selectedCategory, setSeletedCategory] = useState<any>({
     KunCategory: '',
     CsCategory: '',
-    BBCategory: '',
+    BbCategory: '',
     OtCategory: '',
   });
 
@@ -85,7 +85,7 @@ const useCustomCustomerSalesHook = () => {
     setSeletedCategory({
       KunCategory: '',
       CsCategory: '',
-      BBCategory: '',
+      BbCategory: '',
       OtCategory: '',
     });
     setKunCsOtFixedAmt({
@@ -107,10 +107,10 @@ const useCustomCustomerSalesHook = () => {
     if (getClientDetails?.data?.message?.status === "success") {
       let categoryData: any = getClientDetails?.data?.message?.data
       setSeletedCategory({
-        KunCategory: categoryData?.kundan_category,
-        CsCategory: categoryData?.cs_category,
-        BBCategory: categoryData?.bb_category,
-        OtCategory: categoryData?.ot_category,
+        KunCategory: { name1: categoryData?.kundan_category, type: categoryData?.kundan_category },
+        CsCategory: { name1: categoryData?.cs_category, type: 40 },
+        BbCategory: { name1: categoryData?.bb_category, type: 20 },
+        OtCategory: { name1: categoryData?.ot_category, type: 40 },
       })
     }
   }
@@ -120,6 +120,7 @@ const useCustomCustomerSalesHook = () => {
   console.log({ selectedCategory })
 
   const updateSalesTableData = (data: any, id?: number) => {
+    console.log("id", id)
     if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
@@ -144,9 +145,9 @@ const useCustomCustomerSalesHook = () => {
                   : data[0]?.custom_cs_wt
               ),
               custom_bb_wt: Number(
-                selectedCategory.BBCategory !== '' &&
-                  selectedCategory?.BBCategory !== null
-                  ? data[0]?.custom_bb_wt - selectedCategory.BBCategory?.type
+                selectedCategory.BbCategory !== '' &&
+                  selectedCategory?.BbCategory !== null
+                  ? data[0]?.custom_bb_wt - selectedCategory.BbCategory?.type
                   : data[0].custom_bb_wt
               ),
               custom_other_wt: Number(

@@ -2,7 +2,9 @@ import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfD
 import { useSelector } from 'react-redux';
 
 const CustomerSalesTable2 = ({
-  kunCsOtCategoryListData,
+  kunCategoryListData,
+  csCategoryListData,
+  otCategoryListData,
   BBCategoryListData,
   selectedCategory,
   setSeletedCategory,
@@ -15,6 +17,8 @@ const CustomerSalesTable2 = ({
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
+
+  console.log({ kunCategoryListData })
 
   return (
     <div className="m-0">
@@ -37,15 +41,15 @@ const CustomerSalesTable2 = ({
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === "edit" && selectedCategory?.KunCategory === ""
+                  keyValue === "edit" && selectedCategory?.KunCategory?.name1 === ""
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_kun_category
-                    : selectedCategory?.KunCategory || ""
+                    : selectedCategory?.KunCategory?.name1 || ""
                 }
               >
-                <option value="" disabled>
+                <option value="">
                   Select a Category
                 </option>
-                {kunCsOtCategoryListData?.length > 0 && kunCsOtCategoryListData?.map((categoryData: any, index: number) => (
+                {kunCategoryListData?.length > 0 && kunCategoryListData?.map((categoryData: any, index: number) => (
                   <option value={categoryData.name1} key={index}>
                     {categoryData.name1}
                   </option>
@@ -62,15 +66,15 @@ const CustomerSalesTable2 = ({
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === "edit" && selectedCategory?.CsCategory === ""
+                  keyValue === "edit" && selectedCategory?.CsCategory?.name1 === ""
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_cs_category
-                    : selectedCategory?.CsCategory || ""
+                    : selectedCategory?.CsCategory?.name1 || ""
                 }
               >
-                <option value="" disabled>Select a Category</option>
-                {kunCsOtCategoryListData?.length > 0 &&
-                  kunCsOtCategoryListData !== null &&
-                  kunCsOtCategoryListData.map(
+                <option value="">Select a Category</option>
+                {csCategoryListData?.length > 0 &&
+                  csCategoryListData !== null &&
+                  csCategoryListData.map(
                     (categoryData: any, index: any) => (
                       <option key={index}>{categoryData.name1} </option>
                     )
@@ -80,19 +84,18 @@ const CustomerSalesTable2 = ({
 
             <td className="table_row w-25" scope="row">
               <select
-                name="BBCategory"
+                name="BbCategory"
                 id=""
                 className=" form-select form-select-sm border-secondary  p-0 px-2 "
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === "edit" && selectedCategory?.BBCategory === ""
+                  keyValue === "edit" && selectedCategory?.BBCategory?.name1 === ""
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_bb_category
-                    : selectedCategory?.BBCategory || ""
+                    : selectedCategory?.BbCategory?.name1 || ""
                 }
-
               >
-                <option value="" disabled>Select a Category</option>
+                <option value="">Select a Category</option>
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
                   BBCategoryListData.map((BBCategoryData: any, index: any) => (
@@ -104,20 +107,19 @@ const CustomerSalesTable2 = ({
               <select
                 name="OtCategory"
                 id="OtCategory"
-                className="form-select form-select-sm border-secondary  p-0 px-2 "
+                className="form-select form-select-sm border-secondary p-0 px-2"
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === "edit" && selectedCategory?.OtCategory === ""
+                  keyValue === "edit" && selectedCategory?.OtCategory?.name1 === ""
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_ot_category
-                    : selectedCategory?.OtCategory || ""
+                    : selectedCategory?.OtCategory?.name1 || ""
                 }
-
               >
-                <option value="" disabled>Select a Category</option>
-                {kunCsOtCategoryListData?.length > 0 &&
-                  kunCsOtCategoryListData !== null &&
-                  kunCsOtCategoryListData.map(
+                <option value="">Select a Category</option>
+                {otCategoryListData?.length > 0 &&
+                  otCategoryListData !== null &&
+                  otCategoryListData.map(
                     (categoryData: any, index: any) => (
                       <option key={index}>{categoryData.name1}</option>
                     )

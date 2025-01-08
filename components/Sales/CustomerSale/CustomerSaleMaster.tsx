@@ -13,7 +13,9 @@ const CustomerSaleMaster = () => {
   const {
     salesTableData,
     setSalesTableData,
-    kunCsOtCategoryListData,
+    kunCategoryListData,
+    csCategoryListData,
+    otCategoryListData,
     BBCategoryListData,
     clientNameListData,
     selectedItemCodeForCustomerSale,
@@ -71,8 +73,8 @@ const CustomerSaleMaster = () => {
   const kundanListing =
     deliveryNoteListing && deliveryNoteListing.length > 0
       ? deliveryNoteListing.filter((data: any) => {
-          return data.is_return === 0;
-        })
+        return data.is_return === 0;
+      })
       : [];
 
   return (
@@ -169,7 +171,9 @@ const CustomerSaleMaster = () => {
               isBarcodeChecked={isBarcodeChecked}
             />
             <CustomerSalesTable2
-              kunCsOtCategoryListData={kunCsOtCategoryListData}
+              kunCategoryListData={kunCategoryListData}
+              csCategoryListData={csCategoryListData}
+              otCategoryListData={otCategoryListData}
               BBCategoryListData={BBCategoryListData}
               selectedCategory={selectedCategory}
               setSeletedCategory={setSeletedCategory}
