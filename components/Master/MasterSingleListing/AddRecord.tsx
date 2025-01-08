@@ -42,7 +42,7 @@ const AddKarigar = ({
         <div>{error && <p className="text-danger">{error}</p>}</div>
 
         {
-          key === "karigar" || key === "kundanKarigar" && (
+          (key === "karigar" || key === "kundanKarigar") && (
             <>
               <div className="m-1">
                 <label>Karigar Code</label>
