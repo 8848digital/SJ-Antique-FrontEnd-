@@ -14,7 +14,7 @@ const AddKarigar = ({
   const pathcontent = router?.asPath?.split('/');
 
   const key = pathcontent[pathcontent?.length - 1];
-  console.log({ key })
+
   return (
     <div
       className="tab-pane fade w-75"

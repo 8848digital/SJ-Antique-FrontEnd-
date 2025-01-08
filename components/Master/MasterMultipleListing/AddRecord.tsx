@@ -32,8 +32,6 @@ const AddMaterial = ({
       ).map((sales_group: any) => ({ karigar_name: sales_group }))
       : [];
 
-
-  console.log({ clientGroup })
   return (
     <div
       className="tab-pane fade w-75"

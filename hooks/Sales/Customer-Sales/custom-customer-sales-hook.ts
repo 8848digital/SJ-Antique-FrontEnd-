@@ -120,8 +120,8 @@ const useCustomCustomerSalesHook = () => {
 
   const updateSalesTableData = (data?: any, id?: number, addNewRow?: any) => {
     // console.log("id", data, id)
-    console.log("sele category for calculation", selectedItemCodeForCustomerSale, addNewRow)
-    console.log({ data })
+    // console.log("sele category for calculation", selectedItemCodeForCustomerSale, addNewRow)
+    // console.log({ data })
     if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {

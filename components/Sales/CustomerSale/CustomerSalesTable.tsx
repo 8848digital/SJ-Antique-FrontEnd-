@@ -61,7 +61,7 @@ const CustomerSalesTable = ({
     initialStateOfCalculationRow
   );
 
-  console.log({ calculationRow })
+
 
   const calculateLiveCalculations = async () => {
     const liveCalculations = salesTableData?.reduce(

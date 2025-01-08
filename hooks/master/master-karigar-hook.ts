@@ -201,7 +201,7 @@ const useKarigarHooks = () => {
     setShowAddRecord(true);
   };
 
-  console.log({ inputValue })
+
   return {
     karigarList,
     kunKarigarList,

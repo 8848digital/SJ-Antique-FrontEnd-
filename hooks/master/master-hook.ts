@@ -102,7 +102,7 @@ const useMasterHook = () => {
   };
 
   const HandleClientSave = async () => {
-    console.log({ clientName })
+
     const values = {
       version: 'v1',
       method: 'create_client',

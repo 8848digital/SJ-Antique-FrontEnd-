@@ -1,5 +1,6 @@
 import { Button, Modal } from 'react-bootstrap';
 import SearchSelectInputField from '../InputDropdown/SearchSelectInputField';
+import { useRouter } from 'next/router';
 
 const AddRecordModal = ({
   showAddRecord,
@@ -23,6 +24,10 @@ const AddRecordModal = ({
   setSearchClient,
   isMultiple,
 }: any) => {
+  const router = useRouter();
+  const pathcontent = router?.asPath?.split('/');
+
+  const key = pathcontent[pathcontent?.length - 1];
   return (
     <>
       <Modal show={showAddRecord} onHide={handleCloseAddRecord}>
@@ -48,22 +53,28 @@ const AddRecordModal = ({
                 />
               </div>
               <div>{error1 && <p className="text-danger">{error1}</p>}</div>
-              <div className=" m-1">
-                <label>Karigar Code</label>
-              </div>
-              <div className="p-1">
-                <input
-                  type="text"
-                  className="form-control w-50 border p-1 h-50"
-                  value={inputValue?.karigar_code}
-                  name='karigar_code'
-                  onChange={(e) => {
-                    HandleInputValue(e);
-                  }}
-                  required
-                />
-              </div>
-              <div>{error1 && <p className="text-danger">{error1}</p>}</div>
+
+              {
+                (key === "karigar" || key === "kundanKarigar") && (
+                  <>
+                    <div className=" m-1">
+                      <label>Karigar Code</label>
+                    </div>
+                    <div className="p-1">
+                      <input
+                        type="text"
+                        className="form-control w-50 border p-1 h-50"
+                        value={inputValue?.karigar_code}
+                        name='karigar_code'
+                        onChange={(e) => {
+                          HandleInputValue(e);
+                        }}
+                        required
+                      />
+                    </div>
+                    <div>{error1 && <p className="text-danger">{error1}</p>}</div>
+
+                  </>)}
             </>
           ) : (
             <>
