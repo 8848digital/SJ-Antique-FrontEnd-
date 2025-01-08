@@ -36,10 +36,10 @@ const useCustomCustomerSalesHook = () => {
   });
   const [stateForDocStatus, setStateForDocStatus] = useState<boolean>(false);
   const [selectedCategory, setSeletedCategory] = useState<any>({
-    KunCategory: '',
-    CsCategory: '',
-    BbCategory: '',
-    OtCategory: '',
+    KunCategory: {},
+    CsCategory: {},
+    BbCategory: {},
+    OtCategory: {},
   });
 
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
@@ -83,10 +83,10 @@ const useCustomCustomerSalesHook = () => {
 
   const handleEmptyDeliveryNote = () => {
     setSeletedCategory({
-      KunCategory: '',
-      CsCategory: '',
-      BbCategory: '',
-      OtCategory: '',
+      KunCategory: {},
+      CsCategory: {},
+      BbCategory: {},
+      OtCategory: {},
     });
     setKunCsOtFixedAmt({
       csFixedAmt: 0,
@@ -103,73 +103,70 @@ const useCustomCustomerSalesHook = () => {
 
   const getClientDetails: any = async () => {
     let getClientDetails: any = await getClientDetailsApi(loginAcessToken?.token, selectedClient)
-    console.log({ getClientDetails })
     if (getClientDetails?.data?.message?.status === "success") {
       let categoryData: any = getClientDetails?.data?.message?.data
       setSeletedCategory({
-        KunCategory: { name1: categoryData?.kundan_category, type: categoryData?.kundan_category },
-        CsCategory: { name1: categoryData?.cs_category, type: 40 },
-        BbCategory: { name1: categoryData?.bb_category, type: 20 },
-        OtCategory: { name1: categoryData?.ot_category, type: 40 },
+        KunCategory: { name1: categoryData?.kundan_category?.name, type: categoryData?.kundan_category?.type },
+        CsCategory: { name1: categoryData?.cs_category?.name, type: categoryData?.cs_category?.type },
+        OtCategory: { name1: categoryData?.ot_category?.name, type: categoryData?.ot_category?.type },
+        BbCategory: { name1: categoryData?.bb_category?.name, type: categoryData?.bb_category?.type },
       })
+      // updateSalesTableData()
     }
   }
   useEffect(() => {
     getClientDetails()
   }, [selectedClient])
-  console.log({ selectedCategory })
 
-  const updateSalesTableData = (data: any, id?: number) => {
-    console.log("id", id)
+  const updateSalesTableData = (data?: any, id?: number, addNewRow?: any) => {
+    // console.log("id", data, id)
+    console.log("sele category for calculation", selectedItemCodeForCustomerSale, addNewRow)
+    console.log({ data })
     if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
           if (tableData.idx === id) {
             return {
               ...tableData,
-              custom_gross_wt: data[0]?.custom_gross_wt,
+              custom_gross_wt: data?.custom_gross_wt,
               custom_kun_wt: Number(
-                selectedCategory.KunCategory !== '' &&
-                  selectedCategory?.KunCategory !== null
-                  ? (data[0]?.custom_kun_wt *
-                    selectedCategory.KunCategory?.type) /
+                (selectedCategory?.KunCategory && Object.keys(selectedCategory?.KunCategory)?.length > 0)
+                  ? (data?.custom_kun_wt *
+                    selectedCategory?.KunCategory?.type) /
                   100
-                  : data[0]?.custom_kun_wt
+                  : data?.custom_kun_wt
               ),
               custom_cs_wt: Number(
-                selectedCategory.CsCategory !== '' &&
-                  selectedCategory?.CsCategory !== null
-                  ? (data[0]?.custom_cs_wt *
-                    selectedCategory.CsCategory?.type) /
+                (selectedCategory.CsCategory && Object.keys(selectedCategory.CsCategory)?.length > 0)
+                  ? (data?.custom_cs_wt *
+                    selectedCategory?.CsCategory?.type) /
                   100
-                  : data[0]?.custom_cs_wt
+                  : data?.custom_cs_wt
               ),
               custom_bb_wt: Number(
-                selectedCategory.BbCategory !== '' &&
-                  selectedCategory?.BbCategory !== null
-                  ? data[0]?.custom_bb_wt - selectedCategory.BbCategory?.type
-                  : data[0].custom_bb_wt
+                (selectedCategory?.BbCategory && Object.keys(selectedCategory?.BbCategory)?.length > 0)
+                  ? data?.custom_bb_wt - selectedCategory?.BbCategory?.type
+                  : data.custom_bb_wt
               ),
               custom_other_wt: Number(
-                selectedCategory.OtCategory !== '' &&
-                  selectedCategory?.OtCategory !== null
-                  ? (data[0]?.custom_other_wt *
-                    selectedCategory.OtCategory?.type) /
+                (selectedCategory?.OtCategory && Object.keys(selectedCategory?.OtCategory)?.length > 0)
+                  ? (data?.custom_other_wt *
+                    selectedCategory?.OtCategory?.type) /
                   100
-                  : data[0]?.custom_other_wt
+                  : data?.custom_other_wt
               ),
               custom_net_wt:
-                Number(data[0]?.custom_gross_wt) -
-                (Number(data[0]?.custom_kun_wt) +
-                  Number(data[0]?.custom_cs_wt) +
-                  Number(data[0]?.custom_bb_wt) +
-                  Number(data[0]?.custom_other_wt)),
-              custom_kun_pc: Number(data[0]?.custom_kun_pcs),
-              custom_pr_kun_wt: Number(data[0]?.custom_kun_wt),
-              custom_pr_cs_wt: Number(data[0]?.custom_cs_wt),
-              custom_pr_bb_wt: Number(data[0]?.custom_bb_wt),
-              custom_pr_other_wt: Number(data[0]?.custom_other_wt),
-              warehouse: data[0].custom_warehouse,
+                Number(data?.custom_gross_wt) -
+                (Number(data?.custom_kun_wt) +
+                  Number(data?.custom_cs_wt) +
+                  Number(data?.custom_bb_wt) +
+                  Number(data?.custom_other_wt)),
+              custom_kun_pc: Number(data?.custom_kun_pcs),
+              custom_pr_kun_wt: Number(data?.custom_kun_wt),
+              custom_pr_cs_wt: Number(data?.custom_cs_wt),
+              custom_pr_bb_wt: Number(data?.custom_bb_wt),
+              custom_pr_other_wt: Number(data?.custom_other_wt),
+              warehouse: data.custom_warehouse,
             };
           } else {
             return tableData;
@@ -180,44 +177,47 @@ const useCustomCustomerSalesHook = () => {
       });
 
       // Update state with new row
-      setSalesTableData((prevSalesTableData: any) => {
-        const lastRow = prevSalesTableData[prevSalesTableData.length - 1];
-        const isEmpty = Object.values(lastRow).every(
-          (value) => value === null || value === ''
-        );
+      if (addNewRow) {
+        setSalesTableData((prevSalesTableData: any) => {
+          const lastRow = prevSalesTableData[prevSalesTableData.length - 1];
+          const isEmpty = Object.values(lastRow).every(
+            (value) => value === null || value === ''
+          );
 
-        if (isEmpty) {
-          return prevSalesTableData;
-        } else {
-          return [...prevSalesTableData, newRowDataForSalesTable];
-        }
-      });
+          if (isEmpty) {
+            return prevSalesTableData;
+          } else {
+            return [...prevSalesTableData, newRowDataForSalesTable];
+          }
+        });
+
+      }
     }
   };
 
-  const updateBarcodeSalesTableData = (data: any, id?: number) => {
+  const updateBarcodeSalesTableData = (data: any, id?: number, addNewRow?: any) => {
     if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedData = prevSalesTableData?.map((item: any) => {
           if (item.idx === id) {
             return {
               ...item,
-              item_code: data[0]?.item_code,
-              custom_gross_wt: data[0]?.custom_gross_wt,
-              custom_kun_wt: data[0]?.custom_kun_wt,
-              custom_cs_wt: data[0]?.custom_cs_wt,
-              custom_bb_wt: data[0]?.custom_bb_wt,
-              custom_other_wt: data[0]?.custom_other_wt,
-              custom_net_wt: data[0]?.custom_net_wt,
-              custom_cs: data[0]?.custom_cs,
-              custom_cs_amt: data[0]?.custom_cs_amt,
-              custom_kun_pc: data[0]?.custom_kun_pc,
-              custom_kun: data[0]?.custom_kun,
-              custom_kun_amt: data[0]?.custom_kun_amt,
-              custom_ot_: data[0]?.custom_ot_,
-              custom_ot_amt: data[0]?.custom_ot_amt,
-              custom_other: data[0]?.custom_other,
-              custom_amount: data[0]?.custom_amount,
+              item_code: data?.item_code,
+              custom_gross_wt: data?.custom_gross_wt,
+              custom_kun_wt: data?.custom_kun_wt,
+              custom_cs_wt: data?.custom_cs_wt,
+              custom_bb_wt: data?.custom_bb_wt,
+              custom_other_wt: data?.custom_other_wt,
+              custom_net_wt: data?.custom_net_wt,
+              custom_cs: data?.custom_cs,
+              custom_cs_amt: data?.custom_cs_amt,
+              custom_kun_pc: data?.custom_kun_pc,
+              custom_kun: data?.custom_kun,
+              custom_kun_amt: data?.custom_kun_amt,
+              custom_ot_: data?.custom_ot_,
+              custom_ot_amt: data?.custom_ot_amt,
+              custom_other: data?.custom_other,
+              custom_amount: data?.custom_amount,
             };
           } else {
             return item;
@@ -227,18 +227,20 @@ const useCustomCustomerSalesHook = () => {
       });
 
       // Update state with new row
-      setSalesTableData((prevSalesTableData: any) => {
-        const lastRow = prevSalesTableData[prevSalesTableData.length - 1];
-        const isEmpty = Object.values(lastRow).every(
-          (value) => value === null || value === ''
-        );
+      if (addNewRow) {
+        setSalesTableData((prevSalesTableData: any) => {
+          const lastRow = prevSalesTableData[prevSalesTableData.length - 1];
+          const isEmpty = Object.values(lastRow).every(
+            (value) => value === null || value === ''
+          );
 
-        if (isEmpty) {
-          return prevSalesTableData;
-        } else {
-          return [...prevSalesTableData, newRowDataForSalesTable];
-        }
-      });
+          if (isEmpty) {
+            return prevSalesTableData;
+          } else {
+            return [...prevSalesTableData, newRowDataForSalesTable];
+          }
+        });
+      }
     }
   };
 

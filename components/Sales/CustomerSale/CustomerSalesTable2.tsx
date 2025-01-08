@@ -18,7 +18,7 @@ const CustomerSalesTable2 = ({
     get_detail_delivery_note_data
   );
 
-  console.log({ kunCategoryListData })
+  // console.log({ kunCategoryListData })
 
   return (
     <div className="m-0">
@@ -90,7 +90,7 @@ const CustomerSalesTable2 = ({
                 onChange={handleSelectChange}
                 disabled={readOnlyFields}
                 value={
-                  keyValue === "edit" && selectedCategory?.BBCategory?.name1 === ""
+                  keyValue === "edit" && selectedCategory?.BbCategory?.name1 === ""
                     ? DetailOfDeliveryNoteFromStore?.data?.custom_bb_category
                     : selectedCategory?.BbCategory?.name1 || ""
                 }
