@@ -148,6 +148,11 @@ const useMasterHook = () => {
       name: originalName,
       client_group: searchClient,
       client_name: clientName?.material,
+      sales_group: salesGroup,
+      kundan_category: clientName?.kundan_category,
+      cs_category: clientName?.cs_category,
+      ot_category: clientName?.ot_category,
+      bb_category: clientName?.bb_category
     };
     if (clientName?.material === '' || clientName.material === undefined) {
       setError1('Input field cannot be empty');
@@ -225,11 +230,12 @@ const useMasterHook = () => {
         loginAcessToken?.token,
         values
       );
+
       if (apiRes?.status === 'success') {
         toast.success('Sub-category Name Created');
         dispatch(getSubCategoryData(loginAcessToken.token));
       } else {
-        toast.error('Sub Category Name already exist');
+        toast.error(`${apiRes?.message}`);
       }
       setError1('');
       setClientNameValue({
@@ -240,6 +246,7 @@ const useMasterHook = () => {
         ot_category: '',
         bb_category: '',
       });
+      setSearchCategory('')
       setSelectDropDownReset(true);
     }
   };
@@ -915,6 +922,7 @@ const useMasterHook = () => {
     setSearchCategory('');
   };
   const handleShowAddRecord = (item: any) => {
+    setSalesGroup(item?.sales_group)
     if (item?.karigar_name) {
       setInputValue1(item?.karigar_name);
       setOriginalName(item?.karigar_name);

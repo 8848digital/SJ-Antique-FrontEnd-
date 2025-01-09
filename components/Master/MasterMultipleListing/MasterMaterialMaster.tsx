@@ -116,6 +116,8 @@ const MultipleRecordMaster: any = ({
               error2={error2}
               error3={error3}
               handleDelete={handleDelete}
+              salesGroup={salesGroup}
+              setSalesGroup={setSalesGroup}
             />
           </div>
           <AddRecord

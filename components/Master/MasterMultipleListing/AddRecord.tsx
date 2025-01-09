@@ -132,22 +132,27 @@ const AddMaterial = ({
                 setSelectDropDownReset={setSelectDropDownReset}
               />
             </div>
-            <div className="col-lg-6">
-              <label htmlFor="" className='mt-2'>Category</label>
-              <input
-                type="text"
-                className="form-control border p-0 px-2"
-                name="category"
-                value={nameValue.category}
-                onChange={(e) => {
-                  HandleNameChange(e);
-                }}
-                required
-                autoComplete="off"
-              />
-            </div>
+
             {/* <div> {error3 && <p className="text-danger">{error3}</p>}</div> */}
           </>
+        )}
+
+        {/* Below should be link field */}
+        {value === "material" && (
+          <div className="col-lg-6">
+            <label htmlFor="" className='mt-2'>Category</label>
+            <input
+              type="text"
+              className="form-control border p-0 px-2"
+              name="category"
+              value={nameValue.category}
+              onChange={(e) => {
+                HandleNameChange(e);
+              }}
+              required
+              autoComplete="off"
+            />
+          </div>
         )}
         <div className="d-flex justify-content-start">
           <button

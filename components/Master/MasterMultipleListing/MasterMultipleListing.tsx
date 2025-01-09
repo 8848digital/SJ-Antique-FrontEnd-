@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import LoadMoreTableDataInMaster from '../LoadMoreTableDataInMaster';
 import DeleteModal from '@/components/DeleteModal';
-import AddRecordModal from '../AddRecordModal';
+import UpdateRecordModal from '../AddRecordModal';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
@@ -38,6 +38,8 @@ const MasterMaterialListing = ({
   searchClient,
   setSearchClient,
   handleDelete,
+  salesGroup,
+  setSalesGroup
 }: any) => {
   const [tableViewData, setTableViewData] = useState<any>(20);
 
@@ -254,7 +256,7 @@ const MasterMaterialListing = ({
               handleCloseDeleteModal={handleCloseDeleteModal}
               deleteRecord={deleteRecord}
             />
-            <AddRecordModal
+            <UpdateRecordModal
               showAddRecord={showAddRecord}
               handleCloseAddRecord={handleCloseAddRecord}
               nameValue={nameValue}
@@ -273,6 +275,8 @@ const MasterMaterialListing = ({
               setSearchClient={setSearchClient}
               value={value}
               isMultiple={true}
+              salesGroup={salesGroup}
+              setSalesGroup={setSalesGroup}
             />
           </div>
         </>

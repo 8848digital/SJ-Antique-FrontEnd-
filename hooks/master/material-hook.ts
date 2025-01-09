@@ -99,6 +99,7 @@ const useMaterialHook = () => {
       material_name: nameValue?.material,
       material_abbr: nameValue?.material_abbr,
       material_group: selectedMaterialGroup,
+      category: nameValue?.category
     };
     if (nameValue.material === '' || nameValue.material === undefined) {
       setError1('Input field cannot be empty');
