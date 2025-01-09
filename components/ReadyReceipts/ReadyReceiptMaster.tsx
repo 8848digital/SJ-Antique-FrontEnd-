@@ -79,6 +79,7 @@ const ReadyReceiptMaster = () => {
   const receiptName: any = capitalizeWords(lastPartOfURL);
   const buttonLoadingStateFromStore: any = useSelector(buttonLoadingState);
 
+  console.log({ warehouseListData })
   return (
     <>
       <div className="container-lg ">

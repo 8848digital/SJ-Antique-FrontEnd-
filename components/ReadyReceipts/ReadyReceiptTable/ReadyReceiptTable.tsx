@@ -109,8 +109,8 @@ const ReadyReceiptTable = ({
                 value={
                   readyReceiptType ||
                   (defaultKarigarData !== undefined &&
-                  defaultKarigarData?.length > 0 &&
-                  defaultKarigarData !== null
+                    defaultKarigarData?.length > 0 &&
+                    defaultKarigarData !== null
                     ? defaultKarigarData[0]?.custom_ready_receipt_type
                     : '')
                 }
@@ -123,7 +123,7 @@ const ReadyReceiptTable = ({
                   warehouseListData?.length > 0 &&
                   warehouseListData !== null &&
                   warehouseListData.map((data: any) => ({
-                    karigar_name: data.custom_store_location,
+                    karigar_name: data.name,
                   }))
                 }
                 defaultValue={'Mumbai'}

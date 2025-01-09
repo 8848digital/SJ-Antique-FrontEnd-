@@ -237,7 +237,7 @@ const useCustomerSaleHook = () => {
               updateSalesTableData(
                 getItemCodeDetailsApi?.data?.message?.data[0],
                 id,
-                "addNewRow"
+                true
               );
             }
           } catch (error) {
@@ -535,7 +535,7 @@ const useCustomerSaleHook = () => {
               updateSalesTableData(
                 getItemCodeDetailsApi?.data?.message?.data[0],
                 selectedItemCodeForCustomerSale?.id,
-                "addNewRow"
+                true
               );
             }
           } catch (error) {

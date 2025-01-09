@@ -111,51 +111,61 @@ const useCustomCustomerSalesHook = () => {
         OtCategory: { name1: categoryData?.ot_category?.name, type: categoryData?.ot_category?.type },
         BbCategory: { name1: categoryData?.bb_category?.name, type: categoryData?.bb_category?.type },
       })
-      // updateSalesTableData()
+      updateSalesTableData()
     }
   }
   useEffect(() => {
     getClientDetails()
   }, [selectedClient])
 
-  const updateSalesTableData = (data?: any, id?: number, addNewRow?: any) => {
+  const updateSalesTableData = (data?: any, id?: number, updateRow?: boolean) => {
     // console.log("id", data, id)
     // console.log("sele category for calculation", selectedItemCodeForCustomerSale, addNewRow)
     // console.log({ data })
+
     if (id) {
+      setSeletedCategory({
+        KunCategory: {},
+        CsCategory: {},
+        BbCategory: {},
+        OtCategory: {},
+      })
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
           if (tableData.idx === id) {
-            console.log("table", tableData, data)
+
             return {
               ...tableData,
               custom_gross_wt: data?.custom_gross_wt,
-              custom_kun_wt: tableData?.custom_kun_wt !== "" && tableData?.custom_kun_wt !== 0 && Number(
+              custom_kun_wt: updateRow === true && tableData?.custom_kun_wt !== "" && tableData?.custom_kun_wt !== 0 && Number(
                 (selectedCategory?.KunCategory && Object.keys(selectedCategory?.KunCategory)?.length > 0)
                   ? (data?.custom_kun_wt *
                     selectedCategory?.KunCategory?.type) /
                   100
                   : data?.custom_kun_wt
               ),
-              custom_cs_wt: tableData?.custom_cs_wt !== "" && tableData?.custom_cs_wt !== 0 && Number(
+              custom_cs_wt: updateRow === true && tableData?.custom_cs_wt !== "" && tableData?.custom_cs_wt !== 0 && Number(
                 (selectedCategory.CsCategory && Object.keys(selectedCategory.CsCategory)?.length > 0)
                   ? (data?.custom_cs_wt *
                     selectedCategory?.CsCategory?.type) /
                   100
                   : data?.custom_cs_wt
               ),
-              custom_bb_wt: tableData?.custom_bb_wt !== "" && tableData?.custom_bb_wt !== 0 && Number(
+              custom_bb_wt: updateRow === true && tableData?.custom_bb_wt !== "" && tableData?.custom_bb_wt !== 0 && Number(
                 (selectedCategory?.BbCategory && Object.keys(selectedCategory?.BbCategory)?.length > 0)
                   ? data?.custom_bb_wt - selectedCategory?.BbCategory?.type
                   : data.custom_bb_wt
               ),
-              custom_other_wt: tableData?.custom_other_wt !== "" && tableData?.custom_other_wt !== 0 && Number(
-                (selectedCategory?.OtCategory && Object.keys(selectedCategory?.OtCategory)?.length > 0)
-                  ? (data?.custom_other_wt *
-                    selectedCategory?.OtCategory?.type) /
-                  100
-                  : data?.custom_other_wt
-              ),
+              custom_other_wt:
+                updateRow === true &&
+                  tableData?.custom_other_wt !== "" &&
+                  tableData?.custom_other_wt !== 0 &&
+                  (selectedCategory?.OtCategory && Object.keys(selectedCategory?.OtCategory)?.length > 0)
+                  ? Number(
+                    (data?.custom_other_wt * selectedCategory?.OtCategory?.type) / 100
+                  )
+                  : data?.custom_other_wt,
+
               custom_net_wt:
                 Number(data?.custom_gross_wt) -
                 (Number(data?.custom_kun_wt) +
@@ -178,7 +188,7 @@ const useCustomCustomerSalesHook = () => {
       });
 
       // Update state with new row
-      if (addNewRow) {
+      if (updateRow) {
         setSalesTableData((prevSalesTableData: any) => {
           const lastRow = prevSalesTableData[prevSalesTableData.length - 1];
           const isEmpty = Object.values(lastRow).every(
