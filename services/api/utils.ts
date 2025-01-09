@@ -62,7 +62,7 @@ export const callDeleteAPI = async (url: string, token: any) => {
   await axios
     .delete(`${url}`, {
       ...getHeaders,
-      timeout: 5000,
+      // timeout: 5000,
     })
     .then((res: any) => {
       response = res;
