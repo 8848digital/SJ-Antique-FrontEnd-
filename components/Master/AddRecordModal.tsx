@@ -136,7 +136,7 @@ const AddRecordModal = ({
                     />
 
 
-                    <label htmlFor="">Sales Group</label>
+                    <label htmlFor="" className='mt-2'>Sales Group</label>
                     <span className="text-danger">*</span>
                     <SearchSelectInputField
                       karigarData={salesGroupData}
@@ -149,7 +149,7 @@ const AddRecordModal = ({
 
                     />
 
-                    <label htmlFor="">Kun Category</label>
+                    <label htmlFor="" className='mt-2'>Kun Category</label>
                     <select
                       className="form-select form-select-sm"
                       aria-label=".form-select-sm example"
@@ -169,7 +169,7 @@ const AddRecordModal = ({
                         ))}
                     </select>
 
-                    <label htmlFor="" className="mt-3">
+                    <label htmlFor="" className="mt-2">
                       CS Category
                     </label>
                     <select
@@ -192,7 +192,7 @@ const AddRecordModal = ({
                         ))}
                     </select>
 
-                    <label htmlFor="">OT Category</label>
+                    <label htmlFor="" className='mt-2'>OT Category</label>
                     <select
                       className="form-select form-select-sm "
                       aria-label=".form-select-sm example"
@@ -279,7 +279,7 @@ const AddRecordModal = ({
               </div>
               <input
                 type="text"
-                className="form-control border p-0 px-2"
+                className="form-control border p-0 px-2 w-50"
                 name="category"
                 value={nameValue?.category}
                 onChange={(e) => {

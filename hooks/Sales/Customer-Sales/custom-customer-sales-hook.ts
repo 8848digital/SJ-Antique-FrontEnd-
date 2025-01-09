@@ -126,29 +126,30 @@ const useCustomCustomerSalesHook = () => {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
           if (tableData.idx === id) {
+            console.log("table", tableData, data)
             return {
               ...tableData,
               custom_gross_wt: data?.custom_gross_wt,
-              custom_kun_wt: Number(
+              custom_kun_wt: tableData?.custom_kun_wt !== "" && tableData?.custom_kun_wt !== 0 && Number(
                 (selectedCategory?.KunCategory && Object.keys(selectedCategory?.KunCategory)?.length > 0)
                   ? (data?.custom_kun_wt *
                     selectedCategory?.KunCategory?.type) /
                   100
                   : data?.custom_kun_wt
               ),
-              custom_cs_wt: Number(
+              custom_cs_wt: tableData?.custom_cs_wt !== "" && tableData?.custom_cs_wt !== 0 && Number(
                 (selectedCategory.CsCategory && Object.keys(selectedCategory.CsCategory)?.length > 0)
                   ? (data?.custom_cs_wt *
                     selectedCategory?.CsCategory?.type) /
                   100
                   : data?.custom_cs_wt
               ),
-              custom_bb_wt: Number(
+              custom_bb_wt: tableData?.custom_bb_wt !== "" && tableData?.custom_bb_wt !== 0 && Number(
                 (selectedCategory?.BbCategory && Object.keys(selectedCategory?.BbCategory)?.length > 0)
                   ? data?.custom_bb_wt - selectedCategory?.BbCategory?.type
                   : data.custom_bb_wt
               ),
-              custom_other_wt: Number(
+              custom_other_wt: tableData?.custom_other_wt !== "" && tableData?.custom_other_wt !== 0 && Number(
                 (selectedCategory?.OtCategory && Object.keys(selectedCategory?.OtCategory)?.length > 0)
                   ? (data?.custom_other_wt *
                     selectedCategory?.OtCategory?.type) /

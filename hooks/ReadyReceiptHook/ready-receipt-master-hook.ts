@@ -3,7 +3,7 @@ import getPurchasreceiptListApi from '@/services/api/PurchaseReceipt/get-purchas
 import purchaseReceiptApi from '@/services/api/PurchaseReceipt/post-purchase-receipt-api';
 import UpdatePurchaseReceiptApi from '@/services/api/PurchaseReceipt/update-purchase-receipt-api';
 import { get_material_data } from '@/store/slices/Master/get-material-slice';
-import { get_warehouse_list_data } from '@/store/slices/Master/get-warehouse-list-slice';
+import { get_warehouse_list_data, getWarehouseListData } from '@/store/slices/Master/get-warehouse-list-slice';
 import { get_karigar_name_data } from '@/store/slices/Master/karigar-name-slice';
 import { get_kun_karigar_name_data } from '@/store/slices/Master/kun-karigar-name-slice';
 import { getSpecificReceipt } from '@/store/slices/PurchaseReceipt/getSpecificPurchaseReceipt-slice';
@@ -139,6 +139,7 @@ const useReadyReceipt = () => {
       }
     };
     getPurchaseList();
+    dispatch(getWarehouseListData(loginAcessToken?.token))
   }, [router]);
 
   const handleSaveModal = async (id: any) => {

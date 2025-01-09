@@ -275,22 +275,22 @@ const useCustomerSaleHook = () => {
         const updatedRow = {
           ...row,
           custom_kun_wt: Number(
-            name === "KunCategory" && selectedObj?.type
+            name === "KunCategory" && row.custom_kun_wt !== "" && row.custom_kun_wt !== 0 && selectedObj?.type
               ? (row.custom_kun_wt * selectedObj.type) / 100
               : row.custom_kun_wt
           ),
           custom_cs_wt: Number(
-            name === "CsCategory" && selectedObj?.type
+            name === "CsCategory" && row.custom_cs_wt !== "" && row.custom_cs_wt !== 0 && selectedObj?.type
               ? (row.custom_cs_wt * selectedObj.type) / 100
               : row.custom_cs_wt
           ),
           custom_bb_wt: Number(
-            name === "BbCategory" && selectedObj?.type
+            name === "BbCategory" && row.custom_bb_wt !== "" && row.custom_bb_wt !== 0 && selectedObj?.type
               ? row.custom_bb_wt - selectedObj.type
               : row.custom_bb_wt
           ),
           custom_other_wt: Number(
-            name === "OtCategory" && selectedObj?.type
+            name === "OtCategory" && row.custom_other_wt !== "" && row.custom_other_wt !== 0 && selectedObj?.type
               ? (row.custom_other_wt * selectedObj.type) / 100
               : row.custom_other_wt
           ),
