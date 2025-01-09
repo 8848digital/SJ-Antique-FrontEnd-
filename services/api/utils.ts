@@ -44,7 +44,7 @@ export const callPutAPI = async (url: string, body: any, token: any) => {
   await axios
     .put(`${url}`, body, {
       ...getHeaders,
-      timeout: 5000,
+      // timeout: 5000,
     })
     .then((res: any) => {
       response = res;
