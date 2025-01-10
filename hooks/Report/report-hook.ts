@@ -179,7 +179,7 @@ const useReportHook = () => {
             : [],
       });
     } catch (error) {
-      console.error('Error fetching data', error);
+
       setIsLoading(0);
     }
   };

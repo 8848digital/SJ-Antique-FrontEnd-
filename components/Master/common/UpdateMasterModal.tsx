@@ -6,7 +6,7 @@ const UpdateMasterModal = ({ showModal, setShowModal, handleInputChange, inputVa
     const handleCloseModal: any = () => {
         setShowModal(false)
     }
-    console.log({ inputValue })
+
     return (
         <>
             <Modal show={showModal} onHide={handleCloseModal} scrollable >

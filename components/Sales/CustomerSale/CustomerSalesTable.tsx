@@ -61,7 +61,6 @@ const CustomerSalesTable = ({
     initialStateOfCalculationRow
   );
 
-  console.log({ salesTableData })
 
 
   const calculateLiveCalculations = async () => {
@@ -169,7 +168,6 @@ const CustomerSalesTable = ({
   // };
 
 
-  console.log({ calculationRow })
   return (
     <>
       {showAddrowBtn === true && (

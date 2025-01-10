@@ -18,7 +18,6 @@ const useClienthook = () => {
     const [clientData, setClientData] = useState<any>([])
 
     const clientDataFromStore = useSelector(get_client_name_data)?.data;
-    console.log({ clientData })
 
     useEffect(() => {
         dispatch(getClientNameData(loginAcessToken.token));
@@ -56,7 +55,7 @@ const useClienthook = () => {
 
     }
     const handleMaterialChange = (value: any, material: any, index: number) => {
-        console.log("handle", value, material, index);
+
         setMaterialInputValue((prevValue: any) => {
             // Create a copy of the current array
             const updatedValues = [...prevValue];
@@ -74,10 +73,8 @@ const useClienthook = () => {
         });
     };
 
-    console.log({ materialValue })
     const handleSaveBtn: any = async () => {
-        console.log({ materialValue })
-        console.log({ inputValue })
+
 
         const { client_name, client_group, sales_group, kundan_category, cs_category, bb_category, ot_category } = inputValue;
 
@@ -104,7 +101,7 @@ const useClienthook = () => {
 
         // Call API
         let apiRes: any = await postClientApi(loginAcessToken?.token, values);
-        console.log({ apiRes })
+
         if (apiRes?.status === 'success') {
             toast.success('Client Name Created');
             dispatch(getClientNameData(loginAcessToken?.token));
@@ -142,7 +139,7 @@ const useClienthook = () => {
 
         // Call API
         let apiRes: any = await MasterUpdateApi(loginAcessToken?.token, values);
-        console.log({ apiRes })
+
         if (apiRes?.data?.message?.status === 'success') {
             dispatch(getClientNameData(loginAcessToken.token));
             toast.success('Client Updated');

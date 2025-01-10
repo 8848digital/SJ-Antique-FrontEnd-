@@ -51,11 +51,12 @@ const useKarigarHooks = () => {
       setError('Input field cannot be empty');
     } else {
       let apiRes: any = await postKarigarApi(loginAcessToken?.token, values);
+
       if (apiRes?.data?.message?.status === 'success') {
         toast.success('Karigar Name Created');
         dispatch(getKarigarNameData(loginAcessToken.token));
       } else {
-        toast.error('Karigar Name already exist');
+        toast.error(apiRes?.data?.message?.error);
       }
       setError('');
       setInputValue({ name: '', karigar_code: '' });
@@ -132,7 +133,7 @@ const useKarigarHooks = () => {
         toast.success('Kundan Karigar Name Created');
         dispatch(getKunKarigarNameData(loginAcessToken.token));
       } else {
-        toast.error('Kundan Karigar Name already exist');
+        toast.error(apiRes?.error);
       }
       setError('');
       setInputValue({ name: '', karigar_code: '' });

@@ -9,7 +9,6 @@ const AddMasterRecordForm = ({ handleInputChange, inputValue, handleMaterialChan
     let clientGroupList = useSelector(get_client_group_data).data;
     let salesGroupDataFromStore = useSelector(get_sales_group_data).data;
 
-    console.log({ salesGroupDataFromStore })
     const productCodeData: any = {
         fieldname: 'client_group',
         fieldtype: 'Link',
