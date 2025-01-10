@@ -95,13 +95,14 @@ const MasterTableListing = ({ tableData, handleDeleteBtn, handleUpdateBtn }: any
                                     ))}
 
                                     <div className="d-flex justify-content-around py-1">
+
                                         <button
                                             className={`btn btn-link p-0 ${styled.actions_btn}`}
                                             onClick={() => handleUpdateBtn(item)}
                                         >
                                             Update
                                         </button>
-                                        <div className="d-flex justify-space-between">
+                                        <div className="d-flex justify-space-between w-50">
                                             <button
                                                 className={`btn btn-link text-danger p-0 ${styled.actions_btn}`}
                                                 onClick={() => handleShowDeleteModal(item?.client_name)}
@@ -109,28 +110,31 @@ const MasterTableListing = ({ tableData, handleDeleteBtn, handleUpdateBtn }: any
                                             >
                                                 Delete
                                             </button>
-                                            {item?.delete === 0 && (
-                                                <OverlayTrigger
-                                                    trigger={['hover', 'click']}
-                                                    rootClose
-                                                    placement="left"
-                                                    overlay={
-                                                        <Popover
-                                                            id="popover-positioned-left"
-                                                            title="Popover left"
-                                                            className="p-2"
-                                                        >
-                                                            Unable to delete. Transactions exist for this entry.
-                                                        </Popover>
-                                                    }
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={faCircleInfo}
-                                                        className="ps-2"
-                                                        style={{ color: '#6164ef', marginTop: '5px' }}
-                                                    />
-                                                </OverlayTrigger>
-                                            )}
+                                            <div className="">
+                                                {item?.delete === 0 && (
+                                                    <OverlayTrigger
+                                                        trigger={['hover', 'click']}
+                                                        rootClose
+                                                        placement="left"
+                                                        overlay={
+                                                            <Popover
+                                                                id="popover-positioned-left"
+                                                                title="Popover left"
+                                                                className="p-2"
+                                                            >
+                                                                Unable to delete. Transactions exist for this entry.
+                                                            </Popover>
+                                                        }
+                                                    >
+                                                        <FontAwesomeIcon
+                                                            icon={faCircleInfo}
+                                                            className="ps-2"
+                                                            style={{ color: '#6164ef', marginTop: '5px' }}
+                                                        />
+                                                    </OverlayTrigger>
+                                                )}
+
+                                            </div>
                                         </div>
                                     </div>
                                 </tr>

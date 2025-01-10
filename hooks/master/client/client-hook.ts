@@ -55,7 +55,6 @@ const useClienthook = () => {
 
     }
     const handleMaterialChange = (value: any, material: any, index: number) => {
-
         setMaterialInputValue((prevValue: any) => {
             // Create a copy of the current array
             const updatedValues = [...prevValue];
@@ -65,17 +64,16 @@ const useClienthook = () => {
                 updatedValues[index] = { material: "", price: "" }; // Default structure
             }
 
-            // Update the specific fields
+            // Update the specific fields with validation for empty input
             updatedValues[index].material = material;
-            updatedValues[index].price = value;
+            updatedValues[index].price = value === "" ? "" : value; // Handle empty input
 
             return updatedValues; // Return the updated array
         });
     };
 
+
     const handleSaveBtn: any = async () => {
-
-
         const { client_name, client_group, sales_group, kundan_category, cs_category, bb_category, ot_category } = inputValue;
 
         // Validate required fields

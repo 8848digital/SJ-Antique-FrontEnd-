@@ -7,41 +7,41 @@ const MaterialTable = ({ handleMaterialChange, materialValue }: any) => {
 
     return (
         <>
-            <table className="table table-bordered mt-2">
-                <thead>
-                    <tr>
-                        <th scope="col">Sr No.</th>
-                        <th scope="col">Material</th>
-                        <th scope="col">Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {materialListDataFromStore && materialListDataFromStore?.length > 0 && materialListDataFromStore.map((materialData: any, index: any) => {
-                        return (<tr key={index}>
-                            <th scope="row">{index + 1}</th>
-                            <td scope="row" >{materialData?.material}</td>
-                            <td scope="row">
-                                <input
-                                    type="number"
-                                    className="form-control border p-0 px-2"
-                                    name="price"
-                                    value={materialValue[index]?.price || ""}
-                                    onChange={(e) => {
-                                        handleMaterialChange(e.target.value, materialData?.material, index);
-                                    }}
-                                    required
-                                    autoComplete="off"
-                                />
-                            </td>
+            <div className="" style={{ height: "300px", overflowY: "scroll" }}>
 
+                <table className="table table-bordered mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sr No.</th>
+                            <th scope="col">Material</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
 
-                        </tr>)
+                    <tbody>
 
-                    })}
-
-
-                </tbody>
-            </table>
+                        {materialListDataFromStore && materialListDataFromStore?.length > 0 && materialListDataFromStore.map((materialData: any, index: any) => {
+                            return (<tr key={index}>
+                                <th scope="row">{index + 1}</th>
+                                <td scope="row" >{materialData?.material}</td>
+                                <td scope="row">
+                                    <input
+                                        type="number"
+                                        className="form-control border p-0 px-2"
+                                        name="price"
+                                        value={materialValue[index]?.price || ""}
+                                        onChange={(e) => {
+                                            handleMaterialChange(e.target.value, materialData?.material, index);
+                                        }}
+                                        required
+                                        autoComplete="off"
+                                    />
+                                </td>
+                            </tr>)
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 }

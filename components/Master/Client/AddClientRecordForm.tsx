@@ -66,6 +66,7 @@ const AddMasterRecordForm = ({ handleInputChange, inputValue, handleMaterialChan
 
                     <div className="">
                         <CategorySelection handleNameChange={handleInputChange} inputValue={inputValue} />
+                        <button type="button" className="btn btn-outline-primary btn-sm mt-4 px-3" onClick={handleSaveBtn}>Save</button>
                     </div>
                 </div>
                 <div className="col-lg-6">
@@ -73,10 +74,6 @@ const AddMasterRecordForm = ({ handleInputChange, inputValue, handleMaterialChan
                 </div>
 
             </div>
-            <button type="button" className="btn btn-outline-primary btn-sm mt-4 px-3" onClick={handleSaveBtn}>Save</button>
-
-
-
         </>
     )
 }
