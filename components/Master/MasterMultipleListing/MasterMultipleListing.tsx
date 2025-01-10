@@ -130,9 +130,7 @@ const MasterMaterialListing = ({
                   {(value === 'material' || value === 'subCategory') && (
                     <th className="thead text-start ">{placeholder3}</th>
                   )}
-                  {value === "material" && (
-                    <th className="thead text-start ">Category</th>
-                  )}
+
                   <th className="thead text-start"></th>
                 </tr>
               </thead>
@@ -195,11 +193,7 @@ const MasterMaterialListing = ({
                               : item.material_group}
                           </td>
                         )}
-                        {
-                          value === "material" && (
-                            <td className="table-body-row cursor w-auto">{item?.category}</td>
-                          )
-                        }
+
                         <td className="table-body-row cursor w-25 p-0">
                           <div className="d-flex justify-content-around">
                             <button
