@@ -102,21 +102,78 @@ const useCustomCustomerSalesHook = () => {
 
 
   const getClientDetails: any = async () => {
-    let getClientDetails: any = await getClientDetailsApi(loginAcessToken?.token, selectedClient)
+    let getClientDetails: any = await getClientDetailsApi(loginAcessToken?.token, selectedClient);
     if (getClientDetails?.data?.message?.status === "success") {
-      let categoryData: any = getClientDetails?.data?.message?.data
-      setSeletedCategory({
+      let categoryData: any = getClientDetails?.data?.message?.data;
+
+      const selectedCategories = {
         KunCategory: { name1: categoryData?.kundan_category?.name, type: categoryData?.kundan_category?.type },
         CsCategory: { name1: categoryData?.cs_category?.name, type: categoryData?.cs_category?.type },
         OtCategory: { name1: categoryData?.ot_category?.name, type: categoryData?.ot_category?.type },
         BbCategory: { name1: categoryData?.bb_category?.name, type: categoryData?.bb_category?.type },
-      })
-      updateSalesTableData()
+      };
+
+      // Set selected categories
+      setSeletedCategory(selectedCategories);
+
+      // Update sales table data using the utility function
+      setSalesTableData((prevSalesTableData: any) => {
+        return updateSalesTableRows(prevSalesTableData, selectedCategories);
+      });
+
+      // Set document status
+      setStateForDocStatus(true);
     }
-  }
+  };
+
   useEffect(() => {
     getClientDetails()
   }, [selectedClient])
+
+
+  const updateSalesTableRows = (salesTableData: any[], selectedCategories: any) => {
+    return salesTableData.map((row: any) => {
+      const updatedRow = {
+        ...row,
+        custom_kun_wt: Number(
+          row.custom_kun_wt !== "" && row.custom_kun_wt !== 0 && selectedCategories.KunCategory?.type
+            ? (row.custom_kun_wt * selectedCategories.KunCategory.type) / 100
+            : row.custom_kun_wt
+        ),
+        custom_cs_wt: Number(
+          row.custom_cs_wt !== "" && row.custom_cs_wt !== 0 && selectedCategories.CsCategory?.type
+            ? (row.custom_cs_wt * selectedCategories.CsCategory.type) / 100
+            : row.custom_cs_wt
+        ),
+        custom_bb_wt: Number(
+          row.custom_bb_wt !== "" && row.custom_bb_wt !== 0 && selectedCategories.BbCategory?.type
+            ? row.custom_bb_wt - selectedCategories.BbCategory.type
+            : row.custom_bb_wt
+        ),
+        custom_other_wt: Number(
+          row.custom_other_wt !== "" && row.custom_other_wt !== 0 && selectedCategories.OtCategory?.type
+            ? (row.custom_other_wt * selectedCategories.OtCategory.type) / 100
+            : row.custom_other_wt
+        ),
+      };
+
+      // Recalculate the custom_net_wt and any other dependent values
+      updatedRow.custom_net_wt =
+        Number(updatedRow.custom_gross_wt) -
+        (Number(updatedRow.custom_kun_wt) +
+          Number(updatedRow.custom_cs_wt) +
+          Number(updatedRow.custom_bb_wt) +
+          Number(updatedRow.custom_other_wt));
+
+      updatedRow.custom_amount =
+        Number(updatedRow.custom_cs_amt) +
+        Number(updatedRow.custom_kun_amt) +
+        Number(updatedRow.custom_ot_amt) +
+        Number(updatedRow.custom_other);
+
+      return updatedRow;
+    });
+  };
 
   const updateSalesTableData = (data?: any, id?: number, updateRow?: boolean) => {
     // console.log("id", data, id)
@@ -124,12 +181,7 @@ const useCustomCustomerSalesHook = () => {
     // console.log({ data })
 
     if (id) {
-      setSeletedCategory({
-        KunCategory: {},
-        CsCategory: {},
-        BbCategory: {},
-        OtCategory: {},
-      })
+
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
           if (tableData.idx === id) {

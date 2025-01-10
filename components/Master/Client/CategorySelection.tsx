@@ -5,7 +5,7 @@ import { get_cs_category_data } from '@/store/slices/Master/get-cs-category-slic
 import { get_kun_category_data } from '@/store/slices/Master/get-kun-category-slice';
 import { get_ot_category_data } from '@/store/slices/Master/get-ot-category-slice';
 
-const CategorySelection = ({ handleNameChange }: any) => {
+const CategorySelection = ({ handleNameChange, inputValue }: any) => {
   let kunCategory = useSelector(get_kun_category_data)?.data;
   let bbCategory = useSelector(get_bb_category_data)?.data;
   let csCategory = useSelector(get_cs_category_data)?.data;
@@ -13,7 +13,7 @@ const CategorySelection = ({ handleNameChange }: any) => {
 
   return (
     <>
-      <div className="col-lg-6 ps-5">
+      <div className="">
         <div className="row mt-2 justify-content-end">
           <div className="col-lg-6">
             <label htmlFor="">Kun Category</label>
@@ -22,9 +22,11 @@ const CategorySelection = ({ handleNameChange }: any) => {
               aria-label=".form-select-sm example"
               id="kundan_category"
               name="kundan_category"
-              onChange={(e) => {
-                handleNameChange(e);
+              onChange={(e: any) => {
+                const { name, value } = e.target
+                handleNameChange(value, name);
               }}
+              value={inputValue?.kundan_category}
 
             >
               <option selected>Select Kun Category</option>
@@ -45,8 +47,10 @@ const CategorySelection = ({ handleNameChange }: any) => {
               id="cs_category"
               name="cs_category"
               onChange={(e) => {
-                handleNameChange(e);
+                const { name, value } = e.target
+                handleNameChange(value, name);
               }}
+              value={inputValue?.cs_category}
             >
               <option selected>Select CS Category</option>
               {csCategory?.length > 0 &&
@@ -65,8 +69,10 @@ const CategorySelection = ({ handleNameChange }: any) => {
               id="ot_category"
               name="ot_category"
               onChange={(e) => {
-                handleNameChange(e);
+                const { name, value } = e.target
+                handleNameChange(value, name);
               }}
+              value={inputValue?.ot_category}
             >
               <option selected>Select OT Category</option>
               {otCategory?.length > 0 &&
@@ -86,8 +92,10 @@ const CategorySelection = ({ handleNameChange }: any) => {
               id="bb_category"
               name="bb_category"
               onChange={(e) => {
-                handleNameChange(e);
+                const { name, value } = e.target
+                handleNameChange(value, name);
               }}
+              value={inputValue?.bb_category}
             >
               <option selected>Select BB Category</option>
               {bbCategory?.length > 0 &&

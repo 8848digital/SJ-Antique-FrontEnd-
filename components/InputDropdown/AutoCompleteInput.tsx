@@ -1,4 +1,5 @@
 import useAutoCompleteInputHook from '@/hooks/auto-complete-input-hook';
+import { useRef } from 'react';
 
 const AutoCompleteInput = ({
   data,
@@ -10,6 +11,8 @@ const AutoCompleteInput = ({
   handleSelectClientGroup,
   labelText,
   bgColor,
+  styleCss,
+  value
 }: any) => {
 
   const {
@@ -38,6 +41,8 @@ const AutoCompleteInput = ({
     labelText,
   });
   let hintOptionList: any = data?.length > 0 && data.map((value: any) => value);
+  const refToUse = value ? null : inputRef || useRef;
+
 
   return (
     <>
@@ -51,17 +56,19 @@ const AutoCompleteInput = ({
           onChange={(e) => handleFieldChange(e, data.fieldname)}
           onClick={handleDocumentClick}
           onMouseDown={handleShowDropdown}
-          className="form-control bg-primary bg-opacity-10"
+          className={`${styleCss ? "" : "bg-primary"} form-control  bg-opacity-10`}
+          style={styleCss ? { ...styleCss } : {}}
           //   className={`${
           //     bgColor?.current === true
           //       ? 'form-control dropdown-input client-name-input-chitti'
           //       : 'form-control input-field-chitti-table dropdown-input'
           //   }`}
           defaultValue={defaultValue}
+          value={value}
           readOnly={readOnlyFields}
           onKeyDown={(e: any) => handleKeyDown(e, data.fieldname)}
           autoComplete="off"
-          ref={inputRef}
+          ref={refToUse}
         />
 
         {showDropdown && (
