@@ -17,7 +17,7 @@ const MaterialTable = ({ handleMaterialChange, materialValue }: any) => {
                 </thead>
                 <tbody>
                     {materialListDataFromStore && materialListDataFromStore?.length > 0 && materialListDataFromStore.map((materialData: any, index: any) => {
-                        return (<tr>
+                        return (<tr key={index}>
                             <th scope="row">{index + 1}</th>
                             <td scope="row" >{materialData?.material}</td>
                             <td scope="row">
