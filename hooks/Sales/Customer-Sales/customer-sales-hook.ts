@@ -158,8 +158,6 @@ const useCustomerSaleHook = () => {
         }
         return item; // Return the unchanged item
       });
-
-      console.log("Updated Sales Table Data:", updatedData); // Debugging log
       return updatedData; // Return the updated array
     });
 

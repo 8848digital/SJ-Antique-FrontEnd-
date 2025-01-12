@@ -105,7 +105,6 @@ const useCustomCustomerSalesHook = () => {
     let getClientDetails: any = await getClientDetailsApi(loginAcessToken?.token, selectedClient);
     if (getClientDetails?.data?.message?.status === "success") {
       let categoryData: any = getClientDetails?.data?.message?.data;
-      console.log({ categoryData })
       const selectedCategories = {
         KunCategory: { name1: categoryData?.kundan_category?.name, type: categoryData?.kundan_category?.type },
         CsCategory: { name1: categoryData?.cs_category?.name, type: categoryData?.cs_category?.type },

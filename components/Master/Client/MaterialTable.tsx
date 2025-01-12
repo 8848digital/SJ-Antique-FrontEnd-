@@ -1,10 +1,10 @@
-import { get_material_data } from '@/store/slices/Master/get-material-slice';
 import React from 'react'
 import { useSelector } from 'react-redux';
+import { get_material_data } from '@/store/slices/Master/get-material-slice';
 
 const MaterialTable = ({ handleMaterialChange, materialValue }: any) => {
     let materialListDataFromStore = useSelector(get_material_data)?.data;
-    console.log({ materialListDataFromStore })
+
     return (
         <>
             <div className="" style={{ height: "300px", overflowY: "scroll" }}>

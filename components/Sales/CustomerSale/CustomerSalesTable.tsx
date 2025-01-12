@@ -129,30 +129,6 @@ const CustomerSalesTable = ({
     calculateLiveCalculations();
   }, [salesTableData]);
 
-  // const calculateCustomNetWt: any = () => {
-  //   return salesTableData.map((item: any, index: any) => {
-  //     const netWt =
-  //       Number(item.custom_gross_wt) -
-  //       (Number(item.custom_kun_wt) +
-  //         Number(item.custom_cs_wt) +
-  //         Number(item.custom_bb_wt) +
-  //         Number(item.custom_other_wt));
-
-  //     const updatedItem = {
-  //       ...item,
-  //       custom_net_wt: netWt < 0 ? 0.0 : parseFloat(netWt.toFixed(3)),
-  //     };
-
-  //     if (query?.hasOwnProperty('deliveryNoteId')) {
-  //     } else {
-  //       salesTableData[index] = updatedItem;
-  //     }
-
-  //     return updatedItem.custom_net_wt;
-  //   });
-  // };
-
-  console.log({ salesTableData })
 
   return (
     <>

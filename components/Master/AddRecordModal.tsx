@@ -37,7 +37,7 @@ const AddRecordModal = ({
 
   const key = pathcontent[pathcontent?.length - 1];
 
-  // console.log({ nameValue })
+
 
   let kunCategory = useSelector(get_kun_category_data)?.data;
   let bbCategory = useSelector(get_bb_category_data)?.data;
