@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const MaterialTable = ({ handleMaterialChange, materialValue }: any) => {
     let materialListDataFromStore = useSelector(get_material_data)?.data;
-
+    console.log({ materialListDataFromStore })
     return (
         <>
             <div className="" style={{ height: "300px", overflowY: "scroll" }}>
@@ -31,7 +31,7 @@ const MaterialTable = ({ handleMaterialChange, materialValue }: any) => {
                                         name="price"
                                         value={materialValue[index]?.price || ""}
                                         onChange={(e) => {
-                                            handleMaterialChange(e.target.value, materialData?.material, index);
+                                            handleMaterialChange(e.target.value, materialData?.material, materialData?.material_group, index);
                                         }}
                                         required
                                         autoComplete="off"
