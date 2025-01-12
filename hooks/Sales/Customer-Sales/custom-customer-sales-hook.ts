@@ -44,6 +44,7 @@ const useCustomCustomerSalesHook = () => {
 
   const [selectedItemCodeForCustomerSale, setSelectedItemCodeForCustomerSale] =
     useState<any>({ id: '', item_code: '' });
+  const [clientDetails, setClientDetails] = useState<any>({})
   const [selectedClient, setSelectedClient] = useState<string>('');
   const [salesTableData, setSalesTableData] = useState<any>([
     SalesTableInitialState,
@@ -100,13 +101,10 @@ const useCustomCustomerSalesHook = () => {
     setItemCodeDropdownReset(true);
   };
 
-  console.log({ salesTableData })
-
   const getClientDetails: any = async () => {
     let getClientDetails: any = await getClientDetailsApi(loginAcessToken?.token, selectedClient);
     if (getClientDetails?.data?.message?.status === "success") {
       let categoryData: any = getClientDetails?.data?.message?.data;
-
       const selectedCategories = {
         KunCategory: { name1: categoryData?.kundan_category?.name, type: categoryData?.kundan_category?.type },
         CsCategory: { name1: categoryData?.cs_category?.name, type: categoryData?.cs_category?.type },
@@ -114,7 +112,32 @@ const useCustomCustomerSalesHook = () => {
         BbCategory: { name1: categoryData?.bb_category?.name, type: categoryData?.bb_category?.type },
       };
 
-      // Set selected categories
+      setClientDetails({
+        tableData: {
+          idx: salesTableData?.length + 1,
+          custom_pr_bb_wt: '',
+          custom_pr_cs_wt: '',
+          custom_pr_kun_wt: '',
+          custom_pr_other_wt: '',
+          item_code: '',
+          custom_kun_wt: selectedCategories?.KunCategory?.type,
+          custom_cs_wt: selectedCategories?.CsCategory?.type,
+          custom_bb_wt: selectedCategories?.BbCategory?.type,
+          custom_other_wt: selectedCategories?.OtCategory?.type,
+          custom_net_wt: '',
+          custom_cs: Number(kunCsOtFixedAmt?.csFixedAmt),
+          custom_cs_amt: 0,
+          custom_kun_pc: '',
+          custom_kun: Number(kunCsOtFixedAmt?.kunFixedAmt),
+          custom_kun_amt: 0,
+          custom_ot_: Number(kunCsOtFixedAmt?.otFixedAmt),
+          custom_ot_amt: 0,
+          custom_other: '',
+          custom_amount: 0,
+          warehouse: '',
+        },
+        material_data: categoryData?.materials
+      })
       setSeletedCategory(selectedCategories);
 
       // Update sales table data using the utility function
@@ -136,26 +159,10 @@ const useCustomCustomerSalesHook = () => {
     return salesTableData.map((row: any) => {
       const updatedRow = {
         ...row,
-        custom_kun_wt: Number(
-          row.custom_kun_wt !== "" && row.custom_kun_wt !== 0 && selectedCategories.KunCategory?.type
-            ? (row.custom_kun_wt * selectedCategories.KunCategory.type) / 100
-            : selectedCategories?.KunCategory?.type
-        ),
-        custom_cs_wt: Number(
-          row.custom_cs_wt !== "" && row.custom_cs_wt !== 0 && selectedCategories.CsCategory?.type
-            ? (row.custom_cs_wt * selectedCategories.CsCategory.type) / 100
-            : selectedCategories?.CsCategory?.type
-        ),
-        custom_bb_wt: Number(
-          row.custom_bb_wt !== "" && row.custom_bb_wt !== 0 && selectedCategories.BbCategory?.type
-            ? row.custom_bb_wt - selectedCategories.BbCategory.type
-            : selectedCategories?.OtCategory?.type
-        ),
-        custom_other_wt: Number(
-          row.custom_other_wt !== "" && row.custom_other_wt !== 0 && selectedCategories.OtCategory?.type
-            ? (row.custom_other_wt * selectedCategories.OtCategory.type) / 100
-            : selectedCategories?.BbCategory?.type
-        ),
+        custom_kun_wt: Number(selectedCategories?.KunCategory?.type),
+        custom_cs_wt: Number(selectedCategories?.CsCategory?.type),
+        custom_bb_wt: Number(selectedCategories?.BbCategory?.type),
+        custom_other_wt: Number(selectedCategories?.OtCategory?.type),
       };
 
       // Recalculate the custom_net_wt and any other dependent values
@@ -176,61 +183,104 @@ const useCustomCustomerSalesHook = () => {
     });
   };
 
+  // Helper function to round numbers to 3 decimal places
+  const roundToThreeDecimal = (value: number): number => {
+    return parseFloat(value.toFixed(3));
+  };
+
+  // Helper function to calculate `custom_bb_wt`
+  const calculateBbWt = (data: any, selectedCategory: any): number => {
+    let calculatedBbWt =
+      Object?.keys(selectedCategory?.BbCategory)?.length > 0
+        ? data?.custom_bb_wt - selectedCategory?.BbCategory?.type / 100
+        : data?.custom_bb_wt;
+
+    return calculatedBbWt > 0 ? calculatedBbWt : 0; // Ensure non-negative value
+  };
+
+  // Helper function to calculate Kundan amount and unit
+  const calculateKundanAmounts = (
+    clientDetails: any,
+    data: any
+  ): { kunAmt: number; kunUnit: number } => {
+    let kunAmt = 0; // Total amount for Kundan
+    let kunUnit = 0; // Kundan unit calculation
+
+    if (clientDetails?.material_data?.length > 0 && data?.material_table?.length > 0) {
+      const kundanMaterialFromClient = clientDetails?.material_data.filter(
+        (materialData: any) => materialData.material_group === "Kundan"
+      );
+      const kundanMaterialFromItem = data?.material_table.filter(
+        (materialData: any) => materialData.material_group === "Kundan"
+      );
+
+      kundanMaterialFromClient.forEach((clientMaterial: any) => {
+        kundanMaterialFromItem.forEach((itemMaterial: any) => {
+          if (clientMaterial?.material === itemMaterial?.material) {
+            kunAmt += clientMaterial.price * itemMaterial.pcs;
+          }
+        });
+      });
+
+      if (data?.custom_kun_pcs) {
+        kunUnit = kunAmt / data?.custom_kun_pcs;
+      }
+    }
+
+    return { kunAmt, kunUnit };
+  };
+
+  // Helper function to calculate `custom_net_wt`
+  const calculateNetWt = (data: any, calculatedBbWt: number): number => {
+    return (
+      Number(data?.custom_gross_wt) -
+      (Number(data?.custom_kun_wt) +
+        Number(data?.custom_cs_wt) +
+        Number(calculatedBbWt) +
+        Number(data?.custom_other_wt))
+    );
+  };
+
+  // Main update function
   const updateSalesTableData = (data?: any, id?: number, updateRow?: boolean) => {
-    // console.log("id", data, id)
-    // console.log("sele category for calculation", selectedItemCodeForCustomerSale, addNewRow)
-    // console.log({ data })
-
     if (id) {
-
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
           if (tableData.idx === id) {
+            // Calculate values
+            const calculatedBbWt = calculateBbWt(data, selectedCategory);
+            const { kunAmt, kunUnit } = calculateKundanAmounts(clientDetails, data);
+            const customNetWt = calculateNetWt(data, calculatedBbWt);
 
+            // Return updated row
             return {
               ...tableData,
-              custom_gross_wt: data?.custom_gross_wt,
-              custom_kun_wt: updateRow === true && tableData?.custom_kun_wt !== "" && tableData?.custom_kun_wt !== 0 && Number(
-                (selectedCategory?.KunCategory && Object.keys(selectedCategory?.KunCategory)?.length > 0)
-                  ? (data?.custom_kun_wt *
-                    selectedCategory?.KunCategory?.type) /
-                  100
+              custom_gross_wt: roundToThreeDecimal(data?.custom_gross_wt),
+              custom_kun_wt: roundToThreeDecimal(
+                Object?.keys(selectedCategory?.KunCategory)?.length > 0
+                  ? data?.custom_kun_wt * selectedCategory?.KunCategory?.type / 100
                   : data?.custom_kun_wt
               ),
-              custom_cs_wt: updateRow === true && tableData?.custom_cs_wt !== "" && tableData?.custom_cs_wt !== 0 && Number(
-                (selectedCategory.CsCategory && Object.keys(selectedCategory.CsCategory)?.length > 0)
-                  ? (data?.custom_cs_wt *
-                    selectedCategory?.CsCategory?.type) /
-                  100
-                  : data?.custom_cs_wt
+              custom_cs_wt: roundToThreeDecimal(
+                Object?.keys(selectedCategory?.CsCategory)?.length > 0
+                  ? data?.custom_cs_wt * selectedCategory?.CsCategory?.type / 100
+                  : 0
               ),
-              custom_bb_wt: updateRow === true && tableData?.custom_bb_wt !== "" && tableData?.custom_bb_wt !== 0 && Number(
-                (selectedCategory?.BbCategory && Object.keys(selectedCategory?.BbCategory)?.length > 0)
-                  ? data?.custom_bb_wt - selectedCategory?.BbCategory?.type
-                  : data.custom_bb_wt
+              custom_bb_wt: roundToThreeDecimal(calculatedBbWt),
+              custom_other_wt: roundToThreeDecimal(
+                Object?.keys(selectedCategory?.OtCategory)?.length > 0
+                  ? data?.custom_other_wt * selectedCategory?.OtCategory?.type / 100
+                  : 0
               ),
-              custom_other_wt:
-                updateRow === true &&
-                  tableData?.custom_other_wt !== "" &&
-                  tableData?.custom_other_wt !== 0 &&
-                  (selectedCategory?.OtCategory && Object.keys(selectedCategory?.OtCategory)?.length > 0)
-                  ? Number(
-                    (data?.custom_other_wt * selectedCategory?.OtCategory?.type) / 100
-                  )
-                  : data?.custom_other_wt,
-
-              custom_net_wt:
-                Number(data?.custom_gross_wt) -
-                (Number(data?.custom_kun_wt) +
-                  Number(data?.custom_cs_wt) +
-                  Number(data?.custom_bb_wt) +
-                  Number(data?.custom_other_wt)),
-              custom_kun_pc: Number(data?.custom_kun_pcs),
-              custom_pr_kun_wt: Number(data?.custom_kun_wt),
-              custom_pr_cs_wt: Number(data?.custom_cs_wt),
-              custom_pr_bb_wt: Number(data?.custom_bb_wt),
-              custom_pr_other_wt: Number(data?.custom_other_wt),
-              warehouse: data.custom_warehouse,
+              custom_net_wt: roundToThreeDecimal(customNetWt),
+              custom_kun_pc: roundToThreeDecimal(Number(data?.custom_kun_pcs)),
+              custom_kun: roundToThreeDecimal(kunUnit),
+              custom_kun_amt: roundToThreeDecimal(kunAmt),
+              custom_pr_kun_wt: roundToThreeDecimal(Number(data?.custom_kun_wt)),
+              custom_pr_cs_wt: roundToThreeDecimal(Number(data?.custom_cs_wt)),
+              custom_pr_bb_wt: roundToThreeDecimal(Number(calculatedBbWt)),
+              custom_pr_other_wt: roundToThreeDecimal(Number(data?.custom_other_wt)),
+              warehouse: data?.custom_warehouse,
             };
           } else {
             return tableData;
@@ -240,24 +290,28 @@ const useCustomCustomerSalesHook = () => {
         return updatedTable;
       });
 
-      // Update state with new row
+      // Add new row if `updateRow` is true
       if (updateRow) {
         setSalesTableData((prevSalesTableData: any) => {
           const lastRow = prevSalesTableData[prevSalesTableData.length - 1];
           const isEmpty = Object.values(lastRow).every(
-            (value) => value === null || value === ''
+            (value) => value === null || value === ""
           );
-
           if (isEmpty) {
             return prevSalesTableData;
           } else {
-            return [...prevSalesTableData, newRowDataForSalesTable];
+            return [
+              ...prevSalesTableData,
+              Object?.keys(clientDetails)?.length > 0
+                ? clientDetails?.tableData
+                : newRowDataForSalesTable,
+            ];
           }
         });
-
       }
     }
   };
+
 
   const updateBarcodeSalesTableData = (data: any, id?: number, addNewRow?: any) => {
     if (id) {

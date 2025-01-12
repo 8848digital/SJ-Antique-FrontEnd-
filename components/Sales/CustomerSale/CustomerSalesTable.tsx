@@ -61,8 +61,6 @@ const CustomerSalesTable = ({
     initialStateOfCalculationRow
   );
 
-
-
   const calculateLiveCalculations = async () => {
     const liveCalculations = salesTableData?.reduce(
       (accumulator: any, row: any) => {
@@ -122,20 +120,7 @@ const CustomerSalesTable = ({
     );
     liveCalculations.custom_cs_amt = totalCustomCsAmount;
 
-    // Calculate total custom net weight for custom_net_wt
-    const totalCustomNetWeight = salesTableData.reduce(
-      (total: any, item: any) => {
-        const customNetWt =
-          parseFloat(item.custom_gross_wt) -
-          (parseFloat(item.custom_kun_wt) +
-            parseFloat(item.custom_cs_wt) +
-            parseFloat(item.custom_bb_wt) +
-            parseFloat(item.custom_other_wt));
-        return total + Math.max(customNetWt, 0);
-      },
-      0
-    );
-    liveCalculations.custom_net_wt = totalCustomNetWeight;
+
 
     setCalculationRow(liveCalculations);
   };
@@ -143,29 +128,6 @@ const CustomerSalesTable = ({
   useEffect(() => {
     calculateLiveCalculations();
   }, [salesTableData]);
-
-  // const calculateCustomNetWt: any = () => {
-  //   return salesTableData.map((item: any, index: any) => {
-  //     const netWt =
-  //       Number(item.custom_gross_wt) -
-  //       (Number(item.custom_kun_wt) +
-  //         Number(item.custom_cs_wt) +
-  //         Number(item.custom_bb_wt) +
-  //         Number(item.custom_other_wt));
-
-  //     const updatedItem = {
-  //       ...item,
-  //       custom_net_wt: netWt < 0 ? 0.0 : parseFloat(netWt.toFixed(3)),
-  //     };
-
-  //     if (query?.hasOwnProperty('deliveryNoteId')) {
-  //     } else {
-  //       salesTableData[index] = updatedItem;
-  //     }
-
-  //     return updatedItem.custom_net_wt;
-  //   });
-  // };
 
 
   return (
@@ -327,8 +289,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_cs_wt)}
-                          defaultValue={Number(item.custom_cs_wt)}
+                          value={Number(item?.custom_cs_wt)}
+                          defaultValue={Number(item?.custom_cs_wt)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -345,9 +307,9 @@ const CustomerSalesTable = ({
                           type="number"
                           min={0}
                           value={Number(
-                            item.custom_bb_wt < 0 ? 0 : item.custom_bb_wt
+                            item?.custom_bb_wt < 0 ? 0 : item?.custom_bb_wt
                           )}
-                          defaultValue={Number(item.custom_bb_wt)}
+                          defaultValue={Number(item?.custom_bb_wt)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -363,8 +325,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_other_wt)}
-                          defaultValue={Number(item.custom_other_wt)}
+                          value={Number(item?.custom_other_wt)}
+                          defaultValue={Number(item?.custom_other_wt)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -382,8 +344,8 @@ const CustomerSalesTable = ({
                           type="number"
                           min={0}
                           // value={calculateCustomNetWt()}
-                          value={Number(item.custom_net_wt)}
-                          defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
+                          value={Number(item?.custom_net_wt)}
+                          defaultValue={Number(item?.custom_net_wt)?.toFixed(3)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -400,8 +362,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_cs)}
-                          defaultValue={Number(item.custom_cs)}
+                          value={Number(item?.custom_cs)}
+                          defaultValue={Number(item?.custom_cs)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -418,9 +380,9 @@ const CustomerSalesTable = ({
                           type="number"
                           min={0}
                           value={Number(
-                            Number(item.custom_cs) * Number(item.custom_cs_wt)
+                            Number(item?.custom_cs) * Number(item?.custom_cs_wt)
                           )?.toFixed(2)}
-                          defaultValue={Number(item.custom_cs_amt)}
+                          defaultValue={Number(item?.custom_cs_amt)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -437,8 +399,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_kun_pc)}
-                          defaultValue={Number(item.custom_kun_pc)}
+                          value={Number(item?.custom_kun_pc)}
+                          defaultValue={Number(item?.custom_kun_pc)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -454,8 +416,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_kun)}
-                          defaultValue={Number(item.custom_kun)}
+                          value={Number(item?.custom_kun)}
+                          defaultValue={Number(item?.custom_kun)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -471,8 +433,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_kun_amt)?.toFixed(2)}
-                          defaultValue={Number(item.custom_kun_amt)?.toFixed(2)}
+                          value={Number(item?.custom_kun_amt)?.toFixed(2)}
+                          defaultValue={Number(item?.custom_kun_amt)?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -489,8 +451,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_ot_)}
-                          defaultValue={Number(item.custom_ot_)}
+                          value={Number(item?.custom_ot_)}
+                          defaultValue={Number(item?.custom_ot_)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -506,8 +468,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_ot_amt)?.toFixed(2)}
-                          defaultValue={Number(item.custom_ot_amt)?.toFixed(2)}
+                          value={Number(item?.custom_ot_amt)?.toFixed(2)}
+                          defaultValue={Number(item?.custom_ot_amt)?.toFixed(2)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -523,8 +485,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_other)}
-                          defaultValue={Number(item.custom_other)}
+                          value={Number(item?.custom_other)}
+                          defaultValue={Number(item?.custom_other)}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -540,8 +502,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_amount)}
-                          defaultValue={Number(item.custom_amount)}
+                          value={Number(item?.custom_amount)}
+                          defaultValue={Number(item?.custom_amount)}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(

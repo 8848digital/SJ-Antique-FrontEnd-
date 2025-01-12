@@ -18,8 +18,6 @@ const CustomerSalesTable2 = ({
     get_detail_delivery_note_data
   );
 
-  // console.log({ kunCategoryListData })
-
   return (
     <div className="m-0">
       <table className="table table-hover table-bordered">

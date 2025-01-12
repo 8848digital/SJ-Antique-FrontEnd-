@@ -54,18 +54,20 @@ const useClienthook = () => {
         }))
 
     }
-    const handleMaterialChange = (value: any, material: any, index: number) => {
+    const handleMaterialChange = (value: any, material: any, material_group: any, index: number) => {
+
         setMaterialInputValue((prevValue: any) => {
             // Create a copy of the current array
             const updatedValues = [...prevValue];
 
             // Ensure the target object exists at the given index
             if (!updatedValues[index]) {
-                updatedValues[index] = { material: "", price: "" }; // Default structure
+                updatedValues[index] = { material: "", material_group: '', price: "" }; // Default structure
             }
 
             // Update the specific fields with validation for empty input
             updatedValues[index].material = material;
+            updatedValues[index].material_group = material_group;
             updatedValues[index].price = value === "" ? "" : value; // Handle empty input
 
             return updatedValues; // Return the updated array

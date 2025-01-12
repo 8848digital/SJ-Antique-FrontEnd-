@@ -1,6 +1,6 @@
-import { get_material_data } from '@/store/slices/Master/get-material-slice';
 import React from 'react'
 import { useSelector } from 'react-redux';
+import { get_material_data } from '@/store/slices/Master/get-material-slice';
 
 const MaterialTable = ({ handleMaterialChange, materialValue }: any) => {
     let materialListDataFromStore = useSelector(get_material_data)?.data;
@@ -31,7 +31,7 @@ const MaterialTable = ({ handleMaterialChange, materialValue }: any) => {
                                         name="price"
                                         value={materialValue[index]?.price || ""}
                                         onChange={(e) => {
-                                            handleMaterialChange(e.target.value, materialData?.material, index);
+                                            handleMaterialChange(e.target.value, materialData?.material, materialData?.material_group, index);
                                         }}
                                         required
                                         autoComplete="off"

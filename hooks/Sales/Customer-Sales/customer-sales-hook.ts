@@ -106,61 +106,82 @@ const useCustomerSaleHook = () => {
   }, []);
 
   const handleSalesTableFieldChange = (
-    itemIdx: any,
-    fieldName: any,
+    itemIdx: number,
+    fieldName: string,
     value: any
   ) => {
-    setSalesTableData((prevData: any) => {
-      return prevData.map((item: any) => {
+    setSalesTableData((prevData: any[]) => {
+      // Create a new array and update the specific item
+      const updatedData = prevData.map((item) => {
         if (item.idx === itemIdx) {
           const updatedItem = {
             ...item,
-            [fieldName]: Number(value),
+            [fieldName]: Number(value), // Update the specific field
           };
 
-          // Calculate the dependent values
+          // Recalculate custom_net_wt and dependent fields
           updatedItem.custom_net_wt = Math.max(
             0,
-            Number(updatedItem.custom_gross_wt) -
-            (Number(updatedItem.custom_kun_wt) +
-              Number(updatedItem.custom_cs_wt) +
-              Number(updatedItem.custom_bb_wt) +
-              Number(updatedItem.custom_other_wt))
+            Number(updatedItem.custom_gross_wt || 0) -
+            (Number(updatedItem.custom_kun_wt || 0) +
+              Number(updatedItem.custom_cs_wt || 0) +
+              Number(updatedItem.custom_bb_wt || 0) +
+              Number(updatedItem.custom_other_wt || 0))
           );
 
-          if (fieldName === 'custom_cs') {
-            updatedItem.custom_cs_amt =
-              Number(updatedItem.custom_cs_wt) * value;
+          // Recalculate amounts
+          if (fieldName === "custom_cs_wt") {
+            updatedItem.custom_cs_amt = Number(updatedItem.custom_cs_wt) * value;
           }
 
-          if (fieldName === 'custom_kun') {
+          if (fieldName === "custom_kun_wt") {
             updatedItem.custom_kun_amt =
-              Number(updatedItem.custom_kun_pc) * value;
+              Number(updatedItem.custom_kun_pc || 0) * Number(value);
           }
 
-          if (fieldName === 'custom_kun_pc') {
-            updatedItem.custom_kun_amt = Number(updatedItem.custom_kun) * value;
+          if (fieldName === "custom_kun_pc") {
+            updatedItem.custom_kun_amt =
+              Number(updatedItem.custom_kun_wt || 0) * Number(value);
           }
 
-          if (fieldName === 'custom_ot_') {
+          if (fieldName === "custom_other_wt") {
             updatedItem.custom_ot_amt =
-              Number(updatedItem.custom_other_wt) * value;
+              Number(updatedItem.custom_other_wt || 0) * Number(value);
           }
 
           updatedItem.custom_amount =
-            Number(updatedItem.custom_cs_amt) +
-            Number(updatedItem.custom_kun_amt) +
-            Number(updatedItem.custom_ot_amt) +
-            Number(updatedItem.custom_other);
-          updateSalesTableData(updatedItem, itemIdx)
-          return updatedItem;
-        } else {
-          return item;
+            Number(updatedItem.custom_cs_amt || 0) +
+            Number(updatedItem.custom_kun_amt || 0) +
+            Number(updatedItem.custom_ot_amt || 0);
+
+          return updatedItem; // Return the updated item
         }
+        return item; // Return the unchanged item
       });
+      return updatedData; // Return the updated array
     });
-    setStateForDocStatus(true);
+
+    setStateForDocStatus(true); // Update the document status
   };
+
+  useEffect(() => {
+    setSalesTableData((prevData: any) => {
+      return prevData.map((item: any) => ({
+        ...item,
+        custom_net_wt: Math.max(
+          0,
+          Number(item.custom_gross_wt || 0) -
+          (Number(item.custom_kun_wt || 0) +
+            Number(item.custom_cs_wt || 0) +
+            Number(item.custom_bb_wt || 0) +
+            Number(item.custom_other_wt || 0))
+        ),
+      }));
+    });
+  }, [salesTableData?.length > 0 && salesTableData?.map((item: any) => item?.custom_gross_wt).join(",")]);
+
+
+
 
   const itemCodeListFunc = () => {
     if (barcodedata === 1) {
@@ -274,26 +295,10 @@ const useCustomerSaleHook = () => {
       return prevSalesTableData.map((row: any) => {
         const updatedRow = {
           ...row,
-          custom_kun_wt: Number(
-            name === "KunCategory" && row.custom_kun_wt !== "" && row.custom_kun_wt !== 0 && selectedObj?.type
-              ? (row.custom_kun_wt * selectedObj.type) / 100
-              : row.custom_kun_wt
-          ),
-          custom_cs_wt: Number(
-            name === "CsCategory" && row.custom_cs_wt !== "" && row.custom_cs_wt !== 0 && selectedObj?.type
-              ? (row.custom_cs_wt * selectedObj.type) / 100
-              : row.custom_cs_wt
-          ),
-          custom_bb_wt: Number(
-            name === "BbCategory" && row.custom_bb_wt !== "" && row.custom_bb_wt !== 0 && selectedObj?.type
-              ? row.custom_bb_wt - selectedObj.type
-              : row.custom_bb_wt
-          ),
-          custom_other_wt: Number(
-            name === "OtCategory" && row.custom_other_wt !== "" && row.custom_other_wt !== 0 && selectedObj?.type
-              ? (row.custom_other_wt * selectedObj.type) / 100
-              : row.custom_other_wt
-          ),
+          custom_kun_wt: Number((row.custom_kun_wt * selectedObj?.type) / 100),
+          custom_cs_wt: Number((row.custom_cs_wt * selectedObj?.type) / 100),
+          custom_bb_wt: Number(row.custom_bb_wt - selectedObj?.type),
+          custom_other_wt: Number((row.custom_other_wt * selectedObj?.type) / 100),
         };
 
         // Recalculate the custom_net_wt and any other dependent values
