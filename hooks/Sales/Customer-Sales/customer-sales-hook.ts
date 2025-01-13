@@ -176,9 +176,31 @@ const useCustomerSaleHook = () => {
             Number(item.custom_bb_wt || 0) +
             Number(item.custom_other_wt || 0))
         ),
+        custom_amount: Math.max(
+          0,
+          Number(item.custom_cs_amt || 0) +
+          Number(item.custom_kun_amt || 0) +
+          Number(item.custom_ot_amt || 0) +
+          Number(item.custom_other || 0)
+        ),
       }));
     });
-  }, [salesTableData?.length > 0 && salesTableData?.map((item: any) => item?.custom_gross_wt).join(",")]);
+  }, [
+    salesTableData?.map((item: any) =>
+      [
+        item?.custom_gross_wt,
+        item?.custom_kun_wt,
+        item?.custom_cs_wt,
+        item?.custom_bb_wt,
+        item?.custom_other_wt,
+        item?.custom_cs_amt,
+        item?.custom_kun_amt,
+        item?.custom_ot_amt,
+        item?.custom_other,
+      ].join(",")
+    ).join(","),
+  ]);
+
 
 
 

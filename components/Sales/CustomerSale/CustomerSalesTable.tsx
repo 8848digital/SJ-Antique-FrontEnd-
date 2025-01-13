@@ -1,9 +1,9 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import SelectInputKunKarigar from '@/components/InputDropdown/SelectInputKunKarigar';
 import { get_detail_delivery_note_data } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useRef, useState, createRef } from 'react';
-import { useSelector } from 'react-redux';
 import styles from '../../../styles/readyReceipts.module.css';
 import TotalReadOnlyRowForSales from '../TotalReadOnlyRowForSales';
 import SalesTableHeader from './SalesTableHeader';
@@ -37,7 +37,6 @@ const CustomerSalesTable = ({
   const DetailOfDeliveryNoteFromStore: any = useSelector(
     get_detail_delivery_note_data
   );
-
 
   const initialStateOfCalculationRow: any = {
     custom_gross_wt: 0,
@@ -128,7 +127,6 @@ const CustomerSalesTable = ({
   useEffect(() => {
     calculateLiveCalculations();
   }, [salesTableData]);
-
 
   return (
     <>
