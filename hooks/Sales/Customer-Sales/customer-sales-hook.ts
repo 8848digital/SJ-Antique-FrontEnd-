@@ -324,7 +324,7 @@ const useCustomerSaleHook = () => {
 
         // Find the matching item in itemCodeDetails
         const itemDetails = itemCodeDetails?.find(
-          (item: any) => "WRG-1" === row.item_code
+          (item: any) => item?.item_code === row.item_code
         );
 
         if (value === "default") {
