@@ -44,7 +44,7 @@ const CustomerSalesTable2 = ({
                     : selectedCategory?.KunCategory?.name1 || ""
                 }
               >
-                <option value="">
+                <option value="default">
                   Select a Category
                 </option>
                 {kunCategoryListData?.length > 0 && kunCategoryListData?.map((categoryData: any, index: number) => (
@@ -69,7 +69,7 @@ const CustomerSalesTable2 = ({
                     : selectedCategory?.CsCategory?.name1 || ""
                 }
               >
-                <option value="">Select a Category</option>
+                <option value="default">Select a Category</option>
                 {csCategoryListData?.length > 0 &&
                   csCategoryListData !== null &&
                   csCategoryListData.map(
@@ -93,7 +93,7 @@ const CustomerSalesTable2 = ({
                     : selectedCategory?.BbCategory?.name1 || ""
                 }
               >
-                <option value="">Select a Category</option>
+                <option value="default">Select a Category</option>
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
                   BBCategoryListData.map((BBCategoryData: any, index: any) => (
@@ -114,7 +114,7 @@ const CustomerSalesTable2 = ({
                     : selectedCategory?.OtCategory?.name1 || ""
                 }
               >
-                <option value="">Select a Category</option>
+                <option value="default">Select a Category</option>
                 {otCategoryListData?.length > 0 &&
                   otCategoryListData !== null &&
                   otCategoryListData.map(
