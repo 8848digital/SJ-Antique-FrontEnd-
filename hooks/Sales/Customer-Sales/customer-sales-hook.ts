@@ -1,3 +1,10 @@
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_access_token } from '@/store/slices/auth/login-slice';
+import useCustomCustomerSalesHook from './custom-customer-sales-hook';
+import useCustomerSalesListingHook from './customer-sales-listing-hook';
 import { useDeleteModal } from '@/hooks/DeleteModal/delete-modal-hook';
 import getBarcodeListingApi from '@/services/api/Barcode/get-barcode-listing-api';
 import getDeliveryNoteListing from '@/services/api/Sales/get-delivery-note-listing-api';
@@ -12,13 +19,6 @@ import { get_client_name_data } from '@/store/slices/Master/get-client-name-slic
 import { get_kun_category_data } from '@/store/slices/Master/get-kun-category-slice';
 import { get_warehouse_list_data } from '@/store/slices/Master/get-warehouse-list-slice';
 import { GetDetailOfDeliveryNote } from '@/store/slices/Sales/getDetailOfDeliveryNoteApi';
-import { get_access_token } from '@/store/slices/auth/login-slice';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import useCustomCustomerSalesHook from './custom-customer-sales-hook';
-import useCustomerSalesListingHook from './customer-sales-listing-hook';
 import {
   btnLoadingStart,
   btnLoadingStop,
@@ -51,6 +51,7 @@ const useCustomerSaleHook = () => {
     updateBarcodeSalesTableData,
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
+    clientDetails
   } = useCustomCustomerSalesHook();
 
   const {
@@ -75,8 +76,9 @@ const useCustomerSaleHook = () => {
   const clientGroupList = useSelector(get_client_group_data).data;
   const [itemList, setItemList] = useState<any>([]);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
-  const [selectedItemCode, setSelectedItemCode] = useState();
-  const [deliveryNoteData, setDeliveryNoteData] = useState({
+  const [selectedItemCode, setSelectedItemCode] = useState<any>();
+  const [itemCodeDetails, setItemCodeDetails] = useState<any>([]);
+  const [deliveryNoteData, setDeliveryNoteData] = useState<any>({
     store_location: '',
   });
   const [barcodeListData, setBarcodeListData] = useState<any>();
@@ -201,10 +203,6 @@ const useCustomerSaleHook = () => {
     ).join(","),
   ]);
 
-
-
-
-
   const itemCodeListFunc = () => {
     if (barcodedata === 1) {
       const namesArray =
@@ -244,7 +242,7 @@ const useCustomerSaleHook = () => {
               itemDetailsEntity
             );
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-              // Call the function to update salesTableData
+              setItemCodeDetails(getItemCodeDetailsApi?.data?.message?.data)
               updateBarcodeSalesTableData(
                 getItemCodeDetailsApi?.data?.message?.data[0],
                 id,
@@ -277,6 +275,7 @@ const useCustomerSaleHook = () => {
             );
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
               // Call the function to update salesTableData
+              setItemCodeDetails(getItemCodeDetailsApi?.data?.message?.data)
               updateSalesTableData(
                 getItemCodeDetailsApi?.data?.message?.data[0],
                 id,
@@ -295,6 +294,7 @@ const useCustomerSaleHook = () => {
   const handleSelectChange = (event: any) => {
     const { name, value } = event.target;
 
+    // Determine the selected array based on the category
     const selectedArray =
       name === "BbCategory"
         ? BBCategoryListData
@@ -304,24 +304,59 @@ const useCustomerSaleHook = () => {
             ? otCategoryListData
             : kunCategoryListData;
 
-    // Find the selected object in the corresponding array
-    const selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
+    // Handle default option
+    let selectedObj = null;
+    if (value !== "default") {
+      selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
+    }
 
+    // Update selected category state
     setSeletedCategory((prevState: any) => ({
       ...prevState,
       [name]: selectedObj,
     }));
 
-    // Update each row of the sales table based on the selected category
+    // Update each row of the sales table
     setSalesTableData((prevSalesTableData: any) => {
       return prevSalesTableData.map((row: any) => {
-        const updatedRow = {
-          ...row,
-          custom_kun_wt: Number((row.custom_kun_wt * selectedObj?.type) / 100),
-          custom_cs_wt: Number((row.custom_cs_wt * selectedObj?.type) / 100),
-          custom_bb_wt: Number(row.custom_bb_wt - selectedObj?.type),
-          custom_other_wt: Number((row.custom_other_wt * selectedObj?.type) / 100),
-        };
+        let clientData: any = clientDetails?.tableData;
+        let updatedRow = { ...row };
+
+        // Find the matching item in itemCodeDetails
+        const itemDetails = itemCodeDetails?.find(
+          (item: any) => "WRG-1" === row.item_code
+        );
+
+        if (value === "default") {
+          // Reset or update only the corresponding field based on the category
+          switch (name) {
+            case "BbCategory":
+              updatedRow.custom_bb_wt = clientData?.custom_bb_wt ?? row.custom_bb_wt;
+              break;
+            case "CsCategory":
+              updatedRow.custom_cs_wt = clientData?.custom_cs_wt ?? row.custom_cs_wt;
+              break;
+            case "KunCategory":
+              updatedRow.custom_kun_wt = clientData?.custom_kun_wt ?? row.custom_kun_wt;
+              break;
+            case "OtCategory":
+              updatedRow.custom_other_wt = clientData?.custom_other_wt ?? row.custom_other_wt;
+              break;
+            default:
+              break;
+          }
+        } else if (selectedObj) {
+          // Update values based on selected category and itemCodeDetails
+          if (name === "KunCategory" && itemDetails) {
+            updatedRow.custom_kun_wt = Number((itemDetails?.custom_kun_wt * selectedObj?.type) / 100);
+          } else if (name === "CsCategory" && itemDetails) {
+            updatedRow.custom_cs_wt = Number((itemDetails?.custom_cs_wt * selectedObj?.type) / 100);
+          } else if (name === "BbCategory" && itemDetails) {
+            updatedRow.custom_bb_wt = Number(itemDetails?.custom_bb_wt - selectedObj?.type);
+          } else if (name === "OtCategory" && itemDetails) {
+            updatedRow.custom_other_wt = Number((itemDetails?.custom_other_wt * selectedObj?.type) / 100);
+          }
+        }
 
         // Recalculate the custom_net_wt and any other dependent values
         updatedRow.custom_net_wt =
@@ -345,6 +380,8 @@ const useCustomerSaleHook = () => {
   };
 
 
+
+
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
       // Check if there are no values except "idx"
@@ -362,6 +399,7 @@ const useCustomerSaleHook = () => {
 
   const handleDNCreate: any = async () => {
     const filteredData = filteredTableDataForUpdate(salesTableData);
+
     const updatedData =
       filteredData.length > 0 &&
       filteredData !== null &&
@@ -631,7 +669,8 @@ const useCustomerSaleHook = () => {
     handleCloseDeleteModal,
     handleShowDeleteModal,
     deleteRecord,
-    itemDetailApiFun
+    itemDetailApiFun,
+    itemCodeDetails
   };
 };
 

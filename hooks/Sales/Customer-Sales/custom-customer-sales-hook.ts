@@ -27,7 +27,7 @@ const useCustomCustomerSalesHook = () => {
     custom_ot_amt: 0,
     custom_other: '',
     custom_amount: 0,
-    warehouse: '',
+    custom_warehouse: 'Mumbai',
   };
   const [kunCsOtFixedAmt, setKunCsOtFixedAmt] = useState({
     csFixedAmt: 0,
@@ -74,7 +74,7 @@ const useCustomCustomerSalesHook = () => {
     custom_ot_amt: 0,
     custom_other: '',
     custom_amount: 0,
-    warehouse: '',
+    custom_warehouse: 'Mumbai',
   };
 
   const handleAddRowForSales: any = () => {
@@ -137,12 +137,14 @@ const useCustomCustomerSalesHook = () => {
           warehouse: '',
         },
         material_data: categoryData?.materials
-      })
+      });
       setSeletedCategory(selectedCategories);
 
       // Update sales table data using the utility function
       setSalesTableData((prevSalesTableData: any) => {
-        return updateSalesTableRows(prevSalesTableData, selectedCategories);
+        return prevSalesTableData.map((row: any) =>
+          calculateRow(row, selectedCategories, kunCsOtFixedAmt)
+        );
       });
 
       // Set document status
@@ -154,33 +156,50 @@ const useCustomCustomerSalesHook = () => {
     getClientDetails()
   }, [selectedClient])
 
+  console.log({ salesTableData })
 
-  const updateSalesTableRows = (salesTableData: any[], selectedCategories: any) => {
-    return salesTableData.map((row: any) => {
-      const updatedRow = {
-        ...row,
-        custom_kun_wt: Number(selectedCategories?.KunCategory?.type),
-        custom_cs_wt: Number(selectedCategories?.CsCategory?.type),
-        custom_bb_wt: Number(selectedCategories?.BbCategory?.type),
-        custom_other_wt: Number(selectedCategories?.OtCategory?.type),
-      };
 
-      // Recalculate the custom_net_wt and any other dependent values
-      updatedRow.custom_net_wt =
-        Number(updatedRow.custom_gross_wt) -
-        (Number(updatedRow.custom_kun_wt) +
-          Number(updatedRow.custom_cs_wt) +
-          Number(updatedRow.custom_bb_wt) +
-          Number(updatedRow.custom_other_wt));
+  // Update a row with calculated values
+  const calculateRow = (row: any, selectedCategories: any, kunCsOtFixedAmt: any): any => {
+    const { kunAmt, kunUnit } = calculateKundanAmounts(clientDetails, row);
 
-      updatedRow.custom_amount =
-        Number(updatedRow.custom_cs_amt) +
-        Number(updatedRow.custom_kun_amt) +
-        Number(updatedRow.custom_ot_amt) +
-        Number(updatedRow.custom_other);
+    const updatedRow = {
+      ...row,
+      custom_kun: roundToThreeDecimal(kunUnit), // Kundan unit
+      custom_kun_amt: roundToThreeDecimal(kunAmt), // Kundan amount
+      custom_kun_wt:
+        row?.custom_kun_wt > 0
+          ? row?.custom_kun_wt * selectedCategories?.KunCategory?.type / 100
+          : Number(selectedCategories?.KunCategory?.type),
+      custom_cs_wt:
+        row?.custom_cs_wt > 0
+          ? row?.custom_cs_wt * Number(selectedCategories?.CsCategory?.type) / 100
+          : Number(selectedCategories?.CsCategory?.type),
+      custom_bb_wt:
+        row?.custom_bb_wt > 0
+          ? row?.custom_bb_wt - Number(selectedCategories?.BbCategory?.type)
+          : Number(selectedCategories?.BbCategory?.type),
+      custom_other_wt:
+        row?.custom_other_wt > 0
+          ? row?.custom_other_wt * Number(selectedCategories?.OtCategory?.type) / 100
+          : Number(selectedCategories?.OtCategory?.type),
+    };
 
-      return updatedRow;
-    });
+    // Recalculate dependent fields
+    updatedRow.custom_net_wt =
+      Number(updatedRow.custom_gross_wt) -
+      (Number(updatedRow.custom_kun_wt) +
+        Number(updatedRow.custom_cs_wt) +
+        Number(updatedRow.custom_bb_wt) +
+        Number(updatedRow.custom_other_wt));
+
+    updatedRow.custom_amount =
+      Number(updatedRow.custom_cs_amt) +
+      Number(updatedRow.custom_kun_amt) +
+      Number(updatedRow.custom_ot_amt) +
+      Number(updatedRow.custom_other);
+
+    return updatedRow;
   };
 
   // Helper function to round numbers to 3 decimal places
@@ -192,7 +211,7 @@ const useCustomCustomerSalesHook = () => {
   const calculateBbWt = (data: any, selectedCategory: any): number => {
     let calculatedBbWt =
       Object?.keys(selectedCategory?.BbCategory)?.length > 0
-        ? data?.custom_bb_wt - selectedCategory?.BbCategory?.type / 100
+        ? data?.custom_bb_wt - selectedCategory?.BbCategory?.type
         : data?.custom_bb_wt;
 
     return calculatedBbWt > 0 ? calculatedBbWt : 0; // Ensure non-negative value
@@ -205,6 +224,7 @@ const useCustomCustomerSalesHook = () => {
   ): { kunAmt: number; kunUnit: number } => {
     let kunAmt = 0; // Total amount for Kundan
     let kunUnit = 0; // Kundan unit calculation
+    console.log({ clientDetails, data })
 
     if (clientDetails?.material_data?.length > 0 && data?.material_table?.length > 0) {
       const kundanMaterialFromClient = clientDetails?.material_data.filter(
@@ -420,6 +440,7 @@ const useCustomCustomerSalesHook = () => {
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
     updateBarcodeSalesTableData,
+    clientDetails
   };
 };
 export default useCustomCustomerSalesHook;
