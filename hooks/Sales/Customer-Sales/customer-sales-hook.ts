@@ -305,7 +305,7 @@ const useCustomerSaleHook = () => {
             : kunCategoryListData;
 
     // Handle default option
-    let selectedObj = null;
+    let selectedObj: any = null;
     if (value !== "default") {
       selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
     }
