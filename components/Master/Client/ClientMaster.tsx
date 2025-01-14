@@ -1,12 +1,10 @@
+import { useRouter } from 'next/router';
+import MasterListing from '../MasterListing';
 import TabSection from '@/components/TabSection';
 import useClienthook from '@/hooks/master/client/client-hook';
-import { get_client_name_data } from '@/store/slices/Master/get-client-name-slice';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import MasterListing from '../MasterListing';
 import MasterTableListing from '../common/MasterTableListing';
-import AddMasterRecordForm from './AddClientRecordForm';
 import UpdateMasterModal from '../common/UpdateMasterModal';
+import AddMasterRecordForm from './AddClientRecordForm';
 
 const ClientMaster = () => {
     const router = useRouter();
@@ -15,7 +13,6 @@ const ClientMaster = () => {
     const key = pathcontent[pathcontent?.length - 1];
 
     const { clientData, handleDeleteBtn, handleInputChange, inputValue, setInputValue, handleMaterialChange, materialValue, handleSaveBtn, handleUpdateBtn, showModal, setShowModal, handleUpdateRecord } = useClienthook()
-
 
     return (
         <>

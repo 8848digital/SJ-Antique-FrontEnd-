@@ -49,6 +49,7 @@ const useCustomCustomerSalesHook = () => {
   const [salesTableData, setSalesTableData] = useState<any>([
     SalesTableInitialState,
   ]);
+  const [itemCodeDetails, setItemCodeDetails] = useState<any>([]);
   const [itemCodeDropdownReset, setItemCodeDropdownReset] =
     useState<boolean>(false);
 
@@ -162,6 +163,9 @@ const useCustomCustomerSalesHook = () => {
   // Update a row with calculated values
   const calculateRow = (row: any, selectedCategories: any, kunCsOtFixedAmt: any): any => {
     const { kunAmt, kunUnit } = calculateKundanAmounts(clientDetails, row);
+    const itemDetails = itemCodeDetails?.find(
+      (item: any) => item?.item_code === row.item_code
+    );
 
     const updatedRow = {
       ...row,
@@ -169,19 +173,19 @@ const useCustomCustomerSalesHook = () => {
       custom_kun_amt: roundToThreeDecimal(kunAmt), // Kundan amount
       custom_kun_wt:
         row?.custom_kun_wt > 0
-          ? row?.custom_kun_wt * selectedCategories?.KunCategory?.type / 100
+          ? itemDetails?.custom_kun_wt * selectedCategories?.KunCategory?.type / 100
           : Number(selectedCategories?.KunCategory?.type),
       custom_cs_wt:
         row?.custom_cs_wt > 0
-          ? row?.custom_cs_wt * Number(selectedCategories?.CsCategory?.type) / 100
+          ? itemDetails?.custom_cs_wt * Number(selectedCategories?.CsCategory?.type) / 100
           : Number(selectedCategories?.CsCategory?.type),
       custom_bb_wt:
         row?.custom_bb_wt > 0
-          ? row?.custom_bb_wt - Number(selectedCategories?.BbCategory?.type)
+          ? itemDetails?.custom_bb_wt - Number(selectedCategories?.BbCategory?.type)
           : Number(selectedCategories?.BbCategory?.type),
       custom_other_wt:
         row?.custom_other_wt > 0
-          ? row?.custom_other_wt * Number(selectedCategories?.OtCategory?.type) / 100
+          ? itemDetails?.custom_other_wt * Number(selectedCategories?.OtCategory?.type) / 100
           : Number(selectedCategories?.OtCategory?.type),
     };
 
@@ -440,7 +444,9 @@ const useCustomCustomerSalesHook = () => {
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
     updateBarcodeSalesTableData,
-    clientDetails
+    clientDetails,
+    itemCodeDetails,
+    setItemCodeDetails
   };
 };
 export default useCustomCustomerSalesHook;

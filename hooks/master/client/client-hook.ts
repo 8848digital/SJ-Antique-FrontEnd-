@@ -152,6 +152,7 @@ const useClienthook = () => {
     }
     const handleUpdateBtn: any = (data: any) => {
         setInputValue(data);
+        setMaterialInputValue(data?.materials)
         setShowModal(true);
     }
     return {
