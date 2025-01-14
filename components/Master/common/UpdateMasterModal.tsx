@@ -9,7 +9,7 @@ const UpdateMasterModal = ({ showModal, setShowModal, handleInputChange, inputVa
 
     return (
         <>
-            <Modal show={showModal} onHide={handleCloseModal} scrollable >
+            <Modal show={showModal} onHide={handleCloseModal} scrollable size='lg'>
                 <Modal.Header closeButton>
                     <Modal.Title>Update </Modal.Title>
                 </Modal.Header>

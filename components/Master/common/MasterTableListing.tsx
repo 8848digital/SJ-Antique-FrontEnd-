@@ -27,7 +27,8 @@ const MasterTableListing = ({ tableData, handleDeleteBtn, handleUpdateBtn }: any
         return <p>No data available</p>;
     }
 
-    const headers = Object.keys(tableData[0]).filter((key) => key !== 'delete');
+    // Exclude 'materials' from headers
+    const headers = Object?.keys(tableData[0]).filter((key) => key !== 'delete' && key !== 'materials');
 
     const formatHeader = (header: any) =>
         header
@@ -42,7 +43,7 @@ const MasterTableListing = ({ tableData, handleDeleteBtn, handleUpdateBtn }: any
             return Object.keys(updatedFilters).every((key) => {
                 const filterValue = updatedFilters[key];
                 return filterValue
-                    ? item[key]?.toString().toLowerCase().includes(filterValue.toLowerCase())
+                    ? item[key]?.toString()?.toLowerCase()?.includes(filterValue?.toLowerCase())
                     : true;
             });
         });
@@ -74,7 +75,7 @@ const MasterTableListing = ({ tableData, handleDeleteBtn, handleUpdateBtn }: any
                         <thead style={{ borderStyle: 'none' }}>
                             <tr className="table_row" style={{ borderStyle: 'none' }}>
                                 <th className="thead text-start">SR NO.</th>
-                                {headers.map((header) => (
+                                {headers?.map((header) => (
                                     <th key={header} className="thead text-start">
                                         {formatHeader(header)}
                                     </th>
@@ -83,7 +84,7 @@ const MasterTableListing = ({ tableData, handleDeleteBtn, handleUpdateBtn }: any
                             </tr>
                         </thead>
                         <tbody className="" style={{ borderStyle: 'none' }}>
-                            {filteredData.slice(0, tableViewData).map((item: any, rowIndex: any) => (
+                            {filteredData?.slice(0, tableViewData).map((item: any, rowIndex: any) => (
                                 <tr key={rowIndex} style={{ borderStyle: 'none' }}>
                                     <td className="table-body-row cursor text-center" style={{ borderStyle: 'none' }}>
                                         {rowIndex + 1}
@@ -164,4 +165,6 @@ const MasterTableListing = ({ tableData, handleDeleteBtn, handleUpdateBtn }: any
 };
 
 export default MasterTableListing;
+
+
 

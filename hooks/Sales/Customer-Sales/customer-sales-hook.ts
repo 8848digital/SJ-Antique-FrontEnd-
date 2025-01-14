@@ -51,7 +51,9 @@ const useCustomerSaleHook = () => {
     updateBarcodeSalesTableData,
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
-    clientDetails
+    clientDetails,
+    itemCodeDetails,
+    setItemCodeDetails
   } = useCustomCustomerSalesHook();
 
   const {
@@ -77,7 +79,7 @@ const useCustomerSaleHook = () => {
   const [itemList, setItemList] = useState<any>([]);
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<any>('');
   const [selectedItemCode, setSelectedItemCode] = useState<any>();
-  const [itemCodeDetails, setItemCodeDetails] = useState<any>([]);
+
   const [deliveryNoteData, setDeliveryNoteData] = useState<any>({
     store_location: '',
   });
@@ -331,21 +333,30 @@ const useCustomerSaleHook = () => {
           // Reset or update only the corresponding field based on the category
           switch (name) {
             case "BbCategory":
-              updatedRow.custom_bb_wt = clientData?.custom_bb_wt ?? row.custom_bb_wt;
+              updatedRow.custom_bb_wt = clientData
+                ? clientData?.custom_bb_wt ?? row?.custom_bb_wt
+                : itemDetails?.custom_bb_wt ?? row?.custom_bb_wt;
               break;
             case "CsCategory":
-              updatedRow.custom_cs_wt = clientData?.custom_cs_wt ?? row.custom_cs_wt;
+              updatedRow.custom_cs_wt = clientData
+                ? clientData?.custom_cs_wt ?? row?.custom_cs_wt
+                : itemDetails?.custom_cs_wt ?? row?.custom_cs_wt;
               break;
             case "KunCategory":
-              updatedRow.custom_kun_wt = clientData?.custom_kun_wt ?? row.custom_kun_wt;
+              updatedRow.custom_kun_wt = clientData
+                ? clientData?.custom_kun_wt ?? row?.custom_kun_wt
+                : itemDetails?.custom_kun_wt ?? row?.custom_kun_wt;
               break;
             case "OtCategory":
-              updatedRow.custom_other_wt = clientData?.custom_other_wt ?? row.custom_other_wt;
+              updatedRow.custom_other_wt = clientData
+                ? clientData?.custom_other_wt ?? row?.custom_other_wt
+                : itemDetails?.custom_other_wt ?? row?.custom_other_wt;
               break;
             default:
               break;
           }
-        } else if (selectedObj) {
+        }
+        else if (selectedObj) {
           // Update values based on selected category and itemCodeDetails
           if (name === "KunCategory" && itemDetails) {
             updatedRow.custom_kun_wt = Number((itemDetails?.custom_kun_wt * selectedObj?.type) / 100);

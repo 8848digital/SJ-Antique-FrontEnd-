@@ -143,8 +143,6 @@ const useClienthook = () => {
         if (apiRes?.data?.message?.status === 'success') {
             dispatch(getClientNameData(loginAcessToken.token));
             toast.success('Client Updated');
-            setInputValue({})
-            setMaterialInputValue([])
             setShowModal(false)
         } else {
             toast.error('Client Name already exists');
@@ -152,8 +150,10 @@ const useClienthook = () => {
     }
     const handleUpdateBtn: any = (data: any) => {
         setInputValue(data);
+        setMaterialInputValue(data?.materials)
         setShowModal(true);
     }
+
     return {
         clientData,
         handleDeleteBtn,
