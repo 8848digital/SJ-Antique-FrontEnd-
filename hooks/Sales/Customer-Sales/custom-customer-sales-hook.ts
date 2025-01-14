@@ -157,7 +157,7 @@ const useCustomCustomerSalesHook = () => {
     getClientDetails()
   }, [selectedClient])
 
-  console.log({ salesTableData })
+
 
 
   // Update a row with calculated values
@@ -228,7 +228,7 @@ const useCustomCustomerSalesHook = () => {
   ): { kunAmt: number; kunUnit: number } => {
     let kunAmt = 0; // Total amount for Kundan
     let kunUnit = 0; // Kundan unit calculation
-    console.log({ clientDetails, data })
+
 
     if (clientDetails?.material_data?.length > 0 && data?.material_table?.length > 0) {
       const kundanMaterialFromClient = clientDetails?.material_data.filter(

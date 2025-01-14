@@ -32,7 +32,7 @@ const CategorySelection = ({ handleNameChange, inputValue }: any) => {
               <option selected>Select Kun Category</option>
               {kunCategory?.length > 0 &&
                 kunCategory.map((category: any, index: any) => (
-                  <option value={category.name1} key={index}>
+                  <option value={category.name1} defaultValue={inputValue?.kundan_category} key={index}>
                     {category.name1}
                   </option>
                 ))}
@@ -55,7 +55,7 @@ const CategorySelection = ({ handleNameChange, inputValue }: any) => {
               <option selected>Select CS Category</option>
               {csCategory?.length > 0 &&
                 csCategory.map((category: any, index: any) => (
-                  <option value={category.name1} key={index}>
+                  <option value={category.name1} defaultValue={inputValue?.cs_category} key={index}>
                     {category.name1}
                   </option>
                 ))}
@@ -77,7 +77,7 @@ const CategorySelection = ({ handleNameChange, inputValue }: any) => {
               <option selected>Select OT Category</option>
               {otCategory?.length > 0 &&
                 otCategory.map((category: any, index: any) => (
-                  <option value={category.name1} key={index}>
+                  <option value={category.name1} defaultValue={inputValue?.ot_category} key={index}>
                     {category.name1}
                   </option>
                 ))}
@@ -100,7 +100,7 @@ const CategorySelection = ({ handleNameChange, inputValue }: any) => {
               <option selected>Select BB Category</option>
               {bbCategory?.length > 0 &&
                 bbCategory.map((category: any, index: any) => (
-                  <option value={category.name1} key={index}>
+                  <option value={category.name1} defaultValue={inputValue?.bb_category} key={index}>
                     {category.name1}
                   </option>
                 ))}

@@ -329,8 +329,6 @@ const useCustomerSaleHook = () => {
           (item: any) => item?.item_code === row.item_code
         );
 
-        console.log({ clientData, itemDetails })
-
         if (value === "default") {
           // Reset or update only the corresponding field based on the category
           switch (name) {
