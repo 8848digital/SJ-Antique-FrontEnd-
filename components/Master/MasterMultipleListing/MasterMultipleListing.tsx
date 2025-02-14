@@ -64,7 +64,6 @@ const MasterMaterialListing = ({
     </Popover>
   );
 
-  console.log("dataa", defaultData)
   return (
     <div>
       {defaultData?.length > 0 ? (

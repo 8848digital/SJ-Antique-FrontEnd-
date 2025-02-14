@@ -70,7 +70,7 @@ const MasterIndexPage = () => {
       karigar_name: data.client_group,
       delete: data.delete,
     }));
-  console.log('category', category);
+
   let categoryName: any =
     category?.length > 0 &&
     category.map((data: any) => ({
