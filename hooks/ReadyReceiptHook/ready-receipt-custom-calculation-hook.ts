@@ -39,7 +39,13 @@ const useReadyReceiptCustomCalculationHook = () => {
       return row;
     });
   };
-
+  const formatInput = (value: any) => {
+    if (typeof value === 'number' || !isNaN(parseFloat(value))) {
+      const floatValue = parseFloat(value);
+      return parseFloat(floatValue?.toFixed(3));
+    }
+    return value; // Return the original value for non-numeric inputs
+  };
   const calculateReadyReceiptModalData: any = ({
     materialWeight,
     tableData,
@@ -77,13 +83,14 @@ const useReadyReceiptCustomCalculationHook = () => {
 
     const updatedMaterialWeight: any = tableData?.map((row: any, i: any) => {
       if (row.idx === indexVal) {
+        console.log("type", typeof (weightAddition))
         const numbersParsed: any = Number(numbers);
         return {
           ...row,
-          totalModalWeight: weightAddition,
+          totalModalWeight: formatInput(weightAddition),
           totalAmount: totalAmmountValues,
           table: materialWeight.map(({ id, ...rest }: any) => ({ ...rest })),
-          custom_mat_wt: weightAddition,
+          custom_mat_wt: formatInput(weightAddition),
           custom_gross_wt:
             Number(row.custom_net_wt) +
             Number(row.custom_few_wt) +
@@ -105,7 +112,7 @@ const useReadyReceiptCustomCalculationHook = () => {
               amount:
                 (Number(tableItem.pcs) || 0) * (Number(tableItem.piece_) || 0) +
                 (Number(tableItem.carat) || 0) *
-                  (Number(tableItem.carat_) || 0) +
+                (Number(tableItem.carat_) || 0) +
                 (Number(tableItem.weight) || 0) * (Number(tableItem.gm_) || 0),
             })),
           };
