@@ -21,7 +21,7 @@ const CommonReport = ({
   const headers =
     reportData.length > 0 && reportData[0] ? Object.keys(reportData[0]) : [];
   const { query } = useRouter();
-  console.log('query', query);
+
   return (
     <div className="container-lg">
       <ReportHeader />
@@ -50,9 +50,8 @@ const CommonReport = ({
       {isLoading === 1 && (
         <>
           <div
-            className={`p-0 text-gray small text-end ${
-              headers?.length <= 4 ? 'report-heading pe-3' : ''
-            }`}
+            className={`p-0 text-gray small text-end ${headers?.length <= 4 ? 'report-heading pe-3' : ''
+              }`}
           ></div>
           {query.reportId === 'detailed-summary-report' ? (
             <DetailedSummaryReportListingTable

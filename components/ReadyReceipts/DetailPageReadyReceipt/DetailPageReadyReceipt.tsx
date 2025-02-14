@@ -90,7 +90,7 @@ const DetailPageReadyReceipt = () => {
     setSelectedLocation,
   ]);
 
-  console.log('detail page render');
+
   return (
     <div className="container" style={{ position: 'relative' }}>
       {isLoading ? (

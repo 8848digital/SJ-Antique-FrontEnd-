@@ -132,7 +132,7 @@ const useReadyReceipt = () => {
           loginAcessToken,
           capitalizeFirstLetter(query.receipt)
         );
-        console.log('update', listData);
+
         if (listData?.data?.message?.status === 'success') {
           setKundanListing(listData?.data?.message?.data);
         }
@@ -387,7 +387,7 @@ const useReadyReceipt = () => {
         setShowSaveButtonForAmendFlow(false);
       } else {
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return {

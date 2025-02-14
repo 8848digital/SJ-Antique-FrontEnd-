@@ -118,10 +118,10 @@ const useCustomerSaleHook = () => {
           updatedItem.custom_net_wt = Math.max(
             0,
             Number(updatedItem.custom_gross_wt) -
-              (Number(updatedItem.custom_kun_wt) +
-                Number(updatedItem.custom_cs_wt) +
-                Number(updatedItem.custom_bb_wt) +
-                Number(updatedItem.custom_other_wt))
+            (Number(updatedItem.custom_kun_wt) +
+              Number(updatedItem.custom_cs_wt) +
+              Number(updatedItem.custom_bb_wt) +
+              Number(updatedItem.custom_other_wt))
           );
 
           if (fieldName === 'custom_cs') {
@@ -259,6 +259,11 @@ const useCustomerSaleHook = () => {
     setStateForDocStatus(true);
   };
 
+  const roundToThreeDecimal = (value: number): number => {
+    return parseFloat(value?.toFixed(3));
+  };
+
+
   useEffect(() => {
     if (barcodedata === 0) {
       const updatedData =
@@ -272,73 +277,73 @@ const useCustomerSaleHook = () => {
           return {
             ...data,
             custom_gross_wt: data?.custom_gross_wt,
-            custom_kun_wt: Number(
+            custom_kun_wt: roundToThreeDecimal(Number(
               selectedCategory.KunCategory !== '' &&
                 selectedCategory?.KunCategory !== null
                 ? selectedCategory?.KunCategory?.type === undefined
                   ? kunInitial
                   : kunInitial === 0
-                  ? 0
-                  : (kunInitial * selectedCategory?.KunCategory?.type) / 100
-                : kunInitial
+                    ? 0
+                    : (kunInitial * selectedCategory?.KunCategory?.type) / 100
+                : kunInitial)
             ),
-            custom_cs_wt: Number(
+            custom_cs_wt: roundToThreeDecimal(Number(
               selectedCategory.CsCategory !== '' &&
                 selectedCategory?.CsCategory !== null
                 ? selectedCategory?.CsCategory?.type === undefined
                   ? csWtInitial
                   : csWtInitial === 0
-                  ? 0
-                  : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-                : csWtInitial
+                    ? 0
+                    : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
+                : csWtInitial)
             ),
-            custom_bb_wt: Number(
+            custom_bb_wt: roundToThreeDecimal(Number(
               selectedCategory?.BBCategory !== '' &&
                 selectedCategory?.BBCategory !== null
                 ? selectedCategory?.BBCategory?.type === undefined
                   ? bbWtInitial
                   : bbWtInitial === 0
-                  ? 0
-                  : bbWtInitial - selectedCategory?.BBCategory?.type
-                : bbWtInitial
+                    ? 0
+                    : bbWtInitial - selectedCategory?.BBCategory?.type
+                : bbWtInitial)
             ),
 
-            custom_other_wt: Number(
+            custom_other_wt: roundToThreeDecimal(Number(
               selectedCategory.OtCategory !== '' &&
                 selectedCategory?.OtCategory !== null
                 ? selectedCategory?.OtCategory?.type === undefined
                   ? otWtInitial
                   : otWtInitial === 0
-                  ? 0
-                  : (otWtInitial * selectedCategory.OtCategory?.type) / 100
-                : otWtInitial
+                    ? 0
+                    : (otWtInitial * selectedCategory.OtCategory?.type) / 100
+                : otWtInitial)
             ),
-            custom_cs_amt: Number(
+            custom_cs_amt: roundToThreeDecimal(Number(
               (selectedCategory.CsCategory !== '' &&
-              selectedCategory?.CsCategory !== null
+                selectedCategory?.CsCategory !== null
                 ? selectedCategory?.CsCategory?.type === undefined
                   ? csWtInitial
                   : csWtInitial === 0
-                  ? 0
-                  : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-                : Number(data?.custom_cs_wt)) * data?.custom_cs
+                    ? 0
+                    : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
+                : Number(data?.custom_cs_wt)) * data?.custom_cs)
             ),
-            custom_ot_amt: Number(
+            custom_ot_amt: roundToThreeDecimal(Number(
               (selectedCategory.OtCategory !== '' &&
-              selectedCategory?.OtCategory !== null
+                selectedCategory?.OtCategory !== null
                 ? selectedCategory?.OtCategory?.type === undefined
                   ? otWtInitial
                   : otWtInitial === 0
-                  ? 0
-                  : (otWtInitial * selectedCategory?.OtCategory?.type) / 100
-                : Number(data?.custom_other_wt)) * data?.custom_ot_
+                    ? 0
+                    : (otWtInitial * selectedCategory?.OtCategory?.type) / 100
+                : Number(data?.custom_other_wt)) * data?.custom_ot_)
             ),
             custom_net_wt:
-              Number(data?.custom_gross_wt) -
-              (Number(data?.custom_kun_wt) +
-                Number(data?.custom_cs_wt) +
-                Number(data?.custom_bb_wt) +
-                Number(data?.custom_other_wt)),
+              roundToThreeDecimal(Number(data?.custom_gross_wt) -
+                (Number(data?.custom_kun_wt) +
+                  Number(data?.custom_cs_wt) +
+                  Number(data?.custom_bb_wt) +
+                  Number(data?.custom_other_wt)),)
           };
         });
       setSalesTableData(updatedData);
