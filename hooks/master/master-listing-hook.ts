@@ -17,7 +17,7 @@ export const useMasterListingHook = () => {
   const loginAcessToken = useSelector(get_access_token);
   const dispatch = useDispatch();
   const { query } = useRouter();
-  //   console.log('queryy', query);
+
   useEffect(() => {
     const getData = () => {
       dispatch(getKarigarNameData(loginAcessToken.token));

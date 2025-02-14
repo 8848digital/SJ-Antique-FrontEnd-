@@ -83,7 +83,7 @@ const useReadyReceiptCustomCalculationHook = () => {
 
     const updatedMaterialWeight: any = tableData?.map((row: any, i: any) => {
       if (row.idx === indexVal) {
-        console.log("type", typeof (weightAddition))
+
         const numbersParsed: any = Number(numbers);
         return {
           ...row,

@@ -80,6 +80,10 @@ const useCustomCustomerSalesHook = () => {
     setStateForDocStatus(true);
   };
 
+  const roundToThreeDecimal = (value: number): number => {
+    return parseFloat(value?.toFixed(3));
+  };
+
   const handleEmptyDeliveryNote = () => {
     setSeletedCategory({
       KunCategory: '',
@@ -99,50 +103,51 @@ const useCustomCustomerSalesHook = () => {
     setItemCodeDropdownReset(true);
   };
 
-  const updateSalesTableData = (data: any,id?:number) => {
+  const updateSalesTableData = (data: any, id?: number) => {
     if (id) {
+
       setSalesTableData((prevSalesTableData: any) => {
         const updatedTable = prevSalesTableData?.map((tableData: any) => {
-          if (tableData.idx === id ) {
+          if (tableData.idx === id) {
             return {
               ...tableData,
               custom_gross_wt: data[0]?.custom_gross_wt,
-              custom_kun_wt: Number(
+              custom_kun_wt: roundToThreeDecimal(Number(
                 selectedCategory.KunCategory !== '' &&
                   selectedCategory?.KunCategory !== null
                   ? (data[0]?.custom_kun_wt *
-                      selectedCategory.KunCategory?.type) /
-                      100
-                  : data[0]?.custom_kun_wt
+                    selectedCategory.KunCategory?.type) /
+                  100
+                  : data[0]?.custom_kun_wt)
               ),
-              custom_cs_wt: Number(
+              custom_cs_wt: roundToThreeDecimal(Number(
                 selectedCategory.CsCategory !== '' &&
                   selectedCategory?.CsCategory !== null
                   ? (data[0]?.custom_cs_wt *
-                      selectedCategory.CsCategory?.type) /
-                      100
-                  : data[0]?.custom_cs_wt
+                    selectedCategory.CsCategory?.type) /
+                  100
+                  : data[0]?.custom_cs_wt)
               ),
-              custom_bb_wt: Number(
+              custom_bb_wt: roundToThreeDecimal(Number(
                 selectedCategory.BBCategory !== '' &&
                   selectedCategory?.BBCategory !== null
                   ? data[0]?.custom_bb_wt - selectedCategory.BBCategory?.type
-                  : data[0].custom_bb_wt
+                  : data[0].custom_bb_wt)
               ),
-              custom_other_wt: Number(
+              custom_other_wt: roundToThreeDecimal(Number(
                 selectedCategory.OtCategory !== '' &&
                   selectedCategory?.OtCategory !== null
                   ? (data[0]?.custom_other_wt *
-                      selectedCategory.OtCategory?.type) /
-                      100
-                  : data[0]?.custom_other_wt
+                    selectedCategory.OtCategory?.type) /
+                  100
+                  : data[0]?.custom_other_wt)
               ),
               custom_net_wt:
-                Number(data[0]?.custom_gross_wt) -
-                (Number(data[0]?.custom_kun_wt) +
-                  Number(data[0]?.custom_cs_wt) +
-                  Number(data[0]?.custom_bb_wt) +
-                  Number(data[0]?.custom_other_wt)),
+                roundToThreeDecimal(Number(data[0]?.custom_gross_wt) -
+                  (Number(data[0]?.custom_kun_wt) +
+                    Number(data[0]?.custom_cs_wt) +
+                    Number(data[0]?.custom_bb_wt) +
+                    Number(data[0]?.custom_other_wt))),
               custom_kun_pc: Number(data[0]?.custom_kun_pcs),
               custom_pr_kun_wt: Number(data[0]?.custom_kun_wt),
               custom_pr_cs_wt: Number(data[0]?.custom_cs_wt),
@@ -174,7 +179,7 @@ const useCustomCustomerSalesHook = () => {
     }
   };
 
-  const updateBarcodeSalesTableData = (data: any,id?:number) => {
+  const updateBarcodeSalesTableData = (data: any, id?: number) => {
     if (id) {
       setSalesTableData((prevSalesTableData: any) => {
         const updatedData = prevSalesTableData?.map((item: any) => {
@@ -247,9 +252,9 @@ const useCustomCustomerSalesHook = () => {
           custom_ot_: Number(name === 'otFixedAmt' ? value : item?.custom_ot_),
           custom_amount: Number(
             Number(item[i]?.custom_cs_amt) +
-              Number(item[i]?.custom_kun_amt) +
-              Number(item[i]?.custom_ot_amt) +
-              Number(item[i]?.custom_other)
+            Number(item[i]?.custom_kun_amt) +
+            Number(item[i]?.custom_ot_amt) +
+            Number(item[i]?.custom_other)
           ),
         };
       });

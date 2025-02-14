@@ -132,7 +132,7 @@ const useReportHook = () => {
     }
 
     if (reportData?.data?.message?.status === 'success') {
-      console.log('reportss', reportData);
+
       setReportData(reportData?.data?.message?.data);
       if (reportData?.data?.message?.data?.length > 0) {
         setIsLoading(1);

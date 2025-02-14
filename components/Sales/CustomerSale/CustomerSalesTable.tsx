@@ -121,19 +121,19 @@ const CustomerSalesTable = ({
     liveCalculations.custom_cs_amt = totalCustomCsAmount;
 
     // Calculate total custom net weight for custom_net_wt
-    const totalCustomNetWeight = salesTableData.reduce(
-      (total: any, item: any) => {
-        const customNetWt =
-          parseFloat(item.custom_gross_wt) -
-          (parseFloat(item.custom_kun_wt) +
-            parseFloat(item.custom_cs_wt) +
-            parseFloat(item.custom_bb_wt) +
-            parseFloat(item.custom_other_wt));
-        return total + Math.max(customNetWt, 0);
-      },
-      0
-    );
-    liveCalculations.custom_net_wt = totalCustomNetWeight;
+    // const totalCustomNetWeight = salesTableData.reduce(
+    //   (total: any, item: any) => {
+    //     const customNetWt =
+    //       parseFloat(item.custom_gross_wt) -
+    //       (parseFloat(item.custom_kun_wt) +
+    //         parseFloat(item.custom_cs_wt) +
+    //         parseFloat(item.custom_bb_wt) +
+    //         parseFloat(item.custom_other_wt));
+    //     return total + Math.max(customNetWt, 0);
+    //   },
+    //   0
+    // );
+    // liveCalculations.custom_net_wt = totalCustomNetWeight;
 
     setCalculationRow(liveCalculations);
   };
@@ -164,7 +164,6 @@ const CustomerSalesTable = ({
   //     return updatedItem.custom_net_wt;
   //   });
   // };
-
 
 
   return (
