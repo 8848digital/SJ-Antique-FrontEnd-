@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const TabSection = ({ firstTabHeading, secondTabHeading }: any) => {
+  const { query } = useRouter();
+
   return (
     <div
       className="nav nav-pills my-1 justify-content-center tab-width"
@@ -21,20 +24,23 @@ const TabSection = ({ firstTabHeading, secondTabHeading }: any) => {
           {firstTabHeading}
         </button>
       </div>
-      <div className="nav-tabs tabs-container w-50" role="presentation">
-        <button
-          className="nav-link w-100 border p-1 h-100"
-          id="pills-profile-tab"
-          data-bs-toggle="pill"
-          data-bs-target="#pills-profile"
-          type="button"
-          role="tab"
-          aria-controls="pills-profile"
-          aria-selected="false"
-        >
-          {secondTabHeading}
-        </button>
-      </div>
+      {query?.karigarId !== "materialGroup" && (
+        <div className="nav-tabs tabs-container w-50" role="presentation">
+          <button
+            className="nav-link w-100 border p-1 h-100"
+            id="pills-profile-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-profile"
+            type="button"
+            role="tab"
+            aria-controls="pills-profile"
+            aria-selected="false"
+          >
+            {secondTabHeading}
+          </button>
+        </div>
+
+      )}
     </div>
   );
 };
