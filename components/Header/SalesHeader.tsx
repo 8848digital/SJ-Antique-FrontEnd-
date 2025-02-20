@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { useState } from 'react';
-import styles from '../../styles/header.module.css';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import styles from '../../styles/header.module.css';
 
 const SalesHeader = () => {
   const router = useRouter();
@@ -26,8 +26,9 @@ const SalesHeader = () => {
         onClick={() => setActive(1)}
       >
         <button
-          className={`${styles.button} ${customerSaleValue ? 'activeColor' : ''
-            } `}
+          className={`${styles.button} ${
+            customerSaleValue ? 'activeColor' : ''
+          } `}
         >
           Sales
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
@@ -41,7 +42,7 @@ const SalesHeader = () => {
         <button
           className={`${styles.button} ${saleReturnValue ? 'activeColor' : ''}`}
         >
-          Sale Returns
+          Sales Return
           <i className="fa-solid fa-arrow-turn-down mx-2 pt-1"></i>
         </button>
       </Link>

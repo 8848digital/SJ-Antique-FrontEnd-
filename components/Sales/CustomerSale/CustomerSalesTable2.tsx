@@ -44,7 +44,7 @@ const CustomerSalesTable2 = ({
                       : ''
                 }
               >
-                <option selected></option>
+                <option value="default"></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map(
@@ -72,7 +72,7 @@ const CustomerSalesTable2 = ({
                       : ''
                 }
               >
-                <option selected></option>
+                <option value="default"></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map(
@@ -98,7 +98,7 @@ const CustomerSalesTable2 = ({
                       : ''
                 }
               >
-                <option selected></option>
+                <option value="default"></option>
                 {BBCategoryListData?.length > 0 &&
                   BBCategoryListData !== null &&
                   BBCategoryListData.map((BBCategoryData: any, index: any) => (
@@ -121,7 +121,7 @@ const CustomerSalesTable2 = ({
                       : ''
                 }
               >
-                <option selected></option>
+                <option value="default"></option>
                 {kunCsOtCategoryListData?.length > 0 &&
                   kunCsOtCategoryListData !== null &&
                   kunCsOtCategoryListData.map(

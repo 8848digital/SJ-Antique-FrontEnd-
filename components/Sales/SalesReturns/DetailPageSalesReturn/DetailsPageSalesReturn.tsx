@@ -1,13 +1,13 @@
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import NoRecord from '@/components/General/NoRecord';
 import SalesHeader from '@/components/Header/SalesHeader';
 import CustomerSalesTable from '../../CustomerSale/CustomerSalesTable';
 import CustomerSalesTable1 from '../../CustomerSale/CustomerSalesTable1';
 import SaleReturnsButtonSection from './ButtonSectionSalesReturn';
 import UseSalesReturnDetailHook from '@/hooks/Sales/Sales-Returns/sales-return-detail-hook';
 import Loader from '@/components/General/Loader';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
 import { get_detail_sales_return_data } from '@/store/slices/Sales/get-detail-sales-return-slice';
-import NoRecord from '@/components/General/NoRecord';
 
 const DetailsPageSalesReturn = () => {
   const {
@@ -20,7 +20,7 @@ const DetailsPageSalesReturn = () => {
     setReadOnlyFields,
     showSaveButtonForAmendFlow,
     setShowSaveButtonForAmendFlow,
-    HandleUpdateDocStatus,
+    handleUpdateDocStatus,
     handleUpdateSalesReturn,
     stateForDocStatus,
     setStateForDocStatus,
@@ -76,29 +76,29 @@ const DetailsPageSalesReturn = () => {
             />
           ) : (
             <>
-              <div>
-                <SaleReturnsButtonSection
-                  stateForDocStatus={stateForDocStatus}
-                  setStateForDocStatus={setStateForDocStatus}
-                  handleUpdateDeliveryNote={handleUpdateSalesReturn}
-                  readOnlyFields={readOnlyFields}
-                  setReadOnlyFields={setReadOnlyFields}
-                  showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
-                  setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
-                  HandleUpdateSalesdocStatus={HandleUpdateDocStatus}
-                  HandleAmendButtonForSalesReturn={
-                    handleAmendButtonForSalesReturn
-                  }
-                  HandleDeleteDeliveryNote={handleDeleteSalesReturn}
-                  handlePrintApi={handlePrintApi}
-                  showDeleteModal={showDeleteModal}
-                  handleCloseDeleteModal={handleCloseDeleteModal}
-                  handleShowDeleteModal={handleShowDeleteModal}
-                  deleteRecord={deleteRecord}
-                />
-              </div>
+              <SaleReturnsButtonSection
+                stateForDocStatus={stateForDocStatus}
+                setStateForDocStatus={setStateForDocStatus}
+                handleUpdateDeliveryNote={handleUpdateSalesReturn}
+                readOnlyFields={readOnlyFields}
+                setReadOnlyFields={setReadOnlyFields}
+                showSaveButtonForAmendFlow={showSaveButtonForAmendFlow}
+                setShowSaveButtonForAmendFlow={setShowSaveButtonForAmendFlow}
+                HandleUpdateSalesdocStatus={handleUpdateDocStatus}
+                HandleAmendButtonForSalesReturn={
+                  handleAmendButtonForSalesReturn
+                }
+                HandleDeleteDeliveryNote={handleDeleteSalesReturn}
+                handlePrintApi={handlePrintApi}
+                showDeleteModal={showDeleteModal}
+                handleCloseDeleteModal={handleCloseDeleteModal}
+                handleShowDeleteModal={handleShowDeleteModal}
+                deleteRecord={deleteRecord}
+              />
+
               <div>
                 <CustomerSalesTable1
+                  title={'Sales Return No	'}
                   clientNameListData={clientNameListData}
                   selectedClient={selectedClient}
                   setSelectedClient={setSelectedClient}

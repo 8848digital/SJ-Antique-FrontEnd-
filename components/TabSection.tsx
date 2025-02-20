@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 const TabSection = ({ firstTabHeading, secondTabHeading }: any) => {
-  const { query } = useRouter();
+  const { query }: any = useRouter()
 
   return (
     <div

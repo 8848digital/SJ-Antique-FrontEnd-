@@ -49,6 +49,8 @@ const useCustomerSaleHook = () => {
     updateBarcodeSalesTableData,
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
+    itemCodeDetails,
+    setItemCodeDetails
   } = useCustomCustomerSalesHook();
 
   const {
@@ -124,6 +126,11 @@ const useCustomerSaleHook = () => {
               Number(updatedItem.custom_other_wt))
           );
 
+          if (fieldName === 'custom_cs_wt') {
+            updatedItem.custom_cs_amt =
+              Number(updatedItem.custom_cs) * value;
+          }
+
           if (fieldName === 'custom_cs') {
             updatedItem.custom_cs_amt =
               Number(updatedItem.custom_cs_wt) * value;
@@ -149,6 +156,8 @@ const useCustomerSaleHook = () => {
             Number(updatedItem.custom_ot_amt) +
             Number(updatedItem.custom_other);
           return updatedItem;
+
+
         } else {
           return item;
         }
@@ -197,7 +206,10 @@ const useCustomerSaleHook = () => {
               itemDetailsEntity
             );
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-              // Call the function to update salesTableData
+              setItemCodeDetails((prevDetails: any[]) => [
+                ...prevDetails,
+                ...getItemCodeDetailsApi?.data?.message?.data,
+              ]);
               updateBarcodeSalesTableData(
                 getItemCodeDetailsApi?.data?.message?.data,
                 id
@@ -228,7 +240,11 @@ const useCustomerSaleHook = () => {
               itemDetailsEntity
             );
             if (getItemCodeDetailsApi?.data?.message?.status === 'success') {
-              // Call the function to update salesTableData
+
+              setItemCodeDetails((prevDetails: any[]) => [
+                ...prevDetails,
+                ...getItemCodeDetailsApi?.data?.message?.data,
+              ]);
               updateSalesTableData(
                 getItemCodeDetailsApi?.data?.message?.data,
                 id
@@ -247,7 +263,7 @@ const useCustomerSaleHook = () => {
   // }, [selectedItemCodeForCustomerSale]);
 
   const handleSelectChange = (event: any) => {
-    const { name, value } = event.target;
+    const { name, value } = event?.target;
     const selectedArray =
       name === 'BBCategory' ? BBCategoryListData : kunCsOtCategoryListData;
     const selectedObj = selectedArray?.find((obj: any) => obj.name1 === value);
@@ -256,6 +272,79 @@ const useCustomerSaleHook = () => {
       ...prevState,
       [name]: selectedObj,
     }));
+
+    setSalesTableData((prevSalesTableData: any) => {
+      return prevSalesTableData.map((row: any) => {
+
+        let updatedRow = { ...row };
+
+        // Find the matching item in itemCodeDetails
+        const itemDetails = itemCodeDetails?.find(
+          (item: any) => item?.item_code === row.item_code
+        );
+
+        if (value === 'default') {
+          // Reset or update only the corresponding field based on the category
+          switch (name) {
+            case 'BbCategory':
+              updatedRow.custom_bb_wt = itemDetails?.custom_bb_wt ?? row?.custom_bb_wt;
+              break;
+            case 'CsCategory':
+              updatedRow.custom_cs_wt = itemDetails?.custom_cs_wt ?? row?.custom_cs_wt;
+              break;
+            case 'KunCategory':
+              updatedRow.custom_kun_wt = itemDetails?.custom_kun_wt ?? row?.custom_kun_wt;
+              break;
+            case 'OtCategory':
+              updatedRow.custom_other_wt = itemDetails?.custom_other_wt ?? row?.custom_other_wt;
+              break;
+            default:
+              break;
+          }
+        } else if (selectedObj) {
+          // Update values based on selected category and itemCodeDetails
+          if (name === 'KunCategory' && itemDetails) {
+            updatedRow.custom_kun_wt =
+              roundToThreeDecimal(Number((itemDetails?.custom_kun_wt * selectedObj?.type) / 100) ||
+                0);
+          } else if (name === 'CsCategory' && itemDetails) {
+            updatedRow.custom_cs_wt = roundToThreeDecimal(Number(
+              (itemDetails?.custom_cs_wt * selectedObj?.type) / 100
+            ));
+          } else if (name === 'BbCategory' && itemDetails) {
+            updatedRow.custom_bb_wt = roundToThreeDecimal(Number(
+              itemDetails?.custom_bb_wt - selectedObj?.type
+            ));
+          } else if (name === 'OtCategory' && itemDetails) {
+            updatedRow.custom_other_wt = roundToThreeDecimal(Number(
+              (itemDetails?.custom_other_wt * selectedObj?.type) / 100)
+            );
+          }
+        }
+
+        // Recalculate the custom_net_wt and any other dependent values
+        updatedRow.custom_net_wt =
+          roundToThreeDecimal(Number(updatedRow.custom_gross_wt) -
+            (Number(updatedRow.custom_kun_wt) +
+              Number(updatedRow.custom_cs_wt) +
+              Number(updatedRow.custom_bb_wt) +
+              Number(updatedRow.custom_other_wt)));
+
+        updatedRow.custom_amount =
+          roundToThreeDecimal(Number(updatedRow.custom_cs_amt) +
+            Number(updatedRow.custom_kun_amt) +
+            Number(updatedRow.custom_ot_amt) +
+            Number(updatedRow.custom_other));
+
+        return updatedRow;
+      });
+    });
+    setKunCsOtFixedAmt({
+      csFixedAmt: 0,
+      kunFixedAmt: 0,
+      otFixedAmt: 0,
+    });
+
     setStateForDocStatus(true);
   };
 
@@ -264,91 +353,92 @@ const useCustomerSaleHook = () => {
   };
 
 
-  useEffect(() => {
-    if (barcodedata === 0) {
-      const updatedData =
-        salesTableData?.length > 0 &&
-        salesTableData.map((data: any) => {
-          const kunInitial = Number(data?.custom_pr_kun_wt) || 0;
-          const csWtInitial = Number(data?.custom_pr_cs_wt) || 0;
-          const bbWtInitial = Number(data?.custom_pr_bb_wt) || 0;
-          const otWtInitial = Number(data?.custom_pr_other_wt) || 0;
+  // useEffect(() => {
+  //   console.log({ salesTableData })
+  //   if (barcodedata === 0) {
+  //     const updatedData =
+  //       salesTableData?.length > 0 &&
+  //       salesTableData.map((data: any) => {
+  //         const kunInitial = Number(data?.custom_pr_kun_wt) || 0;
+  //         const csWtInitial = Number(data?.custom_pr_cs_wt) || 0;
+  //         const bbWtInitial = Number(data?.custom_pr_bb_wt) || 0;
+  //         const otWtInitial = Number(data?.custom_pr_other_wt) || 0;
 
-          return {
-            ...data,
-            custom_gross_wt: data?.custom_gross_wt,
-            custom_kun_wt: roundToThreeDecimal(Number(
-              selectedCategory.KunCategory !== '' &&
-                selectedCategory?.KunCategory !== null
-                ? selectedCategory?.KunCategory?.type === undefined
-                  ? kunInitial
-                  : kunInitial === 0
-                    ? 0
-                    : (kunInitial * selectedCategory?.KunCategory?.type) / 100
-                : kunInitial)
-            ),
-            custom_cs_wt: roundToThreeDecimal(Number(
-              selectedCategory.CsCategory !== '' &&
-                selectedCategory?.CsCategory !== null
-                ? selectedCategory?.CsCategory?.type === undefined
-                  ? csWtInitial
-                  : csWtInitial === 0
-                    ? 0
-                    : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-                : csWtInitial)
-            ),
-            custom_bb_wt: roundToThreeDecimal(Number(
-              selectedCategory?.BBCategory !== '' &&
-                selectedCategory?.BBCategory !== null
-                ? selectedCategory?.BBCategory?.type === undefined
-                  ? bbWtInitial
-                  : bbWtInitial === 0
-                    ? 0
-                    : bbWtInitial - selectedCategory?.BBCategory?.type
-                : bbWtInitial)
-            ),
+  //         return {
+  //           ...data,
+  //           custom_gross_wt: data?.custom_gross_wt,
+  //           custom_kun_wt: roundToThreeDecimal(Number(
+  //             selectedCategory.KunCategory !== '' &&
+  //               selectedCategory?.KunCategory !== null
+  //               ? selectedCategory?.KunCategory?.type === undefined
+  //                 ? kunInitial
+  //                 : kunInitial === 0
+  //                   ? 0
+  //                   : (kunInitial * selectedCategory?.KunCategory?.type) / 100
+  //               : kunInitial)
+  //           ),
+  //           custom_cs_wt: roundToThreeDecimal(Number(
+  //             selectedCategory.CsCategory !== '' &&
+  //               selectedCategory?.CsCategory !== null
+  //               ? selectedCategory?.CsCategory?.type === undefined
+  //                 ? csWtInitial
+  //                 : csWtInitial === 0
+  //                   ? 0
+  //                   : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
+  //               : csWtInitial)
+  //           ),
+  //           custom_bb_wt: roundToThreeDecimal(Number(
+  //             selectedCategory?.BBCategory !== '' &&
+  //               selectedCategory?.BBCategory !== null
+  //               ? selectedCategory?.BBCategory?.type === undefined
+  //                 ? bbWtInitial
+  //                 : bbWtInitial === 0
+  //                   ? 0
+  //                   : bbWtInitial - selectedCategory?.BBCategory?.type
+  //               : bbWtInitial)
+  //           ),
 
-            custom_other_wt: roundToThreeDecimal(Number(
-              selectedCategory.OtCategory !== '' &&
-                selectedCategory?.OtCategory !== null
-                ? selectedCategory?.OtCategory?.type === undefined
-                  ? otWtInitial
-                  : otWtInitial === 0
-                    ? 0
-                    : (otWtInitial * selectedCategory.OtCategory?.type) / 100
-                : otWtInitial)
-            ),
-            custom_cs_amt: roundToThreeDecimal(Number(
-              (selectedCategory.CsCategory !== '' &&
-                selectedCategory?.CsCategory !== null
-                ? selectedCategory?.CsCategory?.type === undefined
-                  ? csWtInitial
-                  : csWtInitial === 0
-                    ? 0
-                    : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
-                : Number(data?.custom_cs_wt)) * data?.custom_cs)
-            ),
-            custom_ot_amt: roundToThreeDecimal(Number(
-              (selectedCategory.OtCategory !== '' &&
-                selectedCategory?.OtCategory !== null
-                ? selectedCategory?.OtCategory?.type === undefined
-                  ? otWtInitial
-                  : otWtInitial === 0
-                    ? 0
-                    : (otWtInitial * selectedCategory?.OtCategory?.type) / 100
-                : Number(data?.custom_other_wt)) * data?.custom_ot_)
-            ),
-            custom_net_wt:
-              roundToThreeDecimal(Number(data?.custom_gross_wt) -
-                (Number(data?.custom_kun_wt) +
-                  Number(data?.custom_cs_wt) +
-                  Number(data?.custom_bb_wt) +
-                  Number(data?.custom_other_wt)),)
-          };
-        });
-      setSalesTableData(updatedData);
-    }
-  }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt]);
+  //           custom_other_wt: roundToThreeDecimal(Number(
+  //             selectedCategory.OtCategory !== '' &&
+  //               selectedCategory?.OtCategory !== null
+  //               ? selectedCategory?.OtCategory?.type === undefined
+  //                 ? otWtInitial
+  //                 : otWtInitial === 0
+  //                   ? 0
+  //                   : (otWtInitial * selectedCategory.OtCategory?.type) / 100
+  //               : otWtInitial)
+  //           ),
+  //           custom_cs_amt: roundToThreeDecimal(Number(
+  //             (selectedCategory.CsCategory !== '' &&
+  //               selectedCategory?.CsCategory !== null
+  //               ? selectedCategory?.CsCategory?.type === undefined
+  //                 ? csWtInitial
+  //                 : csWtInitial === 0
+  //                   ? 0
+  //                   : (csWtInitial * selectedCategory?.CsCategory?.type) / 100
+  //               : Number(data?.custom_cs_wt)) * data?.custom_cs)
+  //           ),
+  //           custom_ot_amt: roundToThreeDecimal(Number(
+  //             (selectedCategory.OtCategory !== '' &&
+  //               selectedCategory?.OtCategory !== null
+  //               ? selectedCategory?.OtCategory?.type === undefined
+  //                 ? otWtInitial
+  //                 : otWtInitial === 0
+  //                   ? 0
+  //                   : (otWtInitial * selectedCategory?.OtCategory?.type) / 100
+  //               : Number(data?.custom_other_wt)) * data?.custom_ot_)
+  //           ),
+  //           custom_net_wt:
+  //             roundToThreeDecimal(Number(data?.custom_gross_wt) -
+  //               (Number(data?.custom_kun_wt) +
+  //                 Number(data?.custom_cs_wt) +
+  //                 Number(data?.custom_bb_wt) +
+  //                 Number(data?.custom_other_wt)),)
+  //         };
+  //       });
+  //     setSalesTableData(updatedData);
+  //   }
+  // }, [selectedCategory, salesTableData?.length, kunCsOtFixedAmt]);
 
   const filteredTableDataForUpdate = (tableData: any) => {
     const filteredTableData = tableData.filter((row: any) => {
@@ -632,6 +722,8 @@ const useCustomerSaleHook = () => {
     handleShowDeleteModal,
     deleteRecord,
     itemDetailApiFun,
+    itemCodeDetails,
+    setItemCodeDetails
   };
 };
 

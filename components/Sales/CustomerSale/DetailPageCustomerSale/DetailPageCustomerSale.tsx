@@ -88,6 +88,7 @@ const DetailPageCustomerSale = () => {
             <div>
               <div className={`text-end mb-1`}>
                 <CustomerSalesButtonsSection
+                  title={'Sales No'}
                   stateForDocStatus={stateForDocStatus}
                   setStateForDocStatus={setStateForDocStatus}
                   handleUpdateDeliveryNote={handleUpdateDeliveryNote}
