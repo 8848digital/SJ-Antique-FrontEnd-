@@ -34,6 +34,8 @@ const useCustomCustomerSalesHook = () => {
     otFixedAmt: 0,
   });
   const [stateForDocStatus, setStateForDocStatus] = useState<boolean>(false);
+  const [itemCodeDetails, setItemCodeDetails] = useState<any>([]);
+
   const [selectedCategory, setSeletedCategory] = useState<any>({
     KunCategory: '',
     CsCategory: '',
@@ -179,6 +181,7 @@ const useCustomCustomerSalesHook = () => {
     }
   };
 
+
   const updateBarcodeSalesTableData = (data: any, id?: number) => {
     if (id) {
       setSalesTableData((prevSalesTableData: any) => {
@@ -284,6 +287,8 @@ const useCustomCustomerSalesHook = () => {
     handleDeleteRowOfSalesTable,
     handleFixedAmt,
     updateBarcodeSalesTableData,
+    itemCodeDetails,
+    setItemCodeDetails
   };
 };
 export default useCustomCustomerSalesHook;

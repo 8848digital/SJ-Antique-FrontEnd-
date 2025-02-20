@@ -165,6 +165,18 @@ const CustomerSalesTable = ({
   //   });
   // };
 
+  const handleBlur = (idx: any, field: string, value: any) => {
+    const updatedSalesData = salesTableData?.length > 0 && salesTableData.map((row: any) => {
+      if (row.idx === idx) {
+        return {
+          ...row,
+          [field]: parseFloat(value || "0")?.toFixed(2), // Format only when focus is lost
+        };
+      }
+      return row;
+    });
+    setSalesTableData(updatedSalesData);
+  };
 
   return (
     <>
@@ -214,6 +226,7 @@ const CustomerSalesTable = ({
                       min={0}
                       value={kunCsOtFixedAmt?.csFixedAmt}
                       onChange={(e) => handleFixedAmt(e)}
+
                     />
                   </td>
                   <td className="table_row border-0"></td>
@@ -299,7 +312,6 @@ const CustomerSalesTable = ({
                             )
                           }
                           readOnly
-                        // disabled
                         />
                       </td>
 
@@ -308,8 +320,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item?.custom_kun_wt)}
-                          defaultValue={Number(item?.custom_kun_wt)}
+                          value={item?.custom_kun_wt && item?.custom_kun_wt || 0}
+                          defaultValue={item?.custom_kun_wt && item?.custom_kun_wt || 0}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
                               item.idx,
@@ -318,6 +330,7 @@ const CustomerSalesTable = ({
                             )
                           }
                           readOnly={readOnlyFields}
+                          onBlur={(e) => handleBlur(item.idx, 'custom_kun_wt', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -325,8 +338,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_cs_wt)}
-                          defaultValue={Number(item.custom_cs_wt)}
+                          value={item?.custom_cs_wt && item?.custom_cs_wt || 0}
+                          defaultValue={item?.custom_cs_wt && item?.custom_cs_wt || 0}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -335,6 +348,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_cs_wt', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -342,10 +356,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(
-                            item.custom_bb_wt < 0 ? 0 : item.custom_bb_wt
-                          )}
-                          defaultValue={Number(item.custom_bb_wt)}
+                          value={item?.custom_bb_wt && item?.custom_bb_wt || 0}
+                          defaultValue={item?.custom_bb_wt && item?.custom_bb_wt || 0}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -354,6 +366,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_bb_wt', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -361,8 +374,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_other_wt)}
-                          defaultValue={Number(item.custom_other_wt)}
+                          value={item?.custom_other_wt && item?.custom_other_wt || 0}
+                          defaultValue={item?.custom_other_wt && item?.custom_other_wt || 0}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -371,7 +384,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // onKeyDown={(e) => handleModal(e, item.idx, item)}
+                          onBlur={(e) => handleBlur(item.idx, 'custom_other_wt', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -379,9 +392,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          // value={calculateCustomNetWt()}
-                          value={Number(item.custom_net_wt)}
-                          defaultValue={Number(item.custom_net_wt)?.toFixed(3)}
+                          value={item?.custom_net_wt && item?.custom_net_wt || 0}
+                          defaultValue={item?.custom_net_wt && item?.custom_net_wt || 0}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -390,7 +402,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // disabled
+                          onBlur={(e) => handleBlur(item.idx, 'custom_net_wt', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -398,8 +410,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_cs)}
-                          defaultValue={Number(item.custom_cs)}
+                          value={item?.custom_cs && item?.custom_cs || 0}
+                          defaultValue={item?.custom_cs && item?.custom_cs || 0}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -408,6 +420,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_cs', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -415,10 +428,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(
-                            Number(item.custom_cs) * Number(item.custom_cs_wt)
-                          )?.toFixed(2)}
-                          defaultValue={Number(item.custom_cs_amt)}
+                          value={item?.custom_cs_amt && item?.custom_cs_amt || 0}
+                          defaultValue={item?.custom_cs_amt && item?.custom_cs_amt || 0}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -427,16 +438,17 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-                        // disabled
+                          onBlur={(e) => handleBlur(item.idx, 'custom_cs_amt', e.target.value)}
+
                         />
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.customer_sale_input_field} text-end `}
+                          className={` ${styles.customer_sale_input_field} text-end`}
                           type="number"
                           min={0}
-                          value={Number(item.custom_kun_pc)}
-                          defaultValue={Number(item.custom_kun_pc)}
+                          value={item?.custom_kun_pc && item?.custom_kun_pc || 0}
+                          defaultValue={item?.custom_kun_pc && item?.custom_kun_pc || 0}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -445,15 +457,16 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_kun_pc', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
                         <input
-                          className={` ${styles.customer_sale_input_field} text-end `}
+                          className={` ${styles.customer_sale_input_field} text-end`}
                           type="number"
                           min={0}
-                          value={Number(item.custom_kun)}
-                          defaultValue={Number(item.custom_kun)}
+                          value={item?.custom_kun && item?.custom_kun || 0}
+                          defaultValue={item?.custom_kun && item?.custom_kun || 0}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -462,6 +475,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_kun', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -469,8 +483,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_kun_amt)?.toFixed(2)}
-                          defaultValue={Number(item.custom_kun_amt)?.toFixed(2)}
+                          value={item?.custom_kun_amt && item?.custom_kun_amt || 0}
+                          defaultValue={item?.custom_kun_amt && item?.custom_kun_amt || 0}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -479,7 +493,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
-
+                          onBlur={(e) => handleBlur(item.idx, 'custom_kun_amt', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -487,8 +501,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_ot_)}
-                          defaultValue={Number(item.custom_ot_)}
+                          value={item?.custom_ot_ && item?.custom_ot_ || 0}
+                          defaultValue={item?.custom_ot_ && item?.custom_ot_ || 0}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -497,6 +511,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_ot_', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -504,8 +519,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_ot_amt)?.toFixed(2)}
-                          defaultValue={Number(item.custom_ot_amt)?.toFixed(2)}
+                          value={item?.custom_ot_amt && item.custom_ot_amt || 0}
+                          defaultValue={item?.custom_ot_amt && item.custom_ot_amt || 0}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -514,6 +529,8 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_ot_amt', e.target.value)}
+
                         />
                       </td>
                       <td className="table_row">
@@ -521,8 +538,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_other)}
-                          defaultValue={Number(item.custom_other)}
+                          value={item?.custom_other && item?.custom_other || 0}
+                          defaultValue={item?.custom_other && item?.custom_other || 0}
                           readOnly={readOnlyFields}
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -531,6 +548,8 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_other', e.target.value)}
+
                         />
                       </td>
                       <td className="table_row">
@@ -538,8 +557,8 @@ const CustomerSalesTable = ({
                           className={` ${styles.customer_sale_input_field} text-end `}
                           type="number"
                           min={0}
-                          value={Number(item.custom_amount)}
-                          defaultValue={Number(item.custom_amount)}
+                          value={item?.custom_amount && item?.custom_amount || 0}
+                          defaultValue={item?.custom_amount && item?.custom_amount || 0}
                           readOnly
                           onChange={(e) =>
                             handleSalesTableFieldChange(
@@ -548,6 +567,7 @@ const CustomerSalesTable = ({
                               e.target.value
                             )
                           }
+                          onBlur={(e) => handleBlur(item.idx, 'custom_amount', e.target.value)}
                         />
                       </td>
                       <td className="table_row">
@@ -563,7 +583,6 @@ const CustomerSalesTable = ({
                               handleTabPressInSales(e, item.idx);
                             }
                           }}
-
                         >
                           <FontAwesomeIcon
                             icon={faTrash}
